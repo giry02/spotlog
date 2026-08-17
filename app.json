@@ -2,12 +2,15 @@
   "expo": {
     "name": "Spotlog",
     "slug": "Spotlog",
+    "scheme": "spotlog",
+    "platforms": ["ios", "android"],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.spotlog.mobile"
     },
     "android": {
       "adaptiveIcon": {
@@ -17,9 +20,11 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false
+      ,"package": "com.spotlog.mobile"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+    "plugins": [
+      "expo-image",
+      "expo-video"
+    ]
   }
 }
