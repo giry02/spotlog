@@ -1,14 +1,19 @@
+import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Image } from 'expo-image';
 import { useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSpotlog } from '../context/SpotlogContext';
 import { findPlace } from '../data/mockCatalog';
+import type { RootTabParamList } from '../navigation/RootTabs';
+import { shareTrip } from '../services/tripSharing';
 import { colors, radius, shadow } from '../theme';
 
-export function PlanScreen() {
-  const { draft, savedPlaceIds, createRecommendedDraft } = useSpotlog();
+type Props = BottomTabScreenProps<RootTabParamList, 'Plan'>;
+
+export function PlanScreen({ navigation }: Props) {
+  const { draft, savedPlaceIds, createRecommendedDraft, saveDraft } = useSpotlog();
   const [activeDay, setActiveDay] = useState(1);
 
   if (!draft) {
@@ -18,6 +23,18 @@ export function PlanScreen() {
       </SafeAreaView>
     );
   }
+
+  const handleShare = async () => {
+    try {
+      await shareTrip(draft);
+    } catch {
+      Alert.alert('공유할 수 없어요', '잠시 후 다시 시도해 주세요.');
+    }
+  };
+
+  const handleSave = () => {
+    if (saveDraft()) navigation.navigate('Trips');
+  };
 
   const dayItems = draft.items.filter((item) => item.day === activeDay).sort((a, b) => a.time.localeCompare(b.time));
   return (
@@ -29,7 +46,7 @@ export function PlanScreen() {
         <View style={styles.timelineHeader}><Text style={styles.timelineTitle}>DAY {activeDay} 일정</Text><Text style={styles.timelineHint}>길게 눌러 순서 변경</Text></View>
         <View style={styles.timeline}>{dayItems.length ? dayItems.map((item, index) => { const place = findPlace(item.placeId); if (!place) return null; return <View key={item.id} style={styles.timelineItem}><View style={styles.timeColumn}><Text style={styles.time}>{item.time}</Text><View style={styles.dot} />{index < dayItems.length - 1 && <View style={styles.line} />}</View><Image source={place.image} style={styles.thumb} contentFit="cover" /><View style={styles.itemBody}><View style={styles.sourceRow}><Text style={[styles.source, item.source === 'SAVED' && styles.sourceSaved]}>{item.source === 'SAVED' ? '내가 담은 장소' : 'Spotlog 추천'}</Text><Ionicons name="reorder-three" size={20} color={colors.muted} /></View><Text style={styles.itemTitle}>{place.name}</Text><Text style={styles.itemMeta}>{place.area} · 약 {place.durationMinutes || 60}분</Text></View></View>; }) : <View style={styles.noItem}><Text style={styles.noItemText}>이 날은 아직 비어 있어요.</Text></View>}</View>
       </ScrollView>
-      <View style={styles.planBottom}><Pressable style={styles.secondaryButton}><Text style={styles.secondaryText}>직접 편집</Text></Pressable><Pressable style={styles.saveButton}><Text style={styles.saveText}>이 초안 저장</Text></Pressable></View>
+      <View style={styles.planBottom}><Pressable onPress={handleShare} style={styles.secondaryButton} accessibilityRole="button" accessibilityLabel="일정 공유"><Text style={styles.secondaryText}>일정 공유</Text></Pressable><Pressable onPress={handleSave} style={styles.saveButton} accessibilityRole="button"><Text style={styles.saveText}>{draft.status === 'SAVED' ? '내 여행에 저장' : '이 초안 저장'}</Text></Pressable></View>
     </SafeAreaView>
   );
 }

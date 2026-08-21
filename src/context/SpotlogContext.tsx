@@ -5,6 +5,7 @@ import type { TripDraft, TripItem } from '../types/domain';
 
 const SAVED_KEY = 'spotlog.saved-place-ids.v1';
 const DRAFT_KEY = 'spotlog.trip-draft.v1';
+const TRIPS_KEY = 'spotlog.trips.v1';
 
 interface SpotlogContextValue {
   ready: boolean;
@@ -14,7 +15,11 @@ interface SpotlogContextValue {
   toggleSavedPlace: (id: string) => void;
   isSaved: (id: string) => boolean;
   draft: TripDraft | null;
+  trips: TripDraft[];
   createRecommendedDraft: () => TripDraft;
+  saveDraft: () => TripDraft | null;
+  openTrip: (id: string) => TripDraft | null;
+  duplicateTrip: (id: string) => TripDraft | null;
 }
 
 const SpotlogContext = createContext<SpotlogContextValue | null>(null);
@@ -26,17 +31,28 @@ const addDays = (date: Date, days: number) => {
   return next;
 };
 
+const parseStored = <T,>(value: string | null, fallback: T): T => {
+  if (!value) return fallback;
+  try {
+    return JSON.parse(value) as T;
+  } catch {
+    return fallback;
+  }
+};
+
 export function SpotlogProvider({ children }: React.PropsWithChildren) {
   const [ready, setReady] = useState(false);
   const [activeRegionId, setActiveRegionId] = useState('danang');
   const [savedPlaceIds, setSavedPlaceIds] = useState<string[]>([]);
   const [draft, setDraft] = useState<TripDraft | null>(null);
+  const [trips, setTrips] = useState<TripDraft[]>([]);
 
   useEffect(() => {
-    Promise.all([AsyncStorage.getItem(SAVED_KEY), AsyncStorage.getItem(DRAFT_KEY)])
-      .then(([saved, storedDraft]) => {
-        if (saved) setSavedPlaceIds(JSON.parse(saved));
-        if (storedDraft) setDraft(JSON.parse(storedDraft));
+    Promise.all([AsyncStorage.getItem(SAVED_KEY), AsyncStorage.getItem(DRAFT_KEY), AsyncStorage.getItem(TRIPS_KEY)])
+      .then(([saved, storedDraft, storedTrips]) => {
+        setSavedPlaceIds(parseStored(saved, []));
+        setDraft(parseStored(storedDraft, null));
+        setTrips(parseStored(storedTrips, []));
       })
       .finally(() => setReady(true));
   }, []);
@@ -83,9 +99,54 @@ export function SpotlogProvider({ children }: React.PropsWithChildren) {
     return next;
   }, [activeRegionId, savedPlaceIds]);
 
+  const saveDraft = useCallback(() => {
+    if (!draft) return null;
+    const savedDraft: TripDraft = { ...draft, status: 'SAVED', savedAt: new Date().toISOString() };
+    setDraft(savedDraft);
+    setTrips((current) => {
+      const next = [savedDraft, ...current.filter((trip) => trip.id !== savedDraft.id)];
+      void AsyncStorage.setItem(TRIPS_KEY, JSON.stringify(next));
+      return next;
+    });
+    void AsyncStorage.setItem(DRAFT_KEY, JSON.stringify(savedDraft));
+    return savedDraft;
+  }, [draft]);
+
+  const openTrip = useCallback((id: string) => {
+    const trip = trips.find((item) => item.id === id) ?? null;
+    if (!trip) return null;
+    setDraft(trip);
+    void AsyncStorage.setItem(DRAFT_KEY, JSON.stringify(trip));
+    return trip;
+  }, [trips]);
+
+  const duplicateTrip = useCallback((id: string) => {
+    const source = trips.find((item) => item.id === id);
+    if (!source) return null;
+    const now = new Date().toISOString();
+    const copy: TripDraft = {
+      ...source,
+      id: `trip-${Date.now()}`,
+      title: `${source.title} 복사본`,
+      items: source.items.map((item) => ({ ...item, id: `${item.id}-copy-${Date.now()}` })),
+      createdAt: now,
+      savedAt: now,
+      status: 'SAVED',
+    };
+    const next = [copy, ...trips];
+    setTrips(next);
+    setDraft(copy);
+    void AsyncStorage.multiSet([
+      [TRIPS_KEY, JSON.stringify(next)],
+      [DRAFT_KEY, JSON.stringify(copy)],
+    ]);
+    return copy;
+  }, [trips]);
+
   const value = useMemo(() => ({
-    ready, activeRegionId, setActiveRegionId, savedPlaceIds, toggleSavedPlace, isSaved, draft, createRecommendedDraft,
-  }), [ready, activeRegionId, savedPlaceIds, toggleSavedPlace, isSaved, draft, createRecommendedDraft]);
+    ready, activeRegionId, setActiveRegionId, savedPlaceIds, toggleSavedPlace, isSaved, draft, trips,
+    createRecommendedDraft, saveDraft, openTrip, duplicateTrip,
+  }), [ready, activeRegionId, savedPlaceIds, toggleSavedPlace, isSaved, draft, trips, createRecommendedDraft, saveDraft, openTrip, duplicateTrip]);
 
   return <SpotlogContext.Provider value={value}>{children}</SpotlogContext.Provider>;
 }

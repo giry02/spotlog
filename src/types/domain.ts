@@ -51,5 +51,6 @@ export interface TripDraft {
   days: number;
   items: TripItem[];
   createdAt: string;
-  status: 'DRAFT';
+  savedAt?: string;
+  status: 'DRAFT' | 'SAVED';
 }
