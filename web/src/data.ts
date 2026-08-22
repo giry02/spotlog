@@ -11,6 +11,12 @@ import jejuSaebyeolOreum from '../../assets/spotlog/jeju-saebyeol-oreum.jpg';
 import jejuSagyeCoast from '../../assets/spotlog/jeju-sagye-coast.jpg';
 import jejuSanbangsanCafe from '../../assets/spotlog/jeju-sanbangsan-cafe.jpg';
 import jejuSuudon from '../../assets/spotlog/jeju-hyeopjae-udon.jpg';
+import jejuHyeopjaeTidepool from '../../assets/spotlog/jeju-hyeopjae-tidepool.webp';
+import jejuHyeopjaeUdonDinner from '../../assets/spotlog/jeju-hyeopjae-udon-dinner.webp';
+import jejuOsullocMorningDew from '../../assets/spotlog/jeju-osulloc-morning-dew.webp';
+import jejuSagyeTidepool from '../../assets/spotlog/jeju-sagye-tidepool.webp';
+import jejuSaebyeolTrail from '../../assets/spotlog/jeju-saebyeol-trail.webp';
+import jejuAewolTravelNotes from '../../assets/spotlog/jeju-aewol-travel-notes.webp';
 
 const cloudinaryVideo = (id: string) => `https://res.cloudinary.com/demo/video/upload/c_fill,g_center,h_1280,w_720,q_auto:eco/${id}.mp4`;
 
@@ -80,7 +86,7 @@ export interface Journey {
 export const discoveryLandmarks: Place[] = [
   {
     id: 'jeju-hyeopjae', kind: 'LANDMARK', name: '협재해수욕장', area: '제주 한림', address: '제주 제주시 한림읍 협재리 2497-1', lat: 33.3938, lng: 126.2397,
-    creator: 'slow.jeju', hook: '제주의 하루가 가장 천천히 끝나는 곳', description: '비양도 너머로 빛이 내려앉는 저녁. 이 장면을 다음 제주 여행의 첫 장소로 담아보세요.', note: '바람이 잦아 얇은 겉옷을 챙겼어요.', duration: '1시간', bestTime: '일몰 40분 전', image: beach, video: cloudinaryVideo('docs/sunset_waves'), tags: ['제주', '노을', '해변'],
+    creator: 'slow.jeju', hook: '제주의 하루가 가장 천천히 끝나는 곳', description: '비양도 너머로 빛이 내려앉는 저녁. 이 장면을 다음 제주 여행의 첫 장소로 담아보세요.', note: '바람이 잦아 얇은 겉옷을 챙겼어요.', duration: '1시간', bestTime: '일몰 40분 전', image: jejuHyeopjaeTidepool, video: cloudinaryVideo('docs/sunset_waves'), tags: ['제주', '노을', '해변'],
   },
   {
     id: 'gangneung-anmok', kind: 'LANDMARK', name: '안목해변', area: '강원 강릉', address: '강원 강릉시 창해로 14번길', lat: 37.7712, lng: 128.9474,
@@ -105,12 +111,16 @@ const jejuDays: JourneyDay[] = [
       { id: 'jeju-shinhwa', kind: 'STAY', name: '제주신화월드 메리어트', area: '제주 안덕', address: '제주 서귀포시 안덕면 신화역사로304번길 38', lat: 33.3062, lng: 126.3172, image: jejuHotelNight, description: '서쪽과 남서쪽 일정을 잇는 숙박 거점.', note: '이 여행에서는 예약 정보나 비용 없이 위치와 숙박 경험만 기록합니다.', duration: '숙박', time: '21:00', move: '차량 28분' },
     ],
     blocks: [
-      { id: 'j1d1-text-1', type: 'TEXT', heading: '비양도가 보이는 첫 장면', body: '제주에 도착한 날은 욕심내지 않고 서쪽으로 바로 향했다. 협재는 바다가 얕고 비양도가 정면에 있어, 제주 여행의 시작을 실감하기 좋은 곳이었다.' },
+      { id: 'j1d1-text-1', type: 'TEXT', heading: '비양도가 보이는 첫 장면', body: '제주에 도착한 날은 욕심내지 않고 서쪽으로 바로 향했다. 오후 네 시가 넘으니 한낮의 관광객이 조금씩 빠지고, 바다는 민트색에서 은빛으로 천천히 바뀌기 시작했다.\n\n협재의 좋은 점은 멀리 이동하지 않아도 백사장, 검은 현무암, 비양도까지 서로 다른 장면을 한 번에 볼 수 있다는 것이다. 주차장과 가까운 입구는 붐볐지만 서쪽으로 10분쯤 걸으니 앉아서 파도 소리를 들을 자리가 충분했다.' },
       { id: 'j1d1-image-1', type: 'IMAGE', image: jejuGuideCover, caption: '해가 낮아질수록 물빛이 옅어지는 협재. 일몰 40분 전부터 천천히 걷기 시작했다.' },
       { id: 'j1d1-place-1', type: 'PLACE', placeId: 'jeju-hyeopjae' },
-      { id: 'j1d1-text-2', type: 'TEXT', heading: '저녁은 멀리 움직이지 않기', body: '노을을 끝까지 보고 나면 생각보다 금방 어두워진다. 첫날에는 유명한 곳을 더 넣는 대신 걸어서 갈 수 있는 식당을 골랐다. 덕분에 바다의 여운을 끊지 않고 저녁으로 이어갈 수 있었다.' },
+      { id: 'j1d1-text-2', type: 'TEXT', heading: '백사장보다 오래 남은 갯바위', body: '사진으로 볼 때는 고운 모래와 물빛이 먼저 눈에 들어왔지만, 실제로는 물이 빠진 뒤 드러난 현무암 사이가 더 재미있었다. 작은 물웅덩이마다 해초와 조개껍데기가 남아 있어 같은 해변 안에서도 풍경이 계속 달라졌다.\n\n좋았던 점은 산책 방향을 정하지 않아도 비양도가 기준점이 되어 길을 잃을 일이 없다는 것. 다만 돌 표면이 젖으면 꽤 미끄러워 운동화가 아니라면 모래 쪽으로 걷는 편이 안전하다.' },
+      { id: 'j1d1-image-2', type: 'IMAGE', image: jejuHyeopjaeTidepool, caption: '물이 빠진 뒤에야 보였던 협재의 작은 풍경. 현무암 사이 얕은 물에 저녁빛과 비양도가 함께 비쳤다.' },
+      { id: 'j1d1-text-3', type: 'TEXT', heading: '저녁은 멀리 움직이지 않기', body: '노을을 끝까지 보고 나면 생각보다 금방 어두워진다. 첫날에는 유명한 곳을 하나 더 넣는 대신 걸어서 갈 수 있는 식당을 골랐다. 덕분에 차를 다시 찾고 주차할 필요 없이 바다의 여운을 저녁까지 이어갈 수 있었다.' },
+      { id: 'j1d1-image-3', type: 'IMAGE', image: jejuHyeopjaeUdonDinner, caption: '바람을 오래 맞은 뒤라 뜨거운 국물이 잘 어울렸다. 겉옷을 의자에 걸어둔 채 오늘 찍은 사진부터 천천히 넘겨봤다.' },
       { id: 'j1d1-place-2', type: 'PLACE', placeId: 'jeju-suudon' },
-      { id: 'j1d1-text-3', type: 'TEXT', heading: '서쪽 여행의 숙박 거점', body: '다음 날 오설록과 산방산 방향으로 내려갈 계획이라 숙소는 서남쪽 이동이 편한 곳으로 잡았다. 밤에 다시 제주시로 올라가지 않아도 되는 점이 가장 좋았다.' },
+      { id: 'j1d1-text-4', type: 'TEXT', heading: '먹어본 뒤의 솔직한 평가', body: '국물은 자극적이지 않고 면은 예상보다 단단해서 천천히 먹기 좋았다. 해변 근처 식당이지만 관광지 느낌보다 동네 식당의 편안함이 남았다.\n\n다시 간다면 일몰 직후보다 조금 일찍 방문할 것 같다. 대기 방식이 날마다 달라질 수 있고, 인기 시간에는 바다에서의 여유를 식당 앞에서 그대로 써버릴 수 있다는 점은 아쉬웠다.' },
+      { id: 'j1d1-text-5', type: 'TEXT', heading: '숙소는 시설보다 다음 날의 방향', body: '다음 날 오설록과 산방산 방향으로 내려갈 계획이라 숙소는 서남쪽 이동이 편한 곳으로 잡았다. 밤에 다시 제주시로 올라가지 않아도 되는 점이 가장 좋았다.\n\n객실 자체보다 주차가 편하고 아침 동선이 짧다는 점에 높은 점수를 주고 싶다. 반대로 제주다운 작은 숙소의 분위기를 기대한다면 규모가 크게 느껴질 수 있다. 이 여행에서는 숙소도 목적지라기보다 하루와 다음 날을 연결하는 거점으로 기록했다.' },
       { id: 'j1d1-place-3', type: 'PLACE', placeId: 'jeju-shinhwa' },
     ],
   },
@@ -122,12 +132,16 @@ const jejuDays: JourneyDay[] = [
       { id: 'jeju-sagye', kind: 'LANDMARK', name: '사계해안', area: '제주 안덕', address: '제주 서귀포시 안덕면 사계리', lat: 33.2285, lng: 126.3086, image: jejuSagyeCoast, description: '산방산 아래 검은 바위와 낮은 바다가 이어지는 해안.', note: '물이 빠지는 시간을 확인하면 해안의 표정이 더 잘 보여요.', duration: '1시간', time: '15:00', move: '차량 6분' },
     ],
     blocks: [
-      { id: 'j1d2-text-1', type: 'TEXT', heading: '초록으로 시작하는 아침', body: '숙소에서 가까운 오설록을 첫 장소로 두니 단체 방문객이 몰리기 전에 차밭을 걸을 수 있었다. 전시보다 바깥 풍경을 먼저 보는 순서가 좋았다.' },
+      { id: 'j1d2-text-1', type: 'TEXT', heading: '초록으로 시작하는 아침', body: '숙소에서 가까운 오설록을 첫 장소로 두니 단체 방문객이 몰리기 전에 차밭을 걸을 수 있었다. 전날 밤 비가 조금 내려 찻잎에는 물방울이 남아 있었고, 실내보다 바깥 공기가 먼저 잠을 깨웠다.\n\n입구에서 바로 전시관으로 들어가기보다 돌담을 따라 차밭 끝까지 걸은 뒤 실내를 보는 순서가 좋았다. 사진을 찍는 사람도 적고, 차밭이 관광 시설이기 전에 제주의 밭이라는 느낌을 받을 수 있었다.' },
+      { id: 'j1d2-image-1', type: 'IMAGE', image: jejuOsullocMorningDew, caption: '비가 그친 아침의 찻잎. 반듯한 차밭 사이에도 제주 돌담과 검은 흙이 그대로 남아 있었다.' },
       { id: 'j1d2-place-1', type: 'PLACE', placeId: 'jeju-osulloc' },
-      { id: 'j1d2-text-2', type: 'TEXT', heading: '산방산을 바라보며 쉬기', body: '산방산 쪽으로 내려오면 카페 자체보다 창밖 방향이 더 중요하다. 오전 이동 뒤 잠깐 앉아 다음 해안 산책을 준비하기에 알맞았다.' },
+      { id: 'j1d2-text-2', type: 'TEXT', heading: '오설록에서 좋았던 것과 아쉬웠던 것', body: '가장 좋았던 곳은 유명한 포토존보다 건물 뒤편의 낮은 차밭 길이었다. 바람에 잎이 한 방향으로 움직이는 모습과 젖은 흙 냄새가 사진보다 또렷하게 기억에 남았다.\n\n전시와 매장은 동선이 편하지만 오전 열한 시가 가까워지자 빠르게 붐볐다. 차를 천천히 마시는 것이 목적이라면 개장 시간에 맞춰 오거나, 쇼핑보다 산책 시간을 먼저 확보하는 편을 추천한다.' },
+      { id: 'j1d2-text-3', type: 'TEXT', heading: '산방산을 바라보며 쉬기', body: '산방산 쪽으로 내려오면 카페 자체보다 어느 방향에 앉는지가 더 중요하다. 오전 이동 뒤 잠깐 쉬면서 다음 해안 산책을 준비하기에는 알맞았고, 산과 바다가 동시에 보여 지도를 보지 않아도 이동 방향이 이해됐다.' },
       { id: 'j1d2-place-2', type: 'PLACE', placeId: 'jeju-oneonly' },
-      { id: 'j1d2-text-3', type: 'TEXT', heading: '바다로 하루를 닫다', body: '사계해안은 산방산과 바다를 한 화면에 담을 수 있다. 물때에 따라 걸을 수 있는 구간이 달라지므로 길찾기만큼 현장 상태를 확인하는 것이 중요했다.' },
+      { id: 'j1d2-text-4', type: 'TEXT', heading: '전망은 좋지만 자리는 복불복', body: '야외에서 산방산을 정면으로 볼 수 있다는 점은 분명 좋았다. 음료를 오래 평가하기보다 다음 장소로 가기 전 풍경과 그늘을 함께 빌리는 곳에 가깝다.\n\n사람이 많은 시간에는 창가와 야외 좌석의 경험 차이가 크고 음악도 조금 크게 느껴졌다. 조용한 카페를 기대하기보다 산방산 아래에서 한 시간 쉬어가는 전망 포인트라고 생각하면 만족도가 높다.' },
+      { id: 'j1d2-image-2', type: 'IMAGE', image: jejuSagyeTidepool, caption: '사계해안에서 고개를 들면 산방산, 아래를 보면 투명한 물웅덩이가 보였다. 큰 풍경과 작은 관찰이 한자리에 있었다.' },
       { id: 'j1d2-place-3', type: 'PLACE', placeId: 'jeju-sagye' },
+      { id: 'j1d2-text-5', type: 'TEXT', heading: '바다로 하루를 닫으며', body: '사계해안은 산방산과 바다를 한 화면에 담을 수 있지만, 오래 남은 건 검은 바위 틈의 작은 물웅덩이였다. 물이 빠진 자리에서 소라와 해초를 들여다보는 시간이 생각보다 길어졌다.\n\n좋은 점은 카페에서 차로 몇 분이면 전혀 다른 분위기의 해안에 닿는다는 것. 아쉬운 점은 물때와 바람에 따라 걸을 수 있는 구간이 크게 달라진다는 것이다. 길찾기뿐 아니라 당일 현장 상태를 확인하고 미끄럽지 않은 신발을 챙기는 편이 좋다.' },
     ],
   },
   {
@@ -137,10 +151,14 @@ const jejuDays: JourneyDay[] = [
       { id: 'jeju-aewol-bakery', kind: 'CAFE', name: '애월의 작은 베이커리', area: '제주 애월', address: '제주 제주시 애월읍 애월로 1', lat: 33.4624, lng: 126.3113, image: jejuAewolBakery, description: '공항으로 돌아가기 전 가볍게 쉬며 여행을 정리한 동네 빵집.', note: '유명 메뉴보다 바로 먹을 한 가지와 돌아가는 길에 나눌 빵만 골랐어요.', duration: '40분', time: '12:00', move: '차량 22분' },
     ],
     blocks: [
-      { id: 'j1d3-text-1', type: 'TEXT', heading: '마지막 날에는 한 곳만', body: '체크아웃 뒤 남은 시간을 계산해 보니 두세 곳을 더 들를 수도 있었다. 하지만 여행의 마지막 장면이 주차장과 대기 줄이 되는 건 싫었다. 새별오름을 천천히 오르는 것으로 충분했다.' },
+      { id: 'j1d3-text-1', type: 'TEXT', heading: '마지막 날에는 한 곳만', body: '체크아웃 뒤 남은 시간을 계산해 보니 두세 곳을 더 들를 수도 있었다. 하지만 여행의 마지막 장면이 주차장과 대기 줄이 되는 건 싫었다. 새별오름을 천천히 오르는 것으로 충분했다.\n\n입구에서는 경사가 완만해 보였지만 중간부터 숨이 차기 시작했다. 정상에 빨리 닿는 것보다 억새 사이에서 뒤를 돌아보는 순간들이 더 좋았고, 올라온 길과 제주 중산간이 한꺼번에 보일 때 비로소 여행의 거리가 실감났다.' },
+      { id: 'j1d3-image-1', type: 'IMAGE', image: jejuSaebyeolTrail, caption: '정상보다 기억에 남은 오름 중턱의 길. 바람이 불 때마다 억새가 한쪽으로 누우며 지나온 방향을 보여줬다.' },
       { id: 'j1d3-place-1', type: 'PLACE', placeId: 'jeju-saebyeol' },
-      { id: 'j1d3-text-2', type: 'TEXT', heading: '여행을 정리하는 작은 테이블', body: '공항으로 바로 향하지 않고 애월의 작은 가게에 잠깐 앉았다. 사진을 고르고, 좋았던 장면 세 가지를 메모했다. 다음 여행을 위한 정보보다 이번 여행을 오래 기억하게 하는 시간이었다.' },
+      { id: 'j1d3-text-2', type: 'TEXT', heading: '오름은 짧아도 준비는 필요했다', body: '한 시간 남짓한 코스지만 그늘이 거의 없어 햇빛과 바람을 그대로 받는다. 능선이 열려 있어 전망은 시원했고 길도 단순한 것이 장점이었다.\n\n반대로 바람이 강한 날에는 정상에서 오래 머물기 어렵고 내려오는 흙길이 미끄러울 수 있다. 물, 모자, 밑창이 미끄럽지 않은 신발만 챙겨도 체감이 크게 달라진다. 사진은 정상보다 사람이 드문 중턱에서 더 자연스럽게 나왔다.' },
+      { id: 'j1d3-text-3', type: 'TEXT', heading: '여행을 정리하는 작은 테이블', body: '공항으로 바로 향하지 않고 애월의 작은 가게에 잠깐 앉았다. 사진을 고르고, 좋았던 장면 세 가지와 다음에는 빼도 될 장소 하나를 메모했다. 다음 여행을 위한 정보보다 이번 여행을 오래 기억하게 하는 시간이었다.' },
+      { id: 'j1d3-image-2', type: 'IMAGE', image: jejuAewolTravelNotes, caption: '빵 두 개와 커피 한 잔을 두고 사진을 골랐다. 협재의 저녁, 젖은 찻잎, 오름의 바람을 이번 여행의 세 장면으로 남겼다.' },
       { id: 'j1d3-place-2', type: 'PLACE', placeId: 'jeju-aewol-bakery' },
+      { id: 'j1d3-text-4', type: 'TEXT', heading: '다시 간다면 이렇게', body: '이 빵집은 일부러 멀리서 찾아갈 목적지라기보다 공항으로 가는 흐름을 끊지 않고 쉬기 좋은 곳이었다. 창밖 돌담과 바다가 보여 마지막까지 제주에 있다는 기분이 남았다.\n\n다시 간다면 빵을 많이 사기보다 바로 먹을 것 하나만 고르고 30분 정도 머물 것 같다. 여행의 마지막에는 새로운 장소를 더 소비하는 것보다 이미 지나온 장면을 정리하는 시간이 더 필요했다.' },
     ],
   },
 ];
