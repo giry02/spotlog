@@ -28,6 +28,7 @@ import {
   Route,
   Search,
   Share2,
+  Sparkles,
   Store,
   Trash2,
   UserRound,
@@ -230,6 +231,97 @@ const fetchRoadRoute = async (places: Place[], signal: AbortSignal): Promise<Rou
   };
 };
 
+const orderPlacesByDistance = (places: Place[]) => {
+  if (places.length < 2) return [...places];
+  const remaining = places.slice(1);
+  const ordered = [places[0]];
+  while (remaining.length) {
+    const previous = ordered[ordered.length - 1];
+    let nearestIndex = 0;
+    remaining.forEach((candidate, index) => {
+      if (distanceKm(previous, candidate) < distanceKm(previous, remaining[nearestIndex])) nearestIndex = index;
+    });
+    ordered.push(remaining.splice(nearestIndex, 1)[0]);
+  }
+  return ordered;
+};
+
+const buildAiJourneyDraft = (sourcePlaces: Place[], requestedDays: number, isSample: boolean): Journey => {
+  const uniquePlaces = Array.from(new Map(sourcePlaces.map((place) => [place.id, place])).values());
+  const orderedPlaces = orderPlacesByDistance(uniquePlaces);
+  const dayCount = Math.max(1, Math.min(requestedDays, orderedPlaces.length, 3));
+  const broadRegions = Array.from(new Set(orderedPlaces.map((place) => place.area.split(' ')[0])));
+  const region = broadRegions.length === 1 ? broadRegions[0] : '국내';
+  const id = `journey-ai-${Date.now()}`;
+  let offset = 0;
+
+  const days: JourneyDay[] = Array.from({ length: dayCount }, (_, dayIndex) => {
+    const remainingPlaces = orderedPlaces.length - offset;
+    const remainingDays = dayCount - dayIndex;
+    const placesForDay = orderedPlaces.slice(offset, offset + Math.ceil(remainingPlaces / remainingDays));
+    offset += placesForDay.length;
+    let startMinutes = 9 * 60 + 30;
+    const plannedPlaces = placesForDay.map((place, placeIndex) => {
+      const previous = placeIndex > 0 ? placesForDay[placeIndex - 1] : undefined;
+      let move = '하루 시작';
+      if (previous) {
+        const distance = distanceKm(previous, place);
+        const walk = distance < 1.2;
+        const moveMinutes = walk ? roundMinutes((distance / 4.5) * 60) + 5 : roundMinutes((distance / 25) * 60 + 8) + 10;
+        startMinutes += (parseDurationMinutes(previous.duration) ?? 60) + moveMinutes;
+        move = `${walk ? '도보' : '차량'} 약 ${moveMinutes}분`;
+      }
+      return { ...place, time: formatClock(startMinutes), move };
+    });
+    const names = plannedPlaces.map((place) => place.name);
+    const blockPrefix = `${id}-day-${dayIndex + 1}`;
+    const blocks: StoryBlock[] = [
+      {
+        id: `${blockPrefix}-intro`,
+        type: 'TEXT',
+        heading: 'AI가 제안한 하루의 흐름',
+        body: `${names.length > 1 ? `${names[0]}에서 시작해 ${names.slice(1, -1).length ? `${names.slice(1, -1).join(', ')}을 지나 ` : ''}${names[names.length - 1]}까지` : names[0]} 이어지는 동선입니다. 장소 수보다 머무는 시간을 우선해 하루가 너무 빡빡해지지 않도록 구성했습니다.\n\n이 글은 저장한 랜드마크의 위치와 체류시간을 바탕으로 만든 초안입니다. 실제 방문 전 운영시간과 현장 상황을 확인하고, 마음에 맞게 사진과 경험을 더해보세요.`,
+      },
+    ];
+    plannedPlaces.forEach((place, placeIndex) => {
+      blocks.push({ id: `${blockPrefix}-place-${placeIndex}`, type: 'PLACE', placeId: place.id });
+      blocks.push({
+        id: `${blockPrefix}-note-${placeIndex}`,
+        type: 'TEXT',
+        heading: `${place.name}에서 놓치지 않을 것`,
+        body: `${place.description}\n\n좋은 점 · ${place.hook ?? `${place.area}의 분위기를 직접 보고 여행의 장면으로 남기기 좋습니다.`}\n\nAI 가이드 메모 · ${place.note}`,
+      });
+    });
+    return {
+      day: dayIndex + 1,
+      date: `DAY ${dayIndex + 1}`,
+      title: `${plannedPlaces[0]?.area ?? region}의 장면을 잇는 날`,
+      story: `${names.join(' → ')} 순서로 이동합니다. 장소 사이 거리와 예상 체류시간을 기준으로 만든 편집 가능한 일정입니다.`,
+      places: plannedPlaces,
+      blocks,
+    };
+  });
+
+  const duration = dayCount === 1 ? '당일 여행' : `${dayCount - 1}박 ${dayCount}일`;
+  return {
+    id,
+    title: isSample ? `AI 제주 랜드마크 ${dayCount}일 샘플` : `AI가 엮은 ${region} 장면 여행`,
+    region,
+    dateRange: '날짜 미정 · AI 초안',
+    duration,
+    status: 'PLANNING',
+    visibility: 'PRIVATE',
+    cover: orderedPlaces[0].image,
+    summary: `저장한 랜드마크 ${orderedPlaces.length}곳을 거리와 체류시간에 맞춰 ${dayCount}일 여행으로 엮었습니다.`,
+    story: 'Spotlog AI 여행 만들기가 장소의 위치, 지역, 추천 시간과 체류시간을 읽어 첫 동선을 만들었습니다. 지도 경로를 확인한 뒤 일정과 글, 사진을 자유롭게 고쳐 나만의 여행기로 완성할 수 있습니다.',
+    tags: ['AI초안', region, `${orderedPlaces.length}곳`],
+    saves: 0,
+    days,
+    author: 'Spotlog AI · 나',
+    isMine: true,
+  };
+};
+
 export default function App() {
   const [tab, setTab] = useState<Tab>('discover');
   const [savedIds, setSavedIds] = useState<string[]>(readSavedIds);
@@ -240,6 +332,7 @@ export default function App() {
   const [toast, setToast] = useState('');
   const native = isNativeShell();
   const savedPlaces = useMemo(() => discoveryLandmarks.filter((place) => savedIds.includes(place.id)), [savedIds]);
+  const aiSamplePlaces = useMemo(() => Array.from(new Map(initialJourneys.flatMap((journey) => journey.days.flatMap((day) => day.places)).filter((place) => place.kind === 'LANDMARK' && place.area.startsWith('제주')).map((place) => [place.id, place])).values()).slice(0, 4), []);
   const selectedJourney = journeys.find((journey) => journey.id === selectedJourneyId) ?? null;
   const editingJourney = journeys.find((journey) => journey.id === editingJourneyId) ?? null;
 
@@ -303,6 +396,14 @@ export default function App() {
     showToast('새 여행을 만들었습니다.');
   };
 
+  const generateAiJourney = (places: Place[], dayCount: number, isSample: boolean) => {
+    const draft = buildAiJourneyDraft(places, dayCount, isSample);
+    setJourneys((current) => [draft, ...current]);
+    setTab('trips');
+    setSelectedJourneyId(draft.id);
+    showToast('AI 여행 초안을 만들었습니다.');
+  };
+
   const saveJourney = (updated: Journey) => {
     setJourneys((current) => current.map((journey) => journey.id === updated.id ? updated : journey));
     setEditingJourneyId(null);
@@ -355,7 +456,7 @@ export default function App() {
           <>
             {tab === 'discover' && <Discover savedIds={savedIds} onToggle={toggleSaved} onShare={sharePlace} />}
             {tab === 'trips' && <Trips journeys={journeys} onOpen={setSelectedJourneyId} onCreate={() => setCreating(true)} onShare={(journey) => void shareJourney(journey)} />}
-            {tab === 'saved' && <Saved places={savedPlaces} onRemove={toggleSaved} onAdd={addToPlanningJourney} onGoDiscover={() => selectTab('discover')} />}
+            {tab === 'saved' && <Saved places={savedPlaces} samplePlaces={aiSamplePlaces} onGenerate={generateAiJourney} onRemove={toggleSaved} onAdd={addToPlanningJourney} onGoDiscover={() => selectTab('discover')} />}
             {tab === 'profile' && <Profile native={native} journeys={journeys} />}
           </>
         )}
@@ -431,9 +532,28 @@ function JourneySection({ title, description, journeys, onOpen, onShare }: { tit
   </article>)}</div></section>;
 }
 
-function Saved({ places, onRemove, onAdd, onGoDiscover }: { places: Place[]; onRemove: (id: string) => void; onAdd: (place: Place) => void; onGoDiscover: () => void }) {
-  return <div className="page"><AppHeader title="저장한 장면" subtitle={`${places.length}개의 국내 랜드마크 영상`} />
-    {places.length ? <div className="saved-list">{places.map((place) => <article className="saved-card" key={place.id}><img src={place.image} alt="" /><div className="saved-card-copy"><span>{place.area}</span><h3>{place.name}</h3><p>{place.hook}</p><div><Clock3 size={13} />{place.bestTime}</div><button className="add-to-trip" onClick={() => onAdd(place)}>여행에 담기</button></div><button onClick={() => onRemove(place.id)} aria-label="저장 취소"><Bookmark size={19} fill="currentColor" /></button></article>)}</div> : <div className="empty"><span className="empty-icon"><Bookmark size={28} /></span><h2>아직 저장한 장면이 없습니다</h2><p>국내 랜드마크 영상에서 마음에 드는 곳을 저장하면<br />여행 계획과 일기에 이어 붙일 수 있습니다.</p><button className="outline" onClick={onGoDiscover}><Compass size={17} />영상으로 발견하기</button></div>}
+function Saved({ places, samplePlaces, onGenerate, onRemove, onAdd, onGoDiscover }: { places: Place[]; samplePlaces: Place[]; onGenerate: (places: Place[], dayCount: number, isSample: boolean) => void; onRemove: (id: string) => void; onAdd: (place: Place) => void; onGoDiscover: () => void }) {
+  const [dayCount, setDayCount] = useState(2);
+  const [generating, setGenerating] = useState<'saved' | 'sample' | null>(null);
+  const previewPlaces = places.length ? places : samplePlaces;
+  const maxDays = Math.max(1, Math.min(3, previewPlaces.length));
+  const effectiveDayCount = Math.min(dayCount, maxDays);
+  const runGenerator = (source: Place[], isSample: boolean) => {
+    if (!source.length || generating) return;
+    setGenerating(isSample ? 'sample' : 'saved');
+    window.setTimeout(() => onGenerate(source, isSample ? Math.min(2, source.length) : effectiveDayCount, isSample), 850);
+  };
+
+  return <div className="page saved-page"><AppHeader title="저장한 장면" subtitle={`${places.length}개의 국내 랜드마크 영상`} />
+    <section className="ai-trip-card" aria-labelledby="ai-trip-title">
+      <div className="ai-trip-heading"><span className="ai-trip-icon"><Sparkles size={21} /></span><div><small>SPOTLOG AI TRIP MAKER</small><h2 id="ai-trip-title">저장한 장소로 여행 만들기</h2></div></div>
+      <p>{places.length ? `${places.length}곳의 위치와 체류시간을 분석해 날짜별 동선과 가이드 글 초안을 만듭니다.` : '저장한 장소가 없어도 제주 랜드마크 4곳 샘플로 완성된 결과를 먼저 볼 수 있습니다.'}</p>
+      <div className="ai-place-preview"><div className="ai-preview-images">{previewPlaces.slice(0, 4).map((place) => <img key={place.id} src={place.image} alt="" />)}</div><div><strong>{places.length ? `내가 저장한 ${places.length}곳` : '제주 샘플 랜드마크 4곳'}</strong><span>{previewPlaces.map((place) => place.name).join(' · ')}</span></div></div>
+      {places.length > 0 && <div className="ai-day-picker"><span>여행 기간</span><div>{Array.from({ length: maxDays }, (_, index) => index + 1).map((days) => <button key={days} className={effectiveDayCount === days ? 'active' : ''} onClick={() => setDayCount(days)} disabled={Boolean(generating)}>{days}일</button>)}</div></div>}
+      <button className="ai-generate-button" onClick={() => runGenerator(previewPlaces, !places.length)} disabled={Boolean(generating)}><Sparkles size={18} className={generating ? 'is-spinning' : ''} />{generating ? '장소와 동선을 분석하는 중…' : places.length ? 'AI로 여행 초안 만들기' : '제주 샘플 여행 만들어보기'}<ChevronRight size={18} /></button>
+      {places.length > 0 && <button className="ai-sample-button" onClick={() => runGenerator(samplePlaces, true)} disabled={Boolean(generating)}>제주 랜드마크 4곳 샘플도 보기</button>}
+    </section>
+    {places.length ? <div className="saved-list">{places.map((place) => <article className="saved-card" key={place.id}><img src={place.image} alt="" /><div className="saved-card-copy"><span>{place.area}</span><h3>{place.name}</h3><p>{place.hook}</p><div><Clock3 size={13} />{place.bestTime}</div><button className="add-to-trip" onClick={() => onAdd(place)}>여행에 담기</button></div><button onClick={() => onRemove(place.id)} aria-label="저장 취소"><Bookmark size={19} fill="currentColor" /></button></article>)}</div> : <div className="empty saved-empty"><span className="empty-icon"><Bookmark size={28} /></span><h2>내 장소를 더 담아보세요</h2><p>국내 랜드마크 영상에서 마음에 드는 곳을 저장하면<br />AI가 내 장소만으로 새 여행을 만들어줍니다.</p><button className="outline" onClick={onGoDiscover}><Compass size={17} />영상으로 발견하기</button></div>}
   </div>;
 }
 
