@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/spotlog/' : '/',
   plugins: [react()],
   build: { outDir: 'dist', emptyOutDir: true },
-});
+}));
