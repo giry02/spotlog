@@ -6,6 +6,7 @@ import {
   CalendarDays,
   Car,
   Check,
+  ChevronLeft,
   ChevronRight,
   CircleUserRound,
   Clock3,
@@ -39,6 +40,9 @@ import {
   VolumeX,
   type LucideIcon,
 } from 'lucide-react';
+import busanHaeundaeCover from '../../assets/spotlog/busan-haeundae-blue-hour.webp';
+import gangwonEastSeaCover from '../../assets/spotlog/gangwon-east-sea-sunrise.webp';
+import seoulForestCover from '../../assets/spotlog/seoul-forest-evening.webp';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { type ChangeEvent, FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import {
@@ -64,6 +68,7 @@ interface HomeTripTemplate {
   summary: string;
   duration: string;
   dayCount: number;
+  cover: string;
   places: Place[];
 }
 
@@ -90,15 +95,15 @@ const readSavedIds = () => {
 const readJourneys = (): Journey[] => {
   try {
     const value: unknown = JSON.parse(localStorage.getItem(storageKeys.journeys) ?? 'null');
-    if (!Array.isArray(value) || !value.length) return initialJourneys;
+    if (!Array.isArray(value) || !value.length) return publishedJourneySeeds;
     const stored = value as Journey[];
-    const publishedGuides = initialJourneys.filter((journey) => !journey.isMine && journey.status === 'PUBLISHED');
+    const publishedGuides = publishedJourneySeeds.filter((journey) => !journey.isMine && journey.status === 'PUBLISHED');
     const guideById = new Map(publishedGuides.map((journey) => [journey.id, journey]));
     const refreshed = stored.map((journey) => !journey.isMine && guideById.has(journey.id) ? structuredClone(guideById.get(journey.id)!) : journey);
     const storedIds = new Set(refreshed.map((journey) => journey.id));
     return [...publishedGuides.filter((journey) => !storedIds.has(journey.id)), ...refreshed];
   } catch {
-    return initialJourneys;
+    return publishedJourneySeeds;
   }
 };
 
@@ -342,24 +347,113 @@ const homeTripTemplates: HomeTripTemplate[] = [
   {
     id: 'curation-jeju-west', region: '제주', eyebrow: '바다 · 차밭 · 오름', title: '제주 서쪽의 장면만 천천히', duration: '1박 2일', dayCount: 2,
     summary: '협재의 바다에서 안덕의 차밭과 해안, 새별오름까지 이어지는 느린 제주 일정입니다.',
+    cover: discoveryLandmarks[0].image,
     places: placesById(['jeju-hyeopjae', 'jeju-osulloc', 'jeju-sagye', 'jeju-saebyeol']),
   },
   {
     id: 'curation-busan-coast', region: '부산', eyebrow: '원도심 · 해운대 · 기장', title: '부산의 오래된 골목과 새 바다', duration: '1박 2일', dayCount: 2,
     summary: '감천의 골목에서 시작해 해운대의 밤과 기장 해안까지 이동하는 부산 동서 여행입니다.',
+    cover: busanHaeundaeCover,
     places: placesById(['busan-gamcheon', 'busan-signiel', 'busan-amso', 'busan-waveon']),
   },
   {
     id: 'curation-gangwon-slow', region: '강원', eyebrow: '동해 · 강변', title: '강릉의 아침, 정선의 느린 오후', duration: '1박 2일', dayCount: 2,
     summary: '안목해변의 아침 산책과 아우라지 강변의 오후를 각각 충분히 머무는 일정입니다.',
+    cover: gangwonEastSeaCover,
     places: placesById(['gangneung-anmok', 'jeongseon-rail']),
   },
   {
     id: 'curation-seoul-halfday', region: '서울', eyebrow: '숲 · 산책 · 성수', title: '서울숲에서 시작하는 반나절', duration: '당일 여행', dayCount: 1,
     summary: '목적지를 멀리 잡지 않고 서울숲 한 장면에서 내 취향의 동네 여행을 시작합니다.',
+    cover: seoulForestCover,
     places: placesById(['seoul-seoulforest']),
   },
 ];
+
+const publishTemplateJourney = (template: HomeTripTemplate, meta: { id: string; title: string; author: string; dateRange: string; saves: number; story: string }): Journey => {
+  const generated = buildAiJourneyDraft(template.places, template.dayCount, false, '여행자가 고른 장소');
+  return {
+    ...generated,
+    id: meta.id,
+    title: meta.title,
+    cover: template.cover,
+    dateRange: meta.dateRange,
+    status: 'PUBLISHED',
+    visibility: 'PUBLIC',
+    summary: template.summary,
+    story: meta.story,
+    tags: [template.region, template.duration, '여행자가이드'],
+    saves: meta.saves,
+    author: meta.author,
+    isMine: false,
+    days: generated.days.map((day) => ({
+      ...day,
+      blocks: day.blocks.map((block) => block.type !== 'TEXT' ? block : {
+        ...block,
+        heading: block.heading === 'AI가 제안한 하루의 흐름' ? '이 여행의 하루 흐름' : block.heading,
+        body: block.body?.replace('AI 가이드 메모', '여행자 메모').replace('이 글은 여행자가 고른 장소의 위치와 체류시간을 바탕으로 만든 초안입니다.', '이 글은 실제로 고른 장소의 위치와 머문 시간을 바탕으로 정리한 여행 기록입니다.'),
+      }),
+    })),
+  };
+};
+
+const homeCommunityJourneys: Journey[] = [
+  publishTemplateJourney(homeTripTemplates[1], {
+    id: 'busan-oldtown-to-sea', title: '골목에서 바다까지, 부산의 두 얼굴', author: '부산산책자', dateRange: '2026.07.11 — 07.12', saves: 842,
+    story: '원도심 골목의 높낮이와 해운대의 밤, 다음 날 기장 바다까지 부산의 서로 다른 표정을 이틀에 나눠 걸었다. 유명 장소를 체크하기보다 동네가 바뀌는 방향을 따라간 기록이다.',
+  }),
+  publishTemplateJourney(homeTripTemplates[2], {
+    id: 'gangwon-sea-and-river', title: '동해의 아침과 정선의 느린 오후', author: '느린주말', dateRange: '2026.06.06 — 06.07', saves: 619,
+    story: '첫날은 강릉 바다 앞에서 오래 걷고, 둘째 날은 산길을 넘어 정선의 물가에 앉았다. 장소를 많이 넣지 않아 이동 뒤에도 풍경을 충분히 볼 수 있었던 강원 여행이다.',
+  }),
+];
+
+const publishedJourneySeeds: Journey[] = [...initialJourneys, ...homeCommunityJourneys];
+
+const scrollCarouselItem = (track: HTMLDivElement | null, index: number) => {
+  const item = track?.children.item(index) as HTMLElement | null;
+  if (!track || !item) return;
+  track.scrollTo({ left: item.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+};
+
+function useRollingCarousel(itemCount: number, intervalMs = 4800) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const goTo = (requestedIndex: number) => {
+    if (!itemCount) return;
+    const nextIndex = (requestedIndex + itemCount) % itemCount;
+    setActiveIndex(nextIndex);
+    scrollCarouselItem(trackRef.current, nextIndex);
+  };
+
+  useEffect(() => {
+    setActiveIndex(0);
+    scrollCarouselItem(trackRef.current, 0);
+  }, [itemCount]);
+
+  useEffect(() => {
+    if (itemCount < 2 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => {
+        const next = (current + 1) % itemCount;
+        scrollCarouselItem(trackRef.current, next);
+        return next;
+      });
+    }, intervalMs);
+    return () => window.clearInterval(timer);
+  }, [intervalMs, itemCount]);
+
+  const syncIndex = () => {
+    const track = trackRef.current;
+    if (!track?.children.length) return;
+    const items = Array.from(track.children) as HTMLElement[];
+    const nearest = items.reduce((best, item, index) => Math.abs(item.offsetLeft - track.offsetLeft - track.scrollLeft) < Math.abs(items[best].offsetLeft - track.offsetLeft - track.scrollLeft) ? index : best, 0);
+    setActiveIndex(nearest);
+  };
+
+  return { trackRef, activeIndex, goTo, syncIndex };
+}
 
 export default function App() {
   const [tab, setTab] = useState<Tab>('home');
@@ -541,25 +635,32 @@ function Home({ journeys, templates, onOpen, onCopy, onStart, onGoVideos, onGoTr
   const publicGuides = journeys.filter((journey) => !journey.isMine && journey.status === 'PUBLISHED');
   const filteredGuides = publicGuides.filter((journey) => !query || `${journey.region} ${journey.title} ${journey.tags.join(' ')}`.toLowerCase().includes(query));
   const filteredTemplates = templates.filter((template) => !query || `${template.region} ${template.title} ${template.eyebrow}`.toLowerCase().includes(query));
-  const promoted = templates.find((template) => template.id === 'curation-jeju-west') ?? templates[0];
-  const browseTemplates = query ? filteredTemplates : templates.filter((template) => template.id !== promoted.id);
   const hasResults = filteredGuides.length > 0 || filteredTemplates.length > 0;
   const regions = ['전체', '제주', '부산', '강원', '서울'];
+  const recommendationRolling = useRollingCarousel(filteredTemplates.length, 4600);
+  const guideRolling = useRollingCarousel(filteredGuides.length, 5200);
 
   return <div className="home-page">
     <header className="home-topbar"><div><strong>spotlog</strong><span>다른 사람의 여행에서 내 여행을 시작하세요</span></div><button onClick={onGoProfile} aria-label="프로필"><CircleUserRound size={24} /></button></header>
     <section className="home-lead"><span>TRAVEL STORIES · READY TO EDIT</span><h1>가고 싶은 곳을 찾거나,<br />마음에 드는 여행을 고르세요.</h1><p>공개 여행기를 그대로 읽고, 내 일정으로 복사해 장소와 동선을 자유롭게 바꿀 수 있습니다.</p></section>
     <section className="destination-finder" aria-labelledby="destination-title"><div className="destination-label"><MapPin size={17} /><div><small>DESTINATION</small><strong id="destination-title">어디로 가고 싶나요?</strong></div></div><label className="destination-search"><Search size={19} /><input value={destination} onChange={(event) => setDestination(event.target.value)} placeholder="도시나 지역을 입력하세요" aria-label="여행 목적지" />{destination && <button onClick={() => setDestination('')} aria-label="검색 지우기">지우기</button>}</label><div className="destination-chips">{regions.map((region) => <button key={region} className={(region === '전체' && !destination) || destination === region ? 'active' : ''} onClick={() => setDestination(region === '전체' ? '' : region)}>{region}</button>)}</div></section>
 
-    {!query && promoted && <section className="home-section"><div className="home-section-heading"><div><small>SPOTLOG CURATION</small><h2>이번 주 추천 일정</h2></div><span>광고·추천</span></div><article className="promoted-trip"><img src={promoted.places[0]?.image} alt="" /><div className="promoted-shade" /><div className="promoted-copy"><span>{promoted.region} · {promoted.duration}</span><h2>{promoted.title}</h2><p>{promoted.summary}</p><div><button onClick={() => onStart(promoted)}>이 일정으로 시작</button><small>{promoted.places.length}개 장소 · 수정 가능</small></div></div></article></section>}
+    {filteredTemplates.length > 0 && <section className="home-section"><div className="home-section-heading"><div><small>SPOTLOG CURATION</small><h2>{query ? `${destination} 추천 일정` : '이번 주 추천 일정'}</h2><p>{query ? '선택한 지역에서 바로 수정할 수 있어요' : '에디터가 고른 일정을 한 장씩 넘겨보세요'}</p></div><RollingControls label="추천 일정" count={filteredTemplates.length} activeIndex={recommendationRolling.activeIndex} onChange={recommendationRolling.goTo} /></div><div className="promoted-track" ref={recommendationRolling.trackRef} onScroll={recommendationRolling.syncIndex}>{filteredTemplates.map((template) => <article className="promoted-trip" key={template.id}><img src={template.cover} alt="" /><div className="promoted-shade" /><div className="promoted-copy"><span>{template.region} · {template.duration}</span><h2>{template.title}</h2><p>{template.summary}</p><div><button onClick={() => onStart(template)}>이 일정으로 시작</button><small>{template.places.length}개 장소 · 수정 가능</small></div></div></article>)}</div><RollingDots label="추천 일정" count={filteredTemplates.length} activeIndex={recommendationRolling.activeIndex} onChange={recommendationRolling.goTo} /></section>}
 
-    {filteredGuides.length > 0 && <section className="home-section"><div className="home-section-heading"><div><small>TRAVELER'S GUIDE</small><h2>{query ? `${destination} 공개 여행기` : '여행자들이 만든 일정'}</h2></div><span>{filteredGuides.length}</span></div><div className="home-guide-list">{filteredGuides.map((journey) => <article className="home-guide-card" key={journey.id}><button className="home-guide-cover" onClick={() => onOpen(journey.id)}><img src={journey.cover} alt="" /><span>{journey.region}<br />{journey.duration}</span></button><div className="home-guide-copy"><small>{journey.author} · {journeyPlaceCount(journey)}곳</small><h3>{journey.title}</h3><p>{journey.summary}</p><div><button onClick={() => onOpen(journey.id)}>먼저 보기</button><button onClick={() => onCopy(journey)}><Copy size={14} />복사해서 수정</button></div></div></article>)}</div></section>}
-
-    {browseTemplates.length > 0 && <section className="home-section home-template-section"><div className="home-section-heading"><div><small>STARTER TRIPS</small><h2>{query ? `${destination} 추천 일정` : '목적지 없이 둘러보기'}</h2><p>{query ? '선택한 지역에서 바로 수정할 수 있는 일정' : '아직 목적지가 없다면 장면과 분위기로 골라보세요'}</p></div><span>{browseTemplates.length}</span></div><div className="template-scroller">{browseTemplates.map((template) => <article className="template-card" key={template.id}><img src={template.places[0]?.image} alt="" /><div className="template-shade" /><div className="template-copy"><small>{template.region} · {template.duration}</small><h3>{template.title}</h3><p>{template.eyebrow}</p><button onClick={() => onStart(template)}>이 일정으로 시작<ChevronRight size={16} /></button></div></article>)}</div></section>}
+    {filteredGuides.length > 0 && <section className="home-section"><div className="home-section-heading"><div><small>TRAVELER'S GUIDE</small><h2>{query ? `${destination} 공개 여행기` : '여행자들이 만든 일정'}</h2><p>실제 여행 기록을 읽고 내 일정으로 가져오세요</p></div><RollingControls label="여행자 일정" count={filteredGuides.length} activeIndex={guideRolling.activeIndex} onChange={guideRolling.goTo} /></div><div className="home-guide-list" ref={guideRolling.trackRef} onScroll={guideRolling.syncIndex}>{filteredGuides.map((journey) => <article className="home-guide-card" key={journey.id}><button className="home-guide-cover" onClick={() => onOpen(journey.id)}><img src={journey.cover} alt="" /><span>{journey.region}<br />{journey.duration}</span></button><div className="home-guide-copy"><small>{journey.author} · {journeyPlaceCount(journey)}곳</small><h3>{journey.title}</h3><p>{journey.summary}</p><div><button onClick={() => onOpen(journey.id)}>먼저 보기</button><button onClick={() => onCopy(journey)}><Copy size={14} />복사해서 수정</button></div></div></article>)}</div><RollingDots label="여행자 일정" count={filteredGuides.length} activeIndex={guideRolling.activeIndex} onChange={guideRolling.goTo} /></section>}
 
     {query && !hasResults && <section className="home-no-results"><MapPin size={24} /><h2>아직 준비된 일정이 없어요</h2><p>다른 지역을 보거나 영상에서 마음에 드는 장소부터 담아보세요.</p><button onClick={() => setDestination('')}>전체 추천 보기</button></section>}
     <section className="home-shortcuts"><button onClick={onGoVideos}><Clapperboard size={20} /><span><strong>랜드마크 영상</strong><small>장면을 보고 장소 담기</small></span><ChevronRight size={17} /></button><button onClick={onGoTrips}><MapIcon size={20} /><span><strong>내 여행</strong><small>복사하고 만든 일정 관리</small></span><ChevronRight size={17} /></button></section>
   </div>;
+}
+
+function RollingControls({ label, count, activeIndex, onChange }: { label: string; count: number; activeIndex: number; onChange: (index: number) => void }) {
+  return <div className="rolling-controls"><span>{activeIndex + 1} / {count}</span>{count > 1 && <><button onClick={() => onChange(activeIndex - 1)} aria-label={`${label} 이전`}><ChevronLeft size={17} /></button><button onClick={() => onChange(activeIndex + 1)} aria-label={`${label} 다음`}><ChevronRight size={17} /></button></>}</div>;
+}
+
+function RollingDots({ label, count, activeIndex, onChange }: { label: string; count: number; activeIndex: number; onChange: (index: number) => void }) {
+  if (count < 2) return null;
+  return <div className="rolling-dots" aria-label={`${label} 페이지`}>{Array.from({ length: count }, (_, index) => <button key={index} className={index === activeIndex ? 'active' : ''} onClick={() => onChange(index)} aria-label={`${label} ${index + 1}번`} aria-current={index === activeIndex ? 'true' : undefined} />)}</div>;
 }
 
 function Discover({ savedIds, onToggle, onShare }: { savedIds: string[]; onToggle: (id: string) => void; onShare: (place: Place) => void }) {
