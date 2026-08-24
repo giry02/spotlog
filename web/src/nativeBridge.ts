@@ -1,4 +1,4 @@
-import type { SharePayload, WebToNativeMessage } from '../../shared/hybridBridge';
+import { parseNativeToWebMessage, type NotificationPreferences, type SharePayload, type WebToNativeMessage } from '../../shared/hybridBridge';
 
 declare global {
   interface Window {
@@ -14,6 +14,29 @@ const postToNative = (message: WebToNativeMessage) => {
 
 export function notifyReady() {
   if (isNativeShell()) postToNative({ type: 'READY' });
+}
+
+export function updateNotificationPreferences(preferences: NotificationPreferences) {
+  if (isNativeShell()) postToNative({ type: 'UPDATE_NOTIFICATION_PREFERENCES', payload: preferences });
+}
+
+export function previewCreatorNotification(viewMilestone: number) {
+  if (!isNativeShell()) return false;
+  postToNative({ type: 'PREVIEW_CREATOR_NOTIFICATION', payload: { viewMilestone } });
+  return true;
+}
+
+export function subscribeNotificationStatus(callback: (status: { enabled: boolean; permission: 'granted' | 'denied' | 'undetermined' }) => void) {
+  const handleMessage = (event: Event) => {
+    const message = parseNativeToWebMessage((event as MessageEvent).data);
+    if (message) callback(message.payload);
+  };
+  window.addEventListener('message', handleMessage);
+  document.addEventListener('message', handleMessage);
+  return () => {
+    window.removeEventListener('message', handleMessage);
+    document.removeEventListener('message', handleMessage);
+  };
 }
 
 export function openExternal(url: string) {

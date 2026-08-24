@@ -1,8 +1,46 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
 import { ActivityIndicator, Alert, Linking, Platform, Pressable, Share, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import WebView, { type WebViewMessageEvent, type WebViewNavigation } from 'react-native-webview';
-import { parseWebToNativeMessage } from '../../shared/hybridBridge';
+import { parseWebToNativeMessage, type NativeToWebMessage, type NotificationPreferences } from '../../shared/hybridBridge';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+    shouldShowBanner: true,
+    shouldShowList: true,
+  }),
+});
+
+const notificationPreferencesKey = 'spotlog.native.notification.preferences.v1';
+const defaultNotificationPreferences: NotificationPreferences = { enabled: false, viewMilestone: 100 };
+
+async function prepareCreatorNotificationChannel() {
+  if (Platform.OS !== 'android') return;
+  await Notifications.setNotificationChannelAsync('creator-milestones', {
+    name: '창작자 성과 알림',
+    description: '내 여행기의 조회수 목표 달성과 창작 성과를 알려드립니다.',
+    importance: Notifications.AndroidImportance.HIGH,
+    vibrationPattern: [0, 220, 120, 220],
+    lightColor: '#FF6245',
+    sound: 'default',
+  });
+}
+
+async function readNativeNotificationPreferences(): Promise<NotificationPreferences> {
+  try {
+    const stored = await AsyncStorage.getItem(notificationPreferencesKey);
+    if (!stored) return defaultNotificationPreferences;
+    const value = JSON.parse(stored) as Partial<NotificationPreferences>;
+    if (typeof value.enabled !== 'boolean' || typeof value.viewMilestone !== 'number' || value.viewMilestone <= 0) return defaultNotificationPreferences;
+    return { enabled: value.enabled, viewMilestone: value.viewMilestone };
+  } catch {
+    return defaultNotificationPreferences;
+  }
+}
 
 const defaultWebUrl = Platform.select({
   android: 'http://10.0.2.2:5173',
@@ -24,12 +62,30 @@ export function HybridShell() {
     }
   }, []);
 
+  const sendToWeb = useCallback((message: NativeToWebMessage) => {
+    webViewRef.current?.postMessage(JSON.stringify(message));
+  }, []);
+
+  const updateNotificationPreferences = useCallback(async (preferences: NotificationPreferences) => {
+    await prepareCreatorNotificationChannel();
+    let permission = (await Notifications.getPermissionsAsync()).status;
+    if (preferences.enabled && permission !== 'granted') permission = (await Notifications.requestPermissionsAsync()).status;
+    const enabled = preferences.enabled && permission === 'granted';
+    await AsyncStorage.setItem(notificationPreferencesKey, JSON.stringify(preferences));
+    sendToWeb({ type: 'NOTIFICATION_STATUS', payload: { enabled, permission } });
+    if (preferences.enabled && !enabled) Alert.alert('푸시 알림 권한이 필요해요', '기기 설정에서 Spotlog 알림을 허용하면 조회수 목표 달성 소식을 받을 수 있습니다.');
+    return enabled;
+  }, [sendToWeb]);
+
   const handleMessage = useCallback(async (event: WebViewMessageEvent) => {
     const message = parseWebToNativeMessage(event.nativeEvent.data);
     if (!message) return;
 
     if (message.type === 'READY') {
       setBridgeReady(true);
+      const preferences = await readNativeNotificationPreferences();
+      const permission = (await Notifications.getPermissionsAsync()).status;
+      sendToWeb({ type: 'NOTIFICATION_STATUS', payload: { enabled: preferences.enabled && permission === 'granted', permission } });
       return;
     }
 
@@ -45,6 +101,26 @@ export function HybridShell() {
       return;
     }
 
+    if (message.type === 'UPDATE_NOTIFICATION_PREFERENCES') {
+      await updateNotificationPreferences(message.payload);
+      return;
+    }
+
+    if (message.type === 'PREVIEW_CREATOR_NOTIFICATION') {
+      const enabled = await updateNotificationPreferences({ enabled: true, viewMilestone: message.payload.viewMilestone });
+      if (!enabled) return;
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: '조회수 목표를 달성했어요! 🎉',
+          body: `내 여행기가 ${message.payload.viewMilestone.toLocaleString()}회 조회되었습니다. 다음 여행을 기다리는 사람이 있어요.`,
+          sound: 'default',
+          data: { type: 'CREATOR_VIEW_MILESTONE', viewMilestone: message.payload.viewMilestone },
+        },
+        trigger: null,
+      });
+      return;
+    }
+
     try {
       const target = new URL(message.payload.url);
       if (!['http:', 'https:'].includes(target.protocol)) throw new Error('Unsupported protocol');
@@ -52,7 +128,7 @@ export function HybridShell() {
     } catch {
       Alert.alert('링크를 열 수 없어요', '올바른 웹 주소인지 확인해 주세요.');
     }
-  }, []);
+  }, [sendToWeb, updateNotificationPreferences]);
 
   const handleNavigation = useCallback((request: WebViewNavigation) => {
     if (request.url === 'about:blank') return true;

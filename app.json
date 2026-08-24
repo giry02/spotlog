@@ -28,7 +28,14 @@
     "plugins": [
       "expo-image",
       "expo-video",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-notifications",
+        {
+          "color": "#FF6245",
+          "defaultChannel": "creator-milestones"
+        }
+      ]
     ]
   }
 }

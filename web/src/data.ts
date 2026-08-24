@@ -76,6 +76,7 @@ export interface Journey {
   story: string;
   tags: string[];
   saves: number;
+  views?: number;
   days: JourneyDay[];
   author: string;
   isMine: boolean;
@@ -166,7 +167,7 @@ const jejuDays: JourneyDay[] = [
 export const initialJourneys: Journey[] = [
   {
     id: 'jeju-west-slow', title: '바람을 따라 걷는 제주 서쪽', region: '제주', dateRange: '2026.05.16 — 05.18', duration: '2박 3일', status: 'PUBLISHED', visibility: 'PUBLIC', cover: jejuGuideCover,
-    summary: '협재의 저녁부터 산방산 아래 바다, 마지막 오름까지. 많이 보지 않고 좋은 장면에 오래 머문 2박 3일.', story: '이번 제주는 체크리스트 대신 하루의 결을 남기기로 했다. 왜 이 순서로 움직였는지, 어디에서 쉬었는지, 숙소가 다음 날 동선에 어떤 도움이 됐는지를 사진과 함께 적었다. 그대로 따라가도 좋고 마음에 드는 하루만 복사해도 되는 제주 서쪽 가이드다.', tags: ['제주서쪽', '2박3일', '느린여행', '숙소동선'], saves: 1284, days: jejuDays, author: '제주책갈피', isMine: false,
+    summary: '협재의 저녁부터 산방산 아래 바다, 마지막 오름까지. 많이 보지 않고 좋은 장면에 오래 머문 2박 3일.', story: '이번 제주는 체크리스트 대신 하루의 결을 남기기로 했다. 왜 이 순서로 움직였는지, 어디에서 쉬었는지, 숙소가 다음 날 동선에 어떤 도움이 됐는지를 사진과 함께 적었다. 그대로 따라가도 좋고 마음에 드는 하루만 복사해도 되는 제주 서쪽 가이드다.', tags: ['제주서쪽', '2박3일', '느린여행', '숙소동선'], saves: 1284, views: 12480, days: jejuDays, author: '제주책갈피', isMine: false,
   },
 ];
 
