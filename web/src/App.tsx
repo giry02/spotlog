@@ -304,6 +304,18 @@ const spotlogNavigationUrl = (state: SpotlogNavigationState) => {
           : state.tab;
   return `${window.location.pathname}${window.location.search}#${encodeURIComponent(screen)}`;
 };
+const navigationStateFromHash = (): SpotlogNavigationState => {
+  const screen = decodeURIComponent(window.location.hash.replace(/^#/, '')) || 'home';
+  const base: SpotlogNavigationState = { spotlog: true, depth: 0, tab: 'home', placeView: 'VIDEO', journeyId: null, templateId: null, editorId: null };
+  if (screen === 'places-guide') return { ...base, tab: 'discover', placeView: 'GUIDE' };
+  if (screen === 'places-video') return { ...base, tab: 'discover', placeView: 'VIDEO' };
+  if (['home', 'community', 'trips', 'saved', 'profile'].includes(screen)) return { ...base, tab: screen as Tab };
+  if (screen.startsWith('journey-')) return { ...base, journeyId: screen.slice('journey-'.length) };
+  if (screen.startsWith('recommendation-')) return { ...base, templateId: screen.slice('recommendation-'.length) };
+  if (screen.startsWith('edit-')) return { ...base, tab: 'trips', editorId: screen.slice('edit-'.length) };
+  return base;
+};
+const navigationStateMatchesHash = (state: SpotlogNavigationState) => spotlogNavigationUrl(state).endsWith(window.location.hash || '#home');
 
 const resizeImageFile = (file: File, maxWidth = 1600, quality = 0.82) => new Promise<string>((resolve, reject) => {
   const reader = new FileReader();
@@ -718,7 +730,7 @@ export default function App() {
   const [notificationPermission, setNotificationPermission] = useState<'granted' | 'denied' | 'undetermined'>('undetermined');
   const viewedJourneyIds = useRef(new Set<string>());
   const native = isNativeShell();
-  const savedPlaces = useMemo(() => discoveryLandmarks.filter((place) => savedIds.includes(place.id)), [savedIds]);
+  const savedPlaces = useMemo(() => placeCatalog.filter((place) => savedIds.includes(place.id)), [savedIds]);
   const aiSamplePlaces = useMemo(() => Array.from(new Map(initialJourneys.flatMap((journey) => journey.days.flatMap((day) => day.places)).filter((place) => place.kind === 'LANDMARK' && place.area.startsWith('제주')).map((place) => [place.id, place])).values()).slice(0, 4), []);
   const selectedTemplateJourney = useMemo(() => selectedTemplate ? previewTemplateJourney(selectedTemplate) : null, [selectedTemplate]);
   const selectedJourney = selectedTemplateJourney ?? journeys.find((journey) => journey.id === selectedJourneyId) ?? null;
@@ -761,27 +773,36 @@ export default function App() {
   };
 
   useEffect(() => {
-    const initial: SpotlogNavigationState = isSpotlogNavigationState(window.history.state)
+    const initial: SpotlogNavigationState = isSpotlogNavigationState(window.history.state) && navigationStateMatchesHash(window.history.state)
       ? window.history.state
-      : { spotlog: true, depth: 0, tab: 'home' as const, placeView: 'VIDEO' as const, journeyId: null, templateId: null, editorId: null };
+      : navigationStateFromHash();
     window.history.replaceState(initial, '', spotlogNavigationUrl(initial));
     applyNavigationState(initial);
     notifyNavigationState(initial.depth > 0);
     const handlePopState = (event: PopStateEvent) => {
       const state: SpotlogNavigationState = isSpotlogNavigationState(event.state)
         ? event.state
-        : { spotlog: true, depth: 0, tab: 'home' as const, placeView: 'VIDEO' as const, journeyId: null, templateId: null, editorId: null };
+        : navigationStateFromHash();
       if (!isSpotlogNavigationState(event.state)) window.history.replaceState(state, '', spotlogNavigationUrl(state));
       applyNavigationState(state);
       notifyNavigationState(state.depth > 0);
     };
     window.addEventListener('popstate', handlePopState);
+    const handleHashChange = () => {
+      if (isSpotlogNavigationState(window.history.state) && navigationStateMatchesHash(window.history.state)) return;
+      const state = navigationStateFromHash();
+      window.history.replaceState(state, '', spotlogNavigationUrl(state));
+      applyNavigationState(state);
+      notifyNavigationState(false);
+    };
+    window.addEventListener('hashchange', handleHashChange);
     const unsubscribeNavigation = subscribeNavigationCommands(() => {
       const state = window.history.state;
       if (isSpotlogNavigationState(state) && state.depth > 0) window.history.back();
     });
     return () => {
       window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('hashchange', handleHashChange);
       unsubscribeNavigation();
     };
   }, [applyNavigationState]);
@@ -1083,18 +1104,40 @@ function RollingDots({ label, count, activeIndex, onChange }: { label: string; c
 }
 
 const landmarkRegion = (place: Place) => place.area.split(' ')[0] || '기타';
+const domesticRegionOrder = ['서울', '경기', '인천', '강원', '충북', '충남', '대전', '세종', '전북', '전남', '광주', '경북', '경남', '대구', '울산', '부산', '제주'];
 
 function Discover({ view, onViewChange, savedIds, onToggle, onShare }: { view: PlaceView; onViewChange: (view: PlaceView) => void; savedIds: string[]; onToggle: (id: string) => void; onShare: (place: Place) => void }) {
   const [query, setQuery] = useState('');
-  const regions = ['전체', ...Array.from(new Set(discoveryLandmarks.map(landmarkRegion)))];
-  const visiblePlaces = discoveryLandmarks.filter((place) => matchesDestination(query, [place.area, place.name, place.hook, place.description, ...(place.tags ?? [])]));
+  const [selectedRegion, setSelectedRegion] = useState('');
+  const guideLandmarks = useMemo(() => placeCatalog
+    .filter((place) => place.kind === 'LANDMARK')
+    .sort((a, b) => domesticRegionOrder.indexOf(landmarkRegion(a)) - domesticRegionOrder.indexOf(landmarkRegion(b))), []);
+  const regionGroups = domesticRegionOrder
+    .map((region) => ({ region, places: guideLandmarks.filter((place) => landmarkRegion(place) === region) }))
+    .filter((group) => group.places.length > 0);
+  const visiblePlaces = guideLandmarks.filter((place) => {
+    const matchesRegion = !selectedRegion || landmarkRegion(place) === selectedRegion;
+    return matchesRegion && matchesDestination(query, [place.area, place.name, place.hook, place.description, place.note, ...(place.tags ?? [])]);
+  });
+  const resultTitle = query.trim()
+    ? `'${query.trim()}' 검색 결과`
+    : selectedRegion ? `${selectedRegion} 랜드마크` : '국내 랜드마크';
 
   return <div className={`place-discover ${view === 'VIDEO' ? 'is-video' : 'is-guide'}`}>
     <header className="place-discover-header"><div><strong>spotlog</strong><span>{savedIds.length}개 장소 저장</span></div><PlaceViewToggle view={view} onChange={onViewChange} /></header>
     {view === 'VIDEO' ? <div className="feed">{discoveryLandmarks.map((place) => <FeedCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} />)}</div> : <div className="place-guide-content">
-      <section className="place-guide-lead"><small>LANDMARK GUIDE</small><h1>지역의 대표 장면을<br />안내 글로 찾아보세요.</h1><p>영상으로 본 장소와 같은 랜드마크입니다. 보기 방식만 다르고 저장하면 모두 같은 목록에 담깁니다.</p></section>
-      <section className="place-guide-search"><label className="destination-search"><Search size={19} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="지역이나 랜드마크를 검색하세요" aria-label="랜드마크 지역 검색" />{query && <button type="button" onClick={() => setQuery('')} aria-label="검색 지우기">지우기</button>}</label><div className="destination-chips" aria-label="랜드마크 지역 선택">{regions.map((region) => <button key={region} className={(region === '전체' && !query) || query === region ? 'active' : ''} onClick={() => setQuery(region === '전체' ? '' : region)}>{region}</button>)}</div></section>
-      <section className="place-guide-results"><div className="place-guide-heading"><div><small>PLACES TO SAVE</small><h2>{query ? `${query} 랜드마크` : '국내 랜드마크'}</h2></div><span>{visiblePlaces.length}</span></div>{visiblePlaces.length ? <div className="landmark-guide-list">{visiblePlaces.map((place) => <LandmarkGuideCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} />)}</div> : <div className="community-empty"><MapPin size={27} /><h2>아직 준비된 장소가 없어요</h2><p>다른 지역이나 랜드마크 이름으로 찾아보세요.</p><button onClick={() => setQuery('')}>전체 장소 보기</button></div>}</section>
+      <section className="place-guide-lead"><small>LANDMARK GUIDE</small><h1>각 지역에 무엇이 있는지 보고<br />내 여행에 하나씩 담아보세요.</h1><p>{regionGroups.length}개 지역의 대표 장소 {guideLandmarks.length}곳을 모았습니다. 영상이 없는 장소도 안내 글로 살펴보고 같은 저장 목록에 담을 수 있어요.</p></section>
+      <section className="place-guide-search"><label className="destination-search"><Search size={19} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="지역이나 랜드마크를 검색하세요" aria-label="랜드마크 지역 검색" />{query && <button type="button" onClick={() => setQuery('')} aria-label="검색 지우기">지우기</button>}</label></section>
+      <section className="region-directory" aria-label="지역별 대표 랜드마크">
+        <div className="region-directory-heading"><div><small>REGION DIRECTORY</small><h2>지역별로 둘러보기</h2></div><button type="button" className={!selectedRegion ? 'active' : ''} onClick={() => setSelectedRegion('')}>전체 {guideLandmarks.length}</button></div>
+        <div className="region-directory-track">
+          {regionGroups.map(({ region, places }) => <button type="button" key={region} className={selectedRegion === region ? 'active' : ''} onClick={() => setSelectedRegion(region)} aria-pressed={selectedRegion === region}>
+            <span><strong>{region}</strong><small>{places.length}곳</small></span>
+            <p>{places.slice(0, 2).map((place) => place.name).join(' · ')}</p>
+          </button>)}
+        </div>
+      </section>
+      <section className="place-guide-results"><div className="place-guide-heading"><div><small>PLACES TO SAVE</small><h2>{resultTitle}</h2></div><span>{visiblePlaces.length}</span></div>{visiblePlaces.length ? <div className="landmark-guide-list">{visiblePlaces.map((place) => <LandmarkGuideCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} />)}</div> : <div className="community-empty"><MapPin size={27} /><h2>아직 준비된 장소가 없어요</h2><p>다른 지역이나 랜드마크 이름으로 찾아보세요.</p><button onClick={() => { setQuery(''); setSelectedRegion(''); }}>전체 장소 보기</button></div>}</section>
     </div>}
   </div>;
 }
@@ -1104,7 +1147,7 @@ function PlaceViewToggle({ view, onChange }: { view: PlaceView; onChange: (view:
 }
 
 function LandmarkGuideCard({ place, saved, onToggle, onShare }: { place: Place; saved: boolean; onToggle: () => void; onShare: () => void }) {
-  return <article className="landmark-guide-card"><div className="landmark-guide-image"><img src={place.image} alt="" /><span>{landmarkRegion(place)} · 랜드마크</span></div><div className="landmark-guide-copy"><small>{place.area} · {place.bestTime}</small><h3>{place.name}</h3><strong>{place.hook}</strong><p>{place.description}</p><blockquote>여행자 메모 · {place.note}</blockquote><div className="landmark-guide-tags">{place.tags?.map((tag) => <span key={tag}>#{tag}</span>)}</div><div className="landmark-guide-actions"><button className={saved ? 'saved' : ''} onClick={onToggle}><Bookmark size={16} fill={saved ? 'currentColor' : 'none'} />{saved ? '저장됨' : '이 장소 저장'}</button><button onClick={onShare}><Share2 size={16} />공유</button></div></div></article>;
+  return <article className="landmark-guide-card"><div className="landmark-guide-image"><img src={place.image} alt={`${place.name} 여행 사진`} /><span>{landmarkRegion(place)} · 랜드마크</span></div><div className="landmark-guide-copy"><small>{place.area} · {place.bestTime ?? place.duration}</small><h3>{place.name}</h3><strong>{place.hook ?? `${place.area} 일정에 담기 좋은 대표 장소`}</strong><p>{place.description}</p><blockquote>여행자 메모 · {place.note}</blockquote><div className="landmark-guide-tags">{place.tags?.map((tag) => <span key={tag}>#{tag}</span>)}</div><div className="landmark-guide-actions"><button className={saved ? 'saved' : ''} onClick={onToggle}><Bookmark size={16} fill={saved ? 'currentColor' : 'none'} />{saved ? '저장됨' : '이 장소 저장'}</button><button onClick={onShare}><Share2 size={16} />공유</button></div></div></article>;
 }
 
 function FeedCard({ place, saved, onToggle, onShare }: { place: Place; saved: boolean; onToggle: () => void; onShare: () => void }) {
