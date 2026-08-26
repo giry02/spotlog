@@ -16,6 +16,10 @@ export function notifyReady() {
   if (isNativeShell()) postToNative({ type: 'READY' });
 }
 
+export function notifyNavigationState(canGoBack: boolean) {
+  if (isNativeShell()) postToNative({ type: 'NAVIGATION_STATE', payload: { canGoBack } });
+}
+
 export function updateNotificationPreferences(preferences: NotificationPreferences) {
   if (isNativeShell()) postToNative({ type: 'UPDATE_NOTIFICATION_PREFERENCES', payload: preferences });
 }
@@ -29,7 +33,20 @@ export function previewCreatorNotification(viewMilestone: number) {
 export function subscribeNotificationStatus(callback: (status: { enabled: boolean; permission: 'granted' | 'denied' | 'undetermined' }) => void) {
   const handleMessage = (event: Event) => {
     const message = parseNativeToWebMessage((event as MessageEvent).data);
-    if (message) callback(message.payload);
+    if (message?.type === 'NOTIFICATION_STATUS') callback(message.payload);
+  };
+  window.addEventListener('message', handleMessage);
+  document.addEventListener('message', handleMessage);
+  return () => {
+    window.removeEventListener('message', handleMessage);
+    document.removeEventListener('message', handleMessage);
+  };
+}
+
+export function subscribeNavigationCommands(onBack: () => void) {
+  const handleMessage = (event: Event) => {
+    const message = parseNativeToWebMessage((event as MessageEvent).data);
+    if (message?.type === 'GO_BACK') onBack();
   };
   window.addEventListener('message', handleMessage);
   document.addEventListener('message', handleMessage);

@@ -1,7 +1,7 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
-import { ActivityIndicator, Alert, Linking, Platform, Pressable, Share, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, BackHandler, Linking, Platform, Pressable, Share, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import WebView, { type WebViewMessageEvent, type WebViewNavigation } from 'react-native-webview';
 import { parseWebToNativeMessage, type NativeToWebMessage, type NotificationPreferences } from '../../shared/hybridBridge';
@@ -54,6 +54,7 @@ export function HybridShell() {
   const [reloadKey, setReloadKey] = useState(0);
   const [loadError, setLoadError] = useState('');
   const [bridgeReady, setBridgeReady] = useState(false);
+  const [webCanGoBack, setWebCanGoBack] = useState(false);
   const trustedOrigin = useMemo(() => {
     try {
       return new URL(webUrl).origin;
@@ -65,6 +66,16 @@ export function HybridShell() {
   const sendToWeb = useCallback((message: NativeToWebMessage) => {
     webViewRef.current?.postMessage(JSON.stringify(message));
   }, []);
+
+  useEffect(() => {
+    if (Platform.OS !== 'android') return;
+    const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (!webCanGoBack) return false;
+      sendToWeb({ type: 'GO_BACK' });
+      return true;
+    });
+    return () => subscription.remove();
+  }, [sendToWeb, webCanGoBack]);
 
   const updateNotificationPreferences = useCallback(async (preferences: NotificationPreferences) => {
     await prepareCreatorNotificationChannel();
@@ -86,6 +97,11 @@ export function HybridShell() {
       const preferences = await readNativeNotificationPreferences();
       const permission = (await Notifications.getPermissionsAsync()).status;
       sendToWeb({ type: 'NOTIFICATION_STATUS', payload: { enabled: preferences.enabled && permission === 'granted', permission } });
+      return;
+    }
+
+    if (message.type === 'NAVIGATION_STATE') {
+      setWebCanGoBack(message.payload.canGoBack);
       return;
     }
 
@@ -154,7 +170,7 @@ export function HybridShell() {
         domStorageEnabled
         startInLoadingState
         setSupportMultipleWindows={false}
-        onLoadStart={() => { setLoadError(''); setBridgeReady(false); }}
+        onLoadStart={() => { setLoadError(''); setBridgeReady(false); setWebCanGoBack(false); }}
         onMessage={(event) => void handleMessage(event)}
         onShouldStartLoadWithRequest={handleNavigation}
         onError={(event) => setLoadError(event.nativeEvent.description || '모바일웹을 불러오지 못했습니다.')}

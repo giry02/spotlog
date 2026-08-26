@@ -17,6 +17,10 @@ import jejuOsullocMorningDew from '../../assets/spotlog/jeju-osulloc-morning-dew
 import jejuSagyeTidepool from '../../assets/spotlog/jeju-sagye-tidepool.webp';
 import jejuSaebyeolTrail from '../../assets/spotlog/jeju-saebyeol-trail.webp';
 import jejuAewolTravelNotes from '../../assets/spotlog/jeju-aewol-travel-notes.webp';
+import busanHaeundaeCover from '../../assets/spotlog/busan-haeundae-blue-hour.webp';
+import gangwonEastSeaCover from '../../assets/spotlog/gangwon-east-sea-sunrise.webp';
+import seoulForestCover from '../../assets/spotlog/seoul-forest-evening.webp';
+import spa from '../../assets/spotlog/spa.jpg';
 
 const cloudinaryVideo = (id: string) => `https://res.cloudinary.com/demo/video/upload/c_fill,g_center,h_1280,w_720,q_auto:eco/${id}.mp4`;
 
@@ -175,11 +179,44 @@ export const placeKindLabel: Record<PlaceKind, string> = {
   LANDMARK: '랜드마크', STAY: '숙소', FOOD: '맛집', CAFE: '카페', SHOP: '로컬숍',
 };
 
+const samplePlace = (
+  id: string,
+  name: string,
+  area: string,
+  address: string,
+  lat: number,
+  lng: number,
+  image: string,
+  description: string,
+  note: string,
+  duration = '1시간 20분',
+  kind: PlaceKind = 'LANDMARK',
+): Place => ({ id, kind, name, area, address, lat, lng, image, description, note, duration });
+
 const catalogOnlyPlaces: Place[] = [
   { id: 'busan-gamcheon', kind: 'LANDMARK', name: '감천문화마을', area: '부산 사하', address: '부산 사하구 감내2로 203', lat: 35.0975, lng: 129.0107, image: night, description: '산복도로와 바다가 층층이 이어지는 부산 원도심의 풍경.', note: '주민이 생활하는 골목이라 지정된 관람 동선을 따라 걸었어요.', duration: '1시간 30분', move: '여행 시작' },
   { id: 'busan-signiel', kind: 'STAY', name: '시그니엘 부산', area: '부산 해운대', address: '부산 해운대구 달맞이길 30', lat: 35.1601, lng: 129.1695, image: resort, description: '해운대와 달맞이길 일정을 연결하기 좋은 바다 앞 숙박 거점.', note: '객실 비용보다 해변 산책과 다음 날 동선을 중심으로 기록할 수 있어요.', duration: '숙박', move: '차량 32분' },
   { id: 'busan-amso', kind: 'FOOD', name: '해운대암소갈비집', area: '부산 해운대', address: '부산 해운대구 중동2로10번길 32-10', lat: 35.1635, lng: 129.166, image: food, description: '해운대에서 오랫동안 자리를 지켜온 식당.', note: '식사 시간을 동선에 넣을 때 현장 대기와 운영 여부를 먼저 확인하세요.', duration: '1시간 20분', move: '도보 8분' },
   { id: 'busan-waveon', kind: 'CAFE', name: '웨이브온 커피', area: '부산 기장', address: '부산 기장군 장안읍 해맞이로 286', lat: 35.3214, lng: 129.2663, image: beach, description: '기장 해안을 바라보며 동부산 드라이브 중 쉬어가기 좋은 카페.', note: '해운대에서 바로 이어가기보다 기장 일정과 같은 날 묶는 편이 좋아요.', duration: '1시간', move: '차량 45분' },
+  samplePlace('seoul-seongsu-yeonbang', '성수연방', '서울 성동', '서울 성동구 성수이로14길 14', 37.541, 127.0562, jejuAewolBakery, '오래된 공장 건물 안에 작은 상점과 카페가 모인 성수의 생활 문화 공간.', '서울숲에서 걸어오기 좋고, 골목의 작은 가게를 함께 둘러보면 성수의 분위기가 더 잘 보입니다.', '1시간'),
+  samplePlace('seoul-tukseom-hangang', '뚝섬한강공원', '서울 광진', '서울 광진구 강변북로 139', 37.5293, 127.0697, seoulForestCover, '성수 골목에서 이어 걸어 저녁의 한강 풍경을 보기 좋은 도심 산책지.', '해가 지기 40분 전에 도착하면 낮과 야경을 모두 볼 수 있어요.', '1시간 30분'),
+  samplePlace('jeonju-hanok', '전주한옥마을', '전북 전주', '전북 전주시 완산구 기린대로 99', 35.815, 127.153, busanHaeundaeCover, '한옥 골목과 작은 공방, 오래된 생활 풍경을 천천히 걸어보는 전주의 중심.', '큰길보다 경기전 뒤편 골목을 걸으면 한결 조용한 장면을 만날 수 있습니다.', '2시간'),
+  samplePlace('jeonju-nambu-market', '전주남부시장', '전북 전주', '전북 전주시 완산구 풍남문1길 19-3', 35.8116, 127.1477, night, '전주의 식재료와 오래된 가게, 청년몰의 새로운 분위기가 함께 있는 시장.', '시장 음식은 한 번에 많이 고르기보다 작은 메뉴를 나눠 맛보는 편이 좋아요.', '1시간 20분', 'FOOD'),
+  samplePlace('damyang-juknokwon', '죽녹원', '전남 담양', '전남 담양군 담양읍 죽녹원로 119', 35.32, 126.9859, jejuOsullocTeaField, '대나무 숲길의 빛과 바람 소리를 오래 느끼며 걷기 좋은 담양의 대표 산책지.', '사람이 적은 오전에는 대숲의 소리와 빛이 더 또렷하게 느껴집니다.', '1시간 30분'),
+  samplePlace('damyang-metasequoia', '메타세쿼이아길', '전남 담양', '전남 담양군 담양읍 메타세쿼이아로 12', 35.3328, 126.989, jejuSaebyeolTrail, '곧게 뻗은 나무 사이를 걸으며 담양의 계절을 사진으로 남기기 좋은 길.', '한낮보다 빛이 비스듬한 늦은 오후에 길의 깊이가 더 잘 보입니다.', '1시간'),
+  samplePlace('suncheon-garden', '순천만국가정원', '전남 순천', '전남 순천시 국가정원1호길 47', 34.9274, 127.499, jejuGuideCover, '넓은 정원 속에서 계절별 식물과 여러 나라의 정원 풍경을 보는 공간.', '전부 보려고 하기보다 관심 있는 정원 세 곳을 정해 천천히 보는 편이 좋습니다.', '2시간 30분'),
+  samplePlace('suncheon-bay', '순천만습지', '전남 순천', '전남 순천시 순천만길 513-25', 34.8853, 127.509, jejuHyeopjaeTidepool, '갈대밭과 갯벌 사이로 난 길을 걸으며 해 질 무렵의 빛을 보는 습지.', '용산전망대까지 걸을 계획이라면 해 지는 시각보다 넉넉히 일찍 출발하세요.', '2시간'),
+  samplePlace('yeosu-odongdo', '오동도', '전남 여수', '전남 여수시 수정동 산1-11', 34.7446, 127.766, beach, '방파제 길과 동백 숲, 바다 전망을 한 번에 이어 걷는 여수의 작은 섬.', '섬 안쪽 숲길과 해안 산책로의 분위기가 달라 한 방향씩 모두 걸어볼 만합니다.', '1시간 40분'),
+  samplePlace('yeosu-dolsan', '돌산공원', '전남 여수', '전남 여수시 돌산읍 우두리 산355-1', 34.731, 127.7385, resort, '돌산대교와 여수항의 불빛을 한눈에 내려다보는 야경 전망지.', '바람이 강할 수 있으니 해가 진 뒤 오래 머문다면 얇은 겉옷을 준비하세요.', '1시간'),
+  samplePlace('tongyeong-dongpirang', '동피랑 벽화마을', '경남 통영', '경남 통영시 동피랑1길 6-18', 34.8452, 128.4238, jejuHyeopjaeUdonDinner, '통영항을 내려다보는 언덕 골목에서 벽화와 주민의 생활 풍경을 만나는 곳.', '좁은 골목은 주민 생활 공간이므로 조용히 걷고 촬영 안내를 확인하세요.', '1시간 20분'),
+  samplePlace('tongyeong-mireuksan', '미륵산', '경남 통영', '경남 통영시 발개로 205', 34.8262, 128.425, mountain, '정상 부근에서 통영의 섬과 바다가 겹겹이 펼쳐지는 풍경을 보는 산.', '구름이 낮은 날에는 전망이 달라지므로 출발 전 시야와 운행 정보를 확인하세요.', '2시간'),
+  samplePlace('gangneung-ojukheon', '오죽헌', '강원 강릉', '강원 강릉시 율곡로3139번길 24', 37.7799, 128.8785, jejuGuideCover, '검은 대나무와 고택의 뜰을 걸으며 강릉의 차분한 시간을 만나는 곳.', '아침 바다 뒤에 방문하면 해안과 전혀 다른 강릉의 분위기를 느낄 수 있습니다.', '1시간 20분'),
+  samplePlace('yangyang-naksansa', '낙산사', '강원 양양', '강원 양양군 강현면 낙산사로 100', 38.1252, 128.6278, jejuSagyeCoast, '절벽 위 전각과 동해 수평선을 함께 바라보며 걷는 양양의 해안 사찰.', '오르막과 계단이 있어 신발을 편하게 신고 바다 쪽 관람 순서를 확인하세요.', '1시간 40분'),
+  samplePlace('yangyang-surfy', '서피비치', '강원 양양', '강원 양양군 현북면 하조대해안길 119', 38.0295, 128.7174, spa, '넓은 모래사장과 서핑 문화가 어우러진 양양의 활기찬 해변.', '성수기에는 체험 예약과 주차 시간을 여유 있게 잡는 편이 좋습니다.', '1시간 30분'),
+  samplePlace('sokcho-yeonggeumjeong', '영금정', '강원 속초', '강원 속초시 영금정로 43', 38.213, 128.5998, gangwonEastSeaCover, '바다 위 정자에서 파도와 속초항의 아침 풍경을 가까이 듣는 곳.', '일출 직후에는 바람이 세도 빛이 맑아 사진과 산책 모두 좋습니다.', '1시간'),
+  samplePlace('sokcho-central-market', '속초관광수산시장', '강원 속초', '강원 속초시 중앙로147번길 12', 38.2047, 128.5904, food, '닭강정과 해산물, 지역 먹거리를 한 자리에서 비교해 보는 속초의 시장.', '포장 음식은 숙소 동선과 먹을 시간을 먼저 정한 뒤 필요한 만큼만 고르세요.', '1시간 20분', 'FOOD'),
+  samplePlace('goseong-ayajin', '아야진해변', '강원 고성', '강원 고성군 토성면 아야진해변길 157', 38.2723, 128.5539, beach, '맑은 물과 낮은 바위 지형이 이어져 천천히 해안을 관찰하기 좋은 해변.', '물때에 따라 보이는 바위와 모래 구간이 달라 산책 전 확인하면 좋아요.', '1시간 30분'),
+  samplePlace('goseong-cheonjin', '천진해변', '강원 고성', '강원 고성군 토성면 천진해변길 39', 38.2577, 128.5571, jejuAewolTravelNotes, '작은 항구와 잔잔한 해변을 함께 보며 동해안 여행을 마무리하기 좋은 곳.', '아야진에서 해안도로로 이어 이동하면 마지막 날 동선이 자연스럽습니다.', '1시간'),
 ];
 
 export const placeCatalog: Place[] = Array.from(new Map(

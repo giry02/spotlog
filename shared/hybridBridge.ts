@@ -10,18 +10,21 @@ export interface NotificationPreferences {
 
 export type WebToNativeMessage =
   | { type: 'READY' }
+  | { type: 'NAVIGATION_STATE'; payload: { canGoBack: boolean } }
   | { type: 'SHARE'; payload: SharePayload }
   | { type: 'OPEN_EXTERNAL'; payload: { url: string } }
   | { type: 'UPDATE_NOTIFICATION_PREFERENCES'; payload: NotificationPreferences }
   | { type: 'PREVIEW_CREATOR_NOTIFICATION'; payload: { viewMilestone: number } };
 
-export type NativeToWebMessage = {
-  type: 'NOTIFICATION_STATUS';
-  payload: {
-    enabled: boolean;
-    permission: 'granted' | 'denied' | 'undetermined';
+export type NativeToWebMessage =
+  | { type: 'GO_BACK' }
+  | {
+    type: 'NOTIFICATION_STATUS';
+    payload: {
+      enabled: boolean;
+      permission: 'granted' | 'denied' | 'undetermined';
+    };
   };
-};
 
 const isRecord = (value: unknown): value is Record<string, unknown> => typeof value === 'object' && value !== null;
 
@@ -30,6 +33,9 @@ export function parseWebToNativeMessage(value: string): WebToNativeMessage | nul
     const message: unknown = JSON.parse(value);
     if (!isRecord(message)) return null;
     if (message.type === 'READY') return { type: 'READY' };
+    if (message.type === 'NAVIGATION_STATE' && isRecord(message.payload) && typeof message.payload.canGoBack === 'boolean') {
+      return { type: 'NAVIGATION_STATE', payload: { canGoBack: message.payload.canGoBack } };
+    }
     if (message.type === 'SHARE' && isRecord(message.payload) && typeof message.payload.title === 'string' && typeof message.payload.message === 'string') {
       return { type: 'SHARE', payload: { title: message.payload.title, message: message.payload.message } };
     }
@@ -52,10 +58,12 @@ export function parseNativeToWebMessage(value: unknown): NativeToWebMessage | nu
   if (typeof value !== 'string') return null;
   try {
     const message: unknown = JSON.parse(value);
-    if (!isRecord(message) || message.type !== 'NOTIFICATION_STATUS' || !isRecord(message.payload)) return null;
+    if (!isRecord(message)) return null;
+    if (message.type === 'GO_BACK') return { type: 'GO_BACK' };
+    if (message.type !== 'NOTIFICATION_STATUS' || !isRecord(message.payload)) return null;
     const permission = message.payload.permission;
     if (typeof message.payload.enabled !== 'boolean' || !['granted', 'denied', 'undetermined'].includes(String(permission))) return null;
-    return { type: 'NOTIFICATION_STATUS', payload: { enabled: message.payload.enabled, permission: permission as NativeToWebMessage['payload']['permission'] } };
+    return { type: 'NOTIFICATION_STATUS', payload: { enabled: message.payload.enabled, permission: permission as 'granted' | 'denied' | 'undetermined' } };
   } catch {
     return null;
   }
