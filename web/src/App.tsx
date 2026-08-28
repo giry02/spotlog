@@ -1105,12 +1105,14 @@ function RollingDots({ label, count, activeIndex, onChange }: { label: string; c
 
 const landmarkRegion = (place: Place) => place.area.split(' ')[0] || '기타';
 const domesticRegionOrder = ['서울', '경기', '인천', '강원', '충북', '충남', '대전', '세종', '전북', '전남', '광주', '경북', '경남', '대구', '울산', '부산', '제주'];
+const PLACE_LIST_PAGE_SIZE = 3;
 
 function Discover({ view, onViewChange, savedIds, onToggle, onShare }: { view: PlaceView; onViewChange: (view: PlaceView) => void; savedIds: string[]; onToggle: (id: string) => void; onShare: (place: Place) => void }) {
   const [query, setQuery] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('');
   const [showEveryRegion, setShowEveryRegion] = useState(false);
-  const [showEveryPlace, setShowEveryPlace] = useState(false);
+  const [visiblePlaceCount, setVisiblePlaceCount] = useState(PLACE_LIST_PAGE_SIZE);
+  const placeLoadSentinelRef = useRef<HTMLDivElement>(null);
   const guideLandmarks = useMemo(() => placeCatalog
     .filter((place) => place.kind === 'LANDMARK')
     .sort((a, b) => domesticRegionOrder.indexOf(landmarkRegion(a)) - domesticRegionOrder.indexOf(landmarkRegion(b))), []);
@@ -1125,13 +1127,23 @@ function Discover({ view, onViewChange, savedIds, onToggle, onShare }: { view: P
     ? `'${query.trim()}' 검색 결과`
     : selectedRegion ? `${selectedRegion} 랜드마크` : '국내 랜드마크';
   const hasActiveResults = Boolean(query.trim() || selectedRegion);
-  const displayedPlaces = showEveryPlace ? visiblePlaces : visiblePlaces.slice(0, 3);
+  const displayedPlaces = visiblePlaces.slice(0, visiblePlaceCount);
+  const hasMorePlaces = displayedPlaces.length < visiblePlaces.length;
   const displayedRegionGroups = showEveryRegion ? regionGroups : regionGroups.slice(0, 8);
   const chooseRegion = (region: string) => {
     setSelectedRegion(region);
-    setShowEveryPlace(false);
   };
-  useEffect(() => setShowEveryPlace(false), [query, selectedRegion]);
+  useEffect(() => setVisiblePlaceCount(PLACE_LIST_PAGE_SIZE), [query, selectedRegion]);
+  useEffect(() => {
+    const sentinel = placeLoadSentinelRef.current;
+    if (!sentinel || !hasActiveResults || !hasMorePlaces) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setVisiblePlaceCount((current) => Math.min(current + PLACE_LIST_PAGE_SIZE, visiblePlaces.length));
+    }, { root: document.querySelector<HTMLElement>('.content'), rootMargin: '0px 0px 280px', threshold: 0.01 });
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [hasActiveResults, hasMorePlaces, visiblePlaces.length]);
 
   return <div className={`place-discover ${view === 'VIDEO' ? 'is-video' : 'is-guide'}`}>
     <header className="place-discover-header"><div><strong>spotlog</strong><span>{savedIds.length}개 장소 저장</span></div><PlaceViewToggle view={view} onChange={onViewChange} /></header>
@@ -1146,7 +1158,7 @@ function Discover({ view, onViewChange, savedIds, onToggle, onShare }: { view: P
         </div>
         <button type="button" className="region-directory-more" onClick={() => setShowEveryRegion((current) => !current)}>{showEveryRegion ? <ArrowUp size={15} /> : <ArrowDown size={15} />}{showEveryRegion ? '지역 접어보기' : `나머지 ${regionGroups.length - displayedRegionGroups.length}개 지역 펼쳐보기`}</button>
       </section>
-      <section className="place-guide-results"><div className="place-guide-heading"><div><small>PLACES TO SAVE</small><h2>{hasActiveResults ? resultTitle : '지역을 골라 장소 보기'}</h2></div><span>{hasActiveResults ? `${visiblePlaces.length}곳` : '지역별로 나눠보기'}</span></div>{!hasActiveResults ? <div className="region-result-empty"><MapPin size={23} /><div><strong>위에서 지역을 선택하세요</strong><p>선택한 지역의 장소 3곳을 먼저 보여주고, 필요할 때 나머지를 펼칠 수 있습니다.</p></div></div> : visiblePlaces.length ? <><div className="landmark-guide-list">{displayedPlaces.map((place) => <LandmarkGuideCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} />)}</div>{visiblePlaces.length > 3 && <button type="button" className="place-results-more" onClick={() => setShowEveryPlace((current) => !current)}>{showEveryPlace ? <ArrowUp size={16} /> : <ArrowDown size={16} />}{showEveryPlace ? '장소 접어보기' : `나머지 ${visiblePlaces.length - displayedPlaces.length}곳 펼쳐보기`}</button>}</> : <div className="community-empty"><MapPin size={27} /><h2>아직 준비된 장소가 없어요</h2><p>다른 지역이나 랜드마크 이름으로 찾아보세요.</p><button onClick={() => { setQuery(''); setSelectedRegion(''); }}>전체 장소 보기</button></div>}</section>
+      <section className="place-guide-results"><div className="place-guide-heading"><div><small>PLACES TO SAVE</small><h2>{hasActiveResults ? resultTitle : '지역을 골라 장소 보기'}</h2></div><span>{hasActiveResults ? `${visiblePlaces.length}곳` : '지역별로 나눠보기'}</span></div>{!hasActiveResults ? <div className="region-result-empty"><MapPin size={23} /><div><strong>위에서 지역을 선택하세요</strong><p>선택한 지역의 장소를 3곳씩 불러오며, 아래로 스크롤하면 다음 장소가 자동으로 이어집니다.</p></div></div> : visiblePlaces.length ? <><div className="landmark-guide-list">{displayedPlaces.map((place) => <LandmarkGuideCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} />)}</div>{hasMorePlaces ? <div ref={placeLoadSentinelRef} className="place-load-sentinel" aria-live="polite"><span className="place-load-indicator" aria-hidden="true"><i /><i /><i /></span><div><strong>아래로 스크롤하면 다음 {Math.min(PLACE_LIST_PAGE_SIZE, visiblePlaces.length - displayedPlaces.length)}곳을 불러옵니다</strong><small>{displayedPlaces.length} / {visiblePlaces.length}곳 표시 중</small></div></div> : visiblePlaces.length > PLACE_LIST_PAGE_SIZE && <div className="place-list-end"><Check size={15} />{visiblePlaces.length}곳을 모두 불러왔습니다</div>}</> : <div className="community-empty"><MapPin size={27} /><h2>아직 준비된 장소가 없어요</h2><p>다른 지역이나 랜드마크 이름으로 찾아보세요.</p><button onClick={() => { setQuery(''); setSelectedRegion(''); }}>전체 장소 보기</button></div>}</section>
     </div>}
   </div>;
 }
