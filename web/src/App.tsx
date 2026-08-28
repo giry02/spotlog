@@ -1109,6 +1109,8 @@ const domesticRegionOrder = ['서울', '경기', '인천', '강원', '충북', '
 function Discover({ view, onViewChange, savedIds, onToggle, onShare }: { view: PlaceView; onViewChange: (view: PlaceView) => void; savedIds: string[]; onToggle: (id: string) => void; onShare: (place: Place) => void }) {
   const [query, setQuery] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('');
+  const [showEveryRegion, setShowEveryRegion] = useState(false);
+  const [showEveryPlace, setShowEveryPlace] = useState(false);
   const guideLandmarks = useMemo(() => placeCatalog
     .filter((place) => place.kind === 'LANDMARK')
     .sort((a, b) => domesticRegionOrder.indexOf(landmarkRegion(a)) - domesticRegionOrder.indexOf(landmarkRegion(b))), []);
@@ -1122,6 +1124,14 @@ function Discover({ view, onViewChange, savedIds, onToggle, onShare }: { view: P
   const resultTitle = query.trim()
     ? `'${query.trim()}' 검색 결과`
     : selectedRegion ? `${selectedRegion} 랜드마크` : '국내 랜드마크';
+  const hasActiveResults = Boolean(query.trim() || selectedRegion);
+  const displayedPlaces = showEveryPlace ? visiblePlaces : visiblePlaces.slice(0, 3);
+  const displayedRegionGroups = showEveryRegion ? regionGroups : regionGroups.slice(0, 8);
+  const chooseRegion = (region: string) => {
+    setSelectedRegion(region);
+    setShowEveryPlace(false);
+  };
+  useEffect(() => setShowEveryPlace(false), [query, selectedRegion]);
 
   return <div className={`place-discover ${view === 'VIDEO' ? 'is-video' : 'is-guide'}`}>
     <header className="place-discover-header"><div><strong>spotlog</strong><span>{savedIds.length}개 장소 저장</span></div><PlaceViewToggle view={view} onChange={onViewChange} /></header>
@@ -1129,15 +1139,14 @@ function Discover({ view, onViewChange, savedIds, onToggle, onShare }: { view: P
       <section className="place-guide-lead"><small>LANDMARK GUIDE</small><h1>각 지역에 무엇이 있는지 보고<br />내 여행에 하나씩 담아보세요.</h1><p>{regionGroups.length}개 지역의 대표 장소 {guideLandmarks.length}곳을 모았습니다. 영상이 없는 장소도 안내 글로 살펴보고 같은 저장 목록에 담을 수 있어요.</p></section>
       <section className="place-guide-search"><label className="destination-search"><Search size={19} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="지역이나 랜드마크를 검색하세요" aria-label="랜드마크 지역 검색" />{query && <button type="button" onClick={() => setQuery('')} aria-label="검색 지우기">지우기</button>}</label></section>
       <section className="region-directory" aria-label="지역별 대표 랜드마크">
-        <div className="region-directory-heading"><div><small>REGION DIRECTORY</small><h2>지역별로 둘러보기</h2></div><button type="button" className={!selectedRegion ? 'active' : ''} onClick={() => setSelectedRegion('')}>전체 {guideLandmarks.length}</button></div>
-        <div className="region-directory-track">
-          {regionGroups.map(({ region, places }) => <button type="button" key={region} className={selectedRegion === region ? 'active' : ''} onClick={() => setSelectedRegion(region)} aria-pressed={selectedRegion === region}>
-            <span><strong>{region}</strong><small>{places.length}곳</small></span>
-            <p>{places.slice(0, 2).map((place) => place.name).join(' · ')}</p>
-          </button>)}
+        <div className="region-directory-heading"><div><small>REGION DIRECTORY</small><h2>지역별로 둘러보기</h2></div><span>{regionGroups.length}개 지역 · {guideLandmarks.length}곳</span></div>
+        <div className="region-count-grid">
+          <button type="button" className={!selectedRegion ? 'active' : ''} onClick={() => chooseRegion('')} aria-pressed={!selectedRegion}><strong>전체</strong><small>{guideLandmarks.length}</small></button>
+          {displayedRegionGroups.map(({ region, places }) => <button type="button" key={region} className={selectedRegion === region ? 'active' : ''} onClick={() => chooseRegion(region)} aria-pressed={selectedRegion === region}><strong>{region}</strong><small>{places.length}</small></button>)}
         </div>
+        <button type="button" className="region-directory-more" onClick={() => setShowEveryRegion((current) => !current)}>{showEveryRegion ? <ArrowUp size={15} /> : <ArrowDown size={15} />}{showEveryRegion ? '지역 접어보기' : `나머지 ${regionGroups.length - displayedRegionGroups.length}개 지역 펼쳐보기`}</button>
       </section>
-      <section className="place-guide-results"><div className="place-guide-heading"><div><small>PLACES TO SAVE</small><h2>{resultTitle}</h2></div><span>{visiblePlaces.length}</span></div>{visiblePlaces.length ? <div className="landmark-guide-list">{visiblePlaces.map((place) => <LandmarkGuideCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} />)}</div> : <div className="community-empty"><MapPin size={27} /><h2>아직 준비된 장소가 없어요</h2><p>다른 지역이나 랜드마크 이름으로 찾아보세요.</p><button onClick={() => { setQuery(''); setSelectedRegion(''); }}>전체 장소 보기</button></div>}</section>
+      <section className="place-guide-results"><div className="place-guide-heading"><div><small>PLACES TO SAVE</small><h2>{hasActiveResults ? resultTitle : '지역을 골라 장소 보기'}</h2></div><span>{hasActiveResults ? `${visiblePlaces.length}곳` : '지역별로 나눠보기'}</span></div>{!hasActiveResults ? <div className="region-result-empty"><MapPin size={23} /><div><strong>위에서 지역을 선택하세요</strong><p>선택한 지역의 장소 3곳을 먼저 보여주고, 필요할 때 나머지를 펼칠 수 있습니다.</p></div></div> : visiblePlaces.length ? <><div className="landmark-guide-list">{displayedPlaces.map((place) => <LandmarkGuideCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} />)}</div>{visiblePlaces.length > 3 && <button type="button" className="place-results-more" onClick={() => setShowEveryPlace((current) => !current)}>{showEveryPlace ? <ArrowUp size={16} /> : <ArrowDown size={16} />}{showEveryPlace ? '장소 접어보기' : `나머지 ${visiblePlaces.length - displayedPlaces.length}곳 펼쳐보기`}</button>}</> : <div className="community-empty"><MapPin size={27} /><h2>아직 준비된 장소가 없어요</h2><p>다른 지역이나 랜드마크 이름으로 찾아보세요.</p><button onClick={() => { setQuery(''); setSelectedRegion(''); }}>전체 장소 보기</button></div>}</section>
     </div>}
   </div>;
 }
@@ -1204,9 +1213,18 @@ function JourneySection({ title, description, journeys, onOpen, onShare }: { tit
 function Saved({ places, samplePlaces, onGenerate, onRemove, onAdd, onGoDiscover }: { places: Place[]; samplePlaces: Place[]; onGenerate: (places: Place[], dayCount: number, isSample: boolean) => void; onRemove: (id: string) => void; onAdd: (place: Place) => void; onGoDiscover: () => void }) {
   const [dayCount, setDayCount] = useState(2);
   const [generating, setGenerating] = useState<'saved' | 'sample' | null>(null);
+  const [savedRegion, setSavedRegion] = useState('');
+  const [collapsedRegions, setCollapsedRegions] = useState<string[]>([]);
   const previewPlaces = places.length ? places : samplePlaces;
   const maxDays = Math.max(1, Math.min(3, previewPlaces.length));
   const effectiveDayCount = Math.min(dayCount, maxDays);
+  const savedRegionNames = Array.from(new Set(places.map(landmarkRegion))).sort((a, b) => domesticRegionOrder.indexOf(a) - domesticRegionOrder.indexOf(b));
+  const savedRegionGroups = savedRegionNames.map((region) => ({ region, places: places.filter((place) => landmarkRegion(place) === region) }));
+  const visibleSavedGroups = savedRegion ? savedRegionGroups.filter((group) => group.region === savedRegion) : savedRegionGroups;
+  const toggleSavedRegion = (region: string) => setCollapsedRegions((current) => current.includes(region) ? current.filter((value) => value !== region) : [...current, region]);
+  useEffect(() => {
+    if (savedRegion && !savedRegionNames.includes(savedRegion)) setSavedRegion('');
+  }, [savedRegion, savedRegionNames.join('|')]);
   const runGenerator = (source: Place[], isSample: boolean) => {
     if (!source.length || generating) return;
     setGenerating(isSample ? 'sample' : 'saved');
@@ -1215,14 +1233,13 @@ function Saved({ places, samplePlaces, onGenerate, onRemove, onAdd, onGoDiscover
 
   return <div className="page saved-page"><AppHeader title="저장한 장소" subtitle={`${places.length}개의 국내 랜드마크`} />
     <section className="ai-trip-card" aria-labelledby="ai-trip-title">
-      <div className="ai-trip-heading"><span className="ai-trip-icon"><Sparkles size={21} /></span><div><small>SPOTLOG AI TRIP MAKER</small><h2 id="ai-trip-title">저장한 장소로 여행 만들기</h2></div></div>
-      <p>{places.length ? `${places.length}곳의 위치와 체류시간을 분석해 날짜별 동선과 가이드 글 초안을 만듭니다.` : '저장한 장소가 없어도 제주 랜드마크 4곳 샘플로 완성된 결과를 먼저 볼 수 있습니다.'}</p>
-      <div className="ai-place-preview"><div className="ai-preview-images">{previewPlaces.slice(0, 4).map((place) => <img key={place.id} src={place.image} alt="" />)}</div><div><strong>{places.length ? `내가 저장한 ${places.length}곳` : '제주 샘플 랜드마크 4곳'}</strong><span>{previewPlaces.map((place) => place.name).join(' · ')}</span></div></div>
+      <div className="ai-trip-heading"><span className="ai-trip-icon"><Sparkles size={19} /></span><div><small>AI TRIP MAKER</small><h2 id="ai-trip-title">저장한 장소로 여행 만들기</h2></div><span className="ai-trip-kpi">{places.length ? `${places.length}곳 · ${savedRegionGroups.length}지역` : '샘플 4곳'}</span></div>
+      <p>{places.length ? '위치와 체류시간을 분석해 날짜별 동선 초안을 만듭니다.' : '제주 랜드마크 샘플로 결과를 먼저 볼 수 있습니다.'}</p>
       {places.length > 0 && <div className="ai-day-picker"><span>여행 기간</span><div>{Array.from({ length: maxDays }, (_, index) => index + 1).map((days) => <button key={days} className={effectiveDayCount === days ? 'active' : ''} onClick={() => setDayCount(days)} disabled={Boolean(generating)}>{days}일</button>)}</div></div>}
       <button className="ai-generate-button" onClick={() => runGenerator(previewPlaces, !places.length)} disabled={Boolean(generating)}><Sparkles size={18} className={generating ? 'is-spinning' : ''} />{generating ? '장소와 동선을 분석하는 중…' : places.length ? 'AI로 여행 초안 만들기' : '제주 샘플 여행 만들어보기'}<ChevronRight size={18} /></button>
       {places.length > 0 && <button className="ai-sample-button" onClick={() => runGenerator(samplePlaces, true)} disabled={Boolean(generating)}>제주 랜드마크 4곳 샘플도 보기</button>}
     </section>
-    {places.length ? <div className="saved-list">{places.map((place) => <article className="saved-card" key={place.id}><img src={place.image} alt="" /><div className="saved-card-copy"><span>{place.area}</span><h3>{place.name}</h3><p>{place.hook}</p><div><Clock3 size={13} />{place.bestTime}</div><button className="add-to-trip" onClick={() => onAdd(place)}>여행에 담기</button></div><button onClick={() => onRemove(place.id)} aria-label="저장 취소"><Bookmark size={19} fill="currentColor" /></button></article>)}</div> : <div className="empty saved-empty"><span className="empty-icon"><Bookmark size={28} /></span><h2>내 장소를 더 담아보세요</h2><p>영상이나 지역 안내 목록에서 마음에 드는 랜드마크를 저장하면<br />AI가 내 장소만으로 새 여행을 만들어줍니다.</p><button className="outline" onClick={onGoDiscover}><Compass size={17} />장소 둘러보기</button></div>}
+    {places.length ? <><section className="saved-region-filter"><div><small>SAVED BY REGION</small><h2>지역별 저장 장소</h2></div><div className="saved-region-chips"><button type="button" className={!savedRegion ? 'active' : ''} onClick={() => setSavedRegion('')}>전체 <span>{places.length}</span></button>{savedRegionGroups.map(({ region, places: regionPlaces }) => <button type="button" key={region} className={savedRegion === region ? 'active' : ''} onClick={() => setSavedRegion(region)}>{region} <span>{regionPlaces.length}</span></button>)}</div></section><div className="saved-region-groups">{visibleSavedGroups.map(({ region, places: regionPlaces }) => { const collapsed = collapsedRegions.includes(region); return <section className="saved-region-section" key={region}><button type="button" className="saved-region-heading" onClick={() => toggleSavedRegion(region)} aria-expanded={!collapsed}><span><strong>{region}</strong><small>{regionPlaces.length}곳</small></span><span>{regionPlaces.map((place) => place.name).join(' · ')}</span>{collapsed ? <ArrowDown size={17} /> : <ArrowUp size={17} />}</button>{!collapsed && <div className="saved-list">{regionPlaces.map((place) => <article className="saved-card" key={place.id}><img src={place.image} alt={`${place.name} 저장 사진`} /><div className="saved-card-copy"><span>{place.area}</span><h3>{place.name}</h3><p>{place.hook ?? place.description}</p><div><Clock3 size={13} />{place.bestTime ?? place.duration}</div><button className="add-to-trip" onClick={() => onAdd(place)}>여행에 담기</button></div><button onClick={() => onRemove(place.id)} aria-label={`${place.name} 저장 취소`}><Bookmark size={19} fill="currentColor" /></button></article>)}</div>}</section>; })}</div></> : <div className="empty saved-empty"><span className="empty-icon"><Bookmark size={28} /></span><h2>내 장소를 더 담아보세요</h2><p>영상이나 지역 안내 목록에서 마음에 드는 랜드마크를 저장하면<br />AI가 내 장소만으로 새 여행을 만들어줍니다.</p><button className="outline" onClick={onGoDiscover}><Compass size={17} />장소 둘러보기</button></div>}
   </div>;
 }
 
