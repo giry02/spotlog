@@ -351,7 +351,8 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
 .saved-card-copy .saved-place-time { margin-top: 7px; display: flex; align-items: center; gap: 5px; color: #777773; font-size: 9px; }
 .saved-card > button { position: absolute; right: 9px; top: 9px; width: 31px; height: 31px; display: grid; place-items: center; border: 0; border-radius: 50%; color: var(--accent); background: #fff3ef; }
 .saved-card-copy .add-to-trip { margin-top: 10px; padding: 6px 10px; display: inline-flex; align-items: center; gap: 4px; border: 0; border-radius: 8px; color: white; background: #222220; font-size: 9px; font-weight: 700; }
-.saved-card-copy .add-to-trip.is-added { color: #176759; background: #e3f2ed; cursor: default; opacity: 1; }
+.saved-card-copy .add-to-trip.is-added { color: #176759; background: #e3f2ed; }
+.saved-card-copy .add-to-trip.is-added:hover { color: #a34332; background: #fff0ec; }
 .empty { min-height: 500px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 .empty-icon { width: 64px; height: 64px; display: grid; place-items: center; border-radius: 22px; color: #7b7b76; background: #ecece8; }
 .empty h2 { margin: 20px 0 7px; font-family: 'Manrope', sans-serif; font-size: 19px; }
