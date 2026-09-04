@@ -28,6 +28,8 @@
     "start": "npm run dev --workspace @spotlog/web -- --open",
     "app": "expo start",
     "android": "expo start --android",
+    "android:apk": "npx --yes eas-cli@latest build --platform android --profile preview",
+    "android:aab": "npx --yes eas-cli@latest build --platform android --profile production",
     "ios": "expo start --ios",
     "web": "npm run dev --workspace @spotlog/web",
     "web:build": "npm run build --workspace @spotlog/web",

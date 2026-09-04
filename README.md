@@ -56,6 +56,17 @@ npm run android
 
 운영 빌드에서는 배포된 HTTPS 모바일웹 주소를 `EXPO_PUBLIC_SPOTLOG_WEB_URL`로 지정합니다.
 
+## Android 설치 파일
+
+휴대폰에 직접 설치할 APK는 EAS의 `preview` 프로필로 빌드합니다. 이 프로필은 개발 서버가 아니라 배포된 `https://giry02.github.io/spotlog/` 모바일웹을 불러오므로 별도 PC 서버 없이 실행됩니다.
+
+```bash
+npx eas-cli@latest login
+npm run android:apk
+```
+
+빌드가 끝나면 EAS가 제공하는 APK 주소를 Android 휴대폰에서 열어 설치합니다. Play 스토어 등록용 AAB는 `npm run android:aab`로 별도 생성합니다.
+
 ## 검증
 
 ```bash

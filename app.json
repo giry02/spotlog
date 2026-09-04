@@ -16,6 +16,7 @@
       "bundleIdentifier": "com.spotlog.mobile"
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -36,6 +37,12 @@
           "defaultChannel": "creator-milestones"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "7c89f2a2-6c62-4756-b5ce-3c75297d250f"
+      }
+    },
+    "owner": "giry02"
   }
 }
