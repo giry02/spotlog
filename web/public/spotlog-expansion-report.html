@@ -3,373 +3,501 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f0f1f2" />
-  <meta name="description" content="Spotlog 서비스 현황 및 단계별 확장 전략 보고서" />
-  <title>Spotlog 서비스 확장 전략 보고서</title>
+  <meta name="theme-color" content="#171b20" />
+  <meta name="description" content="Spotlog 서비스 확장 전략 HTML 프레젠테이션" />
+  <title>Spotlog 서비스 확장 전략</title>
   <style>
     :root {
       color-scheme: light;
-      --canvas: #e9ebed;
-      --paper: #ffffff;
       --ink: #17191c;
-      --sub: #5f666e;
-      --muted: #858c93;
-      --line: #dce0e3;
-      --soft: #f5f6f7;
       --navy: #202a35;
-      --accent: #e45841;
+      --paper: #f7f6f2;
+      --white: #ffffff;
+      --line: #dcdedc;
+      --sub: #62686e;
+      --muted: #8b9095;
+      --accent: #eb5b43;
       --accent-soft: #fff0ec;
-      --green: #236d56;
-      --green-soft: #e8f4ef;
-      --yellow: #8a6d16;
-      --yellow-soft: #fff6d8;
+      --green: #236e57;
+      --green-soft: #e7f3ee;
+      --yellow: #95741a;
+      --yellow-soft: #fff5d2;
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
     body {
-      margin: 0;
       color: var(--ink);
-      background: var(--canvas);
+      background: #171b20;
       font-family: Pretendard, "Noto Sans KR", "Apple SD Gothic Neo", system-ui, sans-serif;
       word-break: keep-all;
     }
-    a { color: inherit; }
-    button { font: inherit; }
-    .document {
-      width: min(1060px, calc(100% - 32px));
-      margin: 34px auto 70px;
-      background: var(--paper);
-      box-shadow: 0 20px 70px rgba(26, 31, 36, .13);
-    }
-    .toolbar {
-      min-height: 55px;
-      padding: 0 44px;
+    button, a { font: inherit; }
+    button { cursor: pointer; }
+    .deck { width: 100%; height: 100dvh; display: grid; grid-template-rows: 56px minmax(0, 1fr) 70px; }
+
+    .deck-bar {
+      padding: 0 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      border-bottom: 1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.72);
-      background: #171d24;
-      font-size: 11px;
+      color: rgba(255,255,255,.62);
+      background: #171b20;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      font-size: 10px;
+      letter-spacing: .8px;
     }
-    .toolbar strong { color: white; letter-spacing: .3px; }
-    .toolbar div { display: flex; align-items: center; gap: 8px; }
-    .toolbar a, .toolbar button {
-      min-height: 32px;
-      padding: 0 12px;
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid rgba(255,255,255,.2);
-      border-radius: 5px;
-      color: white;
-      background: transparent;
-      text-decoration: none;
-      cursor: pointer;
+    .deck-brand { display: flex; align-items: center; gap: 9px; color: white; font-size: 12px; font-weight: 900; letter-spacing: -.2px; }
+    .deck-brand span { width: 25px; height: 25px; display: grid; place-items: center; border-radius: 7px; color: #171b20; background: white; font-size: 10px; }
+    .deck-bar strong { color: rgba(255,255,255,.88); }
+
+    .stage { position: relative; min-height: 0; overflow: hidden; background: #dfe2e3; }
+    .slide {
+      position: absolute;
+      inset: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding: clamp(30px, 4.2vw, 60px) clamp(24px, 6vw, 88px);
+      display: none;
+      background: var(--paper);
+      opacity: 0;
     }
-    .cover {
-      min-height: 430px;
-      padding: 76px 64px 54px;
-      color: white;
-      background:
-        linear-gradient(120deg, rgba(229,88,65,.92), rgba(229,88,65,.92)) 0 100% / 7px 100% no-repeat,
-        linear-gradient(140deg, #202a35 0%, #2d3945 68%, #222b34 100%);
-    }
-    .doc-label { color: #ff9c88; font-size: 11px; font-weight: 800; letter-spacing: 1.7px; }
-    .cover h1 { max-width: 760px; margin: 36px 0 20px; font-size: clamp(42px, 7vw, 68px); line-height: 1.08; letter-spacing: -3.5px; }
-    .cover p { max-width: 690px; margin: 0; color: rgba(255,255,255,.72); font-size: 17px; line-height: 1.75; }
-    .cover-meta { margin-top: 70px; padding-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; border-top: 1px solid rgba(255,255,255,.2); }
-    .cover-meta span { display: block; color: rgba(255,255,255,.52); font-size: 9px; font-weight: 700; letter-spacing: .8px; }
-    .cover-meta strong { display: block; margin-top: 5px; color: white; font-size: 12px; letter-spacing: 0; }
-    .body { padding: 50px 64px 70px; }
-    .executive {
-      padding: 27px 30px;
-      border: 1px solid #d8dde1;
-      border-left: 5px solid var(--accent);
-      background: #f8f9fa;
-    }
-    .executive h2 { margin: 0 0 13px; font-size: 20px; }
-    .executive p { margin: 0; color: #434a51; font-size: 13px; line-height: 1.85; }
-    .key-lines { margin-top: 14px; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); }
-    .key-lines article { min-height: 122px; padding: 20px; border-right: 1px solid var(--line); }
-    .key-lines article:last-child { border-right: 0; }
-    .key-lines small, .section-no { color: var(--accent); font-size: 9px; font-weight: 900; letter-spacing: 1.1px; }
-    .key-lines strong { display: block; margin: 11px 0 7px; font-size: 16px; line-height: 1.4; }
-    .key-lines p { margin: 0; color: var(--sub); font-size: 11px; line-height: 1.65; }
-    .toc { margin: 34px 0 0; padding: 24px 27px; background: var(--navy); color: white; }
-    .toc h2 { margin: 0 0 16px; font-size: 15px; }
-    .toc-grid { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 35px; }
-    .toc a { padding: 9px 0; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.11); color: rgba(255,255,255,.78); font-size: 11px; text-decoration: none; }
-    .toc a span { color: #ff9c88; font-weight: 800; }
-    .section { padding-top: 56px; }
-    .section-header { margin-bottom: 22px; padding-bottom: 15px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; border-bottom: 2px solid var(--navy); }
-    .section-header h2 { margin: 7px 0 0; font-size: 28px; line-height: 1.2; letter-spacing: -1.3px; }
-    .section-header p { max-width: 430px; margin: 0; color: var(--sub); font-size: 11px; line-height: 1.65; text-align: right; }
-    .subsection { margin-top: 28px; }
-    .subsection h3 { margin: 0 0 12px; font-size: 16px; }
-    .subsection > p { margin: 0; color: var(--sub); font-size: 12px; line-height: 1.75; }
-    .report-list { margin: 0; padding: 0; list-style: none; }
-    .report-list li { position: relative; margin-top: 8px; padding-left: 16px; color: #444b52; font-size: 12px; line-height: 1.65; }
-    .report-list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; background: var(--accent); }
-    .two-col { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
-    .panel { padding: 22px 23px; border: 1px solid var(--line); background: white; }
-    .panel.soft { background: var(--soft); }
-    .panel.alert { border-color: #f0c6bc; background: var(--accent-soft); }
-    .panel h3 { margin: 0 0 11px; font-size: 16px; }
-    .panel p { margin: 0; color: var(--sub); font-size: 11px; line-height: 1.7; }
-    .status {
-      min-height: 22px;
-      padding: 0 8px;
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      font-size: 9px;
-      font-weight: 900;
-      white-space: nowrap;
-    }
-    .status.base { color: var(--green); background: var(--green-soft); }
-    .status.partial { color: var(--yellow); background: var(--yellow-soft); }
-    .status.block { color: #ac3e2b; background: #ffe6df; }
-    .table-wrap { overflow-x: auto; border: 1px solid var(--line); }
-    table { width: 100%; border-collapse: collapse; background: white; }
-    th, td { padding: 13px 14px; border-bottom: 1px solid var(--line); font-size: 11px; line-height: 1.55; text-align: left; vertical-align: top; }
-    tr:last-child th, tr:last-child td { border-bottom: 0; }
-    th { color: #363c42; background: #f1f3f4; font-weight: 800; }
-    td { color: #545b62; }
-    td strong { color: var(--ink); }
-    .flow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
-    .flow article { position: relative; min-height: 116px; padding: 14px 11px; border: 1px solid var(--line); background: var(--soft); }
-    .flow article:not(:last-child)::after { content: ""; position: absolute; z-index: 2; right: -7px; top: 51px; width: 12px; height: 12px; border-top: 2px solid var(--accent); border-right: 2px solid var(--accent); transform: rotate(45deg); background: white; }
+    .slide.active { display: block; opacity: 1; animation: enter .32s ease both; }
+    .slide-inner { width: min(1160px, 100%); min-height: 100%; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; }
+    .slide-no { color: var(--accent); font-size: 10px; font-weight: 900; letter-spacing: 1.4px; }
+    .slide-title { margin: 10px 0 8px; font-size: clamp(28px, 4vw, 50px); line-height: 1.08; letter-spacing: -2.4px; }
+    .slide-lead { max-width: 790px; margin: 0; color: var(--sub); font-size: clamp(12px, 1.5vw, 16px); line-height: 1.7; }
+    .section-head { margin-bottom: clamp(22px, 3vh, 34px); }
+
+    .cover-slide { color: white; background: linear-gradient(135deg, #202a35 0%, #2f3c48 72%, #27313a 100%); }
+    .cover-slide::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 8px; background: var(--accent); }
+    .cover-slide::after { content: ""; position: absolute; width: 440px; height: 440px; right: -170px; top: -210px; border: 1px solid rgba(255,255,255,.14); border-radius: 50%; }
+    .cover-slide .slide-inner { position: relative; z-index: 1; }
+    .cover-label { color: #ff9c88; font-size: 11px; font-weight: 900; letter-spacing: 1.8px; }
+    .cover-slide h1 { max-width: 850px; margin: 30px 0 22px; font-size: clamp(48px, 7.8vw, 92px); line-height: 1.02; letter-spacing: -5px; }
+    .cover-slide p { max-width: 760px; margin: 0; color: rgba(255,255,255,.7); font-size: clamp(14px, 1.7vw, 18px); line-height: 1.75; }
+    .cover-meta { margin-top: clamp(48px, 8vh, 90px); padding-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; border-top: 1px solid rgba(255,255,255,.2); }
+    .cover-meta span { color: rgba(255,255,255,.48); font-size: 9px; font-weight: 700; letter-spacing: 1px; }
+    .cover-meta strong { display: block; margin-top: 6px; color: white; font-size: 12px; letter-spacing: 0; }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .card { padding: clamp(18px, 2vw, 27px); border: 1px solid var(--line); background: var(--white); }
+    .card.dark { color: white; background: var(--navy); border-color: var(--navy); }
+    .card.soft { background: #f0f2f2; }
+    .card.accent { background: var(--accent-soft); border-color: #efc8be; }
+    .card small { color: var(--accent); font-size: 9px; font-weight: 900; letter-spacing: 1.15px; }
+    .card h3 { margin: 12px 0 8px; font-size: clamp(16px, 1.8vw, 22px); line-height: 1.3; letter-spacing: -.7px; }
+    .card p { margin: 0; color: var(--sub); font-size: clamp(10px, 1.15vw, 13px); line-height: 1.7; }
+    .card.dark p { color: rgba(255,255,255,.66); }
+    .report-list { margin: 12px 0 0; padding: 0; list-style: none; }
+    .report-list li { position: relative; margin-top: 7px; padding-left: 15px; color: #4e555b; font-size: clamp(10px, 1.1vw, 12px); line-height: 1.55; }
+    .report-list li::before { content: ""; position: absolute; left: 0; top: 7px; width: 5px; height: 5px; background: var(--accent); }
+    .dark .report-list li { color: rgba(255,255,255,.7); }
+
+    .status-row { display: grid; grid-template-columns: 1.05fr .75fr 1.2fr; border: 1px solid var(--line); border-bottom: 0; background: white; }
+    .status-row:last-child { border-bottom: 1px solid var(--line); }
+    .status-row > * { padding: 11px 14px; border-right: 1px solid var(--line); font-size: 11px; line-height: 1.45; }
+    .status-row > *:last-child { border-right: 0; }
+    .status-row strong { font-size: 11px; }
+    .status-row p { margin: 0; color: var(--sub); }
+    .badge { min-height: 22px; padding: 0 8px; display: inline-flex; align-items: center; border-radius: 999px; font-size: 9px; font-weight: 900; }
+    .badge.base { color: var(--green); background: var(--green-soft); }
+    .badge.partial { color: var(--yellow); background: var(--yellow-soft); }
+
+    .flow { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; }
+    .flow article { position: relative; min-height: 130px; padding: 17px 13px; border-top: 4px solid var(--navy); background: white; box-shadow: inset 0 0 0 1px var(--line); }
+    .flow article:not(:last-child)::after { content: "›"; position: absolute; z-index: 2; right: -9px; top: 47px; width: 18px; height: 28px; display: grid; place-items: center; color: white; background: var(--accent); font-weight: 900; }
     .flow span { color: var(--accent); font-size: 9px; font-weight: 900; }
-    .flow strong { display: block; margin: 11px 0 6px; font-size: 13px; }
-    .flow small { color: var(--sub); font-size: 9px; line-height: 1.5; }
-    .roadmap { display: grid; gap: 8px; }
-    .roadmap article { display: grid; grid-template-columns: 58px 1fr 120px; gap: 18px; align-items: center; padding: 17px 18px; border: 1px solid var(--line); background: white; }
-    .roadmap-num { width: 44px; height: 44px; display: grid; place-items: center; color: white; background: var(--navy); font-size: 13px; font-weight: 900; }
-    .roadmap h3 { margin: 0 0 4px; font-size: 15px; }
-    .roadmap p { margin: 0; color: var(--sub); font-size: 10px; line-height: 1.6; }
-    .roadmap time { color: var(--muted); font-size: 10px; font-weight: 800; text-align: right; }
+    .flow strong { display: block; margin: 15px 0 6px; font-size: 14px; }
+    .flow small { display: block; color: var(--sub); font-size: 9px; line-height: 1.5; }
+
+    .media-map { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; align-items: stretch; }
+    .media-core { grid-row: span 2; padding: 32px; display: flex; flex-direction: column; justify-content: center; color: white; background: var(--navy); }
+    .media-core span { color: #ff9c88; font-size: 10px; font-weight: 900; letter-spacing: 1.2px; }
+    .media-core strong { margin: 12px 0; font-size: clamp(26px, 3.2vw, 40px); line-height: 1.1; }
+    .media-core p { margin: 0; color: rgba(255,255,255,.67); font-size: 12px; line-height: 1.7; }
+    .media-types { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .media-types article { min-height: 125px; padding: 18px; border: 1px solid var(--line); background: white; }
+    .media-types b { font-size: 15px; }
+    .media-types p { margin: 8px 0 0; color: var(--sub); font-size: 10px; line-height: 1.55; }
+
+    .collection-path { display: grid; grid-template-columns: 1fr 54px 1fr 54px 1fr; align-items: center; gap: 8px; }
+    .collection-path article { min-height: 180px; padding: 24px; border: 1px solid var(--line); background: white; }
+    .collection-path span { display: block; color: var(--accent); font-size: 9px; font-weight: 900; }
+    .collection-path strong { display: block; margin: 14px 0 9px; font-size: 20px; }
+    .collection-path p { margin: 0; color: var(--sub); font-size: 11px; line-height: 1.65; }
+    .path-arrow { color: var(--accent); font-size: 34px; font-weight: 300; text-align: center; }
+
+    .roadmap { display: grid; gap: 7px; }
+    .roadmap article { display: grid; grid-template-columns: 54px 1fr 125px; gap: 17px; align-items: center; padding: 13px 16px; border: 1px solid var(--line); background: white; }
+    .roadmap-num { width: 41px; height: 41px; display: grid; place-items: center; color: white; background: var(--navy); font-size: 12px; font-weight: 900; }
+    .roadmap h3 { margin: 0 0 3px; font-size: 14px; }
+    .roadmap p { margin: 0; color: var(--sub); font-size: 9px; line-height: 1.5; }
+    .roadmap time { color: var(--muted); font-size: 9px; font-weight: 800; text-align: right; }
+
     .regions { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-    .regions article { padding: 16px 13px; border-top: 4px solid var(--navy); background: var(--soft); }
-    .regions strong { font-size: 15px; }
-    .regions p { margin: 7px 0 0; color: var(--sub); font-size: 10px; line-height: 1.5; }
-    .target { margin-top: 14px; padding: 17px 19px; border-left: 4px solid var(--accent); color: #41484f; background: var(--accent-soft); font-size: 12px; line-height: 1.75; }
+    .regions article { min-height: 118px; padding: 18px 14px; border-top: 5px solid var(--navy); background: white; box-shadow: inset 0 0 0 1px var(--line); }
+    .regions strong { font-size: 18px; }
+    .regions p { margin: 9px 0 0; color: var(--sub); font-size: 10px; line-height: 1.55; }
+    .target { margin-top: 13px; padding: 16px 19px; border-left: 4px solid var(--accent); color: #41484f; background: var(--accent-soft); font-size: 11px; line-height: 1.7; }
+
+    .creator-loop { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .creator-loop .card { min-height: 270px; }
+    .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 13px; }
+    .metric-grid span { padding: 11px; border: 1px solid var(--line); background: white; color: #4e555b; font-size: 10px; font-weight: 800; text-align: center; }
+
+    .global-steps { display: grid; grid-template-columns: 1fr 56px 1fr; gap: 12px; align-items: center; }
+    .global-step { min-height: 280px; padding: 28px; border: 1px solid var(--line); background: white; }
+    .global-step.primary { color: white; background: var(--navy); border-color: var(--navy); }
+    .global-step small { color: var(--accent); font-size: 9px; font-weight: 900; letter-spacing: 1px; }
+    .global-step h3 { margin: 14px 0 10px; font-size: 24px; }
+    .global-step p { margin: 0; color: var(--sub); font-size: 11px; line-height: 1.7; }
+    .global-step.primary p, .global-step.primary li { color: rgba(255,255,255,.7); }
+    .global-arrow { color: var(--accent); font-size: 40px; text-align: center; }
+
+    .provider-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .provider-grid article { min-height: 142px; padding: 18px; border: 1px solid var(--line); background: white; }
+    .provider-grid small { color: var(--accent); font-size: 9px; font-weight: 900; }
+    .provider-grid strong { display: block; margin: 9px 0 6px; font-size: 15px; }
+    .provider-grid p { margin: 0; color: var(--sub); font-size: 10px; line-height: 1.55; }
+
+    .platform-split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .platform { min-height: 300px; padding: 28px; border: 1px solid var(--line); background: white; }
+    .platform.app { color: white; background: var(--navy); border-color: var(--navy); }
+    .platform > span { color: var(--accent); font-size: 9px; font-weight: 900; letter-spacing: 1px; }
+    .platform h3 { margin: 13px 0 8px; font-size: 25px; }
+    .platform p { margin: 0; color: var(--sub); font-size: 11px; line-height: 1.65; }
+    .platform.app p, .platform.app li { color: rgba(255,255,255,.7); }
+
     .plan { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .plan article { padding: 20px; border: 1px solid var(--line); }
+    .plan article { min-height: 310px; padding: 24px 21px; border: 1px solid var(--line); background: white; }
     .plan span { color: var(--accent); font-size: 9px; font-weight: 900; }
-    .plan h3 { margin: 8px 0 10px; font-size: 15px; }
-    .plan ol { margin: 0; padding-left: 17px; }
-    .plan li { margin: 7px 0; color: var(--sub); font-size: 10px; line-height: 1.55; }
-    .conclusion { margin-top: 56px; padding: 32px; color: white; background: var(--navy); }
-    .conclusion small { color: #ff9c88; font-size: 9px; font-weight: 900; letter-spacing: 1.2px; }
-    .conclusion h2 { margin: 12px 0; font-size: 25px; letter-spacing: -1px; }
-    .conclusion p { margin: 0; color: rgba(255,255,255,.72); font-size: 12px; line-height: 1.8; }
-    .footnote { margin-top: 24px; color: var(--muted); font-size: 9px; line-height: 1.6; text-align: center; }
+    .plan h3 { margin: 11px 0 13px; font-size: 18px; }
+    .plan ol { margin: 0; padding-left: 18px; }
+    .plan li { margin: 8px 0; color: var(--sub); font-size: 11px; line-height: 1.55; }
+
+    .final-slide { color: white; background: var(--navy); }
+    .final-slide::after { content: ""; position: absolute; inset: 0 0 0 auto; width: 9px; background: var(--accent); }
+    .final-slide .slide-no { color: #ff9c88; }
+    .final-slide .slide-title { max-width: 920px; font-size: clamp(38px, 6vw, 72px); letter-spacing: -4px; }
+    .final-slide .slide-lead { color: rgba(255,255,255,.67); }
+    .decision-line { margin-top: 38px; padding: 22px 24px; border: 1px solid rgba(255,255,255,.2); color: white; background: rgba(255,255,255,.055); font-size: clamp(13px, 1.6vw, 18px); line-height: 1.7; }
+    .avoid-line { margin-top: 18px; color: rgba(255,255,255,.47); font-size: 10px; line-height: 1.7; }
+
+    .controls {
+      padding: 0 26px;
+      display: grid;
+      grid-template-columns: 220px minmax(120px, 1fr) 220px;
+      align-items: center;
+      gap: 22px;
+      color: white;
+      background: #171b20;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .control-links { display: flex; gap: 8px; }
+    .control-links a, .control-links button { min-height: 34px; padding: 0 11px; display: inline-flex; align-items: center; border: 1px solid rgba(255,255,255,.16); border-radius: 5px; color: rgba(255,255,255,.73); background: transparent; font-size: 9px; font-weight: 800; text-decoration: none; }
+    .progress-wrap { display: grid; grid-template-columns: 58px 1fr; gap: 12px; align-items: center; }
+    .slide-count { color: rgba(255,255,255,.55); font-size: 10px; font-variant-numeric: tabular-nums; }
+    .slide-count strong { color: white; font-size: 13px; }
+    .progress { height: 3px; overflow: hidden; background: rgba(255,255,255,.14); }
+    .progress span { height: 100%; display: block; background: var(--accent); transition: width .25s ease; }
+    .nav-buttons { display: flex; justify-content: flex-end; gap: 8px; }
+    .nav-buttons button { width: 45px; height: 38px; border: 1px solid rgba(255,255,255,.18); border-radius: 5px; color: white; background: transparent; font-size: 18px; }
+    .nav-buttons button:last-child { color: #171b20; background: white; border-color: white; }
+    .nav-buttons button:disabled { opacity: .25; cursor: default; }
+    .keyboard-hint { color: rgba(255,255,255,.32); font-size: 8px; }
+
+    @keyframes enter { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: translateX(0); } }
 
     @media (max-width: 760px) {
-      .document { width: 100%; margin: 0; box-shadow: none; }
-      .toolbar { padding: 0 18px; }
-      .toolbar > span { display: none; }
-      .cover { min-height: 470px; padding: 54px 24px 34px; }
-      .cover h1 { font-size: 44px; letter-spacing: -2.5px; }
-      .cover p { font-size: 14px; }
-      .cover-meta { margin-top: 60px; grid-template-columns: 1fr; gap: 9px; }
-      .cover-meta span { display: grid; grid-template-columns: 90px 1fr; align-items: center; }
+      .deck { grid-template-rows: 48px minmax(0, 1fr) 64px; }
+      .deck-bar { padding: 0 14px; }
+      .deck-bar > span { display: none; }
+      .slide { padding: 26px 17px 32px; }
+      .slide-inner { justify-content: flex-start; }
+      .cover-slide .slide-inner, .final-slide .slide-inner { justify-content: center; }
+      .cover-slide h1 { font-size: 47px; letter-spacing: -3px; }
+      .cover-meta { grid-template-columns: 1fr; gap: 9px; margin-top: 45px; }
+      .cover-meta span { display: grid; grid-template-columns: 86px 1fr; align-items: center; }
       .cover-meta strong { margin: 0; }
-      .body { padding: 30px 18px 50px; }
-      .key-lines, .two-col, .plan { grid-template-columns: 1fr; }
-      .key-lines article { min-height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
-      .key-lines article:last-child { border-bottom: 0; }
-      .toc-grid { grid-template-columns: 1fr; }
-      .section { padding-top: 45px; }
-      .section-header { align-items: flex-start; flex-direction: column; gap: 8px; }
-      .section-header p { text-align: left; }
+      .grid-3, .grid-2, .creator-loop, .provider-grid, .platform-split, .plan { grid-template-columns: 1fr; }
       .flow { grid-template-columns: repeat(2, 1fr); }
       .flow article:nth-child(2n)::after { display: none; }
-      .roadmap article { grid-template-columns: 48px 1fr; gap: 12px; }
+      .media-map, .global-steps { grid-template-columns: 1fr; }
+      .media-core { grid-row: auto; }
+      .global-arrow { transform: rotate(90deg); }
+      .collection-path { grid-template-columns: 1fr; }
+      .path-arrow { transform: rotate(90deg); }
+      .roadmap article { grid-template-columns: 48px 1fr; gap: 10px; }
       .roadmap time { grid-column: 2; text-align: left; }
       .regions { grid-template-columns: repeat(2, 1fr); }
-      th, td { padding: 11px 9px; font-size: 10px; }
+      .status-row { min-width: 620px; }
+      .controls { padding: 0 12px; grid-template-columns: auto 1fr auto; gap: 10px; }
+      .control-links button, .keyboard-hint { display: none; }
+      .control-links a { padding: 0 9px; }
+      .progress-wrap { grid-template-columns: 45px 1fr; gap: 7px; }
+      .nav-buttons button { width: 39px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide.active { animation: none; }
+      .progress span { transition: none; }
     }
 
     @media print {
-      @page { size: A4; margin: 13mm; }
-      body { background: white; }
-      .document { width: 100%; margin: 0; box-shadow: none; }
-      .toolbar { display: none; }
-      .cover { min-height: 255mm; print-color-adjust: exact; }
-      .body { padding: 12mm 0 0; }
-      .section { break-before: page; padding-top: 0; }
-      .panel, .roadmap article, .plan article, table { break-inside: avoid; }
-      .conclusion { print-color-adjust: exact; }
+      @page { size: 16in 9in; margin: 0; }
+      html, body { height: auto; overflow: visible; background: white; }
+      .deck { height: auto; display: block; }
+      .deck-bar, .controls { display: none; }
+      .stage { overflow: visible; }
+      .slide, .slide.active { position: relative; inset: auto; width: 16in; height: 9in; padding: .65in .8in; display: block !important; overflow: hidden; opacity: 1; animation: none; page-break-after: always; print-color-adjust: exact; }
+      .slide:last-child { page-break-after: auto; }
     }
   </style>
 </head>
 <body>
-  <article class="document">
-    <nav class="toolbar" aria-label="문서 도구">
-      <strong>SPOTLOG · INTERNAL REPORT</strong>
-      <span>서비스 확장 전략 / 검토용</span>
-      <div><a href="./#home">서비스 화면</a><button type="button" onclick="window.print()">인쇄·PDF 저장</button></div>
-    </nav>
-
-    <header class="cover">
-      <div class="doc-label">PRODUCT STRATEGY REPORT</div>
-      <h1>Spotlog 서비스<br />확장 전략 보고서</h1>
-      <p>현재 모바일웹·하이브리드 앱의 구현 범위를 기준으로 상용 서비스 전환, 국내 콘텐츠 확보 및 외국인 관광객 대상 확장 방안을 정리함.</p>
-      <div class="cover-meta">
-        <span>문서 기준일<strong>2026.09.05</strong></span>
-        <span>작성 목적<strong>향후 개발 우선순위 결정</strong></span>
-        <span>문서 상태<strong>검토용 초안 v1.0</strong></span>
-      </div>
+  <main class="deck">
+    <header class="deck-bar">
+      <div class="deck-brand"><span>S</span>spotlog</div>
+      <span>PRODUCT STRATEGY PRESENTATION</span>
+      <strong>서비스 확장 전략 · 검토용</strong>
     </header>
 
-    <div class="body">
-      <section class="executive" aria-labelledby="executive-title">
-        <h2 id="executive-title">요약 의견</h2>
-        <p>Spotlog의 핵심을 랜드마크 영상 서비스가 아닌 <strong>실제 여행기를 읽고 자기 일정으로 복사하여 현장에서 사용하는 로컬 여행 가이드</strong>로 정의함. 현재 구현한 탐색·저장·일정 편집·여행기 상세 UI는 유지함. 상용화를 위해 회원·서버 저장·미디어 업로드·장소 검색·운영 안전 기능을 우선 구축해야 함. 국내 콘텐츠와 사용 흐름을 먼저 확보한 뒤 검증된 여행기에 영어 번역과 외국인 현장 정보를 추가하는 순서가 적절함.</p>
-      </section>
-
-      <section class="key-lines" aria-label="핵심 추진 방향">
-        <article><small>PRODUCT</small><strong>여행기를 중심으로 구성함</strong><p>장소는 일정의 재료로 활용함. 글·사진·동선이 결합된 경험을 최종 콘텐츠로 정의함.</p></article>
-        <article><small>SEQUENCE</small><strong>국내 운영 기반을 먼저 완성함</strong><p>서울·부산·제주·경주·강릉에 집중하여 검증 가능한 콘텐츠와 사용 데이터를 확보함.</p></article>
-        <article><small>PLATFORM</small><strong>웹 본체와 앱 기능을 분리함</strong><p>탐색·작성은 모바일웹을 유지함. 촬영·위치·오프라인·푸시는 앱이 담당함.</p></article>
-      </section>
-
-      <section class="toc" aria-label="목차">
-        <h2>목차</h2>
-        <div class="toc-grid">
-          <a href="#status">현재 구성 및 판단 <span>01</span></a>
-          <a href="#model">서비스 확장 모델 <span>02</span></a>
-          <a href="#roadmap">단계별 추진 순서 <span>03</span></a>
-          <a href="#content">국내 콘텐츠 확보 <span>04</span></a>
-          <a href="#global">외국인 대상 확장 <span>05</span></a>
-          <a href="#technology">데이터·기술 구성 <span>06</span></a>
-          <a href="#execution">90일 우선 실행안 <span>07</span></a>
-          <a href="#decision">최종 제안 <span>08</span></a>
+    <div class="stage" id="stage">
+      <section class="slide cover-slide active" data-title="표지" aria-hidden="false">
+        <div class="slide-inner">
+          <span class="cover-label">PRODUCT STRATEGY PRESENTATION</span>
+          <h1>Spotlog 서비스<br />확장 전략</h1>
+          <p>현재 모바일웹·하이브리드 앱의 구현 범위를 기준으로 상용 서비스 전환, 국내 콘텐츠 확보 및 외국인 관광객 대상 확장 방안을 정리함.</p>
+          <div class="cover-meta"><span>기준일<strong>2026.09.05</strong></span><span>작성 목적<strong>향후 개발 우선순위 결정</strong></span><span>문서 상태<strong>검토용 초안 v1.0</strong></span></div>
         </div>
       </section>
 
-      <section class="section" id="status">
-        <header class="section-header"><div><span class="section-no">01 · CURRENT STATUS</span><h2>현재 구성 및 판단</h2></div><p>현재 화면은 제품 방향을 검증하는 기준선으로 활용함. 다만 데이터가 브라우저 내부에 있으므로 다중 사용자 서비스로 판단할 수 없음.</p></header>
-        <div class="two-col">
-          <article class="panel soft"><h3>유지 대상</h3><ul class="report-list"><li>추천 일정과 여행자 여행기가 롤링되는 메인 유지함</li><li>지역·작성자·기간별 여행기 검색 흐름 유지함</li><li>영상·지역 안내를 통한 장소 발견과 저장 유지함</li><li>여러 여행, DAY 추가·삭제, 글·사진·장소 편집 유지함</li><li>여행 상세, 지도 경로, 전체 여행 복사 흐름 유지함</li><li>댓글·응원·작성자 등급·알림 설정 UI 재사용함</li></ul></article>
-          <article class="panel alert"><h3>상용화 전 교체·추가 대상</h3><ul class="report-list"><li>localStorage를 회원 기반 서버 저장으로 교체할 필요 있음</li><li>사진·영상 업로드, 변환, CDN 제공 기능 필요함</li><li>조회·담김·댓글·등급을 서버 이벤트로 집계할 필요 있음</li><li>카카오 장소 검색을 서버에서 연동할 필요 있음</li><li>원격 푸시, 딥링크, 신고·차단·운영 도구 필요함</li><li>실제 AI 호출과 비용·오류 통제 기능 필요함</li></ul></article>
-        </div>
-        <div class="subsection"><h3>기능별 현재 상태</h3><div class="table-wrap"><table><thead><tr><th>구분</th><th>현재 상태</th><th>향후 조치</th></tr></thead><tbody>
-          <tr><td>여행·장소 저장</td><td><span class="status partial">부분 구현</span> localStorage 사용 중</td><td>서버 저장소와 계정 동기화로 교체 필요함</td></tr>
-          <tr><td>지도·경로</td><td><span class="status base">기준선</span> MapLibre·OSM·OSRM 사용 중</td><td>개발용으로 유지함. 운영 공급자와 SLA 별도 결정 필요함</td></tr>
-          <tr><td>AI 일정</td><td><span class="status base">기준선</span> 거리·체류시간 기반 로컬 생성</td><td>안전한 대체 수단으로 유지함. 서버 AI 선택 추가함</td></tr>
-          <tr><td>소셜·푸시</td><td><span class="status partial">부분 구현</span> 화면과 로컬 알림만 존재함</td><td>실제 이벤트·기기 토큰·중복 방지 서버 필요함</td></tr>
-          <tr><td>하이브리드 앱</td><td><span class="status partial">부분 구현</span> WebView APK 확인 완료함</td><td>오프라인·위치·촬영 기능 추가 후 스토어 앱으로 판단함</td></tr>
-        </tbody></table></div></div>
-      </section>
-
-      <section class="section" id="model">
-        <header class="section-header"><div><span class="section-no">02 · SERVICE MODEL</span><h2>서비스 확장 모델</h2></div><p>사용자가 콘텐츠를 보는 단계에서 끝나지 않고 실제 여행과 다음 여행기 생산으로 이어지는 반복 구조를 구축함.</p></header>
-        <div class="flow" aria-label="핵심 서비스 흐름">
-          <article><span>STEP 1</span><strong>발견</strong><small>영상·사진·검색·추천 여행기 제공함</small></article>
-          <article><span>STEP 2</span><strong>빠른 저장</strong><small>목적지 지정 없이 장소 저장함</small></article>
-          <article><span>STEP 3</span><strong>여행별 분류</strong><small>지역·기간별 보관함에 정리함</small></article>
-          <article><span>STEP 4</span><strong>일정 생성</strong><small>복사 또는 AI 초안 생성함</small></article>
-          <article><span>STEP 5</span><strong>실제 여행</strong><small>길찾기·완료·현장 기록 제공함</small></article>
-          <article><span>STEP 6</span><strong>여행기 발행</strong><small>글·사진·장소·동선 결합함</small></article>
-          <article><span>STEP 7</span><strong>복사·반응</strong><small>담김·댓글·등급을 작성자에게 환류함</small></article>
-        </div>
-        <div class="subsection"><h3>영상·사진·안내 콘텐츠 운영 기준</h3><div class="two-col">
-          <article class="panel"><h3>표현 방식 통합</h3><ul class="report-list"><li>풀영상, 사진 모션, 사진 이야기, 안내 목록을 병행함</li><li>모든 형식에 동일한 Spotlog 장소 ID를 연결함</li><li>모든 형식에서 동일한 저장 버튼과 저장 결과를 사용함</li><li>원본 영상 보유 시 풀영상을 우선 활용함</li><li>사진만 보유한 경우 모션·슬라이드 방식으로 제공함</li><li>장소가 연결되지 않은 영상은 발견 피드에서 제외함</li></ul></article>
-          <article class="panel soft"><h3>저장 방식 통합</h3><ul class="report-list"><li>발견 단계에서는 빠른 저장함에 즉시 저장함</li><li>저장 단계에서 여행 선택을 강제하지 않음</li><li>지역을 자동 분류하여 저장 목록에 표시함</li><li>동일 지역 3곳 이상 저장 시 여행 묶음을 제안함</li><li>일정 생성 직전에 사용할 지역·보관함을 확정함</li><li>저장 카드에 포함 여행과 DAY를 명확히 표시함</li></ul></article>
-        </div></div>
-      </section>
-
-      <section class="section" id="roadmap">
-        <header class="section-header"><div><span class="section-no">03 · IMPLEMENTATION ROADMAP</span><h2>단계별 추진 순서</h2></div><p>개별 화면을 단독 추가하지 않음. 다음 기능이 의존할 수 있는 데이터 기반부터 순차 구축함.</p></header>
-        <div class="roadmap">
-          <article><div class="roadmap-num">P0</div><div><h3>회원·DB·권한·미디어 기반 구축</h3><p>로그인, RLS, 서버 저장, 로컬 데이터 이전, 사진·영상 업로드 구성함. 공개 서비스 출시 차단 항목으로 지정함.</p></div><time>최우선</time></article>
-          <article><div class="roadmap-num">P1</div><div><h3>장소 검색 및 여행별 보관함 구축</h3><p>카카오 장소 검색을 서버에서 연결함. 한글명·주소·좌표를 고정 저장하고 빠른 저장함과 여행별 컬렉션을 도입함.</p></div><time>내부 알파</time></article>
-          <article><div class="roadmap-num">P2</div><div><h3>편집·부분 복사·AI 기능 완성</h3><p>자동 저장, DAY 이동·복제, 전체·DAY·장소 단위 복사, 검증 가능한 서버 AI 일정을 구현함.</p></div><time>국내 베타</time></article>
-          <article><div class="roadmap-num">P3</div><div><h3>소셜·푸시·운영 안전 구축</h3><p>조회·담김·댓글·팔로우, 목표 푸시, 신고·차단·운영자 처리 기능을 구축함.</p></div><time>국내 공개 전</time></article>
-          <article><div class="roadmap-num">P4</div><div><h3>앱 전용 실제 여행 모드 구축</h3><p>오프라인 일정, 현재 위치, 방문 완료, 사진·메모 대기열, 딥링크를 제공함. 단순 WebView 구조를 보완함.</p></div><time>앱 심사 전</time></article>
-          <article><div class="roadmap-num">P5</div><div><h3>영어 로컬 가이드 베타 추진</h3><p>검증된 국내 여행기에 영어 번역, 현장 정보, 지도 앱 선택, 한글 주소, 긴급 안내를 추가함.</p></div><time>국내 데이터 확보 후</time></article>
+      <section class="slide" data-title="핵심 결론" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">01 · EXECUTIVE SUMMARY</span><h2 class="slide-title">핵심 결론</h2><p class="slide-lead">화면을 추가하는 확장보다 현재 흐름이 실제 사용자 데이터로 작동하도록 전환하는 작업을 우선함.</p></header>
+          <div class="grid-3">
+            <article class="card dark"><small>PRODUCT</small><h3>여행기를 중심으로 구성함</h3><p>랜드마크 영상은 발견 수단으로 활용함. 글·사진·장소·동선이 결합된 실제 여행기를 최종 콘텐츠로 정의함.</p></article>
+            <article class="card"><small>SEQUENCE</small><h3>국내 운영 기반을 먼저 완성함</h3><p>국내 콘텐츠와 복사·완주 데이터를 확보함. 검증된 여행기부터 영어 번역과 외국인 현장 정보를 추가함.</p></article>
+            <article class="card accent"><small>PLATFORM</small><h3>웹 본체와 앱 역할을 분리함</h3><p>탐색·작성은 모바일웹을 유지함. 촬영·위치·오프라인·푸시·딥링크는 앱이 담당함.</p></article>
+          </div>
         </div>
       </section>
 
-      <section class="section" id="content">
-        <header class="section-header"><div><span class="section-no">04 · CONTENT ACQUISITION</span><h2>국내 콘텐츠 확보 방안</h2></div><p>전국 장소 수 확대보다 실제로 따라갈 수 있는 완성형 여행기 확보를 우선함.</p></header>
-        <div class="regions">
-          <article><strong>서울</strong><p>도심 산책·성수·궁·야간 코스 중심으로 구성함</p></article>
-          <article><strong>부산</strong><p>해안·시장·언덕 마을 이동 동선 중심으로 구성함</p></article>
-          <article><strong>제주</strong><p>동서 권역·날씨 대체 일정 중심으로 구성함</p></article>
-          <article><strong>경주</strong><p>역사·자전거·야간 유적 중심으로 구성함</p></article>
-          <article><strong>강릉</strong><p>바다·카페·당일·1박 코스 중심으로 구성함</p></article>
-        </div>
-        <div class="target"><strong>초기 공개 목표</strong> · 지역당 12~20개, 전체 60~100개의 완성형 여행기를 확보함. 당일치기·1박 2일·2박 3일 유형을 지역마다 확보함. 여행기별 원본 사진, 3곳 이상 장소, 이동 순서, 체류시간, 장점, 아쉬운 점을 포함함.</div>
-        <div class="subsection"><div class="two-col">
-          <article class="panel"><h3>수급 방식</h3><ul class="report-list"><li>운영자가 지역별 대표 여행기를 먼저 제작함</li><li>지역당 2~5명의 초기 창작자를 모집함</li><li>월별 주제와 작성 템플릿을 제공함</li><li>호텔·게스트하우스에는 주변 하루 동선 작성을 요청함</li><li>샘플·일반 글·광고·협찬을 명확히 구분함</li></ul></article>
-          <article class="panel soft"><h3>작성자 동기 부여</h3><ul class="report-list"><li>실제 전체·DAY·장소 담김 수를 제공함</li><li>완독률과 실제 여행 완료 반응을 제공함</li><li>댓글·응원·작성자 고정 댓글을 제공함</li><li>초기 창작자·지역 가이드 배지를 제공함</li><li>홈 추천과 지역 대표 노출 기회를 제공함</li><li>가짜 조회수와 가짜 반응을 사용하지 않음</li></ul></article>
-        </div></div>
-      </section>
-
-      <section class="section" id="global">
-        <header class="section-header"><div><span class="section-no">05 · GLOBAL EXPANSION</span><h2>외국인 대상 확장 방안</h2></div><p>국내 콘텐츠를 별도 서비스로 교체하지 않음. 동일 여행기에 번역 및 외국인 현장 정보 계층을 추가함.</p></header>
-        <div class="table-wrap"><table><thead><tr><th>구분</th><th>적용 방안</th><th>판단</th></tr></thead><tbody>
-          <tr><td>콘텐츠</td><td><strong>한국어 원문과 영어 번역을 함께 관리함</strong></td><td>인기·신고율로 검증된 여행기부터 번역함. 원문 수정 시 재검토 상태로 변경함.</td></tr>
-          <tr><td>장소 정보</td><td><strong>번역명과 한글 원명·주소를 병기함</strong></td><td>현지인과 택시 기사에게 보여줄 큰 글씨와 복사 기능을 제공함.</td></tr>
-          <tr><td>지도</td><td><strong>앱 내 동선과 외부 지도 앱 선택을 병행함</strong></td><td>카카오맵을 국내 기본으로 안내함. Google·Apple·네이버 선택을 제공함.</td></tr>
-          <tr><td>현장 정보</td><td><strong>출구·예약·결제·짐·접근성 정보를 구조화함</strong></td><td>공식 사실과 작성자 방문 당시 경험을 구분하고 확인일을 표시함.</td></tr>
-          <tr><td>오프라인</td><td><strong>일정·좌표·한글 주소·작은 이미지를 저장함</strong></td><td>인터넷 장애 상황에서도 일정과 112·119·1330 정보를 확인하게 함.</td></tr>
-        </tbody></table></div>
-        <div class="subsection"><h3>언어 적용 순서</h3><ul class="report-list"><li>1단계에서 한국어 UI와 국내 콘텐츠를 완성함</li><li>2단계에서 한국어·영어 베타를 운영함</li><li>3단계에서 일본어를 추가함</li><li>4단계에서 중국어 간체·번체를 추가함</li><li>추가 언어는 실제 방문자·검색·복사 데이터를 기준으로 결정함</li></ul></div>
-      </section>
-
-      <section class="section" id="technology">
-        <header class="section-header"><div><span class="section-no">06 · DATA & TECHNOLOGY</span><h2>데이터·기술 구성 원칙</h2></div><p>하나의 지도 또는 장소 공급자가 모든 정보를 제공한다고 가정하지 않음. 목적별 공급자를 분리함.</p></header>
-        <div class="table-wrap"><table><thead><tr><th>공급자·영역</th><th>사용 범위</th><th>운영 원칙</th></tr></thead><tbody>
-          <tr><td>Kakao Local</td><td>국내 업체명·카테고리·주소·좌표·전화·상세 URL</td><td>서버 함수에서 호출함. 사진·다국어 콘텐츠 공급자로 사용하지 않음.</td></tr>
-          <tr><td>한국관광공사</td><td>다국어 관광 설명 및 사용 허가 범위가 명확한 관광 이미지</td><td>관광지 기준 정보에 활용함. 출처와 확인일을 저장함.</td></tr>
-          <tr><td>Google Places</td><td>영어 장소 검색 보조 및 사진이 필요한 일부 장소</td><td>비용과 필드 정책을 고려하여 선택적으로 호출함.</td></tr>
-          <tr><td>사용자 입력</td><td>실제 경험·평가·사진·숙소 선택 이유·이동 팁</td><td>공식 정보와 시각적으로 구분함. 방문 시점과 확인일을 표시함.</td></tr>
-          <tr><td>경로 공급자</td><td>거리·이동시간·경로선</td><td>실시간 교통 반영 여부를 명시함. 장애 시 예상치로 대체함.</td></tr>
-          <tr><td>생성형 AI</td><td>일정 분배·번역 초안·글 구조화</td><td>가격·영업시간·업체 사실을 생성하지 못하도록 검증함.</td></tr>
-        </tbody></table></div>
-        <div class="subsection"><h3>하이브리드 앱 역할 분담</h3><div class="two-col">
-          <article class="panel"><h3>모바일웹 담당</h3><ul class="report-list"><li>여행기 탐색과 공개 상세 제공함</li><li>장소 검색과 보관함 관리를 제공함</li><li>여행 일정 및 여행기 편집을 제공함</li><li>공유 링크와 검색 노출을 담당함</li></ul></article>
-          <article class="panel soft"><h3>앱 담당</h3><ul class="report-list"><li>카메라 촬영과 미디어 업로드를 담당함</li><li>현재 위치와 실제 여행 모드를 담당함</li><li>저장 여행 오프라인 열람을 담당함</li><li>원격 푸시와 딥링크를 담당함</li><li>OS 공유 시트와 지도 앱 선택을 담당함</li></ul></article>
-        </div></div>
-      </section>
-
-      <section class="section" id="execution">
-        <header class="section-header"><div><span class="section-no">07 · FIRST 90 DAYS</span><h2>90일 우선 실행안</h2></div><p>화면 추가보다 실제 데이터가 생성·저장·조회되는 단일 완성 흐름 구축을 우선함.</p></header>
-        <div class="plan">
-          <article><span>1~4주</span><h3>서버 기준선 구축</h3><ol><li>개발·스테이징 환경 분리함</li><li>회원·여행·장소·보관함 DB 구성함</li><li>RLS 허용·거부 테스트 작성함</li><li>로컬 데이터 1회 이전 구현함</li><li>사진 업로드 최소 기능 구축함</li></ol></article>
-          <article><span>5~8주</span><h3>장소→보관함 흐름 구축</h3><ol><li>카카오 Local 서버 검색 연결함</li><li>직접 등록과 중복 처리를 구현함</li><li>빠른 저장함과 여행별 보관함 구현함</li><li>저장 장소→일정 생성 연결함</li><li>한국어·영어 장소 필드를 확정함</li></ol></article>
-          <article><span>9~12주</span><h3>내부 알파 검증</h3><ol><li>두 기기 동기화를 검증함</li><li>자동 저장과 작성 복구를 구현함</li><li>전체·DAY·장소 복사 이벤트를 기록함</li><li>5개 지역 콘텐츠 제작을 시작함</li><li>E2E 테스트와 비용 계측을 적용함</li></ol></article>
-        </div>
-        <div class="subsection"><h3>주요 성과 지표</h3><div class="table-wrap"><table><thead><tr><th>영역</th><th>확인 지표</th></tr></thead><tbody>
-          <tr><td>발견</td><td>영상·사진·검색별 장소 저장률을 확인함</td></tr>
-          <tr><td>일정</td><td>저장 장소의 여행별 분류율과 일정 생성률을 확인함</td></tr>
-          <tr><td>여행기</td><td>상세 완독률, 전체·DAY·장소 복사 전환율을 확인함</td></tr>
-          <tr><td>창작자</td><td>발행 완료율, 재발행률, 실제 담김 수를 확인함</td></tr>
-          <tr><td>품질·운영</td><td>신고율, 장소 정보 최신성, 미디어·지도·AI 비용을 확인함</td></tr>
-        </tbody></table></div></div>
-      </section>
-
-      <section class="section" id="decision">
-        <header class="section-header"><div><span class="section-no">08 · DECISION</span><h2>최종 제안</h2></div><p>현재 UI를 유지하면서 저장소와 공급자 연결을 상용 구조로 전환함.</p></header>
-        <div class="two-col">
-          <article class="panel"><h3>다음 구현 단위</h3><ul class="report-list"><li>Supabase 개발 환경과 권한 구조를 구성함</li><li>로그인 후 기존 로컬 데이터를 서버로 이전함</li><li>카카오 장소를 서버에서 검색함</li><li>검색 장소를 여행별 보관함에 저장함</li><li>선택한 한 보관함으로 일정을 생성함</li><li>한국어·영어 장소 데이터 구조를 동시에 검증함</li></ul></article>
-          <article class="panel alert"><h3>당분간 제외할 범위</h3><ul class="report-list"><li>호텔 가격 비교·객실 재고·내부 예약·결제를 제외함</li><li>전국 업체 정보 자체 구축을 제외함</li><li>자체 턴바이턴 내비게이션을 제외함</li><li>항상 켜지는 위치 추적을 제외함</li><li>실제 서버 집계 전 포인트 경제 확장을 제외함</li><li>모든 언어 동시 지원을 제외함</li><li>AI가 생성한 가격·영업시간·업체 평가 표시를 제외함</li></ul></article>
+      <section class="slide" data-title="현재 구성" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">02 · CURRENT STATUS</span><h2 class="slide-title">현재 구성 및 판단</h2><p class="slide-lead">현재 UI는 제품 기준선으로 유지함. 다중 사용자·운영 서비스에 필요한 서버 기반은 별도로 구축할 필요 있음.</p></header>
+          <div class="grid-2">
+            <article class="card"><small>KEEP</small><h3>이미 구현한 흐름</h3><ul class="report-list"><li>추천·여행자 일정이 롤링되는 메인 유지함</li><li>지역·기간별 여행기 검색과 상세 열람 유지함</li><li>영상·안내 목록에서 장소 저장 유지함</li><li>DAY·글·사진·장소 편집 유지함</li><li>지도 경로·여행 복사·반응 UI 유지함</li><li>Expo WebView와 네이티브 브리지 재사용함</li></ul></article>
+            <article class="card accent"><small>BUILD / REPLACE</small><h3>상용화 전 필요한 기반</h3><ul class="report-list"><li>회원·권한·여러 기기 동기화 필요함</li><li>클라우드 미디어 업로드·CDN 필요함</li><li>실제 조회·담김·댓글 서버 집계 필요함</li><li>카카오 장소 검색 서버 연동 필요함</li><li>원격 푸시·딥링크 필요함</li><li>신고·차단·운영자 처리 기능 필요함</li></ul></article>
+          </div>
         </div>
       </section>
 
-      <section class="conclusion">
-        <small>FINAL DIRECTION</small>
-        <h2>국내에서 신뢰할 수 있는 여행기를 먼저 축적함.</h2>
-        <p>서버 기반의 저장·복사·반응 데이터를 확보한 뒤 외국인 수요가 높은 여행기부터 영어로 확장함. 모바일웹은 콘텐츠 본체로 유지하고 앱은 오프라인·위치·촬영·푸시 기능을 담당하도록 발전시킴. 다음 개발은 로그인부터 장소 검색, 여행별 저장, 일정 생성까지 이어지는 세로 기능으로 추진함.</p>
+      <section class="slide" data-title="핵심 사용자 흐름" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">03 · CORE LOOP</span><h2 class="slide-title">핵심 사용자 흐름</h2><p class="slide-lead">콘텐츠 발견에서 실제 여행과 다음 여행기 생산까지 이어지는 반복 구조를 구축함.</p></header>
+          <div class="flow">
+            <article><span>STEP 1</span><strong>발견</strong><small>영상·사진·검색·추천 여행기 제공함</small></article>
+            <article><span>STEP 2</span><strong>빠른 저장</strong><small>목적지 지정 없이 장소 저장함</small></article>
+            <article><span>STEP 3</span><strong>여행별 분류</strong><small>지역·기간별 보관함으로 정리함</small></article>
+            <article><span>STEP 4</span><strong>일정 생성</strong><small>복사 또는 AI 초안 생성함</small></article>
+            <article><span>STEP 5</span><strong>실제 여행</strong><small>길찾기·완료·현장 기록 제공함</small></article>
+            <article><span>STEP 6</span><strong>여행기 발행</strong><small>글·사진·장소·동선을 결합함</small></article>
+            <article><span>STEP 7</span><strong>복사·반응</strong><small>담김·댓글·등급을 작성자에게 환류함</small></article>
+          </div>
+          <div class="target"><strong>핵심 판단</strong> · 조회수가 아닌 여행기 상세→복사 전환율, 저장 장소→일정 생성률, 실제 여행 완료 반응을 핵심 제품 지표로 사용함.</div>
+        </div>
       </section>
 
-      <footer class="footnote">본 보고서는 현재 README.md 및 FUTURE_ROADMAP.md의 구현 현황과 확장 계획을 기준으로 작성함. 공급자 약관·가격·스토어 정책은 실제 구현 시점에 재검토 필요함.</footer>
+      <section class="slide" data-title="장소 발견 콘텐츠" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">04 · CONTENT FORMAT</span><h2 class="slide-title">영상·사진·안내를 하나로 운영함</h2><p class="slide-lead">콘텐츠 형식은 다르지만 모두 동일한 장소를 발견하고 저장하게 하는 기능으로 통합함.</p></header>
+          <div class="media-map">
+            <div class="media-core"><span>COMMON DATA</span><strong>Spotlog Place ID</strong><p>장소명·지역·한글 주소·좌표를 공통으로 연결함. 저장 버튼과 저장 결과를 모든 콘텐츠에서 동일하게 유지함.</p></div>
+            <div class="media-types">
+              <article><b>풀영상</b><p>실제 움직임과 분위기를 전달함. 원본 영상 보유 시 우선 활용함.</p></article>
+              <article><b>사진 모션</b><p>사진만 확보한 장소를 줌·팬·교차 전환으로 영상화함.</p></article>
+              <article><b>사진 이야기</b><p>세로로 장소를 넘기고 한 게시물 안에서 사진과 평가를 좌우로 탐색함.</p></article>
+              <article><b>지역 안내</b><p>지역·키워드로 장소를 비교하고 검색하는 목록을 제공함.</p></article>
+            </div>
+          </div>
+          <div class="target">장소가 연결되지 않은 분위기 영상은 공개 발견 피드에서 제외함. 풀영상과 사진 기반 콘텐츠를 동시에 운영함.</div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="저장과 여행 분류" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">05 · SAVE & COLLECTION</span><h2 class="slide-title">처음에는 바로 담고<br />일정 생성 전에 분류함</h2><p class="slide-lead">발견 단계에서 목적지나 여행 선택을 강제하지 않음. 저장 이후 지역별로 자동 분류함.</p></header>
+          <div class="collection-path">
+            <article><span>01 · DISCOVERY</span><strong>빠른 저장함</strong><p>영상·사진·검색에서 한 번의 탭으로 저장함. 서울과 제주를 섞어 담아도 저장을 막지 않음.</p></article>
+            <div class="path-arrow">→</div>
+            <article><span>02 · ORGANIZE</span><strong>여행별 보관함</strong><p>지역을 자동 분류함. 같은 지역이 3곳 이상 모이면 여행 묶음을 제안함. 장소를 여러 보관함에 저장 가능함.</p></article>
+            <div class="path-arrow">→</div>
+            <article><span>03 · PLAN</span><strong>일정 생성</strong><p>하나의 지역 또는 보관함을 선택함. 여행 기간·숙소·이동수단·동행 조건을 반영함.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="단계별 로드맵" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">06 · IMPLEMENTATION ROADMAP</span><h2 class="slide-title">단계별 추진 순서</h2><p class="slide-lead">개별 화면을 단독 추가하지 않음. 다음 기능이 의존할 수 있는 데이터 기반부터 순차 구축함.</p></header>
+          <div class="roadmap">
+            <article><div class="roadmap-num">P0</div><div><h3>회원·DB·권한·미디어 기반</h3><p>로그인, RLS, 서버 저장, 로컬 데이터 이전, 사진·영상 업로드 구성함.</p></div><time>최우선</time></article>
+            <article><div class="roadmap-num">P1</div><div><h3>장소 검색 및 여행별 보관함</h3><p>카카오 장소 검색, 한글명·주소·좌표 저장, 빠른 저장함과 컬렉션 도입함.</p></div><time>내부 알파</time></article>
+            <article><div class="roadmap-num">P2</div><div><h3>편집·부분 복사·AI 완성</h3><p>자동 저장, DAY 이동·복제, 전체·DAY·장소 복사, 검증 가능한 AI 구현함.</p></div><time>국내 베타</time></article>
+            <article><div class="roadmap-num">P3</div><div><h3>소셜·푸시·운영 안전</h3><p>실제 반응 집계, 목표 푸시, 신고·차단·운영자 처리 기능 구축함.</p></div><time>국내 공개 전</time></article>
+            <article><div class="roadmap-num">P4</div><div><h3>앱 전용 실제 여행 모드</h3><p>오프라인 일정, 현재 위치, 방문 완료, 사진·메모 대기열, 딥링크 제공함.</p></div><time>앱 심사 전</time></article>
+            <article><div class="roadmap-num">P5</div><div><h3>영어 로컬 가이드 베타</h3><p>검증된 여행기에 번역, 현장 정보, 지도 앱 선택, 긴급 안내 추가함.</p></div><time>국내 데이터 확보 후</time></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="국내 콘텐츠 확보" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">07 · CONTENT ACQUISITION</span><h2 class="slide-title">전국보다 다섯 지역에 집중함</h2><p class="slide-lead">장소 수 확대보다 실제로 따라갈 수 있는 완성형 여행기 확보를 우선함.</p></header>
+          <div class="regions">
+            <article><strong>서울</strong><p>도심 산책·성수·궁·야간 코스 중심으로 구성함</p></article>
+            <article><strong>부산</strong><p>해안·시장·언덕 마을 이동 동선 중심으로 구성함</p></article>
+            <article><strong>제주</strong><p>동서 권역·날씨 대체 일정 중심으로 구성함</p></article>
+            <article><strong>경주</strong><p>역사·자전거·야간 유적 중심으로 구성함</p></article>
+            <article><strong>강릉</strong><p>바다·카페·당일·1박 코스 중심으로 구성함</p></article>
+          </div>
+          <div class="target"><strong>초기 공개 목표</strong> · 지역당 12~20개, 전체 60~100개의 완성형 여행기를 확보함. 당일치기·1박 2일·2박 3일 유형을 지역마다 확보함. 여행기별 원본 사진, 3곳 이상 장소, 이동 순서, 체류시간, 장점, 아쉬운 점을 포함함.</div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="작성자 성장 구조" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">08 · CREATOR GROWTH</span><h2 class="slide-title">콘텐츠를 올릴 이유를<br />실제 반응으로 제공함</h2><p class="slide-lead">가짜 조회수보다 다른 사용자가 실제 여행에 사용한 결과를 작성자에게 환류함.</p></header>
+          <div class="creator-loop">
+            <article class="card"><small>CONTENT SUPPLY</small><h3>초기 수급 방식</h3><ul class="report-list"><li>운영자가 지역별 대표 여행기를 먼저 제작함</li><li>지역당 2~5명의 초기 창작자를 모집함</li><li>월별 주제와 작성 템플릿을 제공함</li><li>호텔·게스트하우스에는 주변 하루 동선 작성을 요청함</li><li>샘플·일반 글·광고·협찬을 명확히 구분함</li></ul></article>
+            <article class="card soft"><small>MOTIVATION & KPI</small><h3>작성자 보상 신호</h3><div class="metric-grid"><span>실제 담김 수</span><span>여행기 완독률</span><span>여행 완료 반응</span><span>댓글·응원</span><span>지역 가이드 배지</span><span>홈 추천 노출</span></div><p style="margin-top:15px">담김 전환율·완독률·신고율을 함께 반영하여 등급과 추천 노출을 결정함.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="외국인 대상 확장" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">09 · GLOBAL EXPANSION</span><h2 class="slide-title">국내용을 유지한 채<br />외국인용으로 확장함</h2><p class="slide-lead">별도 콘텐츠 서비스를 새로 만들지 않음. 동일 여행기에 번역과 외국인 현장 정보 계층을 추가함.</p></header>
+          <div class="global-steps">
+            <article class="global-step primary"><small>DOMESTIC FIRST</small><h3>한국어 원문과 실제 사용 데이터</h3><p>국내에서 많이 담기고 신고가 적으며 완주 반응이 좋은 여행기를 선별함.</p><ul class="report-list"><li>한글 원명·주소·좌표 구조화함</li><li>출구·이동·예약 정보를 분리 저장함</li><li>원문과 수정 이력을 유지함</li></ul></article>
+            <div class="global-arrow">→</div>
+            <article class="global-step"><small>ENGLISH BETA</small><h3>번역과 현장 사용 정보 추가</h3><p>자동번역 초안을 작성자가 검수함. 번역명과 한글 원명·주소를 함께 제공함.</p><ul class="report-list"><li>지도 앱 선택과 좌표 우선 연결함</li><li>한글 주소 크게 보기·복사 제공함</li><li>오프라인 일정과 긴급 정보 제공함</li></ul></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="데이터 공급자" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">10 · DATA PROVIDERS</span><h2 class="slide-title">한 공급자에 모든 정보를 의존하지 않음</h2><p class="slide-lead">장소 검색·관광 설명·사진·경로·사용자 경험·AI의 역할을 분리함.</p></header>
+          <div class="provider-grid">
+            <article><small>PLACE SEARCH</small><strong>Kakao Local</strong><p>국내 업체명·주소·좌표·전화·카테고리를 제공함. 서버 함수에서 호출함.</p></article>
+            <article><small>TOUR CONTENT</small><strong>한국관광공사</strong><p>다국어 관광 설명과 사용 허가 범위가 명확한 관광 이미지를 활용함.</p></article>
+            <article><small>GLOBAL SUPPORT</small><strong>Google Places</strong><p>영어 검색과 사진이 꼭 필요한 경우에만 비용을 통제하여 선택 호출함.</p></article>
+            <article><small>EXPERIENCE</small><strong>사용자 입력</strong><p>실제 평가·사진·숙소 선택 이유·이동 팁을 담당함. 공식 정보와 구분함.</p></article>
+            <article><small>ROUTE</small><strong>지도·경로 공급자</strong><p>거리·예상 시간·경로선을 담당함. 실시간 교통 반영 여부를 명시함.</p></article>
+            <article><small>ASSISTANCE</small><strong>생성형 AI</strong><p>일정 분배·번역 초안·글 구조화만 담당함. 가격과 영업정보를 생성하지 않음.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="하이브리드 앱 역할" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">11 · HYBRID PLATFORM</span><h2 class="slide-title">모바일웹은 본체,<br />앱은 현장 여행 도구로 구성함</h2><p class="slide-lead">앱을 웹사이트를 여는 셸에 머물게 하지 않음. OS 기능이 필요한 부분을 앱이 담당함.</p></header>
+          <div class="platform-split">
+            <article class="platform"><span>MOBILE WEB</span><h3>콘텐츠 본체</h3><p>링크로 바로 열리고 공유·검색되는 영역을 담당함.</p><ul class="report-list"><li>여행기 탐색·검색·공개 상세 제공함</li><li>장소 검색과 보관함 관리 제공함</li><li>여행 일정·여행기 편집 제공함</li><li>영구 공유 URL과 웹 검색 노출 담당함</li></ul></article>
+            <article class="platform app"><span>NATIVE APP</span><h3>현장 기능</h3><p>촬영·위치·오프라인·알림과 설치 앱 연결을 담당함.</p><ul class="report-list"><li>카메라 촬영과 미디어 업로드 담당함</li><li>현재 위치와 실제 여행 모드 담당함</li><li>저장 여행 오프라인 열람 담당함</li><li>원격 푸시와 딥링크 담당함</li><li>OS 공유 시트와 지도 앱 선택 담당함</li></ul></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="90일 실행안" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">12 · FIRST 90 DAYS</span><h2 class="slide-title">90일 우선 실행안</h2><p class="slide-lead">화면 추가보다 실제 데이터가 생성·저장·조회되는 단일 완성 흐름을 우선함.</p></header>
+          <div class="plan">
+            <article><span>1~4주</span><h3>서버 기준선 구축</h3><ol><li>개발·스테이징 환경 분리함</li><li>회원·여행·장소·보관함 DB 구성함</li><li>RLS 허용·거부 테스트 작성함</li><li>로컬 데이터 1회 이전 구현함</li><li>사진 업로드 최소 기능 구축함</li></ol></article>
+            <article><span>5~8주</span><h3>장소→보관함 구축</h3><ol><li>카카오 Local 서버 검색 연결함</li><li>직접 등록과 중복 처리 구현함</li><li>빠른 저장함·여행별 보관함 구현함</li><li>저장 장소→일정 생성 연결함</li><li>한국어·영어 장소 필드 확정함</li></ol></article>
+            <article><span>9~12주</span><h3>내부 알파 검증</h3><ol><li>두 기기 동기화를 검증함</li><li>자동 저장과 작성 복구 구현함</li><li>전체·DAY·장소 복사 이벤트 기록함</li><li>5개 지역 콘텐츠 제작 시작함</li><li>E2E 테스트와 비용 계측 적용함</li></ol></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide final-slide" data-title="최종 제안" aria-hidden="true">
+        <div class="slide-inner">
+          <span class="slide-no">13 · FINAL DECISION</span>
+          <h2 class="slide-title">국내에서 신뢰할 수 있는<br />여행기를 먼저 축적함.</h2>
+          <p class="slide-lead">현재 UI를 유지하면서 저장소와 공급자 연결을 상용 구조로 전환함. 검증된 국내 여행기부터 영어로 확장함.</p>
+          <div class="decision-line"><strong>다음 구현 단위</strong> · Supabase 개발 환경과 권한 구성 → 로그인과 로컬 데이터 이전 → 카카오 장소 검색 → 여행별 보관함 저장 → 선택한 보관함으로 일정 생성까지 하나의 세로 기능으로 추진함.</div>
+          <p class="avoid-line">호텔 가격 비교·내부 예약·전국 업체 자체 DB·자체 내비게이션·상시 위치 추적·모든 언어 동시 지원은 당분간 제외함.</p>
+        </div>
+      </section>
     </div>
-  </article>
+
+    <footer class="controls">
+      <div class="control-links"><a href="./#home">서비스 화면</a><button type="button" onclick="window.print()">PDF 저장</button></div>
+      <div class="progress-wrap"><span class="slide-count"><strong id="currentNo">01</strong> / <span id="totalNo">14</span></span><div class="progress" aria-hidden="true"><span id="progressBar"></span></div></div>
+      <div class="nav-buttons"><span class="keyboard-hint">← → 방향키</span><button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button></div>
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const currentNo = document.getElementById('currentNo');
+      const totalNo = document.getElementById('totalNo');
+      const progressBar = document.getElementById('progressBar');
+      const prevButton = document.getElementById('prevButton');
+      const nextButton = document.getElementById('nextButton');
+      const hashIndex = Number.parseInt(location.hash.replace('#slide-', ''), 10) - 1;
+      let index = Number.isFinite(hashIndex) ? Math.min(Math.max(hashIndex, 0), slides.length - 1) : 0;
+      let touchStartX = 0;
+      let touchStartY = 0;
+
+      totalNo.textContent = String(slides.length).padStart(2, '0');
+
+      const render = (nextIndex, updateHash = true) => {
+        index = Math.min(Math.max(nextIndex, 0), slides.length - 1);
+        slides.forEach((slide, slideIndex) => {
+          const active = slideIndex === index;
+          slide.classList.toggle('active', active);
+          slide.setAttribute('aria-hidden', String(!active));
+          if (active) slide.scrollTop = 0;
+        });
+        currentNo.textContent = String(index + 1).padStart(2, '0');
+        progressBar.style.width = `${((index + 1) / slides.length) * 100}%`;
+        prevButton.disabled = index === 0;
+        nextButton.disabled = index === slides.length - 1;
+        nextButton.textContent = index === slides.length - 1 ? '✓' : '→';
+        document.title = `${slides[index].dataset.title} | Spotlog 서비스 확장 전략`;
+        if (updateHash) history.replaceState(null, '', `#slide-${index + 1}`);
+      };
+
+      prevButton.addEventListener('click', () => render(index - 1));
+      nextButton.addEventListener('click', () => render(index + 1));
+      document.addEventListener('keydown', (event) => {
+        if (['ArrowRight', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); render(index + 1); }
+        if (['ArrowLeft', 'PageUp'].includes(event.key)) { event.preventDefault(); render(index - 1); }
+        if (event.key === 'Home') { event.preventDefault(); render(0); }
+        if (event.key === 'End') { event.preventDefault(); render(slides.length - 1); }
+      });
+      document.getElementById('stage').addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+        touchStartY = event.changedTouches[0].clientY;
+      }, { passive: true });
+      document.getElementById('stage').addEventListener('touchend', (event) => {
+        const moveX = event.changedTouches[0].clientX - touchStartX;
+        const moveY = event.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(moveX) > 55 && Math.abs(moveX) > Math.abs(moveY) * 1.25) render(index + (moveX < 0 ? 1 : -1));
+      }, { passive: true });
+      window.addEventListener('hashchange', () => {
+        const requested = Number.parseInt(location.hash.replace('#slide-', ''), 10) - 1;
+        if (Number.isFinite(requested)) render(requested, false);
+      });
+
+      render(index, !location.hash);
+    })();
+  </script>
 </body>
 </html>
