@@ -188,6 +188,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
 .duration-chips button { flex: 0 0 auto; min-height: 36px; padding: 0 13px; border: 1px solid #e3e3de; border-radius: 11px; color: #6f6f6a; background: #fafaf8; font-size: 12px; font-weight: 700; }
 .duration-chips button.active { color: #282825; background: #fff0eb; border-color: #f3b8a7; }
 .home-section { margin-top: 30px; }
+.home-lead + .home-section { margin-top: 8px; }
 .home-section-heading { margin-bottom: 13px; display: flex; align-items: flex-end; justify-content: space-between; gap: 15px; }
 .home-section-heading small { display: block; margin-bottom: 3px; color: #b06b59; font-size: 9px; font-weight: 800; letter-spacing: .9px; }
 .home-section-heading h2 { margin: 0; font-family: 'Manrope', sans-serif; font-size: 20px; line-height: 1.35; letter-spacing: -.55px; }
