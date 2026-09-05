@@ -295,6 +295,20 @@
         </div>
       </section>
 
+      <section class="slide" data-title="기능별 현재 상태" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">02B · CURRENT STATUS DETAIL</span><h2 class="slide-title">기능별 현재 상태와<br />향후 조치</h2><p class="slide-lead">화면이 구현된 기능과 실제 서비스 수준으로 동작하는 기능을 구분함.</p></header>
+          <div style="overflow-x:auto">
+            <div class="status-row"><strong>구분</strong><strong>현재 상태</strong><strong>향후 조치</strong></div>
+            <div class="status-row"><strong>여행·장소 저장</strong><span><i class="badge partial">부분 구현</i> localStorage 사용 중</span><p>서버 저장소와 계정 동기화로 교체 필요함</p></div>
+            <div class="status-row"><strong>지도·경로</strong><span><i class="badge base">기준선</i> MapLibre·OSM·OSRM</span><p>개발용으로 유지함. 운영 공급자와 SLA 별도 결정 필요함</p></div>
+            <div class="status-row"><strong>AI 일정</strong><span><i class="badge base">기준선</i> 거리·체류시간 기반 생성</span><p>안전한 대체 수단으로 유지함. 서버 AI 선택 추가함</p></div>
+            <div class="status-row"><strong>소셜·푸시</strong><span><i class="badge partial">부분 구현</i> 화면·로컬 알림</span><p>실제 이벤트·기기 토큰·중복 방지 서버 필요함</p></div>
+            <div class="status-row"><strong>하이브리드 앱</strong><span><i class="badge partial">부분 구현</i> WebView APK</span><p>오프라인·위치·촬영 기능 추가 후 스토어 앱으로 판단함</p></div>
+          </div>
+        </div>
+      </section>
+
       <section class="slide" data-title="핵심 사용자 흐름" aria-hidden="true">
         <div class="slide-inner">
           <header class="section-head"><span class="slide-no">03 · CORE LOOP</span><h2 class="slide-title">핵심 사용자 흐름</h2><p class="slide-lead">콘텐츠 발견에서 실제 여행과 다음 여행기 생산까지 이어지는 반복 구조를 구축함.</p></header>
@@ -389,6 +403,30 @@
         </div>
       </section>
 
+      <section class="slide" data-title="외국인 운영 기준" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">09B · GLOBAL OPERATING STANDARD</span><h2 class="slide-title">외국인용 정보 운영 기준</h2><p class="slide-lead">번역만 제공하지 않음. 한국 현장에서 실제 이동과 의사소통에 필요한 정보를 함께 제공함.</p></header>
+          <div style="overflow-x:auto">
+            <div class="status-row"><strong>구분</strong><strong>적용 방안</strong><strong>판단</strong></div>
+            <div class="status-row"><strong>콘텐츠</strong><span>한국어 원문 + 영어 번역</span><p>인기·신고율로 검증된 여행기부터 번역함. 원문 수정 시 재검토 상태로 변경함</p></div>
+            <div class="status-row"><strong>장소 정보</strong><span>번역명 + 한글 원명·주소</span><p>현지인과 택시 기사에게 보여줄 큰 글씨와 복사 기능을 제공함</p></div>
+            <div class="status-row"><strong>지도</strong><span>앱 내 동선 + 외부 지도 선택</span><p>카카오맵을 국내 기본으로 안내함. Google·Apple·네이버 선택을 제공함</p></div>
+            <div class="status-row"><strong>현장 정보</strong><span>출구·예약·결제·짐·접근성</span><p>공식 사실과 작성자 방문 당시 경험을 구분하고 확인일을 표시함</p></div>
+            <div class="status-row"><strong>오프라인</strong><span>일정·좌표·한글 주소·이미지</span><p>인터넷 장애 상황에서도 일정과 112·119·1330 정보를 확인하게 함</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="언어 적용 순서" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">09C · LANGUAGE ROLLOUT</span><h2 class="slide-title">언어를 한 번에<br />확장하지 않음</h2><p class="slide-lead">국내 콘텐츠의 실제 수요와 품질을 확인한 뒤 언어별 운영 범위를 순차 확대함.</p></header>
+          <div class="grid-2">
+            <article class="card dark"><small>ROLLOUT ORDER</small><h3>언어 적용 순서</h3><ul class="report-list"><li>1단계에서 한국어 UI와 국내 콘텐츠를 완성함</li><li>2단계에서 한국어·영어 베타를 운영함</li><li>3단계에서 일본어를 추가함</li><li>4단계에서 중국어 간체·번체를 추가함</li><li>추가 언어는 방문자·검색·복사 데이터로 결정함</li></ul></article>
+            <article class="card"><small>TRANSLATION STANDARD</small><h3>번역 운영 원칙</h3><ul class="report-list"><li>원문 언어와 원문 보기를 항상 제공함</li><li>자동번역 초안을 작성자 또는 운영자가 검수함</li><li>자동번역 여부와 마지막 검토일을 표시함</li><li>장소명·역명·음식명은 공통 용어집을 사용함</li><li>주소·시간·요금·교통편은 구조화 필드로 관리함</li><li>원문 수정 시 번역본을 재검토 상태로 변경함</li></ul></article>
+          </div>
+        </div>
+      </section>
+
       <section class="slide" data-title="데이터 공급자" aria-hidden="true">
         <div class="slide-inner">
           <header class="section-head"><span class="slide-no">10 · DATA PROVIDERS</span><h2 class="slide-title">한 공급자에 모든 정보를 의존하지 않음</h2><p class="slide-lead">장소 검색·관광 설명·사진·경로·사용자 경험·AI의 역할을 분리함.</p></header>
@@ -424,6 +462,44 @@
         </div>
       </section>
 
+      <section class="slide" data-title="주요 성과 지표" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">12B · PRODUCT KPI</span><h2 class="slide-title">조회수보다 실제 여행 전환을 측정함</h2><p class="slide-lead">콘텐츠를 본 사용자가 저장·일정·여행·발행으로 이동하는지 확인함.</p></header>
+          <div class="grid-3">
+            <article class="card"><small>DISCOVERY</small><h3>장소 발견</h3><p>영상·사진·검색별 장소 저장률을 확인함. 형식별 노출 대비 저장 효율을 비교함.</p></article>
+            <article class="card"><small>PLANNING</small><h3>일정 생성</h3><p>저장 장소의 여행별 분류율과 일정 생성률을 확인함.</p></article>
+            <article class="card"><small>JOURNEY</small><h3>여행기 전환</h3><p>상세 완독률, 전체·DAY·장소 복사 전환율을 확인함.</p></article>
+            <article class="card"><small>CREATOR</small><h3>작성자 성장</h3><p>발행 완료율, 재발행률, 사용자별 실제 담김 수를 확인함.</p></article>
+            <article class="card"><small>QUALITY</small><h3>정보 품질</h3><p>신고율, 장소 정보 최신성, 번역 재검토 비율을 확인함.</p></article>
+            <article class="card accent"><small>COST</small><h3>운영 비용</h3><p>사용자당 미디어·지도·장소 검색·번역·AI 비용을 확인함.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="다음 구현 단위" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">13 · NEXT IMPLEMENTATION</span><h2 class="slide-title">다음 구현은 하나의<br />세로 기능으로 추진함</h2><p class="slide-lead">카카오 검색 화면만 단독으로 추가하지 않음. 로그인부터 일정 생성까지 같은 서버 데이터로 연결함.</p></header>
+          <div class="collection-path">
+            <article><span>FOUNDATION</span><strong>계정과 서버</strong><p>Supabase 개발 환경과 권한 구조를 구성함. 기존 로컬 여행을 로그인 계정으로 한 번만 이전함.</p></article>
+            <div class="path-arrow">→</div>
+            <article><span>PLACE & SAVE</span><strong>검색과 보관함</strong><p>카카오 장소를 서버에서 검색함. 한글명·주소·좌표를 여행별 보관함에 저장함.</p></article>
+            <div class="path-arrow">→</div>
+            <article><span>PLAN</span><strong>일정 생성</strong><p>선택한 한 보관함으로 일정을 생성함. 한국어·영어 장소 데이터 구조를 동시에 검증함.</p></article>
+          </div>
+          <div class="target">이 흐름이 완료된 뒤 자동 저장, 부분 복사, 실제 여행 모드, 원격 푸시를 동일한 서버 데이터 위에 구현함.</div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="제외 범위" aria-hidden="true">
+        <div class="slide-inner">
+          <header class="section-head"><span class="slide-no">13B · OUT OF SCOPE</span><h2 class="slide-title">당분간 제외할 범위</h2><p class="slide-lead">핵심 여행기·복사·현장 사용 흐름과 관계가 낮거나 운영 부담이 큰 기능은 초기 범위에서 제외함.</p></header>
+          <div class="grid-2">
+            <article class="card accent"><small>COMMERCE & DATA</small><h3>예약·업체 데이터</h3><ul class="report-list"><li>호텔 가격 비교와 객실 재고를 제외함</li><li>Spotlog 내부 예약·결제·정산을 제외함</li><li>전국 업체 정보 자체 구축을 제외함</li><li>공급자 약관 미확인 이미지 저장을 제외함</li></ul></article>
+            <article class="card"><small>PLATFORM & AI</small><h3>위치·등급·자동 생성</h3><ul class="report-list"><li>자체 턴바이턴 내비게이션을 제외함</li><li>항상 켜지는 위치 추적을 제외함</li><li>실제 서버 집계 전 포인트 경제 확장을 제외함</li><li>모든 언어 동시 지원을 제외함</li><li>AI가 생성한 가격·영업시간·업체 평가 표시를 제외함</li></ul></article>
+          </div>
+        </div>
+      </section>
+
       <section class="slide final-slide" data-title="최종 제안" aria-hidden="true">
         <div class="slide-inner">
           <span class="slide-no">13 · FINAL DECISION</span>
@@ -437,7 +513,7 @@
 
     <footer class="controls">
       <div class="control-links"><a href="./#home">서비스 화면</a><button type="button" onclick="window.print()">PDF 저장</button></div>
-      <div class="progress-wrap"><span class="slide-count"><strong id="currentNo">01</strong> / <span id="totalNo">14</span></span><div class="progress" aria-hidden="true"><span id="progressBar"></span></div></div>
+      <div class="progress-wrap"><span class="slide-count"><strong id="currentNo">01</strong> / <span id="totalNo">20</span></span><div class="progress" aria-hidden="true"><span id="progressBar"></span></div></div>
       <div class="nav-buttons"><span class="keyboard-hint">← → 방향키</span><button type="button" id="prevButton" aria-label="이전 슬라이드">←</button><button type="button" id="nextButton" aria-label="다음 슬라이드">→</button></div>
     </footer>
   </main>
