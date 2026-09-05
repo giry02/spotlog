@@ -64,6 +64,24 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
 .feed::-webkit-scrollbar { display: none; }
 .feed-card { position: relative; min-height: 100%; overflow: hidden; scroll-snap-align: start; scroll-snap-stop: always; color: white; background: #111; }
 .feed-card > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #111; }
+.motion-photo-reel { position: absolute; inset: 0; overflow: hidden; background: #151513; }
+.motion-photo-scene { position: absolute; inset: -2%; opacity: 0; transition: opacity 1.25s ease; will-change: opacity; }
+.motion-photo-scene.is-active { opacity: 1; }
+.motion-photo-scene img { width: 100%; height: 100%; display: block; object-fit: cover; will-change: transform; }
+.motion-photo-scene.motion-cut-0 img { object-position: 50% 50%; transform-origin: 45% 50%; }
+.motion-photo-scene.motion-cut-1 img { object-position: 35% 55%; transform-origin: 30% 55%; }
+.motion-photo-scene.motion-cut-2 img { object-position: 68% 48%; transform-origin: 70% 45%; }
+.motion-photo-scene.motion-cut-0.is-active img { animation: photo-motion-a 4.8s ease-out both; }
+.motion-photo-scene.motion-cut-1.is-active img { animation: photo-motion-b 4.8s ease-out both; }
+.motion-photo-scene.motion-cut-2.is-active img { animation: photo-motion-c 4.8s ease-out both; }
+.motion-photo-reel.is-paused .motion-photo-scene img { animation-play-state: paused; }
+.motion-photo-progress { position: absolute; z-index: 4; top: max(99px, calc(env(safe-area-inset-top) + 82px)); left: 18px; right: 18px; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 5px; }
+.motion-photo-progress i { height: 3px; overflow: hidden; border-radius: 999px; background: rgba(255,255,255,.28); box-shadow: 0 1px 5px rgba(0,0,0,.22); }
+.motion-photo-progress i span { width: 0; height: 100%; display: block; border-radius: inherit; background: white; }
+.motion-photo-progress i.is-complete span { width: 100%; }
+.motion-photo-progress i.is-active span { animation: photo-motion-progress 3.6s linear both; }
+.motion-photo-reel.is-paused .motion-photo-progress i.is-active span { animation-play-state: paused; }
+.motion-photo-label { position: absolute; z-index: 4; top: max(111px, calc(env(safe-area-inset-top) + 94px)); left: 18px; min-height: 25px; padding: 0 9px; display: flex; align-items: center; gap: 5px; border: 1px solid rgba(255,255,255,.23); border-radius: 999px; color: rgba(255,255,255,.9); background: rgba(18,18,17,.34); font-size: 9px; font-weight: 800; letter-spacing: .65px; backdrop-filter: blur(10px); }
 .video-shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(0,0,0,.42) 0%, rgba(0,0,0,.03) 30%, rgba(0,0,0,.08) 48%, rgba(0,0,0,.9) 100%); }
 .feed-copy { position: absolute; z-index: 2; left: 18px; right: 82px; bottom: calc(89px + env(safe-area-inset-bottom)); }
 .creator-row { display: flex; align-items: center; gap: 9px; margin-bottom: 13px; }
@@ -84,7 +102,27 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
 .action-item button, .more-button { width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; color: white; background: rgba(15,15,15,.38); backdrop-filter: blur(14px); }
 .action-item button.active { color: var(--accent); background: white; border-color: white; }
 .action-item span { font-size: 9px; font-weight: 600; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
+.motion-action { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.motion-action > span { width: 46px; height: 46px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.2); border-radius: 50%; color: #ffc0ad; background: rgba(15,15,15,.38); backdrop-filter: blur(14px); }
+.motion-action em { color: white; font-size: 9px; font-style: normal; font-weight: 600; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
 .more-button { height: 36px; border: 0; background: transparent; }
+
+@keyframes photo-motion-a {
+  from { transform: scale(1.03) translate3d(0, 0, 0); }
+  to { transform: scale(1.17) translate3d(-2.5%, -1.5%, 0); }
+}
+@keyframes photo-motion-b {
+  from { transform: scale(1.18) translate3d(-2%, 1%, 0); }
+  to { transform: scale(1.04) translate3d(1.5%, -1%, 0); }
+}
+@keyframes photo-motion-c {
+  from { transform: scale(1.05) translate3d(2%, -1%, 0); }
+  to { transform: scale(1.19) translate3d(-1.5%, 1.5%, 0); }
+}
+@keyframes photo-motion-progress {
+  from { width: 0; }
+  to { width: 100%; }
+}
 .place-guide-content { padding: 0 18px calc(104px + env(safe-area-inset-bottom)); }
 .place-guide-lead { padding: 19px 2px 21px; }
 .place-guide-lead small { color: var(--accent); font-size: 9px; font-weight: 800; letter-spacing: 1px; }
@@ -939,5 +977,6 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
 
 @media (prefers-reduced-motion: reduce) {
   .feed { scroll-behavior: auto; }
+  .motion-photo-scene, .motion-photo-scene img, .motion-photo-progress i span { transition: none; animation: none !important; }
   .create-sheet { animation: none; }
 }

@@ -22,8 +22,6 @@ import gangwonEastSeaCover from '../../assets/spotlog/gangwon-east-sea-sunrise.w
 import seoulForestCover from '../../assets/spotlog/seoul-forest-evening.webp';
 import spa from '../../assets/spotlog/spa.jpg';
 
-const cloudinaryVideo = (id: string) => `https://res.cloudinary.com/demo/video/upload/c_fill,g_center,h_1280,w_720,q_auto:eco/${id}.mp4`;
-
 export type PlaceKind = 'LANDMARK' | 'STAY' | 'FOOD' | 'CAFE' | 'SHOP';
 export type JourneyStatus = 'PLANNING' | 'TRAVELING' | 'PUBLISHED';
 
@@ -45,6 +43,7 @@ export interface Place {
   hook?: string;
   bestTime?: string;
   video?: string;
+  motionImages?: string[];
   tags?: string[];
 }
 
@@ -91,19 +90,19 @@ export interface Journey {
 export const discoveryLandmarks: Place[] = [
   {
     id: 'jeju-hyeopjae', kind: 'LANDMARK', name: '협재해수욕장', area: '제주 한림', address: '제주 제주시 한림읍 협재리 2497-1', lat: 33.3938, lng: 126.2397,
-    creator: 'slow.jeju', hook: '제주의 하루가 가장 천천히 끝나는 곳', description: '비양도 너머로 빛이 내려앉는 저녁. 이 장면을 다음 제주 여행의 첫 장소로 담아보세요.', note: '바람이 잦아 얇은 겉옷을 챙겼어요.', duration: '1시간', bestTime: '일몰 40분 전', image: jejuHyeopjaeTidepool, video: cloudinaryVideo('docs/sunset_waves'), tags: ['제주', '노을', '해변'],
+    creator: 'slow.jeju', hook: '제주의 하루가 가장 천천히 끝나는 곳', description: '비양도 너머로 빛이 내려앉는 저녁. 이 장면을 다음 제주 여행의 첫 장소로 담아보세요.', note: '바람이 잦아 얇은 겉옷을 챙겼어요.', duration: '1시간', bestTime: '일몰 40분 전', image: jejuHyeopjaeTidepool, motionImages: [jejuGuideCover, jejuHyeopjaeTidepool, jejuHyeopjaeUdonDinner], tags: ['제주', '노을', '해변'],
   },
   {
     id: 'gangneung-anmok', kind: 'LANDMARK', name: '안목해변', area: '강원 강릉', address: '강원 강릉시 창해로 14번길', lat: 37.7712, lng: 128.9474,
-    creator: 'eastsea.notes', hook: '커피 한 잔 들고 오래 걷기 좋은 동해', description: '아침 파도와 해변 산책이 하루의 방향을 정해주는 강릉의 대표 장면입니다.', note: '해가 뜬 직후에는 산책로가 비교적 한산해요.', duration: '50분', bestTime: '07:00–09:00', image: resort, video: cloudinaryVideo('kayak'), tags: ['강릉', '동해', '아침산책'],
+    creator: 'eastsea.notes', hook: '커피 한 잔 들고 오래 걷기 좋은 동해', description: '아침 파도와 해변 산책이 하루의 방향을 정해주는 강릉의 대표 장면입니다.', note: '해가 뜬 직후에는 산책로가 비교적 한산해요.', duration: '50분', bestTime: '07:00–09:00', image: gangwonEastSeaCover, motionImages: [gangwonEastSeaCover], tags: ['강릉', '동해', '아침산책'],
   },
   {
     id: 'jeongseon-rail', kind: 'LANDMARK', name: '정선 아우라지', area: '강원 정선', address: '강원 정선군 여량면 아우라지길 69', lat: 37.4728, lng: 128.7232,
-    creator: 'weekend.route', hook: '물길과 산길이 만나는 정선의 여름', description: '빠르게 지나가기보다 강변에 앉아 주변 마을의 시간을 느껴보는 장소입니다.', note: '비 온 뒤에는 강가 진입 안내를 확인하세요.', duration: '1시간 20분', bestTime: '10:00–12:00', image: mountain, video: cloudinaryVideo('rafting_short'), tags: ['정선', '강변', '국내여행'],
+    creator: 'weekend.route', hook: '물길과 산길이 만나는 정선의 여름', description: '빠르게 지나가기보다 강변에 앉아 주변 마을의 시간을 느껴보는 장소입니다.', note: '비 온 뒤에는 강가 진입 안내를 확인하세요.', duration: '1시간 20분', bestTime: '10:00–12:00', image: mountain, motionImages: [mountain], tags: ['정선', '강변', '국내여행'],
   },
   {
     id: 'seoul-seoulforest', kind: 'LANDMARK', name: '서울숲', area: '서울 성동', address: '서울 성동구 뚝섬로 273', lat: 37.5444, lng: 127.0374,
-    creator: 'seoul.afterwork', hook: '도심에서 가장 쉽게 만나는 초록의 저녁', description: '퇴근 뒤에도 충분한 산책. 성수의 작은 가게와 이어 한나절 여행으로 만들기 좋습니다.', note: '자전거 길과 보행로가 나뉘는 구간을 확인하세요.', duration: '1시간 30분', bestTime: '16:00–18:00', image: food, video: cloudinaryVideo('forest_bike'), tags: ['서울', '산책', '성수'],
+    creator: 'seoul.afterwork', hook: '도심에서 가장 쉽게 만나는 초록의 저녁', description: '퇴근 뒤에도 충분한 산책. 성수의 작은 가게와 이어 한나절 여행으로 만들기 좋습니다.', note: '자전거 길과 보행로가 나뉘는 구간을 확인하세요.', duration: '1시간 30분', bestTime: '16:00–18:00', image: seoulForestCover, motionImages: [seoulForestCover], tags: ['서울', '산책', '성수'],
   },
 ];
 
