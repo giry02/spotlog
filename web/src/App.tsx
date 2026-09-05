@@ -1364,43 +1364,17 @@ function LandmarkGuideCard({ place, saved, onToggle, onShare }: { place: Place; 
   return <article className="landmark-guide-card"><div className="landmark-guide-image"><img src={place.image} alt={`${place.name} 여행 사진`} /><span>{landmarkRegion(place)} · 랜드마크</span></div><div className="landmark-guide-copy"><small>{place.area} · {place.bestTime ?? place.duration}</small><h3>{place.name}</h3><strong>{place.hook ?? `${place.area} 일정에 담기 좋은 대표 장소`}</strong><p>{place.description}</p><blockquote>여행자 메모 · {place.note}</blockquote><div className="landmark-guide-tags">{place.tags?.map((tag) => <span key={tag}>#{tag}</span>)}</div><div className="landmark-guide-actions"><button className={saved ? 'saved' : ''} onClick={onToggle}><Bookmark size={16} fill={saved ? 'currentColor' : 'none'} />{saved ? '저장됨' : '이 장소 저장'}</button><button onClick={onShare}><Share2 size={16} />공유</button></div></div></article>;
 }
 
-function MotionPhotoReel({ images, active, label }: { images: string[]; active: boolean; label: string }) {
-  const scenes = useMemo(() => images.length > 1 ? images : [images[0], images[0], images[0]], [images]);
-  const [activeScene, setActiveScene] = useState(0);
-
-  useEffect(() => {
-    if (!active) {
-      setActiveScene(0);
-      return;
-    }
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const timer = window.setInterval(() => setActiveScene((current) => (current + 1) % scenes.length), 3600);
-    return () => window.clearInterval(timer);
-  }, [active, scenes.length]);
-
-  return <div className={`motion-photo-reel ${active ? 'is-running' : 'is-paused'}`} role="img" aria-label={`${label} 포토 모션`}>
-    {scenes.map((image, index) => <span className={`motion-photo-scene motion-cut-${index % 3} ${activeScene === index ? 'is-active' : ''}`} key={`${image}-${index}`} aria-hidden="true"><img src={image} alt="" /></span>)}
-    <div className="motion-photo-progress" aria-hidden="true">{scenes.map((_, index) => <i className={index === activeScene ? 'is-active' : index < activeScene ? 'is-complete' : ''} key={index}><span /></i>)}</div>
-    <div className="motion-photo-label"><Sparkles size={13} />PHOTO MOTION · {images.length > 1 ? `${images.length} SCENES` : '1 PHOTO · 3 CUTS'}</div>
-  </div>;
-}
-
 function FeedCard({ place, saved, onToggle, onShare }: { place: Place; saved: boolean; onToggle: () => void; onShare: () => void }) {
   const cardRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
-  const [active, setActive] = useState(false);
-  const motionImages = place.motionImages?.filter(Boolean) ?? [];
 
   useEffect(() => {
     const card = cardRef.current;
-    if (!card) return;
+    const video = videoRef.current;
+    if (!card || !video) return;
     const observer = new IntersectionObserver(([entry]) => {
-      const visible = entry.isIntersecting && entry.intersectionRatio > 0.65;
-      setActive(visible);
-      const video = videoRef.current;
-      if (!video) return;
-      if (visible) void video.play().catch(() => undefined);
+      if (entry.isIntersecting && entry.intersectionRatio > 0.65) void video.play().catch(() => undefined);
       else video.pause();
     }, { threshold: [0.65] });
     observer.observe(card);
@@ -1408,7 +1382,7 @@ function FeedCard({ place, saved, onToggle, onShare }: { place: Place; saved: bo
   }, []);
 
   return <article className="feed-card" ref={cardRef}>
-    {motionImages.length ? <MotionPhotoReel images={motionImages} active={active} label={place.name} /> : <video ref={videoRef} src={place.video} poster={place.image} autoPlay muted={muted} loop playsInline preload="metadata" />}
+    <video ref={videoRef} src={place.video} poster={place.image} autoPlay muted={muted} loop playsInline preload="metadata" />
     <div className="video-shade" />
     <div className="feed-copy">
       <div className="creator-row"><span className="creator-avatar">{place.creator?.slice(0, 1).toUpperCase()}</span><strong>{place.creator}</strong><button>팔로우</button></div>
@@ -1416,7 +1390,7 @@ function FeedCard({ place, saved, onToggle, onShare }: { place: Place; saved: bo
       <div className="tags">{place.tags?.map((tag) => <span key={tag}>#{tag}</span>)}</div>
       <button className="place-pill" onClick={onToggle}><span><MapPin size={16} /></span><span className="place-pill-copy"><strong>{place.name}</strong><small>{place.area} · {saved ? '저장됨' : '여행에 담기'}</small></span><ChevronRight size={17} /></button>
     </div>
-    <div className="feed-actions"><ActionButton label={saved ? '저장됨' : '저장'} onClick={onToggle} active={saved} icon={Bookmark} /><ActionButton label="공유" onClick={onShare} icon={Share2} />{motionImages.length ? <div className="motion-action" aria-label="사진으로 만든 자동 영상"><span><Sparkles size={21} /></span><em>포토 모션</em></div> : <ActionButton label={muted ? '소리 켜기' : '음소거'} onClick={() => setMuted((value) => !value)} icon={muted ? VolumeX : Volume2} />}<button className="more-button" aria-label="더보기"><MoreHorizontal size={23} /></button></div>
+    <div className="feed-actions"><ActionButton label={saved ? '저장됨' : '저장'} onClick={onToggle} active={saved} icon={Bookmark} /><ActionButton label="공유" onClick={onShare} icon={Share2} /><ActionButton label={muted ? '소리 켜기' : '음소거'} onClick={() => setMuted((value) => !value)} icon={muted ? VolumeX : Volume2} /><button className="more-button" aria-label="더보기"><MoreHorizontal size={23} /></button></div>
   </article>;
 }
 
