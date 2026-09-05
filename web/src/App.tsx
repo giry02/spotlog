@@ -51,6 +51,9 @@ import {
 } from 'lucide-react';
 import busanHaeundaeCover from '../../assets/spotlog/busan-haeundae-blue-hour.webp';
 import gangwonEastSeaCover from '../../assets/spotlog/gangwon-east-sea-sunrise.webp';
+import jejuGuideCover from '../../assets/spotlog/jeju-west-guide-cover.jpg';
+import jejuHyeopjaeTidepool from '../../assets/spotlog/jeju-hyeopjae-tidepool.webp';
+import jejuHyeopjaeUdonDinner from '../../assets/spotlog/jeju-hyeopjae-udon-dinner.webp';
 import seoulForestCover from '../../assets/spotlog/seoul-forest-evening.webp';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { type ChangeEvent, FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -68,8 +71,34 @@ import {
 } from './data';
 import { isNativeShell, notifyNavigationState, notifyReady, openExternal, previewCreatorNotification, shareContent, subscribeNavigationCommands, subscribeNotificationStatus, updateNotificationPreferences } from './nativeBridge';
 
-type Tab = 'home' | 'community' | 'discover' | 'trips' | 'saved' | 'profile';
+type Tab = 'home' | 'community' | 'discover' | 'trips' | 'saved' | 'profile' | 'photo-stories';
 type PlaceView = 'VIDEO' | 'GUIDE';
+
+type PreviewLocale = 'ko' | 'en';
+
+interface LocalizedPreviewText {
+  ko: string;
+  en: string;
+}
+
+interface PhotoStorySlide {
+  image?: string;
+  alt: LocalizedPreviewText;
+  eyebrow: LocalizedPreviewText;
+  title: LocalizedPreviewText;
+  body: LocalizedPreviewText;
+}
+
+interface PhotoStorySample {
+  place: Place;
+  englishName: string;
+  englishArea: string;
+  creator: string;
+  readTime: LocalizedPreviewText;
+  intro: LocalizedPreviewText;
+  tip: LocalizedPreviewText;
+  slides: PhotoStorySlide[];
+}
 
 interface SpotlogNavigationState {
   spotlog: true;
@@ -171,6 +200,77 @@ const storageKeys = {
 };
 
 const defaultNotificationPreferences: NotificationPreferences = { enabled: false, viewMilestone: 100 };
+
+const photoStorySamples: PhotoStorySample[] = [
+  {
+    place: discoveryLandmarks.find((place) => place.id === 'jeju-hyeopjae')!,
+    englishName: 'Hyeopjae Beach',
+    englishArea: 'Hallim, Jeju',
+    creator: 'slow.jeju',
+    readTime: { ko: '사진 3장 · 40초', en: '3 photos · 40 sec' },
+    intro: {
+      ko: '협재를 예쁜 바다 한 장으로 끝내지 않고, 걷기 좋은 방향과 저녁까지 함께 기록했어요.',
+      en: 'More than a pretty beach: where to walk, what changes at sunset, and an easy dinner nearby.',
+    },
+    tip: {
+      ko: '현지 팁 · 일몰 40분 전에 도착하고, 젖은 현무암보다 모래 쪽으로 걷는 편이 안전해요.',
+      en: 'Local tip · Arrive 40 minutes before sunset and stay on the sand when the volcanic rocks are wet.',
+    },
+    slides: [
+      {
+        image: jejuGuideCover,
+        alt: { ko: '비양도가 보이는 협재해수욕장', en: 'Hyeopjae Beach overlooking Biyangdo Island' },
+        eyebrow: { ko: '첫 장면', en: 'FIRST LOOK' },
+        title: { ko: '바다는 사진보다 천천히 색이 바뀌었다', en: 'The sea changed color more slowly than a photo can show' },
+        body: { ko: '입구에서 서쪽으로 10분만 걸어도 앉아서 파도를 볼 자리가 충분했다.', en: 'A ten-minute walk west of the entrance led to a much quieter place to sit by the water.' },
+      },
+      {
+        image: jejuHyeopjaeTidepool,
+        alt: { ko: '협재해수욕장의 현무암과 얕은 물웅덩이', en: 'Volcanic rocks and tide pools at Hyeopjae Beach' },
+        eyebrow: { ko: '산책 메모', en: 'WALK NOTE' },
+        title: { ko: '백사장보다 오래 남은 건 작은 물웅덩이', en: 'The tide pools stayed with me longer than the white sand' },
+        body: { ko: '물이 빠진 뒤 현무암 사이로 작은 풍경이 계속 나타났다. 돌은 생각보다 미끄럽다.', en: 'Low tide revealed tiny scenes between the rocks. The surface gets more slippery than it looks.' },
+      },
+      {
+        image: jejuHyeopjaeUdonDinner,
+        alt: { ko: '협재 인근 식당의 따뜻한 우동', en: 'A bowl of warm udon near Hyeopjae Beach' },
+        eyebrow: { ko: '주변 한 끼', en: 'NEARBY DINNER' },
+        title: { ko: '노을 뒤에는 멀리 움직이지 않기', en: 'After sunset, keep dinner close' },
+        body: { ko: '차를 다시 찾고 주차하는 대신 걸어서 갈 수 있는 식당을 골라 첫날의 여유를 지켰다.', en: 'Choosing a walkable dinner kept the first evening relaxed instead of turning it into another drive.' },
+      },
+    ],
+  },
+  {
+    place: discoveryLandmarks.find((place) => place.id === 'seoul-seoulforest')!,
+    englishName: 'Seoul Forest',
+    englishArea: 'Seongdong, Seoul',
+    creator: 'seoul.afterwork',
+    readTime: { ko: '사진 1장 · 메모 1장', en: '1 photo · 1 note' },
+    intro: {
+      ko: '서울숲은 랜드마크 하나보다 성수 골목과 이어 걸을 때 반나절 여행이 됩니다.',
+      en: 'Seoul Forest becomes a half-day trip when it is connected with a slow walk through Seongsu.',
+    },
+    tip: {
+      ko: '현지 팁 · 자전거 길과 보행로가 갈리는 구간이 있어 해 질 무렵에는 바닥 표시를 확인하세요.',
+      en: 'Local tip · Cycling and walking paths split in a few places, so watch the ground markings near sunset.',
+    },
+    slides: [
+      {
+        image: seoulForestCover,
+        alt: { ko: '저녁 햇빛이 드는 서울숲 산책로', en: 'A sunlit evening path in Seoul Forest' },
+        eyebrow: { ko: '퇴근 뒤 한나절', en: 'AFTER-WORK ESCAPE' },
+        title: { ko: '멀리 떠나지 않아도 여행이 되는 저녁', en: 'An evening that feels like a trip without leaving Seoul' },
+        body: { ko: '해가 건물 아래로 내려오는 시간에는 숲과 도시의 경계가 가장 선명하게 보였다.', en: 'As the sun dropped below the towers, the contrast between forest and city became the view.' },
+      },
+      {
+        alt: { ko: '서울숲 방문 시간에 대한 여행자 메모', en: 'Traveler note about the best time to visit Seoul Forest' },
+        eyebrow: { ko: '여행자 메모', en: 'TRAVELER NOTE' },
+        title: { ko: '목적지보다 시간을 먼저 정했다', en: 'I chose the time before the destination' },
+        body: { ko: '오후 다섯 시에 숲부터 걷고 저녁은 성수 골목에서 먹었다. 장소를 많이 넣지 않아도 이동 자체가 여행의 이야기가 됐다.', en: 'I walked the forest at 5 p.m. and had dinner in Seongsu. With fewer stops, the walk itself became the story.' },
+      },
+    ],
+  },
+];
 
 const defaultCreatorProfile: CreatorProfile = {
   displayName: 'Spotlog 여행자',
@@ -289,7 +389,7 @@ const isSpotlogNavigationState = (value: unknown): value is SpotlogNavigationSta
   const state = value as Partial<SpotlogNavigationState>;
   return state.spotlog === true
     && typeof state.depth === 'number'
-    && ['home', 'community', 'discover', 'trips', 'saved', 'profile'].includes(String(state.tab))
+    && ['home', 'community', 'discover', 'trips', 'saved', 'profile', 'photo-stories'].includes(String(state.tab))
     && ['VIDEO', 'GUIDE'].includes(String(state.placeView));
 };
 const spotlogNavigationUrl = (state: SpotlogNavigationState) => {
@@ -309,6 +409,7 @@ const navigationStateFromHash = (): SpotlogNavigationState => {
   const base: SpotlogNavigationState = { spotlog: true, depth: 0, tab: 'home', placeView: 'VIDEO', journeyId: null, templateId: null, editorId: null };
   if (screen === 'places-guide') return { ...base, tab: 'discover', placeView: 'GUIDE' };
   if (screen === 'places-video') return { ...base, tab: 'discover', placeView: 'VIDEO' };
+  if (screen === 'photo-stories') return { ...base, tab: 'photo-stories' };
   if (['home', 'community', 'trips', 'saved', 'profile'].includes(screen)) return { ...base, tab: screen as Tab };
   if (screen.startsWith('journey-')) return { ...base, journeyId: screen.slice('journey-'.length) };
   if (screen.startsWith('recommendation-')) return { ...base, templateId: screen.slice('recommendation-'.length) };
@@ -1039,7 +1140,7 @@ export default function App() {
   };
 
   return (
-    <main className={`app-shell tab-${tab} place-${placeView.toLowerCase()} ${selectedJourney || editingJourney || tab === 'profile' ? 'detail-open' : ''}`}>
+    <main className={`app-shell tab-${tab} place-${placeView.toLowerCase()} ${selectedJourney || editingJourney || tab === 'profile' || tab === 'photo-stories' ? 'detail-open' : ''}`}>
       <section className="content">
         {editingJourney ? (
           <JourneyEditor journey={editingJourney} onBack={goBack} onSave={saveJourney} />
@@ -1053,11 +1154,12 @@ export default function App() {
             {tab === 'trips' && <Trips journeys={journeys} onOpen={openJourney} onCreate={() => setCreating(true)} onShare={(journey) => void shareJourney(journey)} />}
             {tab === 'saved' && <Saved places={savedPlaces} samplePlaces={aiSamplePlaces} targetJourney={planningJourney} onGenerate={generateAiJourney} onRemove={toggleSaved} onAdd={addToPlanningJourney} onRemoveFromTrip={removeFromPlanningJourney} onGoDiscover={() => selectTab('discover')} />}
             {tab === 'profile' && <Profile native={native} journeys={journeys} comments={comments} cheers={cheers} profile={profile} notificationPreferences={notificationPreferences} notificationPermission={notificationPermission} onBack={goBack} onProfileChange={setProfile} onNotificationPreferencesChange={changeNotificationPreferences} onPreviewNotification={() => showToast(previewCreatorNotification(notificationPreferences.viewMilestone) ? '테스트 푸시를 보냈습니다.' : '테스트 푸시는 Spotlog 앱에서 확인할 수 있습니다.')} onOpen={openJourney} />}
+            {tab === 'photo-stories' && <PhotoStoryPreview savedIds={savedIds} onBack={goBack} onToggle={toggleSaved} onShare={(place) => void sharePlace(place)} />}
           </>
         )}
       </section>
 
-      {!selectedJourney && !editingJourney && tab !== 'profile' && <nav className="tabbar" aria-label="주요 메뉴">
+      {!selectedJourney && !editingJourney && tab !== 'profile' && tab !== 'photo-stories' && <nav className="tabbar" aria-label="주요 메뉴">
         {tabItems.map((item) => {
           const Icon = item.icon;
           return <button key={item.id} className={tab === item.id ? 'active' : ''} onClick={() => selectTab(item.id)}><Icon size={21} strokeWidth={tab === item.id ? 2.3 : 1.8} /><span>{item.label}</span></button>;
@@ -1086,6 +1188,78 @@ function Home({ journeys, templates, onOpen, onPreview, onGoCommunity, onGoPlace
 
     <section className="home-shortcuts"><button onClick={onGoPlaces}><Compass size={20} /><span><strong>랜드마크 찾기</strong><small>영상이나 안내 목록에서 장소 담기</small></span><ChevronRight size={17} /></button><button onClick={onGoTrips}><MapIcon size={20} /><span><strong>내 여행</strong><small>복사하고 만든 일정 관리</small></span><ChevronRight size={17} /></button></section>
   </div>;
+}
+
+const previewCopy = (value: LocalizedPreviewText, locale: PreviewLocale) => value[locale];
+
+function PhotoStoryPreview({ savedIds, onBack, onToggle, onShare }: { savedIds: string[]; onBack: () => void; onToggle: (id: string) => void; onShare: (place: Place) => void }) {
+  const [locale, setLocale] = useState<PreviewLocale>('ko');
+  const english = locale === 'en';
+
+  return <div className="photo-story-preview">
+    <header className="photo-story-topbar">
+      <button type="button" onClick={onBack} aria-label={english ? 'Back' : '뒤로 가기'}><ArrowLeft size={21} /></button>
+      <div><strong>{english ? 'Photo stories' : '사진 여행'}</strong><span>{english ? 'Swipe up for places · sideways for photos' : '위아래 장소 · 좌우 사진'}</span></div>
+      <button type="button" className="photo-story-locale" onClick={() => setLocale(english ? 'ko' : 'en')} aria-label={english ? '한국어로 보기' : 'View in English'}>{english ? 'KO' : 'EN'}</button>
+    </header>
+    <div className="photo-story-feed">
+      {photoStorySamples.map((story, index) => <PhotoStoryCard key={story.place.id} story={story} locale={locale} index={index} total={photoStorySamples.length} saved={savedIds.includes(story.place.id)} onToggle={() => onToggle(story.place.id)} onShare={() => onShare(story.place)} />)}
+    </div>
+  </div>;
+}
+
+function PhotoStoryCard({ story, locale, index, total, saved, onToggle, onShare }: { story: PhotoStorySample; locale: PreviewLocale; index: number; total: number; saved: boolean; onToggle: () => void; onShare: () => void }) {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [liked, setLiked] = useState(false);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const english = locale === 'en';
+  const placeName = english ? story.englishName : story.place.name;
+  const placeArea = english ? story.englishArea : story.place.area;
+
+  const goToSlide = (slideIndex: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    track.scrollTo({ left: track.clientWidth * slideIndex, behavior: 'smooth' });
+    setActiveSlide(slideIndex);
+  };
+
+  return <article className="photo-story-card">
+    <div className="photo-story-author">
+      <span>{story.creator.slice(0, 1).toUpperCase()}</span>
+      <div><strong>{story.creator}</strong><small>{placeArea} · {previewCopy(story.readTime, locale)}</small></div>
+      <em>{String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</em>
+    </div>
+
+    <div className="photo-story-media">
+      <div ref={trackRef} className="photo-story-track" onScroll={(event) => setActiveSlide(Math.min(story.slides.length - 1, Math.round(event.currentTarget.scrollLeft / Math.max(1, event.currentTarget.clientWidth))))}>
+        {story.slides.map((slide, slideIndex) => <figure className={slide.image ? '' : 'is-note'} key={`${story.place.id}-${slideIndex}`}>
+          {slide.image && <img src={slide.image} alt={previewCopy(slide.alt, locale)} />}
+          <figcaption>
+            <small>{previewCopy(slide.eyebrow, locale)}</small>
+            <strong>{previewCopy(slide.title, locale)}</strong>
+            <p>{previewCopy(slide.body, locale)}</p>
+          </figcaption>
+        </figure>)}
+      </div>
+      {story.slides.length > 1 && <div className="photo-story-count">{activeSlide + 1}/{story.slides.length}</div>}
+    </div>
+
+    <div className="photo-story-body">
+      <div className="photo-story-actions">
+        <button type="button" className={liked ? 'active' : ''} onClick={() => setLiked((value) => !value)} aria-label={english ? 'Like' : '좋아요'}><Heart size={23} fill={liked ? 'currentColor' : 'none'} /></button>
+        <button type="button" onClick={onShare} aria-label={english ? 'Share' : '공유'}><Share2 size={22} /></button>
+        <div className="photo-story-dots" aria-label={english ? 'Select photo' : '사진 선택'}>{story.slides.map((_, slideIndex) => <button type="button" key={slideIndex} className={activeSlide === slideIndex ? 'active' : ''} onClick={() => goToSlide(slideIndex)} aria-label={`${slideIndex + 1}`} />)}</div>
+        <button type="button" className={saved ? 'active' : ''} onClick={onToggle} aria-label={saved ? (english ? 'Remove saved place' : '저장 해제') : (english ? 'Quick save' : '빠른 저장')}><Bookmark size={23} fill={saved ? 'currentColor' : 'none'} /></button>
+      </div>
+      <h1>{placeName}<small>{english ? story.place.name : story.englishName}</small></h1>
+      <p>{previewCopy(story.intro, locale)}</p>
+      <div className="photo-story-tip"><Sparkles size={16} /><span>{previewCopy(story.tip, locale)}</span></div>
+      <button type="button" className={`photo-story-save ${saved ? 'saved' : ''}`} onClick={onToggle}>
+        <span><Bookmark size={18} fill={saved ? 'currentColor' : 'none'} /><strong>{saved ? (english ? 'Saved for later' : '빠른 저장함에 담김') : (english ? 'Quick save this place' : '이 장소 빠르게 저장')}</strong></span>
+        <small>{english ? 'Region is sorted now. Choose a trip later.' : '지역은 자동 분류 · 여행은 나중에 선택'}</small>
+      </button>
+    </div>
+  </article>;
 }
 
 function Community({ journeys, filters, onFiltersChange, onOpen }: { journeys: Journey[]; filters: TripSearchFilters; onFiltersChange: (filters: TripSearchFilters) => void; onOpen: (id: string) => void }) {
