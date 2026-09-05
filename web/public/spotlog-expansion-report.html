@@ -221,8 +221,6 @@
     .toc.presentation-slide { padding-top: clamp(45px, 9vh, 88px) !important; color: white; background: var(--navy); }
     .presentation-slide.section { padding-top: clamp(30px, 4.5vw, 58px) !important; }
     .presentation-slide .section-header { margin-bottom: 20px; }
-    .presentation-detail .subsection { margin-top: 0; }
-    .presentation-detail .subsection > h3 { display: none; }
     .conclusion.presentation-slide { padding-top: clamp(80px, 15vh, 150px) !important; color: white; background: var(--navy); }
     .conclusion.presentation-slide .footnote { margin-top: 70px; color: rgba(255,255,255,.42); }
     .presentation-controls { padding: 0 26px; display: grid; grid-template-columns: 210px minmax(150px, 1fr) 210px; align-items: center; gap: 22px; color: white; background: #171d24; border-top: 1px solid rgba(255,255,255,.1); }
@@ -465,33 +463,9 @@
       slides.push(cover, intro, toc);
 
       reportSections.forEach((section) => {
-        if (section === executive || section === keyLines || section === toc || section === conclusion) return;
         const header = section.querySelector('.section-header');
-        const subsection = Array.from(section.children).find((element) => element.classList.contains('subsection'));
         section.dataset.title = header?.querySelector('h2')?.textContent || '보고서';
         slides.push(section);
-
-        if (subsection) {
-          const detailSlide = document.createElement('section');
-          const detailHeader = document.createElement('header');
-          const titleGroup = document.createElement('div');
-          const detailNumber = document.createElement('span');
-          const detailTitle = document.createElement('h2');
-          const detailDescription = document.createElement('p');
-          const subsectionTitle = subsection.querySelector('h3')?.textContent || '세부 항목';
-
-          detailSlide.className = 'section presentation-detail';
-          detailSlide.dataset.title = subsectionTitle;
-          detailHeader.className = 'section-header';
-          detailNumber.className = 'section-no';
-          detailNumber.textContent = `${header?.querySelector('.section-no')?.textContent || 'DETAIL'} · DETAIL`;
-          detailTitle.textContent = subsectionTitle;
-          detailDescription.textContent = header?.querySelector('p')?.textContent || '';
-          titleGroup.append(detailNumber, detailTitle);
-          detailHeader.append(titleGroup, detailDescription);
-          detailSlide.append(detailHeader, subsection);
-          slides.push(detailSlide);
-        }
       });
 
       conclusion.dataset.title = '최종 방향';
