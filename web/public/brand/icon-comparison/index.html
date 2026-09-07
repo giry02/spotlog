@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spotlog · 앱 아이콘 6가지 비교</title>
+  <style>
+    :root { color-scheme: light; --ink:#292c2b; --muted:#737873; --line:#e2e5df; --paper:#f6f7f3; --radius:24%; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:Arial,"Malgun Gothic",sans-serif; -webkit-font-smoothing:antialiased; }
+    button,a { -webkit-tap-highlight-color:transparent; }
+    button { font:inherit; cursor:pointer; }
+    button:focus-visible,a:focus-visible,summary:focus-visible { outline:3px solid #6587aa; outline-offset:5px; }
+    main { max-width:1280px; margin:auto; padding:42px 30px 72px; }
+    header { display:flex; align-items:flex-start; justify-content:space-between; gap:24px; margin-bottom:30px; }
+    .eyebrow { font-size:11px; font-weight:700; letter-spacing:.16em; color:var(--muted); margin:0 0 12px; }
+    h1 { font-size:30px; letter-spacing:-1.3px; margin:0 0 12px; line-height:1.3; }
+    .intro { margin:0; color:var(--muted); font-size:14px; line-height:1.8; }
+    .local { border:1px solid var(--line); border-radius:30px; padding:9px 13px; white-space:nowrap; font-size:11px; font-weight:700; color:var(--muted); }
+    .toolbar { display:flex; gap:12px; align-items:center; justify-content:space-between; padding:18px 0; border-top:1px solid var(--line); }
+    .toolbar p { margin:0; font-size:13px; color:var(--muted); }
+    .segmented { display:flex; padding:3px; border:1px solid var(--line); background:#fff; border-radius:30px; }
+    .segmented button { border:0; background:transparent; color:var(--muted); padding:9px 15px; border-radius:24px; font-size:12px; }
+    .segmented button[aria-pressed="true"] { background:var(--ink); color:#fff; }
+    .launcher-strip { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; border:1px solid var(--line); border-radius:20px; padding:26px 16px; background:#fff; }
+    .launch-item { display:flex; align-items:center; flex-direction:column; gap:9px; text-decoration:none; color:var(--ink); }
+    .launch-item .num { font-size:11px; font-variant-numeric:tabular-nums; color:var(--muted); }
+    .launch-item .app-label { font-size:11px; }
+    .app-icon { display:block; object-fit:cover; border-radius:var(--radius); flex-shrink:0; background:#eceee9; }
+    .px48 { width:48px; height:48px; }
+    .px60 { width:60px; height:60px; }
+    .px120 { width:120px; height:120px; }
+    .section-heading { display:flex; justify-content:space-between; align-items:baseline; gap:20px; margin:34px 0 16px; }
+    h2 { font-size:18px; letter-spacing:-.5px; margin:0; }
+    .section-heading p { font-size:12px; color:var(--muted); margin:0; }
+    .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+    .card { background:#fff; border:1px solid var(--line); border-radius:18px; overflow:hidden; scroll-margin-top:20px; }
+    .card:target { outline:2px solid #798c80; outline-offset:3px; }
+    .card-head { display:flex; align-items:center; justify-content:space-between; padding:15px 16px 0; }
+    .card-head span:first-child { font-size:12px; font-weight:700; font-variant-numeric:tabular-nums; }
+    .family { font-size:10px; color:var(--muted); }
+    .hero-icon { display:flex; justify-content:center; padding:23px 0 20px; }
+    .hero-icon:hover img { outline:2px solid #dce2d9; outline-offset:5px; }
+    .card h3 { text-align:center; font-size:15px; margin:0 8px 7px; letter-spacing:-.3px; }
+    .card .desc { text-align:center; font-size:10px; color:var(--muted); line-height:1.7; margin:0 10px 18px; min-height:34px; }
+    .small-row { display:flex; align-items:flex-end; justify-content:center; gap:25px; border-top:1px solid #edf0e9; margin:0 14px; padding:16px 0; }
+    .sample { display:flex; flex-direction:column; gap:8px; align-items:center; }
+    .sample span { font-size:10px; color:var(--muted); }
+    .phone-section { margin-top:42px; display:grid; grid-template-columns:1fr 390px; gap:42px; align-items:center; padding:32px; background:#ecefe8; border-radius:24px; }
+    .phone-copy h2 { font-size:24px; line-height:1.5; margin-bottom:14px; }
+    .phone-copy p { max-width:420px; font-size:14px; color:#697166; line-height:1.9; margin:0; }
+    .phone-copy .note { font-size:11px; margin-top:20px; }
+    .phone { width:390px; padding:23px 18px 35px; background:linear-gradient(165deg,#c7d4d2,#e1e0cc 62%,#b7c9c0); border:7px solid #303732; border-radius:40px; box-shadow:0 10px 24px #26352812; }
+    .status { display:flex; justify-content:space-between; align-items:center; padding:0 9px; font-size:12px; font-weight:bold; }
+    .clock { font-size:52px; letter-spacing:-3px; text-align:center; margin:29px 0 2px; font-weight:400; }
+    .date { text-align:center; font-size:12px; margin:0 0 31px; }
+    .phone-apps { display:grid; grid-template-columns:repeat(4,1fr); column-gap:15px; row-gap:23px; }
+    .phone-apps .app-label { font-size:10px; }
+    .phone .home-bar { background:#343c34; width:108px; height:4px; border-radius:4px; margin:34px auto -15px; }
+    details { margin-top:30px; border-top:1px solid var(--line); padding-top:20px; }
+    summary { font-size:13px; color:var(--muted); cursor:pointer; }
+    .references { display:grid; grid-template-columns:repeat(4,1fr); gap:15px; margin-top:20px; }
+    .references figure { margin:0; background:white; border:1px solid var(--line); padding:15px; border-radius:12px; }
+    .references img { width:100%; height:84px; object-fit:contain; }
+    .references figcaption { font-size:11px; color:var(--muted); text-align:center; margin-top:8px; }
+    footer { font-size:11px; line-height:1.8; color:var(--muted); margin-top:28px; }
+    @media(max-width:1100px) { .launcher-strip { row-gap:24px; } }
+    @media(max-width:760px) { .launcher-strip { grid-template-columns:repeat(3,1fr); } }
+    @media(max-width:760px) { main { padding:25px 16px 42px; } header { gap:10px; } h1 { font-size:25px; } .intro { font-size:12px; } .local { font-size:9px; padding:8px; } .toolbar { flex-wrap:wrap; } .toolbar p { font-size:11px; } .grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; } .section-heading p { font-size:10px; } .card .desc { font-size:10px; } .px120 { width:108px; height:108px; } .small-row { gap:17px; margin:0 9px; } .phone-section { display:block; padding:22px 12px; } .phone-copy { padding:0 10px 25px; } .phone-copy h2 { font-size:21px; } .phone { width:min(100%,390px); margin:auto; border-width:5px; padding-left:12px; padding-right:12px; } .phone-apps { column-gap:6px; } .references { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:370px) { .launcher-strip { column-gap:5px; padding:22px 8px; } .grid { grid-template-columns:1fr; } .small-row { gap:32px; } }
+    @media print { main { padding:0; } .toolbar,.phone-section,details,footer { display:none; } .grid { grid-template-columns:repeat(3,1fr); } .card { break-inside:avoid; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div><p class="eyebrow">SPOTLOG / APP ICON STUDY</p><h1>아이콘, 작게 놓고 비교하기</h1><p class="intro">남은 6개 시안 · 기존 번호는 그대로 유지했습니다.<br>색과 형태는 후보이며, 앱에는 아직 적용하지 않았습니다.</p></div>
+      <span class="local">공유 검토용</span>
+    </header>
+    <section aria-labelledby="small-title">
+      <div class="toolbar">
+        <p id="small-title">먼저 48px로 보기 · 아이콘을 누르면 해당 시안으로 이동</p>
+        <div class="segmented" aria-label="아이콘 모양"><button type="button" data-shape="round" aria-pressed="true">둥근 사각형</button><button type="button" data-shape="circle" aria-pressed="false">원형</button></div>
+      </div>
+      <div class="launcher-strip" id="launcher-strip"></div>
+    </section>
+    <section aria-labelledby="all-title">
+      <div class="section-heading"><h2 id="all-title">남은 6가지 시안</h2><p>큰 이미지 120px / 축소본 48px · 60px</p></div>
+      <div class="grid" id="concepts"></div>
+    </section>
+    <section class="phone-section" aria-labelledby="phone-title">
+      <div class="phone-copy"><p class="eyebrow">HOME SCREEN CHECK</p><h2 id="phone-title">앱 이름과 같이 놓았을 때</h2><p>휴대폰 홈 화면을 가정한 배치입니다. 60px 아이콘과 Spotlog 이름을 함께 보고, 화면에서 눈에 잘 들어오는 모양을 비교할 수 있습니다.</p><p class="note">상단 버튼으로 원형 아이콘도 비교 가능.<br>표기 크기는 CSS 픽셀 기준이며, 실제 휴대폰 크기는 기기 배율과 런처 설정에 따라 달라집니다.</p></div>
+      <div class="phone"><div class="status"><span>9:41</span><span aria-label="배터리">▰</span></div><p class="clock">09:41</p><p class="date">여행을 기록하는 하루</p><div class="phone-apps" id="phone-apps"></div><div class="home-bar"></div></div>
+    </section>
+    <details><summary>참고한 기존 Spotlog 로고 4개 보기</summary><div class="references">
+      <figure><img src="references/spotlog-logo-01-travel-journal.png" alt="기존 기록장 로고"><figcaption>원본 01 · 여행의 기록</figcaption></figure>
+      <figure><img src="references/spotlog-logo-02-simple-share.png" alt="기존 두 지점 경로 로고"><figcaption>원본 02 · 스팟의 간편한 공유</figcaption></figure>
+      <figure><img src="references/spotlog-logo-03-route-map.png" alt="기존 접힌 지도 로고"><figcaption>원본 03 · 지도로 남기는 코스</figcaption></figure>
+      <figure><img src="references/spotlog-logo-04-instant-share.png" alt="기존 북마크 로고"><figcaption>원본 04 · 스팟 즉시 공유</figcaption></figure>
+    </div></details>
+    <footer>이미지 생성 도구로 만든 디자인 검토용 시안입니다. 최종 선택 후 벡터 정리·Android 마스크 여백·단색 아이콘을 별도로 검수해야 합니다.<br>기존 로고 원본 및 서비스 화면은 변경하지 않았으며, 실제 앱에 적용하지 않은 별도 비교 페이지입니다.</footer>
+  </main>
+  <script>
+    const options = [
+      ['01','여행 노트','기록','기록장과 위치점 · 오트밀 / 월넛'],
+      ['03','두 개의 스팟','동선','두 지점과 짧은 경로 · 레드 / 블루'],
+      ['05','접어둔 지도','지도','3면 지도와 작은 위치점 · 블루'],
+      ['06','지도 위의 길','지도','지도 안의 한 줄 경로 · 세이지 / 포레스트'],
+      ['07','저장한 순간','저장','북마크 하나 · 라벤더 / 아이보리'],
+      ['10','기억한 장소','장면','위치 핀 속 북마크 · 버건디 / 크림']
+    ];
+    const icon = (id,size,alt='') => `<img class="app-icon px${size}" src="icons/${id}.png" width="${size}" height="${size}" alt="${alt}" decoding="async">`;
+    document.getElementById('launcher-strip').innerHTML = options.map(([id,name]) => `<a class="launch-item" href="#concept-${id}" aria-label="${id} ${name} 시안으로 이동"><span class="num">${id}</span>${icon(id,48)}<span class="app-label">Spotlog</span></a>`).join('');
+    document.getElementById('concepts').innerHTML = options.map(([id,name,family,desc]) => `<article class="card" id="concept-${id}"><div class="card-head"><span>${id}</span><span class="family">${family}</span></div><a class="hero-icon" href="icons/${id}.png" target="_blank" rel="noopener" aria-label="${id} ${name} 원본 크게 보기">${icon(id,120,name)}</a><h3>${name}</h3><p class="desc">${desc}</p><div class="small-row"><div class="sample">${icon(id,48)}<span>48px</span></div><div class="sample">${icon(id,60)}<span>60px</span></div></div></article>`).join('');
+    document.getElementById('phone-apps').innerHTML = options.map(([id,name]) => `<a class="launch-item" href="#concept-${id}" aria-label="${id} ${name}">${icon(id,60)}<span class="app-label">Spotlog ${id}</span></a>`).join('');
+    document.querySelectorAll('[data-shape]').forEach(button => button.addEventListener('click', () => {
+      document.documentElement.style.setProperty('--radius',button.dataset.shape === 'circle' ? '50%' : '24%');
+      document.querySelectorAll('[data-shape]').forEach(item => item.setAttribute('aria-pressed',String(item === button)));
+    }));
+  </script>
+</body>
+</html>
