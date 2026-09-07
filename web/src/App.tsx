@@ -981,25 +981,37 @@ export default function App() {
       showToast('먼저 내 여행을 만들어주세요.');
       return;
     }
-    const targetDay = target.days.find((day) => day.day === requestedDay);
-    if (!targetDay) {
-      showToast(`${target.title}에는 DAY ${requestedDay}가 없습니다.`);
-      return;
-    }
+    const targetDayNumber = Math.max(1, Math.trunc(requestedDay));
     const alreadyAdded = target.days.some((day) => day.places.some((item) => item.id === place.id));
     if (alreadyAdded) {
       showToast(`${target.title}에 이미 담겨 있습니다.`);
       return;
     }
-    setJourneys((current) => current.map((journey) => journey.id !== target.id ? journey : {
-      ...journey,
-      days: journey.days.map((day) => day.day !== targetDay.day ? day : {
-        ...day,
-        places: [...day.places, { ...place, move: '이동시간 확인 필요' }],
-        blocks: [...day.blocks, { id: `place-${place.id}-${Date.now()}`, type: 'PLACE' as const, placeId: place.id }],
-      }),
+    setJourneys((current) => current.map((journey) => {
+      if (journey.id !== target.id) return journey;
+      const nextDays = [...journey.days];
+      const lastDayNumber = Math.max(0, ...nextDays.map((day) => day.day));
+      for (let dayNumber = lastDayNumber + 1; dayNumber <= targetDayNumber; dayNumber += 1) {
+        nextDays.push({
+          day: dayNumber,
+          date: `DAY ${dayNumber}`,
+          title: `${dayNumber}일차 기록`,
+          story: '이날의 이야기를 기록할 자리입니다.',
+          places: [],
+          blocks: [{ id: `text-${journey.id}-day-${dayNumber}-${Date.now()}`, type: 'TEXT', heading: `${dayNumber}일차 이야기`, body: '' }],
+        });
+      }
+      return {
+        ...journey,
+        duration: nextDays.length === 1 ? '당일 여행' : `${nextDays.length - 1}박 ${nextDays.length}일`,
+        days: nextDays.map((day) => day.day !== targetDayNumber ? day : {
+          ...day,
+          places: [...day.places, { ...place, move: '이동시간 확인 필요' }],
+          blocks: [...day.blocks, { id: `place-${place.id}-${Date.now()}`, type: 'PLACE' as const, placeId: place.id }],
+        }),
+      };
     }));
-    showToast(`${target.title} DAY ${targetDay.day}에 담았습니다.`);
+    showToast(`${target.title} DAY ${targetDayNumber}에 담았습니다.`);
   };
   const removeFromPlanningJourney = (place: Place) => {
     const target = planningJourney;
