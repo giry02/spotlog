@@ -347,11 +347,17 @@ const readSavedIds = () => {
   }
 };
 
+const normalizeGeneratedJourneyTitle = (journey: Journey): Journey => {
+  if (/^AI가 엮은 .+ 장면 여행$/.test(journey.title)) return { ...journey, title: `${journey.region} 여행 초안` };
+  if (/^AI 제주 랜드마크 \d+일 샘플$/.test(journey.title)) return { ...journey, title: '제주 여행 초안' };
+  return journey;
+};
+
 const readJourneys = (): Journey[] => {
   try {
     const value: unknown = JSON.parse(localStorage.getItem(storageKeys.journeys) ?? 'null');
     if (!Array.isArray(value) || !value.length) return publishedJourneySeeds;
-    const stored = value as Journey[];
+    const stored = (value as Journey[]).map(normalizeGeneratedJourneyTitle);
     const publishedGuides = publishedJourneySeeds.filter((journey) => !journey.isMine && journey.status === 'PUBLISHED');
     const guideById = new Map(publishedGuides.map((journey) => [journey.id, journey]));
     const refreshed = stored.map((journey) => {
@@ -629,7 +635,7 @@ const buildAiJourneyDraft = (sourcePlaces: Place[], requestedDays: number, isSam
   const duration = dayCount === 1 ? '당일 여행' : `${dayCount - 1}박 ${dayCount}일`;
   return {
     id,
-    title: isSample ? `AI 제주 랜드마크 ${dayCount}일 샘플` : `AI가 엮은 ${region} 장면 여행`,
+    title: isSample ? '제주 여행 초안' : `${region} 여행 초안`,
     region,
     dateRange: '날짜 미정 · AI 초안',
     duration,
@@ -1011,7 +1017,7 @@ export default function App() {
         }),
       };
     }));
-    showToast(`${target.title} DAY ${targetDayNumber}에 담았습니다.`);
+    showToast(`DAY ${targetDayNumber}에 담았습니다.`);
   };
   const removeFromPlanningJourney = (place: Place) => {
     const target = planningJourney;
@@ -1025,7 +1031,7 @@ export default function App() {
         blocks: day.blocks.filter((block) => block.type !== 'PLACE' || block.placeId !== place.id),
       }),
     }));
-    showToast(`${target.title} DAY ${placedDay.day}에서 뺐습니다.`);
+    showToast(`DAY ${placedDay.day}에서 뺐습니다.`);
   };
   const createJourney = (title: string, region: string) => {
     const id = `journey-${Date.now()}`;
