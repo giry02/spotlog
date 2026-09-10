@@ -6,12 +6,12 @@ Spotlog는 국내 랜드마크 영상을 발견의 입구로 사용하고, 사�
 
 ## 대화 복구·인수인계
 
-[복구 문서 목차](./docs/handoff/README.md)에 현재 구현 상태, 작업 이력, 공개 금지인 로컬 실험, 개발 계획서 32쪽·AI 계획서 57쪽의 전체 MD를 보존했습니다. 새 작업에서는 이 문서부터 확인합니다. 과거 로드맵보다 **1·2·3차 프런트엔드 우선 → 이후 백엔드**라는 최신 결정을 우선합니다.
+[복구 문서 목차](./docs/handoff/README.md)에 현재 구현 상태, 작업 이력, 공개 금지인 로컬 실험, 개발 계획서 33쪽·AI 계획서 57쪽의 전체 MD를 보존했습니다. 새 작업에서는 이 문서부터 확인합니다. 과거 로드맵보다 **1·2·3차 프런트엔드 우선 → 이후 백엔드**라는 최신 결정을 우선합니다.
 
 ## 추가 개발 계획서
 
-- 짧게 보기: [개발 계획 7쪽 요약](https://giry02.github.io/spotlog/spotlog-development-summary.html), [AI 가이드 5쪽 요약](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html). 2026-09-10에 별도 제작했으며 아래 원본은 그대로 유지합니다.
-- [1·2·3차 프런트엔드 및 전체 후속 개발 계획](https://giry02.github.io/spotlog/spotlog-development-plan.html): 현재 구현 비교, 차수별 구현표, 기존 로드맵 대응표를 포함한 32쪽 발표형 HTML입니다.
+- 짧게 보기: [개발 계획 8쪽 요약](https://giry02.github.io/spotlog/spotlog-development-summary.html), [AI 가이드 5쪽 요약](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html). 2026-09-10에 별도 제작했으며 아래 원본은 그대로 유지합니다.
+- [1·2·3차 프런트엔드 및 전체 후속 개발 계획](https://giry02.github.io/spotlog/spotlog-development-plan.html): 현재 구현 비교, 차수별 구현표, 기존 로드맵 대응표를 포함한 33쪽 발표형 HTML입니다.
 - [AI 관광 가이드·자동번역 개발 계획](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html): 내부 데이터 RAG 추천, 인기·주변 음식점·숙소 매칭, GPT·Claude·Gemini 비교·비용, 경로·일정 검증과 번역을 포함한 57쪽 발표형 HTML입니다. 기존 상세 계획을 유지하고 2026-09-09에 추천 구조와 모델 선택 기준을 보완했습니다.
 
 두 문서는 개발 계획이며 기능 구현 완료를 의미하지 않습니다. 목차·방향키·전체 보기와 인쇄·PDF 저장을 지원하며 기존 확장 보고서와 로드맵은 그대로 보존합니다.

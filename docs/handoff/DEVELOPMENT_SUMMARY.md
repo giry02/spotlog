@@ -1,6 +1,6 @@
 # Spotlog 추가 개발 계획 요약
 
-2026-09-10 개정 · 7쪽 · 프런트엔드 1·2·3차 구현 기준
+2026-09-10 개정 · 8쪽 · 프런트엔드 1·2·3차 구현 기준
 
 개인 프런트엔드 개발 기준으로 차수를 구분함. 주수·일수와 개발자별 역할 배정은 두지 않음. 보고서의 기술·비용 정보는 기존 확인 시점의 계획이며 실제 도입 전 재확인함.
 
@@ -8,7 +8,7 @@
 
 <a id="slide-1"></a>
 
-## 01 / 7 · 추가 개발 계획 핵심
+## 01 / 8 · 추가 개발 계획 핵심
 
 SPOTLOG · DEVELOPMENT SUMMARY · 1
 
@@ -23,13 +23,13 @@ SPOTLOG · DEVELOPMENT SUMMARY · 1
 
 **모바일웹과 하이브리드 앱을 유지함.** 숙소·음식점은 여행기 속 장소로 다루며 예약·결제·숙박비 비교는 제외함.
 
-출처: [원본 상세 32쪽](https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-4) · [다른 요약본](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html)
+출처: [원본 상세 33쪽](https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-4) · [다른 요약본](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html)
 
 ---
 
 <a id="slide-2"></a>
 
-## 02 / 7 · 1차·2차·3차 프런트엔드 합본
+## 02 / 8 · 1차·2차·3차 프런트엔드 합본
 
 SPOTLOG · DEVELOPMENT SUMMARY · 2
 
@@ -39,7 +39,7 @@ SPOTLOG · DEVELOPMENT SUMMARY · 2
 | --- | --- | --- |
 | 1차 · 발견·저장 | 검색·보관함·여행/DAY 선택·담김 상태·해제 | 찾은 장소를 원하는 여행과 DAY에 정확히 넣음. |
 | 2차 · 일정·작성 | 임시 저장·복구·사진/글·이동/복사·지도·미리보기 | 사진 있는 여행기를 안전하게 편집하고 재사용함. |
-| 3차 · 추천·안내 | AI 추천·후보 승인·부분 수정·관광 안내·영어 샘플 | 추천 초안부터 수정·관광 안내·영어 열람까지 확인함. |
+| 3차 · 추천·안내·소통 | AI 추천·후보 승인·부분 수정·관광 안내·영어·장소별 반응 | 추천·안내·영어 열람과 장소별 댓글 이용을 확인함. |
 
 ### 차수 진행 기준
 
@@ -49,13 +49,14 @@ SPOTLOG · DEVELOPMENT SUMMARY · 2
 
 1~3차는 프런트엔드 범위임. 실제 로그인·서버 저장·AI/RAG·교통·번역 연동은 이후 백엔드 단계임.
 
-출처: [원본 상세 32쪽](https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-11) · [다른 요약본](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html)
+- [원본 상세 33쪽](https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-11)
+- [다른 요약본](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html)
 
 ---
 
 <a id="slide-3"></a>
 
-## 03 / 7 · 1차 · 장소 발견부터 정확한 담기까지
+## 03 / 8 · 1차 · 장소 발견부터 정확한 담기까지
 
 SPOTLOG · DEVELOPMENT SUMMARY · 3
 
@@ -79,7 +80,7 @@ SPOTLOG · DEVELOPMENT SUMMARY · 3
 
 <a id="slide-4"></a>
 
-## 04 / 7 · 2차 · 사진 있는 여행기 작성과 복구
+## 04 / 8 · 2차 · 사진 있는 여행기 작성과 복구
 
 SPOTLOG · DEVELOPMENT SUMMARY · 4
 
@@ -103,11 +104,11 @@ SPOTLOG · DEVELOPMENT SUMMARY · 4
 
 <a id="slide-5"></a>
 
-## 05 / 7 · 3차 · AI 추천·관광 안내·영어 이용
+## 05 / 8 · 3차 · AI·관광 안내와 장소별 소통
 
 SPOTLOG · DEVELOPMENT SUMMARY · 5
 
-구현 목표: 실제 엔진 연결 전, 사용자가 조건을 정하고 추천을 확인·수정하는 전체 화면을 검증함.
+구현 목표: 추천·수정·영어 이용과 장소별 반응·댓글 하단 팝업을 샘플로 검증함.
 
 | 구현 항목 | 화면에서 구현할 내용 |
 | --- | --- |
@@ -115,21 +116,46 @@ SPOTLOG · DEVELOPMENT SUMMARY · 5
 | 후보·결과 확인 | 랜드마크·음식점·숙소 후보와 추천 근거, DAY별 배치·미배치 이유·경고를 보여 주고 승인/거절하게 함. |
 | 부분 수정·승인 | 특정 DAY 재생성과 고정 항목 유지를 시연함. 변경 전후를 비교하고 승인 후 새 초안이나 수정본에 적용함. |
 | 관광 안내·영어 | 현재 DAY·다음 장소·질문 답변·출처 화면을 제공함. 한국어/영어, 원문·번역 상태·한글 주소 보기를 연결함. |
-| 실패·통합 검증 | 자료 부족·생성 취소·시간 초과·재시도·경로 미확인을 처리함. 저장부터 편집·승인·영어까지 회귀 검사함. |
+| 실패·통합 검증 | 자료 부족·생성 취소·시간 초과·재시도·경로 미확인을 처리함. 저장·편집·영어와 장소별 반응·댓글 팝업을 회귀 검사함. |
 
 **사용 흐름:** 저장 장소와 조건 선택 → 추천·업체 후보 확인 → 하루만 수정 → 승인 → 관광 안내와 영어 원문 전환.
 
 완료 기준: 샘플 응답으로 끝까지 동작하며 원본·고정 일정이 보존됨. 실제 RAG·LLM·경로·번역·인기 집계는 이후 서버에서 구현함.
 
-출처: [원본 차수 상세](https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-16) · [AI 요약](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html)
+- [원본 차수 상세](https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-16)
+- [AI 요약](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html)
 
 ---
 
 <a id="slide-6"></a>
 
-## 06 / 7 · 백엔드와 콘텐츠 확보 순서
+## 06 / 8 · 장소별 반응·댓글 하단 팝업
 
 SPOTLOG · DEVELOPMENT SUMMARY · 6
+
+랜드마크·음식점·호텔 각각의 뷰에 개수를 표시하고, 누르면 하단 팝업에서 확인하거나 작성함.
+
+| 구성 | 화면과 동작 |
+| --- | --- |
+| 장소 뷰 | 사진·설명 아래에 좋아요 버튼과 좋아요 수, 댓글 수를 표시함. 버튼은 좋아요/취소, 각 숫자는 해당 하단 팝업을 엶. |
+| 좋아요 팝업 | 장소명·좋아요 총수·반응한 사용자 목록을 보여 줌. 내 반응 상태를 확인하고 좋아요를 누르거나 취소함. |
+| 댓글 팝업 | 장소명·댓글 총수, 작성자 아이콘·이름·작성 시각·본문을 보여 줌. 하단 입력창에서 댓글을 작성함. |
+| 답글 스레드 | 댓글의 ‘답글 N개’를 눌러 같은 팝업 안에서 펼쳐 봄. 답글 대상과 취소를 표시하고 작성·수정·삭제·신고 동작을 구분함. |
+| 모바일 이용 | 팝업 안에서 목록을 나눠 불러옴. 키보드 위 입력창, 닫기·뒤로가기·포커스 복귀를 제공하고 본문 위치와 미전송 초안을 보존함. |
+
+**3차 F19:** 샘플로 숫자·반응·댓글·답글·빈 목록·실패·로그인 필요 상태를 검증함. **이후 B3:** 실제 회원·저장·중복 방지·집계·신고·차단을 연결함.
+
+장소 ID별로 집계하며 여행기 전체 반응과 분리함. 여행기 복사 시 반응을 복제하지 않음. 댓글 수는 공개 댓글·답글 합계로 표시하며 삭제·숨김 항목을 제외함. 샘플 수치는 실제 인기와 구분함.
+
+- [원본 상세 동일 구성](https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-24)
+
+---
+
+<a id="slide-7"></a>
+
+## 07 / 8 · 백엔드와 콘텐츠 확보 순서
+
+SPOTLOG · DEVELOPMENT SUMMARY · 7
 
 1·2·3차 프런트엔드 이후 데이터 기반과 운영 안전성을 갖춘 뒤 실제 AI를 연결함.
 
@@ -137,7 +163,7 @@ SPOTLOG · DEVELOPMENT SUMMARY · 6
 | --- | --- |
 | B1 · 데이터 기반 | 회원·권한·기기 동기화, 로컬 여행 이전, 이미지 저장소, 계정 삭제·백업. |
 | B2 · 콘텐츠 운영 | 장소 검색·중복 통합, 사진/영상 업로드·최적화, 공개 URL·검색, 원문/복사 관계. |
-| B3 · 커뮤니티 | 실제 조회·담김·댓글·반응, 작성자 등급·팔로우, 신고·차단·관리자 처리. |
+| B3 · 커뮤니티 | 실제 조회·담김, 장소별 좋아요·댓글·답글 저장과 집계, 작성자 등급·팔로우, 신고·차단·관리자 처리. |
 | B4 · AI·영어 | 내부 RAG 추천·업체 매칭, 실제 경로·일정·관광 안내, 번역·품질·사용량 관리. |
 | B5 · 앱 확장 | 원격 푸시·수신 설정, 오프라인 자료, 현장 방문 기록, 앱 링크·추가 언어·공동 편집. |
 
@@ -147,15 +173,16 @@ SPOTLOG · DEVELOPMENT SUMMARY · 6
 
 - 작성자를 모집하고 실제 저장·복사·작성 완료를 측정함. 샘플 반응을 실사용 성과로 사용하지 않음.
 
-출처: [원본 상세 32쪽](https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-21) · [다른 요약본](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html)
+- [원본 상세 33쪽](https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-21)
+- [다른 요약본](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html)
 
 ---
 
-<a id="slide-7"></a>
+<a id="slide-8"></a>
 
-## 07 / 7 · 우선 결정과 완료 판단
+## 08 / 8 · 우선 결정과 완료 판단
 
-SPOTLOG · DEVELOPMENT SUMMARY · 7
+SPOTLOG · DEVELOPMENT SUMMARY · 8
 
 기존 기능을 다시 만들기보다 저장의 정확성, 기록 보존, 여행 정보의 신뢰도를 먼저 확인함.
 
@@ -174,6 +201,6 @@ SPOTLOG · DEVELOPMENT SUMMARY · 7
 
 참고 방향: 트리플·Wanderlog의 일정 편집, Thatch의 장소형 가이드, Polarsteps의 기록 연결, Creatrip·VISITKOREA의 외국인 현장 안내를 원본에서 검토함.
 
-출처: [원본 상세 32쪽](https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-25) · [다른 요약본](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html)
+출처: [원본 상세 33쪽](https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-26) · [다른 요약본](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html)
 
 ---
