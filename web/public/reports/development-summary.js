@@ -24,7 +24,7 @@ Report.mount({
     },
     {
       "title": "1차·2차·3차 프런트엔드 합본",
-      "lead": "개인 개발 기준으로 한 차수씩 구현·검증함. 차수는 기능 묶음이며, 각각 1주로 환산하지 않음.",
+      "lead": "1차·2차·3차의 구현 범위와 완료 기준을 정리함.",
       "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">차수</th><th scope=\"col\">구현 범위</th><th scope=\"col\">완료 후 가능한 일</th></tr></thead><tbody><tr><th scope=\"row\">1차 · 발견·저장</th><td>검색·보관함·여행/DAY 선택·담김 상태·해제</td><td>찾은 장소를 원하는 여행과 DAY에 정확히 넣음.</td></tr><tr><th scope=\"row\">2차 · 일정·작성</th><td>임시 저장·복구·사진/글·이동/복사·지도·미리보기</td><td>사진 있는 여행기를 안전하게 편집하고 재사용함.</td></tr><tr><th scope=\"row\">3차 · 추천·안내</th><td>AI 추천·후보 승인·부분 수정·관광 안내·영어 샘플</td><td>추천 초안부터 수정·관광 안내·영어 열람까지 확인함.</td></tr></tbody></table></div><section class=\"section-block\"><h3>차수 진행 기준</h3><ul class=\"list\"><li>각 차수 안에서 구조 정리, 기능 구현, 실패 상태 처리, 전체 흐름 검증을 순서대로 진행함.</li><li>앞 차수의 기록과 상태를 다음 차수에서 재사용함. 별도 개발자 역할 배정이나 주간 마감은 두지 않음.</li></ul></section><p class=\"note\">1~3차는 프런트엔드 범위임. 실제 로그인·서버 저장·AI/RAG·교통·번역 연동은 이후 백엔드 단계임.</p>",
       "section": "SPOTLOG · DEVELOPMENT SUMMARY · 2",
       "sources": [
