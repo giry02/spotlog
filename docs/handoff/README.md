@@ -4,6 +4,8 @@
 
 ## 읽는 순서
 
+빠르게 확인할 때는 [개발 계획 4쪽 요약](DEVELOPMENT_SUMMARY.md), [AI 가이드 5쪽 요약](AI_GUIDE_SUMMARY.md)을 먼저 읽음. 2026-09-10 추가했으며 전체 원본은 아래에 보존함.
+
 1. [현재 상태·복구 지침](CURRENT_HANDOFF.md): 다음 담당자가 먼저 읽을 운영 지침임.
 2. [작업 이력·사용자 결정사항](WORK_HISTORY.md): 대화에서 확인한 요구와 Git으로 확인한 작업을 구분함.
 3. [개발 계획서 전체 MD](DEVELOPMENT_PLAN.md): 발표형 HTML 32쪽의 본문·표·출처를 보존한 스냅샷임.

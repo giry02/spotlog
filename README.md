@@ -10,6 +10,7 @@ Spotlog는 국내 랜드마크 영상을 발견의 입구로 사용하고, 사�
 
 ## 추가 개발 계획서
 
+- 짧게 보기: [개발 계획 4쪽 요약](https://giry02.github.io/spotlog/spotlog-development-summary.html), [AI 가이드 5쪽 요약](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html). 2026-09-10에 별도 제작했으며 아래 원본은 그대로 유지합니다.
 - [3주 프런트엔드 및 전체 후속 개발 계획](https://giry02.github.io/spotlog/spotlog-development-plan.html): 현재 구현 비교, 일별 작업표, 기존 로드맵 대응표를 포함한 32쪽 발표형 HTML입니다.
 - [AI 관광 가이드·자동번역 개발 계획](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html): 내부 데이터 RAG 추천, 인기·주변 음식점·숙소 매칭, GPT·Claude·Gemini 비교·비용, 경로·일정 검증과 번역을 포함한 57쪽 발표형 HTML입니다. 기존 상세 계획을 유지하고 2026-09-09에 추천 구조와 모델 선택 기준을 보완했습니다.
 
