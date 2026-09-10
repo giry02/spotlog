@@ -8,7 +8,7 @@ Report.mount({
   "slides": [
     {
       "title": "추가 개발 계획 핵심",
-      "lead": "프런트엔드를 1차·2차·3차로 나누어 구현함. 차수별 완료 조건을 기준으로 진행하며 기간을 고정하지 않음.",
+      "lead": "프런트엔드를 1차·2차·3차로 나누어 구현함. 차수별 완료 조건을 기준으로 진행함.",
       "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">구분</th><th scope=\"col\">요약</th></tr></thead><tbody><tr><th scope=\"row\">제품 방향</th><td>여행기를 읽고 장소를 저장한 뒤, 내 일정으로 활용하고 여행 후 기록을 발행함. 국내 콘텐츠를 먼저 쌓고 영어 이용을 준비함.</td></tr><tr><th scope=\"row\">현재 활용</th><td>홈 추천·여행기 검색, 장소 발견·지역별 저장, 여러 여행과 DAY 편집, 글·사진·장소 블록, 여행기 복사·지도 표시를 활용함.</td></tr><tr><th scope=\"row\">우선 보완</th><td>담을 여행·DAY를 명확히 선택하고, 저장/담김/해제를 구분함. 작성 중 기록 복구와 사진·장소 정보의 신뢰도를 높임.</td></tr><tr><th scope=\"row\">운영 전제</th><td>현재 AI·댓글·반응 등의 로컬 동작과 실제 서버 기능을 구분함. 3차까지 완료는 화면 검증 단계이며 정식 출시를 뜻하지 않음.</td></tr></tbody></table></div><div class=\"callout\"><strong>모바일웹과 하이브리드 앱을 유지함.</strong> 숙소·음식점은 여행기 속 장소로 다루며 예약·결제·숙박비 비교는 제외함.</div>",
       "section": "SPOTLOG · DEVELOPMENT SUMMARY · 1",
       "sources": [
