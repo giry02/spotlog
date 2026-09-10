@@ -1,4 +1,4 @@
-/* Executive summary with a dedicated page for each implementation phase. */
+/* Executive summary with page architecture and implementation phases. */
 Report.mount({
   "date": "2026.09.10",
   "title": "Spotlog 추가 개발 계획 요약",
@@ -13,7 +13,7 @@ Report.mount({
       "section": "SPOTLOG · DEVELOPMENT SUMMARY · 1",
       "sources": [
         [
-          "원본 상세 33쪽",
+          "원본 상세 36쪽",
           "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-4"
         ],
         [
@@ -25,16 +25,52 @@ Report.mount({
     {
       "title": "1차·2차·3차 프런트엔드 합본",
       "lead": "1차·2차·3차의 구현 범위와 완료 기준을 정리함.",
-      "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">차수</th><th scope=\"col\">구현 범위</th><th scope=\"col\">완료 후 가능한 일</th></tr></thead><tbody><tr><th scope=\"row\">1차 · 발견·저장</th><td>검색·사진 넘겨보기·보관함·여행/DAY 선택·담김 상태·해제</td><td>찾은 장소를 원하는 여행과 DAY에 정확히 넣음.</td></tr><tr><th scope=\"row\">2차 · 일정·작성</th><td>임시 저장·복구·사진/글·이동/복사·지도·미리보기</td><td>사진 있는 여행기를 안전하게 편집하고 재사용함.</td></tr><tr><th scope=\"row\">3차 · 추천·안내·소통</th><td>AI 추천·후보 승인·부분 수정·관광 안내·영어·장소별 반응</td><td>추천·안내·영어 열람과 장소별 댓글 이용을 확인함.</td></tr></tbody></table></div><section class=\"section-block\"><h3>차수 진행 기준</h3><ul class=\"list\"><li>각 차수 안에서 구조 정리, 기능 구현, 실패 상태 처리, 전체 흐름 검증을 순서대로 진행함.</li><li>앞 차수의 기록과 상태를 다음 차수에서 재사용함. 별도 개발자 역할 배정이나 주간 마감은 두지 않음.</li></ul></section><p class=\"note\">1~3차는 프런트엔드 범위임. 실제 로그인·서버 저장·AI/RAG·교통·번역 연동은 이후 백엔드 단계임.</p>",
+      "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">차수</th><th scope=\"col\">구현 범위</th><th scope=\"col\">완료 후 가능한 일</th></tr></thead><tbody><tr><th scope=\"row\">1차 · 발견·저장</th><td>검색·사진 넘겨보기·보관함·여행/DAY 선택·담김 상태·해제</td><td>찾은 장소를 원하는 여행과 DAY에 정확히 넣음.</td></tr><tr><th scope=\"row\">2차 · 일정·작성·소통</th><td>임시 저장·복구·사진/글·장소 카드 반응·댓글·지도·복사</td><td>여행기를 편집하고 본문 속 장소마다 반응·댓글을 남김.</td></tr><tr><th scope=\"row\">3차 · 추천·안내</th><td>AI 추천·후보 승인·부분 수정·관광 안내·영어</td><td>추천 초안 수정·관광 안내·영어 열람을 확인함.</td></tr></tbody></table></div><section class=\"section-block\"><h3>차수 진행 기준</h3><ul class=\"list\"><li>각 차수 안에서 구조 정리, 기능 구현, 실패 상태 처리, 전체 흐름 검증을 순서대로 진행함.</li><li>앞 차수의 기록과 상태를 다음 차수에서 재사용함. 별도 개발자 역할 배정이나 주간 마감은 두지 않음.</li></ul></section><p class=\"note\">1~3차는 프런트엔드 범위임. 실제 로그인·서버 저장·AI/RAG·교통·번역 연동은 이후 백엔드 단계임.</p>",
       "section": "SPOTLOG · DEVELOPMENT SUMMARY · 2",
       "sources": [
         [
-          "원본 상세 33쪽",
+          "원본 상세 36쪽",
           "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-11"
         ],
         [
           "다른 요약본",
           "https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html"
+        ]
+      ]
+    },
+    {
+      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 3",
+      "title": "전체 페이지 구조 · 메뉴와 하위 화면",
+      "lead": "현재 하단 메뉴를 유지하고, 각 메뉴 안의 화면을 연결하며 필요한 기능을 차수별로 보완함.",
+      "html": "<div class=\"table-wrap architecture-table\"><table><thead><tr><th scope=\"col\">진입 메뉴</th><th scope=\"col\">하위 페이지와 연결</th><th scope=\"col\">개발 배치</th></tr></thead><tbody><tr><th scope=\"row\">홈</th><td>추천 일정·여행자 일정 → 여행기 읽기<br>지역·기간 검색 → 여행기 목록</td><td>기존 활용 / 1차 탐색 정돈</td></tr><tr><th scope=\"row\">여행기</th><td>검색·지역·기간 목록 → 여행기 읽기<br>작성자 프로필·다른 여행기 / 복사 → 내 여행</td><td>1차 검색 / 2차 읽기·복사·카드 반응</td></tr><tr><th scope=\"row\">장소</th><td>안내 목록 · 영상 · 사진 이야기<br>랜드마크 상세 → 빠른 저장 / 여행·DAY 담기</td><td>1차 사진 넘김·저장 통일</td></tr><tr><th scope=\"row\">내 여행</th><td>여러 여행 목록 → 읽기·편집·미리보기<br>DAY·글·사진·업체 카드·지도 / 현장 안내·영어</td><td>2차 작성·소통 / 3차 안내·영어</td></tr><tr><th scope=\"row\">저장</th><td>지역별 저장·보관함 → 여행·DAY 선택<br>여행 만들기 → 조건 → 추천 결과 → 편집</td><td>1차 정리·담기 / 3차 추천 연결</td></tr></tbody></table></div><div class=\"callout\"><strong>공통 진입:</strong> 프로필은 홈에서 열며 아이콘·등급·내 공개 글·반응·알림 설정을 연결함. AI 관광 안내는 여행 안에서 제공하며 하단 메뉴를 늘리지 않음.</div><p class=\"note\">기존 화면을 활용하는 목표 구조임. 새 하위 기능은 1·2·3차에서 보완하며 실제 로그인·동기화·집계·푸시는 후속 서버 단계에서 연결함.</p>",
+      "sources": [
+        [
+          "원본 동일 구조도",
+          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-12"
+        ]
+      ]
+    },
+    {
+      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 4",
+      "title": "여행기 화면 구조 · 작성과 독자 이용",
+      "lead": "한 여행기의 글·사진 사이에 업체와 랜드마크를 넣고, 독자는 해당 항목을 보고 저장하거나 반응함.",
+      "html": "<div class=\"table-wrap architecture-table\"><table><thead><tr><th scope=\"col\">화면 영역 · 위에서 아래</th><th scope=\"col\">구성 및 독자 동작</th><th scope=\"col\">차수</th></tr></thead><tbody><tr><th scope=\"row\">표지·작성자</th><td>제목·대표 사진·지역·기간·작성자·등급<br>작성자 프로필과 다른 여행기로 이동</td><td>기존 활용 / 2차 정돈</td></tr><tr><th scope=\"row\">DAY 선택 줄</th><td>DAY 앞 뒤로가기, 가로 DAY 전환<br>스크롤 중에도 뒤로가기·날짜 선택 유지</td><td>1차 공통 / 2차 편집 연결</td></tr><tr><th scope=\"row\">본문 · 글·사진·장소 카드</th><td>글·주변 사진·평가 사이에 음식점·호텔·랜드마크 삽입<br>장소명·설명·방문 정보·저장·여행 담기 제공</td><td>1차 저장 / 2차 작성</td></tr><tr><th scope=\"row\">카드 하단 · 좋아요·댓글</th><td>카드별 개수 표시 → 하단 팝업<br>반응한 사용자·댓글 목록·답글 펼침·입력창</td><td>2차 F19 / 실제 집계 B3</td></tr><tr><th scope=\"row\">지도·여행기 하단</th><td>DAY 지도 핀·이동 구간 / 여행기 전체 댓글·작성자 글<br>공유·내 여행으로 복사, 편집 시 저장·미리보기</td><td>2차 연결 / 실제 발행 B2·B3</td></tr></tbody></table></div><div class=\"callout\"><strong>작성자 흐름:</strong> 글·사진 추가 → 장소 선택 또는 직접 입력 → 카드 삽입 → 미리보기.<br><strong>독자 흐름:</strong> 여행기 읽기 → 카드 저장·반응 → 필요할 때 내 여행으로 복사함.</div><p class=\"note\">카드별 댓글과 여행기 전체 댓글은 서로 다른 영역임. 3차의 관광 안내·영어 보기는 이 여행과 DAY를 그대로 사용함. 숙소 예약·결제·가격 비교는 포함하지 않음.</p>",
+      "sources": [
+        [
+          "원본 동일 구조도",
+          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-13"
+        ]
+      ]
+    },
+    {
+      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 5",
+      "title": "기능 구조 · 1·2·3차 구현 로드맵",
+      "lead": "장소·저장·방문·본문을 공통 기반으로 연결하고, 앞 차수의 결과를 다음 차수가 이어서 사용함.",
+      "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">차수 · 연결 영역</th><th scope=\"col\">주요 기능 묶음</th><th scope=\"col\">완료 후 이어지는 화면</th></tr></thead><tbody><tr><th scope=\"row\">1차 · 발견·저장<br>F01–F06 · F20</th><td>검색·사진 넘겨보기, 빠른 저장·보관함<br>대상 여행·DAY 선택, 담김·해제·상태 복원</td><td>장소를 보고 저장한 뒤 원하는 여행의 DAY에 넣음.<br>선택한 장소·방문 기록을 2차로 전달함.</td></tr><tr><th scope=\"row\">2차 · 작성·독자 소통<br>F07–F12 · F19</th><td>임시 저장·복구, 글·사진·업체 카드·DAY 편집<br>이동·복사·지도·미리보기, 카드별 좋아요·스레드</td><td>읽을 만한 여행기를 작성하고 카드별 반응을 시연함.<br>편집기와 읽기 화면을 3차가 재사용함.</td></tr><tr><th scope=\"row\">3차 · 추천·현장 안내<br>F13–F18</th><td>AI 조건·후보 승인·결과·일부 재생성<br>관광 안내·영어·원문 보기·전체 회귀 검수</td><td>저장 장소로 초안 생성 → 편집 → 오늘 일정 안내.<br>샘플 연결부를 이후 실제 서버로 교체함.</td></tr></tbody></table></div><section class=\"section-block\"><h3>공통 기능의 연결 원칙</h3><ul class=\"list\"><li>사진·영상·안내는 같은 장소와 저장 상태를 사용함. 여행 방문·본문 카드·댓글 대상은 별도 ID로 구분함.</li><li>읽기·편집·지도·추천 결과는 같은 여행과 DAY를 참조함. 임시 저장·빈 목록·실패·뒤로가기를 각 차수에서 검증함.</li></ul></section><p class=\"note\">이후 서버: B1 회원·데이터 → B2 콘텐츠·발행 → B3 실제 커뮤니티 → B4 AI·번역 → B5 푸시·현장 앱. 프런트엔드 샘플을 실사용 집계나 실제 AI 결과로 표시하지 않음.</p>",
+      "sources": [
+        [
+          "원본 동일 구조도",
+          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-14"
         ]
       ]
     },
@@ -45,68 +81,68 @@ Report.mount({
       "sources": [
         [
           "원본 차수 상세",
-          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-12"
+          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-15"
         ],
         [
           "AI 요약",
           "https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html"
         ]
       ],
-      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 3"
+      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 6"
     },
     {
-      "title": "2차 · 사진 있는 여행기 작성과 복구",
-      "lead": "구현 목표: 1차에 담은 장소를 글·사진·지도와 연결하여 편집하고, 중단 후에도 기록을 이어 씀.",
-      "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">구현 항목</th><th scope=\"col\">화면에서 구현할 내용</th></tr></thead><tbody><tr><th scope=\"row\">자동 임시 저장</th><td>작성 중 로컬 초안을 자동 저장함. 새로고침·앱 재실행 후 내용과 위치를 복구하고 저장 실패를 알림.</td></tr><tr><th scope=\"row\">글·사진·장소 편집</th><td>블록 추가·순서 변경, 사진 여러 장 선택·설명·대표 사진을 구현함. 사진 오류와 미확인 장소를 표시함.</td></tr><tr><th scope=\"row\">DAY 이동·복사</th><td>장소와 연결된 글·사진을 함께 이동/복제함. 여행 전체·하루·장소 단위 복사와 원문 출처를 보존함.</td></tr><tr><th scope=\"row\">삭제 복구·지도</th><td>마지막 변경 취소와 삭제 복구를 제공함. 선택 DAY·본문 장소·지도 핀이 같은 방문을 가리키게 함.</td></tr><tr><th scope=\"row\">공개 전 미리보기</th><td>여행기를 읽는 화면으로 확인하고 빠진 사진·장소 정보를 점검함. 원본에 영향을 주지 않는 사본을 만듦.</td></tr></tbody></table></div><div class=\"callout\"><strong>사용 흐름:</strong> DAY 2 장소에 주변 사진과 평가 작성 → 잠시 종료 → 초안 복구 → DAY 이동 → 지도와 미리보기 확인.</div><p class=\"note\">완료 기준: 이동·복사·복구 후 연결이 유지됨. 서버 업로드·실제 발행은 후속이며, 3차는 이 편집기를 추천 초안에 재사용함.</p>",
+      "title": "2차 · 여행기 작성과 장소 카드별 소통",
+      "lead": "목표: 글·사진·업체·랜드마크로 여행기를 작성하고, 읽는 사람이 카드별 반응·댓글을 남기는 화면을 완성함.",
+      "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">구현 항목</th><th scope=\"col\">화면에서 구현할 내용</th></tr></thead><tbody><tr><th scope=\"row\">자동 임시 저장</th><td>작성 중 로컬 초안을 자동 저장함. 새로고침·앱 재실행 후 내용과 위치를 복구하고 저장 실패를 알림.</td></tr><tr><th scope=\"row\">글·사진·장소 편집</th><td>글·사진·업체·랜드마크 카드 삽입과 순서 변경을 구현함. 사진 여러 장·설명·대표 사진, 오류·미확인 상태를 표시함.</td></tr><tr><th scope=\"row\">DAY 이동·복사</th><td>장소와 연결된 글·사진을 함께 이동/복제함. 여행 전체·하루·장소 단위 복사와 원문 출처를 보존함.</td></tr><tr><th scope=\"row\">삭제 복구·지도</th><td>마지막 변경 취소와 삭제 복구를 제공함. 선택 DAY·본문 장소·지도 핀이 같은 방문을 가리키게 함.</td></tr><tr><th scope=\"row\">공개 전 미리보기</th><td>여행기를 읽는 화면으로 확인하고 빠진 사진·장소 정보를 점검함. 원본에 영향을 주지 않는 사본을 만듦.</td></tr><tr><th scope=\"row\">카드별 반응·댓글</th><td>본문의 업체·랜드마크마다 좋아요·댓글 수를 표시함. 하단 팝업에서 반응 확인·댓글·답글 작성·수정·삭제를 샘플로 구현함.</td></tr></tbody></table></div><div class=\"callout\"><strong>사용 흐름:</strong> DAY 2 장소에 주변 사진과 평가 작성 → 잠시 종료 → 초안 복구 → DAY 이동 → 지도와 미리보기 확인.</div><p class=\"note\">완료 기준: 여행기별 카드 반응을 분리하고 이동 시 유지·복사 시 0건으로 시작함. 실제 발행·저장·집계는 서버 단계이며 3차는 편집기를 재사용함.</p>",
       "sources": [
         [
           "원본 차수 상세",
-          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-14"
+          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-17"
         ],
         [
           "AI 요약",
           "https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html"
         ]
       ],
-      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 4"
+      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 7"
     },
     {
-      "title": "3차 · AI·관광 안내와 장소별 소통",
-      "lead": "구현 목표: 추천·수정·영어 이용과 장소별 반응·댓글 하단 팝업을 샘플로 검증함.",
-      "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">구현 항목</th><th scope=\"col\">화면에서 구현할 내용</th></tr></thead><tbody><tr><th scope=\"row\">추천 조건 입력</th><td>지역·취향 추천과 저장한 곳 구성을 구분함. 장소 범위·기간·교통·숙소·필수/제외·고정 조건을 입력함.</td></tr><tr><th scope=\"row\">후보·결과 확인</th><td>랜드마크·음식점·숙소 후보와 추천 근거, DAY별 배치·미배치 이유·경고를 보여 주고 승인/거절하게 함.</td></tr><tr><th scope=\"row\">부분 수정·승인</th><td>특정 DAY 재생성과 고정 항목 유지를 시연함. 변경 전후를 비교하고 승인 후 새 초안이나 수정본에 적용함.</td></tr><tr><th scope=\"row\">관광 안내·영어</th><td>현재 DAY·다음 장소·질문 답변·출처 화면을 제공함. 한국어/영어, 원문·번역 상태·한글 주소 보기를 연결함.</td></tr><tr><th scope=\"row\">실패·통합 검증</th><td>자료 부족·생성 취소·시간 초과·재시도·경로 미확인을 처리함. 저장·편집·영어와 장소별 반응·댓글 팝업을 회귀 검사함.</td></tr></tbody></table></div><div class=\"callout\"><strong>사용 흐름:</strong> 저장 장소와 조건 선택 → 추천·업체 후보 확인 → 하루만 수정 → 승인 → 관광 안내와 영어 원문 전환.</div><p class=\"note\">완료 기준: 샘플 응답으로 끝까지 동작하며 원본·고정 일정이 보존됨. 실제 RAG·LLM·경로·번역·인기 집계는 이후 서버에서 구현함.</p>",
-      "sources": [
-        [
-          "원본 차수 상세",
-          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-16"
-        ],
-        [
-          "AI 요약",
-          "https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html"
-        ]
-      ],
-      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 5"
-    },
-    {
-      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 6",
-      "title": "장소별 반응·댓글 하단 팝업",
-      "lead": "랜드마크·음식점·호텔 각각의 뷰에 개수를 표시하고, 누르면 하단 팝업에서 확인하거나 작성함.",
-      "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">구성</th><th scope=\"col\">화면과 동작</th></tr></thead><tbody><tr><th scope=\"row\">장소 뷰</th><td>사진·설명 아래에 좋아요 버튼과 좋아요 수, 댓글 수를 표시함. 버튼은 좋아요/취소, 각 숫자는 해당 하단 팝업을 엶.</td></tr><tr><th scope=\"row\">좋아요 팝업</th><td>장소명·좋아요 총수·반응한 사용자 목록을 보여 줌. 내 반응 상태를 확인하고 좋아요를 누르거나 취소함.</td></tr><tr><th scope=\"row\">댓글 팝업</th><td>장소명·댓글 총수, 작성자 아이콘·이름·작성 시각·본문을 보여 줌. 하단 입력창에서 댓글을 작성함.</td></tr><tr><th scope=\"row\">답글 스레드</th><td>댓글의 ‘답글 N개’를 눌러 같은 팝업 안에서 펼쳐 봄. 답글 대상과 취소를 표시하고 작성·수정·삭제·신고 동작을 구분함.</td></tr><tr><th scope=\"row\">모바일 이용</th><td>팝업 안에서 목록을 나눠 불러옴. 키보드 위 입력창, 닫기·뒤로가기·포커스 복귀를 제공하고 본문 위치와 미전송 초안을 보존함.</td></tr></tbody></table></div><div class=\"callout\"><strong>3차 F19:</strong> 샘플로 숫자·반응·댓글·답글·빈 목록·실패·로그인 필요 상태를 검증함. <strong>이후 B3:</strong> 실제 회원·저장·중복 방지·집계·신고·차단을 연결함.</div><p class=\"note\">장소 ID별로 집계하며 여행기 전체 반응과 분리함. 여행기 복사 시 반응을 복제하지 않음. 댓글 수는 공개 댓글·답글 합계로 표시하며 삭제·숨김 항목을 제외함. 샘플 수치는 실제 인기와 구분함.</p>",
+      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 8",
+      "title": "2차 · 여행기 속 장소 카드별 소통",
+      "lead": "작성자는 여행기 본문에 업체·랜드마크를 넣고, 독자는 각 카드에 좋아요·댓글·답글을 남김.",
+      "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">구현 영역</th><th scope=\"col\">화면과 동작</th></tr></thead><tbody><tr><th scope=\"row\">작성·제공</th><td>저장 장소·검색·직접 입력으로 음식점·호텔·랜드마크 카드를 넣음. 사진·경험·설명과 함께 독자에게 제공함.</td></tr><tr><th scope=\"row\">카드별 반응</th><td>각 카드 아래 좋아요 버튼·좋아요 수·댓글 수를 표시함. 좋아요는 누르기/취소, 숫자는 해당 카드의 하단 팝업을 엶.</td></tr><tr><th scope=\"row\">하단 팝업</th><td>좋아요 수를 누르면 반응한 사용자 목록, 댓글 수를 누르면 아이콘·이름·시각·본문과 입력창을 보여 줌. 여행기 제목·장소명을 함께 표시함.</td></tr><tr><th scope=\"row\">댓글·답글</th><td>댓글별 ‘답글 N개’를 같은 팝업에서 펼침. 답글 대상·취소, 본인 글 수정·삭제, 신고를 제공함. 목록은 나눠 불러오고 키보드 위에서 작성함.</td></tr><tr><th scope=\"row\">연결·보존</th><td>여행기 ID + 장소 카드 ID로 스레드를 구분함. 같은 업체라도 다른 여행기의 반응은 섞지 않음. 카드 이동은 유지, 복사본은 새 ID·반응 0건으로 시작함.</td></tr></tbody></table></div><div class=\"callout\"><strong>2차 F19:</strong> 카드 삽입·미리보기·반응·댓글·답글과 실패·로그인 필요 상태를 샘플로 구현함. <strong>이후 B3:</strong> 실제 저장·권한·중복 방지·집계·신고·차단을 연결함.</div><p class=\"note\">여행기 전체 댓글·업체 공통 리뷰와 분리함. 좋아요는 카드·계정별 1회, 댓글 수는 공개 댓글·답글 합계임. 닫기·뒤로가기 시 본문 위치·포커스·미전송 초안을 보존함. 샘플 수치는 실제 인기와 구분함.</p>",
       "sources": [
         [
           "원본 상세 동일 구성",
-          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-24"
+          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-27"
         ]
       ]
     },
     {
-      "title": "백엔드와 콘텐츠 확보 순서",
-      "lead": "1·2·3차 프런트엔드 이후 데이터 기반과 운영 안전성을 갖춘 뒤 실제 AI를 연결함.",
-      "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">순서</th><th scope=\"col\">추가 개발</th></tr></thead><tbody><tr><th scope=\"row\">B1 · 데이터 기반</th><td>회원·권한·기기 동기화, 로컬 여행 이전, 이미지 저장소, 계정 삭제·백업.</td></tr><tr><th scope=\"row\">B2 · 콘텐츠 운영</th><td>장소 검색·중복 통합, 사진/영상 업로드·최적화, 공개 URL·검색, 원문/복사 관계.</td></tr><tr><th scope=\"row\">B3 · 커뮤니티</th><td>실제 조회·담김, 장소별 좋아요·댓글·답글 저장과 집계, 작성자 등급·팔로우, 신고·차단·관리자 처리.</td></tr><tr><th scope=\"row\">B4 · AI·영어</th><td>내부 RAG 추천·업체 매칭, 실제 경로·일정·관광 안내, 번역·품질·사용량 관리.</td></tr><tr><th scope=\"row\">B5 · 앱 확장</th><td>원격 푸시·수신 설정, 오프라인 자료, 현장 방문 기록, 앱 링크·추가 언어·공동 편집.</td></tr></tbody></table></div><section class=\"section-block\"><h3>초기 콘텐츠 운영</h3><ul class=\"list\"><li>서울·부산·제주에서 당일/1박 2일/2박 3일 샘플 9개를 먼저 검수함. 이후 경주·강릉으로 확대함.</li><li>작성자를 모집하고 실제 저장·복사·작성 완료를 측정함. 샘플 반응을 실사용 성과로 사용하지 않음.</li></ul></section>",
-      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 7",
+      "title": "3차 · AI 추천·관광 안내·영어 이용",
+      "lead": "구현 목표: 실제 엔진 연결 전, 조건 입력과 추천 확인·수정·영어 이용 흐름을 검증함.",
+      "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">구현 항목</th><th scope=\"col\">화면에서 구현할 내용</th></tr></thead><tbody><tr><th scope=\"row\">추천 조건 입력</th><td>지역·취향 추천과 저장한 곳 구성을 구분함. 장소 범위·기간·교통·숙소·필수/제외·고정 조건을 입력함.</td></tr><tr><th scope=\"row\">후보·결과 확인</th><td>랜드마크·음식점·숙소 후보와 추천 근거, DAY별 배치·미배치 이유·경고를 보여 주고 승인/거절하게 함.</td></tr><tr><th scope=\"row\">부분 수정·승인</th><td>특정 DAY 재생성과 고정 항목 유지를 시연함. 변경 전후를 비교하고 승인 후 새 초안이나 수정본에 적용함.</td></tr><tr><th scope=\"row\">관광 안내·영어</th><td>현재 DAY·다음 장소·질문 답변·출처 화면을 제공함. 한국어/영어, 원문·번역 상태·한글 주소 보기를 연결함.</td></tr><tr><th scope=\"row\">실패·통합 검증</th><td>자료 부족·생성 취소·시간 초과·재시도·경로 미확인을 처리함. 저장·편집·승인·영어 이용 흐름을 회귀 검사함.</td></tr></tbody></table></div><div class=\"callout\"><strong>사용 흐름:</strong> 저장 장소와 조건 선택 → 추천·업체 후보 확인 → 하루만 수정 → 승인 → 관광 안내와 영어 원문 전환.</div><p class=\"note\">완료 기준: 샘플 응답으로 끝까지 동작하며 원본·고정 일정이 보존됨. 실제 RAG·LLM·경로·번역·인기 집계는 이후 서버에서 구현함.</p>",
       "sources": [
         [
-          "원본 상세 33쪽",
-          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-21"
+          "원본 차수 상세",
+          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-19"
+        ],
+        [
+          "AI 요약",
+          "https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html"
+        ]
+      ],
+      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 9"
+    },
+    {
+      "title": "백엔드와 콘텐츠 확보 순서",
+      "lead": "1·2·3차 프런트엔드 이후 데이터 기반과 운영 안전성을 갖춘 뒤 실제 AI를 연결함.",
+      "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">순서</th><th scope=\"col\">추가 개발</th></tr></thead><tbody><tr><th scope=\"row\">B1 · 데이터 기반</th><td>회원·권한·기기 동기화, 로컬 여행 이전, 이미지 저장소, 계정 삭제·백업.</td></tr><tr><th scope=\"row\">B2 · 콘텐츠 운영</th><td>장소 검색·중복 통합, 사진/영상 업로드·최적화, 공개 URL·검색, 원문/복사 관계.</td></tr><tr><th scope=\"row\">B3 · 커뮤니티</th><td>실제 조회·담김, 여행기 속 카드별 좋아요·댓글·답글 저장과 집계, 작성자 등급·팔로우, 신고·차단·관리자 처리.</td></tr><tr><th scope=\"row\">B4 · AI·영어</th><td>내부 RAG 추천·업체 매칭, 실제 경로·일정·관광 안내, 번역·품질·사용량 관리.</td></tr><tr><th scope=\"row\">B5 · 앱 확장</th><td>원격 푸시·수신 설정, 오프라인 자료, 현장 방문 기록, 앱 링크·추가 언어·공동 편집.</td></tr></tbody></table></div><section class=\"section-block\"><h3>초기 콘텐츠 운영</h3><ul class=\"list\"><li>서울·부산·제주에서 당일/1박 2일/2박 3일 샘플 9개를 먼저 검수함. 이후 경주·강릉으로 확대함.</li><li>작성자를 모집하고 실제 저장·복사·작성 완료를 측정함. 샘플 반응을 실사용 성과로 사용하지 않음.</li></ul></section>",
+      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 10",
+      "sources": [
+        [
+          "원본 상세 36쪽",
+          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-24"
         ],
         [
           "다른 요약본",
@@ -118,11 +154,11 @@ Report.mount({
       "title": "우선 결정과 완료 판단",
       "lead": "기존 기능을 다시 만들기보다 저장의 정확성, 기록 보존, 여행 정보의 신뢰도를 먼저 확인함.",
       "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">판단 항목</th><th scope=\"col\">통과 조건</th></tr></thead><tbody><tr><th scope=\"row\">저장·편집</th><td>여행 기간과 대상 DAY가 독립적이며, DAY 이동/복사/삭제 후 글·사진·장소 연결이 유지됨.</td></tr><tr><th scope=\"row\">모바일 이용</th><td>새로고침 후 로컬 초안을 복구하고, 긴 스크롤에서도 뒤로가기·DAY 전환이 가능함.</td></tr><tr><th scope=\"row\">신뢰도</th><td>장소와 사진을 맞추고 미확인 좌표·영업·추정 경로를 표시함. 도보를 자동차 경로와 혼동시키지 않음.</td></tr><tr><th scope=\"row\">출시 판단</th><td>실제 회원·권한·집계·미디어·운영 대응은 백엔드 이후 별도 검증함. 화면 시연만으로 출시 완료라 하지 않음.</td></tr></tbody></table></div><section class=\"section-block\"><h3>착수 전에 확정할 사항</h3><ul class=\"list\"><li>각 차수의 구현·검수 항목을 확정하고, 첫 9개 샘플의 사진 권리와 내용을 점검함.</li><li>이번 프런트엔드 범위와 후속 서버 범위를 고정함. 국내 콘텐츠 확보는 별도 운영 업무로 함께 진행함.</li></ul></section><p class=\"note\">참고 방향: 트리플·Wanderlog의 일정 편집, Thatch의 장소형 가이드, Polarsteps의 기록 연결, Creatrip·VISITKOREA의 외국인 현장 안내를 원본에서 검토함.</p>",
-      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 8",
+      "section": "SPOTLOG · DEVELOPMENT SUMMARY · 11",
       "sources": [
         [
-          "원본 상세 33쪽",
-          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-26"
+          "원본 상세 36쪽",
+          "https://giry02.github.io/spotlog/spotlog-development-plan.html#slide-29"
         ],
         [
           "다른 요약본",
