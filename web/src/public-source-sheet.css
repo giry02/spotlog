@@ -1,0 +1,12 @@
+/* Attribution sheet only. Preserve the approved sheet style without importing discovery/editor experiments. */
+.phase-sheet-backdrop { position: fixed; z-index: 500; inset: 0; display: flex; justify-content: center; align-items: flex-end; background: rgba(20,20,18,.38); }
+.phase-sheet { width: min(100%,460px); max-height: 88dvh; display: flex; flex-direction: column; border-radius: 24px 24px 0 0; background: #fafaf8; box-shadow: 0 -12px 40px #0001; outline: none; }
+.phase-sheet > header { display: flex; gap: 12px; align-items: flex-start; justify-content: space-between; padding: 24px 20px 16px; border-bottom: 1px solid var(--line); }
+.phase-sheet h2 { font-size: 20px; line-height: 1.4; margin: 0; letter-spacing: -.6px; }
+.phase-sheet header p { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+.phase-sheet header > button { flex: 0 0 44px; height: 44px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; background: white; }
+.phase-sheet-body { padding: 20px 20px max(24px,env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; }
+.phase-sheet button { min-height: 44px; }
+.phase-sheet button:disabled { opacity: .45; cursor: default; }
+.phase-sheet .phase-hint { font-size: 13px; color: #73736e; margin: 12px 0; line-height: 1.7; }
+.journal-lead > .local-data-note { font-size: 12px; color: #797972; line-height: 1.6; }

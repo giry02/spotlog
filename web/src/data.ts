@@ -29,6 +29,7 @@ export type JourneyStatus = 'PLANNING' | 'TRAVELING' | 'PUBLISHED';
 
 export interface Place {
   id: string;
+  visitId?: string;
   kind: PlaceKind;
   name: string;
   area: string;
@@ -59,6 +60,7 @@ export interface JourneyDay {
 
 export interface StoryBlock {
   id: string;
+  visitId?: string;
   type: 'TEXT' | 'IMAGE' | 'PLACE';
   heading?: string;
   body?: string;
@@ -86,6 +88,8 @@ export interface Journey {
   isMine: boolean;
   sourceJourneyId?: string;
   sourceAuthor?: string;
+  recommendationKind?: 'AI';
+  recommendationBasis?: 'OFFICIAL_SOURCE_SAMPLE';
 }
 
 export const discoveryLandmarks: Place[] = [

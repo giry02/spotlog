@@ -1,0 +1,20 @@
+.documents-page{height:100dvh;display:grid;grid-template-rows:54px auto auto minmax(0,1fr);overflow:hidden}
+.documents-header{background:#171d24;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:0 25px;gap:16px}
+.documents-header h1{margin:0;font-size:16px;font-weight:600;letter-spacing:0}.documents-header h1 span{font-size:12px;font-weight:800;letter-spacing:.4px;margin-right:12px}
+.documents-header>a{font-size:12px;color:#c5ccd3;text-decoration:none;border:1px solid #48505a;border-radius:5px;padding:5px 12px}
+.document-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:var(--paper);padding:0 max(25px,calc((100vw - 1180px)/2));border-bottom:1px solid var(--line)}
+.document-tabs a{display:flex;justify-content:center;align-items:center;min-height:58px;padding:10px 12px;border-bottom:3px solid transparent;text-decoration:none;color:var(--sub);font-size:15px;font-weight:700;white-space:nowrap}
+.document-tabs a[aria-selected="true"]{color:var(--navy);border-bottom-color:var(--accent);background:var(--soft)}
+.document-tabs a:hover{background:var(--soft)}
+.document-tools{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px max(25px,calc((100vw - 1180px)/2));background:var(--paper);border-bottom:1px solid var(--line)}
+.document-selection{display:flex;align-items:center;gap:18px;min-width:0}.document-selection p{margin:0;color:var(--sub);font-size:13px;line-height:1.5}
+#summary-options{display:flex;gap:6px}#summary-options[hidden]{display:none}#summary-options a{font-size:13px;white-space:nowrap;text-decoration:none;border:1px solid var(--line);border-radius:5px;padding:5px 10px}
+#summary-options a[aria-current="page"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.document-actions{display:flex;gap:8px;flex-shrink:0}.document-actions a,.document-actions button{border:1px solid var(--line);border-radius:5px;background:#fff;color:var(--navy);padding:6px 12px;min-height:34px;font-size:12px;white-space:nowrap;text-decoration:none}
+.document-actions a:hover,.document-actions button:hover{background:var(--soft)}
+.document-viewer{position:relative;min-height:0;overflow:hidden;background:var(--canvas)}
+.document-viewer iframe{display:block;width:100%;height:100%;border:0;background:var(--canvas)}.document-viewer iframe[hidden]{display:none}
+.document-loading{position:absolute;inset:22px auto auto 50%;transform:translateX(-50%);margin:0;background:white;border:1px solid var(--line);border-radius:5px;padding:12px 18px;font-size:14px;z-index:2;max-width:calc(100% - 40px);width:max-content}
+.document-loading[hidden]{display:none}
+@media(max-width:760px){.documents-header{padding:0 14px}.documents-header h1{font-size:15px}.documents-header h1 span{margin-right:8px}.documents-header>a{font-size:11px;padding:4px 8px}.document-tabs{padding:0 8px}.document-tabs a{font-size:13px;min-height:48px;padding:8px 4px}.document-tools{padding:8px 12px;gap:8px;flex-wrap:wrap}.document-selection{gap:8px;flex-wrap:wrap;flex:1 1 150px}.document-selection p{font-size:12px}.document-actions{margin-left:auto;gap:5px}.document-actions a,.document-actions button{font-size:11px;padding:5px 8px;min-height:32px}#summary-options a{font-size:12px;padding:4px 8px}}
+@media print{.documents-page{height:auto;display:block;overflow:visible}.documents-header,.document-tabs,.document-tools{display:none}.document-viewer{overflow:visible;height:auto}.document-viewer:before{content:'문서의 인쇄·PDF 버튼으로 전체 페이지를 인쇄할 수 있습니다.';display:block;padding:20px}.document-viewer iframe{height:100vh}}

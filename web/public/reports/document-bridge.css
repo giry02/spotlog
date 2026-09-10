@@ -1,0 +1,4 @@
+.report-embedded .toolbar{display:none}
+.report-embedded .shell{grid-template-rows:minmax(0,1fr) 62px}
+.report-embedded.all-view .controls{position:sticky;bottom:0}
+@media(max-width:760px){.toolbar .peer-document-link{display:none}.report-embedded .shell{grid-template-rows:minmax(0,1fr) 60px}}

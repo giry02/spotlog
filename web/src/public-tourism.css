@@ -1,0 +1,27 @@
+/* Attribution only; existing discovery/saved/detail card dimensions remain their own roles. */
+.community-page > .duration-chips { margin-bottom: 16px; }
+.public-photo-credit { display: block; margin-top: 8px; color: #797972; font-size: 11px; line-height: 1.6; font-style: normal; font-weight: 400; overflow-wrap: anywhere; }
+.public-photo-credit a { color: inherit; text-underline-offset: 2px; }
+.public-photo-credit .public-photo-credit-button { display: inline-flex; align-items: center; gap: 3px; min-height: 28px; padding: 4px 0; border: 0; border-radius: 0; color: inherit; background: transparent; box-shadow: none; font: inherit; text-align: left; }
+.public-photo-credit-button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.public-source-notes.day-route-section { padding: 16px 20px; }
+.public-source-disclosure { width: 100%; min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0; border: 0; color: var(--ink); background: transparent; font-size: 14px; font-weight: 700; text-align: left; }
+.public-source-disclosure > span:last-child { display: inline-flex; align-items: center; gap: 6px; color: #797972; font-size: 12px; font-weight: 400; }
+.public-source-details > .phase-hint { margin: 0 0 18px; }
+.public-source-item { padding: 18px 0; border-bottom: 1px solid var(--line); }
+.public-source-item:first-child { padding-top: 0; }
+.public-source-item:last-child { padding-bottom: 0; border-bottom: 0; }
+.public-source-item h3 { margin: 0 0 12px; font-size: 14px; line-height: 1.6; }
+.public-source-item dl { margin: 0; }
+.public-source-item dl > div { display: grid; grid-template-columns: 58px minmax(0,1fr); gap: 10px; margin-top: 6px; font-size: 12px; line-height: 1.6; }
+.public-source-item dt { color: #797972; }
+.public-source-item dd { margin: 0; overflow-wrap: anywhere; }
+.public-source-item a { color: inherit; text-underline-offset: 3px; }
+.public-source-links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 12px; color: #797972; font-size: 12px; line-height: 1.6; }
+.phase-sheet-detail-header > div { flex: 1; min-width: 0; }
+.story-image-block > .public-photo-credit { margin: 0 15px 12px; }
+.story-image-block > figcaption:has(+ .public-photo-credit) { padding-bottom: 7px; }
+.journal-lead:has(> .public-photo-credit:first-child) { padding-top: 9px; }
+.journal-lead > .public-photo-credit:first-child { margin-top: 0; }
+.journey-list > .journey-with-credit > .public-photo-credit { margin: 6px 16px 0; }
+.creator-journey-list .public-photo-credit { white-space: normal; }

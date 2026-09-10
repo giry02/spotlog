@@ -1,3 +1,11 @@
 # Expo HAS CHANGED
 
 Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before writing any code.
+
+## Retained product decisions
+
+Before data acquisition, external place search, AI recommendation, or landmark gallery work, read `docs/DATA_SUPPLY_AND_NAVER_PLAN.md` and the latest entry in `docs/handoff/CURRENT_HANDOFF.md`. These retain the user's spot-first travel flow, Naver API HUB policy gates, licensed internal data/RAG separation, and planned same-landmark horizontal photo gallery. Gallery and API plans are not completed product features. Keep the current role-specific design and local-only scope; do not infer permission to publish from older history.
+
+## Spotlog UI conventions
+
+Before changing product UI, read `docs/STYLE_GUIDE.md` and inspect the nearest existing screen and its states. The approved visual source is the ALL-SCREEN current restored design: Home, Community/search, Places guide/video/photo, Saved, My Trips, public/own detail, editor, profile, and existing sheets/states. Do not use Saved or any single screen as the universal template. GitHub `81a1085` Saved/SavedPlaceCard with the requested sample link/generation removed is the Saved-specific provenance only. A design-guide request authorizes documentation and guide specimens only, not product restyling. Preserve `web/src/styles.css`, fonts, contextual sizes, spacing, colors, and structure, including current role-specific `phase-one.css` and photo-feed rules. Do not round values to a new grid or globally normalize controls. SavedPlaceCard is the small horizontal saved card; LandmarkGuideCard is the large vertical discovery card; detail place embeds and full-screen media are separate roles. Never substitute one for another without explicit user approval. Reuse existing role-specific CSS/components; `ui.tsx` and `theme.css` are helpers, not authority to replace original controls with their defaults. If guide/helper values disagree with the approved screen, correct the guide first. Record experimental-only screens separately, not as product-wide defaults. New visual types require a separate proposal and approval. Compare before/after at 320/390/460px using isolated test data, including scrolled, selected, empty, and popup states. Preserve user data and unrelated local work. No commits, pushes, or publishing until explicitly authorized.
