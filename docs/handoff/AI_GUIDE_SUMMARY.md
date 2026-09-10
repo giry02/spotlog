@@ -1,10 +1,16 @@
 # Spotlog AI 관광 가이드 요약
 
-2026-09-10 · 5쪽 요약본. 2026-09-08~09 원본 계획에 근거하며, 새로운 기능 구현이나 모델 선정 완료를 뜻하지 않음.
+2026-09-10 개정 · 5쪽 · 프런트엔드 1·2·3차 구현 기준
 
-[발표형 요약](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html) · [기존 원본](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html)
+개인 프런트엔드 개발 기준으로 차수를 구분함. 주수·일수와 개발자별 역할 배정은 두지 않음. 보고서의 기술·비용 정보는 기존 확인 시점의 계획이며 실제 도입 전 재확인함.
 
-## 1. AI 관광 가이드의 핵심
+[발표형 HTML](https://giry02.github.io/spotlog/spotlog-ai-guide-summary.html) · [인수인계 목차](README.md)
+
+<a id="slide-1"></a>
+
+## 01 / 5 · AI 관광 가이드의 핵심
+
+SPOTLOG · AI GUIDE SUMMARY · 1
 
 Spotlog 내부 데이터에서 취향에 맞는 인기 장소를 찾고, 음식점·숙소와 실행 가능한 일정으로 연결함.
 
@@ -17,9 +23,15 @@ Spotlog 내부 데이터에서 취향에 맞는 인기 장소를 찾고, 음식�
 
 **현재 자동 일정은 로컬 정렬과 정해진 문구 기반임.** 내부 RAG·실제 교통·LLM 추천 엔진은 이후 개발할 대상임.
 
-[원본 상세](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html#slide-6)
+출처: [원본 상세 57쪽](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html#slide-6) · [다른 요약본](https://giry02.github.io/spotlog/spotlog-development-summary.html)
 
-## 2. 추천 방식과 업체 매칭
+---
+
+<a id="slide-2"></a>
+
+## 02 / 5 · 추천 방식과 업체 매칭
+
+SPOTLOG · AI GUIDE SUMMARY · 2
 
 지역 추천, 저장 장소 구성, 외부 보완을 분리해 사용자가 의도한 범위 안에서 초안을 만듦.
 
@@ -39,9 +51,15 @@ Spotlog 내부 데이터에서 취향에 맞는 인기 장소를 찾고, 음식�
 
 필요 데이터: 고유 장소 ID·좌표·분류·메타 정보, 연결된 여행기/사진, 확인일·권한, 중복을 제거한 실제 저장·복사·반응. 숙박 가격·예약은 제외함.
 
-[원본 상세](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html#slide-7)
+출처: [원본 상세 57쪽](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html#slide-7) · [다른 요약본](https://giry02.github.io/spotlog/spotlog-development-summary.html)
 
-## 3. 기술과 모델 선택 기준
+---
+
+<a id="slide-3"></a>
+
+## 03 / 5 · 기술과 모델 선택 기준
+
+SPOTLOG · AI GUIDE SUMMARY · 3
 
 원본의 후보 기술을 역할별로 나눔. 특정 모델을 확정하거나 추천 품질이 검증됐다고 가정하지 않음.
 
@@ -55,9 +73,15 @@ Spotlog 내부 데이터에서 취향에 맞는 인기 장소를 찾고, 음식�
 
 지도 표시는 현재 MapLibre를 유지함. LLM이 좌표·영업시간·경로를 만들어내지 않도록 결과를 검사함. 개별 모델명·단가·조건은 원본 29~33쪽을 참고하고 도입 시 다시 확인함.
 
-[원본 상세](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html#slide-29)
+출처: [원본 상세 57쪽](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html#slide-29) · [다른 요약본](https://giry02.github.io/spotlog/spotlog-development-summary.html)
 
-## 4. 관광 안내와 자동번역
+---
+
+<a id="slide-4"></a>
+
+## 04 / 5 · 관광 안내와 자동번역
+
+SPOTLOG · AI GUIDE SUMMARY · 4
 
 국내 여행기 원문을 유지하고, 외국인이 실제로 찾아가고 이용할 수 있는 영어 안내를 연결함.
 
@@ -76,15 +100,21 @@ Spotlog 내부 데이터에서 취향에 맞는 인기 장소를 찾고, 음식�
 
 한국어→영어가 첫 운영 범위임. 추가 언어·음성 가이드·실시간 통역·상시 위치 추적은 후속 단계로 분리함.
 
-[원본 상세](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html#slide-39)
+출처: [원본 상세 57쪽](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html#slide-39) · [다른 요약본](https://giry02.github.io/spotlog/spotlog-development-summary.html)
 
-## 5. 개발 순서와 비용 관리
+---
+
+<a id="slide-5"></a>
+
+## 05 / 5 · 개발 순서와 비용 관리
+
+SPOTLOG · AI GUIDE SUMMARY · 5
 
 모델 호출료뿐 아니라 데이터 준비·검색·경로·번역·운영 비용까지 묶어 판단함.
 
 | 단계 | 진행 내용 |
 | --- | --- |
-| 프런트엔드 3주 | 입력·추천 근거·업체 후보·승인·부분 수정·관광 안내·번역 화면을 샘플로 검증함. |
+| 프런트엔드 1·2·3차 | 입력·추천 근거·업체 후보·승인·부분 수정·관광 안내·번역 화면을 샘플로 검증함. |
 | 서버 기반 이후 | 내부 데이터/권한·검색 색인을 준비하고, 추천·업체 매칭과 LLM 비교를 진행함. |
 | 엔진·영어 시범 | 실제 경로·일정 검증과 관광 안내·번역을 연결한 뒤 비공개 평가를 통과함. |
 
@@ -98,4 +128,6 @@ Spotlog 내부 데이터에서 취향에 맞는 인기 장소를 찾고, 음식�
 
 **도입 전 결정:** 내부 자료·인기 지표 기준, 공급자 계약, 모델 비교 결과와 실제 1건 비용, 월 예산 한도를 확정함. 비밀 키와 비공개 여행의 권한은 서버에서 관리함.
 
-[원본 상세](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html#slide-46)
+출처: [원본 상세 57쪽](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html#slide-46) · [다른 요약본](https://giry02.github.io/spotlog/spotlog-development-summary.html)
+
+---
