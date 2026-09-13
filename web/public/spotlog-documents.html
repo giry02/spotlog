@@ -2,27 +2,28 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#202a35"><meta name="description" content="Spotlog 전체 개발·AI 개발·데이터 수집 계획서와 요약본을 한 화면에서 확인함">
+  <meta name="theme-color" content="#202a35"><meta name="description" content="Spotlog 개발·AI·데이터 수집 계획서, 요약본과 디자인·폰트 가이드를 한 화면에서 확인함">
   <title>Spotlog 문서 모음</title>
   <link rel="stylesheet" href="./reports/report.css?v=20260910-documents">
-  <link rel="stylesheet" href="./reports/documents.css?v=20260910-documents">
-  <script defer src="./reports/documents.js?v=20260910-documents"></script>
+  <link rel="stylesheet" href="./reports/documents.css?v=20260913-guides">
+  <script defer src="./reports/documents.js?v=20260913-guides"></script>
 </head>
 <body class="documents-page">
   <header class="documents-header"><h1><span>SPOTLOG</span> 문서 모음</h1><a href="./#home">서비스 화면</a></header>
-  <nav class="document-tabs" role="tablist" aria-label="계획 문서">
+  <nav class="document-tabs" role="tablist" aria-label="문서 분류">
     <a id="tab-development" href="#development" role="tab" aria-selected="true" aria-controls="document-viewer">전체 계획서</a>
     <a id="tab-ai" href="#ai" role="tab" aria-selected="false" aria-controls="document-viewer" tabindex="-1">AI 개발</a>
     <a id="tab-data" href="#data" role="tab" aria-selected="false" aria-controls="document-viewer" tabindex="-1">데이터 수집</a>
     <a id="tab-summary" href="#summary" role="tab" aria-selected="false" aria-controls="document-viewer" tabindex="-1">요약본</a>
+    <a id="tab-design" href="#design" role="tab" aria-selected="false" aria-controls="document-viewer" tabindex="-1">디자인·폰트</a>
   </nav>
   <div class="document-tools">
-    <div class="document-selection"><p id="document-name">Spotlog 추가 개발 계획서</p><nav id="summary-options" aria-label="요약본 선택" hidden><a href="#summary-development" aria-current="page">개발 요약</a><a href="#summary-ai">AI 요약</a></nav></div>
+    <div class="document-selection"><p id="document-name">Spotlog 추가 개발 계획서</p><nav id="summary-options" class="document-options" aria-label="요약본 선택" hidden><a href="#summary-development" aria-current="page">개발 요약</a><a href="#summary-ai">AI 요약</a></nav><nav id="design-options" class="document-options" aria-label="디자인 가이드 선택" hidden><a href="#design">전체 디자인</a><a href="#typography">폰트 기준</a></nav></div>
     <div class="document-actions"><a id="open-document" href="./spotlog-development-plan.html" target="_blank" rel="noopener">별도 열기 ↗</a><button id="print-document" type="button">인쇄·PDF</button></div>
   </div>
   <main id="document-viewer" class="document-viewer" role="tabpanel" aria-labelledby="tab-development" tabindex="0">
     <p class="document-loading" id="document-status" role="status">문서를 불러오는 중입니다.</p>
   </main>
-  <noscript><p>아래 문서를 직접 열 수 있습니다.</p><ul><li><a href="./spotlog-development-plan.html">전체 계획서</a></li><li><a href="./spotlog-ai-guide-plan.html">AI 개발</a></li><li><a href="./spotlog-data-supply-plan.html">데이터 수집</a></li><li><a href="./spotlog-development-summary.html">개발 요약</a></li><li><a href="./spotlog-ai-guide-summary.html">AI 요약</a></li></ul></noscript>
+  <noscript><p>아래 문서를 직접 열 수 있습니다.</p><ul><li><a href="./spotlog-development-plan.html">전체 계획서</a></li><li><a href="./spotlog-ai-guide-plan.html">AI 개발</a></li><li><a href="./spotlog-data-supply-plan.html">데이터 수집</a></li><li><a href="./spotlog-development-summary.html">개발 요약</a></li><li><a href="./spotlog-ai-guide-summary.html">AI 요약</a></li><li><a href="./spotlog-design-guide.html">전체 디자인 가이드</a></li><li><a href="./spotlog-design-guide.html#sg-typography">폰트 디자인 가이드</a></li></ul></noscript>
 </body>
 </html>

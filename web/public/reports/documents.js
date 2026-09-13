@@ -5,37 +5,42 @@
     data: { title: 'Spotlog 데이터 수집 계획서', file: 'spotlog-data-supply-plan.html', category: 'data' },
     'summary-development': { title: '개발 계획 요약', file: 'spotlog-development-summary.html', category: 'summary' },
     'summary-ai': { title: 'AI 개발 요약', file: 'spotlog-ai-guide-summary.html', category: 'summary' },
+    design: { title: 'Spotlog 전체 화면 디자인 가이드', file: 'spotlog-design-guide.html', category: 'design', readySelector: '.site-design-guide' },
+    typography: { title: 'Spotlog 폰트 디자인 가이드', file: 'spotlog-design-guide.html', category: 'design', readySelector: '#sg-typography', initialHash: '#sg-typography' },
   };
   const viewer = document.getElementById('document-viewer'), status = document.getElementById('document-status');
   const open = document.getElementById('open-document'), print = document.getElementById('print-document');
   const frames = new Map(); let active = 'development', lastSummary = 'summary-development';
   function keyFromHash() { const key = location.hash.slice(1); return key === 'summary' ? lastSummary : docs[key] ? key : 'development'; }
-  function updateLink(frame, doc) { let hash = ''; try { hash = frame.contentWindow.location.hash; } catch {} open.href = './' + doc.file + hash; }
+  function updateLink(frame, doc) { let hash = doc.initialHash || ''; try { hash = frame.contentWindow.location.hash || hash; } catch {} open.href = './' + doc.file + hash; }
   function load(key, requestedHash) {
     const doc = docs[key]; active = key; if (doc.category === 'summary') lastSummary = key;
     for (const [id, frame] of frames) frame.hidden = id !== key;
     for (const tab of document.querySelectorAll('[role="tab"]')) { const selected = tab.id === 'tab-' + doc.category; tab.setAttribute('aria-selected', String(selected)); tab.tabIndex = selected ? 0 : -1; }
+    document.getElementById('tab-' + doc.category).scrollIntoView({ block: 'nearest', inline: 'nearest' });
     viewer.setAttribute('aria-labelledby', 'tab-' + doc.category);
     document.getElementById('document-name').textContent = doc.title;
     document.title = doc.title + ' | Spotlog 문서 모음';
     document.getElementById('summary-options').hidden = doc.category !== 'summary';
-    for (const option of document.querySelectorAll('#summary-options a')) if (option.hash.slice(1) === key) option.setAttribute('aria-current', 'page'); else option.removeAttribute('aria-current');
+    document.getElementById('design-options').hidden = doc.category !== 'design';
+    for (const option of document.querySelectorAll('.document-options a')) if (option.hash.slice(1) === key) option.setAttribute('aria-current', 'page'); else option.removeAttribute('aria-current');
     let frame = frames.get(key);
     if (!frame) {
       frame = document.createElement('iframe'); frame.title = doc.title; frame.dataset.doc = key;
-      frame.src = './' + doc.file + '?embed=1' + (requestedHash || '');
+      frame.src = './' + doc.file + '?embed=1' + (requestedHash || doc.initialHash || '');
       frames.set(key, frame); status.hidden = false; print.disabled = true;
       const timeout = setTimeout(() => { if (!frame.dataset.ready) { frame.dataset.failed = 'true'; if (active === key) { status.textContent = '문서를 불러오지 못했습니다. 별도 열기로 다시 확인해 주세요.'; status.hidden = false; } } }, 12000);
       frame.addEventListener('load', () => {
         clearTimeout(timeout);
         try {
-          if (!frame.contentDocument.querySelector('.slide.active')) throw Error('document not ready');
+          if (!frame.contentDocument.querySelector(doc.readySelector || '.slide.active')) throw Error('document not ready');
           frame.dataset.ready = 'true';
           delete frame.dataset.failed;
           if (frame.dataset.pendingHash) { frame.contentWindow.location.hash = frame.dataset.pendingHash; delete frame.dataset.pendingHash; }
           frame.contentDocument.addEventListener('click', event => {
             const link = event.target.closest('a[href]'); if (!link || link.getAttribute('href').startsWith('#')) return;
-            const url = new URL(link.href), target = Object.entries(docs).find(([, item]) => new URL('./' + item.file, location.href).pathname === url.pathname);
+            const url = new URL(link.href), targets = Object.entries(docs).filter(([, item]) => new URL('./' + item.file, location.href).pathname === url.pathname);
+            const target = targets.find(([, item]) => item.initialHash && item.initialHash === url.hash) || targets[0];
             if (!target || url.origin !== location.origin) return;
             event.preventDefault(); history.pushState(null, '', '#' + target[0]); load(target[0], url.hash);
           });

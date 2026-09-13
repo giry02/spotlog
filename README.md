@@ -10,7 +10,7 @@ Spotlog는 국내 랜드마크 영상을 발견의 입구로 사용하고, 사�
 
 ## 개발 문서 모음
 
-[문서 모음 열기](https://giry02.github.io/spotlog/spotlog-documents.html) — 전체 계획서·AI 개발·데이터 수집·요약본을 한 화면에서 선택해 읽습니다. [로컬 문서](http://127.0.0.1:5173/spotlog-documents.html)도 유지합니다. 2026-09-11 선택 공개에는 문서와 여행기 메뉴의 AI 추천 샘플4개만 포함하며, 홈 AI 만들기·저장/담기 변경·사진 피드 등 다른 로컬 기능은 포함하지 않습니다.
+[문서 모음 열기](https://giry02.github.io/spotlog/spotlog-documents.html) — 전체 계획서·AI 개발·데이터 수집·요약본·디자인·폰트를 한 화면에서 선택해 읽습니다. [로컬 문서](http://127.0.0.1:5173/spotlog-documents.html)도 유지합니다. 2026-09-11 선택 공개에는 문서와 여행기 메뉴의 AI 추천 샘플4개만 포함하며, 홈 AI 만들기·저장/담기 변경·사진 피드 등 다른 로컬 기능은 포함하지 않습니다. 2026-09-13에는 디자인·폰트 가이드와 문서 모음 연결만 추가하며, 제품 폰트 수정은 로컬에 유지합니다.
 
 | 분류 | 독립 HTML | 분량 | MD 기록 |
 |---|---|---|---|
@@ -18,8 +18,9 @@ Spotlog는 국내 랜드마크 영상을 발견의 입구로 사용하고, 사�
 | AI 개발 | [AI 관광 가이드·자동번역 계획서](./web/public/spotlog-ai-guide-plan.html) | 67쪽 | [전체 MD](./docs/handoff/AI_GUIDE_PLAN.md) |
 | 데이터 수집 | [데이터 수집 계획서](./web/public/spotlog-data-supply-plan.html) | 32쪽 | [전체 MD](./docs/handoff/DATA_SUPPLY_PLAN.md) · [관리 원본](./docs/DATA_SUPPLY_AND_NAVER_PLAN.md) |
 | 요약본 | [개발 요약](./web/public/spotlog-development-summary.html) · [AI 요약](./web/public/spotlog-ai-guide-summary.html) | 19쪽 · 12쪽 | [개발 MD](./docs/handoff/DEVELOPMENT_SUMMARY.md) · [AI MD](./docs/handoff/AI_GUIDE_SUMMARY.md) |
+| 디자인·폰트 | [전체 디자인](./web/public/spotlog-design-guide.html) · [폰트 기준](./web/public/spotlog-design-guide.html#sg-typography) | 화면·역할별 기준 | [디자인 가이드 MD](./docs/STYLE_GUIDE.md) |
 
-각 문서는 독립 주소로도 열리며 목차·방향키·전체 보기·인쇄/PDF를 지원합니다. 문서 모음에서 다른 문서로 전환해도 현재 열려 있는 문서의 페이지와 입력값을 유지합니다. 새로고침 이후의 페이지 복구를 위한 서버 저장 기능은 아닙니다. 개발 계획이며 기능 구현 완료를 의미하지 않습니다. 기존 확장 보고서와 로드맵은 보존합니다.
+각 계획서는 독립 주소로도 열리며 목차·방향키·전체 보기·인쇄/PDF를 지원합니다. 디자인·폰트 가이드는 스크롤형 문서이며 폰트 기준 바로가기를 제공합니다. 문서 모음에서 다른 문서로 전환해도 현재 열려 있는 문서의 페이지와 입력값을 유지합니다. 새로고침 이후의 페이지 복구를 위한 서버 저장 기능은 아닙니다. 개발 계획이며 기능 구현 완료를 의미하지 않습니다. 기존 확장 보고서와 로드맵은 보존합니다.
 
 개별 공개 문서는 [개발 계획서](https://giry02.github.io/spotlog/spotlog-development-plan.html), [AI 계획서](https://giry02.github.io/spotlog/spotlog-ai-guide-plan.html)에서도 확인할 수 있습니다. 문서에 있는 계획·로컬 구현을 모두 공개된 제품 기능으로 해석하지 않습니다.
 
