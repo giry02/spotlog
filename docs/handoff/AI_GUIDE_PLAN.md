@@ -1521,11 +1521,11 @@ MapLibre는 유지함. 실제 자동차·도보는 TMAP, 대중교통은 ODsay�
 | 관광사진·직접 촬영 | 관광사진 API·지자체 허용 자산·직접 촬영본을 검토함. PhotoKorea 사이트 다운로드 원본은 API와 같은 조건으로 간주하지 않음. |
 | 음식점·숙박 인허가 | 공공데이터포털의 현재 데이터셋으로 업체 존재·업종·영업 상태를 보완함. 평점·인기·사용 가능한 사진·정확한 영업시간까지 확보한 것으로 보지 않음. |
 | 직접 제휴·사용자 기록 | 업체 제공 정보·사진은 계약 범위, 사용자 여행기·사진은 공개·재사용·AI 이용 동의를 관리함. 실제 저장·복사 지표는 별도 집계함. |
-| 초기 확보 목표 · 제안 | 서울·부산·제주 각각 스팟 20곳 내외, 장소당 사진 2~3장을 우선 확보함. 당일·1박 2일·2박 3일 여행기 9개를 구성하며 기존 검증된 부산·경주 자산도 활용함. |
+| 초기 확보 목표 | 서울·부산·제주 각각 스팟 20곳 내외, 장소당 사진 2~3장을 우선 확보함. 당일·1박 2일·2박 3일 여행기 9개를 구성하며 기존 검증된 부산·경주 자산도 활용함. |
 
-위 수량은 준비 목표이며 현재 확보 완료 수치가 아님. 제미나이 공유본에서 확인한 스팟 중심 구성안을 참고하되, 이 데이터 수급안은 별도로 공식 자료를 조사해 정리함.
+서울·부산·제주의 스팟과 사진을 우선 확보하고, 자료별 이용 조건·출처·확인일을 기록함. 확보 목표와 실제 검수·발행 실적은 구분하여 관리함.
 
-출처: [한국관광공사 국문 관광정보](https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15101578) · [한국관광공사 관광사진 정보 API](https://www.data.go.kr/data/15101914/openapi.do) · [행정안전부 인허가 데이터 통합](https://www.mois.go.kr/frt/bbs/type010/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000008&nttId=123399) · [검토한 Gemini 공유 대화](https://gemini.google.com/share/7d26f36898d4)
+출처: [한국관광공사 국문 관광정보](https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15101578) · [한국관광공사 관광사진 정보 API](https://www.data.go.kr/data/15101914/openapi.do) · [행정안전부 인허가 데이터 통합](https://www.mois.go.kr/frt/bbs/type010/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000008&nttId=123399)
 
 
 ---

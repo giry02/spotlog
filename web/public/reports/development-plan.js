@@ -68,7 +68,7 @@ slides.push(
   "section": "2026.09.10 · DATA & LANDMARK GALLERY",
   "title": "관광 데이터 수급과 초기 콘텐츠 범위",
   "lead": "스팟·음식점·숙소의 기초 자료와 사진·설명·실제 인기 데이터를 서로 다른 경로로 확보함.",
-  "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">수급 경로</th><th scope=\"col\">확보할 자료와 적용 기준</th></tr></thead><tbody><tr><th scope=\"row\">TourAPI·지자체</th><td>관광지 이름·주소·좌표·분류와 공식 이용 정보를 확보함. 설명·사진의 개별 권리와 확인 시점을 점검한 뒤 내부 장소에 연결함.</td></tr><tr><th scope=\"row\">관광사진·직접 촬영</th><td>관광사진 API·지자체 허용 자산·직접 촬영본을 검토함. PhotoKorea 사이트 다운로드 원본은 API와 같은 조건으로 간주하지 않음.</td></tr><tr><th scope=\"row\">음식점·숙박 인허가</th><td>공공데이터포털의 현재 데이터셋으로 업체 존재·업종·영업 상태를 보완함. 평점·인기·사용 가능한 사진·정확한 영업시간까지 확보한 것으로 보지 않음.</td></tr><tr><th scope=\"row\">직접 제휴·사용자 기록</th><td>업체 제공 정보·사진은 계약 범위, 사용자 여행기·사진은 공개·재사용·AI 이용 동의를 관리함. 실제 저장·복사 지표는 별도 집계함.</td></tr><tr><th scope=\"row\">초기 확보 목표 · 제안</th><td>서울·부산·제주 각각 스팟 20곳 내외, 장소당 사진 2~3장을 우선 확보함. 당일·1박 2일·2박 3일 여행기 9개를 구성하며 기존 검증된 부산·경주 자산도 활용함.</td></tr></tbody></table></div><p class=\"note\">위 수량은 준비 목표이며 현재 확보 완료 수치가 아님. 제미나이 공유본에서 확인한 스팟 중심 구성안을 참고하되, 이 데이터 수급안은 별도로 공식 자료를 조사해 정리함.</p>",
+  "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">수급 경로</th><th scope=\"col\">확보할 자료와 적용 기준</th></tr></thead><tbody><tr><th scope=\"row\">TourAPI·지자체</th><td>관광지 이름·주소·좌표·분류와 공식 이용 정보를 확보함. 설명·사진의 개별 권리와 확인 시점을 점검한 뒤 내부 장소에 연결함.</td></tr><tr><th scope=\"row\">관광사진·직접 촬영</th><td>관광사진 API·지자체 허용 자산·직접 촬영본을 검토함. PhotoKorea 사이트 다운로드 원본은 API와 같은 조건으로 간주하지 않음.</td></tr><tr><th scope=\"row\">음식점·숙박 인허가</th><td>공공데이터포털의 현재 데이터셋으로 업체 존재·업종·영업 상태를 보완함. 평점·인기·사용 가능한 사진·정확한 영업시간까지 확보한 것으로 보지 않음.</td></tr><tr><th scope=\"row\">직접 제휴·사용자 기록</th><td>업체 제공 정보·사진은 계약 범위, 사용자 여행기·사진은 공개·재사용·AI 이용 동의를 관리함. 실제 저장·복사 지표는 별도 집계함.</td></tr><tr><th scope=\"row\">초기 확보 목표</th><td>서울·부산·제주 각각 스팟 20곳 내외, 장소당 사진 2~3장을 우선 확보함. 당일·1박 2일·2박 3일 여행기 9개를 구성하며 기존 검증된 부산·경주 자산도 활용함.</td></tr></tbody></table></div><p class=\"note\">서울·부산·제주의 스팟과 사진을 우선 확보하고, 자료별 이용 조건·출처·확인일을 기록함. 확보 목표와 실제 검수·발행 실적은 구분하여 관리함.</p>",
   "sources": [
     [
       "한국관광공사 국문 관광정보",
@@ -81,10 +81,6 @@ slides.push(
     [
       "행정안전부 인허가 데이터 통합",
       "https://www.mois.go.kr/frt/bbs/type010/commonSelectBoardArticle.do?bbsId=BBSMSTR_000000000008&nttId=123399"
-    ],
-    [
-      "검토한 Gemini 공유 대화",
-      "https://gemini.google.com/share/7d26f36898d4"
     ]
   ]
 },
