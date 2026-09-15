@@ -1,0 +1,81 @@
+/* Existing styles.css is the visual source. These aliases and helpers are for NEW UI only.
+   Never redefine its --type-* tokens or override old page/card/editor selectors here. */
+:root {
+  --font-family: 'DM Sans', Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-heading: 'Manrope', sans-serif;
+  --font-caption: var(--type-caption);
+  --font-small: var(--type-caption);
+  --font-control: var(--type-subhead);
+  --font-body: var(--type-body);
+  --font-headline: var(--type-headline);
+  --font-section: 20px;
+  --font-subtitle: var(--type-title);
+  --font-title: var(--type-title-lg);
+  --font-display: var(--type-display);
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --page-inset: 18px;
+  --control-height: 52px;
+  --touch-target: 44px;
+  --radius-control: 12px;
+  --radius-card: 21px;
+  --radius-sheet: 24px;
+  --radius-pill: 999px;
+  --color-text: var(--ink);
+  --color-muted: var(--muted);
+  --color-border: #deded9;
+  --color-surface: #fff;
+  --color-bg: var(--paper);
+  --color-primary: var(--ink);
+  --color-accent: var(--accent);
+  --color-success: #718680;
+  --color-danger: #c74436;
+  --color-danger-soft: #fff7f4;
+}
+
+/* Regular actions use .primary/.outline; card actions use .landmark-guide-actions.
+   No competing size/color/font rules for those existing roles. */
+.ui-button.ui-button--compact { min-height: var(--touch-target); padding: 0 13px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--color-border); border-radius: 11px; color: #62625c; background: white; font: inherit; font-size: 12px; font-weight: 650; box-shadow: none; }
+.ui-button.ui-button--compact.ui-button--primary { color: white; background: #262622; border-color: #262622; }
+.ui-button.ui-button--ghost { min-height: var(--touch-target); display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 0 12px; border: 0; background: transparent; color: var(--muted); font-size: 12px; }
+.ui-button.ui-button--danger { min-height: var(--control-height); display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 18px; border: 1px solid #e6d6d1; border-radius: 15px; background: white; color: #c74436; font-size: 14px; font-weight: 700; }
+.ui-button.ui-icon-button { flex: 0 0 var(--touch-target); width: var(--touch-target); height: var(--touch-target); padding: 0; border-radius: 50%; }
+.ui-button > svg { flex: 0 0 auto; }
+.ui-button:disabled { opacity: .45; cursor: default; }
+.ui-button:not(:disabled):active { opacity: .75; }
+.ui-stack { display: grid; gap: 18px; }
+.ui-field.ui-field { display: grid; gap: 8px; margin: 0; min-width: 0; font-size: 14px; font-weight: 600; }
+.ui-field-label { font-size: 14px; font-weight: 600; line-height: 1.5; }
+.ui-field-hint, .ui-file-name { margin: 0; font-size: 13px; line-height: 1.7; color: #73736e; font-weight: 400; overflow-wrap: anywhere; }
+.ui-field :is(input:not([type=checkbox]):not([type=radio]):not([type=file]),select,textarea) { width: 100%; min-width: 0; min-height: 48px; padding: 12px; border: 1px solid #ddddd8; border-radius: 12px; background: white; color: var(--ink); font: inherit; font-size: 16px; }
+.ui-file-upload { gap: 8px; }
+.ui-file-upload input[hidden] { display: none; }
+.ui-file-upload .ui-button { width: 100%; }
+.ui-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.ui-error { margin: 0; padding: 12px; font-size: 13px; line-height: 1.7; border-radius: 12px; color: var(--color-danger); background: var(--color-danger-soft); }
+.ui-spinner { animation: ui-spin 1s linear infinite; }
+@keyframes ui-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .ui-spinner { animation: none; } }
+.backup-section { display: grid; gap: 12px; }
+.backup-section + .backup-section { margin-top: 6px; padding-top: 18px; border-top: 1px solid var(--line); }
+.backup-section h3 { margin: 0; font-size: 14px; font-weight: 600; }
+.backup-section p { margin: 0; color: #73736e; font-size: 13px; line-height: 1.7; }
+.saved-data-tools.page { min-height: 0; padding: 8px var(--page-inset) 32px; }
+.saved-data-tools .ui-button { width: 100%; }
+
+/* Reference page layout only. Its specimens use original product CSS classes. */
+.style-guide { padding-bottom: 32px; }
+.tab-style-guide .content { height: 100dvh; }
+.style-guide-section { margin-bottom: 20px; padding: 18px; border: 1px solid var(--line); border-radius: 20px; background: white; }
+.style-guide-section > h2 { margin: 0 0 16px; font-family: var(--font-heading); font-size: 20px; }
+.style-guide-section > p { margin: 0; }
+.style-guide-actions { display: grid; gap: 12px; }
+.style-guide-note { margin: 0 0 20px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.style-guide-label { margin: 0; color: var(--muted); font-size: 12px; }
+.style-guide-heading { display: flex; align-items: center; gap: 12px; }
+.style-guide-heading h1 { margin: 0; }
+.style-guide-swatch { display: flex; align-items: center; gap: 12px; font-size: 12px; }
+.style-guide-swatch i { width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 12px; }
+.style-guide .app-header.style-specimen { min-height: 0; padding: 0; }
+.style-guide .landmark-guide-copy.style-specimen, .style-guide .journal-lead.style-specimen { padding: 0; }
+.style-guide .style-specimen .story { margin: 0; }

@@ -1,0 +1,1328 @@
+{
+  "development-plan": {
+    "date": "2026.09.10",
+    "title": "Spotlog 추가 개발 계획서",
+    "shortTitle": "추가 개발 계획",
+    "otherTitle": "AI 계획서",
+    "otherHref": "./spotlog-ai-guide-plan.html",
+    "slides": [
+      {
+        "cover": true,
+        "section": "PRODUCT DEVELOPMENT PLAN · 2026.09",
+        "title": "Spotlog<br>추가 개발 계획서",
+        "lead": "현재 기능을 기준으로 남은 개발을 정리하고,<br>1·2·3차 프런트엔드 개발과 이후 서버 개발을 구분함.",
+        "html": "<div class=\"cover-meta\"><div><small>개발 범위</small><strong>1·2·3차 프런트엔드 구현</strong></div><div><small>진행 기준</small><strong>완료 조건별 진행</strong></div><div><small>별도 문서</small><strong>AI 관광 가이드·자동번역 계획</strong></div></div>",
+        "sources": [
+          [
+            "현재 구현 기준",
+            "https://github.com/giry02/spotlog/tree/codex/mobile-foundation"
+          ],
+          [
+            "별도 AI 관광 가이드 계획서",
+            "./spotlog-ai-guide-plan.html"
+          ]
+        ]
+      },
+      {
+        "section": "01 · EXECUTIVE SUMMARY",
+        "title": "개발 범위와 완료 수준",
+        "lead": "3차까지 완료 시점은 서비스 흐름을 검증하는 프런트엔드 완성 단계임. 실제 사용자 서비스 출시는 서버와 운영 기반 이후에 판단함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>1·2·3차에서 완성할 흐름</h3><ul class=\"list\"><li>여행기를 먼저 읽고, 장소를 저장한 뒤 내 여행으로 담음</li><li>저장에서는 담기·만들기를 시작하고 하단 팝업에서 기간·DAY를 고름. 확정 후 내 여행에서 관리함</li><li>글·사진·장소를 작성하고 임시 저장·복구함</li><li>AI 일정·관광 안내·영어 보기를 샘플 응답으로 검증함</li></ul></section><section class=\"panel warm\"><h3>이후 서버에서 완성할 기능</h3><ul class=\"list\"><li>회원·기기 간 동기화·접근 권한을 연결함</li><li>실제 업로드·댓글·조회·담김을 운영 데이터로 전환함</li><li>경로·AI·번역 공급자를 서버에서 연결함</li><li>신고·차단·운영 대응을 갖춘 뒤 공개함</li></ul></section></div><div class=\"callout\"><strong>이번 산출물은 개발 계획서임.</strong> 계획서 제작과 앱 기능 구현을 구분하며, 기존 로드맵·확장 보고서·로컬 전용 실험을 보존함.</div>",
+        "sources": [
+          [
+            "현재 구현 기준",
+            "https://github.com/giry02/spotlog/tree/codex/mobile-foundation"
+          ],
+          [
+            "기존 FUTURE_ROADMAP",
+            "https://github.com/giry02/spotlog/blob/codex/mobile-foundation/FUTURE_ROADMAP.md"
+          ]
+        ]
+      },
+      {
+        "section": "CONTENTS",
+        "title": "보고서 구성",
+        "lead": "각 항목을 선택하면 해당 페이지로 이동함. 하단 목차에서는 전체 페이지를 선택할 수 있음.",
+        "html": "<nav class=\"contents-list\" aria-label=\"장별 목차\"><a href=\"#slide-4\"><span>01</span>현재 기능과 개선 근거</a><a href=\"#slide-6\"><span>02</span>유사 서비스 조사와 방향</a><a href=\"#slide-9\"><span>03</span>저장·작성 경험 개선</a><a href=\"#slide-11\"><span>04</span>차수별 구현 범위와 작업 순서</a><a href=\"#slide-21\"><span>05</span>공통 데이터와 샘플 콘텐츠</a><a href=\"#slide-24\"><span>06</span>백엔드 이후 전체 개발</a><a href=\"#slide-29\"><span>07</span>출시·검증 기준</a><a href=\"#slide-31\"><span>08</span>기존 로드맵 대응표</a><a href=\"#slide-34\"><span>09</span>제외 항목·위험·인수인계</a><a href=\"#slide-36\"><span>10</span>근거 자료와 조사 범위</a></nav><div class=\"callout\">AI 입력·경로·배치 엔진·관광 안내·번역·비용은 <a href=\"./spotlog-ai-guide-plan.html\">별도 AI 계획서</a>에서 상세히 다룸.</div>"
+      },
+      {
+        "section": "01 · CURRENT STATE",
+        "title": "기존 구현 현황",
+        "lead": "2026년 9월 8일 codex/mobile-foundation 작업 사본과 프로젝트 문서 기준으로 확인함. 화면 존재와 운영 기능 완료를 구분함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">영역</th><th scope=\"col\">현재 상태</th><th scope=\"col\">추가 조치</th></tr></thead><tbody><tr><th scope=\"row\">홈·여행기 발견</th><td>기존 구현 활용 · 추천 롤링, 지역·작성자·기간 검색, 상세 보기</td><td>발견에서 저장·복사까지 상태와 안내를 통일함</td></tr><tr><th scope=\"row\">장소·저장</th><td>프런트엔드 보완 · 영상·지역 안내, 17개 지역·48개 장소, 지역별 저장</td><td>저장의 담기·만들기 버튼을 내 여행의 날짜 선택·생성으로 연결함</td></tr><tr><th scope=\"row\">내 여행·편집</th><td>프런트엔드 보완 · 여러 여행, DAY, 글·사진·장소 블록, 전체 복사</td><td>자동 저장·복구, DAY 이동·복사, 삭제 복구를 보완함</td></tr><tr><th scope=\"row\">지도·동선</th><td>기존 표시 활용 · MapLibre·OSM, OSRM 도로 경로</td><td>자동차·도보·대중교통 계산과 추정 표시를 분리함</td></tr><tr><th scope=\"row\">소셜·프로필·알림</th><td>서버 연동 필요 · 로컬 댓글·등급·아이콘·알림 설정</td><td>실제 집계·권한·원격 발송을 서버에서 구현함</td></tr><tr><th scope=\"row\">자동 일정·앱</th><td>후속 개발 · 거리 기반 로컬 초안, Expo WebView 셸</td><td>실제 일정 엔진과 네이티브 현장 기능을 단계별 연결함</td></tr></tbody></table></div>",
+        "sources": [
+          [
+            "현재 구현 기준",
+            "https://github.com/giry02/spotlog/tree/codex/mobile-foundation"
+          ]
+        ]
+      },
+      {
+        "section": "01 · PRIORITY FINDINGS",
+        "title": "우선 해결할 사용성·신뢰도 문제",
+        "lead": "현재 화면을 유지하되, 잘못 이해하거나 기록을 잃기 쉬운 동작부터 보완함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">확인 사항</th><th scope=\"col\">발생 가능한 문제</th><th scope=\"col\">조치 및 차수</th></tr></thead><tbody><tr><th scope=\"row\">여행 기간과 담을 DAY 연결</th><td>2일 여행 설정이 DAY 2 담기 대상으로도 사용됨</td><td>1차 · 기간 입력과 대상 DAY 선택을 독립 상태로 분리함</td></tr><tr><th scope=\"row\">대상 여행이 암묵적으로 선택됨</th><td>여러 여행 중 어디에 담았는지 파악하기 어려움</td><td>1차 · 하단 팝업에서 여행 제목과 DAY를 선택한 뒤 해당 내 여행 상세를 엶</td></tr><tr><th scope=\"row\">수동 저장 중심 편집</th><td>닫기·새로고침으로 미저장 내용을 잃을 수 있음</td><td>2차 · 로컬 자동 저장과 복구 안내를 추가함</td></tr><tr><th scope=\"row\">도보에도 자동차 도로 경로 사용</th><td>걷는 경로와 이동 시간으로 오인할 수 있음</td><td>1차 문구 정정 / B4 교통수단별 계산 연결</td></tr><tr><th scope=\"row\">관련 없는 사진·좌표 미확인</th><td>장소를 잘못 이해하거나 경로 계산이 실패함</td><td>2차 · 사진 출처·장소 일치 검사, 미등록 상태 표시</td></tr><tr><th scope=\"row\">로컬 반응을 운영 수치처럼 표시</th><td>실제 사용자 참여와 샘플을 혼동함</td><td>3차 데모 표시 / B3 서버 고유 이벤트로 집계</td></tr></tbody></table></div><p class=\"note\">코드 확인 근거: 저장 화면의 effectiveDayCount가 targetDay에도 전달됨. OSRM 요청 경로는 route/v1/driving을 사용함.</p>",
+        "sources": [
+          [
+            "현재 구현 기준",
+            "https://github.com/giry02/spotlog/tree/codex/mobile-foundation"
+          ]
+        ]
+      },
+      {
+        "section": "02 · COMPARABLE SERVICES",
+        "title": "여행 계획·가이드 서비스의 장점",
+        "lead": "공식 소개와 사용 안내를 바탕으로 기능의 장점을 해석함. 유료 기능 범위나 서비스 전체를 직접 사용해 검증한 결과는 아님.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">참고 서비스</th><th scope=\"col\">확인한 장점</th><th scope=\"col\">Spotlog 적용</th></tr></thead><tbody><tr><th scope=\"row\">트리플</th><td>취향에 따른 여행 제안과 사용자 일정 편집을 연결함</td><td>질문은 짧게 받고 결과는 사용자가 고칠 수 있게 구성함. 예약 중심 기능은 제외함</td></tr><tr><th scope=\"row\">Wanderlog</th><td>장소 목록과 지도, 일정·이동 정보를 함께 다룸</td><td>장소 선택 시 지도 핀을 연결하고 DAY별 이동 부담을 비교하도록 함</td></tr><tr><th scope=\"row\">Thatch</th><td>장소를 가이드의 구성 단위로 활용하고 저장한 가이드를 다시 이용함</td><td>여행기 본문 속 장소 카드를 저장하고 원하는 여행의 날짜에 재사용하도록 함</td></tr></tbody></table></div><div class=\"columns \"><section class=\"panel \"><h3>1·2차 적용</h3><ul class=\"list\"><li>기존 상세 보기 우선 흐름을 유지함</li><li>저장 결과와 지도 선택 상태를 일치시킴</li></ul></section><section class=\"panel \"><h3>후속 적용</h3><ul class=\"list\"><li>공동 편집은 충돌 처리 기반 이후 진행함</li><li>공개 가이드의 원문·작성자·복사 관계를 서버에 보존함</li></ul></section></div>",
+        "sources": [
+          [
+            "트리플 공식 소개",
+            "https://triple.guide/intro"
+          ],
+          [
+            "Wanderlog 공식 소개",
+            "https://wanderlog.com/"
+          ],
+          [
+            "Thatch 공식 사용 안내",
+            "https://thatch.notion.site/Quick-Mobile-App-Tour-f0f61ada59554e89a6e40200f6c67a33"
+          ]
+        ]
+      },
+      {
+        "section": "02 · COMPARABLE SERVICES",
+        "title": "여행 기록·외국인 안내 서비스의 장점",
+        "lead": "국내 작성자가 남긴 기록을 외국인도 실행할 수 있는 가이드로 확장하는 데 필요한 요소를 추출함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">참고 서비스</th><th scope=\"col\">확인한 장점</th><th scope=\"col\">Spotlog 적용</th></tr></thead><tbody><tr><th scope=\"row\">Polarsteps</th><td>여행 발견·계획과 사진·이동 기록을 연결함</td><td>계획표를 실제 방문·메모·사진 기록으로 이어가고, 여행 후 발행 초안으로 활용함</td></tr><tr><th scope=\"row\">Creatrip</th><td>외국인 관점의 한국 지역·테마 여행 콘텐츠를 제공함</td><td>한국어 작성 단계부터 교통 이용법·예약·문화 차이 정보를 받을 수 있게 함</td></tr><tr><th scope=\"row\">VISITKOREA</th><td>여행 계획과 여행에 필요한 실용 정보를 제공함</td><td>관광·교통·안전 정보를 공식 출처와 연결하고 한글 장소명·주소를 함께 제시함</td></tr></tbody></table></div><div class=\"callout\"><strong>적용 판단:</strong> 번역 버튼만 추가하면 여행 가능한 안내가 완성되는 것은 아님. 현장 이용 정보를 국내 원문에 먼저 축적함.</div>",
+        "sources": [
+          [
+            "Polarsteps 공식 업데이트",
+            "https://www.polarsteps.com/summer-release"
+          ],
+          [
+            "Creatrip 여행 콘텐츠",
+            "https://creatrip.com/en/blog"
+          ],
+          [
+            "VISITKOREA 여행 계획",
+            "https://english.visitkorea.or.kr/svc/sub/subPlan.do"
+          ]
+        ]
+      },
+      {
+        "section": "02 · PRODUCT DIRECTION",
+        "title": "여행기 기반 서비스 흐름",
+        "lead": "예약 상품을 늘리기보다, 읽고 저장한 경험이 내 여행과 다음 여행기로 이어지는 구조를 강화함.",
+        "html": "<div class=\"flow\"><div><small>STEP 1</small><strong>발견</strong><p>추천 여행기·영상·지역 안내에서 관심 장소를 만남</p></div><div><small>STEP 2</small><strong>빠른 저장</strong><p>목적지를 정하지 않아도 장소를 저장함</p></div><div><small>STEP 3</small><strong>여행 만들기</strong><p>저장에서 진입해 내 여행에서 새 여행·AI 여행을 만듦</p></div><div><small>STEP 4</small><strong>일정 구성</strong><p>생성한 여행 상세로 이동해 날짜·내용을 수정함</p></div><div><small>STEP 5</small><strong>실제 여행</strong><p>이동·방문·사진·한 줄 메모를 기록함</p></div><div><small>STEP 6</small><strong>여행기 발행</strong><p>기록을 글과 사진으로 다듬고 출처와 함께 공유함</p></div></div><div class=\"columns \"><section class=\"panel \"><h3>유지할 제품 성격</h3><ul class=\"list\"><li>모바일웹이 본체이며 앱은 필요한 기기 기능을 보완함</li><li>숙소·맛집은 여행기 속 장소로 취급함</li><li>다른 사람의 글은 먼저 읽고 담도록 함</li></ul></section><section class=\"panel \"><h3>새로 보완할 방향</h3><ul class=\"list\"><li>저장한 이유와 현장 팁을 기록할 수 있게 함</li><li>추천·사용자 경험·공식 정보·광고를 구분함</li><li>작성 완료와 실제 재사용을 콘텐츠 품질 신호로 삼음</li></ul></section></div>",
+        "sources": [
+          [
+            "기존 FUTURE_ROADMAP",
+            "https://github.com/giry02/spotlog/blob/codex/mobile-foundation/FUTURE_ROADMAP.md"
+          ]
+        ]
+      },
+      {
+        "section": "03 · SAVE & MY TRIPS",
+        "title": "저장·하단 선택 · 내 여행 관리",
+        "lead": "저장 목록은 유지함. 담기는 하단 팝업에서 여행·기간·DAY를 고르고, 확정 후 내 여행 상세로 이동함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>저장 동작</h3><ul class=\"list\"><li>발견한 장소를 하나의 저장 목록에 모으고 지역으로 걸러 봄</li><li>기존 SavedPlaceCard의 작은 가로 사진·설명·담기 구조를 유지함</li><li>만들기·AI 버튼에서 하단 입력을 열고, 승인 후 내 여행 상세로 이동함</li><li>저장 본문에 편집창·보관함을 추가하지 않고 하단 팝업만 사용함</li></ul></section><section class=\"panel warm\"><h3>하단 팝업에서 선택·확정</h3><ul class=\"list\"><li>장소 카드의 담기를 누르면 하단 선택 팝업을 엶</li><li>하단 팝업에서 대상 여행과 DAY를 고르고 담기를 확정함</li><li>확정한 DAY의 상세를 열며, 저장 카드는 담긴 위치만 표시함</li><li>기간·DAY·순서·글·사진 수정은 내 여행 상세에서만 진행함</li></ul></section></div><div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">동작</th><th scope=\"col\">결과</th></tr></thead><tbody><tr><th scope=\"row\">저장 해제</th><td>저장 장소 목록에서만 제거함. 이미 만든 여행의 방문 기록은 유지함</td></tr><tr><th scope=\"row\">DAY 담김 해제</th><td>내 여행에서 해당 방문 항목만 제거함. 원래 저장 장소는 유지함</td></tr><tr><th scope=\"row\">같은 장소 재방문</th><td>중복 안내 후 사용자가 허용하면 별도 방문 항목으로 추가함</td></tr></tbody></table></div><p class=\"note\">장소 ID와 여행 방문 ID를 분리함. 별도 보관함 생성·분류 없이 저장과 내 여행으로 역할을 구분함.</p>"
+      },
+      {
+        "section": "03 · WRITING & TRUST",
+        "title": "블로그형 여행기 작성 보완",
+        "lead": "장소 카드 나열보다 관찰·평가·주변 사진이 자연스럽게 이어지는 여행기를 만들 수 있도록 함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>작성 기능</h3><ul class=\"list\"><li>글·사진·장소 블록을 추가하고 읽는 순서대로 배치함</li><li>사진 여러 장 선택, 설명·대표 사진·초점 위치를 지원함</li><li>장소를 다른 DAY로 이동해도 연결된 글과 사진을 유지함</li><li>자동 임시 저장, 작성 위치 복구, 마지막 변경 취소를 제공함</li></ul></section><section class=\"panel warm\"><h3>공개 전 확인</h3><ul class=\"list\"><li>장소와 관계없는 사진을 임의 대체 이미지로 사용하지 않음</li><li>사진이 없으면 사진 없음 상태와 등록 방법을 제공함</li><li>좌표·이용 정보가 없으면 미확인 상태를 표시함</li><li>공식 정보와 방문 당시 경험, AI 안내를 구분함</li></ul></section></div><div class=\"callout\">권장 작성 항목: 방문 이유, 주변에서 본 것, 좋았던 점·아쉬운 점, 이동·입장 팁, 사진 설명, 정보 확인일. AI가 방문자의 체험담을 지어내도록 하지 않음.</div>"
+      },
+      {
+        "section": "04 · PHASED DELIVERY",
+        "title": "1·2·3차 프런트엔드 구현 범위",
+        "lead": "1차·2차·3차의 구현 범위와 완료 기준을 정리함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">차수</th><th scope=\"col\">구현 범위</th><th scope=\"col\">완료 후 가능한 일</th></tr></thead><tbody><tr><th scope=\"row\">1차 · 발견·저장</th><td>기존 스타일·검색·사진 넘김·담기 팝업·홈 AI 초안·사진 카드</td><td>저장 하단 팝업에서 여행·기간·DAY를 고름. 확정한 내 여행 상세를 엶.</td></tr><tr><th scope=\"row\">2차 · 일정·작성·소통</th><td>임시 저장·복구·사진/글·주변 업체·숙소·카드 반응·댓글·지도·복사</td><td>여행기를 편집하고 본문 속 장소마다 반응·댓글을 남김.</td></tr><tr><th scope=\"row\">3차 · 추천·안내</th><td>AI 추천·주변 업체 보완·후보 승인·부분 수정·관광 안내·영어</td><td>추천 초안 수정·관광 안내·영어 열람을 확인함.</td></tr></tbody></table></div><section class=\"section-block\"><h3>차수 진행 기준</h3><ul class=\"list\"><li>각 차수 안에서 구조 정리, 기능 구현, 실패 상태 처리, 전체 흐름 검증을 순서대로 진행함.</li><li>앞 차수의 기록·상태와 기존 화면 역할별 스타일·컴포넌트를 다음 차수에서 재사용함.</li></ul></section><p class=\"note\">1~3차는 프런트엔드 범위임. 실제 로그인·서버 저장·AI/RAG·교통·번역 연동은 이후 백엔드 단계임.</p>"
+      },
+      {
+        "section": "PAGE STRUCTURE",
+        "title": "전체 페이지 구조 · 메뉴와 하위 화면",
+        "lead": "현재 하단 메뉴를 유지하고, 각 메뉴 안의 화면을 연결하며 필요한 기능을 차수별로 보완함.",
+        "html": "<div class=\"table-wrap architecture-table\"><table><thead><tr><th scope=\"col\">진입 메뉴</th><th scope=\"col\">하위 페이지와 연결</th><th scope=\"col\">개발 배치</th></tr></thead><tbody><tr><th scope=\"row\">홈</th><td>추천 일정·여행자 일정 → 여행기 읽기<br>지역·기간 검색 → 여행기 목록</td><td>기존 활용 / 1차 탐색 정돈</td></tr><tr><th scope=\"row\">여행기</th><td>검색·지역·기간 목록 → 여행기 읽기<br>작성자 프로필·다른 여행기 / 복사 → 내 여행</td><td>1차 검색 / 2차 읽기·복사·카드 반응</td></tr><tr><th scope=\"row\">장소</th><td>안내 목록 · 영상 · 사진 쇼츠<br>랜드마크 상세 → 저장 / 내 여행의 DAY 선택</td><td>1차 사진 넘김·저장 통일</td></tr><tr><th scope=\"row\">내 여행</th><td>여러 여행 목록 → 여행·DAY 선택 / 생성·상세·편집<br>기간·DAY·순서·글·사진 수정 / 지도·현장 안내·영어</td><td>1차 선택·생성 / 2차 작성 / 3차 안내</td></tr><tr><th scope=\"row\">저장</th><td>저장 목록 · 지역 필터 · 작은 가로 카드 → 담기<br>만들기·AI 하단 입력 → 승인 후 내 여행 상세</td><td>1차 진입·상태 표시 / 3차 AI 보완</td></tr></tbody></table></div><div class=\"callout\"><strong>공통 진입:</strong> 프로필은 홈에서 열며 아이콘·등급·내 공개 글·반응·알림 설정을 연결함. AI 관광 안내는 여행 안에서 제공하며 하단 메뉴를 늘리지 않음.</div><p class=\"note\">기존 화면을 활용하는 목표 구조임. 새 하위 기능은 1·2·3차에서 보완하며 실제 로그인·동기화·집계·푸시는 후속 서버 단계에서 연결함.</p>"
+      },
+      {
+        "section": "SCREEN STRUCTURE",
+        "title": "여행기 화면 구조 · 작성과 독자 이용",
+        "lead": "한 여행기의 글·사진 사이에 업체와 랜드마크를 넣고, 독자는 해당 항목을 보고 저장하거나 반응함.",
+        "html": "<div class=\"table-wrap architecture-table\"><table><thead><tr><th scope=\"col\">화면 영역 · 위에서 아래</th><th scope=\"col\">구성 및 독자 동작</th><th scope=\"col\">차수</th></tr></thead><tbody><tr><th scope=\"row\">표지·작성자</th><td>제목·대표 사진·지역·기간·작성자·등급<br>작성자 프로필과 다른 여행기로 이동</td><td>기존 활용 / 2차 정돈</td></tr><tr><th scope=\"row\">DAY 선택 줄</th><td>DAY 앞 뒤로가기, 가로 DAY 전환<br>스크롤 중에도 뒤로가기·날짜 선택 유지</td><td>1차 공통 / 2차 편집 연결</td></tr><tr><th scope=\"row\">본문 · 글·사진·장소 카드</th><td>글·주변 사진·평가 사이에 음식점·호텔·랜드마크 삽입<br>장소명·설명·방문 정보·저장·여행 담기 제공</td><td>1차 저장 / 2차 작성</td></tr><tr><th scope=\"row\">카드 하단 · 좋아요·댓글</th><td>카드별 개수 표시 → 하단 팝업<br>반응한 사용자·댓글 목록·답글 펼침·입력창</td><td>2차 F19 / 실제 집계 B3</td></tr><tr><th scope=\"row\">지도·여행기 하단</th><td>DAY 지도 핀·이동 구간 / 여행기 전체 댓글·작성자 글<br>공유·내 여행으로 복사, 편집 시 저장·미리보기</td><td>2차 연결 / 실제 발행 B2·B3</td></tr></tbody></table></div><div class=\"callout\"><strong>작성자 흐름:</strong> 글·사진 추가 → 장소 선택 또는 직접 입력 → 카드 삽입 → 미리보기.<br><strong>독자 흐름:</strong> 여행기 읽기 → 카드 저장·반응 → 필요할 때 내 여행으로 복사함.</div><p class=\"note\">카드별 댓글과 여행기 전체 댓글은 서로 다른 영역임. 3차의 관광 안내·영어 보기는 이 여행과 DAY를 그대로 사용함. 숙소 예약·결제·가격 비교는 포함하지 않음.</p>"
+      },
+      {
+        "section": "FEATURE ROADMAP",
+        "title": "기능 구조 · 1·2·3차 구현 로드맵",
+        "lead": "장소·저장·방문·본문을 공통 기반으로 연결하고, 앞 차수의 결과를 다음 차수가 이어서 사용함.",
+        "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">차수 · 연결 영역</th><th scope=\"col\">주요 기능 묶음</th><th scope=\"col\">완료 후 이어지는 화면</th></tr></thead><tbody><tr><th scope=\"row\">1차 · 발견·저장<br>F01–F06 · F20</th><td>기존 스타일·검색·사진 쇼츠·홈 AI 초안<br>하단 기간·DAY 선택 후 내 여행·담김·해제</td><td>생성 후 내 여행 상세로 이동해 수정함.<br>선택한 장소·방문 기록을 2차로 전달함.</td></tr><tr><th scope=\"row\">2차 · 작성·독자 소통<br>F07–F12 · F19</th><td>임시 저장·복구, 글·사진·업체 카드·DAY 편집<br>이동·복사·지도·미리보기, 카드별 좋아요·스레드</td><td>읽을 만한 여행기를 작성하고 카드별 반응을 시연함.<br>편집기와 읽기 화면을 3차가 재사용함.</td></tr><tr><th scope=\"row\">3차 · 추천·현장 안내<br>F13–F18</th><td>AI 조건·후보 승인·결과·일부 재생성<br>관광 안내·영어·원문 보기·전체 회귀 검수</td><td>저장 진입 → 내 여행 생성·상세 → 오늘 안내.<br>샘플 연결부를 이후 실제 서버로 교체함.</td></tr></tbody></table></div><section class=\"section-block\"><h3>공통 기능의 연결 원칙</h3><ul class=\"list\"><li>사진·영상·안내는 같은 장소와 저장 상태를 사용함. 여행 방문·본문 카드·댓글 대상은 별도 ID로 구분함.</li><li>읽기·편집·지도·추천 결과는 같은 여행과 DAY를 참조함. 글자·버튼·입력·하단 팝업은 공통 스타일을 재사용하며 오류·복원·뒤로가기를 검증함.</li></ul></section><p class=\"note\">이후 서버: B1 회원·데이터 → B2 콘텐츠·발행 → B3 실제 커뮤니티 → B4 AI·번역 → B5 푸시·현장 앱. 프런트엔드 샘플을 실사용 집계나 실제 AI 결과로 표시하지 않음.</p>"
+      },
+      {
+        "section": "04 · PHASE 1",
+        "title": "1차 개발 항목과 완료 조건",
+        "lead": "목표: 장소를 찾고 저장한 뒤 정확한 여행과 DAY에 담는 흐름을 완성함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">작업 ID</th><th scope=\"col\">개발 항목</th><th scope=\"col\">완료 조건</th></tr></thead><tbody><tr><th scope=\"row\">F01</th><td>기존 검색·지역 필터·무한 목록 상태 정리</td><td>검색 조건 변경 시 목록·로딩·빈 결과가 일치함</td></tr><tr><th scope=\"row\">F02</th><td>저장 목록·새 여행/AI 생성 진입</td><td>작은 가로 카드·지역 필터 유지, 하단 선택 후 내 여행 상세</td></tr><tr><th scope=\"row\">F03</th><td>하단 팝업에서 기간·여행·DAY 선택</td><td>기간과 담을 DAY 독립, 확정한 내 여행 상세 표시</td></tr><tr><th scope=\"row\">F04</th><td>담김 상태·해제·재방문 처리</td><td>저장은 담긴 여행·DAY만 표시, 방문 해제·재방문은 내 여행</td></tr><tr><th scope=\"row\">F05</th><td>저장소 인터페이스·로컬 데이터 이전 준비</td><td>기존 여행·저장 데이터가 유지되며 버전이 구분됨</td></tr><tr><th scope=\"row\">F06</th><td>글자·버튼·입력·팝업과 AI/담기 사진 카드</td><td>기존 랜드마크 카드·모바일·키보드·추정/샘플 안내를 검증함</td></tr><tr><th scope=\"row\">F20</th><td>사진 쇼츠·기존 장소 카드 재사용</td><td>한 화면 한 장소, 세로 장소·좌우 사진 전환과 저장 상태 일치</td></tr></tbody></table></div><div class=\"callout\">선행 조건: 현재 로컬 데이터의 테스트용 사본과 기존 흐름 회귀 목록을 확보함. 기존 여행을 비우는 초기화로 기능을 구현하지 않음.</div><p class=\"note\">사진 보기는 한 화면에 한 랜드마크를 표시함. 세로로 다른 장소, 좌우로 같은 장소의 사진 1~5장을 넘김. 순번·설명·저장 상태를 표시함. 기존 영상·안내 목록을 유지하며 같은 장소 ID와 저장함을 사용함. 사진 자동 모션 실험은 별도이며 이번 공개 변경에 포함하지 않음.</p>"
+      },
+      {
+        "section": "04 · PHASE 1 / SEQUENCE",
+        "title": "1차 구현 순서와 산출물",
+        "lead": "아래는 날짜 배정이 아닌 선행 작업 순서임. 단계별 결과를 확인한 뒤 다음 구현으로 진행함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">순서</th><th scope=\"col\">구현 작업</th><th scope=\"col\">남길 결과</th></tr></thead><tbody><tr><th scope=\"row\">구조 정리</th><td>공유 토큰·컴포넌트: 글자·버튼·입력·하단 팝업<br>저장→내 여행 연결과 방문 ID 계약</td><td>스타일 가이드·공통 컴포넌트·데이터 보존 기준</td></tr><tr><th scope=\"row\">기본 동작</th><td>저장 목록·기존 가로 카드·생성 진입<br>사진 캐러셀·순번·장소 설명<br>하단 팝업에서 기간·여행·DAY 선택·담기</td><td>상태 연결 가능한 1차 화면</td></tr><tr><th scope=\"row\">연결·변경</th><td>하단 팝업에서 새 여행·AI 승인 후 내 여행 상세 이동<br>저장은 담김 표시, 내 여행은 해제·재방문</td><td>장소 1개로 하단 선택·확정·내 여행 이동 검증</td></tr><tr><th scope=\"row\">예외 처리</th><td>로딩·실패·빈 상태·목록 복원<br>DAY 부족·여행 없음·중복 예외</td><td>실패 상태 포함 샘플과 단위 테스트</td></tr><tr><th scope=\"row\">통합 검증</th><td>사진 좌우 넘김·세로 탐색·저장 일치 검수<br>저장·여행 상세 전환·모바일 회귀 수정<br>담김·해제·뒤로가기 회귀 수정</td><td>1차 시연본·미해결 이슈·2차 인수인계</td></tr></tbody></table></div><p class=\"note\">장소 사진·좌표·사용 권리를 점검함. 사진 없음·로딩 실패·터치 방향 충돌·뒤로가기 위치 복원을 검증하고 기존 데이터를 보존함.</p>"
+      },
+      {
+        "section": "04 · PHASE 2",
+        "title": "2차 개발 항목과 완료 조건",
+        "lead": "목표: 글·사진·업체·랜드마크로 여행기를 작성하고, 읽는 사람이 카드별 반응·댓글을 남기는 화면을 완성함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">작업 ID</th><th scope=\"col\">개발 항목</th><th scope=\"col\">완료 조건</th></tr></thead><tbody><tr><th scope=\"row\">F07</th><td>1~2초 디바운스 로컬 자동 저장·복구</td><td>새로고침 후 작성 내용·위치를 복구함. 저장 실패를 알림</td></tr><tr><th scope=\"row\">F08</th><td>사진 선택·설명·대표 사진·실패 상태</td><td>여러 사진을 미리 보고 삭제·순서를 변경함</td></tr><tr><th scope=\"row\">F09</th><td>DAY·방문·관련 블록 이동과 복제</td><td>장소 이동 후 본문·지도·DAY가 같은 방문을 참조함</td></tr><tr><th scope=\"row\">F10</th><td>전체·하루·장소 단위 복사</td><td>원문·작성자·복사 시점의 출처를 보존함</td></tr><tr><th scope=\"row\">F11</th><td>변경 취소·삭제 복구·공개 전 미리보기</td><td>실수한 마지막 변경을 복구하고 누락 항목을 확인함</td></tr><tr><th scope=\"row\">F12</th><td>본문 목록·지도 핀 연결</td><td>선택한 장소·DAY가 일치하고 경로 상태를 정확히 표시함</td></tr><tr><th scope=\"row\">F19</th><td>여행기 속 업체·랜드마크 카드의 반응·스레드</td><td>카드마다 좋아요·댓글 수와 하단 팝업 작성 흐름을 검증함</td></tr></tbody></table></div><div class=\"callout\">서버 업로드·서버 발행은 B1·B2에서 연결함. 이번 차수의 로컬 임시 저장은 기기 간 동기화나 클라우드 백업을 의미하지 않음.</div>"
+      },
+      {
+        "section": "04 · PHASE 2 / SEQUENCE",
+        "title": "2차 구현 순서와 산출물",
+        "lead": "아래는 날짜 배정이 아닌 선행 작업 순서임. 단계별 결과를 확인한 뒤 다음 구현으로 진행함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">순서</th><th scope=\"col\">구현 작업</th><th scope=\"col\">남길 결과</th></tr></thead><tbody><tr><th scope=\"row\">구조 정리</th><td>사진 자산·복사 출처 계약<br>초안·방문·블록 참조와 카드별 스레드 규격</td><td>1차 데이터와 연결된 편집 규격</td></tr><tr><th scope=\"row\">기본 동작</th><td>사진 다중 선택·미리보기<br>자동 저장·복구·상태 표시<br>업체·랜드마크 카드 삽입·반응 영역</td><td>종료·새로고침 복구 시연</td></tr><tr><th scope=\"row\">연결·변경</th><td>전체·DAY·장소 복사<br>DAY 이동·복제·삭제 취소<br>좋아요·댓글 팝업·답글 입력</td><td>원본·사본 분리 테스트</td></tr><tr><th scope=\"row\">예외 처리</th><td>지도 선택·사진 오류·대표 사진<br>본문 미리보기·공개 전 검사</td><td>글·사진·지도 연결 여행기</td></tr><tr><th scope=\"row\">통합 검증</th><td>사진·복사·지도 회귀 수정<br>편집·복구·삭제와 카드별 반응 분리 검증</td><td>2차 시연본·작성 가이드·3차 연결 규격</td></tr></tbody></table></div><p class=\"note\">글 사이 사진과 평가가 충분한지 9개 샘플을 점검함. 콘텐츠 제작과 편집 기능을 구분함.</p>"
+      },
+      {
+        "section": "04 · PHASE 3",
+        "title": "3차 개발 항목과 완료 조건",
+        "lead": "목표: 실제 서버가 없어도 AI와 외국인 이용 흐름을 끝까지 검토할 수 있는 상태를 만듦.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">작업 ID</th><th scope=\"col\">개발 항목</th><th scope=\"col\">완료 조건</th></tr></thead><tbody><tr><th scope=\"row\">F13</th><td>AI 조건 입력·장소 범위 확인</td><td>저장 장소·지역·필수·제외·기간·이동 조건을 확인함</td></tr><tr><th scope=\"row\">F14</th><td>결과 미리보기·후보 승인·부분 수정</td><td>고정 일정과 변경분을 구분하고 승인 전 원본을 보존함</td></tr><tr><th scope=\"row\">F15</th><td>여행 중 텍스트 안내 화면</td><td>현재 DAY·장소를 기준으로 안내·출처·미확인을 표시함</td></tr><tr><th scope=\"row\">F16</th><td>한국어·영어 UI와 번역 상태</td><td>원문·자동번역·검수·재번역 필요 상태를 전환함</td></tr><tr><th scope=\"row\">F17</th><td>샘플 응답과 서버 연결 계약</td><td>생성·수정·질문·번역 성공·실패·취소를 검증함</td></tr><tr><th scope=\"row\">F18</th><td>전체 흐름·접근성·하이브리드 회귀</td><td>모바일웹·Android 셸에서 핵심 시나리오가 유지됨</td></tr></tbody></table></div><div class=\"callout\">AI·번역 화면에 <strong>샘플 응답 / 서버 연동 전</strong>을 표시함. 위치·날씨·실시간 영업 여부를 실제로 확인하는 듯한 진행 문구는 사용하지 않음.</div>",
+        "sources": [
+          [
+            "별도 AI 관광 가이드 계획서",
+            "./spotlog-ai-guide-plan.html"
+          ]
+        ]
+      },
+      {
+        "section": "04 · PHASE 3 / SEQUENCE",
+        "title": "3차 구현 순서와 산출물",
+        "lead": "아래는 날짜 배정이 아닌 선행 작업 순서임. 단계별 결과를 확인한 뒤 다음 구현으로 진행함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">순서</th><th scope=\"col\">구현 작업</th><th scope=\"col\">남길 결과</th></tr></thead><tbody><tr><th scope=\"row\">구조 정리</th><td>언어·관광 안내 상태 확정<br>AI 입력·출력·재생성 계약 확정</td><td>성공·실패·미확인 샘플 목록</td></tr><tr><th scope=\"row\">기본 동작</th><td>영어 UI·원문·한글 주소 보기<br>조건 입력·결과 미리보기</td><td>국내·영어 사용 흐름 1차 연결</td></tr><tr><th scope=\"row\">연결·변경</th><td>관광 질문·출처·답변 불가 화면<br>후보 승인·고정 일정·변경 비교</td><td>사용자 승인 전후 상태 시연</td></tr><tr><th scope=\"row\">예외 처리</th><td>긴 번역·사진 오류·알림 상태<br>생성 실패·시간 초과·취소·재시도</td><td>9개 샘플과 연결 규격 테스트</td></tr><tr><th scope=\"row\">통합 검증</th><td>언어·접근성·모바일 회귀<br>전체 작성·AI·뒤로가기 회귀</td><td>3차 시연본·테스트 결과·백엔드 인수인계</td></tr></tbody></table></div><p class=\"note\">영어 샘플과 관광 안내는 연결 전 시연임. 실제 번역·외부 AI 호출은 서버 단계에서 진행함.</p>"
+      },
+      {
+        "section": "05 · SHARED CONTRACTS",
+        "title": "공통 데이터와 서버 교체 경계",
+        "lead": "화면을 전면 교체하지 않도록 데이터 읽기·쓰기를 공통 인터페이스 뒤로 분리함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">대상</th><th scope=\"col\">최소 규격</th><th scope=\"col\">보존 원칙</th></tr></thead><tbody><tr><th scope=\"row\">장소</th><td>placeId, 공급자 ID, 한글·외국어 이름, 주소, 좌표, 출처·확인일</td><td>장소 기본 정보와 작성자의 경험을 분리함</td></tr><tr><th scope=\"row\">여행 내 방문</th><td>visitId, placeId, dayId, 체류·고정 시간, 필수 여부</td><td>같은 숙소를 여러 DAY에 방문할 수 있게 함</td></tr><tr><th scope=\"row\">본문·사진</th><td>blockId, 유형, visitId 참조, 사진 자산 ID, 설명·권리 정보</td><td>블록 순서와 지도 방문 순서를 명확히 연결함</td></tr><tr><th scope=\"row\">저장·여행·복사</th><td>savedPlaceIds, journeyId, dayId, 원문·작성자·버전·복사일</td><td>저장 목록과 여행 방문을 분리함. 여행 생성 후 상세로 이동함</td></tr><tr><th scope=\"row\">AI·번역</th><td>조건, 결과·경고·미배치, 원문 버전·언어·용어집·검수 상태</td><td>샘플 제공자와 서버 제공자가 같은 규격을 사용함</td></tr><tr><th scope=\"row\">카드 반응·스레드</th><td>storyId + blockId, commentId·parentCommentId, userId·상태</td><td>placeId는 장소 정보용임. 카드 이동 시 ID 유지, 복사 시 새 ID 부여</td></tr></tbody></table></div><div class=\"callout\">이전 방식: 기존 로컬 데이터를 백업한 뒤 스키마 버전별로 변환함. 재실행해도 중복되지 않게 하며, 변환 실패 시 원본을 보존하고 복구 안내를 제공함.</div>"
+      },
+      {
+        "section": "05 · CONTENT SAMPLES",
+        "title": "지역·기간별 샘플 9개 제작 기준",
+        "lead": "아래는 다음 개발 때 제작할 샘플 구성안임. 실제로 방문하거나 경로를 검증한 여행기라고 표시하지 않음.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">지역</th><th scope=\"col\">당일</th><th scope=\"col\">1박 2일</th><th scope=\"col\">2박 3일</th></tr></thead><tbody><tr><th scope=\"row\">서울</th><td>한 권역 걷기·대중교통</td><td>두 권역과 숙소 이동</td><td>도착·출발 제약, 하루 일부 재생성</td></tr><tr><th scope=\"row\">부산</th><td>한 권역 바다·골목</td><td>권역 간 대중교통 연결</td><td>자동차·대중교통 구간 차이 비교</td></tr><tr><th scope=\"row\">제주</th><td>한 권역 자동차</td><td>같은 숙소 복귀</td><td>날짜별 권역 분리와 긴 이동 경고</td></tr></tbody></table></div><div class=\"columns \"><section class=\"panel \"><h3>각 샘플에 포함할 내용</h3><ul class=\"list\"><li>도입 글, 장소 사이 글·주변 사진·사진 설명</li><li>방문 이유, 좋았던 점·아쉬운 점, 현장 팁</li><li>숙소는 장소 정보로만 작성하고 실제 숙박비를 제외함</li></ul></section><section class=\"panel \"><h3>콘텐츠 확인 기준</h3><ul class=\"list\"><li>장소와 사진이 일치하고 사용 권리를 확인함</li><li>좌표·출처·확인일 또는 미확인 여부를 표시함</li><li>실제 후기와 안내용 샘플을 구분하고 허위 경험을 쓰지 않음</li></ul></section></div>"
+      },
+      {
+        "section": "05 · DOMESTIC CONTENT GROWTH",
+        "title": "국내 콘텐츠 확보와 작성자 유입",
+        "lead": "지역별 콘텐츠 양보다, 읽은 여행기를 실제 여행으로 재사용할 수 있는 품질을 우선함. 아래 수치는 운영 목표안임.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">시기</th><th scope=\"col\">운영 작업</th><th scope=\"col\">확인 지표</th></tr></thead><tbody><tr><th scope=\"row\">프런트엔드 1·2·3차</th><td>서울·부산·제주 9개 검수용 샘플, 작성 항목과 사진 기준 마련</td><td>샘플별 빈 정보·잘못된 사진·작성 중 막힘 기록</td></tr><tr><th scope=\"row\">서버 내부 알파</th><td>3개 지역의 로컬 작성자 모집, 초안 작성·발행 동행 지원</td><td>작성 시작 대비 완료 비율, 수정·문의 유형</td></tr><tr><th scope=\"row\">국내 비공개 베타</th><td>경주·강릉 확대, 지역별 2~5명 작성자와 12~20편 확보 목표</td><td>실제 저장·복사·완독·재방문과 신고율</td></tr><tr><th scope=\"row\">공개 운영</th><td>검수된 여행기 60~100편 목표, 주제·기간별 기획전 운영</td><td>원문 작성자별 재사용과 콘텐츠 갱신 여부</td></tr></tbody></table></div><div class=\"callout\">홍보 여행기는 Spotlog 추천 또는 광고·협찬 여부를 명시함. 초기 숫자를 채우기 위한 가짜 댓글·담김 수는 사용하지 않음. 반응이 적어도 작성자 소개와 실제 활용 사례로 동기를 제공함.</div>"
+      },
+      {
+        "section": "06 · BACKEND B1",
+        "title": "B1 · 회원과 데이터 기반",
+        "lead": "선행 조건: 1·2·3차 프런트엔드 규격 확정. 완료 전에는 기기 간 저장·비공개 보호가 가능한 서비스라고 안내하지 않음.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>계정·권한</h3><ul class=\"list\"><li>이메일 OTP 중심 계정과 소셜 로그인 연결 구조를 준비함</li><li>비회원은 공개 글 열람, 작성·댓글은 회원 권한으로 분리함</li><li>본인 초안·비공개 여행만 읽고 수정하도록 접근 권한을 검사함</li><li>계정 삭제·데이터 내보내기·보존 기간을 정함</li></ul></section><section class=\"panel \"><h3>데이터·복구</h3><ul class=\"list\"><li>회원 기반 DB와 미디어 저장소를 구축함</li><li>로컬 여행을 사용자가 확인한 뒤 한 번만 이전함</li><li>동기화 실패·충돌·낙관적 업데이트 복구를 처리함</li><li>개발·검증·운영 환경과 키를 분리하고 백업을 복원 시험함</li></ul></section></div><div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">검증 영역</th><th scope=\"col\">통과 기준</th></tr></thead><tbody><tr><th scope=\"row\">계정·권한·동기화</th><td>두 기기에서 동일 여행·저장 장소를 확인함. 다른 사람의 비공개 ID로 접근하면 거부됨</td></tr><tr><th scope=\"row\">데이터 이전·삭제</th><td>이전 재실행 시 중복 0건, 실패 전 원본 복구 가능, 계정 삭제 시 관련 자산 처리 검증</td></tr></tbody></table></div>",
+        "sources": [
+          [
+            "기존 FUTURE_ROADMAP",
+            "https://github.com/giry02/spotlog/blob/codex/mobile-foundation/FUTURE_ROADMAP.md"
+          ]
+        ]
+      },
+      {
+        "section": "06 · BACKEND B2",
+        "title": "B2 · 장소·미디어·공개 콘텐츠",
+        "lead": "선행 조건: B1의 회원 ID·권한·저장 기반. 사진 공급과 장소 검색을 같은 기능으로 취급하지 않음.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>장소·공개 URL</h3><ul class=\"list\"><li>서버에서 키워드·지역·지도 반경 검색을 연결함</li><li>공급자별 식별자를 Spotlog 장소에 연결하고 중복 후보를 확인함</li><li>검색 실패 시 이름·주소·지도 핀으로 직접 등록하게 함</li><li>여행기·작성자·장소의 영구 URL과 공유 미리보기를 구성함</li></ul></section><section class=\"panel \"><h3>사진·영상 업로드</h3><ul class=\"list\"><li>원본·화면용·썸네일을 분리하고 비공개 자산 권한을 적용함</li><li>업로드 진행·취소·재시도·재개와 포맷·크기 제한을 구현함</li><li>공개본 GPS EXIF 제거, 회전·저작권 정보 처리를 진행함</li><li>영상 변환·CDN, 삭제 자산의 유예 정리와 복구를 구성함</li></ul></section></div><div class=\"callout\">완료 조건: 통신 중단 후 업로드를 이어가고, 공개 목록은 최적화 이미지를 사용함. 삭제·비공개 링크는 정상 안내를 표시하며 원본 변경이 사본을 덮어쓰지 않음.</div>",
+        "sources": [
+          [
+            "기존 FUTURE_ROADMAP",
+            "https://github.com/giry02/spotlog/blob/codex/mobile-foundation/FUTURE_ROADMAP.md"
+          ]
+        ]
+      },
+      {
+        "section": "06 · BACKEND B3",
+        "title": "B3 · 실제 반응과 안전한 커뮤니티",
+        "lead": "선행 조건: B1·B2. 공개 사용자 콘텐츠 운영을 시작하기 전에 집계와 신고 대응을 함께 완성함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>실제 참여와 작성자 보상</h3><ul class=\"list\"><li>조회·담김·응원과 여행기 속 카드별 좋아요·댓글 수를 서버에서 분리 집계함</li><li>댓글 수정·삭제·답글·고정과 작성자 팔로우를 제공함. 여행기 카드별 반응·댓글 팝업을 연결함</li><li>알림함·읽음·최근 본 기록을 연결함</li><li>등급은 서버 결과로 표시하고 완독·신고율도 추천에 반영함</li></ul></section><section class=\"panel warm\"><h3>운영 안전</h3><ul class=\"list\"><li>열람·작성 권한을 서버에서 검사하고, 첫 발행 전 커뮤니티 기준·권리를 확인함</li><li>여행기·사진·댓글·사용자 신고와 차단·해제를 제공함</li><li>관리자 숨김·복구·삭제·경고·정지를 기록함</li><li>저작권 이의 제기·민감 위치 신고·지원 연락처를 마련함</li></ul></section></div><div class=\"callout\">완료 조건: 반복 클릭·재시도에도 담김 수가 중복 증가하지 않음. 신고한 내용은 운영 대기열에서 원문과 번역을 함께 확인하며 처리 이력을 보존함.</div>",
+        "sources": [
+          [
+            "기존 FUTURE_ROADMAP",
+            "https://github.com/giry02/spotlog/blob/codex/mobile-foundation/FUTURE_ROADMAP.md"
+          ]
+        ]
+      },
+      {
+        "section": "02 · STORY CARD THREADS · F19",
+        "title": "2차 · 여행기 속 장소 카드별 소통",
+        "lead": "작성자는 여행기 본문에 업체·랜드마크를 넣고, 독자는 각 카드에 좋아요·댓글·답글을 남김.",
+        "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">구현 영역</th><th scope=\"col\">화면과 동작</th></tr></thead><tbody><tr><th scope=\"row\">작성·제공</th><td>저장 장소·검색·직접 입력으로 음식점·호텔·랜드마크 카드를 넣음. 사진·경험·설명과 함께 독자에게 제공함.</td></tr><tr><th scope=\"row\">카드별 반응</th><td>각 카드 아래 좋아요 버튼·좋아요 수·댓글 수를 표시함. 좋아요는 누르기/취소, 숫자는 해당 카드의 하단 팝업을 엶.</td></tr><tr><th scope=\"row\">하단 팝업</th><td>좋아요 수를 누르면 반응한 사용자 목록, 댓글 수를 누르면 아이콘·이름·시각·본문과 입력창을 보여 줌. 여행기 제목·장소명을 함께 표시함.</td></tr><tr><th scope=\"row\">댓글·답글</th><td>댓글별 ‘답글 N개’를 같은 팝업에서 펼침. 답글 대상·취소, 본인 글 수정·삭제, 신고를 제공함. 목록은 나눠 불러오고 키보드 위에서 작성함.</td></tr><tr><th scope=\"row\">연결·보존</th><td>여행기 ID + 장소 카드 ID로 스레드를 구분함. 같은 업체라도 다른 여행기의 반응은 섞지 않음. 카드 이동은 유지, 복사본은 새 ID·반응 0건으로 시작함.</td></tr></tbody></table></div><div class=\"callout\"><strong>2차 F19:</strong> 카드 삽입·미리보기·반응·댓글·답글과 실패·로그인 필요 상태를 샘플로 구현함. <strong>이후 B3:</strong> 실제 저장·권한·중복 방지·집계·신고·차단을 연결함.</div><p class=\"note\">여행기 전체 댓글·업체 공통 리뷰와 분리함. 좋아요는 카드·계정별 1회, 댓글 수는 공개 댓글·답글 합계임. 닫기·뒤로가기 시 본문 위치·포커스·미전송 초안을 보존함. 샘플 수치는 실제 인기와 구분함.</p>"
+      },
+      {
+        "section": "06 · BACKEND B4–B5",
+        "title": "B4 · AI와 영어 / B5 · 현장 앱 확장",
+        "lead": "서버 기반이 준비된 뒤 각 기능을 연결함. B4 상세 구현은 별도 AI 계획서를 기준으로 함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>B4 · AI·영어 시범 운영</h3><ul class=\"list\"><li>경로 공급자 계약·조회와 일정 배치 엔진을 연결함</li><li>고정 일정·과밀·미배치·부분 재계산을 검증함</li><li>근거 기반 관광 안내와 번역·용어집·검수를 연결함</li><li>사용량·성공률·지연·비용 상한을 측정함</li></ul></section><section class=\"panel \"><h3>B5 · 앱 현장 기능</h3><ul class=\"list\"><li>여행 텍스트·작은 이미지·한글 주소를 기기에 보관함</li><li>전경 위치·방문 완료·사진·메모와 동기화 대기열을 구성함</li><li>기기 토큰·조용한 시간·종류별 설정·원격 푸시를 연결함</li><li>앱 링크, 추가 언어와 공동 편집을 후속 제공함</li></ul></section></div><div class=\"callout\">원격 푸시는 서버 이벤트·기기 토큰·발송 결과·실제 빌드까지 확인해야 완료임. 로컬 테스트 알림을 원격 푸시 완료로 간주하지 않음. 지도 타일과 원본 사진 전체는 기본 오프라인 저장에서 제외함.</div>",
+        "sources": [
+          [
+            "별도 AI 관광 가이드 계획서",
+            "./spotlog-ai-guide-plan.html"
+          ],
+          [
+            "기존 FUTURE_ROADMAP",
+            "https://github.com/giry02/spotlog/blob/codex/mobile-foundation/FUTURE_ROADMAP.md"
+          ]
+        ]
+      },
+      {
+        "section": "07 · RELEASE GATES",
+        "title": "출시 단계와 통과 기준",
+        "lead": "프런트엔드 3차 완료와 상용 공개를 분리함. 안전·개인정보·계약 조건이 충족되지 않은 기능은 공개하지 않음.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">단계</th><th scope=\"col\">필수 통과 조건</th><th scope=\"col\">판단 결과</th></tr></thead><tbody><tr><th scope=\"row\">프런트엔드 시연</th><td>기존 기록 보존, 저장·작성·AI 샘플·영어 흐름, 모바일 회귀 통과</td><td>서비스 방향과 화면·규격 승인</td></tr><tr><th scope=\"row\">서버 내부 알파</th><td>계정·권한·업로드·로컬 이전·장소 검색 연결</td><td>다중 사용자 데이터 동작 검증</td></tr><tr><th scope=\"row\">국내 비공개 베타</th><td>실제 공개 URL·반응 집계·신고·차단·운영 연락처</td><td>국내 콘텐츠와 작성 경험 검증</td></tr><tr><th scope=\"row\">영어 시범 운영</th><td>UI·콘텐츠 번역, 한글 원명·주소, 현장 안내·교통 검증</td><td>영어 사용자의 여행 수행 검증</td></tr><tr><th scope=\"row\">공개 출시</th><td>보안·부하·복원·비용 경보, 개인정보·계정 삭제·스토어 정책 확인</td><td>운영 책임과 지원 체계 승인</td></tr></tbody></table></div><p class=\"note\">회사 명의 전환 시 도메인·공급자 키·앱 소유권·스토어 계정을 함께 점검함. 해외 로밍·권한 거부·느린 통신도 출시 검수에 포함함.</p>",
+        "sources": [
+          [
+            "기존 FUTURE_ROADMAP",
+            "https://github.com/giry02/spotlog/blob/codex/mobile-foundation/FUTURE_ROADMAP.md"
+          ]
+        ]
+      },
+      {
+        "section": "07 · TEST PLAN",
+        "title": "필수 테스트와 회귀 시나리오",
+        "lead": "각 차수 시연과 서버 연결 이후 동일한 시나리오를 다시 검증함. 단순 화면 캡처만으로 완료를 판단하지 않음.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">분류</th><th scope=\"col\">검증 시나리오</th><th scope=\"col\">기대 결과</th></tr></thead><tbody><tr><th scope=\"row\">저장·DAY</th><td>저장 버튼→내 여행 선택·생성, 여러 여행·DAY 담기·해제</td><td>저장에 선택 UI 없음, 확정 DAY 상세 표시·다른 기록 보존</td></tr><tr><th scope=\"row\">작성·복구</th><td>새로고침·앱 종료·저장소 실패·DAY 삭제와 취소</td><td>미저장 경고 또는 복구 가능, 본문·사진 연결 유지</td></tr><tr><th scope=\"row\">복사·지도</th><td>전체·DAY 복사 후 수정, 핀 선택, 좌표 없음</td><td>원본 보존, DAY·목록·핀 일치, 미확인 안내</td></tr><tr><th scope=\"row\">AI·번역</th><td>과밀 일정·경로 실패·후보 거절·원문 수정</td><td>필수 항목 보존, 승인 전 미적용, 번역 재검토 표시</td></tr><tr><th scope=\"row\">이용 환경</th><td>320·390·430px, 공통 글자·버튼·입력·팝업, 키보드·스크린리더</td><td>하단·상단 조작 가능, 글 잘림·색상만의 상태 구분 없음</td></tr><tr><th scope=\"row\">서버 연결 후</th><td>권한 우회·중복 요청·업로드 중단·계정 삭제</td><td>비공개 보호, 중복 집계 방지, 재시도·삭제 검증</td></tr><tr><th scope=\"row\">카드별 스레드</th><td>같은 업체를 다른 여행기에 삽입, 이동·복사·답글·재시도</td><td>댓글 분리, 이동 시 유지·복사 시 0건, 중복 방지·팝업 복귀</td></tr></tbody></table></div><div class=\"callout\">현장 샘플: 서울 대중교통·도보, 제주 자동차, 부산 혼합 이동. 지도·AI·번역 공급자 오류와 해외 로밍 지연을 포함함.</div>"
+      },
+      {
+        "section": "08 · ROADMAP CROSSWALK 1/3",
+        "title": "기존 로드맵 대응표 · 기반·장소",
+        "lead": "기존 항목을 삭제하지 않고 이번 계획의 위치와 선행 조건을 연결함. 번호는 FUTURE_ROADMAP.md의 항목 번호임.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">기존 항목</th><th scope=\"col\">판정·배치</th><th scope=\"col\">이유와 보존 내용</th></tr></thead><tbody><tr><th scope=\"row\">4. 회원·권한·서버 저장</th><td>후속 · B1</td><td>기존 UI 활용, 회원·RLS·계정 삭제·내보내기·두 기기 검증 추가</td></tr><tr><th scope=\"row\">5. 미디어 업로드</th><td>보완 F08 / 후속 B2</td><td>사진 편집 UI 선행, 재개 업로드·변환·권한·EXIF·자산 정리는 서버 단계</td></tr><tr><th scope=\"row\">6. 로컬 데이터 이전</th><td>보완 F05 / 후속 B1</td><td>저장 인터페이스와 스키마 버전을 먼저 분리한 뒤 서버 이전</td></tr><tr><th scope=\"row\">7. 장소 공급자</th><td>보완 F01 / 후속 B2</td><td>검색 화면·실패 상태는 먼저 검증, 공급자 계약·REST 키는 서버</td></tr><tr><th scope=\"row\">발견 형식 통합</th><td>1차 F20 / 모션 별도</td><td>영상·안내 유지, 랜드마크 사진 넘겨보기와 동일 장소 저장을 1차 구현함. 사진 모션은 별도</td></tr><tr><th scope=\"row\">8. 여행별 분류 제안</th><td>보완 F02–F04</td><td>보관함 UI 제외. 저장에서 하단 선택을 열고 내 여행에서 관리함</td></tr><tr><th scope=\"row\">9. 다국어 UI</th><td>보완 F16 / 후속 B4·B5</td><td>한국어·영어 프레임 먼저, 스토어·권한·추가 언어는 이후</td></tr><tr><th scope=\"row\">10. 다국어 관광 콘텐츠</th><td>보완 샘플 / 후속 B2·B4</td><td>한글명·출처·현장 항목을 먼저 확보하고 공급자·다국어 자료 연결</td></tr></tbody></table></div>",
+        "sources": [
+          [
+            "기존 FUTURE_ROADMAP",
+            "https://github.com/giry02/spotlog/blob/codex/mobile-foundation/FUTURE_ROADMAP.md"
+          ]
+        ]
+      },
+      {
+        "section": "08 · ROADMAP CROSSWALK 2/3",
+        "title": "기존 로드맵 대응표 · 여행 경험",
+        "lead": "국내 기록 중심의 방향은 유지하며, 영어 관광 가이드와 실제 여행 기능의 구현 시점을 명확히 함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">기존 항목</th><th scope=\"col\">판정·배치</th><th scope=\"col\">이유와 보존 내용</th></tr></thead><tbody><tr><th scope=\"row\">11. 번역 작업</th><td>보완 F16 / 후속 B4</td><td>원문·자동번역·검수·재검토 상태 선행, 용어집·번역 API·버전 연결</td></tr><tr><th scope=\"row\">12. 외국인 지도</th><td>보완 F12·F16 / 후속 B4·B5</td><td>한글 주소·길찾기 앱 선택 준비, 교통수단별 계산과 정책 확인</td></tr><tr><th scope=\"row\">13. 여행 필수·안전</th><td>후속 B4·B5</td><td>공식 도움말·한글 주소·긴급 정보, 오프라인 제공은 앱 저장 이후</td></tr><tr><th scope=\"row\">14. 편집 안정성</th><td>보완 F07–F09·F11 / 후속 B1·B2</td><td>로컬 자동 저장·복구·변경 취소 선행, 서버 버전·충돌은 이후</td></tr><tr><th scope=\"row\">15. 전체·DAY·장소 복사</th><td>유지·보완 F10 / 후속 B2·B3</td><td>독립 사본과 출처 보존, 원문 변경 안내·고유 집계는 서버</td></tr><tr><th scope=\"row\">16. 서버 AI 일정</th><td>보완 F13·F14·F17 / 후속 B4</td><td>샘플 화면과 계약 먼저, 실제 경로·배치·설명은 별도 문서</td></tr><tr><th scope=\"row\">17. 오프라인 여행</th><td>후속 B5</td><td>SQLite·작은 이미지·주소·동기화 대기열·용량·삭제를 보존</td></tr><tr><th scope=\"row\">18. 현장 여행 모드</th><td>보완 F15 / 후속 B5</td><td>안내 화면 먼저, 전경 위치·완료·건너뛰기·사진·일일 정리 연결</td></tr></tbody></table></div>",
+        "sources": [
+          [
+            "기존 FUTURE_ROADMAP",
+            "https://github.com/giry02/spotlog/blob/codex/mobile-foundation/FUTURE_ROADMAP.md"
+          ],
+          [
+            "별도 AI 관광 가이드 계획서",
+            "./spotlog-ai-guide-plan.html"
+          ]
+        ]
+      },
+      {
+        "section": "08 · ROADMAP CROSSWALK 3/3",
+        "title": "기존 로드맵 대응표 · 운영·출시",
+        "lead": "실제 사용자 콘텐츠를 공개하기 위한 운영 항목을 프런트엔드 일정에서 누락된 기능으로 취급하지 않고 별도 필수 단계로 관리함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">기존 항목</th><th scope=\"col\">판정·배치</th><th scope=\"col\">이유와 보존 내용</th></tr></thead><tbody><tr><th scope=\"row\">19. 공개 링크·딥링크</th><td>유지 해시 / 후속 B2·B5</td><td>영구 ID·SEO·공유 이미지·언어 링크·앱 설치 여부 분기</td></tr><tr><th scope=\"row\">20. 서버 소셜</th><td>2차 F19 / 후속 B3</td><td>여행기 속 카드별 좋아요·댓글 하단 팝업, 실제 집계·답글·고정·팔로우·알림함·추천 품질</td></tr><tr><th scope=\"row\">21. 원격 푸시</th><td>유지 설정 / 후속 B5</td><td>토큰 갱신·목표 고유 이벤트·조용한 시간·영수증·재시도</td></tr><tr><th scope=\"row\">22. 신고·차단·운영자</th><td>후속 B3 · 공개 전 필수</td><td>콘텐츠·사용자 신고, 차단, 관리 처리·이의 제기·감사 로그</td></tr><tr><th scope=\"row\">23. 성능·안정성</th><td>보완 각 차수 / 후속 전 단계</td><td>코드·이미지 지연 로딩, 커서, 공급자 장애·지연·백업 복원</td></tr><tr><th scope=\"row\">24. 개인정보·스토어</th><td>후속 B1·B3·공개 검수</td><td>권한·삭제·보존·Data safety·App Privacy·회사 소유권 이전</td></tr><tr><th scope=\"row\">25. 접근성·다국어 QA</th><td>보완 F06·F18 / 지속</td><td>글자 확대·포커스·스크린리더·자막·번역 용어 검증</td></tr></tbody></table></div><p class=\"note\">기존 90일·서버 우선 실행 순서는 이번 1·2·3차 프런트엔드 우선 합의로 대체함. 기존 기술·보안·운영 요건 자체는 유지함.</p>",
+        "sources": [
+          [
+            "기존 FUTURE_ROADMAP",
+            "https://github.com/giry02/spotlog/blob/codex/mobile-foundation/FUTURE_ROADMAP.md"
+          ]
+        ]
+      },
+      {
+        "section": "09 · BOUNDARIES & RISKS",
+        "title": "제외·유예 항목과 주요 위험",
+        "lead": "기간을 맞추기 위해 핵심 안정성을 생략하지 않음. 범위가 늘어나면 후속 단계로 이동시킴.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>이번 범위에서 제외·유예</h3><ul class=\"list\"><li>호텔 실제 숙박비·객실 재고·예약·결제·정산은 제외함</li><li>PMS·HotelNGo 회원·런타임 공유는 제외함</li><li>전국 업체 DB 자체 구축과 자체 내비게이션은 제외함</li><li>음성 안내·실시간 통역·백그라운드 위치 추적은 유예함</li><li>공동 편집·실시간 채팅·포인트 경제는 후속 검토함</li></ul></section><section class=\"panel warm\"><h3>위험과 대응</h3><ul class=\"list\"><li>일정 초과: 기존 화면 재사용, 건드리는 영역만 정리함</li><li>콘텐츠 오류: 장소·사진·출처·확인일 검사로 차단함</li><li>데이터 손실: 버전·원본 백업·변경 취소를 확보함</li><li>API 계약·비용: 서버 연결 전 공급자별 조건을 확인함</li><li>허위 AI 안내: 사실·경로·작성 경험과 생성 문구를 분리함</li></ul></section></div><p class=\"note\">저작권 미확인 이미지·영상, 사용자 동의 없는 위치 추적, 가짜 반응을 실제 성과로 표시하는 방식은 채택하지 않음.</p>"
+      },
+      {
+        "section": "09 · HANDOFF",
+        "title": "차수별 기록와 완료 정의",
+        "lead": "같은 개발자가 다음 차수와 후속 서버 연결을 이어갈 수 있도록 구현·검증 기록을 남김.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">차수별 남길 자료</th><th scope=\"col\">내용</th></tr></thead><tbody><tr><th scope=\"row\">시연본·범위</th><td>완료한 F 작업 ID, 미완료·결함 목록, 로컬·서버 연동 상태를 구분함</td></tr><tr><th scope=\"row\">규격·샘플</th><td>입력·출력, 상태 전환, 성공·실패·빈 결과·취소 샘플을 함께 제공함</td></tr><tr><th scope=\"row\">데이터 보존</th><td>변환 전 사본, 스키마 버전, 이전·복구 확인 결과를 기록함</td></tr><tr><th scope=\"row\">검수 결과</th><td>주요 흐름·기기·해상도·언어·네트워크별 통과·실패를 남김</td></tr><tr><th scope=\"row\">후속 연결</th><td>필요한 키·계약·저장소·선행 기능, 공개 차단 조건을 명시함</td></tr></tbody></table></div><div class=\"callout\"><strong>3차까지 완료:</strong> 저장·작성·AI 샘플·영어 화면을 끝까지 검증한 상태.<br><strong>운영 완료:</strong> 실제 사용자 권한·데이터·공급자·안전 대응과 출시 검수를 통과한 상태.</div>"
+      },
+      {
+        "section": "10 · REFERENCES",
+        "title": "근거 자료와 조사 범위",
+        "lead": "조사 기준일 2026.09.08. 외부 서비스의 공식 소개를 참고했으며 적용 방향과 개발 일정은 Spotlog를 위한 제안임.",
+        "html": "<div class=\"columns\"><ol class=\"source-list\"><li><a href=\"https://github.com/giry02/spotlog/tree/codex/mobile-foundation\">Spotlog 저장소·README·마이그레이션 문서</a><small>현재 기능·하이브리드 구조·제외 범위 확인</small></li><li><a href=\"https://github.com/giry02/spotlog/blob/codex/mobile-foundation/FUTURE_ROADMAP.md\">FUTURE_ROADMAP.md</a><small>원래 추가 개발 항목과 출시 조건 대응</small></li><li><a href=\"https://triple.guide/intro\">트리플 공식 소개</a><small>취향 제안과 일정 편집</small></li><li><a href=\"https://wanderlog.com/\">Wanderlog 공식 소개</a><small>지도·장소·일정의 연결</small></li></ol><ol class=\"source-list\" start=\"5\"><li><a href=\"https://thatch.notion.site/Quick-Mobile-App-Tour-f0f61ada59554e89a6e40200f6c67a33\">Thatch 공식 사용 안내</a><small>장소 기반 가이드·저장함</small></li><li><a href=\"https://www.polarsteps.com/summer-release\">Polarsteps 공식 업데이트</a><small>발견·계획·사진 기록 연결</small></li><li><a href=\"https://creatrip.com/en/blog\">Creatrip 여행 콘텐츠</a><small>외국인 관점 한국 여행 정보</small></li><li><a href=\"https://english.visitkorea.or.kr/svc/sub/subPlan.do\">VISITKOREA 여행 계획</a><small>여행 계획과 실용 안내</small></li></ol></div><div class=\"callout\">기술 공급자·일정 배치·관광 안내·자동번역·비용 근거는 <a href=\"./spotlog-ai-guide-plan.html\"><strong>AI 관광 가이드·자동번역 개발 계획서</strong></a>에 별도로 정리함.</div>"
+      },
+      {
+        "section": "2026.09.10 · ADDITIONAL DECISIONS",
+        "title": "추가 결정 · 담기 팝업·홈 AI·공공 콘텐츠",
+        "lead": "2026.09.10 추가 요청을 1차 범위에 반영함. 저장 본문과 현재 전체 화면 스타일을 보존하고 하단 팝업을 재사용함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">항목</th><th scope=\"col\">추가 구현 기준</th></tr></thead><tbody><tr><th scope=\"row\">1차 · 담기와 기간</th><td>기존 작은 가로 저장 카드는 유지함. 하단 팝업에서 당일치기~6박 7일을 고르면 DAY 1~N을 표시함. 기간과 담을 DAY는 독립 상태이며 확정 후 내 여행 상세를 엶.</td></tr><tr><th scope=\"row\">1차 · 홈 AI 진입</th><td>홈의 AI 여행 만들기에서 원하는 내용을 글로 받음. 지역·기간·취향·제외 조건을 확인하고 DAY별 로컬 초안을 제안함. 승인 전 저장하지 않으며 외부 AI 미연결을 표시함.</td></tr><tr><th scope=\"row\">1차 · 추천 여행 구분</th><td>여행기에서 AI 추천 여행을 별도 필터·라벨로 구분함. 개인 생성본은 비공개 내 여행이며 공개 목록에 섞지 않음. 추천 샘플은 실제 방문 후기로 표현하지 않음.</td></tr><tr><th scope=\"row\">공공 콘텐츠 준비</th><td>한국관광공사·지자체 자료도 항목별 허용 조건을 확인함. 공공누리 유형·저작자·원문 주소를 보존하고 장소와 일치하는 사진만 사용함. 원문 복사와 직접 작성한 안내를 구분함.</td></tr><tr><th scope=\"row\">외부 검색 변경</th><td>장소 보완은 네이버 지역 검색을 서버에서 연결하는 계획으로 변경함. 이름·주소·좌표 후보를 내부 장소와 연결하며 사진·가격·예약·인기 수치까지 제공된다고 가정하지 않음.</td></tr><tr><th scope=\"row\">3차와 백엔드 이후</th><td>3차는 후보 승인·부분 수정·안내·번역 화면을 확장함. 실제 내부 RAG·LLM·인기 점수·교통 검증·네이버 연결은 서버 단계에서 구현함. MapLibre와 현재 경로 표시는 유지함.</td></tr></tbody></table></div><p class=\"note\">홈 AI는 로컬 추천 미리보기임. 이번 기능 추가를 실제 LLM·RAG·교통·번역 연동 완료나 정식 공개 배포로 표현하지 않음.</p>",
+        "sources": [
+          [
+            "네이버 지역 검색 공식 문서 · 2026.09.10 확인",
+            "https://developers.naver.com/docs/serviceapi/search/local/local.md"
+          ]
+        ]
+      },
+      {
+        "section": "2026.09.10 · SPOT-FIRST FLOW",
+        "title": "스팟 중심 일정과 주변 장소 추가",
+        "lead": "스팟으로 DAY별 일정의 기본 구성을 정한 뒤, 내 여행에서 음식점·카페와 숙박 거점을 보완함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">화면</th><th scope=\"col\">사용자 동작과 연결</th></tr></thead><tbody><tr><th scope=\"row\">장소 발견·저장</th><td>가고 싶은 스팟을 저장함. 저장 화면은 기존 목록·지역 필터·여행 만들기 진입을 유지하고 업체 추천·일정 편집을 펼치지 않음.</td></tr><tr><th scope=\"row\">여행 만들기</th><td>기간과 DAY를 선택하고 사진 카드로 장소를 확인함. 승인하면 해당 내 여행 상세를 열며 이후 수정은 그곳에서 진행함.</td></tr><tr><th scope=\"row\">내 여행 · 스팟 주변</th><td>스팟 카드의 ‘＋ 주변 장소’로 하단 팝업을 엶. 추천 / 직접 검색 / 저장한 장소에서 음식점·카페를 고름.</td></tr><tr><th scope=\"row\">추가 위치</th><td>현재 여행·DAY·기준 스팟을 팝업에 표시함. 고른 장소는 기준 스팟 다음에 추가하며 여행과 DAY를 다시 묻지 않음.</td></tr><tr><th scope=\"row\">숙박과 공개 열람</th><td>숙소는 숙박할 DAY의 거점으로 추가함. 다른 사람의 여행기에는 편집 동작을 숨기고 읽기·저장·복사 흐름을 유지함.</td></tr></tbody></table></div><div class=\"callout\"><strong>화면 역할:</strong> 저장은 모으기·만들기, 내 여행은 DAY별 보완·관리임. 주변 업체의 직접 선택과 선택적 AI 보완은 같은 후보와 장소 카드를 사용함.</div><p class=\"note\">스팟을 먼저 고르는 흐름만으로 동선이 보장되지는 않음. 예약한 숙소·고정 시간은 처음부터 반영하고, 음식점은 다음 스팟 방향과 식사 시간을 함께 검토함.</p>"
+      },
+      {
+        "section": "2026.09.10 · SHARED PLACE CARDS",
+        "title": "사진 카드로 확인하는 AI·담기 팝업",
+        "lead": "지역 안내에서 사용 중인 큰 랜드마크 카드의 사진·정보 구조를 AI 미리보기와 담기 팝업에도 재사용함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">적용 위치</th><th scope=\"col\">구현 기준</th></tr></thead><tbody><tr><th scope=\"row\">AI 일정 미리보기</th><td>DAY별 후보를 사진·장소명·지역·설명·체류 정보가 있는 카드로 보여줌. 방문별 제외·다시 포함으로 장소를 고른 뒤 여행 생성을 승인함.</td></tr><tr><th scope=\"row\">담기 하단 팝업</th><td>담을 장소를 같은 큰 사진 카드로 보여주고 그 아래 여행·기간·DAY를 선택함. 여러 장소도 개별 카드를 확인할 수 있게 함.</td></tr><tr><th scope=\"row\">동일한 장소 표현</th><td>기존 LandmarkGuideCard의 사진 비율·정보 위계·여백을 재사용함. 저장 상태와 출처를 유지하고 화면 목적에 맞는 동작만 연결함.</td></tr><tr><th scope=\"row\">화면별 역할 보존</th><td>팝업 바깥 저장 목록의 작은 가로 SavedPlaceCard는 유지함. 여행기 본문 임베드·사진/영상 쇼츠를 일괄 교체하지 않음.</td></tr><tr><th scope=\"row\">미확인·실패 상태</th><td>장소 사진이 없으면 사진 없음으로 표시함. 다른 장소의 사진·가짜 평점·인기를 채우지 않으며, 로컬 초안·출처·오류 상태를 구분함.</td></tr></tbody></table></div><div class=\"callout\"><strong>승인 기준:</strong> 글 목록만 보고 생성·담기를 결정하게 하지 않음. 팝업을 닫거나 뒤로 가면 원래 화면 위치를 유지함. 새로 담기·AI 생성은 승인 전 원본 여행을 변경하지 않음.</div><p class=\"note\">320·390·460px에서 사진·선택 상태·빈 목록·팝업 스크롤과 하단 동작을 검증함. 현재 승인된 카드 스타일을 그대로 활용하며 새로운 디자인 체계를 만들지 않음.</p>"
+      },
+      {
+        "section": "2026.09.10 · SPOT-FIRST PHASES",
+        "title": "스팟 보완 기능의 1·2·3차 구현",
+        "lead": "기존 각 차수의 작업을 유지하고, 사진으로 확인한 스팟을 주변 업체와 연결하는 기능을 단계별로 추가함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">차수</th><th scope=\"col\">추가 구현</th><th scope=\"col\">완료 조건</th></tr></thead><tbody><tr><th scope=\"row\">1차 · 사진으로 확인</th><td>AI 결과·담기 팝업에 기존 큰 랜드마크 카드를 재사용함. 저장 본문의 작은 가로 카드는 유지함.</td><td>사진과 장소 정보를 보고 생성·담기를 확정함. 대상 여행·DAY와 실제 결과가 일치함.</td></tr><tr><th scope=\"row\">2차 · 직접 보완</th><td>내 여행 스팟의 주변 장소 팝업과 숙박 DAY별 숙소 추가를 구현함. 현재 여행·DAY·스팟 문맥을 이어받음.</td><td>샘플 후보를 스팟 다음에 추가함. 같은 숙소의 여러 날 사용·예약 숙소 고정·취소·중복을 처리함.</td></tr><tr><th scope=\"row\">3차 · AI 보완 승인</th><td>내부 후보를 사용한 음식점·숙소 보완 선택, 사진 카드·근거·대안·변경 미리보기를 연결함.</td><td>승인한 후보만 적용함. 고정 장소와 수정 대상 밖 기록은 보존하며 거절·부족·경로 실패를 표시함.</td></tr><tr><th scope=\"row\">백엔드 이후</th><td>실제 내부 인기·RAG, 네이버 검색, 교통수단별 경로와 시간 검증을 연결함.</td><td>권한·출처·후보 품질·호출 비용을 검증함. 로컬 샘플을 실제 검색·추천 성과로 표시하지 않음.</td></tr></tbody></table></div><div class=\"callout\"><strong>2차의 기존 소통 기능 유지:</strong> 여행기 속 업체·랜드마크 카드마다 좋아요·댓글 수를 표시하고, 별도 하단 팝업에서 댓글·답글을 보고 작성함. 주변 장소 선택 팝업과 역할을 구분함.</div><p class=\"note\">장소 ID와 여행 방문 ID를 분리함. 주변 업체는 기준 방문에 연결하고 숙박은 숙박일·DAY에 연결함. 이동·복사·삭제 시 관계와 다른 날 기록을 함께 검사함.</p>"
+      }
+    ]
+  },
+  "development-summary": {
+    "date": "2026.09.10",
+    "title": "Spotlog 추가 개발 계획 요약",
+    "shortTitle": "추가 개발 계획 요약",
+    "otherTitle": "원본 전체 보기",
+    "otherHref": "./spotlog-development-plan.html",
+    "slides": [
+      {
+        "title": "추가 개발 계획 핵심",
+        "lead": "프런트엔드를 1차·2차·3차로 나누어 구현함. 차수별 완료 조건을 기준으로 진행함.",
+        "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">구분</th><th scope=\"col\">요약</th></tr></thead><tbody><tr><th scope=\"row\">제품 방향</th><td>여행기를 읽고 장소를 저장한 뒤, 내 일정으로 활용하고 여행 후 기록을 발행함. 국내 콘텐츠를 먼저 쌓고 영어 이용을 준비함.</td></tr><tr><th scope=\"row\">현재 활용</th><td>홈 추천·여행기 검색, 장소 발견·지역별 저장, 여러 여행과 DAY 편집, 글·사진·장소 블록, 여행기 복사·지도 표시를 활용함.</td></tr><tr><th scope=\"row\">우선 보완</th><td>담을 여행·DAY를 명확히 선택하고, 저장/담김/해제를 구분함. 작성 중 기록 복구와 사진·장소 정보의 신뢰도를 높임.</td></tr><tr><th scope=\"row\">운영 전제</th><td>현재 AI·댓글·반응 등의 로컬 동작과 실제 서버 기능을 구분함. 3차까지 완료는 화면 검증 단계이며 정식 출시를 뜻하지 않음.</td></tr></tbody></table></div><div class=\"callout\"><strong>모바일웹과 하이브리드 앱을 유지함.</strong> 숙소·음식점은 여행기 속 장소로 다루며 예약·결제·숙박비 비교는 제외함.</div>",
+        "section": "SPOTLOG · DEVELOPMENT SUMMARY · 1",
+        "sources": [
+          [
+            "원본 상세 40쪽",
+            "./spotlog-development-plan.html#slide-4"
+          ],
+          [
+            "다른 요약본",
+            "./spotlog-ai-guide-summary.html"
+          ]
+        ]
+      },
+      {
+        "title": "1차·2차·3차 프런트엔드 합본",
+        "lead": "1차·2차·3차의 구현 범위와 완료 기준을 정리함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">차수</th><th scope=\"col\">구현 범위</th><th scope=\"col\">완료 후 가능한 일</th></tr></thead><tbody><tr><th scope=\"row\">1차 · 발견·저장</th><td>기존 스타일·검색·사진 넘김·담기 팝업·홈 AI 초안·사진 카드</td><td>저장 하단 팝업에서 여행·기간·DAY를 고름. 확정한 내 여행 상세를 엶.</td></tr><tr><th scope=\"row\">2차 · 일정·작성·소통</th><td>임시 저장·복구·사진/글·주변 업체·숙소·카드 반응·댓글·지도·복사</td><td>여행기를 편집하고 본문 속 장소마다 반응·댓글을 남김.</td></tr><tr><th scope=\"row\">3차 · 추천·안내</th><td>AI 추천·주변 업체 보완·후보 승인·부분 수정·관광 안내·영어</td><td>추천 초안 수정·관광 안내·영어 열람을 확인함.</td></tr></tbody></table></div><section class=\"section-block\"><h3>차수 진행 기준</h3><ul class=\"list\"><li>각 차수 안에서 구조 정리, 기능 구현, 실패 상태 처리, 전체 흐름 검증을 순서대로 진행함.</li><li>앞 차수의 기록·상태와 기존 화면 역할별 스타일·컴포넌트를 다음 차수에서 재사용함.</li></ul></section><p class=\"note\">1~3차는 프런트엔드 범위임. 실제 로그인·서버 저장·AI/RAG·교통·번역 연동은 이후 백엔드 단계임.</p>",
+        "section": "SPOTLOG · DEVELOPMENT SUMMARY · 2",
+        "sources": [
+          [
+            "원본 상세 40쪽",
+            "./spotlog-development-plan.html#slide-11"
+          ],
+          [
+            "다른 요약본",
+            "./spotlog-ai-guide-summary.html"
+          ]
+        ]
+      },
+      {
+        "section": "SPOTLOG · DEVELOPMENT SUMMARY · 3",
+        "title": "전체 페이지 구조 · 메뉴와 하위 화면",
+        "lead": "현재 하단 메뉴를 유지하고, 각 메뉴 안의 화면을 연결하며 필요한 기능을 차수별로 보완함.",
+        "html": "<div class=\"table-wrap architecture-table\"><table><thead><tr><th scope=\"col\">진입 메뉴</th><th scope=\"col\">하위 페이지와 연결</th><th scope=\"col\">개발 배치</th></tr></thead><tbody><tr><th scope=\"row\">홈</th><td>추천 일정·여행자 일정 → 여행기 읽기<br>지역·기간 검색 → 여행기 목록</td><td>기존 활용 / 1차 탐색 정돈</td></tr><tr><th scope=\"row\">여행기</th><td>검색·지역·기간 목록 → 여행기 읽기<br>작성자 프로필·다른 여행기 / 복사 → 내 여행</td><td>1차 검색 / 2차 읽기·복사·카드 반응</td></tr><tr><th scope=\"row\">장소</th><td>안내 목록 · 영상 · 사진 쇼츠<br>랜드마크 상세 → 저장 / 내 여행의 DAY 선택</td><td>1차 사진 넘김·저장 통일</td></tr><tr><th scope=\"row\">내 여행</th><td>여러 여행 목록 → 여행·DAY 선택 / 생성·상세·편집<br>기간·DAY·순서·글·사진 수정 / 지도·현장 안내·영어</td><td>1차 선택·생성 / 2차 작성 / 3차 안내</td></tr><tr><th scope=\"row\">저장</th><td>저장 목록 · 지역 필터 · 작은 가로 카드 → 담기<br>만들기·AI 하단 입력 → 승인 후 내 여행 상세</td><td>1차 진입·상태 표시 / 3차 AI 보완</td></tr></tbody></table></div><div class=\"callout\"><strong>공통 진입:</strong> 프로필은 홈에서 열며 아이콘·등급·내 공개 글·반응·알림 설정을 연결함. AI 관광 안내는 여행 안에서 제공하며 하단 메뉴를 늘리지 않음.</div><p class=\"note\">기존 화면을 활용하는 목표 구조임. 새 하위 기능은 1·2·3차에서 보완하며 실제 로그인·동기화·집계·푸시는 후속 서버 단계에서 연결함.</p>",
+        "sources": [
+          [
+            "원본 동일 구조도",
+            "./spotlog-development-plan.html#slide-12"
+          ]
+        ]
+      },
+      {
+        "section": "SPOTLOG · DEVELOPMENT SUMMARY · 4",
+        "title": "여행기 화면 구조 · 작성과 독자 이용",
+        "lead": "한 여행기의 글·사진 사이에 업체와 랜드마크를 넣고, 독자는 해당 항목을 보고 저장하거나 반응함.",
+        "html": "<div class=\"table-wrap architecture-table\"><table><thead><tr><th scope=\"col\">화면 영역 · 위에서 아래</th><th scope=\"col\">구성 및 독자 동작</th><th scope=\"col\">차수</th></tr></thead><tbody><tr><th scope=\"row\">표지·작성자</th><td>제목·대표 사진·지역·기간·작성자·등급<br>작성자 프로필과 다른 여행기로 이동</td><td>기존 활용 / 2차 정돈</td></tr><tr><th scope=\"row\">DAY 선택 줄</th><td>DAY 앞 뒤로가기, 가로 DAY 전환<br>스크롤 중에도 뒤로가기·날짜 선택 유지</td><td>1차 공통 / 2차 편집 연결</td></tr><tr><th scope=\"row\">본문 · 글·사진·장소 카드</th><td>글·주변 사진·평가 사이에 음식점·호텔·랜드마크 삽입<br>장소명·설명·방문 정보·저장·여행 담기 제공</td><td>1차 저장 / 2차 작성</td></tr><tr><th scope=\"row\">카드 하단 · 좋아요·댓글</th><td>카드별 개수 표시 → 하단 팝업<br>반응한 사용자·댓글 목록·답글 펼침·입력창</td><td>2차 F19 / 실제 집계 B3</td></tr><tr><th scope=\"row\">지도·여행기 하단</th><td>DAY 지도 핀·이동 구간 / 여행기 전체 댓글·작성자 글<br>공유·내 여행으로 복사, 편집 시 저장·미리보기</td><td>2차 연결 / 실제 발행 B2·B3</td></tr></tbody></table></div><div class=\"callout\"><strong>작성자 흐름:</strong> 글·사진 추가 → 장소 선택 또는 직접 입력 → 카드 삽입 → 미리보기.<br><strong>독자 흐름:</strong> 여행기 읽기 → 카드 저장·반응 → 필요할 때 내 여행으로 복사함.</div><p class=\"note\">카드별 댓글과 여행기 전체 댓글은 서로 다른 영역임. 3차의 관광 안내·영어 보기는 이 여행과 DAY를 그대로 사용함. 숙소 예약·결제·가격 비교는 포함하지 않음.</p>",
+        "sources": [
+          [
+            "원본 동일 구조도",
+            "./spotlog-development-plan.html#slide-13"
+          ]
+        ]
+      },
+      {
+        "section": "SPOTLOG · DEVELOPMENT SUMMARY · 5",
+        "title": "기능 구조 · 1·2·3차 구현 로드맵",
+        "lead": "장소·저장·방문·본문을 공통 기반으로 연결하고, 앞 차수의 결과를 다음 차수가 이어서 사용함.",
+        "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">차수 · 연결 영역</th><th scope=\"col\">주요 기능 묶음</th><th scope=\"col\">완료 후 이어지는 화면</th></tr></thead><tbody><tr><th scope=\"row\">1차 · 발견·저장<br>F01–F06 · F20</th><td>기존 스타일·검색·사진 쇼츠·홈 AI 초안<br>하단 기간·DAY 선택 후 내 여행·담김·해제</td><td>생성 후 내 여행 상세로 이동해 수정함.<br>선택한 장소·방문 기록을 2차로 전달함.</td></tr><tr><th scope=\"row\">2차 · 작성·독자 소통<br>F07–F12 · F19</th><td>임시 저장·복구, 글·사진·업체 카드·DAY 편집<br>이동·복사·지도·미리보기, 카드별 좋아요·스레드</td><td>읽을 만한 여행기를 작성하고 카드별 반응을 시연함.<br>편집기와 읽기 화면을 3차가 재사용함.</td></tr><tr><th scope=\"row\">3차 · 추천·현장 안내<br>F13–F18</th><td>AI 조건·후보 승인·결과·일부 재생성<br>관광 안내·영어·원문 보기·전체 회귀 검수</td><td>저장 진입 → 내 여행 생성·상세 → 오늘 안내.<br>샘플 연결부를 이후 실제 서버로 교체함.</td></tr></tbody></table></div><section class=\"section-block\"><h3>공통 기능의 연결 원칙</h3><ul class=\"list\"><li>사진·영상·안내는 같은 장소와 저장 상태를 사용함. 여행 방문·본문 카드·댓글 대상은 별도 ID로 구분함.</li><li>읽기·편집·지도·추천 결과는 같은 여행과 DAY를 참조함. 글자·버튼·입력·하단 팝업은 공통 스타일을 재사용하며 오류·복원·뒤로가기를 검증함.</li></ul></section><p class=\"note\">이후 서버: B1 회원·데이터 → B2 콘텐츠·발행 → B3 실제 커뮤니티 → B4 AI·번역 → B5 푸시·현장 앱. 프런트엔드 샘플을 실사용 집계나 실제 AI 결과로 표시하지 않음.</p>",
+        "sources": [
+          [
+            "원본 동일 구조도",
+            "./spotlog-development-plan.html#slide-14"
+          ]
+        ]
+      },
+      {
+        "title": "1차 · 장소 발견부터 정확한 담기까지",
+        "lead": "구현 목표: 장소를 저장한 뒤 어느 여행의 몇 일차에 들어가는지 명확하게 확인함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">구현 항목</th><th scope=\"col\">화면에서 구현할 내용</th></tr></thead><tbody><tr><th scope=\"row\">검색·지역 목록</th><td>검색·지역 조건에 맞는 목록, 자동 추가 로딩, 빈 결과·오류·이전 목록 복원을 정리함.</td></tr><tr><th scope=\"row\">저장 목록·여행 생성</th><td>지역 필터·작은 가로 카드를 유지함. 만들기·AI는 하단 입력 후 승인한 내 여행 상세로 연결함.</td></tr><tr><th scope=\"row\">여행·DAY 선택</th><td>담기를 누르면 하단 팝업에서 여행·기간·DAY를 선택함. 확정 후 해당 내 여행 DAY 상세를 엶.</td></tr><tr><th scope=\"row\">담김·해제 표시</th><td>저장 카드에는 담긴 여행·DAY만 표시함. 방문 해제·재방문은 내 여행에서 처리하며 저장 해제는 방문을 보존함.</td></tr><tr><th scope=\"row\">공통 스타일·기록·예외</th><td>글자·버튼·입력·하단 팝업은 기존 화면 역할별 스타일을 사용함. 기존 기록 보존, 빈 여행·중복·실패·뒤로가기를 검증함.</td></tr><tr><th scope=\"row\">랜드마크 사진 보기</th><td>사진 보기는 한 화면에 한 랜드마크를 표시함. 세로로 다른 장소, 좌우로 같은 장소의 사진 1~5장을 넘김. 순번·설명·저장 상태를 표시함.</td></tr></tbody></table></div><div class=\"callout\"><strong>사용 흐름:</strong> 저장 카드의 담기 → 하단 팝업에서 ‘부산 여행’ DAY 2 선택 → 해당 상세. 홈 AI도 글 입력·미리보기·승인 후 내 여행으로 연결함.</div><p class=\"note\">완료 기준: 기간과 담을 DAY가 독립이며, 하단 팝업에서 확정한 DAY와 내 여행 상세가 일치함. 기존 스타일·사진 모션 실험을 보존함.</p>",
+        "sources": [
+          [
+            "원본 차수 상세",
+            "./spotlog-development-plan.html#slide-15"
+          ],
+          [
+            "AI 요약",
+            "./spotlog-ai-guide-summary.html"
+          ]
+        ],
+        "section": "SPOTLOG · DEVELOPMENT SUMMARY · 6"
+      },
+      {
+        "title": "2차 · 여행기 작성과 장소 카드별 소통",
+        "lead": "목표: 글·사진·업체·랜드마크로 여행기를 작성하고, 읽는 사람이 카드별 반응·댓글을 남기는 화면을 완성함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">구현 항목</th><th scope=\"col\">화면에서 구현할 내용</th></tr></thead><tbody><tr><th scope=\"row\">자동 임시 저장</th><td>작성 중 로컬 초안을 자동 저장함. 새로고침·앱 재실행 후 내용과 위치를 복구하고 저장 실패를 알림.</td></tr><tr><th scope=\"row\">글·사진·장소 편집</th><td>글·사진·업체·랜드마크 카드 삽입과 순서 변경을 구현함. 사진 여러 장·설명·대표 사진, 오류·미확인 상태를 표시함.</td></tr><tr><th scope=\"row\">DAY 이동·복사</th><td>장소와 연결된 글·사진을 함께 이동/복제함. 여행 전체·하루·장소 단위 복사와 원문 출처를 보존함.</td></tr><tr><th scope=\"row\">삭제 복구·지도</th><td>마지막 변경 취소와 삭제 복구를 제공함. 선택 DAY·본문 장소·지도 핀이 같은 방문을 가리키게 함.</td></tr><tr><th scope=\"row\">공개 전 미리보기</th><td>여행기를 읽는 화면으로 확인하고 빠진 사진·장소 정보를 점검함. 원본에 영향을 주지 않는 사본을 만듦.</td></tr><tr><th scope=\"row\">카드별 반응·댓글</th><td>본문의 업체·랜드마크마다 좋아요·댓글 수를 표시함. 하단 팝업에서 반응 확인·댓글·답글 작성·수정·삭제를 샘플로 구현함.</td></tr></tbody></table></div><div class=\"callout\"><strong>사용 흐름:</strong> DAY 2 장소에 주변 사진과 평가 작성 → 잠시 종료 → 초안 복구 → DAY 이동 → 지도와 미리보기 확인.</div><p class=\"note\">완료 기준: 여행기별 카드 반응을 분리하고 이동 시 유지·복사 시 0건으로 시작함. 실제 발행·저장·집계는 서버 단계이며 3차는 편집기를 재사용함.</p>",
+        "sources": [
+          [
+            "원본 차수 상세",
+            "./spotlog-development-plan.html#slide-17"
+          ],
+          [
+            "AI 요약",
+            "./spotlog-ai-guide-summary.html"
+          ]
+        ],
+        "section": "SPOTLOG · DEVELOPMENT SUMMARY · 7"
+      },
+      {
+        "section": "SPOTLOG · DEVELOPMENT SUMMARY · 8",
+        "title": "2차 · 여행기 속 장소 카드별 소통",
+        "lead": "작성자는 여행기 본문에 업체·랜드마크를 넣고, 독자는 각 카드에 좋아요·댓글·답글을 남김.",
+        "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">구현 영역</th><th scope=\"col\">화면과 동작</th></tr></thead><tbody><tr><th scope=\"row\">작성·제공</th><td>저장 장소·검색·직접 입력으로 음식점·호텔·랜드마크 카드를 넣음. 사진·경험·설명과 함께 독자에게 제공함.</td></tr><tr><th scope=\"row\">카드별 반응</th><td>각 카드 아래 좋아요 버튼·좋아요 수·댓글 수를 표시함. 좋아요는 누르기/취소, 숫자는 해당 카드의 하단 팝업을 엶.</td></tr><tr><th scope=\"row\">하단 팝업</th><td>좋아요 수를 누르면 반응한 사용자 목록, 댓글 수를 누르면 아이콘·이름·시각·본문과 입력창을 보여 줌. 여행기 제목·장소명을 함께 표시함.</td></tr><tr><th scope=\"row\">댓글·답글</th><td>댓글별 ‘답글 N개’를 같은 팝업에서 펼침. 답글 대상·취소, 본인 글 수정·삭제, 신고를 제공함. 목록은 나눠 불러오고 키보드 위에서 작성함.</td></tr><tr><th scope=\"row\">연결·보존</th><td>여행기 ID + 장소 카드 ID로 스레드를 구분함. 같은 업체라도 다른 여행기의 반응은 섞지 않음. 카드 이동은 유지, 복사본은 새 ID·반응 0건으로 시작함.</td></tr></tbody></table></div><div class=\"callout\"><strong>2차 F19:</strong> 카드 삽입·미리보기·반응·댓글·답글과 실패·로그인 필요 상태를 샘플로 구현함. <strong>이후 B3:</strong> 실제 저장·권한·중복 방지·집계·신고·차단을 연결함.</div><p class=\"note\">여행기 전체 댓글·업체 공통 리뷰와 분리함. 좋아요는 카드·계정별 1회, 댓글 수는 공개 댓글·답글 합계임. 닫기·뒤로가기 시 본문 위치·포커스·미전송 초안을 보존함. 샘플 수치는 실제 인기와 구분함.</p>",
+        "sources": [
+          [
+            "원본 상세 동일 구성",
+            "./spotlog-development-plan.html#slide-27"
+          ]
+        ]
+      },
+      {
+        "title": "3차 · AI 추천·관광 안내·영어 이용",
+        "lead": "구현 목표: 실제 엔진 연결 전, 조건 입력과 추천 확인·수정·영어 이용 흐름을 검증함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">구현 항목</th><th scope=\"col\">화면에서 구현할 내용</th></tr></thead><tbody><tr><th scope=\"row\">추천 조건 입력</th><td>지역·취향 추천과 저장한 곳 구성을 구분함. 장소 범위·기간·교통·숙소·필수/제외·고정 조건을 입력함.</td></tr><tr><th scope=\"row\">후보·결과 확인</th><td>랜드마크·음식점·숙소 후보와 추천 근거, DAY별 배치·미배치 이유·경고를 보여 주고 승인/거절하게 함.</td></tr><tr><th scope=\"row\">부분 수정·승인</th><td>특정 DAY 재생성과 고정 항목 유지를 시연함. 변경 전후를 비교하고 승인 후 새 초안이나 수정본에 적용함.</td></tr><tr><th scope=\"row\">관광 안내·영어</th><td>현재 DAY·다음 장소·질문 답변·출처 화면을 제공함. 한국어/영어, 원문·번역 상태·한글 주소 보기를 연결함.</td></tr><tr><th scope=\"row\">실패·통합 검증</th><td>자료 부족·생성 취소·시간 초과·재시도·경로 미확인을 처리함. 저장·편집·승인·영어 이용 흐름을 회귀 검사함.</td></tr></tbody></table></div><div class=\"callout\"><strong>사용 흐름:</strong> 저장 장소와 조건 선택 → 추천·업체 후보 확인 → 하루만 수정 → 승인 → 관광 안내와 영어 원문 전환.</div><p class=\"note\">완료 기준: 샘플 응답으로 끝까지 동작하며 원본·고정 일정이 보존됨. 실제 RAG·LLM·경로·번역·인기 집계는 이후 서버에서 구현함.</p>",
+        "sources": [
+          [
+            "원본 차수 상세",
+            "./spotlog-development-plan.html#slide-19"
+          ],
+          [
+            "AI 요약",
+            "./spotlog-ai-guide-summary.html"
+          ]
+        ],
+        "section": "SPOTLOG · DEVELOPMENT SUMMARY · 9"
+      },
+      {
+        "title": "백엔드와 콘텐츠 확보 순서",
+        "lead": "1·2·3차 프런트엔드 이후 데이터 기반과 운영 안전성을 갖춘 뒤 실제 AI를 연결함.",
+        "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">순서</th><th scope=\"col\">추가 개발</th></tr></thead><tbody><tr><th scope=\"row\">B1 · 데이터 기반</th><td>회원·권한·기기 동기화, 로컬 여행 이전, 이미지 저장소, 계정 삭제·백업.</td></tr><tr><th scope=\"row\">B2 · 콘텐츠 운영</th><td>장소 검색·중복 통합, 사진/영상 업로드·최적화, 공개 URL·검색, 원문/복사 관계.</td></tr><tr><th scope=\"row\">B3 · 커뮤니티</th><td>실제 조회·담김, 여행기 속 카드별 좋아요·댓글·답글 저장과 집계, 작성자 등급·팔로우, 신고·차단·관리자 처리.</td></tr><tr><th scope=\"row\">B4 · AI·영어</th><td>내부 RAG 추천·업체 매칭, 실제 경로·일정·관광 안내, 번역·품질·사용량 관리.</td></tr><tr><th scope=\"row\">B5 · 앱 확장</th><td>원격 푸시·수신 설정, 오프라인 자료, 현장 방문 기록, 앱 링크·추가 언어·공동 편집.</td></tr></tbody></table></div><section class=\"section-block\"><h3>초기 콘텐츠 운영</h3><ul class=\"list\"><li>서울·부산·제주에서 당일/1박 2일/2박 3일 샘플 9개를 먼저 검수함. 이후 경주·강릉으로 확대함.</li><li>작성자를 모집하고 실제 저장·복사·작성 완료를 측정함. 샘플 반응을 실사용 성과로 사용하지 않음.</li></ul></section>",
+        "section": "SPOTLOG · DEVELOPMENT SUMMARY · 10",
+        "sources": [
+          [
+            "원본 상세 40쪽",
+            "./spotlog-development-plan.html#slide-24"
+          ],
+          [
+            "다른 요약본",
+            "./spotlog-ai-guide-summary.html"
+          ]
+        ]
+      },
+      {
+        "title": "우선 결정과 완료 판단",
+        "lead": "기존 기능을 다시 만들기보다 저장의 정확성, 기록 보존, 여행 정보의 신뢰도를 먼저 확인함.",
+        "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">판단 항목</th><th scope=\"col\">통과 조건</th></tr></thead><tbody><tr><th scope=\"row\">저장·편집</th><td>여행 기간과 대상 DAY가 독립적이며, DAY 이동/복사/삭제 후 글·사진·장소 연결이 유지됨.</td></tr><tr><th scope=\"row\">모바일 이용</th><td>새로고침 후 로컬 초안을 복구하고, 긴 스크롤에서도 뒤로가기·DAY 전환이 가능함.</td></tr><tr><th scope=\"row\">신뢰도</th><td>장소와 사진을 맞추고 미확인 좌표·영업·추정 경로를 표시함. 도보를 자동차 경로와 혼동시키지 않음.</td></tr><tr><th scope=\"row\">출시 판단</th><td>실제 회원·권한·집계·미디어·운영 대응은 백엔드 이후 별도 검증함. 화면 시연만으로 출시 완료라 하지 않음.</td></tr></tbody></table></div><section class=\"section-block\"><h3>착수 전에 확정할 사항</h3><ul class=\"list\"><li>각 차수의 구현·검수 항목을 확정하고, 첫 9개 샘플의 사진 권리와 내용을 점검함.</li><li>이번 프런트엔드 범위와 후속 서버 범위를 고정함. 국내 콘텐츠 확보는 별도 운영 업무로 함께 진행함.</li></ul></section><p class=\"note\">참고 방향: 트리플·Wanderlog의 일정 편집, Thatch의 장소형 가이드, Polarsteps의 기록 연결, Creatrip·VISITKOREA의 외국인 현장 안내를 원본에서 검토함.</p>",
+        "section": "SPOTLOG · DEVELOPMENT SUMMARY · 11",
+        "sources": [
+          [
+            "원본 상세 40쪽",
+            "./spotlog-development-plan.html#slide-29"
+          ],
+          [
+            "다른 요약본",
+            "./spotlog-ai-guide-summary.html"
+          ]
+        ]
+      },
+      {
+        "section": "2026.09.10 · ADDITIONAL DECISIONS",
+        "title": "1차 추가 범위 · 담기·AI·콘텐츠",
+        "lead": "저장은 장소를 모으고, 선택은 하단 팝업, 관리는 내 여행에서 진행함. 기존 1·2·3차의 상세 항목은 유지함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">항목</th><th scope=\"col\">추가 구현 기준</th></tr></thead><tbody><tr><th scope=\"row\">1차 · 담기와 기간</th><td>기존 작은 가로 저장 카드는 유지함. 하단 팝업에서 당일치기~6박 7일을 고르면 DAY 1~N을 표시함. 기간과 담을 DAY는 독립 상태이며 확정 후 내 여행 상세를 엶.</td></tr><tr><th scope=\"row\">1차 · 홈 AI 진입</th><td>홈의 AI 여행 만들기에서 원하는 내용을 글로 받음. 지역·기간·취향·제외 조건을 확인하고 DAY별 로컬 초안을 제안함. 승인 전 저장하지 않으며 외부 AI 미연결을 표시함.</td></tr><tr><th scope=\"row\">1차 · 추천 여행 구분</th><td>여행기에서 AI 추천 여행을 별도 필터·라벨로 구분함. 개인 생성본은 비공개 내 여행이며 공개 목록에 섞지 않음. 추천 샘플은 실제 방문 후기로 표현하지 않음.</td></tr><tr><th scope=\"row\">공공 콘텐츠 준비</th><td>한국관광공사·지자체 자료도 항목별 허용 조건을 확인함. 공공누리 유형·저작자·원문 주소를 보존하고 장소와 일치하는 사진만 사용함. 원문 복사와 직접 작성한 안내를 구분함.</td></tr><tr><th scope=\"row\">외부 검색 변경</th><td>장소 보완은 네이버 지역 검색을 서버에서 연결하는 계획으로 변경함. 이름·주소·좌표 후보를 내부 장소와 연결하며 사진·가격·예약·인기 수치까지 제공된다고 가정하지 않음.</td></tr><tr><th scope=\"row\">3차와 백엔드 이후</th><td>3차는 후보 승인·부분 수정·안내·번역 화면을 확장함. 실제 내부 RAG·LLM·인기 점수·교통 검증·네이버 연결은 서버 단계에서 구현함. MapLibre와 현재 경로 표시는 유지함.</td></tr></tbody></table></div><p class=\"note\">홈 AI의 기본 입력·초안을 1차에 포함함. 3차에는 상세 조건·일부 재생성·관광 안내·번역을 확장하며 실제 서버 추천은 이후 연결함.</p>",
+        "sources": [
+          [
+            "네이버 지역 검색 공식 문서 · 2026.09.10 확인",
+            "https://developers.naver.com/docs/serviceapi/search/local/local.md"
+          ]
+        ]
+      },
+      {
+        "section": "2026.09.10 · SPOT-FIRST FLOW",
+        "title": "스팟 중심 일정과 주변 장소 추가",
+        "lead": "스팟으로 DAY별 일정의 기본 구성을 정한 뒤, 내 여행에서 음식점·카페와 숙박 거점을 보완함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">화면</th><th scope=\"col\">사용자 동작과 연결</th></tr></thead><tbody><tr><th scope=\"row\">장소 발견·저장</th><td>가고 싶은 스팟을 저장함. 저장 화면은 기존 목록·지역 필터·여행 만들기 진입을 유지하고 업체 추천·일정 편집을 펼치지 않음.</td></tr><tr><th scope=\"row\">여행 만들기</th><td>기간과 DAY를 선택하고 사진 카드로 장소를 확인함. 승인하면 해당 내 여행 상세를 열며 이후 수정은 그곳에서 진행함.</td></tr><tr><th scope=\"row\">내 여행 · 스팟 주변</th><td>스팟 카드의 ‘＋ 주변 장소’로 하단 팝업을 엶. 추천 / 직접 검색 / 저장한 장소에서 음식점·카페를 고름.</td></tr><tr><th scope=\"row\">추가 위치</th><td>현재 여행·DAY·기준 스팟을 팝업에 표시함. 고른 장소는 기준 스팟 다음에 추가하며 여행과 DAY를 다시 묻지 않음.</td></tr><tr><th scope=\"row\">숙박과 공개 열람</th><td>숙소는 숙박할 DAY의 거점으로 추가함. 다른 사람의 여행기에는 편집 동작을 숨기고 읽기·저장·복사 흐름을 유지함.</td></tr></tbody></table></div><div class=\"callout\"><strong>화면 역할:</strong> 저장은 모으기·만들기, 내 여행은 DAY별 보완·관리임. 주변 업체의 직접 선택과 선택적 AI 보완은 같은 후보와 장소 카드를 사용함.</div><p class=\"note\">스팟을 먼저 고르는 흐름만으로 동선이 보장되지는 않음. 예약한 숙소·고정 시간은 처음부터 반영하고, 음식점은 다음 스팟 방향과 식사 시간을 함께 검토함.</p>"
+      },
+      {
+        "section": "2026.09.10 · SHARED PLACE CARDS",
+        "title": "사진 카드로 확인하는 AI·담기 팝업",
+        "lead": "지역 안내에서 사용 중인 큰 랜드마크 카드의 사진·정보 구조를 AI 미리보기와 담기 팝업에도 재사용함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">적용 위치</th><th scope=\"col\">구현 기준</th></tr></thead><tbody><tr><th scope=\"row\">AI 일정 미리보기</th><td>DAY별 후보를 사진·장소명·지역·설명·체류 정보가 있는 카드로 보여줌. 방문별 제외·다시 포함으로 장소를 고른 뒤 여행 생성을 승인함.</td></tr><tr><th scope=\"row\">담기 하단 팝업</th><td>담을 장소를 같은 큰 사진 카드로 보여주고 그 아래 여행·기간·DAY를 선택함. 여러 장소도 개별 카드를 확인할 수 있게 함.</td></tr><tr><th scope=\"row\">동일한 장소 표현</th><td>기존 LandmarkGuideCard의 사진 비율·정보 위계·여백을 재사용함. 저장 상태와 출처를 유지하고 화면 목적에 맞는 동작만 연결함.</td></tr><tr><th scope=\"row\">화면별 역할 보존</th><td>팝업 바깥 저장 목록의 작은 가로 SavedPlaceCard는 유지함. 여행기 본문 임베드·사진/영상 쇼츠를 일괄 교체하지 않음.</td></tr><tr><th scope=\"row\">미확인·실패 상태</th><td>장소 사진이 없으면 사진 없음으로 표시함. 다른 장소의 사진·가짜 평점·인기를 채우지 않으며, 로컬 초안·출처·오류 상태를 구분함.</td></tr></tbody></table></div><div class=\"callout\"><strong>승인 기준:</strong> 글 목록만 보고 생성·담기를 결정하게 하지 않음. 팝업을 닫거나 뒤로 가면 원래 화면 위치를 유지함. 새로 담기·AI 생성은 승인 전 원본 여행을 변경하지 않음.</div><p class=\"note\">320·390·460px에서 사진·선택 상태·빈 목록·팝업 스크롤과 하단 동작을 검증함. 현재 승인된 카드 스타일을 그대로 활용하며 새로운 디자인 체계를 만들지 않음.</p>"
+      },
+      {
+        "section": "2026.09.10 · SPOT-FIRST PHASES",
+        "title": "스팟 보완 기능의 1·2·3차 구현",
+        "lead": "기존 각 차수의 작업을 유지하고, 사진으로 확인한 스팟을 주변 업체와 연결하는 기능을 단계별로 추가함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">차수</th><th scope=\"col\">추가 구현</th><th scope=\"col\">완료 조건</th></tr></thead><tbody><tr><th scope=\"row\">1차 · 사진으로 확인</th><td>AI 결과·담기 팝업에 기존 큰 랜드마크 카드를 재사용함. 저장 본문의 작은 가로 카드는 유지함.</td><td>사진과 장소 정보를 보고 생성·담기를 확정함. 대상 여행·DAY와 실제 결과가 일치함.</td></tr><tr><th scope=\"row\">2차 · 직접 보완</th><td>내 여행 스팟의 주변 장소 팝업과 숙박 DAY별 숙소 추가를 구현함. 현재 여행·DAY·스팟 문맥을 이어받음.</td><td>샘플 후보를 스팟 다음에 추가함. 같은 숙소의 여러 날 사용·예약 숙소 고정·취소·중복을 처리함.</td></tr><tr><th scope=\"row\">3차 · AI 보완 승인</th><td>내부 후보를 사용한 음식점·숙소 보완 선택, 사진 카드·근거·대안·변경 미리보기를 연결함.</td><td>승인한 후보만 적용함. 고정 장소와 수정 대상 밖 기록은 보존하며 거절·부족·경로 실패를 표시함.</td></tr><tr><th scope=\"row\">백엔드 이후</th><td>실제 내부 인기·RAG, 네이버 검색, 교통수단별 경로와 시간 검증을 연결함.</td><td>권한·출처·후보 품질·호출 비용을 검증함. 로컬 샘플을 실제 검색·추천 성과로 표시하지 않음.</td></tr></tbody></table></div><div class=\"callout\"><strong>2차의 기존 소통 기능 유지:</strong> 여행기 속 업체·랜드마크 카드마다 좋아요·댓글 수를 표시하고, 별도 하단 팝업에서 댓글·답글을 보고 작성함. 주변 장소 선택 팝업과 역할을 구분함.</div><p class=\"note\">장소 ID와 여행 방문 ID를 분리함. 주변 업체는 기준 방문에 연결하고 숙박은 숙박일·DAY에 연결함. 이동·복사·삭제 시 관계와 다른 날 기록을 함께 검사함.</p>"
+      }
+    ]
+  },
+  "ai-guide-plan": {
+    "date": "2026.09.10",
+    "title": "Spotlog AI 관광 가이드·자동번역 개발 계획서",
+    "shortTitle": "AI 관광 가이드·자동번역",
+    "otherTitle": "개발 계획서",
+    "otherHref": "./spotlog-development-plan.html",
+    "slides": [
+      {
+        "cover": true,
+        "section": "AI TOURISM GUIDE & TRANSLATION · 2026.09",
+        "title": "Spotlog AI 관광 가이드<br>자동번역 개발 계획서",
+        "lead": "Spotlog에 쌓인 여행기로 갈 곳을 추천하고,<br>주변 업체 매칭·실행 가능한 일정·관광 안내·번역으로 연결함.",
+        "html": "<div class=\"cover-meta\"><div><small>핵심 범위</small><strong>내부 RAG 추천 · 업체 매칭 · 일정 · 번역</strong></div><div><small>개발 순서</small><strong>차수별 화면 검증 후 서버 엔진 연결</strong></div><div><small>첫 운영 기준</small><strong>국내 여행 · 한국어와 영어</strong></div></div>",
+        "sources": [
+          [
+            "별도 추가 개발 계획서",
+            "./spotlog-development-plan.html"
+          ]
+        ]
+      },
+      {
+        "section": "01 · EXECUTIVE SUMMARY",
+        "title": "AI 개발 범위와 기본 결정",
+        "lead": "내부 데이터 기반 추천을 중심에 두고, 모델의 후보 조합·설명과 실제 이동·일정 검증을 분리함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>첫 추천·일정 기능에 포함</h3><ul class=\"list\"><li>지역·취향 추천과 저장 장소 구성 모드를 구분함</li><li>자동차·대중교통·도보를 모두 구분함</li><li>1~7일·선택 장소 최대 30곳을 검증 범위로 삼음</li><li>랜드마크·식당·숙소 매칭, 고정 일정·미배치·부분 수정·관광 안내를 제공함</li></ul></section><section class=\"panel warm\"><h3>후속 단계로 분리</h3><ul class=\"list\"><li>음성 가이드와 실시간 통역을 분리함</li><li>백그라운드 위치 추적과 자체 내비게이션을 제외함</li><li>예약·결제·호텔 실제 숙박비를 다루지 않음</li><li>일본어·중국어와 자체 모델 학습은 후속 검토함</li></ul></section></div><div class=\"callout\"><strong>프런트엔드 단계에서는 화면과 샘플 응답을 구현함.</strong> 실제 AI·번역·경로 호출은 서버 기반과 공급자 사용 조건을 갖춘 뒤 연결함. 수동 여행 작성에는 AI의 7일·30곳 제한을 적용하지 않음.</div>"
+      },
+      {
+        "section": "CONTENTS",
+        "title": "보고서 구성",
+        "lead": "기존 일정·안내·번역 상세는 유지하고 내부 데이터 추천, 모델 비교와 비용 기준을 추가함.",
+        "html": "<nav class=\"contents-list\" aria-label=\"장별 목차\"><a href=\"#slide-4\"><span>01</span>현재 방식과 목표</a><a href=\"#slide-6\"><span>02</span>내부 RAG 추천·업체 매칭</a><a href=\"#slide-19\"><span>03</span>사용자 입력·장소 데이터</a><a href=\"#slide-22\"><span>04</span>경로·일정·OR-Tools 역할</a><a href=\"#slide-27\"><span>05</span>LLM·모델·방식 비교</a><a href=\"#slide-34\"><span>06</span>응답 규격·부분 수정·배치 예시</a><a href=\"#slide-39\"><span>07</span>관광 안내·자동번역</a><a href=\"#slide-45\"><span>08</span>차수별 화면·이후 서버 개발</a><a href=\"#slide-47\"><span>09</span>평가·비용·보안</a><a href=\"#slide-53\"><span>10</span>준비 사항·전체 공식 출처</a></nav><div class=\"callout\">일반 개발 목록·차수별 구현표·기존 로드맵 대응표는 <a href=\"./spotlog-development-plan.html\">추가 개발 계획서</a>에서 확인함. 본 문서는 기술 적용 계획이며 실제 AI 기능 구현 완료를 의미하지 않음.</div>"
+      },
+      {
+        "section": "01 · CURRENT IMPLEMENTATION",
+        "title": "현재 자동 생성과 목표 엔진의 차이",
+        "lead": "현재 기능을 시연용 기준선으로 보존하되, 실제 AI가 교통·영업 정보를 검증한 결과로 안내하지 않음.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">영역</th><th scope=\"col\">현재 확인된 방식</th><th scope=\"col\">목표 방식</th></tr></thead><tbody><tr><th scope=\"row\">방문 순서</th><td>좌표 직선거리와 가까운 순서 정렬</td><td>교통수단별 이동 시간과 고정 조건 기반 배치</td></tr><tr><th scope=\"row\">날짜 분배</th><td>장소 수를 기준으로 DAY에 분배</td><td>하루 사용 시간·체류·휴식·숙소를 반영함</td></tr><tr><th scope=\"row\">이동 시간</th><td>로컬 추정, 이후 도로 경로 표시</td><td>배치 전에 이동 정보를 확보하고 출발 시각으로 재검사함</td></tr><tr><th scope=\"row\">설명 생성</th><td>정해진 문구와 장소 설명을 조합</td><td>검증된 결과와 출처를 바탕으로 설명을 생성함</td></tr><tr><th scope=\"row\">도보·대중교통</th><td>자동차 OSRM 경로와 도보 추정 혼재, 대중교통 미연동</td><td>도보 경로와 대중교통·환승·마지막 도보 구간을 구분함</td></tr><tr><th scope=\"row\">실패 처리</th><td>추정값으로 대체하는 표시 중심</td><td>추정·미확인·미배치·사용자 확인을 결과에 명시함</td></tr></tbody></table></div>",
+        "sources": [
+          [
+            "현재 Spotlog 구현",
+            "https://github.com/giry02/spotlog/tree/codex/mobile-foundation"
+          ]
+        ]
+      },
+      {
+        "section": "01 · USER EXPERIENCE",
+        "title": "여행 전·여행 중·언어 지원",
+        "lead": "새 하단 메뉴를 늘리지 않고 기존 저장·여행 상세 흐름 안에서 기능을 제공함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">상황</th><th scope=\"col\">진입 위치</th><th scope=\"col\">제공 내용</th></tr></thead><tbody><tr><th scope=\"row\">여행 전</th><td>홈·저장의 만들기·AI 하단 입력</td><td>하단 팝업에서 장소·조건·후보를 확인함. 승인 후 비공개 내 여행 상세로 이동함</td></tr><tr><th scope=\"row\">여행 수정</th><td>내 여행의 일정 조정</td><td>특정 DAY·오후·남은 일정만 변경, 고정 장소 유지, 적용 전 비교</td></tr><tr><th scope=\"row\">여행 중</th><td>오늘 DAY 또는 선택한 장소의 관광 안내</td><td>다음 장소 이동, 볼거리·이용 팁, 질문, 출처·확인일·미확인 안내</td></tr><tr><th scope=\"row\">영어 이용</th><td>언어 설정과 여행기 원문·번역 전환</td><td>영어 설명, 한글 이름·주소 크게 보기, 번역 상태와 피드백</td></tr></tbody></table></div><div class=\"callout\">홈은 자연어 여행 요청, 저장은 저장 장소 기반 만들기를 제공함. 하단 입력·초안 확인 후 비공개 내 여행 상세를 엶. 편집·관광 안내는 내 여행에서 이어가며 자동 발행하지 않음.</div>"
+      },
+      {
+        "section": "RAG · PRODUCT DECISION",
+        "title": "추천의 중심은 Spotlog에 쌓인 데이터임",
+        "lead": "2026.09.09 보완 방향. “선택한 장소를 정렬하는 엔진”에서 “우리 데이터로 갈 곳을 고르는 추천”까지 범위를 명확히 함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>사용자가 기대하는 결과</h3><ul class=\"list\"><li>지역·동행자·관심사에 맞는 인기 랜드마크를 추림</li><li>그 주변의 적합한 음식점·숙박을 우리 데이터에서 매칭함</li><li>여행기 속 추천 이유와 실제 작성자의 근거를 함께 보여줌</li><li>사용자가 대화로 바꾸고 내 여행에 저장할 수 있게 함</li></ul></section><section class=\"panel \"><h3>기술의 우선순위</h3><ul class=\"list\"><li>핵심: 내부 데이터 정리 + 조건 검색 + RAG + 추천 순위</li><li>LLM: 요청 이해, 후보 조합, 근거 있는 안내문 작성</li><li>경로: 실제로 이동 가능한지와 이동 부담을 검증함</li><li>OR-Tools: 복잡한 시간·순서 제약이 있을 때 추가함</li></ul></section></div><div class=\"callout\"><strong>RAG와 OR-Tools는 경쟁하는 선택지가 아님.</strong> RAG는 무엇을 추천할지에 근거를 공급하고, OR-Tools는 정해진 후보를 어떻게 배치할지 계산하는 선택 도구임.</div>",
+        "sources": [
+          [
+            "RAG 원 논문",
+            "https://arxiv.org/abs/2005.11401"
+          ],
+          [
+            "OR-Tools 시간 창 배치",
+            "https://developers.google.com/optimization/routing/vrptw"
+          ]
+        ]
+      },
+      {
+        "section": "RAG · MODES",
+        "title": "여행을 만드는 세 가지 방식을 구분함",
+        "lead": "추천할 권한과 여행에 최종 저장할 권한을 분리함. 자동 매칭은 초안 생성이며 자동 발행·예약이 아님.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">방식</th><th scope=\"col\">장소를 고르는 기준</th><th scope=\"col\">추가·승인 규칙</th></tr></thead><tbody><tr><th scope=\"row\">① 지역·취향 추천</th><td>“부산 2박 3일, 부모님과 바다·음식 중심”처럼 조건만 입력함</td><td>허용된 내부 장소에서 랜드마크·식당·숙소를 자동 매칭한 초안을 보여줌. 검토 후 여행으로 저장함</td></tr><tr><th scope=\"row\">② 저장 장소로 구성</th><td>사용자가 고른 장소를 우선하거나 해당 목록만 사용함</td><td>“선택한 곳만”이 기본임. 식당·숙소 자동 보완을 켠 경우에만 내부 후보를 초안에 추가함</td></tr><tr><th scope=\"row\">③ 외부 자료로 보완</th><td>우리 데이터가 적을 때 별도로 제안함</td><td>사용자가 범위 확대에 동의한 경우에만 외부 후보를 검색함. 내부 인기·여행기 추천과 구별함</td></tr></tbody></table></div><div class=\"callout\">여행 기간 “2일”은 일정의 길이이며 “DAY 2에 담기”는 목적 날짜임. 어떤 추천 방식에서도 이 두 상태를 연결하지 않음.</div>"
+      },
+      {
+        "section": "RAG · TERMS",
+        "title": "기술 용어를 역할로 이해함",
+        "lead": "“데이터를 RAG화한다”는 것은 글을 검색 가능한 상태로 준비하고, 찾은 근거를 답변 생성에 연결한다는 의미임.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">용어</th><th scope=\"col\">쉽게 설명하면</th><th scope=\"col\">Spotlog에서 하는 일</th></tr></thead><tbody><tr><th scope=\"row\">LLM</th><td>질문을 이해하고 글을 구성하는 언어 모델</td><td>여행 조건 해석·후보 조합·가이드 설명</td></tr><tr><th scope=\"row\">임베딩</th><td>글의 의미를 비교하기 위한 숫자 표현</td><td>“한적한 산책”과 비슷한 내용의 여행기 찾기</td></tr><tr><th scope=\"row\">RAG</th><td>자료를 찾아서 읽힌 뒤 답변하게 하는 방식</td><td>관련 여행기·장소 설명을 LLM의 근거로 제공</td></tr><tr><th scope=\"row\">추천 순위 계산</th><td>후보 중 적합한 것을 앞에 놓는 규칙</td><td>취향·인기·신뢰도·이동 부담 함께 비교</td></tr><tr><th scope=\"row\">경로 API</th><td>도로·교통망에서 이동을 조회하는 서비스</td><td>도보·차량·대중교통의 시간과 경로 확인</td></tr><tr><th scope=\"row\">OR-Tools</th><td>제약을 지키는 배치를 찾는 계산 도구</td><td>시간 고정·장소가 많은 일정의 순서와 DAY 배치</td></tr></tbody></table></div><p class=\"note\">검색용 임베딩 생성은 자체 LLM 학습이나 미세조정과 다름. 초기에는 모델을 새로 학습하지 않고 내부 검색과 기존 모델을 연결함.</p>",
+        "sources": [
+          [
+            "RAG 원 논문",
+            "https://arxiv.org/abs/2005.11401"
+          ],
+          [
+            "text-embedding-3-small",
+            "https://developers.openai.com/api/docs/models/text-embedding-3-small"
+          ],
+          [
+            "OR-Tools 시간 창 배치",
+            "https://developers.google.com/optimization/routing/vrptw"
+          ]
+        ]
+      },
+      {
+        "section": "RAG · END-TO-END FLOW",
+        "title": "조건부터 추천·일정까지의 전체 흐름",
+        "lead": "LLM에 원본 데이터 전체를 한 번에 보내지 않음. 서버가 조건에 맞는 후보와 근거를 골라 필요한 범위만 전달함.",
+        "html": "<div class=\"flow\"><div><small>STEP 1</small><strong>조건 해석</strong><p>지역·취향·필수 조건 확인</p></div><div><small>STEP 2</small><strong>후보 검색</strong><p>권한·지역 필터와 의미 검색</p></div><div><small>STEP 3</small><strong>순위·매칭</strong><p>인기와 취향, 식당·숙소 조합</p></div><div><small>STEP 4</small><strong>추천 초안</strong><p>허용 후보로 구성·이유 설명</p></div><div><small>STEP 5</small><strong>이동 검증</strong><p>교통·시간 충돌과 배치 조정</p></div><div><small>STEP 6</small><strong>사용자 확인</strong><p>변경 이유 확인 후 저장</p></div></div><div class=\"columns \"><section class=\"panel \"><h3>LLM에 제공하는 자료</h3><ul class=\"list\"><li>후보 장소 ID·확인된 정보·원문 근거 ID</li><li>계산된 인기 지표와 표본 수·확인 시점</li><li>사용자 조건과 제외·고정 항목</li></ul></section><section class=\"panel \"><h3>서버가 다시 검사하는 항목</h3><ul class=\"list\"><li>후보 밖 장소·가짜 인기 수치·없는 근거 차단</li><li>이동 검증 실패 시 후보 교체 또는 경고 반환</li><li>최종 수정에 맞춰 설명도 갱신하고 승인받음</li></ul></section></div><p class=\"note\">순서는 단방향 고정이 아님. 숙소·식당 또는 이동 부담에 따라 랜드마크 조합도 다시 검토하되, 사용자 고정 장소는 임의로 바꾸지 않음.</p>"
+      },
+      {
+        "section": "RAG · RAW DATA",
+        "title": "원본 데이터를 어떤 단위로 쌓을 것인가",
+        "lead": "여행기 통째로만 저장하면 업체별 인기와 주변 매칭을 계산하기 어려움. 글·장소·방문·반응을 고유 ID로 연결함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">데이터 단위</th><th scope=\"col\">필수 연결 정보</th><th scope=\"col\">활용</th></tr></thead><tbody><tr><th scope=\"row\">장소</th><td>placeId, 종류, 지역, 좌표, 이름·주소, 출처·확인일</td><td>같은 업체의 표기 차이를 통합하고 위치·종류로 검색함</td></tr><tr><th scope=\"row\">여행기·본문 블록</th><td>storyId, blockId, 작성자, placeId, 원문·버전·공개 범위</td><td>특정 장소에 대한 후기와 추천 이유를 출처로 제시함</td></tr><tr><th scope=\"row\">여행 내 방문 항목</th><td>visitId, DAY, placeId, 체류·이동, 계획/방문 기록 구분</td><td>같은 숙소의 여러 DAY 이용과 장소 간 연결을 표현함</td></tr><tr><th scope=\"row\">행동 이벤트</th><td>저장·복사·해제·반응, 사용자, 시간, 원본 계보</td><td>중복·취소를 반영한 실제 관심 지표를 계산함</td></tr><tr><th scope=\"row\">사진·설명·메타</th><td>assetId, placeId, 이용 권리, 원문 설명, 조건 태그</td><td>장소와 맞는 콘텐츠 및 취향 근거를 확보함</td></tr><tr><th scope=\"row\">근거·검색 색인</th><td>sourceId, blockId, 원문 버전, 접근 권한, 색인 버전</td><td>수정·삭제·비공개 전환을 검색과 답변에 반영함</td></tr></tbody></table></div><p class=\"note\">기존 샘플 조회수·댓글·등급은 인기 계산에서 제외함. 계획에 담았다는 사실을 실제 방문·숙박한 경험으로 바꾸어 해석하지 않음.</p>"
+      },
+      {
+        "section": "RAG · CUSTOMER METADATA",
+        "title": "고객 조건은 필수와 선호로 나눔",
+        "lead": "지역·취향 같은 메타는 검색 필터와 순위 계산에 사용함. 모든 입력을 단순 태그 일치나 LLM의 추측으로 처리하지 않음.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">조건</th><th scope=\"col\">처리</th><th scope=\"col\">미확인 정보 처리</th></tr></thead><tbody><tr><th scope=\"row\">지역·기간·출발·고정 방문</th><td>검색 범위와 일정의 반드시 지킬 조건으로 사용함</td><td>지명 중복이나 날짜 미입력은 확인하거나 개략 계획으로 표시함</td></tr><tr><th scope=\"row\">이동수단·걷기 한도</th><td>이용 가능한 경로와 일정 제약으로 검사함</td><td>좌표상 가까워도 실제 보행 가능 여부는 따로 확인함</td></tr><tr><th scope=\"row\">바다·사진·한적함·미식</th><td>본문 의미와 작성자 태그를 함께 찾아 순위에 반영함</td><td>모델이 추출한 태그는 추론 태그로 구분함</td></tr><tr><th scope=\"row\">동행·접근성·식사 조건</th><td>사용자가 제공한 조건만 사용하고 중요한 항목을 별도 확인함</td><td>후기의 “가족에게 좋음”을 휠체어·알레르기 안전 보장으로 바꾸지 않음</td></tr><tr><th scope=\"row\">인기·숨은 장소·다양성</th><td>사용자 선호에 따라 내부 인기와 새로운 후보의 비중을 조정함</td><td>인기 근거가 없으면 검수 추천 또는 데이터 부족으로 표시함</td></tr></tbody></table></div><div class=\"callout\">한적함 선호는 조용하다고 평가된 장소를 찾는 조건임. 실시간 혼잡도가 없으면 “지금 사람이 없다”고 답하지 않음.</div>"
+      },
+      {
+        "section": "RAG · INDEXING",
+        "title": "여행기가 검색 자료가 되는 과정",
+        "lead": "검색 색인은 원문을 대신하는 별도 데이터베이스가 아니라 다시 만들 수 있는 검색용 사본으로 관리함.",
+        "html": "<ol class=\"steps\"><li><strong>장소 연결·권한 확인</strong><span>공개·이용 허용된 여행기만 추천용으로 수집함. 사용자 자신의 비공개 여행은 해당 사용자 요청에서만 별도 권한으로 조회함.</span></li><li><strong>장소별 의미 단위로 나눔</strong><span>한 장소의 설명·평가·팁을 묶고 장소가 바뀌면 분리함. chunk에 원문 위치·작성자·장소·버전을 남김. 긴 글은 문맥이 끊기지 않게 분할함.</span></li><li><strong>검색 표현을 준비함</strong><span>한글명·별칭·키워드 색인과 본문 임베딩을 생성함. 좌표·공개 범위·인기 숫자는 구조화 데이터로 별도 보관함.</span></li><li><strong>변경 사항을 동기화함</strong><span>원문 변경분만 재색인함. 삭제·비공개 전환은 검색·캐시·생성 결과 접근에 반영하고, 답변 직전에도 현재 권한과 버전을 재검사함.</span></li></ol><p class=\"note\">추천 근거에는 원문 링크와 필요한 짧은 인용·요약만 제공함. 다른 작성자의 글 전체를 새로운 여행기인 것처럼 재작성하지 않음.</p>",
+        "sources": [
+          [
+            "RAG 원 논문",
+            "https://arxiv.org/abs/2005.11401"
+          ],
+          [
+            "pgvector 공식 저장소",
+            "https://github.com/pgvector/pgvector"
+          ]
+        ]
+      },
+      {
+        "section": "RAG · HYBRID RETRIEVAL",
+        "title": "의미 검색만으로 인기 장소를 찾지 않음",
+        "lead": "RAG는 검색과 생성의 결합임. 숫자 집계·거리·조건은 DB가 담당하고, 여행기 표현의 유사성은 의미 검색으로 보완함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">순서</th><th scope=\"col\">처리 방식</th><th scope=\"col\">이유</th></tr></thead><tbody><tr><th scope=\"row\">1. 범위 제한</th><td>권한·지역·장소 종류·필수 조건으로 후보를 제한함</td><td>다른 지역이나 접근 불가 자료가 섞이는 것을 차단함</td></tr><tr><th scope=\"row\">2. 두 방식 검색</th><td>장소명·별칭 키워드와 본문 의미 검색 결과를 합침</td><td>정확한 지명과 “비 오는 날 쉬기 좋은 곳”을 모두 찾기 위함</td></tr><tr><th scope=\"row\">3. 후보 정리</th><td>동일 placeId를 합치고 여러 원문의 근거를 묶음</td><td>글이 많은 한 업체가 검색 결과를 독점하지 않게 함</td></tr><tr><th scope=\"row\">4. 추천 순위</th><td>취향 적합도·내부 인기·근거 품질·이동 부담을 계산함</td><td>의미 유사도와 인기도는 서로 다른 점수임</td></tr><tr><th scope=\"row\">5. LLM 전달</th><td>상위 후보의 ID·정보·근거·계산 점수만 전달함</td><td>없는 장소를 만들지 않고 선택과 설명에 집중하게 함</td></tr></tbody></table></div><p class=\"note\">시험 시작값 예: 검색 80개 → 중복 통합 30개 → 모델 전달 15개. 고정 정답이 아니며 검색 누락률·응답 비용을 측정해 조정함.</p>",
+        "sources": [
+          [
+            "pgvector 공식 저장소",
+            "https://github.com/pgvector/pgvector"
+          ],
+          [
+            "PostGIS 거리 검색",
+            "https://postgis.net/docs/ST_DWithin.html"
+          ]
+        ]
+      },
+      {
+        "section": "RAG · POPULARITY",
+        "title": "“우리 서비스에서 인기”의 기준을 정함",
+        "lead": "인기도는 LLM이 후기 몇 개를 읽고 추정하는 값이 아님. 실제 행동을 집계한 서버 지표이며 산식 버전을 기록함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>인기 지표 준비</h3><ul class=\"list\"><li>최근 일정 기간의 고유 사용자 저장·복사·반응을 집계함</li><li>저장 해제·자기 반응·자동화·중복 복사를 보정함</li><li>같은 지역·장소 종류 안에서 비교하여 규모 차이를 줄임</li><li>표본이 적으면 과대평가를 보정하고 낮은 신뢰도를 표시함</li><li>노출 수가 쌓이면 클릭·저장 전환과 노출 편향도 함께 점검함</li></ul></section><section class=\"panel \"><h3>최종 추천 순위</h3><ul class=\"list\"><li>필수 조건을 먼저 통과한 후보끼리 순위를 비교함</li><li>취향 적합도 + 내부 인기 + 근거 품질을 고려함</li><li>되돌아감·긴 이동·비슷한 장소 중복에는 감점을 적용함</li><li>신규 장소에는 별도 탐색 기회를 두되 인기인 척하지 않음</li><li>홍보 일정·협찬은 별도 표시하고 인기 점수에 숨기지 않음</li></ul></section></div><div class=\"callout\">“인기”를 고르면 적합한 후보 중 인기 지표가 높은 곳을 우선함. 가중치는 초기 가설이며 실제 선택·저장·완료 평가로 조정함. 특정 비율을 검증된 정답으로 고정하지 않음.</div>"
+      },
+      {
+        "section": "RAG · RESTAURANT MATCHING",
+        "title": "랜드마크 주변 음식점을 자동 매칭함",
+        "lead": "랜드마크 바로 옆의 최다 조회 업체가 항상 좋은 선택은 아님. 사용자의 조건과 그날 동선에 맞는 내부 후보를 찾음.",
+        "html": "<ol class=\"steps\"><li><strong>내부 후보를 확보함</strong><span>랜드마크와 다음 방문 권역 주변에서 음식점 placeId를 찾음. 공간 반경은 후보 검색용으로만 사용하고 실제 이동 시간은 경로로 확인함.</span></li><li><strong>취향·시간·근거를 확인함</strong><span>음식 종류·식사 시간·확인된 영업 정보와 동행 조건을 비교함. 중요한 식이 정보가 없으면 확인 필요로 남김.</span></li><li><strong>인기와 함께 등장한 관계를 반영함</strong><span>같은 여행기에 함께 포함된 음식점 관계와 고유 사용자 저장·복사 지표를 참고함. 복사 계보·동일 작성자 반복·표본 수를 보정함.</span></li><li><strong>조합을 비교해 초안에 넣음</strong><span>되돌아감이 적고 조건에 맞는 후보를 제안함. 추천 이유·원문 출처·대체 후보를 보여주고, 자동 보완을 끈 경우에는 별도 후보로만 남김.</span></li></ol><p class=\"note\">“이 장소를 방문한 사람이 먹은 곳”은 실제 방문 기록이 확인된 경우에만 사용함. 단순 동시 등장 데이터는 “같은 여행기에 함께 담긴 곳”으로 표현함.</p>",
+        "sources": [
+          [
+            "PostGIS 거리 검색",
+            "https://postgis.net/docs/ST_DWithin.html"
+          ]
+        ]
+      },
+      {
+        "section": "RAG · LODGING MATCHING",
+        "title": "숙소는 여행 전체의 거점으로 매칭함",
+        "lead": "랜드마크마다 가까운 호텔을 하나씩 붙이지 않음. 숙박일과 전체 동선을 기준으로 숙소·숙박 지역 후보를 비교함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">판단 항목</th><th scope=\"col\">매칭 방식</th></tr></thead><tbody><tr><th scope=\"row\">이미 정한 숙소</th><td>사용자의 숙소를 고정하고 랜드마크·식당 동선을 그 기준으로 구성함</td></tr><tr><th scope=\"row\">숙소 미정</th><td>권역별 후보를 찾고 여러 DAY의 출발·복귀와 첫날 도착·마지막 출발 부담을 함께 비교함</td></tr><tr><th scope=\"row\">이동 방식</th><td>차량이면 주차·진출입, 대중교통이면 역·정류장과 마지막 도보 정보를 확인함</td></tr><tr><th scope=\"row\">우리 데이터의 평가</th><td>내부 저장·복사와 숙박을 기록한 원문의 장점·주의점을 근거로 제시함</td></tr><tr><th scope=\"row\">여러 권역 여행</th><td>숙소 이동의 장단점을 설명함. 이동 부담이 크면 랜드마크 권역과 숙소 조합을 함께 재검토함</td></tr><tr><th scope=\"row\">상품 정보의 한계</th><td>가격 비교·빈 객실·실시간 예약 가능 여부는 포함하지 않음. 인기 숙소라고 예약 가능하다고 표시하지 않음</td></tr></tbody></table></div><div class=\"callout\">내부 숙소 데이터가 부족하면 숙박 지역까지만 제안함. 외부 숙소 후보는 사용자가 별도 보완에 동의한 경우에만 구분해 제공함.</div>"
+      },
+      {
+        "section": "RAG · WORKED EXAMPLE",
+        "title": "내부 데이터 추천 예시 · 후보를 고르는 이유",
+        "lead": "부산 1박 2일·부모님 동행·대중교통·바다와 음식·짧은 걷기 조건을 가정함. 아래 장소·점수는 모두 설명용 가상 데이터임.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">후보</th><th scope=\"col\">내부 근거와 조건</th><th scope=\"col\">처리</th></tr></thead><tbody><tr><th scope=\"row\">L1 해안 전망 장소</th><td>바다 태그·내부 저장 근거 있음 / 긴 계단 구간 확인</td><td>인기여도 걷기 조건에 맞지 않아 제외함</td></tr><tr><th scope=\"row\">L2 해변 산책 장소</th><td>바다·완만한 산책 근거 / 정류장 연결 확인</td><td>랜드마크 후보로 우선 제안함</td></tr><tr><th scope=\"row\">R1 인기 음식점</th><td>지역 내 인기 지표 높음 / 다음 장소와 반대 방향</td><td>우회 부담 때문에 기본 조합에서 제외함</td></tr><tr><th scope=\"row\">R2 음식점</th><td>조건에 맞는 음식 / L2와 같은 여행기 등장 / 다음 동선 부근</td><td>식사 후보로 매칭하고 원문 근거를 연결함</td></tr><tr><th scope=\"row\">H1 숙박 장소</th><td>여러 DAY 이동 거점 / 내부 숙박 후기 근거</td><td>숙소 후보로 제안함. 요금·예약 가능성은 알 수 없음</td></tr></tbody></table></div><div class=\"callout\">안내 예: “걷기 조건을 고려해 L2를 골랐으며, R2는 다음 이동 방향에 있고 같은 여행기에 함께 소개된 근거가 있어 제안함.” 순위·거리·작성자 경험을 모델이 새로 만들어내지 않음.</div>"
+      },
+      {
+        "section": "RAG · COLD START",
+        "title": "우리 데이터가 부족할 때의 처리",
+        "lead": "RAG를 붙인다고 없는 콘텐츠와 인기 지표가 생기지는 않음. 지역별 데이터의 충분함과 최신성을 운영 과제로 함께 관리함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>초기 확보와 보완</h3><ul class=\"list\"><li>서울·부산·제주에서 장소 연결이 정확한 여행기를 먼저 확보함</li><li>랜드마크뿐 아니라 실제 일정에 쓰인 식당·숙소도 함께 수집함</li><li>검수 추천·실제 인기·홍보 콘텐츠를 구분해서 표시함</li><li>주변 정보가 없으면 지역 확대·조건 완화 여부를 물음</li></ul></section><section class=\"panel warm\"><h3>하지 않을 처리</h3><ul class=\"list\"><li>샘플 반응 수를 실제 인기 순위에 사용하지 않음</li><li>원문이 없는 업체를 “우리 여행자 추천”으로 소개하지 않음</li><li>외부 검색 결과를 내부 데이터인 것처럼 합치지 않음</li><li>비공개 여행을 다른 고객 추천용으로 임의 활용하지 않음</li></ul></section></div><div class=\"callout\">직접 작성한 검수 콘텐츠만 있어도 추천을 시작할 수 있음. 다만 사용자의 실제 반응이 충분해질 때까지 “인기” 대신 “검수 추천”으로 안내함.</div>"
+      },
+      {
+        "section": "02 · INPUT FLOW",
+        "title": "3단계 입력 흐름",
+        "lead": "홈·저장의 하단 입력에서 장소 범위·여행 기본 조건·추가 조건을 확인함. 1차는 간단한 로컬 초안, 아래 상세 조건은 3차 확장 범위임.",
+        "html": "<ol class=\"steps\"><li><strong>사용할 장소 선택</strong><span>지역·취향 추천 또는 저장 장소 구성을 선택함. 반드시 갈 곳·제외할 곳과 음식점·숙소 자동 보완 여부를 확인함.</span></li><li><strong>여행 기본 조건 입력</strong><span>기간과 실제 날짜, 첫날 도착·마지막 날 출발, 숙소 또는 숙박 지역, 주 이동수단과 여행 속도를 받음.</span></li><li><strong>추가 조건 확인</strong><span>고정 방문 시간, 동행자, 걷기 부담, 관심사, 식사·접근성 조건을 선택 사항으로 받음. 기본값과 미입력을 명확히 표시함.</span></li></ol><div class=\"callout\"><strong>지역 추천 모드는 내부 장소·업체를 자동 매칭한 초안을 제공함.</strong> 저장 장소의 “선택한 곳만” 모드는 보완을 켜지 않으면 새 업체를 넣지 않음. 두 모드 모두 최종 저장·변경 적용은 승인 후 진행함.</div>"
+      },
+      {
+        "section": "02 · CONSTRAINTS",
+        "title": "기간·시간·이동 조건의 해석",
+        "lead": "기본값은 시연 시작값이며 사용자가 수정할 수 있음. 운영 조건이 확인된 것으로 오인하지 않게 함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">입력</th><th scope=\"col\">초기 처리 기준</th><th scope=\"col\">미입력·충돌 처리</th></tr></thead><tbody><tr><th scope=\"row\">기간·실제 날짜</th><td>1~7일, 일정 시간대는 Asia/Seoul로 관리함</td><td>날짜가 없으면 DAY 중심 개략 계획이며 영업·운행일 검증을 하지 않음</td></tr><tr><th scope=\"row\">하루 활동 시간</th><td>기본 09:00~18:00을 표시하고 조정 가능하게 함</td><td>첫날 도착·마지막 출발이 있으면 해당 창으로 제한함</td></tr><tr><th scope=\"row\">숙소·출발·종료</th><td>날짜별 출발·복귀 장소를 지정할 수 있음</td><td>미정이면 숙박 지역만 제안하고 특정 호텔을 자동 확정하지 않음</td></tr><tr><th scope=\"row\">이동수단·걷기</th><td>주 이동수단과 허용 도보 부담을 명시적으로 선택함</td><td>자동차 경로를 도보로 바꾸거나 임의 택시 이용을 전제하지 않음</td></tr><tr><th scope=\"row\">체류·필수·고정</th><td>입력 체류시간과 고정 시간을 우선함</td><td>필수·고정 조건 충돌은 사용자 선택 없이 풀지 않음</td></tr><tr><th scope=\"row\">영업·접근성·식사</th><td>확인 가능한 정보만 제약으로 사용함</td><td>알 수 없는 정보는 확인 필요로 남기고 사실을 생성하지 않음</td></tr></tbody></table></div>"
+      },
+      {
+        "section": "02 · PLACE DATA",
+        "title": "장소 데이터 준비와 출처 관리",
+        "lead": "우리 여행기·사용자 입력·검수 콘텐츠의 장소를 먼저 연결함. 외부 장소 검색은 식별 정보 확인과 승인된 보완에 사용함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">데이터</th><th scope=\"col\">필요 정보</th><th scope=\"col\">준비 방법</th></tr></thead><tbody><tr><th scope=\"row\">장소 기준</th><td>placeId, 공급자 ID, 한글명·주소·좌표, 분류</td><td>내부 장소·직접 입력을 정규화함. 네이버 지역 검색 결과는 별도 출처로 연결함</td></tr><tr><th scope=\"row\">방문 조건</th><td>체류시간, 고정 방문, 입장·영업 정보, 접근성</td><td>사용자 입력과 확인된 공식 정보의 출처·확인일을 함께 기록함</td></tr><tr><th scope=\"row\">현장 안내</th><td>역·정류장·출구, 마지막 도보, 예약·이용 팁</td><td>작성자가 실제 확인한 정보와 검수한 관광 자료를 구분함</td></tr><tr><th scope=\"row\">사진·영상</th><td>자산 ID, 장소 연결, 촬영·사용 권리, 설명</td><td>검색 API에 사진이 함께 제공된다고 가정하지 않음</td></tr><tr><th scope=\"row\">외국어</th><td>공식 외국어명, 한글 원명, 번역 상태·용어집</td><td>공식 표기 우선, 없으면 번역 표기와 한글을 병기함</td></tr></tbody></table></div><div class=\"callout\">좌표가 없으면 지도 핀 확인 또는 주소 확인을 요청함. LLM으로 좌표를 만들지 않음. 폐업·이전 등 현재 장소 정보와 과거 여행기의 방문 당시 기록을 분리함.</div>",
+        "sources": [
+          [
+            "네이버 지역 검색 공식 문서",
+            "https://developers.naver.com/docs/serviceapi/search/local/local.md"
+          ]
+        ]
+      },
+      {
+        "section": "03 · SYSTEM DESIGN",
+        "title": "서버 구성과 책임 분리",
+        "lead": "현재 모바일웹·하이브리드 셸을 유지하고, 외부 키와 실제 계산은 서버에 둠.",
+        "html": "<div class=\"flow\"><div><small>STEP 1</small><strong>화면</strong><p>장소·조건 선택과 결과 승인</p></div><div><small>STEP 2</small><strong>요청 서버</strong><p>권한·사용량·입력 검증</p></div><div><small>STEP 3</small><strong>검색·추천</strong><p>내부 RAG·인기·업체 매칭</p></div><div><small>STEP 4</small><strong>LLM 초안</strong><p>후보 조합·근거 설명</p></div><div><small>STEP 5</small><strong>이동·배치</strong><p>경로 검사·필요 시 최적화</p></div><div><small>STEP 6</small><strong>결과 검수</strong><p>사실·조건 검사·안내·번역</p></div></div><div class=\"columns \"><section class=\"panel \"><h3>계산 서버 기준안</h3><ul class=\"list\"><li>DB·공간·의미 검색과 추천 순위를 우선 구현함</li><li>요청 ID·입력 버전·작업 상태를 기록함</li><li>추천·경로·설명을 분리 저장하고 OR-Tools는 필요 시 Python 작업으로 추가함</li></ul></section><section class=\"panel \"><h3>앱과 서버 경계</h3><ul class=\"list\"><li>정적 GitHub Pages에는 비밀 키를 넣지 않음</li><li>웹은 생성·수정·질문·번역 인터페이스만 사용함</li><li>외부 실패가 발생해도 수동 편집과 기존 여행 열람을 유지함</li></ul></section></div>"
+      },
+      {
+        "section": "03 · PROVIDERS",
+        "title": "공급자 선택안과 계약 확인",
+        "lead": "아래는 개발 기준안임. 요금·캐시·다른 지도 위 표시·상업적 이용 조건을 확인한 뒤 운영 공급자로 확정함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">역할</th><th scope=\"col\">우선 검증안</th><th scope=\"col\">연결 전 확인</th></tr></thead><tbody><tr><th scope=\"row\">지도 표시</th><td>MapLibre와 현재 배경 지도 유지</td><td>운영 타일 공급·출처 표기·사용량 조건 확인</td></tr><tr><th scope=\"row\">장소·근거 검색</th><td>내부 DB + 의미 검색 / 네이버 지역 검색 보완</td><td>내부 권한·출처 우선. 외부 검색·저장 정책과 이미지 권리 별도 확인</td></tr><tr><th scope=\"row\">자동차·도보</th><td>TMAP</td><td>각 모드 응답·시간·경로 품질, 과금 단위와 표시 허용</td></tr><tr><th scope=\"row\">대중교통</th><td>ODsay</td><td>도시 내·도시 간 연결, 시간 정보 범위, 환승·도보 구간</td></tr><tr><th scope=\"row\">일정 배치</th><td>규칙 배치 우선 / OR-Tools 선택</td><td>복잡한 일정 제약에서 품질 개선과 운영 비용을 비교함</td></tr><tr><th scope=\"row\">추천·안내 / 번역</th><td>GPT·Claude·Gemini 비교 / Cloud Translation</td><td>내부 근거 준수·한국어·영어·비용·지연·데이터 처리 조건 평가</td></tr></tbody></table></div><div class=\"callout\">장소 검색은 네이버 지역 검색으로 변경함. MapLibre 표시는 유지하고 실제 이동 경로는 TMAP·ODsay를 별도 검증함. 카카오 길찾기는 이번 선택안에서 채택하지 않음.</div>",
+        "sources": [
+          [
+            "TMAP 공식 API 안내",
+            "https://tmapapi.tmapmobility.com/main.html"
+          ],
+          [
+            "ODsay 공식 경로 문서",
+            "https://lab.odsay.com/guide/guide?platform=web"
+          ],
+          [
+            "과거 검토 자료 · 카카오 제휴 안내",
+            "https://devtalk.kakao.com/t/directions-api/151177"
+          ]
+        ]
+      },
+      {
+        "section": "03 · ROUTING",
+        "title": "교통수단별 이동 계산",
+        "lead": "지도 배경과 길찾기 엔진은 별개임. 경로와 시간을 어느 모드·출처로 얻었는지 결과에 남김.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">교통수단</th><th scope=\"col\">계산 기준</th><th scope=\"col\">주의 사항</th></tr></thead><tbody><tr><th scope=\"row\">자동차</th><td>도로 경로·거리·소요시간을 조회함. 출발 시각 지원 범위를 확인함</td><td>차수·승하차 여유를 별도 조건으로 두며 실시간 교통 보장을 하지 않음</td></tr><tr><th scope=\"row\">도보</th><td>보행 가능한 경로와 도보 시간을 사용함</td><td>자동차 도로 길이를 걷기 속도로 나눈 값을 실제 보행 경로로 표시하지 않음</td></tr><tr><th scope=\"row\">대중교통</th><td>승하차·환승·대기·출발 및 도착 도보 구간을 구분함</td><td>특정 날짜의 실제 배차·막차까지 확인 가능한지 별도로 검증함</td></tr><tr><th scope=\"row\">도시 간·섬 이동</th><td>지원되는 간선 구간과 양쪽 마지막 이동을 연결함</td><td>연결 불가 또는 배·항공 미확인은 사용자 확인 구간으로 남김</td></tr></tbody></table></div><div class=\"callout\">초기 분류에는 직선거리를 쓸 수 있음. 최종 일정의 실제 이동 시간은 공급자 응답을 사용하고, 없는 값은 추정 또는 미확인으로 표시함.</div>",
+        "sources": [
+          [
+            "TMAP 공식 API 안내",
+            "https://tmapapi.tmapmobility.com/main.html"
+          ],
+          [
+            "ODsay 공식 경로 문서",
+            "https://lab.odsay.com/guide/guide?platform=web"
+          ]
+        ]
+      },
+      {
+        "section": "03 · SCHEDULING ENGINE",
+        "title": "OR-Tools는 복잡한 배치의 선택 도구임",
+        "lead": "관광지를 추천하는 모델이 아니라 제약을 지키는 배치를 찾는 도구임. 초기 규칙·LLM 후보 조합을 경로 검증하고, 복잡한 경우 추가함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>입력과 제약</h3><ul class=\"list\"><li>방문 간 이동 시간, 방문 체류시간을 입력함</li><li>날짜별 출발·종료 시간과 숙소를 기준점으로 둠</li><li>필수 장소·사용자 고정 시간·확인된 영업시간을 우선함</li><li>휴식·식사 시간과 사용자가 정한 걷기 부담을 반영함</li></ul></section><section class=\"panel \"><h3>배치 우선순위</h3><ul class=\"list\"><li>1순위: 고정·필수 조건과 실행 가능한 시간 창을 지킴</li><li>2순위: 선택한 장소를 가능한 범위에서 포함함</li><li>3순위: 긴 이동·되돌아감·하루 과밀을 줄임</li><li>제한 시간 안의 최선 결과를 사용하고 전역 최적을 보장하지 않음</li></ul></section></div><div class=\"callout\">도입 시 DAY별 시작·끝 지점을 가진 배치로 모델링함. 실제 출발 시각으로 재검사하며, 대중교통 변화 시 최대 2회 재배치를 시험 시작값으로 둠. LLM의 순서도 같은 검사 대상이며 이동 시간을 지어내게 하지 않음.</div>",
+        "sources": [
+          [
+            "OR-Tools 시간 제약 예제",
+            "https://developers.google.com/optimization/routing/vrptw"
+          ]
+        ]
+      },
+      {
+        "section": "03 · VALIDATION",
+        "title": "실행 가능성 검사와 미배치 처리",
+        "lead": "일정이 생성됐다는 사실보다, 조건을 만족하는지와 무엇을 확인하지 못했는지를 설명하는 것이 중요함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">검사</th><th scope=\"col\">처리</th><th scope=\"col\">사용자 안내</th></tr></thead><tbody><tr><th scope=\"row\">시간 창·필수 충돌</th><td>고정 조건을 해제하지 않고 충돌 항목을 반환함</td><td>시간 변경·기간 확대·필수 해제 중 사용자가 선택함</td></tr><tr><th scope=\"row\">하루 과밀</th><td>선택 항목은 미배치 목록으로 분리하고 이유를 남김</td><td>장소 수 줄이기·DAY 이동·일정 연장 선택 제공</td></tr><tr><th scope=\"row\">경로 조회 실패</th><td>재시도 후에도 실패하면 검증되지 않은 구간으로 표시함</td><td>수동 순서 유지·외부 길찾기 확인 가능</td></tr><tr><th scope=\"row\">영업시간 미확인</th><td>확인된 정보가 있는 것처럼 제약을 생성하지 않음</td><td>방문 전 운영 확인이 필요함을 표시함</td></tr><tr><th scope=\"row\">좌표·교통 연결 없음</th><td>해당 장소·구간의 확정을 보류함</td><td>핀 확인·교통편 입력·일정에서 제외 선택</td></tr><tr><th scope=\"row\">자동 보완·적용 승인 없음</th><td>선택한 곳만 모드의 새 후보는 별도 목록에 유지함</td><td>추천 초안도 최종 승인 전에는 기존 여행에 반영하지 않음</td></tr></tbody></table></div><p class=\"note\">실패 시 로컬 거리 기반 초안을 제공할 수 있으나 “간단 정렬·이동 미검증”으로 명확히 구분함. 자동 대체 결과를 검증된 일정처럼 저장하지 않음.</p>"
+      },
+      {
+        "section": "04 · LANGUAGE MODEL",
+        "title": "LLM의 역할과 제한",
+        "lead": "GPT·Claude·Gemini를 비교하며 특정 공급자를 필수로 고정하지 않음. 허용 후보와 근거로 조건 해석·추천 조합·관광 안내를 담당함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>허용하는 역할</h3><ul class=\"list\"><li>“오후만 바꿔줘” 같은 요청을 수정 조건으로 변환함</li><li>내부 검색·순위 결과에서 조건에 맞는 후보를 조합하고 이유를 설명함</li><li>검수 자료와 현재 여행을 근거로 관광 질문에 답함</li><li>설명에 사용한 출처 ID와 확인 필요 항목을 반환함</li></ul></section><section class=\"panel warm\"><h3>허용하지 않는 역할</h3><ul class=\"list\"><li>장소·좌표·주소·영업시간·노선·가격을 임의 생성하지 않음</li><li>선택한 곳만 모드에 새 업체를 넣거나 고정 일정을 임의 변경하지 않음</li><li>실제로 다녀온 것처럼 방문 후기·감정을 꾸며 쓰지 않음</li><li>외부 문서의 지시로 비공개 정보 조회나 도구 실행을 하지 않음</li></ul></section></div><div class=\"callout\">구조화 응답은 형식 검증을 돕는 수단임. 서버에서 장소 ID 허용 목록, 숫자·시간, 근거 출처, 고정 조건을 다시 검사함. 도구 실행은 허용된 함수만 서버가 수행함.</div>",
+        "sources": [
+          [
+            "GPT-5.6 Sol 공식 문서",
+            "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+          ],
+          [
+            "OpenAI 구조화 응답",
+            "https://developers.openai.com/api/docs/guides/structured-outputs"
+          ],
+          [
+            "OpenAI 함수 호출",
+            "https://developers.openai.com/api/docs/guides/function-calling"
+          ]
+        ]
+      },
+      {
+        "section": "MODEL · ROLE SEPARATION",
+        "title": "하나의 모델에 모든 일을 맡기지 않음",
+        "lead": "검색용 모델, 답변 모델, 번역 도구는 독립적으로 선택함. 처음부터 여러 모델을 모든 요청에 동시에 호출하지 않음.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">역할</th><th scope=\"col\">초기 기준안</th><th scope=\"col\">다른 방식이 필요한 때</th></tr></thead><tbody><tr><th scope=\"row\">의미 검색용 임베딩</th><td>text-embedding-3-small로 검색 기준선을 측정함</td><td>한국어·영어 교차 검색 품질이나 반출 조건 때문에 다른 모델 비교가 필요할 때</td></tr><tr><th scope=\"row\">후보 순위 재검토</th><td>DB 규칙·의미 점수로 먼저 구성함</td><td>검색 누락이 아닌 순서 품질이 병목일 때 재순위 모델을 별도 시험함</td></tr><tr><th scope=\"row\">조건 해석·가이드 생성</th><td>Sol / Sonnet 5 / Gemini 3.8 Flash를 동일 사례로 비교함</td><td>운영 합격 기준을 통과한 모델 중 비용·지연이 낮은 모델을 선택함</td></tr><tr><th scope=\"row\">짧은 분류·정리</th><td>규칙으로 가능하면 모델 없이 처리함</td><td>자유 문장 해석이 필요할 때 Luna 등 경량 모델을 시험함</td></tr><tr><th scope=\"row\">콘텐츠 번역</th><td>Cloud Translation Advanced + 용어집을 기준안으로 둠</td><td>중요 문장 오류가 남을 때 선별 검수·다른 번역 엔진 비교를 진행함</td></tr></tbody></table></div><p class=\"note\">임베딩 모델과 답변 LLM은 같은 회사일 필요가 없음. 번역·응답 언어도 지도 표시 공급자와 독립적으로 선택함.</p>",
+        "sources": [
+          [
+            "text-embedding-3-small",
+            "https://developers.openai.com/api/docs/models/text-embedding-3-small"
+          ],
+          [
+            "GPT-5.6 Sol 문서·요금",
+            "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+          ],
+          [
+            "GPT-5.6 Luna 문서·요금",
+            "https://developers.openai.com/api/docs/models/gpt-5.6-luna"
+          ]
+        ]
+      },
+      {
+        "section": "MODEL · CANDIDATES",
+        "title": "GPT·Claude·Gemini를 어떻게 비교할 것인가",
+        "lead": "아래는 공식 기능을 바탕으로 한 시험 후보임. Spotlog 데이터로 성능을 측정하지 않았으므로 특정 모델을 최종 승자로 단정하지 않음.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">모델 후보</th><th scope=\"col\">우선 시험할 작업</th><th scope=\"col\">선택 판단</th></tr></thead><tbody><tr><th scope=\"row\">GPT-5.6 Sol</th><td>여러 조건 해석, 후보 ID 구조화, 근거 연결 안내</td><td>기존 검증 기준선으로 유지함. 비용 대비 개선이 없다면 기본 모델로 고정하지 않음</td></tr><tr><th scope=\"row\">Claude Sonnet 5</th><td>여행기 근거를 읽고 자연스러운 설명과 부분 수정 생성</td><td>한국어 표현·지시 준수·근거 보존을 같은 자료로 비교함</td></tr><tr><th scope=\"row\">Gemini 3.8 Flash</th><td>반복 추천·관광 질문을 비용·응답 속도와 함께 시험</td><td>낮은 단가 후보로 비교하되 중요한 조건 위반이 있으면 채택하지 않음</td></tr><tr><th scope=\"row\">GPT-5.6 Luna</th><td>짧은 요청 분류·조건 추출·단순 안내</td><td>경량 처리용 후보임. 복잡한 일정 전부를 저비용만 보고 맡기지 않음</td></tr></tbody></table></div><div class=\"callout\"><strong>현재 권고: Sol을 비교 기준선으로 두고 Sonnet 5·Gemini 3.8 Flash와 평가함.</strong> 합격한 모델 중 경제적인 1개를 기본으로 선택하고, 복잡한 요청에만 상위 처리 또는 재확인을 적용함.</div>",
+        "sources": [
+          [
+            "GPT-5.6 Sol 문서·요금",
+            "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+          ],
+          [
+            "Claude Sonnet 5 문서·요금",
+            "https://platform.claude.com/docs/en/models/sonnet-5/migration-guide"
+          ],
+          [
+            "Gemini 3.8 Flash 문서·요금",
+            "https://ai.google.dev/gemini-api/docs/latest-model"
+          ],
+          [
+            "GPT-5.6 Luna 문서·요금",
+            "https://developers.openai.com/api/docs/models/gpt-5.6-luna"
+          ]
+        ]
+      },
+      {
+        "section": "MODEL · API PRICING",
+        "title": "모델 단가와 비용 비교의 전제",
+        "lead": "2026.09.09 공식 문서 확인. USD / 100만 토큰의 표준 텍스트 단가임. 긴 입력 할증·캐시·배치·별도 도구 비용은 제외함.",
+        "html": "<div class=\"table-wrap model-price-table\"><table><thead><tr><th scope=\"col\">모델 ID</th><th scope=\"col\">입력</th><th scope=\"col\">출력</th><th scope=\"col\">적용 시 주의</th></tr></thead><tbody><tr><th scope=\"row\">gpt-5.6-sol</th><td>$4.00</td><td>$20.00</td><td>공식 문서상 프로모션 가격. 최소 2026.11.21까지 안내됨</td></tr><tr><th scope=\"row\">claude-sonnet-5</th><td>$2.00</td><td>$10.00</td><td>추론 토큰이 추가될 수 있으며 실제 청구 토큰을 측정함</td></tr><tr><th scope=\"row\">gemini-3.8-flash</th><td>$0.75</td><td>$3.75</td><td>2026년 말까지 소개 가격. 2027년부터 $1.50 / $7.50 안내됨</td></tr><tr><th scope=\"row\">gpt-5.6-luna</th><td>$0.20</td><td>$1.20</td><td>저렴해도 추천·안내 품질 합격 기준은 동일함</td></tr></tbody></table></div><div class=\"columns \"><section class=\"panel \"><h3>비교에서 주의할 점</h3><ul class=\"list\"><li>토큰은 글을 계산하는 단위이며 글자 수와 다름</li><li>같은 한국어 문장도 회사·모델마다 토큰 수가 다름</li><li>입력·추론·재시도를 측정함. GPT는 272K 초과 입력 할증을 별도 확인함</li></ul></section><section class=\"panel \"><h3>구독·지도와의 관계</h3><ul class=\"list\"><li>챗봇 앱 구독료와 우리 서비스 API 사용료는 별개임</li><li>내부 RAG에는 웹 검색·Maps Grounding이 필수가 아님</li><li>Google 모델을 써도 지도는 현재 MapLibre를 유지할 수 있음</li></ul></section></div>",
+        "sources": [
+          [
+            "GPT-5.6 Sol 문서·요금",
+            "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+          ],
+          [
+            "Claude Sonnet 5 문서·요금",
+            "https://platform.claude.com/docs/en/models/sonnet-5/migration-guide"
+          ],
+          [
+            "Gemini 3.8 Flash 문서·요금",
+            "https://ai.google.dev/gemini-api/docs/latest-model"
+          ],
+          [
+            "GPT-5.6 Luna 문서·요금",
+            "https://developers.openai.com/api/docs/models/gpt-5.6-luna"
+          ]
+        ]
+      },
+      {
+        "section": "MODEL · EMBEDDING & DATABASE",
+        "title": "검색 엔진과 임베딩의 초기 기술 선택",
+        "lead": "초기에는 PostgreSQL에 원본·통계를 두고 PostGIS 공간 검색과 pgvector 의미 검색을 결합하는 구성을 제안함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">구성</th><th scope=\"col\">선택 이유</th><th scope=\"col\">대안·주의</th></tr></thead><tbody><tr><th scope=\"row\">PostgreSQL</th><td>장소·여행기·권한·반응·버전을 같은 ID로 연결함</td><td>트랜잭션 데이터와 재생성 가능한 검색 색인을 구분함</td></tr><tr><th scope=\"row\">PostGIS</th><td>좌표 기준으로 주변 후보를 좁힘</td><td>직선 반경은 실제 도보·대중교통 시간이 아님</td></tr><tr><th scope=\"row\">pgvector</th><td>DB의 장소·권한 정보와 의미 검색을 가까이 둠</td><td>한국어 키워드·별칭 검색을 별도로 결합함. 규모·지연이 병목이면 전용 검색 서비스 비교</td></tr><tr><th scope=\"row\">text-embedding-3-small</th><td>관리형 API로 초기 운영 준비가 적음. 입력 100만 토큰 $0.02</td><td>한국어 장소·영어 질문 검색 평가가 필요하며 원문 전송 정책을 확인함</td></tr><tr><th scope=\"row\">BAAI/bge-m3</th><td>다국어 임베딩의 자체 운영 비교 후보</td><td>API 비용이 없어도 서버·배포·운영 비용은 발생함. 라이선스와 성능을 별도 검토함</td></tr></tbody></table></div><p class=\"note\">질문과 문서는 같은 임베딩 모델·버전으로 처리함. 모델 변경 시 전체 색인 재생성과 품질 비교가 필요하며, 다른 모델의 벡터를 같은 공간에서 섞어 비교하지 않음.</p>",
+        "sources": [
+          [
+            "pgvector 공식 저장소",
+            "https://github.com/pgvector/pgvector"
+          ],
+          [
+            "PostGIS 거리 검색",
+            "https://postgis.net/docs/ST_DWithin.html"
+          ],
+          [
+            "text-embedding-3-small",
+            "https://developers.openai.com/api/docs/models/text-embedding-3-small"
+          ],
+          [
+            "BAAI BGE-M3 모델 카드",
+            "https://huggingface.co/BAAI/bge-m3"
+          ]
+        ]
+      },
+      {
+        "section": "MODEL · APPROACH COMPARISON",
+        "title": "어떤 방식은 언제 쓰는 것이 적합한가",
+        "lead": "사용자는 대화로 추천받지만 내부 구현은 목적에 따라 달라짐. 챗봇처럼 말한다는 사실만으로 데이터 출처와 계산 방식이 같지는 않음.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">방식</th><th scope=\"col\">적합한 사용</th><th scope=\"col\">Spotlog 판단</th></tr></thead><tbody><tr><th scope=\"row\">LLM만 직접 질문</th><td>개방형 아이디어 탐색·일반 안내 초안</td><td>우리 인기·업체·최신 정보를 보장하지 못하므로 핵심 추천에서 단독 사용하지 않음</td></tr><tr><th scope=\"row\">웹 검색·지도 Grounding</th><td>외부 최신 정보와 폭넓은 장소 탐색</td><td>외부 보완·정보 확인용. 내부 여행기와 인기 추천을 대체하지 않음</td></tr><tr><th scope=\"row\">내부 RAG + 추천 순위</th><td>우리 여행기와 고객 조건에 맞는 장소·업체 추천</td><td>핵심 기준안. DB 숫자·좌표와 원문 의미 검색을 함께 사용함</td></tr><tr><th scope=\"row\">규칙 배치 + 경로 검증</th><td>소수 장소를 날짜·권역별로 구성</td><td>초기 일정 기준안. 복잡하지 않으면 OR-Tools 없이 시작 가능함</td></tr><tr><th scope=\"row\">OR-Tools 추가</th><td>필수 장소·예약 시간·여러 DAY 제약이 복잡한 경우</td><td>추천 후보가 정해진 후 비교 시험함. 계산 모델링·서버 운영 비용이 필요함</td></tr><tr><th scope=\"row\">자체 모델 학습·미세조정</th><td>충분한 평가·피드백 데이터에서 반복 오류가 남는 경우</td><td>초기 제외. 누락된 장소·최신 정보 문제는 먼저 데이터·검색을 개선함</td></tr></tbody></table></div>",
+        "sources": [
+          [
+            "RAG 원 논문",
+            "https://arxiv.org/abs/2005.11401"
+          ],
+          [
+            "OR-Tools 시간 창 배치",
+            "https://developers.google.com/optimization/routing/vrptw"
+          ],
+          [
+            "Gemini Maps Grounding",
+            "https://ai.google.dev/gemini-api/docs/maps-grounding"
+          ]
+        ]
+      },
+      {
+        "section": "MODEL · ADAPTERS & EVALUATION",
+        "title": "모델 교체 기준과 실제 검증 방법",
+        "lead": "기술 이름이 아니라 사용자 결과로 선택함. 아래 시험 수는 초기 평가 계획이며 아직 실행·달성한 수치가 아님.",
+        "html": "<ol class=\"steps\"><li><strong>검색 품질을 먼저 검사함</strong><span>지역·취향·음식점·숙소·영어·데이터 부족을 포함한 요청 50건을 준비함. 검수자가 정한 적합 후보가 검색 상위에 들어오는지와 순서를 확인함.</span></li><li><strong>LLM은 같은 근거로 비교함</strong><span>동일 요청·후보·원문으로 Sol·Sonnet 5·Gemini를 평가함. 조건 준수·근거 정확성·설명·누락·수정 안정성을 블라인드 검수함.</span></li><li><strong>비용과 지연을 함께 기록함</strong><span>요청당 실제 토큰·재시도·처리 시간 p50/p95를 기록함. 합격 기준을 통과한 후보 중 성공 결과 1건당 비용과 운영 부담을 비교함.</span></li><li><strong>교체 가능한 인터페이스로 운영함</strong><span>조건 해석·추천 생성·관광 안내를 공급자 어댑터로 분리함. 동일 장소 ID·근거·상태 규격을 사용하고, 장애 대체 모델도 평가·데이터 처리 조건을 통과해야 연결함.</span></li></ol><div class=\"callout\">권한 위반·후보 밖 장소·조작된 인기 수치·필수 조건 무단 변경은 테스트 허용 0건으로 설정함. 검색 실패는 검색 단계에서, 설명 오류는 LLM 단계에서 원인을 나누어 수정함.</div>"
+      },
+      {
+        "section": "04 · INTERFACES",
+        "title": "화면과 서버가 공유할 최소 규격",
+        "lead": "샘플 응답을 실제 서버로 교체할 때 화면을 다시 작성하지 않도록 입력·출력·상태를 고정함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">인터페이스</th><th scope=\"col\">입력</th><th scope=\"col\">출력</th></tr></thead><tbody><tr><th scope=\"row\">추천·일정 생성</th><td>모드·지역·메타·선택 placeIds, 자동 보완, 기간·시간·숙소·교통·고정 조건</td><td>요청·입력 버전, 후보·점수·근거 ID, DAY·경로, 미배치·미확인·경고</td></tr><tr><th scope=\"row\">부분 수정</th><td>기존 여행 버전, 대상 DAY·구간, 고정 항목, 변경 요청</td><td>변경 전후, 영향 범위, 새 버전 후보, 충돌·확인 사항</td></tr><tr><th scope=\"row\">관광 질문</th><td>여행·DAY·장소, 질문, 언어, 허용된 현재 위치</td><td>답변, 출처·확인 시점, 답변 불가·추가 확인 항목</td></tr><tr><th scope=\"row\">번역 요청</th><td>콘텐츠 ID·원문 버전, 대상 언어, 용어집 버전</td><td>블록별 번역, 원문 연결, 번역·검수·재검토 상태</td></tr></tbody></table></div><div class=\"columns \"><section class=\"panel \"><h3>결과에 남길 공통 필드</h3><ul class=\"list\"><li>장소 ID와 방문 ID·DAY ID를 구분함</li><li>후보 근거·인기 산식·원문 버전과 경로 출처·미확인 여부를 남김</li></ul></section><section class=\"panel \"><h3>작업 상태</h3><ul class=\"list\"><li>대기·처리·성공·실패·취소를 구분함</li><li>입력 버전이 바뀌면 오래된 응답을 자동 적용하지 않음</li></ul></section></div>"
+      },
+      {
+        "section": "04 · PARTIAL REVISION",
+        "title": "고정 일정 보존과 부분 재생성",
+        "lead": "새 결과를 기존 여행에 바로 덮어쓰지 않고, 변경안을 비교한 뒤 승인하도록 함.",
+        "html": "<ol class=\"steps\"><li><strong>변경 범위를 지정함</strong><span>사용자가 DAY·오전·오후·남은 일정 중 수정 범위를 선택함. 완료한 방문과 사용자가 고정한 숙소·예약 시간은 잠금 상태로 유지함.</span></li><li><strong>변경 가능한 항목만 계산함</strong><span>범위 밖의 글·사진·장소를 보존하고 경계의 출발·도착 조건을 고정함. 범위 밖 수정이 필요하면 추가 승인을 요청함.</span></li><li><strong>변경 전후를 보여줌</strong><span>이동 순서·시간·추가·제외·미확인을 비교함. 새 업체 후보는 별도 승인받고 고정 항목 변경을 조용히 처리하지 않음.</span></li><li><strong>승인 후 새 버전을 반영함</strong><span>현재 여행 버전과 요청 버전이 같은지 확인함. 다른 편집이 있었으면 재검토를 요청하고 이전 버전 복구 수단을 제공함.</span></li></ol>"
+      },
+      {
+        "section": "05 · WORKED EXAMPLE / INPUT",
+        "title": "일정 생성 예시 · 입력과 제약",
+        "lead": "아래는 “선택한 곳만” 모드의 후단 일정 검증용 가상 장소·시간임. 앞장의 내부 추천 예시와 역할이 다르며 실제 서울 이동·운영 정보가 아님.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">입력</th><th scope=\"col\">설정</th></tr></thead><tbody><tr><th scope=\"row\">지역·기간</th><td>서울 권역 가정, 1박 2일. DAY 1은 11:00~17:00, DAY 2는 09:00~16:00</td></tr><tr><th scope=\"row\">선택 장소</th><td>A 공원 60분, B 전시 공간 60분, C 거리 90분, D 카페 45분</td></tr><tr><th scope=\"row\">기준점</th><td>출발·종료 S 교통 거점, 숙소 H. 호텔 상품·요금은 없음</td></tr><tr><th scope=\"row\">고정 조건</th><td>B는 DAY 2 10:00~11:00에 방문. 반드시 포함함</td></tr><tr><th scope=\"row\">교통·식사</th><td>대중교통과 도보. DAY 1에 업체 미정 식사·휴식 45분</td></tr><tr><th scope=\"row\">이동 시험값</th><td>S→A 20분, A→C 25분, C→H 30분, H→B 25분, B→D 15분, D→S 30분</td></tr></tbody></table></div><div class=\"callout\">실제 엔진에서는 위 시간 칸을 모드별 공급자 응답으로 채움. 고정된 B를 먼저 배치하고, 체류와 식사·이동을 합산해 나머지 장소를 나눔.</div>"
+      },
+      {
+        "section": "05 · WORKED EXAMPLE / OUTPUT",
+        "title": "일정 생성 예시 · DAY별 배치 결과",
+        "lead": "가상 입력을 계산한 동작 예시임. 남은 시간을 채우기 위해 선택하지 않은 업체를 자동 추가하지 않음.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">DAY</th><th scope=\"col\">시간·방문</th><th scope=\"col\">계산·검증 결과</th></tr></thead><tbody><tr><th scope=\"row\">DAY 1</th><td>11:00 S 출발 / 11:20~12:20 A 공원</td><td>이동 20분 + 체류 60분</td></tr><tr><th scope=\"row\">DAY 1</th><td>12:20~13:05 식사·휴식 / 13:30~15:00 C 거리</td><td>휴식 45분 + 이동 25분 + 체류 90분</td></tr><tr><th scope=\"row\">DAY 1</th><td>15:30 H 숙소 도착 / 이후 자유 시간</td><td>이동 30분. 하루 종료 17:00보다 이른 도착</td></tr><tr><th scope=\"row\">DAY 2</th><td>09:35 H 출발 / 10:00~11:00 B 전시 공간</td><td>이동 25분. 필수 고정 시간 충족</td></tr><tr><th scope=\"row\">DAY 2</th><td>11:15~12:00 D 카페 / 12:30 S 도착</td><td>이동 15분 + 체류 45분 + 이동 30분</td></tr><tr><th scope=\"row\">결과</th><td>선택 4곳 포함, 필수 방문 보존, 추가 업체 0곳</td><td>이동·영업 정보는 시험값이므로 실제 여행 전 재검증 필요</td></tr></tbody></table></div><div class=\"callout\">설명 생성 예: “둘째 날 10시 고정 방문에 맞춰 숙소에서 출발하도록 구성함. 첫날에는 공원과 거리를 묶고 식사 시간을 별도 확보함.” 실제 방문 경험을 표현하지 않음.</div>"
+      },
+      {
+        "section": "05 · WORKED EXAMPLE / REVISION",
+        "title": "수정·과밀·실패 예시",
+        "lead": "동일한 입력 사례로 정상 결과뿐 아니라 수정과 실패 시 사용자에게 무엇을 보여줄지 검증함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">요청·상황</th><th scope=\"col\">엔진 처리</th><th scope=\"col\">화면 결과</th></tr></thead><tbody><tr><th scope=\"row\">DAY 1 오후 C 체류를 60분으로</th><td>C 13:30~14:30, H 15:00 도착으로 변경함</td><td>DAY 2 B 고정 방문과 나머지 본문은 그대로 유지함</td></tr><tr><th scope=\"row\">DAY 2를 10:30부터 시작</th><td>B 10:00 고정 방문과 충돌함</td><td>“시작 시간 또는 고정 방문 확인 필요”를 표시함</td></tr><tr><th scope=\"row\">선택하지 않은 식당을 제안</th><td>후보 목록에만 추가함</td><td>승인 전 일정에는 식사 시간 블록만 존재함</td></tr><tr><th scope=\"row\">H→B 교통 조회 실패</th><td>고정 방문의 도착 가능 여부를 미확인으로 반환함</td><td>실시간으로 도착 가능한 일정처럼 확정하지 않음</td></tr><tr><th scope=\"row\">생성 중 사용자가 다른 편집</th><td>응답의 기준 버전이 오래된 것으로 판정함</td><td>새 결과를 자동 덮어쓰지 않고 재검토를 요청함</td></tr></tbody></table></div><p class=\"note\">검수 항목: 필수 장소 누락 0건, 승인 없는 추가 0건, 수정 범위 밖 무단 변경 0건을 목표로 테스트함. 현재 달성한 운영 지표가 아님.</p>"
+      },
+      {
+        "section": "06 · TOURISM GUIDE",
+        "title": "텍스트 관광 안내와 질문 응답",
+        "lead": "선택한 여행·DAY·장소를 기본 문맥으로 사용함. 새 질문을 할 때마다 여행 전체 정보를 다시 입력하게 하지 않음.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">질문 유형</th><th scope=\"col\">답변에 필요한 자료</th><th scope=\"col\">응답 방식</th></tr></thead><tbody><tr><th scope=\"row\">이곳에서 무엇을 보면 되는가</th><td>검수한 장소 설명·작성자 추천·현재 체류 시간</td><td>볼거리와 관찰 포인트를 출처와 함께 설명함</td></tr><tr><th scope=\"row\">다음 장소에는 어떻게 가는가</th><td>일정 구간·교통수단·경로 응답</td><td>출발·도착·환승·마지막 도보와 확인 필요 구간을 구분함</td></tr><tr><th scope=\"row\">지금 시간이 부족한가</th><td>현재 시각 또는 수동 입력, 남은 방문과 고정 시간</td><td>여유·충돌을 계산하고 변경안을 제시함</td></tr><tr><th scope=\"row\">예약·입장·편의 시설은 어떤가</th><td>공식 자료 또는 작성자가 확인한 당시 정보</td><td>확인일과 정보 성격을 표시하고 없으면 확인 방법을 안내함</td></tr></tbody></table></div><div class=\"callout\">위치 권한 없이도 선택한 장소와 수동 현재 시각으로 사용할 수 있게 함. “현재 영업 중”, “대기 없음”처럼 최신 데이터가 필요한 답변은 근거 없이 단정하지 않음.</div>"
+      },
+      {
+        "section": "06 · EVIDENCE & SAFETY",
+        "title": "관광 지식 준비와 답변 검수",
+        "lead": "공식 자료·작성자 경험·번역을 혼합하더라도 각각의 출처와 유효 범위를 보존함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>자료 준비·검색</h3><ul class=\"list\"><li>장소 ID·지역·언어로 관련 자료를 먼저 제한함</li><li>조건·키워드·의미 검색을 결합해 내부 근거를 확보함</li><li>공식 출처·권리·확인일·원문 버전을 저장함</li><li>내부 후기는 출처로, 외부 공식 자료는 별도 검수 출처로 구분함</li></ul></section><section class=\"panel warm\"><h3>응답 안전 기준</h3><ul class=\"list\"><li>접근 권한이 있는 여행과 공개 자료만 조회함</li><li>외부 문서·댓글의 지시를 시스템 명령으로 취급하지 않음</li><li>사유지·주거지·위험 이동·제한 구역 안내를 점검함</li><li>긴급·의료·알레르기·접근성은 추측성 확답 대신 확인된 정보로 안내함</li></ul></section></div><div class=\"callout\">작성자 경험 예: “방문 당시 카드 결제가 가능했다고 작성함.” 이를 현재 모든 해외카드가 사용 가능하다는 공식 사실로 바꾸지 않음. 답변 근거가 없으면 확인 불가와 공식 문의 방법을 제시함.</div>"
+      },
+      {
+        "section": "07 · TRANSLATION LAYERS",
+        "title": "UI·여행기·장소·댓글 번역 분리",
+        "lead": "국내 콘텐츠는 한국어 원문으로 유지하며, 번역본을 연결해 같은 여행을 다른 언어로 읽도록 함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">대상</th><th scope=\"col\">처리 방식</th><th scope=\"col\">운영 기준</th></tr></thead><tbody><tr><th scope=\"row\">메뉴·버튼·오류</th><td>직접 관리한 한국어·영어 문구 사용</td><td>기기 언어 감지 후 수동 변경, 화면마다 AI 호출하지 않음</td></tr><tr><th scope=\"row\">여행기·사진 설명</th><td>공개 시 또는 최초 요청 시 번역하고 재사용</td><td>블록·원문 버전·번역 상태를 연결함</td></tr><tr><th scope=\"row\">장소명·주소</th><td>공식 외국어명 우선, 한글 원명·주소 병기</td><td>좌표·전화·주소는 자유 번역에 맡기지 않음</td></tr><tr><th scope=\"row\">댓글</th><td>요청 시 번역하고 원문 전환 제공</td><td>원문 수정·삭제를 반영하고 번역 피드백 제공</td></tr><tr><th scope=\"row\">AI 관광 안내</th><td>사용자 언어로 답변 생성</td><td>어느 언어에서도 같은 장소·시간·출처를 사용함</td></tr></tbody></table></div><div class=\"callout\">언어 순서: 한국어·영어를 먼저 운영함. 일본어·중국어 간체·번체는 콘텐츠 수요와 검수 인력이 확보된 뒤 추가함.</div>"
+      },
+      {
+        "section": "07 · TRANSLATION PIPELINE",
+        "title": "자동번역·검수·원문 변경 처리",
+        "lead": "번역문이 원문보다 오래되거나, 수정된 정보를 계속 보여주는 문제를 방지함.",
+        "html": "<ol class=\"steps\"><li><strong>원문과 구조화 필드를 분리함</strong><span>본문·사진 설명을 번역 대상으로 추출함. 장소 ID·주소·전화·날짜·숫자·출구 번호와 사용자 입력 참조는 보호함.</span></li><li><strong>번역 결과를 버전별로 저장함</strong><span>콘텐츠 ID + 원문 버전 + 대상 언어 + 용어집 버전을 기준으로 결과를 재사용함. 동일 요청은 중복 처리하지 않음.</span></li><li><strong>자동 검증 후 상태를 표시함</strong><span>블록 누락과 숫자·부정 표현·용어 오류를 검사함. “자동번역”과 “검수 완료”를 구분하고 원문 보기·피드백을 제공함.</span></li><li><strong>원문 변경 시 재검토함</strong><span>원문 수정으로 기존 번역을 재검토 상태로 바꿈. 중요 필드가 바뀌면 오래된 내용을 확정 정보로 표시하지 않고 새 번역을 준비함.</span></li></ol><p class=\"note\">번역 실패 시 한국어 원문과 재시도 방법을 유지함. 화면 열람마다 번역 API를 호출하지 않으며, 삭제한 원문의 번역도 공개 대상에서 제거함.</p>"
+      },
+      {
+        "section": "07 · GLOSSARY & QUALITY",
+        "title": "공통 용어집과 번역 품질 기준",
+        "lead": "Cloud Translation Advanced 용어집을 기준안으로 사용함. 자연스러운 문장보다 고유명·숫자·이용 조건의 의미 보존을 우선함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">관리 대상</th><th scope=\"col\">검수 방식</th><th scope=\"col\">책임</th></tr></thead><tbody><tr><th scope=\"row\">장소·역·음식 이름</th><td>공식 표기를 우선하고 같은 단어의 번역을 통일함</td><td>콘텐츠 담당이 용어집 버전과 근거를 관리함</td></tr><tr><th scope=\"row\">주소·전화·날짜·번호</th><td>보호 필드를 번역 밖에 두고 변경 여부를 검사함</td><td>개발 담당이 자동 검사와 실패 처리를 구현함</td></tr><tr><th scope=\"row\">예약·금지·부정 표현</th><td>“예약 불필요”가 “예약 필요”로 바뀌지 않는지 점검함</td><td>한국어·영어 검수자가 중요 문장을 검토함</td></tr><tr><th scope=\"row\">자연스러움·여행 용어</th><td>긴 문장·직역·낯선 용어와 문맥을 확인함</td><td>검수 결과로 용어집과 번역 규칙을 보완함</td></tr><tr><th scope=\"row\">검수·피드백 상태</th><td>자동번역·검수 완료·재검토 필요·오류 신고를 관리함</td><td>작성자 확인과 운영자 검수를 구분함</td></tr></tbody></table></div><div class=\"callout\">LLM으로 모든 번역을 다시 쓰는 이중 처리를 기본 적용하지 않음. 기계번역으로 처리하고 오류·중요 문장만 검수해 비용과 사실 변형을 줄임.</div>",
+        "sources": [
+          [
+            "Cloud Translation 용어집",
+            "https://docs.cloud.google.com/translate/docs/advanced/glossary"
+          ]
+        ]
+      },
+      {
+        "section": "07 · FOREIGN VISITOR EXPERIENCE",
+        "title": "번역 외에 필요한 현장 이용 정보",
+        "lead": "외국인이 실제로 목적지에 도착하고 이용할 수 있도록, 국내 원문을 작성할 때부터 현장 정보를 받음.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>장소에서 필요한 정보</h3><ul class=\"list\"><li>한글 이름·주소 크게 보기와 복사, 전화 국제 표기</li><li>가까운 역·정류장·출구와 마지막 도보 구간</li><li>예약 필요 여부·가능 언어·방문 당시 결제 경험</li><li>짐 보관·화장실·유아·휠체어·식이 관련 확인 내용</li></ul></section><section class=\"panel \"><h3>이동·문화·안전</h3><ul class=\"list\"><li>길찾기 앱을 선택할 수 있고 한글 주소를 함께 제공함</li><li>국내 일정은 한국 시간 기준임을 명확히 표시함</li><li>주거지·사유지·촬영 예절과 정보 확인일을 표시함</li><li>한국 여행 도움말과 공식 긴급·관광 안내를 연결함</li></ul></section></div><div class=\"callout\">첫 영어 시범 운영은 원문을 읽지 않아도 여행기 검색·저장·일정 확인·한글 주소 제시까지 완료하는지 검증함. 앱 오프라인 보관과 음성 통역은 별도 후속 단계임.</div>",
+        "sources": [
+          [
+            "VISITKOREA 여행 계획",
+            "https://english.visitkorea.or.kr/svc/sub/subPlan.do"
+          ]
+        ]
+      },
+      {
+        "section": "08 · FRONTEND FIRST",
+        "title": "1·2·3차 프런트엔드와 AI 준비 항목",
+        "lead": "공유 스타일 토큰·컴포넌트와 일반 계획서의 흐름을 재사용함. 저장에서 진입하고 내 여행에서 생성·수정·안내를 이어감.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">차수</th><th scope=\"col\">AI 관련 선행 작업</th><th scope=\"col\">화면에서 검증할 내용</th></tr></thead><tbody><tr><th scope=\"row\">1차</th><td>저장 장소·방문 ID, 하단 기간·DAY, 홈 초안과 사진 카드를 연결함</td><td>하단 팝업에서 확정 후 내 여행 상세 표시, AI 미연결 명시</td></tr><tr><th scope=\"row\">2차</th><td>편집 버전·초안·복사·고정 항목과 주변 업체·숙박 거점을 준비함</td><td>독립 초안의 수정·복구, 스팟 주변 추가와 숙박 DAY 연결을 검증함</td></tr><tr><th scope=\"row\">3차</th><td>공통 UI로 지역·저장 추천, 업체 매칭·근거·부분 수정·번역을 연결함</td><td>성공·실패·취소·미확인·후보 승인·영어 전환을 확인함</td></tr></tbody></table></div><div class=\"columns \"><section class=\"panel \"><h3>샘플 화면 필수 상태</h3><ul class=\"list\"><li>입력 부족·장소 없음·다른 지역 혼합</li><li>생성 중·취소·재시도·시간 초과</li><li>인기 근거 없음·데이터 부족·고정 충돌·후보 거절</li></ul></section><section class=\"panel \"><h3>연동 전 고지</h3><ul class=\"list\"><li>“샘플 응답” 상태를 명확히 표시함</li><li>경로·영업·번역의 실제 확인을 주장하지 않음</li><li>실제 외부 키·실사용 집계·비용 지출은 없음</li></ul></section></div>",
+        "sources": [
+          [
+            "별도 추가 개발 계획서",
+            "./spotlog-development-plan.html"
+          ]
+        ]
+      },
+      {
+        "section": "08 · BACKEND IMPLEMENTATION",
+        "title": "백엔드 기반 이후 AI 개발 순서",
+        "lead": "단계별 통과 조건을 만족한 뒤 다음 기능을 연결함. 예상 기간은 공급자 계약과 평가 결과를 확인한 뒤 별도로 산정함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">단계</th><th scope=\"col\">구현 작업</th><th scope=\"col\">완료 조건</th></tr></thead><tbody><tr><th scope=\"row\">AI-1 · 내부 데이터</th><td>권한·장소 정규화·블록 연결·행동 집계·검색 색인</td><td>수정·삭제·권한 반영, 장소별 근거와 실제 집계 확보</td></tr><tr><th scope=\"row\">AI-2 · 추천·매칭</th><td>조건·의미 검색, 인기 순위, 식당·숙소 매칭, LLM 비교</td><td>적합 후보 검색·근거 있는 추천·데이터 부족 처리 검증</td></tr><tr><th scope=\"row\">AI-3 · 일정·안내·번역</th><td>모드별 경로·규칙 배치·부분 수정, 필요 시 OR-Tools, 안내·번역</td><td>필수·고정 조건 보존, 미배치·언어 상태·근거 연결</td></tr><tr><th scope=\"row\">AI-4 · 비공개 평가</th><td>추천·국내 이동·영어 검수, 사용량·비용·장애 제한</td><td>평가 통과 후 시범 공개. 모델· 순위·공급자 변경 시 회귀 시험</td></tr></tbody></table></div><p class=\"note\">연결·권한·작업 처리, 배치·검증, 콘텐츠·영어 품질을 단계별 검사 항목으로 관리함. 개발자별 인원 배정 없이 검증 결과를 남김.</p>"
+      },
+      {
+        "section": "09 · EVALUATION",
+        "title": "평가 데이터와 공개 통과 기준",
+        "lead": "아래 수치는 공개 전 평가 목표임. 현재 서비스에서 달성한 성능·정확도 수치가 아님.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">평가 묶음</th><th scope=\"col\">사례 구성</th><th scope=\"col\">통과 기준</th></tr></thead><tbody><tr><th scope=\"row\">일정 30건</th><td>서울·부산·제주 각 10건, 자동차·도보·대중교통, 1~7일 경계</td><td>검증 가능한 필수·고정 조건 위반 0건, 무승인 장소 추가 0건</td></tr><tr><th scope=\"row\">실패·변경 20건</th><td>좌표 없음·영업 미확인·경로 장애·과밀·동시 편집·취소</td><td>정해진 경고·복구, 범위 밖 무단 변경 0건</td></tr><tr><th scope=\"row\">관광 질문 50건</th><td>장소 설명·이동·예약·모름·민감·비공개 정보 요청</td><td>중요 사실의 출처 또는 확인 불가 표시, 권한 위반 0건</td></tr><tr><th scope=\"row\">번역 100문장</th><td>장소·주소·시간·숫자·출구·부정 표현·댓글 수정</td><td>보호 필드 변경 0건, 중요 의미 오류는 수정 전 공개 보류</td></tr><tr><th scope=\"row\">사용 흐름 9건</th><td>지역 3곳 × 기간 3종, 모바일웹과 Android 셸</td><td>입력·승인·수정·안내·원문·영어 보기 완료</td></tr></tbody></table></div><div class=\"callout\">응답 지연은 단계별 p50·p95를 측정하고 재시도 포함 비용을 기록함. 모델 변경·용어집 변경·경로 공급자 변경 시 동일 평가 세트를 다시 실행함.</div>"
+      },
+      {
+        "section": "COST · LIFECYCLE",
+        "title": "RAG 추천의 비용을 단계별로 나눔",
+        "lead": "데이터를 한 번 준비하는 비용과 사용자가 여행을 만들 때 발생하는 비용을 구분함. LLM 단가만으로 월 운영비를 단정하지 않음.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">비용 단계</th><th scope=\"col\">발생하는 작업</th><th scope=\"col\">계산 기준</th></tr></thead><tbody><tr><th scope=\"row\">초기·변경 색인</th><td>본문 정리·장소 연결·임베딩·검색 색인</td><td>최초 원문량 + 변경분 토큰, 검수 인력, 색인 서버</td></tr><tr><th scope=\"row\">요청별 검색·추천</th><td>질문 임베딩·검색·인기 순위·선택적 재순위</td><td>월 요청 수 × 실제 처리 비용 + 검색 인프라</td></tr><tr><th scope=\"row\">추천·질문 생성</th><td>조건 해석·후보 조합·설명·재시도</td><td>입력·청구 출력 토큰과 호출 횟수의 합계</td></tr><tr><th scope=\"row\">이동·일정</th><td>교통 경로 조회·검증·선택적 배치 계산</td><td>실제 공급자 과금 요청 수 + 계산 서버</td></tr><tr><th scope=\"row\">번역</th><td>새 본문·수정 블록·요청한 댓글 번역</td><td>캐시를 제외한 신규 번역량과 언어 수</td></tr><tr><th scope=\"row\">공통 운영</th><td>DB·저장·전송·모니터링·콘텐츠 검수</td><td>월 기본 비용 + 사용량 비용 + 별도 운영 인력</td></tr></tbody></table></div><div class=\"callout\">다음 월 계산표에서 “일정 1건 비용”에는 검색용 질문 임베딩·선택적 재순위·모든 LLM 호출을 합산함. 초기 색인·월 변경 색인·운영 인력은 별도 예산으로 관리해 중복 계산하지 않음.</div>"
+      },
+      {
+        "section": "COST · ILLUSTRATIVE COMPARISON",
+        "title": "같은 토큰 가정의 LLM 비용 예시",
+        "lead": "가정: 입력 4,000토큰 + 청구 출력 2,000토큰, 월 1,000회 단일 생성 호출. 추론이 있다면 청구 출력 가정 안에 포함함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">모델</th><th scope=\"col\">1회 생성 비용</th><th scope=\"col\">월 1,000회</th></tr></thead><tbody><tr><th scope=\"row\">GPT-5.6 Sol</th><td>$0.056</td><td>$56.00</td></tr><tr><th scope=\"row\">Claude Sonnet 5</th><td>$0.028</td><td>$28.00</td></tr><tr><th scope=\"row\">Gemini 3.8 Flash</th><td>$0.0105</td><td>$10.50</td></tr><tr><th scope=\"row\">GPT-5.6 Luna</th><td>$0.0032</td><td>$3.20</td></tr></tbody></table></div><div class=\"columns \"><section class=\"panel \"><h3>이 표가 의미하는 것</h3><ul class=\"list\"><li>공식 단가에 가상의 사용량을 곱한 산술 예시임</li><li>같은 문장의 실제 토큰 수나 같은 추천 품질 비교가 아님</li><li>여러 호출·긴 원문·부분 수정·재시도 시 비용이 늘어남</li></ul></section><section class=\"panel \"><h3>이 표에서 제외된 것</h3><ul class=\"list\"><li>검색 임베딩·재순위·경로·번역·서버 비용</li><li>웹 검색·Grounding 등 선택 도구와 미디어 비용</li><li>환율·세금·계약·콘텐츠 확보·검수 인력</li></ul></section></div><p class=\"note\">산식: 입력 토큰 ÷ 100만 × 입력 단가 + 청구 출력 토큰 ÷ 100만 × 출력 단가. 실제 예산은 단가 변경과 사용량 측정 후 갱신함.</p>",
+        "sources": [
+          [
+            "GPT-5.6 Sol 문서·요금",
+            "https://developers.openai.com/api/docs/models/gpt-5.6-sol"
+          ],
+          [
+            "Claude Sonnet 5 문서·요금",
+            "https://platform.claude.com/docs/en/models/sonnet-5/migration-guide"
+          ],
+          [
+            "Gemini 3.8 Flash 문서·요금",
+            "https://ai.google.dev/gemini-api/docs/latest-model"
+          ],
+          [
+            "GPT-5.6 Luna 문서·요금",
+            "https://developers.openai.com/api/docs/models/gpt-5.6-luna"
+          ]
+        ]
+      },
+      {
+        "section": "09 · MONTHLY COST WORKSHEET",
+        "title": "월 사용량·비용 계산표",
+        "lead": "입력값을 바꿔 월 비용을 계산할 수 있음. 기본 사용량은 계산 예시이며, 단가는 견적·실측 후 입력해야 함. 외부 API는 호출하지 않음.",
+        "html": "<form data-cost-form><div class=\"cost-grid\"><label>월 일정 생성 건수<input name=\"generations\" type=\"number\" min=\"0\" step=\"1\" value=\"1000\"></label><label>월 관광 질문 건수<input name=\"questions\" type=\"number\" min=\"0\" step=\"1\" value=\"3000\"></label><label>월 경로 과금 요청 수<input name=\"routeRequests\" type=\"number\" min=\"0\" step=\"1\" value=\"20000\"></label><label>월 새 번역 문자 수<input name=\"translationChars\" type=\"number\" min=\"0\" step=\"1\" value=\"1000000\"></label><label>추천·일정 1건 처리 / 원<input name=\"generationCost\" type=\"number\" min=\"0\" step=\"0.01\" placeholder=\"실측 단가\"></label><label>관광 질문 1건 비용 / 원<input name=\"questionCost\" type=\"number\" min=\"0\" step=\"0.01\" placeholder=\"실측 단가\"></label><label>경로 요청 1건 비용 / 원<input name=\"routeCost\" type=\"number\" min=\"0\" step=\"0.01\" placeholder=\"계약 단가\"></label><label>번역 100만 자 비용 / 원<input name=\"translationCost\" type=\"number\" min=\"0\" step=\"0.01\" placeholder=\"계약 단가\"></label><label>월 DB·검색·서버·전송 / 원<input name=\"storageCost\" type=\"number\" min=\"0\" step=\"0.01\" placeholder=\"인프라 예상액\"></label></div><div class=\"cost-summary\"><p data-cost-usage></p><p>월 예상 합계 <output data-cost-total>단가 확인 필요</output></p><p class=\"note\" data-cost-status></p></div></form><p class=\"note\">생성·질문 단가에 요청별 임베딩·재순위·LLM·재시도를 포함함. 경로·번역은 별도 칸에 입력함. 초기·변경 색인과 검수 인건비는 합계 밖의 별도 예산임. 모든 단가는 같은 원화로 환산함.</p>"
+      },
+      {
+        "section": "09 · COST & RELIABILITY",
+        "title": "중복 호출·비용·장애 관리",
+        "lead": "색인·검색·재순위·LLM·경로·번역·계산 서버 비용을 관리함. 초기 색인과 검수 인력은 별도 예산으로 확보함.",
+        "html": "<div class=\"columns \"><section class=\"panel \"><h3>호출을 줄이는 방식</h3><ul class=\"list\"><li>요청 ID로 같은 생성·결제성 과금 요청의 중복 실행을 막음</li><li>장소·시간·모드 기준으로 허용된 경로 결과만 재사용함</li><li>30곳 전체 쌍은 최대 870방향이므로 무조건 매번 재조회하지 않음</li><li>지역 분류·후보 축소·변경 구간 재조회로 범위를 줄임</li><li>번역은 원문·언어·용어집 버전이 같으면 재사용함</li></ul></section><section class=\"panel \"><h3>운영 통제</h3><ul class=\"list\"><li>사용자별 생성·질문·번역 횟수와 전체 예산을 제한함</li><li>단계별 요청 수·성공률·지연·비용을 기록함</li><li>공급자 장애 시 재시도 상한과 회로 차단을 적용함</li><li>비용 상한 시 새 생성은 중지하고 기존 여행 열람은 유지함</li><li>오류 종류에 따라 경로·배치·설명만 부분 재시도함</li></ul></section></div><div class=\"callout\">“무료 쿼터가 있으니 비용 없음”으로 계획하지 않음. 캐시 허용·보존 기간·최소 계약금·SLA·상업적 표시 범위를 공급자별로 확인함.</div>"
+      },
+      {
+        "section": "09 · SECURITY & PRIVACY",
+        "title": "개인정보·권한·생성 안전",
+        "lead": "여행 일정과 위치는 개인의 이동 계획을 포함하므로 필요한 범위만 전달하고 접근 권한을 확인함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">경계</th><th scope=\"col\">필수 조치</th></tr></thead><tbody><tr><th scope=\"row\">키·외부 호출</th><td>REST·LLM·번역 비밀 키는 서버 보관. 모바일웹·APK·공개 저장소에 넣지 않음</td></tr><tr><th scope=\"row\">사용자·여행 권한</th><td>요청마다 여행 소유·공개 범위를 확인하고 다른 사용자의 비공개 자료를 검색하지 않음</td></tr><tr><th scope=\"row\">위치·개인정보</th><td>위치 제공은 선택 사항, 정확 위치는 요청에 필요한 범위만 사용하며 동의·보존을 관리함</td></tr><tr><th scope=\"row\">외부 콘텐츠·프롬프트</th><td>자료·댓글을 참고 데이터로만 취급하고 도구·명령 지시로 실행하지 않음</td></tr><tr><th scope=\"row\">출력 검사</th><td>장소 ID·주소·숫자·시간·고정 조건·출처를 서버에서 검증함</td></tr><tr><th scope=\"row\">기록·삭제</th><td>진단 로그에 전체 일정·질문 원문을 무분별하게 남기지 않고 보존·삭제 정책을 적용함</td></tr></tbody></table></div><p class=\"note\">위치 권한 거부 시 장소 선택·수동 입력으로 대체함. 외부 AI·번역 사업자의 데이터 처리 조건과 회사 정책을 실제 연결 전에 확인함.</p>"
+      },
+      {
+        "section": "10 · PREPARATION & RELEASE",
+        "title": "연결 전 준비 사항과 공개 판단",
+        "lead": "키 발급만으로 완료되지 않음. 계약·데이터·검수·운영 책임을 함께 확보함.",
+        "html": "<div class=\"table-wrap \"><table><thead><tr><th scope=\"col\">준비 영역</th><th scope=\"col\">준비 사항</th><th scope=\"col\">확인 산출물</th></tr></thead><tbody><tr><th scope=\"row\">기획·운영</th><td>사용 범위, 회사 계정·계약, 쿼터·견적, 콘텐츠 권리</td><td>공급자별 허용·제한·비용·담당자 표</td></tr><tr><th scope=\"row\">서버 개발</th><td>권한·DB·장소 정규화·근거·인기 집계·검색 색인, 키·오류 관리</td><td>생성·수정·질문·번역 계약과 통합 시험</td></tr><tr><th scope=\"row\">엔진 개발</th><td>추천·검색 평가 자료, 업체 매칭, 모드별 경로·고정·충돌 규칙</td><td>검색·추천 평가와 일정 미배치·부분 변경 결과</td></tr><tr><th scope=\"row\">콘텐츠·영어 검수</th><td>공식 출처·현장 정보·용어집·원문·번역 비교</td><td>중요 표현 검수와 잘못된 정보 수정 목록</td></tr><tr><th scope=\"row\">프런트엔드·QA</th><td>샘플 표시 제거 조건, 느린 통신·취소·재시도·기기 테스트</td><td>서버 연결 후 동일 사용자 흐름 회귀 결과</td></tr></tbody></table></div><div class=\"callout\">공개 판단: 필수 조건·승인·비공개 보호 검증, 영어 중요 문장 검수, 실제 호출 비용·오류 대응을 통과한 뒤 비공개 시범 운영함. 기능별 공개 스위치를 두어 문제가 생긴 기능만 중지할 수 있게 함.</div>"
+      },
+      {
+        "section": "10 · REFERENCES 1/2",
+        "title": "공식 근거 · 장소·경로·배치",
+        "lead": "확인 기준일 2026.09.08. 기능 제공 범위와 실제 계약 가능 여부를 분리하며, 운영 연결 전에 최신 조건을 재확인함.",
+        "html": "<ol class=\"source-list\"><li><a href=\"https://developers.naver.com/docs/serviceapi/search/local/local.md\">네이버 지역 검색 개발 가이드</a><small>장소 검색 결과와 좌표·주소 등 제공 필드 확인. 사진 수급은 별도 계획함.</small></li><li><a href=\"https://tmapapi.tmapmobility.com/main.html\">TMAP 공식 API 문서</a><small>자동차·보행자 경로와 API별 제공 범위를 검증하는 기준 자료.</small></li><li><a href=\"https://lab.odsay.com/guide/guide?platform=web\">ODsay 공식 경로 가이드</a><small>대중교통, 도시 내·도시 간 이동과 도보 연결 범위 확인.</small></li><li><a href=\"https://devtalk.kakao.com/t/directions-api/151177\">과거 검토 자료 · 카카오 제휴 안내</a><small>2026.09.02 제휴 안내를 과거 검토 근거로 보존함. 현재 장소 검색·경로 선택안에는 채택하지 않음.</small></li><li><a href=\"https://developers.google.com/optimization/routing/vrptw\">OR-Tools Vehicle Routing Problem with Time Windows</a><small>이동 시간표와 시간 창을 사용하는 배치 방식. Spotlog의 여행 규칙은 별도 모델링·검증함.</small></li></ol>"
+      },
+      {
+        "section": "10 · REFERENCES 2/2",
+        "title": "공식 근거 · AI·번역·여행 정보",
+        "lead": "공급자의 기능 설명은 근거 자료이며, Spotlog에 대한 적용 방식·평가 기준·개발 단계는 본 문서의 제안임.",
+        "html": "<ol class=\"source-list\"><li><a href=\"https://developers.openai.com/api/docs/models/gpt-5.6-sol\">OpenAI GPT-5.6 Sol 모델 문서</a><small>모델 비교 기준선의 기능 확인. 다른 모델과의 실측 비교·요금은 보완 장을 참조함.</small></li><li><a href=\"https://developers.openai.com/api/docs/guides/structured-outputs\">OpenAI Structured Outputs</a> / <a href=\"https://developers.openai.com/api/docs/guides/function-calling\">Function calling</a><small>구조화 응답과 서버 도구 실행 방식. 사실·권한·일정 제약은 별도 검증함.</small></li><li><a href=\"https://docs.cloud.google.com/translate/docs/advanced/glossary\">Google Cloud Translation Advanced 용어집</a><small>고유명·교통·음식 용어의 일관성을 위한 번역 기반.</small></li><li><a href=\"https://english.visitkorea.or.kr/svc/sub/subPlan.do\">VISITKOREA 여행 계획·정보</a><small>외국인 여행자를 위한 실용 정보와 공식 자료 연결 기준.</small></li><li><a href=\"./spotlog-development-plan.html\">Spotlog 추가 개발 계획서</a> / <a href=\"https://github.com/giry02/spotlog/tree/codex/mobile-foundation\">현재 구현</a><small>1·2·3차 프런트엔드 일정과 이후 서버·콘텐츠·운영 개발의 연결.</small></li></ol><div class=\"callout\">국내 여행기의 원문을 유지함. 내부 RAG 추천과 주변 업체 매칭을 앞단에 두고, 확인 가능한 이동·관광 안내·번역을 연결함.</div>"
+      },
+      {
+        "section": "REFERENCES · RAG & RETRIEVAL",
+        "title": "추가 근거 · RAG·공간·의미 검색",
+        "lead": "2026.09.09 확인. 기술의 기능은 공식 자료에 근거하며, Spotlog의 순위 산식·초기 구성·평가 계획은 제안 사항임.",
+        "html": "<ol class=\"source-list\"><li><a href=\"https://arxiv.org/abs/2005.11401\">Retrieval-Augmented Generation 원 논문</a><small>외부로 분리된 자료를 검색해 생성에 활용하는 접근. Spotlog에 맞는 권한·집계·추천 규칙은 별도 설계함.</small></li><li><a href=\"https://github.com/pgvector/pgvector\">pgvector 공식 저장소</a><small>PostgreSQL 벡터 검색 기반. 전체 DB를 LLM에 넣는 방식과 구분함.</small></li><li><a href=\"https://postgis.net/docs/ST_DWithin.html\">PostGIS ST_DWithin</a><small>공간 거리 조건으로 주변 후보를 찾는 기능. 교통 소요시간을 제공하는 기능은 아님.</small></li><li><a href=\"https://developers.openai.com/api/docs/models/text-embedding-3-small\">OpenAI text-embedding-3-small</a><small>검색용 임베딩 기능과 입력 100만 토큰 $0.02 기준 확인.</small></li><li><a href=\"https://huggingface.co/BAAI/bge-m3\">BAAI BGE-M3 모델 카드</a><small>다국어 임베딩 자체 운영 비교 후보. 한국어 여행 데이터 우수성이 입증됐다는 의미가 아님.</small></li></ol>"
+      },
+      {
+        "section": "REFERENCES · MODELS & DECISION",
+        "title": "추가 근거 · 모델 비교와 최종 방향",
+        "lead": "2026.09.09 확인한 모델·단가를 비교 후보로 사용함. 개발 착수·운영 전 해당 계정의 사용 가능 여부와 최신 조건을 재확인함.",
+        "html": "<ol class=\"source-list\"><li><a href=\"https://developers.openai.com/api/docs/models/gpt-5.6-sol\">GPT-5.6 Sol</a> / <a href=\"https://developers.openai.com/api/docs/models/gpt-5.6-luna\">GPT-5.6 Luna</a><small>OpenAI 생성 모델 기능·요금. 기준선과 경량 처리 후보를 구분함.</small></li><li><a href=\"https://platform.claude.com/docs/en/models/sonnet-5/migration-guide\">Claude Sonnet 5 공식 문서</a><small>모델 ID·단가·추론 토큰과 전환 시 유의 사항 확인.</small></li><li><a href=\"https://ai.google.dev/gemini-api/docs/latest-model\">Gemini 3.8 Flash 공식 소개</a><small>모델 ID·기능과 2026년 말까지의 소개 가격 확인.</small></li><li><a href=\"https://ai.google.dev/gemini-api/docs/maps-grounding\">Gemini Maps Grounding</a><small>외부 지도 기반 답변 기능은 내부 RAG와 별개이며, 문서상 영어 질문·답변 제한을 확인함. Gemini 모델 전체의 언어 제한을 뜻하지 않음.</small></li></ol><div class=\"callout\"><strong>권고 구조: 내부 데이터와 권한 정리 → 조건·의미 검색 → 인기·주변 업체 매칭 → LLM 추천·안내 → 경로 검증.</strong> OR-Tools와 모델 고도화는 실제 병목을 확인한 뒤 추가함. 기존 관광 안내·번역·검수 계획은 유지함.</div>"
+      },
+      {
+        "section": "2026.09.10 · ADDITIONAL DECISIONS",
+        "title": "네이버 장소 검색과 홈 AI의 연결",
+        "lead": "네이버는 외부 장소 후보 확보에 사용함. 내부 자료·인기 기반 RAG와 LLM 추천 구조를 대체하지 않음.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">항목</th><th scope=\"col\">추가 구현 기준</th></tr></thead><tbody><tr><th scope=\"row\">홈 입력과 결과</th><td>1차는 자유 문장의 지역·기간·취향·제외 조건을 등록 자료에 대조함. DAY별 로컬 초안과 한계를 표시하며, 승인한 결과만 비공개 내 여행으로 생성함.</td></tr><tr><th scope=\"row\">RAG·인기 매칭</th><td>현재 화면 미리보기와 실제 추천 엔진을 분리함. 서버에서는 내부 공개 데이터·권한·인기 지표로 후보를 추린 뒤 LLM 설명과 실제 경로 검증을 연결함.</td></tr><tr><th scope=\"row\">네이버 지역 검색</th><td>장소 검색을 Kakao Local에서 네이버로 변경함. 검색당 최대 5건, start 최대 1로 다음 페이지 탐색을 지원하지 않음. 검색 API 일 25,000회 한도를 공유함.</td></tr><tr><th scope=\"row\">제공 정보와 한계</th><td>업체명·분류·지번/도로명 주소·링크·WGS84 mapx/mapy를 장소 후보로 사용함. 사진 필드는 없고 전화번호는 빈 값임. 가격·재고·인기 점수·길찾기 응답으로 취급하지 않음.</td></tr><tr><th scope=\"row\">서버 연결 준비</th><td>Client ID·Secret을 서버에서만 사용함. 반환 좌표의 실제 형식·스케일과 마크업을 검증하고 내부 placeId에 연결함. 이용·저장·표시 정책과 중복 통합 규칙을 확인함.</td></tr><tr><th scope=\"row\">추천·출처 구분</th><td>공개 추천 샘플은 여행기의 AI 추천 여행에서 표시함. 개인 생성본은 비공개로 유지함. 공공 사진도 개별 이용 조건·저작자·원문 출처를 기록하며 생성 안내를 방문 후기로 꾸미지 않음.</td></tr></tbody></table></div><p class=\"note\">MapLibre는 유지함. 실제 자동차·도보는 TMAP, 대중교통은 ODsay를 별도로 검증함. 네이버 지역 검색을 지도·경로·전국 업체 DB 공급 기능으로 확대 해석하지 않음.</p>",
+        "sources": [
+          [
+            "네이버 지역 검색 공식 문서 · 2026.09.10 확인",
+            "https://developers.naver.com/docs/serviceapi/search/local/local.md"
+          ]
+        ]
+      },
+      {
+        "section": "2026.09.10 · SPOT-FIRST FLOW",
+        "title": "스팟 중심 일정과 주변 장소 추가",
+        "lead": "스팟으로 DAY별 일정의 기본 구성을 정한 뒤, 내 여행에서 음식점·카페와 숙박 거점을 보완함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">화면</th><th scope=\"col\">사용자 동작과 연결</th></tr></thead><tbody><tr><th scope=\"row\">장소 발견·저장</th><td>가고 싶은 스팟을 저장함. 저장 화면은 기존 목록·지역 필터·여행 만들기 진입을 유지하고 업체 추천·일정 편집을 펼치지 않음.</td></tr><tr><th scope=\"row\">여행 만들기</th><td>기간과 DAY를 선택하고 사진 카드로 장소를 확인함. 승인하면 해당 내 여행 상세를 열며 이후 수정은 그곳에서 진행함.</td></tr><tr><th scope=\"row\">내 여행 · 스팟 주변</th><td>스팟 카드의 ‘＋ 주변 장소’로 하단 팝업을 엶. 추천 / 직접 검색 / 저장한 장소에서 음식점·카페를 고름.</td></tr><tr><th scope=\"row\">추가 위치</th><td>현재 여행·DAY·기준 스팟을 팝업에 표시함. 고른 장소는 기준 스팟 다음에 추가하며 여행과 DAY를 다시 묻지 않음.</td></tr><tr><th scope=\"row\">숙박과 공개 열람</th><td>숙소는 숙박할 DAY의 거점으로 추가함. 다른 사람의 여행기에는 편집 동작을 숨기고 읽기·저장·복사 흐름을 유지함.</td></tr></tbody></table></div><div class=\"callout\"><strong>화면 역할:</strong> 저장은 모으기·만들기, 내 여행은 DAY별 보완·관리임. 주변 업체의 직접 선택과 선택적 AI 보완은 같은 후보와 장소 카드를 사용함.</div><p class=\"note\">스팟을 먼저 고르는 흐름만으로 동선이 보장되지는 않음. 예약한 숙소·고정 시간은 처음부터 반영하고, 음식점은 다음 스팟 방향과 식사 시간을 함께 검토함.</p>"
+      },
+      {
+        "section": "2026.09.10 · SHARED PLACE CARDS",
+        "title": "사진 카드로 확인하는 AI·담기 팝업",
+        "lead": "지역 안내에서 사용 중인 큰 랜드마크 카드의 사진·정보 구조를 AI 미리보기와 담기 팝업에도 재사용함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">적용 위치</th><th scope=\"col\">구현 기준</th></tr></thead><tbody><tr><th scope=\"row\">AI 일정 미리보기</th><td>DAY별 후보를 사진·장소명·지역·설명·체류 정보가 있는 카드로 보여줌. 방문별 제외·다시 포함으로 장소를 고른 뒤 여행 생성을 승인함.</td></tr><tr><th scope=\"row\">담기 하단 팝업</th><td>담을 장소를 같은 큰 사진 카드로 보여주고 그 아래 여행·기간·DAY를 선택함. 여러 장소도 개별 카드를 확인할 수 있게 함.</td></tr><tr><th scope=\"row\">동일한 장소 표현</th><td>기존 LandmarkGuideCard의 사진 비율·정보 위계·여백을 재사용함. 저장 상태와 출처를 유지하고 화면 목적에 맞는 동작만 연결함.</td></tr><tr><th scope=\"row\">화면별 역할 보존</th><td>팝업 바깥 저장 목록의 작은 가로 SavedPlaceCard는 유지함. 여행기 본문 임베드·사진/영상 쇼츠를 일괄 교체하지 않음.</td></tr><tr><th scope=\"row\">미확인·실패 상태</th><td>장소 사진이 없으면 사진 없음으로 표시함. 다른 장소의 사진·가짜 평점·인기를 채우지 않으며, 로컬 초안·출처·오류 상태를 구분함.</td></tr></tbody></table></div><div class=\"callout\"><strong>승인 기준:</strong> 글 목록만 보고 생성·담기를 결정하게 하지 않음. 팝업을 닫거나 뒤로 가면 원래 화면 위치를 유지함. 새로 담기·AI 생성은 승인 전 원본 여행을 변경하지 않음.</div><p class=\"note\">320·390·460px에서 사진·선택 상태·빈 목록·팝업 스크롤과 하단 동작을 검증함. 현재 승인된 카드 스타일을 그대로 활용하며 새로운 디자인 체계를 만들지 않음.</p>"
+      },
+      {
+        "section": "2026.09.10 · CONTEXTUAL MATCHING",
+        "title": "주변 업체 매칭 엔진과 차수별 연결",
+        "lead": "직접 고르기와 AI 보완이 같은 내부 후보를 사용함. 실제 매칭·경로·인기는 백엔드 이후 연결함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">구성</th><th scope=\"col\">처리 기준</th></tr></thead><tbody><tr><th scope=\"row\">후보와 RAG</th><td>내부 공개 장소의 지역·업종·사용자 조건·실제 저장/담김 지표로 후보를 추림. RAG로 연결된 여행기의 설명·평가·출처를 찾아 추천 이유를 제공함.</td></tr><tr><th scope=\"row\">음식점</th><td>기준 스팟과 다음 스팟 사이의 이동 부담·식사 시간·취향을 비교함. 직선거리와 최다 조회만으로 확정하지 않음.</td></tr><tr><th scope=\"row\">숙소</th><td>이미 예약한 숙소는 고정 거점으로 먼저 반영함. 미정일 때는 여러 날의 출발·복귀·숙박일을 비교하며 같은 숙소를 여러 DAY에 연결할 수 있음.</td></tr><tr><th scope=\"row\">1차·2차 화면</th><td>1차는 AI·담기 팝업의 사진 카드 확인을 구현함. 2차는 내 여행의 주변 장소 직접 선택·숙박 거점과 방문 관계를 샘플로 연결함.</td></tr><tr><th scope=\"row\">3차·실제 엔진</th><td>3차는 AI 보완 여부·후보 승인·대안·변경분을 사진 카드로 검증함. 실제 서버 연결 이후에만 RAG·인기·교통 정보를 사용함.</td></tr><tr><th scope=\"row\">네이버의 역할</th><td>직접 검색을 보완하는 외부 후보 공급자임. 요청당 최대 5건이며 반경·사진·평점 필드를 제공하지 않음. 내부 주변 검색·인기 데이터와 구분함.</td></tr></tbody></table></div><p class=\"note\">현재 자동 생성은 로컬 키워드·점수·직선거리 묶음임. 식사 시간·숙소 거점·실제 교통을 반영한 매칭 완료로 표현하지 않음. 후보가 부족하면 이유를 표시하고 승인 없이 새 장소를 넣지 않음.</p>",
+        "sources": [
+          [
+            "네이버 지역 검색 공식 문서",
+            "https://developers.naver.com/docs/serviceapi/search/local/local.md"
+          ]
+        ]
+      }
+    ]
+  },
+  "ai-guide-summary": {
+    "date": "2026.09.10",
+    "title": "Spotlog AI 관광 가이드 요약",
+    "shortTitle": "AI 관광 가이드 요약",
+    "otherTitle": "원본 전체 보기",
+    "otherHref": "./spotlog-ai-guide-plan.html",
+    "slides": [
+      {
+        "title": "AI 관광 가이드의 핵심",
+        "lead": "Spotlog 내부 데이터에서 취향에 맞는 인기 장소를 찾고, 음식점·숙소와 실행 가능한 일정으로 연결함.",
+        "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">구성</th><th scope=\"col\">쉽게 말하면</th><th scope=\"col\">담당 역할</th></tr></thead><tbody><tr><th scope=\"row\">내부 RAG</th><td>우리 자료를 먼저 찾아 읽게 함</td><td>여행기·장소 설명에서 지역/취향에 맞는 후보와 추천 근거를 찾음.</td></tr><tr><th scope=\"row\">DB·인기 순위</th><td>조건과 실제 반응을 계산함</td><td>좌표·분류·권한으로 걸러내고 저장·복사·반응을 보정해 인기 순위를 계산함.</td></tr><tr><th scope=\"row\">LLM</th><td>조건을 이해하고 설명함</td><td>자연어 요청을 해석하고 후보 조합을 보조하며, 확인된 근거로 추천 이유와 관광 안내를 작성함.</td></tr><tr><th scope=\"row\">경로·일정 엔진</th><td>실제로 다닐 수 있는지 검사함</td><td>교통수단별 이동 시간과 체류·고정 조건을 확인하고 DAY별 배치를 검증함.</td></tr></tbody></table></div><div class=\"callout\"><strong>현재 자동 일정은 로컬 정렬과 정해진 문구 기반임.</strong> 내부 RAG·실제 교통·LLM 추천 엔진은 이후 개발할 대상임.</div>",
+        "section": "SPOTLOG · AI GUIDE SUMMARY · 1",
+        "sources": [
+          [
+            "원본 상세 61쪽",
+            "./spotlog-ai-guide-plan.html#slide-6"
+          ],
+          [
+            "다른 요약본",
+            "./spotlog-development-summary.html"
+          ]
+        ]
+      },
+      {
+        "title": "추천 방식과 업체 매칭",
+        "lead": "홈·저장의 AI 입력을 하단 팝업으로 열고 조건·후보를 확인함. 승인 후 비공개 내 여행 상세에서 수정함.",
+        "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">모드</th><th scope=\"col\">처리 기준</th></tr></thead><tbody><tr><th scope=\"row\">지역·취향 추천</th><td>내부 후보에서 랜드마크·음식점·숙소를 자동 조합하고 최종 저장 전 사용자 승인을 받음.</td></tr><tr><th scope=\"row\">저장한 곳 구성</th><td>저장 장소를 전달받아 하단 팝업에서 기간·조건을 정함. 승인 후 내 여행으로 저장함. 음식점·숙소 보충은 선택 사항임.</td></tr><tr><th scope=\"row\">외부 보완</th><td>내부 자료가 부족하면 별도 후보로 제시함. 승인 없이 넣거나 내부 인기 장소로 표시하지 않음.</td></tr></tbody></table></div><section class=\"section-block\"><h3>예시: 부산 2박 3일, 덜 걷고 바다·로컬 음식 선호</h3><ul class=\"list\"><li>지역·취향·걷기 조건으로 내부 랜드마크를 찾고 실제 반응과 근거를 확인함.</li><li>음식점은 주변 인기와 식사 시간·다음 동선을, 숙소는 여러 날의 이동 부담을 고려해 매칭함.</li><li>실제 경로로 무리한 이동을 검사하고, 미배치 장소·이유·변경안을 보여 준 뒤 승인받음.</li></ul></section><p class=\"note\">필요 데이터: 고유 장소 ID·좌표·분류·메타 정보, 연결된 여행기/사진, 확인일·권한, 중복을 제거한 실제 저장·복사·반응. 숙박 가격·예약은 제외함.</p>",
+        "section": "SPOTLOG · AI GUIDE SUMMARY · 2",
+        "sources": [
+          [
+            "원본 상세 61쪽",
+            "./spotlog-ai-guide-plan.html#slide-7"
+          ],
+          [
+            "다른 요약본",
+            "./spotlog-development-summary.html"
+          ]
+        ]
+      },
+      {
+        "title": "기술과 모델 선택 기준",
+        "lead": "원본의 후보 기술을 역할별로 나눔. 특정 모델을 확정하거나 추천 품질이 검증됐다고 가정하지 않음.",
+        "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">역할</th><th scope=\"col\">원본의 적용 후보</th><th scope=\"col\">선택 기준</th></tr></thead><tbody><tr><th scope=\"row\">검색 기반</th><td>PostgreSQL + PostGIS + pgvector</td><td>장소·권한·거리 조건과 키워드/의미 검색을 함께 관리함.</td></tr><tr><th scope=\"row\">의미 검색</th><td>text-embedding-3-small / BGE-M3</td><td>문장의 의미를 검색용 숫자로 변환함. 한국어 여행 데이터 검색 품질과 운영비를 비교함.</td></tr><tr><th scope=\"row\">추천·설명 LLM</th><td>GPT / Claude / Gemini 계열 비교</td><td>같은 후보로 조건 준수·추천 근거·한국어/영어 품질·지연·1건 총비용을 평가함.</td></tr><tr><th scope=\"row\">경로 조회</th><td>자동차·도보 TMAP, 대중교통 ODsay 검증</td><td>교통수단별 실제 구간을 확보함. 상용 계약·표시·캐시·요금 조건 확인 후 확정함.</td></tr><tr><th scope=\"row\">일정 배치</th><td>규칙 기반 시작, 필요 시 OR-Tools</td><td>OR-Tools는 방문 순서·시간 제약 계산 도구임. 복잡한 고정 일정이 필요할 때 추가함.</td></tr></tbody></table></div><p class=\"note\">지도 표시는 현재 MapLibre를 유지함. LLM이 좌표·영업시간·경로를 만들어내지 않도록 결과를 검사함. 개별 모델명·단가·조건은 원본 29~33쪽을 참고하고 도입 시 다시 확인함.</p>",
+        "section": "SPOTLOG · AI GUIDE SUMMARY · 3",
+        "sources": [
+          [
+            "원본 상세 61쪽",
+            "./spotlog-ai-guide-plan.html#slide-29"
+          ],
+          [
+            "다른 요약본",
+            "./spotlog-development-summary.html"
+          ]
+        ]
+      },
+      {
+        "title": "관광 안내와 자동번역",
+        "lead": "국내 여행기 원문을 유지하고, 외국인이 실제로 찾아가고 이용할 수 있는 영어 안내를 연결함.",
+        "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">영역</th><th scope=\"col\">처리 방식</th></tr></thead><tbody><tr><th scope=\"row\">여행 중 안내</th><td>오늘 일정·다음 장소 이동·볼거리·이용 주의사항을 현재 여행과 확인된 근거로 답함.</td></tr><tr><th scope=\"row\">자동번역</th><td>본문·사진 설명은 원문 버전별로 번역·재사용함. UI 문구는 직접 관리하고 댓글은 요청 시 번역함.</td></tr><tr><th scope=\"row\">번역 기반</th><td>Google Cloud Translation Advanced와 용어집을 적용 후보로 검토함. 원문/자동번역/검수/재번역 필요를 구분함.</td></tr><tr><th scope=\"row\">현장 정보</th><td>한글 장소명·주소 크게 보기와 복사, 역·출구·마지막 도보, 예약·결제·문화 차이 정보를 원문부터 확보함.</td></tr></tbody></table></div><section class=\"section-block\"><h3>안내 품질의 필수 기준</h3><ul class=\"list\"><li>주소·장소명·숫자·날짜·부정 표현을 보존하고 출처와 확인 시점을 표시함.</li><li>미확인 영업·대기시간은 모른다고 표시함. 실제 방문자의 체험담을 생성하지 않음.</li></ul></section><p class=\"note\">한국어→영어가 첫 운영 범위임. 추가 언어·음성 가이드·실시간 통역·상시 위치 추적은 후속 단계로 분리함.</p>",
+        "section": "SPOTLOG · AI GUIDE SUMMARY · 4",
+        "sources": [
+          [
+            "원본 상세 61쪽",
+            "./spotlog-ai-guide-plan.html#slide-39"
+          ],
+          [
+            "다른 요약본",
+            "./spotlog-development-summary.html"
+          ]
+        ]
+      },
+      {
+        "title": "개발 순서와 비용 관리",
+        "lead": "모델 호출료뿐 아니라 데이터 준비·검색·경로·번역·운영 비용까지 묶어 판단함.",
+        "html": "<div class=\"table-wrap\"><table><thead><tr><th scope=\"col\">단계</th><th scope=\"col\">진행 내용</th></tr></thead><tbody><tr><th scope=\"row\">프런트엔드 1·2·3차</th><td>현재 화면 역할별 스타일을 재사용함. 1차 담기 팝업·홈 AI 초안, 3차 안내·번역 확장을 샘플로 검증함.</td></tr><tr><th scope=\"row\">서버 기반 이후</th><td>내부 데이터/권한·검색 색인을 준비하고, 추천·업체 매칭과 LLM 비교를 진행함.</td></tr><tr><th scope=\"row\">엔진·영어 시범</th><td>실제 경로·일정 검증과 관광 안내·번역을 연결한 뒤 비공개 평가를 통과함.</td></tr></tbody></table></div><section class=\"section-block\"><h3>예산에 포함할 항목</h3><ul class=\"list\"><li>초기 원문 정리·임베딩 색인과 콘텐츠 검수 비용을 별도 확보함.</li><li>요청별 검색·LLM·재시도, 교통 경로, 새 번역량, DB·저장·전송 비용을 합산함.</li><li>동일 요청 중복 방지, 변경분만 재처리, 번역 재사용, 사용자 한도·예산 경보를 적용함.</li></ul></section><div class=\"callout\"><strong>도입 전 결정:</strong> 내부 자료·인기 지표 기준, 공급자 계약, 모델 비교 결과와 실제 1건 비용, 월 예산 한도를 확정함. 비밀 키와 비공개 여행의 권한은 서버에서 관리함.</div>",
+        "section": "SPOTLOG · AI GUIDE SUMMARY · 5",
+        "sources": [
+          [
+            "원본 상세 61쪽",
+            "./spotlog-ai-guide-plan.html#slide-46"
+          ],
+          [
+            "다른 요약본",
+            "./spotlog-development-summary.html"
+          ]
+        ]
+      },
+      {
+        "section": "2026.09.10 · ADDITIONAL DECISIONS",
+        "title": "홈 AI와 네이버 검색 · 적용 구분",
+        "lead": "홈의 글 입력부터 초안 확인·승인·내 여행까지 먼저 연결하고, 실제 추천 엔진은 서버 기반 이후 적용함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">항목</th><th scope=\"col\">추가 구현 기준</th></tr></thead><tbody><tr><th scope=\"row\">홈 입력과 결과</th><td>1차는 자유 문장의 지역·기간·취향·제외 조건을 등록 자료에 대조함. DAY별 로컬 초안과 한계를 표시하며, 승인한 결과만 비공개 내 여행으로 생성함.</td></tr><tr><th scope=\"row\">RAG·인기 매칭</th><td>현재 화면 미리보기와 실제 추천 엔진을 분리함. 서버에서는 내부 공개 데이터·권한·인기 지표로 후보를 추린 뒤 LLM 설명과 실제 경로 검증을 연결함.</td></tr><tr><th scope=\"row\">네이버 지역 검색</th><td>장소 검색을 Kakao Local에서 네이버로 변경함. 검색당 최대 5건, start 최대 1로 다음 페이지 탐색을 지원하지 않음. 검색 API 일 25,000회 한도를 공유함.</td></tr><tr><th scope=\"row\">제공 정보와 한계</th><td>업체명·분류·지번/도로명 주소·링크·WGS84 mapx/mapy를 장소 후보로 사용함. 사진 필드는 없고 전화번호는 빈 값임. 가격·재고·인기 점수·길찾기 응답으로 취급하지 않음.</td></tr><tr><th scope=\"row\">서버 연결 준비</th><td>Client ID·Secret을 서버에서만 사용함. 반환 좌표의 실제 형식·스케일과 마크업을 검증하고 내부 placeId에 연결함. 이용·저장·표시 정책과 중복 통합 규칙을 확인함.</td></tr><tr><th scope=\"row\">추천·출처 구분</th><td>공개 추천 샘플은 여행기의 AI 추천 여행에서 표시함. 개인 생성본은 비공개로 유지함. 공공 사진도 개별 이용 조건·저작자·원문 출처를 기록하며 생성 안내를 방문 후기로 꾸미지 않음.</td></tr></tbody></table></div><p class=\"note\">지역을 알아듣지 못하거나 후보가 부족하면 확인을 요청함. 장소·사진·영업시간·인기 수치를 임의로 만들지 않고, 기간과 담을 DAY를 분리함.</p>",
+        "sources": [
+          [
+            "네이버 지역 검색 공식 문서 · 2026.09.10 확인",
+            "https://developers.naver.com/docs/serviceapi/search/local/local.md"
+          ]
+        ]
+      },
+      {
+        "section": "2026.09.10 · SPOT-FIRST FLOW",
+        "title": "스팟 중심 일정과 주변 장소 추가",
+        "lead": "스팟으로 DAY별 일정의 기본 구성을 정한 뒤, 내 여행에서 음식점·카페와 숙박 거점을 보완함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">화면</th><th scope=\"col\">사용자 동작과 연결</th></tr></thead><tbody><tr><th scope=\"row\">장소 발견·저장</th><td>가고 싶은 스팟을 저장함. 저장 화면은 기존 목록·지역 필터·여행 만들기 진입을 유지하고 업체 추천·일정 편집을 펼치지 않음.</td></tr><tr><th scope=\"row\">여행 만들기</th><td>기간과 DAY를 선택하고 사진 카드로 장소를 확인함. 승인하면 해당 내 여행 상세를 열며 이후 수정은 그곳에서 진행함.</td></tr><tr><th scope=\"row\">내 여행 · 스팟 주변</th><td>스팟 카드의 ‘＋ 주변 장소’로 하단 팝업을 엶. 추천 / 직접 검색 / 저장한 장소에서 음식점·카페를 고름.</td></tr><tr><th scope=\"row\">추가 위치</th><td>현재 여행·DAY·기준 스팟을 팝업에 표시함. 고른 장소는 기준 스팟 다음에 추가하며 여행과 DAY를 다시 묻지 않음.</td></tr><tr><th scope=\"row\">숙박과 공개 열람</th><td>숙소는 숙박할 DAY의 거점으로 추가함. 다른 사람의 여행기에는 편집 동작을 숨기고 읽기·저장·복사 흐름을 유지함.</td></tr></tbody></table></div><div class=\"callout\"><strong>화면 역할:</strong> 저장은 모으기·만들기, 내 여행은 DAY별 보완·관리임. 주변 업체의 직접 선택과 선택적 AI 보완은 같은 후보와 장소 카드를 사용함.</div><p class=\"note\">스팟을 먼저 고르는 흐름만으로 동선이 보장되지는 않음. 예약한 숙소·고정 시간은 처음부터 반영하고, 음식점은 다음 스팟 방향과 식사 시간을 함께 검토함.</p>"
+      },
+      {
+        "section": "2026.09.10 · SHARED PLACE CARDS",
+        "title": "사진 카드로 확인하는 AI·담기 팝업",
+        "lead": "지역 안내에서 사용 중인 큰 랜드마크 카드의 사진·정보 구조를 AI 미리보기와 담기 팝업에도 재사용함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">적용 위치</th><th scope=\"col\">구현 기준</th></tr></thead><tbody><tr><th scope=\"row\">AI 일정 미리보기</th><td>DAY별 후보를 사진·장소명·지역·설명·체류 정보가 있는 카드로 보여줌. 방문별 제외·다시 포함으로 장소를 고른 뒤 여행 생성을 승인함.</td></tr><tr><th scope=\"row\">담기 하단 팝업</th><td>담을 장소를 같은 큰 사진 카드로 보여주고 그 아래 여행·기간·DAY를 선택함. 여러 장소도 개별 카드를 확인할 수 있게 함.</td></tr><tr><th scope=\"row\">동일한 장소 표현</th><td>기존 LandmarkGuideCard의 사진 비율·정보 위계·여백을 재사용함. 저장 상태와 출처를 유지하고 화면 목적에 맞는 동작만 연결함.</td></tr><tr><th scope=\"row\">화면별 역할 보존</th><td>팝업 바깥 저장 목록의 작은 가로 SavedPlaceCard는 유지함. 여행기 본문 임베드·사진/영상 쇼츠를 일괄 교체하지 않음.</td></tr><tr><th scope=\"row\">미확인·실패 상태</th><td>장소 사진이 없으면 사진 없음으로 표시함. 다른 장소의 사진·가짜 평점·인기를 채우지 않으며, 로컬 초안·출처·오류 상태를 구분함.</td></tr></tbody></table></div><div class=\"callout\"><strong>승인 기준:</strong> 글 목록만 보고 생성·담기를 결정하게 하지 않음. 팝업을 닫거나 뒤로 가면 원래 화면 위치를 유지함. 새로 담기·AI 생성은 승인 전 원본 여행을 변경하지 않음.</div><p class=\"note\">320·390·460px에서 사진·선택 상태·빈 목록·팝업 스크롤과 하단 동작을 검증함. 현재 승인된 카드 스타일을 그대로 활용하며 새로운 디자인 체계를 만들지 않음.</p>"
+      },
+      {
+        "section": "2026.09.10 · CONTEXTUAL MATCHING",
+        "title": "주변 업체 매칭 엔진과 차수별 연결",
+        "lead": "직접 고르기와 AI 보완이 같은 내부 후보를 사용함. 실제 매칭·경로·인기는 백엔드 이후 연결함.",
+        "html": "<div class=\"table-wrap compact\"><table><thead><tr><th scope=\"col\">구성</th><th scope=\"col\">처리 기준</th></tr></thead><tbody><tr><th scope=\"row\">후보와 RAG</th><td>내부 공개 장소의 지역·업종·사용자 조건·실제 저장/담김 지표로 후보를 추림. RAG로 연결된 여행기의 설명·평가·출처를 찾아 추천 이유를 제공함.</td></tr><tr><th scope=\"row\">음식점</th><td>기준 스팟과 다음 스팟 사이의 이동 부담·식사 시간·취향을 비교함. 직선거리와 최다 조회만으로 확정하지 않음.</td></tr><tr><th scope=\"row\">숙소</th><td>이미 예약한 숙소는 고정 거점으로 먼저 반영함. 미정일 때는 여러 날의 출발·복귀·숙박일을 비교하며 같은 숙소를 여러 DAY에 연결할 수 있음.</td></tr><tr><th scope=\"row\">1차·2차 화면</th><td>1차는 AI·담기 팝업의 사진 카드 확인을 구현함. 2차는 내 여행의 주변 장소 직접 선택·숙박 거점과 방문 관계를 샘플로 연결함.</td></tr><tr><th scope=\"row\">3차·실제 엔진</th><td>3차는 AI 보완 여부·후보 승인·대안·변경분을 사진 카드로 검증함. 실제 서버 연결 이후에만 RAG·인기·교통 정보를 사용함.</td></tr><tr><th scope=\"row\">네이버의 역할</th><td>직접 검색을 보완하는 외부 후보 공급자임. 요청당 최대 5건이며 반경·사진·평점 필드를 제공하지 않음. 내부 주변 검색·인기 데이터와 구분함.</td></tr></tbody></table></div><p class=\"note\">현재 자동 생성은 로컬 키워드·점수·직선거리 묶음임. 식사 시간·숙소 거점·실제 교통을 반영한 매칭 완료로 표현하지 않음. 후보가 부족하면 이유를 표시하고 승인 없이 새 장소를 넣지 않음.</p>",
+        "sources": [
+          [
+            "네이버 지역 검색 공식 문서",
+            "https://developers.naver.com/docs/serviceapi/search/local/local.md"
+          ]
+        ]
+      }
+    ]
+  }
+}

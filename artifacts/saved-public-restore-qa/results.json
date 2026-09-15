@@ -1,0 +1,56 @@
+{
+  "comparisons": [
+    {
+      "width": 320,
+      "empty": false,
+      "elements": 47,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 320,
+      "empty": true,
+      "elements": 11,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 390,
+      "empty": false,
+      "elements": 47,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 390,
+      "empty": true,
+      "elements": 11,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 460,
+      "empty": false,
+      "elements": 47,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 460,
+      "empty": true,
+      "elements": 11,
+      "overflow": false,
+      "differences": []
+    }
+  ],
+  "checks": [
+    "DAY 2 add creates missing DAY, retains original DAY 1 and shows added state",
+    "Reload retains latest repository, retired library and migration snapshot",
+    "DAY removal preserves bookmark",
+    "Bookmark removal preserves existing journey visit",
+    "Region filter, collapse and expand",
+    "Saved-place AI draft opens trip detail with requested duration",
+    "Empty Saved allows sample AI generation without changing bookmarks"
+  ],
+  "errors": []
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "width": 320,
+    "ok": true,
+    "travelerCount": 8,
+    "aiPublic": 4,
+    "photos": 11,
+    "copiedPrivate": true,
+    "sourceLinks": true,
+    "savedCredit": true,
+    "geometry": {
+      "doc": true,
+      "body": true
+    }
+  },
+  {
+    "width": 390,
+    "ok": true,
+    "travelerCount": 8,
+    "aiPublic": 4,
+    "photos": 11,
+    "copiedPrivate": true,
+    "sourceLinks": true,
+    "savedCredit": true,
+    "geometry": {
+      "doc": true,
+      "body": true
+    }
+  },
+  {
+    "width": 460,
+    "ok": true,
+    "travelerCount": 8,
+    "aiPublic": 4,
+    "photos": 11,
+    "copiedPrivate": true,
+    "sourceLinks": true,
+    "savedCredit": true,
+    "geometry": {
+      "doc": true,
+      "body": true
+    }
+  }
+]

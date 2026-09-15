@@ -1,0 +1,35 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const { chromium } = require('C:/Users/Giry/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const out = path.resolve('web/public/design-guide');
+const common = ['.app-shell','.content','.tabbar','.tabbar button','.tabbar button span','.app-header','.app-header h1','.app-header small'];
+const cases = [
+ {name:'home',hash:'home',ready:'.home-lead',selectors:['.home-page','.home-topbar','.home-topbar strong','.home-topbar button','.home-lead','.home-lead h1','.home-lead p','.home-section','.home-section-heading h2','.home-section-heading p','.promoted-trip','.promoted-copy h2','.promoted-copy p','.promoted-copy button','.rolling-controls button','.rolling-dots button','.home-guide-card','.home-guide-copy h3','.home-guide-copy p','.home-guide-copy button','.home-find-guides']},
+ {name:'community',hash:'community',ready:'.community-card',selectors:['.community-intro','.community-intro h2','.community-intro p','.community-search','.destination-search','.destination-search input','.destination-chips button','.duration-chips button','.community-results-heading h2','.community-card','.community-cover','.community-copy','.community-copy h3','.community-copy p','.community-copy > button']},
+ {name:'community-empty',hash:'community',ready:'.community-search',setup:async p=>{await p.getByRole('textbox',{name:'여행기 지역 검색'}).fill('준비되지않은지역');await p.locator('.community-empty').waitFor();await p.locator('.community-empty').scrollIntoViewIfNeeded();},selectors:['.destination-search','.community-empty','.community-empty h2','.community-empty p','.community-empty button']},
+ {name:'places-guide',hash:'places-guide',ready:'.place-guide-lead',selectors:['.place-discover-header','.place-view-toggle','.place-view-toggle button','.place-guide-content','.place-guide-lead h1','.place-guide-lead p','.destination-search','.destination-search input','.region-directory','.region-directory-heading h2','.region-count-grid','.region-count-grid button','.landmark-guide-card','.landmark-guide-card > img','.landmark-guide-copy','.landmark-guide-copy h3','.landmark-guide-copy > p','.landmark-guide-copy blockquote','.landmark-guide-actions button'],setup:async p=>{await p.locator('.region-count-grid button').filter({hasText:'서울'}).click();await p.locator('.landmark-guide-card').first().waitFor();}},
+ {name:'places-empty',hash:'places-guide',ready:'.place-guide-lead',setup:async p=>{await p.getByRole('textbox',{name:'랜드마크 지역 검색'}).fill('준비되지않은지역');await p.locator('.community-empty').waitFor();await p.locator('.community-empty').scrollIntoViewIfNeeded();},selectors:['.place-guide-heading h2','.community-empty','.community-empty h2','.community-empty p','.community-empty button']},
+ {name:'places-video',hash:'places-video',ready:'.feed-card',selectors:['.place-discover-header','.place-view-toggle','.place-view-toggle button','.feed','.feed-card','.feed-copy','.creator-row strong','.creator-row button','.feed-copy h1','.feed-copy > p','.tags span','.place-pill','.place-pill strong','.place-pill small','.action-item button','.action-item span']},
+ {name:'places-photo',hash:'places-photo',ready:'.photo-landmark-reel',selectors:['.place-discover-header','.place-view-toggle button','.photo-landmark-feed','.photo-landmark-reel','.photo-reel-meta','.photo-reel-count','.photo-reel-copy','.photo-reel-copy h1','.photo-reel-copy h2','.photo-reel-area','.photo-reel-caption','.photo-reel-story-button','.photo-reel-actions button','.photo-reel-actions span','.photo-reel-dots button']},
+ {name:'photo-sheet',hash:'places-photo',ready:'.photo-landmark-reel',setup:async p=>{await p.locator('.photo-reel-story-button').first().click();await p.locator('.phase-sheet').waitFor();},selectors:['.phase-sheet','.phase-sheet header','.phase-sheet h2','.phase-sheet header p','.phase-sheet-body','.photo-reel-story p','.photo-reel-story blockquote','.photo-reel-story dl','.photo-reel-story .primary']},
+ {name:'photo-stories',hash:'photo-stories',ready:'.photo-story-preview',selectors:['.photo-story-topbar','.photo-story-topbar strong','.photo-story-topbar button','.photo-story-card','.photo-story-author','.photo-story-media','.photo-story-body','.photo-story-body h1','.photo-story-body p','.photo-story-actions button','.photo-story-save']},
+];
+const props=['fontFamily','fontSize','fontWeight','lineHeight','letterSpacing','color','backgroundColor','borderColor','borderRadius','borderWidth','minHeight','paddingTop','paddingRight','paddingBottom','paddingLeft','marginTop','marginBottom','gap','boxShadow','gridTemplateColumns','overflowX','scrollSnapType'];
+(async()=>{
+ fs.mkdirSync(out,{recursive:true});
+ const browser=await chromium.launch({channel:'msedge',headless:true});const results=[];const errors=[];
+ try{
+  for(const width of [320,390,460]){
+   const context=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});
+   const page=await context.newPage();page.on('pageerror',e=>errors.push({width,error:e.message}));
+   for(const c of cases){
+    await page.goto('about:blank');await page.goto(`http://127.0.0.1:5173/#${c.hash}`);await page.locator(c.ready).first().waitFor({timeout:15000});if(c.setup)await c.setup(page);await page.evaluate(()=>document.fonts.ready);await page.waitForTimeout(250);
+    const values=await page.evaluate(({selectors,props})=>selectors.flatMap(selector=>Array.from(document.querySelectorAll(selector)).filter(e=>e.getClientRects().length).slice(0,2).map((e,index)=>{const s=getComputedStyle(e),r=e.getBoundingClientRect();return{selector,index,text:e.textContent.trim().slice(0,60),...Object.fromEntries(props.map(p=>[p,s[p]])),width:Math.round(r.width*100)/100,height:Math.round(r.height*100)/100};})),{selectors:[...common,...c.selectors],props});
+    const pageMetrics=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth,scrollWidth:document.documentElement.scrollWidth,width:innerWidth,images:[...document.images].filter(i=>i.getBoundingClientRect().top<innerHeight&&i.getBoundingClientRect().bottom>0).map(i=>({src:i.currentSrc,loaded:i.complete&&i.naturalWidth>0}))}));
+    if(width===390){await page.screenshot({path:path.join(out,`discovery-${c.name}.png`)});if(c.name==='places-guide'){await page.locator('.landmark-guide-card').first().scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,'discovery-places-card.png')});}if(c.name==='community'){await page.locator('.community-card').first().scrollIntoViewIfNeeded();await page.screenshot({path:path.join(out,'discovery-community-card.png')});}}
+    results.push({name:c.name,width,...pageMetrics,values});console.log(`${width} ${c.name}: ${values.length} elements overflow=${pageMetrics.overflow}`);
+   }
+   await context.close();
+  }
+ }finally{await browser.close();fs.writeFileSync('artifacts/site-design-discovery.json',JSON.stringify({results,errors},null,2));}
+})().catch(e=>{console.error(e);process.exitCode=1;});

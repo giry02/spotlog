@@ -1,0 +1,2095 @@
+{
+  "url": "http://127.0.0.1:5173/spotlog-design-guide.html",
+  "widths": [
+    {
+      "width": 320,
+      "structure": {
+        "groups": 12,
+        "images": 30,
+        "nav": 16,
+        "scrollWidth": 320,
+        "clientWidth": 320,
+        "title": "Spotlog · 전체 화면 디자인 가이드",
+        "scripts": [
+          "http://127.0.0.1:5173/design-guide/guide.js"
+        ]
+      },
+      "imageResponses": [
+        {
+          "url": "discovery-home.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-home-lower.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-community.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-community-card.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-community-empty.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-guide.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-card.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-empty.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-video.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-photo.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-photo-sheet.png",
+          "status": 200
+        },
+        {
+          "url": "saved-list.png",
+          "status": 200
+        },
+        {
+          "url": "saved-empty.png",
+          "status": 200
+        },
+        {
+          "url": "journey-trips.png",
+          "status": 200
+        },
+        {
+          "url": "journey-trips-empty.png",
+          "status": 200
+        },
+        {
+          "url": "journey-create-sheet.png",
+          "status": 200
+        },
+        {
+          "url": "journey-public-detail.png",
+          "status": 200
+        },
+        {
+          "url": "journey-own-detail.png",
+          "status": 200
+        },
+        {
+          "url": "journey-detail-day.png",
+          "status": 200
+        },
+        {
+          "url": "journey-detail-map.png",
+          "status": 200
+        },
+        {
+          "url": "journey-social.png",
+          "status": 200
+        },
+        {
+          "url": "journey-creator.png",
+          "status": 200
+        },
+        {
+          "url": "journey-editor.png",
+          "status": 200
+        },
+        {
+          "url": "journey-editor-blocks.png",
+          "status": 200
+        },
+        {
+          "url": "journey-place-sheet.png",
+          "status": 200
+        },
+        {
+          "url": "journey-profile.png",
+          "status": 200
+        },
+        {
+          "url": "journey-profile-options.png",
+          "status": 200
+        },
+        {
+          "url": "journey-settings.png",
+          "status": 200
+        },
+        {
+          "url": "utility-backup.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-photo-stories.png",
+          "status": 200
+        }
+      ],
+      "navigation": [
+        {
+          "id": "sg-foundation",
+          "top": 98.4375,
+          "bottom": 2603.453125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-screens",
+          "top": 98.453125,
+          "bottom": 13781.625,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-components",
+          "top": 97.625,
+          "bottom": 2756.234375,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-process",
+          "top": 98.234375,
+          "bottom": 1332.78125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-home",
+          "top": 97.921875,
+          "bottom": 1138.53125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-community",
+          "top": 97.53125,
+          "bottom": 1091.359375,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-guide",
+          "top": 98.359375,
+          "bottom": 1115.578125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-feeds",
+          "top": 97.578125,
+          "bottom": 1208.65625,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-saved",
+          "top": 97.65625,
+          "bottom": 1188.75,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-trips",
+          "top": 97.75,
+          "bottom": 1102.140625,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-detail",
+          "top": 98.140625,
+          "bottom": 1199.796875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-social",
+          "top": 97.796875,
+          "bottom": 1088.203125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-editor",
+          "top": 98.203125,
+          "bottom": 1227.953125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-profile",
+          "top": 97.953125,
+          "bottom": 1138.84375,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-utility",
+          "top": 97.84375,
+          "bottom": 1180.53125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-experiments",
+          "top": 97.53125,
+          "bottom": 1105.046875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        }
+      ],
+      "errors": [],
+      "storageUnchanged": true,
+      "storageWrites": [],
+      "appRequests": [],
+      "requests": [
+        {
+          "url": "http://127.0.0.1:5173/spotlog-design-guide.html",
+          "type": "document",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/guide.css",
+          "type": "stylesheet",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/guide.js",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap",
+          "type": "stylesheet",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2",
+          "type": "font",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K4.woff2",
+          "type": "font",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-home.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-home-lower.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-community.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-community-card.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-community-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-photo-stories.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-guide.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-card.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-video.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-photo.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-photo-sheet.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/saved-list.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/saved-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-trips.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-trips-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-create-sheet.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-public-detail.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-own-detail.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-detail-day.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-detail-map.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-social.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-creator.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-editor.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-editor-blocks.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-place-sheet.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-profile.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-profile-options.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-settings.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/utility-backup.png",
+          "type": "image",
+          "method": "GET"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "structure": {
+        "groups": 12,
+        "images": 30,
+        "nav": 16,
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "title": "Spotlog · 전체 화면 디자인 가이드",
+        "scripts": [
+          "http://127.0.0.1:5173/design-guide/guide.js"
+        ]
+      },
+      "imageResponses": [
+        {
+          "url": "discovery-home.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-home-lower.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-community.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-community-card.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-community-empty.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-guide.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-card.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-empty.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-video.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-photo.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-photo-sheet.png",
+          "status": 200
+        },
+        {
+          "url": "saved-list.png",
+          "status": 200
+        },
+        {
+          "url": "saved-empty.png",
+          "status": 200
+        },
+        {
+          "url": "journey-trips.png",
+          "status": 200
+        },
+        {
+          "url": "journey-trips-empty.png",
+          "status": 200
+        },
+        {
+          "url": "journey-create-sheet.png",
+          "status": 200
+        },
+        {
+          "url": "journey-public-detail.png",
+          "status": 200
+        },
+        {
+          "url": "journey-own-detail.png",
+          "status": 200
+        },
+        {
+          "url": "journey-detail-day.png",
+          "status": 200
+        },
+        {
+          "url": "journey-detail-map.png",
+          "status": 200
+        },
+        {
+          "url": "journey-social.png",
+          "status": 200
+        },
+        {
+          "url": "journey-creator.png",
+          "status": 200
+        },
+        {
+          "url": "journey-editor.png",
+          "status": 200
+        },
+        {
+          "url": "journey-editor-blocks.png",
+          "status": 200
+        },
+        {
+          "url": "journey-place-sheet.png",
+          "status": 200
+        },
+        {
+          "url": "journey-profile.png",
+          "status": 200
+        },
+        {
+          "url": "journey-profile-options.png",
+          "status": 200
+        },
+        {
+          "url": "journey-settings.png",
+          "status": 200
+        },
+        {
+          "url": "utility-backup.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-photo-stories.png",
+          "status": 200
+        }
+      ],
+      "navigation": [
+        {
+          "id": "sg-foundation",
+          "top": 98.046875,
+          "bottom": 2424.21875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-screens",
+          "top": 98.21875,
+          "bottom": 13968.65625,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-components",
+          "top": 97.65625,
+          "bottom": 2732.875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-process",
+          "top": 97.875,
+          "bottom": 1261.84375,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-home",
+          "top": 97.6875,
+          "bottom": 1171.09375,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-community",
+          "top": 98.09375,
+          "bottom": 1171.5,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-guide",
+          "top": 97.5,
+          "bottom": 1152.21875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-feeds",
+          "top": 98.21875,
+          "bottom": 1204.71875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-saved",
+          "top": 97.71875,
+          "bottom": 1204.21875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-trips",
+          "top": 98.21875,
+          "bottom": 1135.15625,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-detail",
+          "top": 98.15625,
+          "bottom": 1186.875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-social",
+          "top": 97.875,
+          "bottom": 1116.125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-editor",
+          "top": 98.125,
+          "bottom": 1191.546875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-profile",
+          "top": 97.546875,
+          "bottom": 1167.578125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-utility",
+          "top": 97.578125,
+          "bottom": 1194.375,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-experiments",
+          "top": 98.375,
+          "bottom": 1101.3125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        }
+      ],
+      "errors": [],
+      "storageUnchanged": true,
+      "storageWrites": [],
+      "appRequests": [],
+      "requests": [
+        {
+          "url": "http://127.0.0.1:5173/spotlog-design-guide.html",
+          "type": "document",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/guide.css",
+          "type": "stylesheet",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/guide.js",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap",
+          "type": "stylesheet",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2",
+          "type": "font",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K4.woff2",
+          "type": "font",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-home.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-home-lower.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-community.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-community-card.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-community-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-photo-stories.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-guide.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-card.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-video.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-photo.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-photo-sheet.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/saved-list.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/saved-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-trips.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-trips-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-create-sheet.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-public-detail.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-own-detail.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-detail-day.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-detail-map.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-social.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-creator.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-editor.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-editor-blocks.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-place-sheet.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-profile.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-profile-options.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-settings.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/utility-backup.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/",
+          "type": "document",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@vite/client",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/main.tsx?t=1789024843609",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@react-refresh",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/node_modules/.vite/deps/react.js?v=9a6f780e",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=9a6f780e",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/App.tsx?t=1789024843609",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/styles.css?t=1789021611417",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/theme.css?t=1789021884817",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=9a6f780e",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/client/env.mjs",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/node_modules/.vite/deps/rolldown-runtime-EAsCxrDo.js?v=9a6f780e",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/node_modules/.vite/deps/lucide-react.js?v=9a6f780e",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/busan-haeundae-blue-hour.webp?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/gangwon-east-sea-sunrise.webp?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-west-guide-cover.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-hyeopjae-tidepool.webp?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-hyeopjae-udon-dinner.webp?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/seoul-forest-evening.webp?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/node_modules/maplibre-gl/dist/maplibre-gl.css",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/localRepository.ts",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/LandmarkGuideCard.tsx?t=1789021884834",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/PhotoPlaceCard.tsx",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/PhotoLandmarkFeed.tsx?t=1789021884832",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/BottomSheet.tsx?t=1789021884832",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/visits.ts",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/ui.tsx?t=1789021884832",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/StyleGuide.tsx?t=1789024843609",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/data.ts",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/nativeBridge.ts",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-osulloc-tea-field.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-osulloc-morning-dew.webp?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-sagye-coast.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-sagye-tidepool.webp?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-saebyeol-oreum.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-saebyeol-trail.webp?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/photo-places.css",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/photo-landmark-feed.css",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/node_modules/.vite/deps/react-dom.js?v=9a6f780e",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/phase-one.css",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/shared/hybridBridge.ts",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/styleGuideCatalog.ts?t=1789024725434",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/src/style-guide-page.css?t=1789024843609",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/danang-beach.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/local-food.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/marble-mountain.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/night-market.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/resort.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-aewol-bakery.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-west-hotel-night.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-sanbangsan-cafe.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-hyeopjae-udon.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-aewol-travel-notes.webp?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/spa.jpg?import",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap",
+          "type": "stylesheet",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K4.woff2",
+          "type": "font",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2",
+          "type": "font",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-hyeopjae-tidepool.webp",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/marble-mountain.jpg",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/gangwon-east-sea-sunrise.webp",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/seoul-forest-evening.webp",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/busan-haeundae-blue-hour.webp",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/jeju-west-guide-cover.jpg",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "https://res.cloudinary.com/demo/video/upload/c_fill,g_center,h_1280,w_720,q_auto:eco/docs/sunset_waves.mp4",
+          "type": "media",
+          "method": "GET"
+        },
+        {
+          "url": "https://res.cloudinary.com/demo/video/upload/c_fill,g_center,h_1280,w_720,q_auto:eco/rafting_short.mp4",
+          "type": "media",
+          "method": "GET"
+        }
+      ],
+      "contentComparison": {
+        "onlyLocal": [
+          "기준일 2026.09.10 · 상세 규격: docs/STYLE_GUIDE.md · 측정: artifacts/site-design-discovery.json, site-design-journeys.json, design-guide-current-qa/results.json(저장 원본 비교) · 로컬 개발용으로 공개 메뉴에 추가하지 않습니다."
+        ],
+        "onlyStandalone": [
+          "이 문서는 현재 로컬 구현의 디자인 기준입니다. 미공개 기능은 참고 캡처로만 포함되며, 실제 서비스 기능을 함께 배포한 것은 아닙니다.",
+          "기준일 2026.09.10 · 현재 구현 화면과 검수용 데이터 기준 · 실제 사용자 성과·정식 운영 기능과 구분함 · 서비스 화면의 디자인과 기능은 이 문서 게시로 변경하지 않음."
+        ]
+      },
+      "serviceButton": {
+        "url": "http://127.0.0.1:5173/#home",
+        "homeVisible": true
+      }
+    },
+    {
+      "width": 460,
+      "structure": {
+        "groups": 12,
+        "images": 30,
+        "nav": 16,
+        "scrollWidth": 460,
+        "clientWidth": 460,
+        "title": "Spotlog · 전체 화면 디자인 가이드",
+        "scripts": [
+          "http://127.0.0.1:5173/design-guide/guide.js"
+        ]
+      },
+      "imageResponses": [
+        {
+          "url": "discovery-home.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-home-lower.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-community.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-community-card.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-community-empty.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-guide.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-card.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-empty.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-video.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-photo.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-photo-sheet.png",
+          "status": 200
+        },
+        {
+          "url": "saved-list.png",
+          "status": 200
+        },
+        {
+          "url": "saved-empty.png",
+          "status": 200
+        },
+        {
+          "url": "journey-trips.png",
+          "status": 200
+        },
+        {
+          "url": "journey-trips-empty.png",
+          "status": 200
+        },
+        {
+          "url": "journey-create-sheet.png",
+          "status": 200
+        },
+        {
+          "url": "journey-public-detail.png",
+          "status": 200
+        },
+        {
+          "url": "journey-own-detail.png",
+          "status": 200
+        },
+        {
+          "url": "journey-detail-day.png",
+          "status": 200
+        },
+        {
+          "url": "journey-detail-map.png",
+          "status": 200
+        },
+        {
+          "url": "journey-social.png",
+          "status": 200
+        },
+        {
+          "url": "journey-creator.png",
+          "status": 200
+        },
+        {
+          "url": "journey-editor.png",
+          "status": 200
+        },
+        {
+          "url": "journey-editor-blocks.png",
+          "status": 200
+        },
+        {
+          "url": "journey-place-sheet.png",
+          "status": 200
+        },
+        {
+          "url": "journey-profile.png",
+          "status": 200
+        },
+        {
+          "url": "journey-profile-options.png",
+          "status": 200
+        },
+        {
+          "url": "journey-settings.png",
+          "status": 200
+        },
+        {
+          "url": "utility-backup.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-photo-stories.png",
+          "status": 200
+        }
+      ],
+      "navigation": [
+        {
+          "id": "sg-foundation",
+          "top": 98.046875,
+          "bottom": 2307.265625,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-screens",
+          "top": 98.265625,
+          "bottom": 13742.171875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-components",
+          "top": 98.171875,
+          "bottom": 2733.390625,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-process",
+          "top": 98.390625,
+          "bottom": 1100.3125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-home",
+          "top": 97.734375,
+          "bottom": 1130.359375,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-community",
+          "top": 98.359375,
+          "bottom": 1149.671875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-guide",
+          "top": 97.671875,
+          "bottom": 1152.390625,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-feeds",
+          "top": 98.390625,
+          "bottom": 1204.890625,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-saved",
+          "top": 97.890625,
+          "bottom": 1204.390625,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-trips",
+          "top": 98.390625,
+          "bottom": 1089.84375,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-detail",
+          "top": 97.84375,
+          "bottom": 1163.171875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-social",
+          "top": 98.171875,
+          "bottom": 1116.421875,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-editor",
+          "top": 98.421875,
+          "bottom": 1168.453125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-profile",
+          "top": 98.453125,
+          "bottom": 1168.484375,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-utility",
+          "top": 98.484375,
+          "bottom": 1171.890625,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        },
+        {
+          "id": "sg-experiments",
+          "top": 97.890625,
+          "bottom": 1100.828125,
+          "headerBottom": 67.09375,
+          "viewport": 900
+        }
+      ],
+      "errors": [],
+      "storageUnchanged": true,
+      "storageWrites": [],
+      "appRequests": [],
+      "requests": [
+        {
+          "url": "http://127.0.0.1:5173/spotlog-design-guide.html",
+          "type": "document",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/guide.css",
+          "type": "stylesheet",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/guide.js",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap",
+          "type": "stylesheet",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2",
+          "type": "font",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K4.woff2",
+          "type": "font",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-home.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-home-lower.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-community.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-community-card.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-community-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-photo-stories.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-guide.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-card.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-video.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-photo.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-photo-sheet.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/saved-list.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/saved-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-trips.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-trips-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-create-sheet.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-public-detail.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-own-detail.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-detail-day.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-detail-map.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-social.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-creator.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-editor.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-editor-blocks.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-place-sheet.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-profile.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-profile-options.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-settings.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/utility-backup.png",
+          "type": "image",
+          "method": "GET"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "structure": {
+        "groups": 12,
+        "images": 30,
+        "nav": 16,
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "title": "Spotlog · 전체 화면 디자인 가이드",
+        "scripts": [
+          "http://127.0.0.1:5173/design-guide/guide.js"
+        ]
+      },
+      "imageResponses": [
+        {
+          "url": "discovery-home.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-home-lower.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-community.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-community-card.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-community-empty.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-guide.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-card.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-empty.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-video.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-places-photo.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-photo-sheet.png",
+          "status": 200
+        },
+        {
+          "url": "saved-list.png",
+          "status": 200
+        },
+        {
+          "url": "saved-empty.png",
+          "status": 200
+        },
+        {
+          "url": "journey-trips.png",
+          "status": 200
+        },
+        {
+          "url": "journey-trips-empty.png",
+          "status": 200
+        },
+        {
+          "url": "journey-create-sheet.png",
+          "status": 200
+        },
+        {
+          "url": "journey-public-detail.png",
+          "status": 200
+        },
+        {
+          "url": "journey-own-detail.png",
+          "status": 200
+        },
+        {
+          "url": "journey-detail-day.png",
+          "status": 200
+        },
+        {
+          "url": "journey-detail-map.png",
+          "status": 200
+        },
+        {
+          "url": "journey-social.png",
+          "status": 200
+        },
+        {
+          "url": "journey-creator.png",
+          "status": 200
+        },
+        {
+          "url": "journey-editor.png",
+          "status": 200
+        },
+        {
+          "url": "journey-editor-blocks.png",
+          "status": 200
+        },
+        {
+          "url": "journey-place-sheet.png",
+          "status": 200
+        },
+        {
+          "url": "journey-profile.png",
+          "status": 200
+        },
+        {
+          "url": "journey-profile-options.png",
+          "status": 200
+        },
+        {
+          "url": "journey-settings.png",
+          "status": 200
+        },
+        {
+          "url": "utility-backup.png",
+          "status": 200
+        },
+        {
+          "url": "discovery-photo-stories.png",
+          "status": 200
+        }
+      ],
+      "navigation": [
+        {
+          "id": "sg-foundation",
+          "top": 98.390625,
+          "bottom": 1296.890625,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-screens",
+          "top": 97.890625,
+          "bottom": 12161.171875,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-components",
+          "top": 98.171875,
+          "bottom": 2156.234375,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-process",
+          "top": 148.234375,
+          "bottom": 841.34375,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-home",
+          "top": 97.984375,
+          "bottom": 1048.4375,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-community",
+          "top": 98.4375,
+          "bottom": 1048.890625,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-guide",
+          "top": 97.890625,
+          "bottom": 1029.65625,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-feeds",
+          "top": 97.65625,
+          "bottom": 1057.8125,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-saved",
+          "top": 97.8125,
+          "bottom": 1057.96875,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-trips",
+          "top": 97.96875,
+          "bottom": 1011.953125,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-detail",
+          "top": 97.953125,
+          "bottom": 1040.328125,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-social",
+          "top": 98.328125,
+          "bottom": 993.625,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-editor",
+          "top": 97.625,
+          "bottom": 1021.3125,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-profile",
+          "top": 98.3125,
+          "bottom": 1022,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-utility",
+          "top": 98,
+          "bottom": 1048.453125,
+          "headerBottom": 75,
+          "viewport": 900
+        },
+        {
+          "id": "sg-experiments",
+          "top": 98.453125,
+          "bottom": 1001.828125,
+          "headerBottom": 75,
+          "viewport": 900
+        }
+      ],
+      "errors": [],
+      "storageUnchanged": true,
+      "storageWrites": [],
+      "appRequests": [],
+      "requests": [
+        {
+          "url": "http://127.0.0.1:5173/spotlog-design-guide.html",
+          "type": "document",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/guide.css",
+          "type": "stylesheet",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/guide.js",
+          "type": "script",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap",
+          "type": "stylesheet",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/manrope/v20/xn7gYHE41ni1AdIRggexSg.woff2",
+          "type": "font",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.gstatic.com/s/dmsans/v17/rP2Yp2ywxg089UriI5-g4vlH9VoD8Cmcqbu0-K4.woff2",
+          "type": "font",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-home.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-home-lower.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-community.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-community-card.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-community-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/utility-backup.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-photo-stories.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-guide.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-card.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-video.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-places-photo.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/discovery-photo-sheet.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/saved-list.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/saved-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-trips.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-trips-empty.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-create-sheet.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-public-detail.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-own-detail.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-detail-day.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-detail-map.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-social.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-creator.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-editor.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-editor-blocks.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-place-sheet.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-profile.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-profile-options.png",
+          "type": "image",
+          "method": "GET"
+        },
+        {
+          "url": "http://127.0.0.1:5173/design-guide/journey-settings.png",
+          "type": "image",
+          "method": "GET"
+        }
+      ]
+    }
+  ],
+  "issues": [],
+  "sourceChecks": {
+    "onlyGuideScript": [
+      "./design-guide/guide.js"
+    ],
+    "noStorageOrAppCalls": true,
+    "serviceAssignment": true
+  }
+}

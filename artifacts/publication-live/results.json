@@ -1,0 +1,13 @@
+{
+  "commit": "8313515ad8f90aa5c8bf05e30d12993a73521694",
+  "aiStories": 4,
+  "documents": 5,
+  "errors": [
+    "404 https://giry02.github.io/spotlog/assets/maplibre-gl-worker.mjs"
+  ],
+  "knownMapWarnings": [
+    "404 https://giry02.github.io/spotlog/assets/maplibre-gl-worker.mjs"
+  ],
+  "unexpectedErrors": [],
+  "checkedAt": "2026-09-10T22:54:09.627Z"
+}

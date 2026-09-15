@@ -1,0 +1,2825 @@
+{
+  "records": [
+    {
+      "type": "navigation",
+      "width": 1440,
+      "key": "development",
+      "count": 47
+    },
+    {
+      "type": "navigation",
+      "width": 1440,
+      "key": "ai",
+      "count": 67
+    },
+    {
+      "type": "navigation",
+      "width": 1440,
+      "key": "data",
+      "count": 32
+    },
+    {
+      "type": "data-screen",
+      "page": 1,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "Spotlog 데이터 수집 계획서"
+    },
+    {
+      "type": "data-screen",
+      "page": 2,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "1. 확정할 방향"
+    },
+    {
+      "type": "data-screen",
+      "page": 3,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "2. 제미나이 공유 대화 재확인 범위 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 4,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "2. 제미나이 공유 대화 재확인 범위 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 5,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "3. 데이터 수급처와 사용 목적 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 6,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "3. 데이터 수급처와 사용 목적 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 7,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "TourAPI 장소·좌표와 공공 사진 연결 — 추가 개발 기준 · 1/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 8,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "TourAPI 장소·좌표와 공공 사진 연결 — 추가 개발 기준 · 2/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 9,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "TourAPI 장소·좌표와 공공 사진 연결 — 추가 개발 기준 · 3/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 10,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 사용 조건"
+    },
+    {
+      "type": "data-screen",
+      "page": 11,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "초기 콘텐츠 운영 목표 — 제안값"
+    },
+    {
+      "type": "data-screen",
+      "page": 12,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "4. 네이버 신규 연동의 현재 기준 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 13,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "4. 네이버 신규 연동의 현재 기준 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 14,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "요금·쿼터의 미확정 사항"
+    },
+    {
+      "type": "data-screen",
+      "page": 15,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "저장·AI 사용을 분리해야 하는 이유 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 16,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "저장·AI 사용을 분리해야 하는 이유 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 17,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "5. 추천과 외부 검색의 기술 구조 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 18,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "5. 추천과 외부 검색의 기술 구조 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 19,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "서버 연동 준비"
+    },
+    {
+      "type": "data-screen",
+      "page": 20,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "6. 장소·사진·권리 데이터 규격 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 21,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "6. 장소·사진·권리 데이터 규격 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 22,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 출처 표시·중복 방지 — 확정 기준 · 1/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 23,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 출처 표시·중복 방지 — 확정 기준 · 2/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 24,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 출처 표시·중복 방지 — 확정 기준 · 3/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 25,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "7. 랜드마크 여러 이미지 좌우 넘김 — 1차 추가 계획 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 26,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "7. 랜드마크 여러 이미지 좌우 넘김 — 1차 추가 계획 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 27,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "동작과 표시"
+    },
+    {
+      "type": "data-screen",
+      "page": 28,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "수용 기준"
+    },
+    {
+      "type": "data-screen",
+      "page": 29,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "8. 차수별 작업과 후속 백엔드 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 30,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "8. 차수별 작업과 후속 백엔드 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 31,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "9. 비용·품질 관리"
+    },
+    {
+      "type": "data-screen",
+      "page": 32,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "slideHeight": 768,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "연결 문서"
+    },
+    {
+      "type": "navigation",
+      "width": 1440,
+      "key": "summary-development",
+      "count": 19
+    },
+    {
+      "type": "navigation",
+      "width": 1440,
+      "key": "summary-ai",
+      "count": 12
+    },
+    {
+      "type": "navigation",
+      "width": 320,
+      "key": "development",
+      "count": 47
+    },
+    {
+      "type": "navigation",
+      "width": 320,
+      "key": "ai",
+      "count": 67
+    },
+    {
+      "type": "navigation",
+      "width": 320,
+      "key": "data",
+      "count": 32
+    },
+    {
+      "type": "data-screen",
+      "page": 1,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "Spotlog 데이터 수집 계획서"
+    },
+    {
+      "type": "data-screen",
+      "page": 2,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 851.78125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "1. 확정할 방향"
+    },
+    {
+      "type": "data-screen",
+      "page": 3,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1305.953125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "2. 제미나이 공유 대화 재확인 범위 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 4,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "2. 제미나이 공유 대화 재확인 범위 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 5,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1431.53125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "3. 데이터 수급처와 사용 목적 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 6,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "3. 데이터 수급처와 사용 목적 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 7,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1312.484375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "TourAPI 장소·좌표와 공공 사진 연결 — 추가 개발 기준 · 1/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 8,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1634.015625,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "TourAPI 장소·좌표와 공공 사진 연결 — 추가 개발 기준 · 2/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 9,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "TourAPI 장소·좌표와 공공 사진 연결 — 추가 개발 기준 · 3/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 10,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1105.15625,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 사용 조건"
+    },
+    {
+      "type": "data-screen",
+      "page": 11,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "초기 콘텐츠 운영 목표 — 제안값"
+    },
+    {
+      "type": "data-screen",
+      "page": 12,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1229.953125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "4. 네이버 신규 연동의 현재 기준 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 13,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "4. 네이버 신규 연동의 현재 기준 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 14,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "요금·쿼터의 미확정 사항"
+    },
+    {
+      "type": "data-screen",
+      "page": 15,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1076.921875,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "저장·AI 사용을 분리해야 하는 이유 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 16,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "저장·AI 사용을 분리해야 하는 이유 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 17,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1211.171875,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "5. 추천과 외부 검색의 기술 구조 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 18,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 967.625,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "5. 추천과 외부 검색의 기술 구조 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 19,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 770.859375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "서버 연동 준비"
+    },
+    {
+      "type": "data-screen",
+      "page": 20,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1318.59375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "6. 장소·사진·권리 데이터 규격 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 21,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 854.1875,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "6. 장소·사진·권리 데이터 규격 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 22,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1290.859375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 출처 표시·중복 방지 — 확정 기준 · 1/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 23,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1354.015625,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 출처 표시·중복 방지 — 확정 기준 · 2/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 24,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 출처 표시·중복 방지 — 확정 기준 · 3/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 25,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1260.53125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "7. 랜드마크 여러 이미지 좌우 넘김 — 1차 추가 계획 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 26,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "7. 랜드마크 여러 이미지 좌우 넘김 — 1차 추가 계획 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 27,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1135.546875,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "동작과 표시"
+    },
+    {
+      "type": "data-screen",
+      "page": 28,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "수용 기준"
+    },
+    {
+      "type": "data-screen",
+      "page": 29,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1559.5,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "8. 차수별 작업과 후속 백엔드 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 30,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "8. 차수별 작업과 후속 백엔드 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 31,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 1072.359375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "9. 비용·품질 관리"
+    },
+    {
+      "type": "data-screen",
+      "page": 32,
+      "width": 320,
+      "scrollWidth": 320,
+      "slideHeight": 762,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "연결 문서"
+    },
+    {
+      "type": "navigation",
+      "width": 320,
+      "key": "summary-development",
+      "count": 19
+    },
+    {
+      "type": "navigation",
+      "width": 320,
+      "key": "summary-ai",
+      "count": 12
+    },
+    {
+      "type": "navigation",
+      "width": 390,
+      "key": "development",
+      "count": 47
+    },
+    {
+      "type": "navigation",
+      "width": 390,
+      "key": "ai",
+      "count": 67
+    },
+    {
+      "type": "navigation",
+      "width": 390,
+      "key": "data",
+      "count": 32
+    },
+    {
+      "type": "data-screen",
+      "page": 1,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "Spotlog 데이터 수집 계획서"
+    },
+    {
+      "type": "data-screen",
+      "page": 2,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "1. 확정할 방향"
+    },
+    {
+      "type": "data-screen",
+      "page": 3,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 1195.03125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "2. 제미나이 공유 대화 재확인 범위 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 4,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "2. 제미나이 공유 대화 재확인 범위 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 5,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 1296.609375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "3. 데이터 수급처와 사용 목적 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 6,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "3. 데이터 수급처와 사용 목적 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 7,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 1115.828125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "TourAPI 장소·좌표와 공공 사진 연결 — 추가 개발 기준 · 1/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 8,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 1360.578125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "TourAPI 장소·좌표와 공공 사진 연결 — 추가 개발 기준 · 2/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 9,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "TourAPI 장소·좌표와 공공 사진 연결 — 추가 개발 기준 · 3/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 10,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 887.875,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 사용 조건"
+    },
+    {
+      "type": "data-screen",
+      "page": 11,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "초기 콘텐츠 운영 목표 — 제안값"
+    },
+    {
+      "type": "data-screen",
+      "page": 12,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 1145.421875,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "4. 네이버 신규 연동의 현재 기준 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 13,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "4. 네이버 신규 연동의 현재 기준 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 14,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "요금·쿼터의 미확정 사항"
+    },
+    {
+      "type": "data-screen",
+      "page": 15,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 886.03125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "저장·AI 사용을 분리해야 하는 이유 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 16,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "저장·AI 사용을 분리해야 하는 이유 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 17,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 1126.640625,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "5. 추천과 외부 검색의 기술 구조 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 18,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 857.5,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "5. 추천과 외부 검색의 기술 구조 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 19,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "서버 연동 준비"
+    },
+    {
+      "type": "data-screen",
+      "page": 20,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 1158.078125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "6. 장소·사진·권리 데이터 규격 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 21,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "6. 장소·사진·권리 데이터 규격 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 22,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 1155.140625,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 출처 표시·중복 방지 — 확정 기준 · 1/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 23,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 1219.09375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 출처 표시·중복 방지 — 확정 기준 · 2/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 24,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 출처 표시·중복 방지 — 확정 기준 · 3/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 25,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 1108.40625,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "7. 랜드마크 여러 이미지 좌우 넘김 — 1차 추가 계획 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 26,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "7. 랜드마크 여러 이미지 좌우 넘김 — 1차 추가 계획 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 27,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 1015.578125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "동작과 표시"
+    },
+    {
+      "type": "data-screen",
+      "page": 28,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "수용 기준"
+    },
+    {
+      "type": "data-screen",
+      "page": 29,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 1424.578125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "8. 차수별 작업과 후속 백엔드 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 30,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "8. 차수별 작업과 후속 백엔드 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 31,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 926,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "9. 비용·품질 관리"
+    },
+    {
+      "type": "data-screen",
+      "page": 32,
+      "width": 390,
+      "scrollWidth": 390,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "연결 문서"
+    },
+    {
+      "type": "navigation",
+      "width": 390,
+      "key": "summary-development",
+      "count": 19
+    },
+    {
+      "type": "navigation",
+      "width": 390,
+      "key": "summary-ai",
+      "count": 12
+    },
+    {
+      "type": "navigation",
+      "width": 460,
+      "key": "development",
+      "count": 47
+    },
+    {
+      "type": "navigation",
+      "width": 460,
+      "key": "ai",
+      "count": 67
+    },
+    {
+      "type": "navigation",
+      "width": 460,
+      "key": "data",
+      "count": 32
+    },
+    {
+      "type": "data-screen",
+      "page": 1,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "Spotlog 데이터 수집 계획서"
+    },
+    {
+      "type": "data-screen",
+      "page": 2,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "1. 확정할 방향"
+    },
+    {
+      "type": "data-screen",
+      "page": 3,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 1091.859375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "2. 제미나이 공유 대화 재확인 범위 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 4,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "2. 제미나이 공유 대화 재확인 범위 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 5,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 1159.6875,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "3. 데이터 수급처와 사용 목적 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 6,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "3. 데이터 수급처와 사용 목적 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 7,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 1012.65625,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "TourAPI 장소·좌표와 공공 사진 연결 — 추가 개발 기준 · 1/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 8,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 1257.40625,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "TourAPI 장소·좌표와 공공 사진 연결 — 추가 개발 기준 · 2/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 9,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "TourAPI 장소·좌표와 공공 사진 연결 — 추가 개발 기준 · 3/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 10,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 861.484375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 사용 조건"
+    },
+    {
+      "type": "data-screen",
+      "page": 11,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "초기 콘텐츠 운영 목표 — 제안값"
+    },
+    {
+      "type": "data-screen",
+      "page": 12,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 1058.4375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "4. 네이버 신규 연동의 현재 기준 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 13,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "4. 네이버 신규 연동의 현재 기준 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 14,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "요금·쿼터의 미확정 사항"
+    },
+    {
+      "type": "data-screen",
+      "page": 15,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 833.25,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "저장·AI 사용을 분리해야 하는 이유 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 16,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "저장·AI 사용을 분리해야 하는 이유 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 17,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 988.125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "5. 추천과 외부 검색의 기술 구조 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 18,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "5. 추천과 외부 검색의 기술 구조 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 19,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "서버 연동 준비"
+    },
+    {
+      "type": "data-screen",
+      "page": 20,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 1097.9375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "6. 장소·사진·권리 데이터 규격 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 21,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "6. 장소·사진·권리 데이터 규격 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 22,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 1102.703125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 출처 표시·중복 방지 — 확정 기준 · 1/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 23,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 1142.3125,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 출처 표시·중복 방지 — 확정 기준 · 2/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 24,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "사진 출처 표시·중복 방지 — 확정 기준 · 3/3"
+    },
+    {
+      "type": "data-screen",
+      "page": 25,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 1108.40625,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "7. 랜드마크 여러 이미지 좌우 넘김 — 1차 추가 계획 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 26,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "7. 랜드마크 여러 이미지 좌우 넘김 — 1차 추가 계획 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 27,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 857.234375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "동작과 표시"
+    },
+    {
+      "type": "data-screen",
+      "page": 28,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "수용 기준"
+    },
+    {
+      "type": "data-screen",
+      "page": 29,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 1338.84375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "8. 차수별 작업과 후속 백엔드 · 1/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 30,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "8. 차수별 작업과 후속 백엔드 · 2/2"
+    },
+    {
+      "type": "data-screen",
+      "page": 31,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 898.234375,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "9. 비용·품질 관리"
+    },
+    {
+      "type": "data-screen",
+      "page": 32,
+      "width": 460,
+      "scrollWidth": 460,
+      "slideHeight": 788,
+      "footerOverlap": 0,
+      "clipping": 0,
+      "title": "연결 문서"
+    },
+    {
+      "type": "navigation",
+      "width": 460,
+      "key": "summary-development",
+      "count": 19
+    },
+    {
+      "type": "navigation",
+      "width": 460,
+      "key": "summary-ai",
+      "count": 12
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 1,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 2,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 3,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 4,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 5,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 6,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 7,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 8,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 9,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 10,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 11,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 12,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 13,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 14,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 15,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 16,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 17,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 18,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 19,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 20,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 21,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 22,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 23,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 24,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 25,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 26,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 27,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 28,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 29,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 30,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 31,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 32,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 33,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 34,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 35,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 36,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 37,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 38,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 39,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 40,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 41,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 42,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 43,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 44,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 45,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 46,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "development",
+      "page": 47,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 1,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 2,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 3,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 4,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 5,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 6,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 7,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 8,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 9,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 10,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 11,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 12,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 13,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 14,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 15,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 16,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 17,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 18,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 19,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 20,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 21,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 22,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 23,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 24,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 25,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 26,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 27,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 28,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 29,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 30,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 31,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 32,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 33,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 34,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 35,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 36,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 37,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 38,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 39,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 40,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 41,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 42,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 43,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 44,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 45,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 46,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 47,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 48,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 49,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 50,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 51,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 52,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 53,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 54,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 55,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 56,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 57,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 58,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 59,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 60,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 61,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 62,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 63,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 64,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 65,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 66,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "ai",
+      "page": 67,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 1,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 2,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 3,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 4,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 5,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 6,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 7,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 8,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 9,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 10,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 11,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 12,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 13,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 14,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 15,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 16,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 17,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 18,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 19,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 20,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 21,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 22,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 23,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 24,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 25,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 26,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 27,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 28,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 29,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 30,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 31,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "data",
+      "page": 32,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 1,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 2,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 3,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 4,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 5,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 6,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 7,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 8,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 9,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 10,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 11,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 12,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 13,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 14,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 15,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 16,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 17,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 18,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-development",
+      "page": 19,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-ai",
+      "page": 1,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-ai",
+      "page": 2,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-ai",
+      "page": 3,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-ai",
+      "page": 4,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-ai",
+      "page": 5,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-ai",
+      "page": 6,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-ai",
+      "page": 7,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-ai",
+      "page": 8,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-ai",
+      "page": 9,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-ai",
+      "page": 10,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-ai",
+      "page": 11,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "print",
+      "key": "summary-ai",
+      "page": 12,
+      "height": 768,
+      "clipping": 0,
+      "footerOverlap": 0
+    },
+    {
+      "type": "link-state-print-error",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

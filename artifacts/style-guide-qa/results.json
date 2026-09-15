@@ -1,0 +1,7680 @@
+{
+  "checkedAt": "2026-09-10T06:08:21.503Z",
+  "cases": [
+    {
+      "name": "320 saved: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "name": "320 saved: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 Saved has no journey/DAY/form"
+    },
+    {
+      "name": "320 add selection belongs to My Trips"
+    },
+    {
+      "name": "320 my-trips-add: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "name": "320 my-trips-add: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 my-trips-create: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "name": "320 my-trips-create: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 my-trips-ai: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "name": "320 my-trips-ai: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 backup: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320,
+        "dialog": 320,
+        "dialogScroll": 320
+      }
+    },
+    {
+      "name": "320 backup: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 backup native file button hidden"
+    },
+    {
+      "name": "320 backup focus begins inside sheet"
+    },
+    {
+      "name": "320 backup tab focus trapped"
+    },
+    {
+      "name": "320 backup downloads JSON",
+      "detail": "spotlog-backup-2026-09-10.json"
+    },
+    {
+      "name": "320 styled upload invokes native chooser"
+    },
+    {
+      "name": "320 restore cancel preserves data"
+    },
+    {
+      "name": "320 Escape releases app focus/inert"
+    },
+    {
+      "name": "320 style-guide: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "name": "320 style-guide: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 style-guide-sheet: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320,
+        "dialog": 320,
+        "dialogScroll": 320
+      }
+    },
+    {
+      "name": "320 style-guide-sheet: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 home: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "name": "320 home: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 promoted titles and CTA fit all cards",
+      "detail": [
+        {
+          "title": "제주 서쪽의 장면만 천천히",
+          "cardHeight": 306,
+          "copyTop": 50.8125,
+          "copyBottom": 288,
+          "titleBottom": 155,
+          "buttonBottom": 288
+        },
+        {
+          "title": "부산의 오래된 골목과 새 바다",
+          "cardHeight": 306,
+          "copyTop": 50.8125,
+          "copyBottom": 288,
+          "titleBottom": 155,
+          "buttonBottom": 288
+        },
+        {
+          "title": "강릉의 아침, 정선의 느린 오후",
+          "cardHeight": 306,
+          "copyTop": 50.8125,
+          "copyBottom": 288,
+          "titleBottom": 155,
+          "buttonBottom": 288
+        },
+        {
+          "title": "서울숲에서 한강까지 걷는 하루",
+          "cardHeight": 306,
+          "copyTop": 50.8125,
+          "copyBottom": 288,
+          "titleBottom": 155,
+          "buttonBottom": 288
+        },
+        {
+          "title": "초록에서 밤바다로, 순천과 여수",
+          "cardHeight": 306,
+          "copyTop": 50.8125,
+          "copyBottom": 288,
+          "titleBottom": 155,
+          "buttonBottom": 288
+        },
+        {
+          "title": "파도를 따라 북쪽으로 가는 동해안",
+          "cardHeight": 306,
+          "copyTop": 15.8125,
+          "copyBottom": 288,
+          "titleBottom": 155,
+          "buttonBottom": 288
+        },
+        {
+          "title": "골목과 정원, 섬을 잇는 남도 로드트립",
+          "cardHeight": 306,
+          "copyTop": 50.8125,
+          "copyBottom": 288,
+          "titleBottom": 155,
+          "buttonBottom": 288
+        }
+      ]
+    },
+    {
+      "name": "320 profile: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "name": "320 profile: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 community: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "name": "320 community: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 guide: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "name": "320 guide: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 my-trips: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "name": "320 my-trips: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 detail: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "name": "320 detail: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 scrolled DAY navigation works"
+    },
+    {
+      "name": "320 scrolled detail back reachable"
+    },
+    {
+      "name": "320 editor: viewport overflow",
+      "detail": {
+        "document": 320,
+        "content": 320,
+        "scroll": 320
+      }
+    },
+    {
+      "name": "320 editor: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "320 invalid restore preserves data"
+    },
+    {
+      "name": "390 saved: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "390 saved: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 Saved has no journey/DAY/form"
+    },
+    {
+      "name": "390 add selection belongs to My Trips"
+    },
+    {
+      "name": "390 my-trips-add: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "390 my-trips-add: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 my-trips-create: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "390 my-trips-create: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 my-trips-ai: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "390 my-trips-ai: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 backup: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390,
+        "dialog": 390,
+        "dialogScroll": 390
+      }
+    },
+    {
+      "name": "390 backup: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 backup native file button hidden"
+    },
+    {
+      "name": "390 backup focus begins inside sheet"
+    },
+    {
+      "name": "390 backup tab focus trapped"
+    },
+    {
+      "name": "390 backup downloads JSON",
+      "detail": "spotlog-backup-2026-09-10.json"
+    },
+    {
+      "name": "390 styled upload invokes native chooser"
+    },
+    {
+      "name": "390 restore cancel preserves data"
+    },
+    {
+      "name": "390 Escape releases app focus/inert"
+    },
+    {
+      "name": "390 style-guide: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "390 style-guide: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 style-guide-sheet: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390,
+        "dialog": 390,
+        "dialogScroll": 390
+      }
+    },
+    {
+      "name": "390 style-guide-sheet: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 home: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "390 home: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 promoted titles and CTA fit all cards",
+      "detail": [
+        {
+          "title": "제주 서쪽의 장면만 천천히",
+          "cardHeight": 306,
+          "copyTop": 71.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        },
+        {
+          "title": "부산의 오래된 골목과 새 바다",
+          "cardHeight": 306,
+          "copyTop": 71.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        },
+        {
+          "title": "강릉의 아침, 정선의 느린 오후",
+          "cardHeight": 306,
+          "copyTop": 71.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        },
+        {
+          "title": "서울숲에서 한강까지 걷는 하루",
+          "cardHeight": 306,
+          "copyTop": 71.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        },
+        {
+          "title": "초록에서 밤바다로, 순천과 여수",
+          "cardHeight": 306,
+          "copyTop": 71.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        },
+        {
+          "title": "파도를 따라 북쪽으로 가는 동해안",
+          "cardHeight": 306,
+          "copyTop": 71.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        },
+        {
+          "title": "골목과 정원, 섬을 잇는 남도 로드트립",
+          "cardHeight": 306,
+          "copyTop": 71.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        }
+      ]
+    },
+    {
+      "name": "390 profile: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "390 profile: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 community: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "390 community: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 guide: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "390 guide: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 my-trips: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "390 my-trips: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 detail: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "390 detail: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 scrolled DAY navigation works"
+    },
+    {
+      "name": "390 scrolled detail back reachable"
+    },
+    {
+      "name": "390 editor: viewport overflow",
+      "detail": {
+        "document": 390,
+        "content": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "390 editor: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "390 invalid restore preserves data"
+    },
+    {
+      "name": "460 saved: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460
+      }
+    },
+    {
+      "name": "460 saved: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 Saved has no journey/DAY/form"
+    },
+    {
+      "name": "460 add selection belongs to My Trips"
+    },
+    {
+      "name": "460 my-trips-add: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460
+      }
+    },
+    {
+      "name": "460 my-trips-add: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 my-trips-create: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460
+      }
+    },
+    {
+      "name": "460 my-trips-create: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 my-trips-ai: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460
+      }
+    },
+    {
+      "name": "460 my-trips-ai: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 backup: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460,
+        "dialog": 460,
+        "dialogScroll": 460
+      }
+    },
+    {
+      "name": "460 backup: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 backup native file button hidden"
+    },
+    {
+      "name": "460 backup focus begins inside sheet"
+    },
+    {
+      "name": "460 backup tab focus trapped"
+    },
+    {
+      "name": "460 backup downloads JSON",
+      "detail": "spotlog-backup-2026-09-10.json"
+    },
+    {
+      "name": "460 styled upload invokes native chooser"
+    },
+    {
+      "name": "460 restore cancel preserves data"
+    },
+    {
+      "name": "460 Escape releases app focus/inert"
+    },
+    {
+      "name": "460 style-guide: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460
+      }
+    },
+    {
+      "name": "460 style-guide: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 style-guide-sheet: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460,
+        "dialog": 460,
+        "dialogScroll": 460
+      }
+    },
+    {
+      "name": "460 style-guide-sheet: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 home: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460
+      }
+    },
+    {
+      "name": "460 home: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 promoted titles and CTA fit all cards",
+      "detail": [
+        {
+          "title": "제주 서쪽의 장면만 천천히",
+          "cardHeight": 306,
+          "copyTop": 106.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        },
+        {
+          "title": "부산의 오래된 골목과 새 바다",
+          "cardHeight": 306,
+          "copyTop": 106.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        },
+        {
+          "title": "강릉의 아침, 정선의 느린 오후",
+          "cardHeight": 306,
+          "copyTop": 106.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        },
+        {
+          "title": "서울숲에서 한강까지 걷는 하루",
+          "cardHeight": 306,
+          "copyTop": 71.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        },
+        {
+          "title": "초록에서 밤바다로, 순천과 여수",
+          "cardHeight": 306,
+          "copyTop": 71.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        },
+        {
+          "title": "파도를 따라 북쪽으로 가는 동해안",
+          "cardHeight": 306,
+          "copyTop": 71.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        },
+        {
+          "title": "골목과 정원, 섬을 잇는 남도 로드트립",
+          "cardHeight": 306,
+          "copyTop": 71.8125,
+          "copyBottom": 288,
+          "titleBottom": 176,
+          "buttonBottom": 288
+        }
+      ]
+    },
+    {
+      "name": "460 profile: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460
+      }
+    },
+    {
+      "name": "460 profile: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 community: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460
+      }
+    },
+    {
+      "name": "460 community: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 guide: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460
+      }
+    },
+    {
+      "name": "460 guide: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 my-trips: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460
+      }
+    },
+    {
+      "name": "460 my-trips: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 detail: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460
+      }
+    },
+    {
+      "name": "460 detail: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 scrolled DAY navigation works"
+    },
+    {
+      "name": "460 scrolled detail back reachable"
+    },
+    {
+      "name": "460 editor: viewport overflow",
+      "detail": {
+        "document": 460,
+        "content": 460,
+        "scroll": 460
+      }
+    },
+    {
+      "name": "460 editor: shared button contract",
+      "detail": []
+    },
+    {
+      "name": "460 invalid restore preserves data"
+    },
+    {
+      "name": "No browser exceptions",
+      "detail": []
+    }
+  ],
+  "failures": [],
+  "measurements": [
+    {
+      "width": 320,
+      "name": "saved",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular saved-create-entry",
+          "text": "여행 만들기",
+          "width": 280,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular saved-ai-entry",
+          "text": "저장한 장소로 AI 여행 만들기내 여행에서 기간을 정하고 만들어요",
+          "width": 280,
+          "height": 127.78125,
+          "font": "15px",
+          "radius": "20px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "저장한 장소 검색",
+          "width": 229.75,
+          "height": 46,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--compact ",
+          "text": "전체 3",
+          "width": 72.28125,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ",
+          "text": "강원 1",
+          "width": 68.375,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ",
+          "text": "서울 1",
+          "width": 68.375,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ",
+          "text": "제주 1",
+          "width": 68.375,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "내 여행에 담기",
+          "width": 138.828125,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 99.15625,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--compact saved-unsave",
+          "text": "저장 해제",
+          "width": 89.671875,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "내 여행에 담기",
+          "width": 138.828125,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 99.15625,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--compact saved-unsave",
+          "text": "저장 해제",
+          "width": 89.671875,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "내 여행에 담기",
+          "width": 138.828125,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 99.15625,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--compact saved-unsave",
+          "text": "저장 해제",
+          "width": 89.671875,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "내 데이터 백업·복구",
+          "width": 280,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "my-trips-add",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "저장한 장소로 돌아가기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "여행을 선택해 주세요서울에서 보내는 느긋한 이틀",
+          "width": 280,
+          "height": 50.125,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "DAY 110월 1일",
+          "width": 92,
+          "height": 74.640625,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "DAY 210월 2일",
+          "width": 92,
+          "height": 74.640625,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "DAY 2에 담기",
+          "width": 280,
+          "height": 50.765625,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--regular ",
+          "text": "새 여행에 담기",
+          "width": 280,
+          "height": 50.765625,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "my-trips-create",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "저장한 장소로 돌아가기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행 이름",
+          "width": 280,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "당일치기1박 2일2박 3일3박 4일4박 5일5박 6일6박 7일",
+          "width": 280,
+          "height": 49,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "출발 날짜",
+          "width": 280,
+          "height": 52,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "여행 만들기",
+          "width": 280,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "my-trips-ai",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "저장한 장소로 돌아가기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "당일치기1박 2일2박 3일3박 4일4박 5일5박 6일6박 7일",
+          "width": 280,
+          "height": 50.796875,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "이 장소로 여행 만들기",
+          "width": 280,
+          "height": 52.109375,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "backup",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "dialogWidth": 320,
+      "dialogScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "닫기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "백업 파일 저장",
+          "width": 280,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "백업 파일 선택",
+          "width": 280,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "style-guide",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "뒤로 가기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "내 여행에 담기",
+          "width": 238,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 238,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--regular ",
+          "text": "취소",
+          "width": 238,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--danger ui-button--regular ",
+          "text": "삭제",
+          "width": 238,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "장소를 선택해 주세요",
+          "width": 238,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "처리 중",
+          "width": 238,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "이 장소 저장",
+          "width": 238,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "장소 추가",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "예: 제주 주말 여행",
+          "width": 238,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "당일치기1박 2일2박 3일",
+          "width": 238,
+          "height": 49,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "남기고 싶은 이야기를 적어주세요.",
+          "width": 238,
+          "height": 98,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "백업 파일 선택",
+          "width": 238,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "하단 팝업 보기",
+          "width": 238,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "style-guide-sheet",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "dialogWidth": 320,
+      "dialogScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "닫기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행 이름 입력",
+          "width": 280,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "확인",
+          "width": 280,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "취소",
+          "width": 280,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "home",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "프로필",
+          "width": 42,
+          "height": 42,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 이전",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 다음",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 113.046875,
+          "height": 69,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 113.046875,
+          "height": 69,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 113.1875,
+          "height": 69,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 113.125,
+          "height": 69,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 113.046875,
+          "height": 69,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 113.046875,
+          "height": 69,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 111.390625,
+          "height": 69,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "추천 일정 1번",
+          "width": 21,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 2번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 3번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 4번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 5번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 6번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 7번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 이전",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 다음",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "제주2박 3일",
+          "width": 112,
+          "height": 224.28125,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 117,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "제주1박 2일",
+          "width": 112,
+          "height": 224.28125,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 117,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "부산1박 2일",
+          "width": 112,
+          "height": 224.28125,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 117,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "강원1박 2일",
+          "width": 112,
+          "height": 224.28125,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 117,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "서울당일 여행",
+          "width": 112,
+          "height": 224.28125,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 117,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "전남2박 3일",
+          "width": 112,
+          "height": 224.28125,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 117,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "강원3박 4일",
+          "width": 112,
+          "height": 224.28125,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 117,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "남도4박 5일",
+          "width": 112,
+          "height": 224.28125,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 117,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "여행자 일정 1번",
+          "width": 21,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 2번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 3번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 4번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 5번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 6번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 7번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 8번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-find-guides",
+          "text": "지역 · 여행 기간으로 검색다른 여행자의 여행기 찾기당일치기부터 3박 이상까지 골라보세요.",
+          "width": 284,
+          "height": 161.359375,
+          "font": "16px",
+          "radius": "21px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "랜드마크 찾기영상이나 안내 목록에서 장소 담기",
+          "width": 284,
+          "height": 67,
+          "font": "16px",
+          "radius": "17px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "내 여행복사하고 만든 일정 관리",
+          "width": 284,
+          "height": 67,
+          "font": "16px",
+          "radius": "17px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "profile",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "홈으로 돌아가기",
+          "width": 42,
+          "height": 42,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "내 아이콘 바꾸기",
+          "width": 130.09375,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "notification-switch",
+          "text": "",
+          "width": 43,
+          "height": 26,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "비공개 초안 · 서울서울에서 보내는 느긋한 이틀0  0명  0",
+          "width": 246,
+          "height": 87.171875,
+          "font": "16px",
+          "radius": "14px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "community",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행기 지역 검색",
+          "width": 185,
+          "height": 25.796875,
+          "font": "14px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "전체",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "제주",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "부산",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "강원",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "서울",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "전남",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "남도",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "전체 기간",
+          "width": 87.3125,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "당일치기",
+          "width": 84,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "1박 2일",
+          "width": 72.484375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "2박 3일",
+          "width": 75.828125,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "3박 이상",
+          "width": 81.75,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "남도 · 4박 5일",
+          "width": 278,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 246,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "제주 · 2박 3일",
+          "width": 278,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 246,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "강원 · 3박 4일",
+          "width": 278,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 246,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "전남 · 2박 3일",
+          "width": 278,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 246,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "부산 · 1박 2일",
+          "width": 278,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 246,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "제주 · 1박 2일",
+          "width": 278,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 246,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "강원 · 1박 2일",
+          "width": 278,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 246,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "서울 · 당일 여행",
+          "width": 278,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 246,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "guide",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "영상",
+          "width": 54,
+          "height": 44,
+          "font": "11px",
+          "radius": "9px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "사진",
+          "width": 54,
+          "height": 44,
+          "font": "11px",
+          "radius": "9px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "지역 안내",
+          "width": 78.609375,
+          "height": 44,
+          "font": "11px",
+          "radius": "9px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "랜드마크 지역 검색",
+          "width": 191,
+          "height": 25.796875,
+          "font": "14px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "전체48",
+          "width": 73.390625,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "서울3",
+          "width": 65.25,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "경기2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "인천2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "강원8",
+          "width": 65.59375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "충북2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "충남2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "대전2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "세종2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "전북2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "전남6",
+          "width": 65.609375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "광주2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "경북2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "경남3",
+          "width": 65.25,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "대구2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "울산2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "부산2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "제주4",
+          "width": 65.8125,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "저장됨",
+          "width": 141.15625,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 100.828125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "이 장소 저장",
+          "width": 141.15625,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 100.828125,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "이 장소 저장",
+          "width": 141.15625,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 100.828125,
+          "height": 71,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "my-trips",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "header-action solid",
+          "text": "새 여행",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "journey-main",
+          "text": "계획 중서울 · 1박 2일서울에서 보내는 느긋한 이틀산책과 사진을 남기는 주말 여행2026-10-01 ~ 2",
+          "width": 280,
+          "height": 238,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "journey-share",
+          "text": "서울에서 보내는 느긋한 이틀 공유",
+          "width": 37,
+          "height": 37,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "primary wide create-trip-button",
+          "text": "새 여행기 만들기",
+          "width": 280,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "detail",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "뒤로",
+          "width": 40,
+          "height": 40,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 편집",
+          "width": 40,
+          "height": 40,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "공유",
+          "width": 75,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "day-tabs-back",
+          "text": "목록으로 돌아가기",
+          "width": 44,
+          "height": 44,
+          "font": "14px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "DAY 12026-10-01",
+          "width": 108.8125,
+          "height": 68.1875,
+          "font": "14px",
+          "radius": "13px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "DAY 22026-10-02",
+          "width": 111.734375,
+          "height": 68.1875,
+          "font": "14px",
+          "radius": "13px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "길찾기",
+          "width": 119,
+          "height": 44,
+          "font": "14px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "공유",
+          "width": 119,
+          "height": 44,
+          "font": "14px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "너무 좋아요0",
+          "width": 78.65625,
+          "height": 94.390625,
+          "font": "16px",
+          "radius": "14px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "최고예요0",
+          "width": 78.671875,
+          "height": 94.390625,
+          "font": "16px",
+          "radius": "14px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "동선이 유용해요0",
+          "width": 78.65625,
+          "height": 94.390625,
+          "font": "16px",
+          "radius": "14px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "댓글 작성",
+          "width": 148,
+          "height": 48,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "등록",
+          "width": 52,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "delete-journey",
+          "text": "삭제",
+          "width": 86,
+          "height": 69,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "이 여행기 이어서 쓰기",
+          "width": 189,
+          "height": 69,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 320,
+      "name": "editor",
+      "viewport": 320,
+      "documentWidth": 320,
+      "contentWidth": 320,
+      "contentScrollWidth": 320,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "편집 취소",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "save-editor",
+          "text": "저장",
+          "width": 75,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행기 제목",
+          "width": 284,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행 지역",
+          "width": 137,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행 기간",
+          "width": 137,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "산책과 사진을 남기는 주말 여행",
+          "width": 284,
+          "height": 74,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "기존 원문 유지",
+          "width": 284,
+          "height": 122,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "비공개 초안여행 중공개 여행일기로 발행",
+          "width": 284,
+          "height": 49,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "day-tabs-back",
+          "text": "작성 화면 뒤로가기",
+          "width": 44,
+          "height": 44,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "DAY 1",
+          "width": 76,
+          "height": 51.59375,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "DAY 2",
+          "width": 76,
+          "height": 51.59375,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "add-day",
+          "text": "날짜",
+          "width": 76,
+          "height": 51.59375,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "remove-day",
+          "text": "DAY 1 삭제",
+          "width": 96,
+          "height": 51.59375,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "날짜 제목",
+          "width": 284,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "날짜별 본문 보존",
+          "width": 284,
+          "height": 74,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "위로 이동",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "아래로 이동",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "×",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "",
+          "width": 123,
+          "height": 52,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "예: 1시간 20분",
+          "width": 123,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "예: 차량 25분",
+          "width": 256,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "위로 이동",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "아래로 이동",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "×",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "글 2 소제목",
+          "width": 256,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "사진과 장소 사이에 남기는 여행자의 긴 본문입니다. 주변 풍경을 천천히 돌아보며 기록합니다.",
+          "width": 256,
+          "height": 170,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "글",
+          "width": 80.65625,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "사진",
+          "width": 80.671875,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "장소",
+          "width": 80.65625,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "숙소",
+          "width": 80.65625,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "맛집",
+          "width": 80.671875,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "카페",
+          "width": 80.65625,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 저장하고 미리보기",
+          "width": 284,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "saved",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular saved-create-entry",
+          "text": "여행 만들기",
+          "width": 350,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular saved-ai-entry",
+          "text": "저장한 장소로 AI 여행 만들기내 여행에서 기간을 정하고 만들어요",
+          "width": 350,
+          "height": 82.890625,
+          "font": "15px",
+          "radius": "20px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "저장한 장소 검색",
+          "width": 299.390625,
+          "height": 46,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--compact ",
+          "text": "전체 3",
+          "width": 72.28125,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ",
+          "text": "강원 1",
+          "width": 68.375,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ",
+          "text": "서울 1",
+          "width": 68.375,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ",
+          "text": "제주 1",
+          "width": 68.375,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "내 여행에 담기",
+          "width": 179.65625,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 128.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--compact saved-unsave",
+          "text": "저장 해제",
+          "width": 89.671875,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "내 여행에 담기",
+          "width": 179.65625,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 128.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--compact saved-unsave",
+          "text": "저장 해제",
+          "width": 89.671875,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "내 여행에 담기",
+          "width": 179.65625,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 128.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--compact saved-unsave",
+          "text": "저장 해제",
+          "width": 89.671875,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "내 데이터 백업·복구",
+          "width": 350,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "my-trips-add",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "저장한 장소로 돌아가기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "여행을 선택해 주세요서울에서 보내는 느긋한 이틀",
+          "width": 350,
+          "height": 50.984375,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "DAY 110월 1일",
+          "width": 92,
+          "height": 75.484375,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "DAY 210월 2일",
+          "width": 92,
+          "height": 75.484375,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "DAY 2에 담기",
+          "width": 350,
+          "height": 52.46875,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--regular ",
+          "text": "새 여행에 담기",
+          "width": 350,
+          "height": 52.46875,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "my-trips-create",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "저장한 장소로 돌아가기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행 이름",
+          "width": 350,
+          "height": 52.65625,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "당일치기1박 2일2박 3일3박 4일4박 5일5박 6일6박 7일",
+          "width": 146.953125,
+          "height": 49,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "출발 날짜",
+          "width": 191.046875,
+          "height": 52,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "여행 만들기",
+          "width": 350,
+          "height": 53.828125,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "my-trips-ai",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "저장한 장소로 돌아가기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "당일치기1박 2일2박 3일3박 4일4박 5일5박 6일6박 7일",
+          "width": 350,
+          "height": 51.59375,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "이 장소로 여행 만들기",
+          "width": 350,
+          "height": 53.671875,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "backup",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "dialogWidth": 390,
+      "dialogScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "닫기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "백업 파일 저장",
+          "width": 350,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "백업 파일 선택",
+          "width": 350,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "style-guide",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "뒤로 가기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "내 여행에 담기",
+          "width": 308,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 308,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--regular ",
+          "text": "취소",
+          "width": 308,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--danger ui-button--regular ",
+          "text": "삭제",
+          "width": 308,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "장소를 선택해 주세요",
+          "width": 308,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "처리 중",
+          "width": 308,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "이 장소 저장",
+          "width": 308,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "장소 추가",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "예: 제주 주말 여행",
+          "width": 308,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "당일치기1박 2일2박 3일",
+          "width": 308,
+          "height": 49,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "남기고 싶은 이야기를 적어주세요.",
+          "width": 308,
+          "height": 98,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "백업 파일 선택",
+          "width": 308,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "하단 팝업 보기",
+          "width": 308,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "style-guide-sheet",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "dialogWidth": 390,
+      "dialogScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "닫기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행 이름 입력",
+          "width": 350,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "확인",
+          "width": 350,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "취소",
+          "width": 350,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "home",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "프로필",
+          "width": 42,
+          "height": 42,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 이전",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 다음",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "추천 일정 1번",
+          "width": 21,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 2번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 3번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 4번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 5번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 6번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 7번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 이전",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 다음",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "제주2박 3일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "제주1박 2일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "부산1박 2일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "강원1박 2일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "서울당일 여행",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "전남2박 3일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "강원3박 4일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "남도4박 5일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "여행자 일정 1번",
+          "width": 21,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 2번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 3번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 4번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 5번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 6번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 7번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 8번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-find-guides",
+          "text": "지역 · 여행 기간으로 검색다른 여행자의 여행기 찾기당일치기부터 3박 이상까지 골라보세요.",
+          "width": 354,
+          "height": 134.171875,
+          "font": "16px",
+          "radius": "21px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "랜드마크 찾기영상이나 안내 목록에서 장소 담기",
+          "width": 354,
+          "height": 67,
+          "font": "16px",
+          "radius": "17px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "내 여행복사하고 만든 일정 관리",
+          "width": 354,
+          "height": 67,
+          "font": "16px",
+          "radius": "17px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "profile",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "홈으로 돌아가기",
+          "width": 42,
+          "height": 42,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "내 아이콘 바꾸기",
+          "width": 130.09375,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "notification-switch",
+          "text": "",
+          "width": 43,
+          "height": 26,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "비공개 초안 · 서울서울에서 보내는 느긋한 이틀0  0명  0",
+          "width": 316,
+          "height": 87.171875,
+          "font": "16px",
+          "radius": "14px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "community",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행기 지역 검색",
+          "width": 255,
+          "height": 25.796875,
+          "font": "14px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "전체",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "제주",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "부산",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "강원",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "서울",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "전남",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "남도",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "전체 기간",
+          "width": 87.3125,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "당일치기",
+          "width": 84,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "1박 2일",
+          "width": 72.484375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "2박 3일",
+          "width": 75.828125,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "3박 이상",
+          "width": 81.75,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "남도 · 4박 5일",
+          "width": 348,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 316,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "제주 · 2박 3일",
+          "width": 348,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 316,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "강원 · 3박 4일",
+          "width": 348,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 316,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "전남 · 2박 3일",
+          "width": 348,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 316,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "부산 · 1박 2일",
+          "width": 348,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 316,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "제주 · 1박 2일",
+          "width": 348,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 316,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "강원 · 1박 2일",
+          "width": 348,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 316,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "서울 · 당일 여행",
+          "width": 348,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 316,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "guide",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "영상",
+          "width": 63,
+          "height": 44,
+          "font": "12px",
+          "radius": "9px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "사진",
+          "width": 63,
+          "height": 44,
+          "font": "12px",
+          "radius": "9px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "지역 안내",
+          "width": 89.84375,
+          "height": 44,
+          "font": "12px",
+          "radius": "9px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "랜드마크 지역 검색",
+          "width": 261,
+          "height": 25.796875,
+          "font": "14px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "전체48",
+          "width": 73.390625,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "서울3",
+          "width": 65.25,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "경기2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "인천2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "강원8",
+          "width": 65.59375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "충북2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "충남2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "대전2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "세종2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "전북2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "전남6",
+          "width": 65.609375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "광주2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "경북2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "경남3",
+          "width": 65.25,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "대구2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "울산2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "부산2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "제주4",
+          "width": 65.8125,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "저장됨",
+          "width": 182,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 130,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "이 장소 저장",
+          "width": 182,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 130,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "이 장소 저장",
+          "width": 182,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 130,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "my-trips",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "header-action solid",
+          "text": "새 여행",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "journey-main",
+          "text": "계획 중서울 · 1박 2일서울에서 보내는 느긋한 이틀산책과 사진을 남기는 주말 여행2026-10-01 ~ 2",
+          "width": 350,
+          "height": 238,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "journey-share",
+          "text": "서울에서 보내는 느긋한 이틀 공유",
+          "width": 37,
+          "height": 37,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "primary wide create-trip-button",
+          "text": "새 여행기 만들기",
+          "width": 350,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "detail",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "뒤로",
+          "width": 40,
+          "height": 40,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 편집",
+          "width": 40,
+          "height": 40,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "공유",
+          "width": 75,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "day-tabs-back",
+          "text": "목록으로 돌아가기",
+          "width": 44,
+          "height": 44,
+          "font": "14px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "DAY 12026-10-01",
+          "width": 108.8125,
+          "height": 68.1875,
+          "font": "14px",
+          "radius": "13px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "DAY 22026-10-02",
+          "width": 111.734375,
+          "height": 68.1875,
+          "font": "14px",
+          "radius": "13px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "길찾기",
+          "width": 154,
+          "height": 44,
+          "font": "14px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "공유",
+          "width": 154,
+          "height": 44,
+          "font": "14px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "너무 좋아요0",
+          "width": 102,
+          "height": 79.390625,
+          "font": "16px",
+          "radius": "14px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "최고예요0",
+          "width": 102,
+          "height": 79.390625,
+          "font": "16px",
+          "radius": "14px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "동선이 유용해요0",
+          "width": 102,
+          "height": 79.390625,
+          "font": "16px",
+          "radius": "14px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "댓글 작성",
+          "width": 218,
+          "height": 48,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "등록",
+          "width": 52,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "delete-journey",
+          "text": "삭제",
+          "width": 86,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "이 여행기 이어서 쓰기",
+          "width": 259,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 390,
+      "name": "editor",
+      "viewport": 390,
+      "documentWidth": 390,
+      "contentWidth": 390,
+      "contentScrollWidth": 390,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "편집 취소",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "save-editor",
+          "text": "저장",
+          "width": 75,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행기 제목",
+          "width": 354,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행 지역",
+          "width": 172,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행 기간",
+          "width": 172,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "산책과 사진을 남기는 주말 여행",
+          "width": 354,
+          "height": 74,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "기존 원문 유지",
+          "width": 354,
+          "height": 122,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "비공개 초안여행 중공개 여행일기로 발행",
+          "width": 354,
+          "height": 49,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "day-tabs-back",
+          "text": "작성 화면 뒤로가기",
+          "width": 44,
+          "height": 44,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "DAY 1",
+          "width": 76,
+          "height": 51.59375,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "DAY 2",
+          "width": 76,
+          "height": 51.59375,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "add-day",
+          "text": "날짜",
+          "width": 76,
+          "height": 51.59375,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "remove-day",
+          "text": "DAY 1 삭제",
+          "width": 96,
+          "height": 51.59375,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "날짜 제목",
+          "width": 354,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "날짜별 본문 보존",
+          "width": 354,
+          "height": 74,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "위로 이동",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "아래로 이동",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "×",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "",
+          "width": 158,
+          "height": 52,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "예: 1시간 20분",
+          "width": 158,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "예: 차량 25분",
+          "width": 326,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "위로 이동",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "아래로 이동",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "×",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "글 2 소제목",
+          "width": 326,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "사진과 장소 사이에 남기는 여행자의 긴 본문입니다. 주변 풍경을 천천히 돌아보며 기록합니다.",
+          "width": 326,
+          "height": 170,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "글",
+          "width": 104,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "사진",
+          "width": 104,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "장소",
+          "width": 104,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "숙소",
+          "width": 104,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "맛집",
+          "width": 104,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "카페",
+          "width": 104,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 저장하고 미리보기",
+          "width": 354,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "saved",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular saved-create-entry",
+          "text": "여행 만들기",
+          "width": 420,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular saved-ai-entry",
+          "text": "저장한 장소로 AI 여행 만들기내 여행에서 기간을 정하고 만들어요",
+          "width": 420,
+          "height": 82.890625,
+          "font": "15px",
+          "radius": "20px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "저장한 장소 검색",
+          "width": 369.140625,
+          "height": 46,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--compact ",
+          "text": "전체 3",
+          "width": 72.28125,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ",
+          "text": "강원 1",
+          "width": 68.375,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ",
+          "text": "서울 1",
+          "width": 68.375,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ",
+          "text": "제주 1",
+          "width": 68.375,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "내 여행에 담기",
+          "width": 220.5,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 157.5,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--compact saved-unsave",
+          "text": "저장 해제",
+          "width": 89.671875,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "내 여행에 담기",
+          "width": 220.5,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 157.5,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--compact saved-unsave",
+          "text": "저장 해제",
+          "width": 89.671875,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "내 여행에 담기",
+          "width": 220.5,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 157.5,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--compact saved-unsave",
+          "text": "저장 해제",
+          "width": 89.671875,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "내 데이터 백업·복구",
+          "width": 420,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "my-trips-add",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "저장한 장소로 돌아가기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "여행을 선택해 주세요서울에서 보내는 느긋한 이틀",
+          "width": 420,
+          "height": 50.984375,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "DAY 110월 1일",
+          "width": 92,
+          "height": 75.484375,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "DAY 210월 2일",
+          "width": 92,
+          "height": 75.484375,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "DAY 2에 담기",
+          "width": 420,
+          "height": 52.46875,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--regular ",
+          "text": "새 여행에 담기",
+          "width": 420,
+          "height": 52.46875,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "my-trips-create",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "저장한 장소로 돌아가기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행 이름",
+          "width": 420,
+          "height": 53.515625,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "당일치기1박 2일2박 3일3박 4일4박 5일5박 6일6박 7일",
+          "width": 177.390625,
+          "height": 49,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "출발 날짜",
+          "width": 230.609375,
+          "height": 52,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "여행 만들기",
+          "width": 420,
+          "height": 55.53125,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "my-trips-ai",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "저장한 장소로 돌아가기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "당일치기1박 2일2박 3일3박 4일4박 5일5박 6일6박 7일",
+          "width": 420,
+          "height": 53.21875,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "이 장소로 여행 만들기",
+          "width": 420,
+          "height": 56.953125,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "backup",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "dialogWidth": 460,
+      "dialogScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "닫기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "백업 파일 저장",
+          "width": 420,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "백업 파일 선택",
+          "width": 420,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "style-guide",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "뒤로 가기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "내 여행에 담기",
+          "width": 378,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 378,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--ghost ui-button--regular ",
+          "text": "취소",
+          "width": 378,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--danger ui-button--regular ",
+          "text": "삭제",
+          "width": 378,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "장소를 선택해 주세요",
+          "width": 378,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "처리 중",
+          "width": 378,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "이 장소 저장",
+          "width": 378,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "장소 추가",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "예: 제주 주말 여행",
+          "width": 378,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "당일치기1박 2일2박 3일",
+          "width": 378,
+          "height": 49,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "남기고 싶은 이야기를 적어주세요.",
+          "width": 378,
+          "height": 98,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "백업 파일 선택",
+          "width": 378,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "하단 팝업 보기",
+          "width": 378,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "style-guide-sheet",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "dialogWidth": 460,
+      "dialogScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--compact ui-icon-button ",
+          "text": "닫기",
+          "width": 44,
+          "height": 44,
+          "font": "15px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행 이름 입력",
+          "width": 420,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "확인",
+          "width": 420,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "취소",
+          "width": 420,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "home",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "프로필",
+          "width": 42,
+          "height": 42,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 이전",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 다음",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "일정 자세히 보기",
+          "width": 136.328125,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "추천 일정 1번",
+          "width": 21,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 2번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 3번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 4번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 5번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 6번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "추천 일정 7번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 이전",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 다음",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "제주2박 3일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "제주1박 2일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "부산1박 2일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "강원1박 2일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "서울당일 여행",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "전남2박 3일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "강원3박 4일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-guide-cover",
+          "text": "남도4박 5일",
+          "width": 112,
+          "height": 177.484375,
+          "font": "16px",
+          "radius": "15px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 138.328125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "여행자 일정 1번",
+          "width": 21,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 2번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 3번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 4번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 5번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 6번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 7번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행자 일정 8번",
+          "width": 6,
+          "height": 6,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "home-find-guides",
+          "text": "지역 · 여행 기간으로 검색다른 여행자의 여행기 찾기당일치기부터 3박 이상까지 골라보세요.",
+          "width": 424,
+          "height": 110.375,
+          "font": "16px",
+          "radius": "21px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "랜드마크 찾기영상이나 안내 목록에서 장소 담기",
+          "width": 424,
+          "height": 67,
+          "font": "16px",
+          "radius": "17px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "내 여행복사하고 만든 일정 관리",
+          "width": 424,
+          "height": 67,
+          "font": "16px",
+          "radius": "17px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "profile",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "홈으로 돌아가기",
+          "width": 42,
+          "height": 42,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "내 아이콘 바꾸기",
+          "width": 130.09375,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "notification-switch",
+          "text": "",
+          "width": 43,
+          "height": 26,
+          "font": "16px",
+          "radius": "999px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "비공개 초안 · 서울서울에서 보내는 느긋한 이틀0  0명  0",
+          "width": 386,
+          "height": 87.171875,
+          "font": "16px",
+          "radius": "14px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "community",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행기 지역 검색",
+          "width": 325,
+          "height": 25.796875,
+          "font": "14px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "전체",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "제주",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "부산",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "강원",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "서울",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "전남",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "남도",
+          "width": 56,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "전체 기간",
+          "width": 87.3125,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "당일치기",
+          "width": 84,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "1박 2일",
+          "width": 72.484375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "2박 3일",
+          "width": 75.828125,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "3박 이상",
+          "width": 81.75,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "남도 · 4박 5일",
+          "width": 418,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 386,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "제주 · 2박 3일",
+          "width": 418,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 386,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "강원 · 3박 4일",
+          "width": 418,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 386,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "전남 · 2박 3일",
+          "width": 418,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 386,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "부산 · 1박 2일",
+          "width": 418,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 386,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "제주 · 1박 2일",
+          "width": 418,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 386,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "강원 · 1박 2일",
+          "width": 418,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 386,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "community-cover",
+          "text": "서울 · 당일 여행",
+          "width": 418,
+          "height": 190,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 먼저 보기",
+          "width": 386,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "guide",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "영상",
+          "width": 63,
+          "height": 44,
+          "font": "12px",
+          "radius": "9px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "사진",
+          "width": 63,
+          "height": 44,
+          "font": "12px",
+          "radius": "9px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "지역 안내",
+          "width": 89.84375,
+          "height": 44,
+          "font": "12px",
+          "radius": "9px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "랜드마크 지역 검색",
+          "width": 331,
+          "height": 25.796875,
+          "font": "14px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "전체48",
+          "width": 73.390625,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "서울3",
+          "width": 65.25,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "경기2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "인천2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "강원8",
+          "width": 65.59375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "충북2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "충남2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "대전2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "세종2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "전북2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "전남6",
+          "width": 65.609375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "광주2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "경북2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "경남3",
+          "width": 65.25,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "대구2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "울산2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "부산2",
+          "width": 64.9375,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "제주4",
+          "width": 65.8125,
+          "height": 44,
+          "font": "14px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "저장됨",
+          "width": 222.828125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 159.15625,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "이 장소 저장",
+          "width": 222.828125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 159.15625,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--primary ui-button--regular ",
+          "text": "이 장소 저장",
+          "width": 222.828125,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "ui-button ui-button--secondary ui-button--regular ",
+          "text": "공유",
+          "width": 159.15625,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "my-trips",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "header-action solid",
+          "text": "새 여행",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "journey-main",
+          "text": "계획 중서울 · 1박 2일서울에서 보내는 느긋한 이틀산책과 사진을 남기는 주말 여행2026-10-01 ~ 2",
+          "width": 420,
+          "height": 238,
+          "font": "16px",
+          "radius": "0px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "journey-share",
+          "text": "서울에서 보내는 느긋한 이틀 공유",
+          "width": 37,
+          "height": 37,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "primary wide create-trip-button",
+          "text": "새 여행기 만들기",
+          "width": 420,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "detail",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "뒤로",
+          "width": 40,
+          "height": 40,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 편집",
+          "width": 40,
+          "height": 40,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "공유",
+          "width": 75,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "day-tabs-back",
+          "text": "목록으로 돌아가기",
+          "width": 44,
+          "height": 44,
+          "font": "14px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "DAY 12026-10-01",
+          "width": 108.8125,
+          "height": 68.1875,
+          "font": "14px",
+          "radius": "13px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "DAY 22026-10-02",
+          "width": 111.734375,
+          "height": 68.1875,
+          "font": "14px",
+          "radius": "13px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "길찾기",
+          "width": 189,
+          "height": 44,
+          "font": "14px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "공유",
+          "width": 189,
+          "height": 44,
+          "font": "14px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "너무 좋아요0",
+          "width": 125.328125,
+          "height": 79.390625,
+          "font": "16px",
+          "radius": "14px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "최고예요0",
+          "width": 125.328125,
+          "height": 79.390625,
+          "font": "16px",
+          "radius": "14px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "동선이 유용해요0",
+          "width": 125.34375,
+          "height": 79.390625,
+          "font": "16px",
+          "radius": "14px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "댓글 작성",
+          "width": 288,
+          "height": 48,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "등록",
+          "width": 52,
+          "height": 44,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "delete-journey",
+          "text": "삭제",
+          "width": 86,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "이 여행기 이어서 쓰기",
+          "width": 329,
+          "height": 48.5,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    },
+    {
+      "width": 460,
+      "name": "editor",
+      "viewport": 460,
+      "documentWidth": 460,
+      "contentWidth": 460,
+      "contentScrollWidth": 460,
+      "controls": [
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "편집 취소",
+          "width": 44,
+          "height": 44,
+          "font": "16px",
+          "radius": "50%",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "save-editor",
+          "text": "저장",
+          "width": 75,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행기 제목",
+          "width": 424,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행 지역",
+          "width": 207,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "여행 기간",
+          "width": 207,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "산책과 사진을 남기는 주말 여행",
+          "width": 424,
+          "height": 74,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "기존 원문 유지",
+          "width": 424,
+          "height": 122,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "SELECT",
+          "class": "",
+          "text": "비공개 초안여행 중공개 여행일기로 발행",
+          "width": 424,
+          "height": 49,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "day-tabs-back",
+          "text": "작성 화면 뒤로가기",
+          "width": 44,
+          "height": 44,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "active",
+          "text": "DAY 1",
+          "width": 76,
+          "height": 44,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "DAY 2",
+          "width": 76,
+          "height": 44,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "add-day",
+          "text": "날짜",
+          "width": 76,
+          "height": 44,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "remove-day",
+          "text": "DAY 1 삭제",
+          "width": 98.671875,
+          "height": 44,
+          "font": "14px",
+          "radius": "10px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "날짜 제목",
+          "width": 424,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "날짜별 본문 보존",
+          "width": 424,
+          "height": 74,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "위로 이동",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "아래로 이동",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "×",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "",
+          "width": 193,
+          "height": 52,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "예: 1시간 20분",
+          "width": 193,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "예: 차량 25분",
+          "width": 396,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "위로 이동",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "아래로 이동",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "×",
+          "width": 32,
+          "height": 44,
+          "font": "14px",
+          "radius": "8px",
+          "overflow": false
+        },
+        {
+          "tag": "INPUT",
+          "class": "",
+          "text": "글 2 소제목",
+          "width": 396,
+          "height": 50,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "TEXTAREA",
+          "class": "",
+          "text": "사진과 장소 사이에 남기는 여행자의 긴 본문입니다. 주변 풍경을 천천히 돌아보며 기록합니다.",
+          "width": 396,
+          "height": 170,
+          "font": "16px",
+          "radius": "12px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "글",
+          "width": 127.328125,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "사진",
+          "width": 127.328125,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "장소",
+          "width": 127.34375,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "숙소",
+          "width": 127.328125,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "맛집",
+          "width": 127.328125,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "카페",
+          "width": 127.34375,
+          "height": 58,
+          "font": "12px",
+          "radius": "11px",
+          "overflow": false
+        },
+        {
+          "tag": "BUTTON",
+          "class": "",
+          "text": "여행기 저장하고 미리보기",
+          "width": 424,
+          "height": 48,
+          "font": "15px",
+          "radius": "12px",
+          "overflow": false
+        }
+      ],
+      "clippedText": []
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-saved.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-my-trips-add.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-my-trips-create.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-my-trips-ai.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-saved-card.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-backup.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-style-guide.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-style-guide-sheet.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-home.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-home-promoted.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-profile.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-community.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-guide.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-my-trips.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-detail.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-detail-day2.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\320-editor.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-saved.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-my-trips-add.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-my-trips-create.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-my-trips-ai.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-saved-card.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-backup.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-style-guide.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-style-guide-sheet.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-home.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-home-promoted.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-profile.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-community.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-guide.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-my-trips.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-detail.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-detail-day2.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\390-editor.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-saved.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-my-trips-add.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-my-trips-create.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-my-trips-ai.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-saved-card.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-backup.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-style-guide.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-style-guide-sheet.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-home.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-home-promoted.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-profile.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-community.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-guide.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-my-trips.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-detail.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-detail-day2.png",
+    "C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\style-guide-qa\\460-editor.png"
+  ],
+  "pageErrors": []
+}

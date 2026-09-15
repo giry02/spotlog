@@ -1,0 +1,117 @@
+[
+  {
+    "name": "new-and-remove",
+    "width": 320,
+    "ok": true,
+    "newDay2": true,
+    "defaultDayOnReopen": "DAY 2 · 담김\n2026-11-01",
+    "backCancelUnchanged": true,
+    "exactRemoveKeepsBookmark": true
+  },
+  {
+    "name": "existing-two-trips",
+    "width": 320,
+    "ok": true,
+    "duplicateNoWrite": true,
+    "separateJourneysPreserved": true,
+    "exactVisitRemoved": true,
+    "samePlaceDifferentDay": true,
+    "publicTargetsNotOffered": true
+  },
+  {
+    "name": "storage-failure",
+    "width": 320,
+    "ok": true,
+    "originalDataPreserved": true,
+    "draftStayedOpen": true
+  },
+  {
+    "name": "home-ai",
+    "width": 320,
+    "ok": true,
+    "unknownShowsError": true,
+    "previewDoesNotSave": true,
+    "explicitApprovalCreatesPrivate": true,
+    "cafeExcluded": true,
+    "backReturnsHome": true
+  },
+  {
+    "name": "new-and-remove",
+    "width": 390,
+    "ok": true,
+    "newDay2": true,
+    "defaultDayOnReopen": "DAY 2 · 담김\n2026-11-01",
+    "backCancelUnchanged": true,
+    "exactRemoveKeepsBookmark": true
+  },
+  {
+    "name": "existing-two-trips",
+    "width": 390,
+    "ok": true,
+    "duplicateNoWrite": true,
+    "separateJourneysPreserved": true,
+    "exactVisitRemoved": true,
+    "samePlaceDifferentDay": true,
+    "publicTargetsNotOffered": true
+  },
+  {
+    "name": "storage-failure",
+    "width": 390,
+    "ok": true,
+    "originalDataPreserved": true,
+    "draftStayedOpen": true
+  },
+  {
+    "name": "home-ai",
+    "width": 390,
+    "ok": true,
+    "unknownShowsError": true,
+    "previewDoesNotSave": true,
+    "explicitApprovalCreatesPrivate": true,
+    "cafeExcluded": true,
+    "backReturnsHome": true
+  },
+  {
+    "name": "new-and-remove",
+    "width": 460,
+    "ok": true,
+    "newDay2": true,
+    "defaultDayOnReopen": "DAY 2 · 담김\n2026-11-01",
+    "backCancelUnchanged": true,
+    "exactRemoveKeepsBookmark": true
+  },
+  {
+    "name": "existing-two-trips",
+    "width": 460,
+    "ok": true,
+    "duplicateNoWrite": true,
+    "separateJourneysPreserved": true,
+    "exactVisitRemoved": true,
+    "samePlaceDifferentDay": true,
+    "publicTargetsNotOffered": true
+  },
+  {
+    "name": "storage-failure",
+    "width": 460,
+    "ok": true,
+    "originalDataPreserved": true,
+    "draftStayedOpen": true
+  },
+  {
+    "name": "home-ai",
+    "width": 460,
+    "ok": true,
+    "unknownShowsError": true,
+    "previewDoesNotSave": true,
+    "explicitApprovalCreatesPrivate": true,
+    "cafeExcluded": true,
+    "backReturnsHome": true
+  },
+  {
+    "name": "ai-storage-failure",
+    "width": 390,
+    "ok": true,
+    "originalDataPreserved": true,
+    "previewPreserved": true
+  }
+]

@@ -1,0 +1,141 @@
+{
+  "errors": [],
+  "result": [
+    {
+      "slug": "development",
+      "id": "slide-1",
+      "height": 768,
+      "overlap": false,
+      "horizontal": false
+    },
+    {
+      "slug": "development",
+      "id": "slide-2",
+      "height": 768,
+      "overlap": false,
+      "horizontal": false
+    },
+    {
+      "slug": "development",
+      "id": "slide-3",
+      "height": 768,
+      "overlap": false,
+      "horizontal": false
+    },
+    {
+      "slug": "development",
+      "id": "slide-4",
+      "height": 768,
+      "overlap": false,
+      "horizontal": false
+    },
+    {
+      "slug": "development",
+      "print": [
+        {
+          "id": "slide-1",
+          "height": 768,
+          "overflow": false,
+          "contentBottom": 697.40625,
+          "footerTop": 715.40625
+        },
+        {
+          "id": "slide-2",
+          "height": 768,
+          "overflow": false,
+          "contentBottom": 1465.40625,
+          "footerTop": 1483.40625
+        },
+        {
+          "id": "slide-3",
+          "height": 768,
+          "overflow": false,
+          "contentBottom": 2233.40625,
+          "footerTop": 2251.40625
+        },
+        {
+          "id": "slide-4",
+          "height": 768,
+          "overflow": false,
+          "contentBottom": 3001.40625,
+          "footerTop": 3019.40625
+        }
+      ]
+    },
+    {
+      "slug": "ai-guide",
+      "id": "slide-1",
+      "height": 768,
+      "overlap": false,
+      "horizontal": false
+    },
+    {
+      "slug": "ai-guide",
+      "id": "slide-2",
+      "height": 768,
+      "overlap": false,
+      "horizontal": false
+    },
+    {
+      "slug": "ai-guide",
+      "id": "slide-3",
+      "height": 768,
+      "overlap": false,
+      "horizontal": false
+    },
+    {
+      "slug": "ai-guide",
+      "id": "slide-4",
+      "height": 768,
+      "overlap": false,
+      "horizontal": false
+    },
+    {
+      "slug": "ai-guide",
+      "id": "slide-5",
+      "height": 768,
+      "overlap": false,
+      "horizontal": false
+    },
+    {
+      "slug": "ai-guide",
+      "print": [
+        {
+          "id": "slide-1",
+          "height": 768,
+          "overflow": false,
+          "contentBottom": 697.40625,
+          "footerTop": 715.40625
+        },
+        {
+          "id": "slide-2",
+          "height": 768,
+          "overflow": false,
+          "contentBottom": 1465.40625,
+          "footerTop": 1483.40625
+        },
+        {
+          "id": "slide-3",
+          "height": 768,
+          "overflow": false,
+          "contentBottom": 2233.40625,
+          "footerTop": 2251.40625
+        },
+        {
+          "id": "slide-4",
+          "height": 768,
+          "overflow": false,
+          "contentBottom": 3001.40625,
+          "footerTop": 3019.40625
+        },
+        {
+          "id": "slide-5",
+          "height": 768,
+          "overflow": false,
+          "contentBottom": 3769.40625,
+          "footerTop": 3787.40625
+        }
+      ]
+    }
+  ]
+}

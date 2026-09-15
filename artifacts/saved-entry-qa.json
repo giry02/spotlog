@@ -1,0 +1,15 @@
+{
+  "errors": [],
+  "checks": [
+    "Saved has only entry buttons; no journey/DAY selectors or creation form; 320/390px fit",
+    "Add navigates to My Trips before changes; pending intent reloads; explicit DAY 2 confirmed and survives detail reload/back/forward",
+    "Only chosen journey/day changes; other DAY, journey, original text, saved places and legacy backup records preserved",
+    "Already included DAY opens detail without duplicate insertion or removing the visit",
+    "Normal and AI creation navigate first; cancelling either flow leaves all stored content unchanged",
+    "Manual creation inputs are in My Trips; requested dates and duration preserved; confirmed new trip opens detail",
+    "AI is disclosed as local sample and pads all 7 requested days even with one selected place",
+    "No existing journeys falls back to creation in My Trips and carries only the chosen place; back skips completed form",
+    "Quota failures in add, manual creation and AI creation remain in My Trips with error and unchanged persisted records",
+    "Saved removal only affects saved list; visits, text, old collections and migration backup remain"
+  ]
+}

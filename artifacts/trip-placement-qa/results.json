@@ -1,0 +1,47 @@
+[
+  {
+    "width": 320,
+    "bounds": {
+      "x": 0,
+      "right": 320,
+      "h": 742.71875,
+      "radius": "24px"
+    },
+    "errors": [],
+    "newDay2": true,
+    "periodClamp": true,
+    "day7Scroll": true,
+    "existingRemovalAndAdd": true,
+    "storageUntouched": true
+  },
+  {
+    "width": 390,
+    "bounds": {
+      "x": 0,
+      "right": 390,
+      "h": 742.71875,
+      "radius": "24px"
+    },
+    "errors": [],
+    "newDay2": true,
+    "periodClamp": true,
+    "day7Scroll": true,
+    "existingRemovalAndAdd": true,
+    "storageUntouched": true
+  },
+  {
+    "width": 460,
+    "bounds": {
+      "x": 0,
+      "right": 460,
+      "h": 742.71875,
+      "radius": "24px"
+    },
+    "errors": [],
+    "newDay2": true,
+    "periodClamp": true,
+    "day7Scroll": true,
+    "existingRemovalAndAdd": true,
+    "storageUntouched": true
+  }
+]

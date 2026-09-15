@@ -1,0 +1,2427 @@
+[
+  {
+    "name": "development",
+    "count": 32,
+    "errors": [],
+    "screen": [
+      {
+        "page": 1,
+        "title": "Spotlog 추가 개발 계획서",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 74
+      },
+      {
+        "page": 2,
+        "title": "개발 범위와 완료 수준",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 298
+      },
+      {
+        "page": 3,
+        "title": "보고서 구성",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 187
+      },
+      {
+        "page": 4,
+        "title": "기존 구현 현황",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 430
+      },
+      {
+        "page": 5,
+        "title": "우선 해결할 사용성·신뢰도 문제",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 508
+      },
+      {
+        "page": 6,
+        "title": "여행 계획·가이드 서비스의 장점",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 356
+      },
+      {
+        "page": 7,
+        "title": "여행 기록·외국인 안내 서비스의 장점",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 319
+      },
+      {
+        "page": 8,
+        "title": "여행기 기반 서비스 흐름",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 364
+      },
+      {
+        "page": 9,
+        "title": "저장함과 여행·DAY 선택 분리",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 400
+      },
+      {
+        "page": 10,
+        "title": "블로그형 여행기 작성 보완",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 337
+      },
+      {
+        "page": 11,
+        "title": "1·2·3차 개발 일정",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 351
+      },
+      {
+        "page": 12,
+        "title": "1차 개발 항목과 완료 조건",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 420
+      },
+      {
+        "page": 13,
+        "title": "1차 일별 작업표",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 355
+      },
+      {
+        "page": 14,
+        "title": "2차 개발 항목과 완료 조건",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 405
+      },
+      {
+        "page": 15,
+        "title": "2차 일별 작업표",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 329
+      },
+      {
+        "page": 16,
+        "title": "3차 개발 항목과 완료 조건",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 405
+      },
+      {
+        "page": 17,
+        "title": "3차 일별 작업표",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 346
+      },
+      {
+        "page": 18,
+        "title": "공통 데이터와 서버 교체 경계",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 440
+      },
+      {
+        "page": 19,
+        "title": "지역·기간별 샘플 9개 제작 기준",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 312
+      },
+      {
+        "page": 20,
+        "title": "국내 콘텐츠 확보와 작성자 유입",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 376
+      },
+      {
+        "page": 21,
+        "title": "B1 · 회원과 데이터 기반",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 367
+      },
+      {
+        "page": 22,
+        "title": "B2 · 장소·미디어·공개 콘텐츠",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 359
+      },
+      {
+        "page": 23,
+        "title": "B3 · 실제 반응과 안전한 커뮤니티",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 311
+      },
+      {
+        "page": 24,
+        "title": "B4 · AI와 영어 / B5 · 현장 앱 확장",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 350
+      },
+      {
+        "page": 25,
+        "title": "출시 단계와 통과 기준",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 363
+      },
+      {
+        "page": 26,
+        "title": "필수 테스트와 회귀 시나리오",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 446
+      },
+      {
+        "page": 27,
+        "title": "기존 로드맵 대응표 · 기반·장소",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 497
+      },
+      {
+        "page": 28,
+        "title": "기존 로드맵 대응표 · 여행 경험",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 515
+      },
+      {
+        "page": 29,
+        "title": "기존 로드맵 대응표 · 운영·출시",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 493
+      },
+      {
+        "page": 30,
+        "title": "제외·유예 항목과 주요 위험",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 373
+      },
+      {
+        "page": 31,
+        "title": "주간 인수인계와 완료 정의",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 300
+      },
+      {
+        "page": 32,
+        "title": "근거 자료와 조사 범위",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 317
+      }
+    ],
+    "mobile": [
+      {
+        "width": 360,
+        "page": 1,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 2,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 3,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 4,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 5,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 6,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 7,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 8,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 9,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 10,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 11,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 12,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 13,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 14,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 15,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 16,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 17,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 18,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 19,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 20,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 21,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 22,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 23,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 24,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 25,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 26,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 27,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 28,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 29,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 30,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 31,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 32,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 1,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 2,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 3,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 4,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 5,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 6,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 7,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 8,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 9,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 10,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 11,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 12,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 13,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 14,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 15,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 16,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 17,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 18,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 19,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 20,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 21,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 22,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 23,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 24,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 25,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 26,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 27,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 28,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 29,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 30,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 31,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 32,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 1,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 2,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 3,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 4,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 5,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 6,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 7,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 8,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 9,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 10,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 11,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 12,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 13,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 14,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 15,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 16,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 17,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 18,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 19,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 20,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 21,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 22,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 23,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 24,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 25,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 26,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 27,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 28,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 29,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 30,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 31,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 32,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      }
+    ],
+    "print": [
+      {
+        "page": 1,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 2,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 3,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 4,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 5,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 6,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 7,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 8,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 9,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 10,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 11,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 12,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 13,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 14,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 15,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 16,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 17,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 18,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 19,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 20,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 21,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 22,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 23,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 24,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 25,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 26,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 27,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 28,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 29,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 30,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 31,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 32,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      }
+    ],
+    "links": [
+      "./spotlog-ai-guide-plan.html",
+      "./#home",
+      "https://github.com/giry02/spotlog/tree/codex/mobile-foundation",
+      "https://github.com/giry02/spotlog/blob/codex/mobile-foundation/FUTURE_ROADMAP.md",
+      "#slide-4",
+      "#slide-6",
+      "#slide-9",
+      "#slide-11",
+      "#slide-18",
+      "#slide-21",
+      "#slide-25",
+      "#slide-27",
+      "#slide-30",
+      "#slide-32",
+      "https://triple.guide/intro",
+      "https://wanderlog.com/",
+      "https://thatch.notion.site/Quick-Mobile-App-Tour-f0f61ada59554e89a6e40200f6c67a33",
+      "https://www.polarsteps.com/summer-release",
+      "https://creatrip.com/en/blog",
+      "https://english.visitkorea.or.kr/svc/sub/subPlan.do",
+      "#slide-1",
+      "#slide-2",
+      "#slide-3",
+      "#slide-5",
+      "#slide-7",
+      "#slide-8",
+      "#slide-10",
+      "#slide-12",
+      "#slide-13",
+      "#slide-14",
+      "#slide-15",
+      "#slide-16",
+      "#slide-17",
+      "#slide-19",
+      "#slide-20",
+      "#slide-22",
+      "#slide-23",
+      "#slide-24",
+      "#slide-26",
+      "#slide-28",
+      "#slide-29",
+      "#slide-31"
+    ]
+  },
+  {
+    "name": "ai-guide",
+    "count": 34,
+    "errors": [],
+    "screen": [
+      {
+        "page": 1,
+        "title": "Spotlog AI 관광 가이드 자동번역 개발 계획서",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 72
+      },
+      {
+        "page": 2,
+        "title": "AI 개발 범위와 기본 결정",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 315
+      },
+      {
+        "page": 3,
+        "title": "보고서 구성",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 178
+      },
+      {
+        "page": 4,
+        "title": "현재 자동 생성과 목표 엔진의 차이",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 321
+      },
+      {
+        "page": 5,
+        "title": "여행 전·여행 중·언어 지원",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 311
+      },
+      {
+        "page": 6,
+        "title": "3단계 입력 흐름",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 313
+      },
+      {
+        "page": 7,
+        "title": "기간·시간·이동 조건의 해석",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 409
+      },
+      {
+        "page": 8,
+        "title": "장소 데이터 준비와 출처 관리",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 412
+      },
+      {
+        "page": 9,
+        "title": "서버 구성과 책임 분리",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 338
+      },
+      {
+        "page": 10,
+        "title": "공급자 선택안과 계약 확인",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 400
+      },
+      {
+        "page": 11,
+        "title": "교통수단별 이동 계산",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 363
+      },
+      {
+        "page": 12,
+        "title": "OR-Tools 기반 일정 배치",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 345
+      },
+      {
+        "page": 13,
+        "title": "실행 가능성 검사와 미배치 처리",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 423
+      },
+      {
+        "page": 14,
+        "title": "LLM의 역할과 제한",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 349
+      },
+      {
+        "page": 15,
+        "title": "화면과 서버가 공유할 최소 규격",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 390
+      },
+      {
+        "page": 16,
+        "title": "고정 일정 보존과 부분 재생성",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 314
+      },
+      {
+        "page": 17,
+        "title": "일정 생성 예시 · 입력과 제약",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 355
+      },
+      {
+        "page": 18,
+        "title": "일정 생성 예시 · DAY별 배치 결과",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 456
+      },
+      {
+        "page": 19,
+        "title": "수정·과밀·실패 예시",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 409
+      },
+      {
+        "page": 20,
+        "title": "텍스트 관광 안내와 질문 응답",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 365
+      },
+      {
+        "page": 21,
+        "title": "관광 지식 준비와 답변 검수",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 356
+      },
+      {
+        "page": 22,
+        "title": "UI·여행기·장소·댓글 번역 분리",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 329
+      },
+      {
+        "page": 23,
+        "title": "자동번역·검수·원문 변경 처리",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 401
+      },
+      {
+        "page": 24,
+        "title": "공통 용어집과 번역 품질 기준",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 384
+      },
+      {
+        "page": 25,
+        "title": "번역 외에 필요한 현장 이용 정보",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 319
+      },
+      {
+        "page": 26,
+        "title": "3주 프런트엔드와 AI 준비 항목",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 321
+      },
+      {
+        "page": 27,
+        "title": "백엔드 기반 이후 AI 개발 순서",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 433
+      },
+      {
+        "page": 28,
+        "title": "평가 데이터와 공개 통과 기준",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 433
+      },
+      {
+        "page": 29,
+        "title": "월 사용량·비용 계산표",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 336
+      },
+      {
+        "page": 30,
+        "title": "중복 호출·비용·장애 관리",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 380
+      },
+      {
+        "page": 31,
+        "title": "개인정보·권한·생성 안전",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 384
+      },
+      {
+        "page": 32,
+        "title": "연결 전 준비 사항과 공개 판단",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 409
+      },
+      {
+        "page": 33,
+        "title": "공식 근거 · 장소·경로·배치",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 337
+      },
+      {
+        "page": 34,
+        "title": "공식 근거 · AI·번역·여행 정보",
+        "height": 768,
+        "stage": 844,
+        "verticalOverflow": false,
+        "horizontalOverflow": false,
+        "footerOverlap": false,
+        "chars": 377
+      }
+    ],
+    "mobile": [
+      {
+        "width": 360,
+        "page": 1,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 2,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 3,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 4,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 5,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 6,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 7,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 8,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 9,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 10,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 11,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 12,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 13,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 14,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 15,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 16,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 17,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 18,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 19,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 20,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 21,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 22,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 23,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 24,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 25,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 26,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 27,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 28,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 29,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 30,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 31,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 32,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 33,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 360,
+        "page": 34,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 1,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 2,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 3,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 4,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 5,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 6,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 7,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 8,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 9,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 10,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 11,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 12,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 13,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 14,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 15,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 16,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 17,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 18,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 19,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 20,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 21,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 22,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 23,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 24,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 25,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 26,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 27,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 28,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 29,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 30,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 31,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 32,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 33,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 390,
+        "page": 34,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 1,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 2,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 3,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 4,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 5,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 6,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 7,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 8,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 9,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 10,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 11,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 12,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 13,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 14,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 15,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 16,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 17,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 18,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 19,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 20,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 21,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 22,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 23,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 24,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 25,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 26,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 27,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 28,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 29,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 30,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 31,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 32,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 33,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      },
+      {
+        "width": 430,
+        "page": 34,
+        "horizontalOverflow": false,
+        "buttonsVisible": true
+      }
+    ],
+    "print": [
+      {
+        "page": 1,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 2,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 3,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 4,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 5,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 6,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 7,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 8,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 9,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 10,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 11,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 12,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 13,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 14,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 15,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 16,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 17,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 18,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 19,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 20,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 21,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 22,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 23,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 24,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 25,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 26,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 27,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 28,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 29,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 30,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 31,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 32,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 33,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      },
+      {
+        "page": 34,
+        "height": 768,
+        "overflow": false,
+        "footerOverlap": false,
+        "horizontal": false
+      }
+    ],
+    "links": [
+      "./spotlog-development-plan.html",
+      "./#home",
+      "#slide-4",
+      "#slide-6",
+      "#slide-9",
+      "#slide-14",
+      "#slide-17",
+      "#slide-20",
+      "#slide-22",
+      "#slide-26",
+      "#slide-28",
+      "#slide-32",
+      "https://github.com/giry02/spotlog/tree/codex/mobile-foundation",
+      "https://developers.kakao.com/docs/ko/local/dev-guide",
+      "https://tmapapi.tmapmobility.com/main.html",
+      "https://lab.odsay.com/guide/guide?platform=web",
+      "https://devtalk.kakao.com/t/directions-api/151177",
+      "https://developers.google.com/optimization/routing/vrptw",
+      "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "https://developers.openai.com/api/docs/guides/structured-outputs",
+      "https://developers.openai.com/api/docs/guides/function-calling",
+      "https://docs.cloud.google.com/translate/docs/advanced/glossary",
+      "https://english.visitkorea.or.kr/svc/sub/subPlan.do",
+      "#slide-1",
+      "#slide-2",
+      "#slide-3",
+      "#slide-5",
+      "#slide-7",
+      "#slide-8",
+      "#slide-10",
+      "#slide-11",
+      "#slide-12",
+      "#slide-13",
+      "#slide-15",
+      "#slide-16",
+      "#slide-18",
+      "#slide-19",
+      "#slide-21",
+      "#slide-23",
+      "#slide-24",
+      "#slide-25",
+      "#slide-27",
+      "#slide-29",
+      "#slide-30",
+      "#slide-31",
+      "#slide-33",
+      "#slide-34"
+    ]
+  }
+]

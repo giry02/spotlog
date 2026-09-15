@@ -1,0 +1,2542 @@
+{
+  "counts": {
+    "development-plan": 47,
+    "development-summary": 19
+  },
+  "errors": [],
+  "records": [
+    {
+      "kind": "development-plan",
+      "number": 1,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 2,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 3,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 4,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 5,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 6,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 7,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 8,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 9,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 10,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 11,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 12,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 13,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 14,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 15,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 16,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 17,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 18,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 19,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 20,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 21,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 22,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 23,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 24,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 25,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 26,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 27,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 28,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 29,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 30,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 31,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 32,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 33,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 34,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 35,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 36,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 37,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 38,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 39,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 40,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 41,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 42,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 43,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 44,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 45,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 46,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 47,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 1,
+      "width": 320,
+      "height": 798,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 2,
+      "width": 320,
+      "height": 1139,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 3,
+      "width": 320,
+      "height": 959,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 4,
+      "width": 320,
+      "height": 767,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 5,
+      "width": 320,
+      "height": 843,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 6,
+      "width": 320,
+      "height": 1006,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 7,
+      "width": 320,
+      "height": 802,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 8,
+      "width": 320,
+      "height": 1323,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 9,
+      "width": 320,
+      "height": 1285,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 10,
+      "width": 320,
+      "height": 1129,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 11,
+      "width": 320,
+      "height": 889,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 12,
+      "width": 320,
+      "height": 1120,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 13,
+      "width": 320,
+      "height": 1210,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 14,
+      "width": 320,
+      "height": 1092,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 15,
+      "width": 320,
+      "height": 1061,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 16,
+      "width": 320,
+      "height": 887,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 17,
+      "width": 320,
+      "height": 918,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 18,
+      "width": 320,
+      "height": 762,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 19,
+      "width": 320,
+      "height": 820,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 20,
+      "width": 320,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 21,
+      "width": 320,
+      "height": 914,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 22,
+      "width": 320,
+      "height": 1102,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 23,
+      "width": 320,
+      "height": 843,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 24,
+      "width": 320,
+      "height": 1110,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 25,
+      "width": 320,
+      "height": 1149,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 26,
+      "width": 320,
+      "height": 1200,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 27,
+      "width": 320,
+      "height": 1006,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 28,
+      "width": 320,
+      "height": 1172,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 29,
+      "width": 320,
+      "height": 759,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 30,
+      "width": 320,
+      "height": 952,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 31,
+      "width": 320,
+      "height": 865,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 32,
+      "width": 320,
+      "height": 866,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 33,
+      "width": 320,
+      "height": 885,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 34,
+      "width": 320,
+      "height": 1165,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 35,
+      "width": 320,
+      "height": 735,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 36,
+      "width": 320,
+      "height": 972,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 37,
+      "width": 320,
+      "height": 908,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 38,
+      "width": 320,
+      "height": 910,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 39,
+      "width": 320,
+      "height": 958,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 40,
+      "width": 320,
+      "height": 980,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 41,
+      "width": 320,
+      "height": 830,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 42,
+      "width": 320,
+      "height": 914,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 43,
+      "width": 320,
+      "height": 785,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 44,
+      "width": 320,
+      "height": 844,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 45,
+      "width": 320,
+      "height": 816,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 46,
+      "width": 320,
+      "height": 975,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 47,
+      "width": 320,
+      "height": 910,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 1,
+      "width": 390,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 2,
+      "width": 390,
+      "height": 991,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 3,
+      "width": 390,
+      "height": 920,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 4,
+      "width": 390,
+      "height": 767,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 5,
+      "width": 390,
+      "height": 809,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 6,
+      "width": 390,
+      "height": 900,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 7,
+      "width": 390,
+      "height": 754,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 8,
+      "width": 390,
+      "height": 1224,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 9,
+      "width": 390,
+      "height": 1139,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 10,
+      "width": 390,
+      "height": 1017,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 11,
+      "width": 390,
+      "height": 764,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 12,
+      "width": 390,
+      "height": 1081,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 13,
+      "width": 390,
+      "height": 1102,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 14,
+      "width": 390,
+      "height": 1033,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 15,
+      "width": 390,
+      "height": 979,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 16,
+      "width": 390,
+      "height": 851,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 17,
+      "width": 390,
+      "height": 856,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 18,
+      "width": 390,
+      "height": 747,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 19,
+      "width": 390,
+      "height": 795,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 20,
+      "width": 390,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 21,
+      "width": 390,
+      "height": 841,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 22,
+      "width": 390,
+      "height": 931,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 23,
+      "width": 390,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 24,
+      "width": 390,
+      "height": 1013,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 25,
+      "width": 390,
+      "height": 1067,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 26,
+      "width": 390,
+      "height": 1052,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 27,
+      "width": 390,
+      "height": 911,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 28,
+      "width": 390,
+      "height": 1052,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 29,
+      "width": 390,
+      "height": 736,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 30,
+      "width": 390,
+      "height": 856,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 31,
+      "width": 390,
+      "height": 808,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 32,
+      "width": 390,
+      "height": 787,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 33,
+      "width": 390,
+      "height": 829,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 34,
+      "width": 390,
+      "height": 1070,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 35,
+      "width": 390,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 36,
+      "width": 390,
+      "height": 908,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 37,
+      "width": 390,
+      "height": 863,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 38,
+      "width": 390,
+      "height": 840,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 39,
+      "width": 390,
+      "height": 874,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 40,
+      "width": 390,
+      "height": 883,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 41,
+      "width": 390,
+      "height": 762,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 42,
+      "width": 390,
+      "height": 812,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 43,
+      "width": 390,
+      "height": 785,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 44,
+      "width": 390,
+      "height": 788,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 45,
+      "width": 390,
+      "height": 801,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 46,
+      "width": 390,
+      "height": 952,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 47,
+      "width": 390,
+      "height": 865,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 1,
+      "width": 460,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 2,
+      "width": 460,
+      "height": 869,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 3,
+      "width": 460,
+      "height": 920,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 4,
+      "width": 460,
+      "height": 744,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 5,
+      "width": 460,
+      "height": 787,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 6,
+      "width": 460,
+      "height": 853,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 7,
+      "width": 460,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 8,
+      "width": 460,
+      "height": 1110,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 9,
+      "width": 460,
+      "height": 1114,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 10,
+      "width": 460,
+      "height": 869,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 11,
+      "width": 460,
+      "height": 764,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 12,
+      "width": 460,
+      "height": 1000,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 13,
+      "width": 460,
+      "height": 1067,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 14,
+      "width": 460,
+      "height": 946,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 15,
+      "width": 460,
+      "height": 956,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 16,
+      "width": 460,
+      "height": 851,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 17,
+      "width": 460,
+      "height": 856,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 18,
+      "width": 460,
+      "height": 747,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 19,
+      "width": 460,
+      "height": 795,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 20,
+      "width": 460,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 21,
+      "width": 460,
+      "height": 816,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 22,
+      "width": 460,
+      "height": 906,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 23,
+      "width": 460,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 24,
+      "width": 460,
+      "height": 914,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 25,
+      "width": 460,
+      "height": 943,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 26,
+      "width": 460,
+      "height": 943,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 27,
+      "width": 460,
+      "height": 865,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 28,
+      "width": 460,
+      "height": 893,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 29,
+      "width": 460,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 30,
+      "width": 460,
+      "height": 831,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 31,
+      "width": 460,
+      "height": 808,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 32,
+      "width": 460,
+      "height": 787,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 33,
+      "width": 460,
+      "height": 806,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 34,
+      "width": 460,
+      "height": 847,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 35,
+      "width": 460,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 36,
+      "width": 460,
+      "height": 860,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 37,
+      "width": 460,
+      "height": 863,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 38,
+      "width": 460,
+      "height": 815,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 39,
+      "width": 460,
+      "height": 815,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 40,
+      "width": 460,
+      "height": 862,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 41,
+      "width": 460,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 42,
+      "width": 460,
+      "height": 790,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 43,
+      "width": 460,
+      "height": 730,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 44,
+      "width": 460,
+      "height": 788,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 45,
+      "width": 460,
+      "height": 746,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 46,
+      "width": 460,
+      "height": 873,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 47,
+      "width": 460,
+      "height": 788,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "print": [
+        {
+          "number": "slide-1",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-2",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-3",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-4",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-5",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-6",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-7",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-8",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-9",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-10",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-11",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-12",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-13",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-14",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-15",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-16",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-17",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-18",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-19",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-20",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-21",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-22",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-23",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-24",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-25",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-26",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-27",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-28",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-29",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-30",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-31",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-32",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-33",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-34",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-35",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-36",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-37",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-38",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-39",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-40",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-41",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-42",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-43",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-44",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-45",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-46",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-47",
+          "overflow": false,
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "kind": "development-summary",
+      "number": 1,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 2,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 3,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 4,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 5,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 6,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 7,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 8,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 9,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 10,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 11,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 12,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 13,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 14,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 15,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 16,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 17,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 18,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 19,
+      "width": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 1,
+      "width": 320,
+      "height": 1219,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 2,
+      "width": 320,
+      "height": 1322,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 3,
+      "width": 320,
+      "height": 1826,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 4,
+      "width": 320,
+      "height": 1768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 5,
+      "width": 320,
+      "height": 1737,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 6,
+      "width": 320,
+      "height": 1606,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 7,
+      "width": 320,
+      "height": 1569,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 8,
+      "width": 320,
+      "height": 1684,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 9,
+      "width": 320,
+      "height": 1277,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 10,
+      "width": 320,
+      "height": 1583,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 11,
+      "width": 320,
+      "height": 1604,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 12,
+      "width": 320,
+      "height": 1655,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 13,
+      "width": 320,
+      "height": 1895,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 14,
+      "width": 320,
+      "height": 1509,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 15,
+      "width": 320,
+      "height": 1602,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 16,
+      "width": 320,
+      "height": 1684,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 17,
+      "width": 320,
+      "height": 1407,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 18,
+      "width": 320,
+      "height": 1657,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 19,
+      "width": 320,
+      "height": 1299,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 1,
+      "width": 390,
+      "height": 1092,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 2,
+      "width": 390,
+      "height": 1186,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 3,
+      "width": 390,
+      "height": 1673,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 4,
+      "width": 390,
+      "height": 1519,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 5,
+      "width": 390,
+      "height": 1538,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 6,
+      "width": 390,
+      "height": 1398,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 7,
+      "width": 390,
+      "height": 1393,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 8,
+      "width": 390,
+      "height": 1505,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 9,
+      "width": 390,
+      "height": 1117,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 10,
+      "width": 390,
+      "height": 1371,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 11,
+      "width": 390,
+      "height": 1436,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 12,
+      "width": 390,
+      "height": 1556,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 13,
+      "width": 390,
+      "height": 1673,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 14,
+      "width": 390,
+      "height": 1371,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 15,
+      "width": 390,
+      "height": 1444,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 16,
+      "width": 390,
+      "height": 1582,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 17,
+      "width": 390,
+      "height": 1252,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 18,
+      "width": 390,
+      "height": 1506,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 19,
+      "width": 390,
+      "height": 1174,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 1,
+      "width": 460,
+      "height": 1067,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 2,
+      "width": 460,
+      "height": 1160,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 3,
+      "width": 460,
+      "height": 1541,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 4,
+      "width": 460,
+      "height": 1355,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 5,
+      "width": 460,
+      "height": 1414,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 6,
+      "width": 460,
+      "height": 1274,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 7,
+      "width": 460,
+      "height": 1290,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 8,
+      "width": 460,
+      "height": 1424,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 9,
+      "width": 460,
+      "height": 1019,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 10,
+      "width": 460,
+      "height": 1346,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 11,
+      "width": 460,
+      "height": 1329,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 12,
+      "width": 460,
+      "height": 1348,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 13,
+      "width": 460,
+      "height": 1588,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 14,
+      "width": 460,
+      "height": 1261,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 15,
+      "width": 460,
+      "height": 1296,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 16,
+      "width": 460,
+      "height": 1373,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 17,
+      "width": 460,
+      "height": 1192,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 18,
+      "width": 460,
+      "height": 1385,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 19,
+      "width": 460,
+      "height": 1122,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "print": [
+        {
+          "number": "slide-1",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-2",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-3",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-4",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-5",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-6",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-7",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-8",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-9",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-10",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-11",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-12",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-13",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-14",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-15",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-16",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-17",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-18",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-19",
+          "overflow": false,
+          "overlap": false
+        }
+      ]
+    }
+  ],
+  "linkChecks": [
+    {
+      "kind": "development-summary",
+      "label": "원본 상세 47쪽",
+      "href": "./spotlog-development-plan.html#slide-4",
+      "target": "기존 구현 현황"
+    },
+    {
+      "kind": "development-summary",
+      "label": "원본 상세 47쪽",
+      "href": "./spotlog-development-plan.html#slide-11",
+      "target": "1·2·3차 프런트엔드 구현 범위"
+    },
+    {
+      "kind": "development-summary",
+      "label": "원본 동일 구조도",
+      "href": "./spotlog-development-plan.html#slide-12",
+      "target": "전체 페이지 구조 · 메뉴와 하위 화면"
+    },
+    {
+      "kind": "development-summary",
+      "label": "원본 동일 구조도",
+      "href": "./spotlog-development-plan.html#slide-14",
+      "target": "기능 구조 · 1·2·3차 구현 로드맵"
+    },
+    {
+      "kind": "development-summary",
+      "label": "원본 수급 상세",
+      "href": "./spotlog-development-plan.html#slide-47",
+      "target": "TourAPI 장소·좌표와 공공 사진 연결"
+    },
+    {
+      "kind": "development-summary",
+      "label": "원본 차수 상세",
+      "href": "./spotlog-development-plan.html#slide-15",
+      "target": "1차 개발 항목과 완료 조건"
+    },
+    {
+      "kind": "development-summary",
+      "label": "원본 추가 결정",
+      "href": "./spotlog-development-plan.html#slide-37",
+      "target": "추가 결정 · 담기 팝업·홈 AI·공공 콘텐츠"
+    },
+    {
+      "kind": "development-summary",
+      "label": "원본 차수 상세",
+      "href": "./spotlog-development-plan.html#slide-17",
+      "target": "2차 개발 항목과 완료 조건"
+    },
+    {
+      "kind": "development-summary",
+      "label": "원본 동일 구조도",
+      "href": "./spotlog-development-plan.html#slide-13",
+      "target": "여행기 화면 구조 · 작성과 독자 이용"
+    },
+    {
+      "kind": "development-summary",
+      "label": "원본 상세 동일 구성",
+      "href": "./spotlog-development-plan.html#slide-27",
+      "target": "2차 · 여행기 속 장소 카드별 소통"
+    },
+    {
+      "kind": "development-summary",
+      "label": "원본 차수 상세",
+      "href": "./spotlog-development-plan.html#slide-19",
+      "target": "3차 개발 항목과 완료 조건"
+    },
+    {
+      "kind": "development-summary",
+      "label": "원본 상세 47쪽",
+      "href": "./spotlog-development-plan.html#slide-24",
+      "target": "B1 · 회원과 데이터 기반"
+    },
+    {
+      "kind": "development-summary",
+      "label": "원본 상세 47쪽",
+      "href": "./spotlog-development-plan.html#slide-29",
+      "target": "출시 단계와 통과 기준"
+    }
+  ],
+  "failures": []
+}

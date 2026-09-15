@@ -1,0 +1,35 @@
+[
+  {
+    "name": "home-lower",
+    "width": 320,
+    "overflow": false
+  },
+  {
+    "name": "backup",
+    "width": 320,
+    "overflow": false,
+    "repositoryPreserved": true
+  },
+  {
+    "name": "home-lower",
+    "width": 390,
+    "overflow": false
+  },
+  {
+    "name": "backup",
+    "width": 390,
+    "overflow": false,
+    "repositoryPreserved": true
+  },
+  {
+    "name": "home-lower",
+    "width": 460,
+    "overflow": false
+  },
+  {
+    "name": "backup",
+    "width": 460,
+    "overflow": false,
+    "repositoryPreserved": true
+  }
+]

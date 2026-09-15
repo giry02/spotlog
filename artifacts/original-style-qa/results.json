@@ -1,0 +1,131 @@
+{
+  "results": [
+    {
+      "width": 320,
+      "page": "home",
+      "elements": 23,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 320,
+      "page": "community",
+      "elements": 18,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 320,
+      "page": "trips",
+      "elements": 11,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 320,
+      "page": "profile",
+      "elements": 15,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 320,
+      "page": "editor",
+      "elements": 16,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 320,
+      "page": "guide",
+      "elements": 33,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 390,
+      "page": "home",
+      "elements": 23,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 390,
+      "page": "community",
+      "elements": 18,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 390,
+      "page": "trips",
+      "elements": 11,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 390,
+      "page": "profile",
+      "elements": 15,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 390,
+      "page": "editor",
+      "elements": 16,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 390,
+      "page": "guide",
+      "elements": 33,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 460,
+      "page": "home",
+      "elements": 23,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 460,
+      "page": "community",
+      "elements": 18,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 460,
+      "page": "trips",
+      "elements": 11,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 460,
+      "page": "profile",
+      "elements": 15,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 460,
+      "page": "editor",
+      "elements": 16,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 460,
+      "page": "guide",
+      "elements": 33,
+      "overflow": false,
+      "differences": []
+    }
+  ],
+  "errors": []
+}

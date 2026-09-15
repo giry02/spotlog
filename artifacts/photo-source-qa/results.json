@@ -1,0 +1,98 @@
+[
+  {
+    "name": "public",
+    "width": 320,
+    "ok": true,
+    "closeEscBackXBackdrop": true,
+    "metadata": true,
+    "alignment": {
+      "horizontal": false,
+      "dialogs": 0,
+      "nestedButtons": 0,
+      "sheetOverflow": false,
+      "outside": false
+    },
+    "storageUnchanged": true
+  },
+  {
+    "name": "add",
+    "width": 320,
+    "ok": true,
+    "parentStatePreserved": true,
+    "singleDialog": true,
+    "sourceBackRestoresParent": true,
+    "scrollRestored": true
+  },
+  {
+    "name": "ai",
+    "width": 320,
+    "ok": true,
+    "dayAndExcludedVisitPreserved": true,
+    "promptPreserved": true,
+    "cancelUnsaved": true
+  },
+  {
+    "name": "public",
+    "width": 390,
+    "ok": true,
+    "closeEscBackXBackdrop": true,
+    "metadata": true,
+    "alignment": {
+      "horizontal": false,
+      "dialogs": 0,
+      "nestedButtons": 0,
+      "sheetOverflow": false,
+      "outside": false
+    },
+    "storageUnchanged": true
+  },
+  {
+    "name": "add",
+    "width": 390,
+    "ok": true,
+    "parentStatePreserved": true,
+    "singleDialog": true,
+    "sourceBackRestoresParent": true,
+    "scrollRestored": true
+  },
+  {
+    "name": "ai",
+    "width": 390,
+    "ok": true,
+    "dayAndExcludedVisitPreserved": true,
+    "promptPreserved": true,
+    "cancelUnsaved": true
+  },
+  {
+    "name": "public",
+    "width": 460,
+    "ok": true,
+    "closeEscBackXBackdrop": true,
+    "metadata": true,
+    "alignment": {
+      "horizontal": false,
+      "dialogs": 0,
+      "nestedButtons": 0,
+      "sheetOverflow": false,
+      "outside": false
+    },
+    "storageUnchanged": true
+  },
+  {
+    "name": "add",
+    "width": 460,
+    "ok": true,
+    "parentStatePreserved": true,
+    "singleDialog": true,
+    "sourceBackRestoresParent": true,
+    "scrollRestored": true
+  },
+  {
+    "name": "ai",
+    "width": 460,
+    "ok": true,
+    "dayAndExcludedVisitPreserved": true,
+    "promptPreserved": true,
+    "cancelUnsaved": true
+  }
+]

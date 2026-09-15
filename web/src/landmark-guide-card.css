@@ -1,0 +1,4 @@
+/* Original card image, typography and spacing remain in styles.css. */
+.landmark-guide-actions > :only-child { grid-column: 1 / -1; }
+.landmark-guide-image-error { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #797972; background: #f2f2ee; }
+.landmark-guide-image-error p { margin: 0; font-size: 13px; line-height: 1.65; }

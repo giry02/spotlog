@@ -1,0 +1,3 @@
+/* Keep the existing report type scale; separate source tables and their notes. */
+.data-supply-report .slide-content > * + *{margin-top:22px}
+@media print{.data-supply-report .slide-content > * + *{margin-top:18px}}
