@@ -22,6 +22,8 @@ import gangwonEastSeaCover from '../../assets/spotlog/gangwon-east-sea-sunrise.w
 import seoulForestCover from '../../assets/spotlog/seoul-forest-evening.webp';
 import spa from '../../assets/spotlog/spa.jpg';
 import { publicTourismPlaces } from './publicTourismContent';
+import type { PlacePhotoInput } from './placePhotos';
+import { licensedPlaceSources } from './licensedPlaceSources';
 
 const cloudinaryVideo = (id: string) => `https://res.cloudinary.com/demo/video/upload/c_fill,g_center,h_1280,w_720,q_auto:eco/${id}.mp4`;
 
@@ -38,6 +40,7 @@ export interface Place {
   lat: number;
   lng: number;
   image: string;
+  photos?: PlacePhotoInput[];
   description: string;
   note: string;
   duration: string;
@@ -267,4 +270,14 @@ const catalogOnlyPlaces: Place[] = [
 export const placeCatalog: Place[] = Array.from(new Map(
   [...discoveryLandmarks, ...initialJourneys.flatMap((journey) => journey.days.flatMap((day) => day.places)), ...catalogOnlyPlaces, ...publicTourismPlaces]
     .map((place) => [place.id, place]),
-).values());
+).values()).map((place) => {
+  // New catalog selections carry photo identities into saved travel drafts.
+  // Existing journeys, authored galleries and the video samples are not rewritten.
+  const sources = licensedPlaceSources.filter((source) => source.placeId === place.id);
+  if (!sources.length || place.photos !== undefined) return place;
+  return { ...place, image: sources[0].image, photos: sources.map((source) => ({
+    mediaId: `licensed:${source.id}`, placeId: place.id, sourceId: source.id,
+    image: source.image, alt: source.title, caption: source.caption ?? source.title,
+    objectPosition: source.objectPosition,
+  })) };
+});

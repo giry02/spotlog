@@ -1,53 +1,20 @@
 import { Bookmark, Check, ChevronLeft, ChevronRight, ImageOff, MapPin, Share2 } from 'lucide-react';
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import type { Place } from './data';
-import jejuGuideCover from '../../assets/spotlog/jeju-west-guide-cover.jpg';
-import jejuHyeopjaeTidepool from '../../assets/spotlog/jeju-hyeopjae-tidepool.webp';
-import jejuOsullocTeaField from '../../assets/spotlog/jeju-osulloc-tea-field.jpg';
-import jejuOsullocMorningDew from '../../assets/spotlog/jeju-osulloc-morning-dew.webp';
-import jejuSagyeCoast from '../../assets/spotlog/jeju-sagye-coast.jpg';
-import jejuSagyeTidepool from '../../assets/spotlog/jeju-sagye-tidepool.webp';
-import jejuSaebyeolOreum from '../../assets/spotlog/jeju-saebyeol-oreum.jpg';
-import jejuSaebyeolTrail from '../../assets/spotlog/jeju-saebyeol-trail.webp';
-import gangwonEastSeaCover from '../../assets/spotlog/gangwon-east-sea-sunrise.webp';
-import seoulForestCover from '../../assets/spotlog/seoul-forest-evening.webp';
+import { resolvePlacePhotos, type PlacePhoto, type PhotoPlace } from './placePhotos';
+import { getPhotoSource, photoSources } from './photoSources';
+export type { PlacePhoto } from './placePhotos';
 import './photo-places.css';
 
-export interface PlacePhoto {
-  image: string;
-  alt: string;
-  caption: string;
-}
-
-// These are existing place-specific demonstration assets, not verified visitor photos.
-// Do not reuse a region's photo for another landmark just to fill a carousel.
-const placePhotoSamples: Record<string, PlacePhoto[]> = {
-  'jeju-hyeopjae': [
-    { image: jejuGuideCover, alt: '협재해변과 비양도를 표현한 샘플 이미지', caption: '비양도를 바라보는 해변의 넓은 풍경.' },
-    { image: jejuHyeopjaeTidepool, alt: '협재의 현무암과 물웅덩이를 표현한 샘플 이미지', caption: '바다 가까이에서 보는 현무암과 작은 물웅덩이. 젖은 바위는 조심해서 걸어요.' },
-  ],
-  'jeju-osulloc': [
-    { image: jejuOsullocTeaField, alt: '오설록 차밭을 표현한 샘플 이미지', caption: '초록이 이어지는 차밭 풍경. 관람 가능한 길을 따라 천천히 둘러보세요.' },
-    { image: jejuOsullocMorningDew, alt: '차밭의 잎과 돌담을 표현한 샘플 이미지', caption: '가까이에서 보는 찻잎과 돌담의 다른 표정.' },
-  ],
-  'jeju-sagye': [
-    { image: jejuSagyeCoast, alt: '제주 사계해안을 표현한 샘플 이미지', caption: '산방산 아래로 이어지는 사계의 해안 풍경.' },
-    { image: jejuSagyeTidepool, alt: '사계해안의 물웅덩이를 표현한 샘플 이미지', caption: '물이 빠진 자리의 작은 풍경. 물때와 현장 통제 안내를 먼저 확인하세요.' },
-  ],
-  'jeju-saebyeol': [
-    { image: jejuSaebyeolOreum, alt: '새별오름의 능선을 표현한 샘플 이미지', caption: '제주의 중산간을 바라보는 오름의 능선.' },
-    { image: jejuSaebyeolTrail, alt: '새별오름 산책길을 표현한 샘플 이미지', caption: '억새 사이로 이어지는 길. 그늘이 적으니 물과 모자를 준비하세요.' },
-  ],
-  'gangneung-anmok': [
-    { image: gangwonEastSeaCover, alt: '안목해변의 아침 분위기를 표현한 샘플 이미지', caption: '커피 한 잔과 함께 시작하는 동해의 아침 산책.' },
-  ],
-  'seoul-seoulforest': [
-    { image: seoulForestCover, alt: '서울숲 저녁 산책을 표현한 샘플 이미지', caption: '도심에서 초록을 만나는 저녁. 성수 골목과 이어 걸어보세요.' },
-  ],
-};
-
-export function getPlacePhotos(place: Pick<Place, 'id'>): PlacePhoto[] {
-  return (placePhotoSamples[place.id] ?? []).slice(0, 5);
+export function getPlacePhotos(place: PhotoPlace, coverFallback = false): PlacePhoto[] {
+  const verifiedPhotos = photoSources.filter((source) => source.placeId === place.id)
+    .sort((a, b) => Number(b.image === place.image) - Number(a.image === place.image))
+    .map((source) => ({ mediaId: `${source.license === '공공누리 제1유형' ? 'public' : 'licensed'}:${source.id}`, placeId: place.id, sourceId: source.id, image: source.image,
+      alt: source.title, objectPosition: source.objectPosition, caption: source.caption ?? (source.id === 'busan-dongbaek-camellia'
+        ? '동백섬 자료에 수록된 동백꽃. 방문 시기의 개화 상태는 다를 수 있어요.' : source.title) }));
+  return resolvePlacePhotos(place, verifiedPhotos, coverFallback).map((photo) => ({
+    ...photo, sourceId: photo.sourceId ?? getPhotoSource(photo.image)?.id,
+  }));
 }
 
 interface PhotoPlaceCardProps {
@@ -58,7 +25,7 @@ interface PhotoPlaceCardProps {
 }
 
 export function PhotoPlaceCard({ place, saved, onToggle, onShare }: PhotoPlaceCardProps) {
-  const photos = useMemo(() => getPlacePhotos(place), [place.id]);
+  const photos = useMemo(() => getPlacePhotos(place), [place]);
   const [activePhoto, setActivePhoto] = useState(0);
   const [failedPhotos, setFailedPhotos] = useState<string[]>([]);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -107,7 +74,7 @@ export function PhotoPlaceCard({ place, saved, onToggle, onShare }: PhotoPlaceCa
           </figure>)}
         </div>
         <span className="photo-place-count" aria-live="polite" aria-atomic="true">{displayedPhoto + 1} / {photos.length}</span>
-        <span className="photo-place-provenance">샘플 이미지</span>
+        <span className="photo-place-provenance">{currentPhoto?.sourceId ? '장소 사진' : '샘플 이미지'}</span>
       </div>
       {photos.length > 1 && <div className="photo-place-pagination" aria-label={`${place.name} 사진 선택`}>
         <button type="button" onClick={() => goToPhoto(displayedPhoto - 1)} disabled={displayedPhoto === 0} aria-controls={trackId} aria-label={`${place.name} 이전 사진`}><ChevronLeft size={19} aria-hidden="true" /></button>

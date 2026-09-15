@@ -19,7 +19,7 @@
 .phase-memberships li button { border: 1px solid var(--line); border-radius: 10px; background: white; color: #a44936; flex-shrink: 0; padding: 0 12px; }
 .phase-day-options { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 6px; margin: 4px 0 18px; }
 .phase-day-options button { flex-shrink: 0; padding: 0 15px; border-radius: 11px; border: 1px solid #ddddd8; background: white; font-size: 14px; }.phase-day-options .active { color: white; background: #242422; border-color: #242422; }
-.local-storage-warning { padding: 12px 18px; color: #8d3825; background: #fff1e9; font-size: 14px; }.local-storage-warning button { margin-left: 10px; min-height: 44px; border: 0; text-decoration: underline; background: transparent; }
+.local-storage-warning { padding: 12px 18px; color: #8d3825; background: #fff1e9; font-size: 14px; }
 .local-data-note { font-size: 12px; color: #797972; line-height: 1.6; }
 .tab-discover.place-guide .content { height: calc(100dvh - 70px - env(safe-area-inset-bottom)); }
 .tab-discover.place-photo .content { height: 100dvh; overflow: hidden; background: #111; }
@@ -41,9 +41,28 @@
 .place-discover-header { gap: 8px; }.place-view-toggle button { padding-inline: 8px; }
 .region-count-grid.phase-region-strip { display: flex; overflow-x: auto; flex-wrap: nowrap; padding: 3px 0 10px; scrollbar-width: thin; }.phase-region-strip button { flex: 0 0 auto; min-width: 65px; min-height: 44px; }
 .phase-search-reset { background: transparent; border: 0; text-decoration: underline; font-size: 13px; min-height: 44px; color: #62625e; }
+.saved-page .ai-day-picker { align-items: flex-start; flex-direction: column; gap: 8px; }
+.saved-page .ai-day-picker > div { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; gap: 6px; }
+.saved-page .ai-day-picker button { min-height: 44px; font-size: var(--type-caption); }
 .toast.toast { z-index: 600; width: max-content; max-width: min(420px, calc(100vw - 32px)); white-space: normal; overflow-wrap: anywhere; line-height: 1.6; border-radius: 18px; }
 .toast.toast > svg { flex: 0 0 auto; }
 .discovery-pane { height: 100%; }
 .editor-day-tabs .day-tabs-back { min-width: 44px; height: 44px; padding: 0; display: grid; place-items: center; }
-.phase-sheet .phase-embedded-sheet { padding: 0; max-height: none; width: 100%; overflow: visible; border-radius: 0; background: transparent; }
+.day-tabs.day-tabs-draggable { overflow: visible; touch-action: auto; }
+.day-tabs-track { display: flex; flex: 1; min-width: 0; gap: 8px; overflow-x: auto; scrollbar-width: none; touch-action: pan-x; user-select: none; -webkit-user-select: none; cursor: grab; }
+.day-tabs-track::-webkit-scrollbar { display: none; }
+.day-tabs-track > button { flex-shrink: 0; cursor: inherit; }
+.day-tabs-track.is-dragging { cursor: grabbing; }
+.day-swipe-hint { position: absolute; right: 18px; bottom: -34px; display: flex; align-items: center; gap: 8px; max-width: calc(100% - 36px); padding: 8px 12px; border-radius: 18px; background: #222220; color: white; font-size: var(--type-subhead); line-height: 1.5; pointer-events: none; animation: day-hint-fade 3s both; }
+.day-swipe-hint svg { flex-shrink: 0; animation: day-hint-swipe .8s ease-in-out 1; }
+@keyframes day-hint-fade { 0%, 100% { opacity: 0; } 12%, 80% { opacity: 1; } }
+@keyframes day-hint-swipe { 0%, 100% { transform: translateX(0); } 30% { transform: translateX(-5px); } 65% { transform: translateX(5px); } }
+@media (prefers-reduced-motion: reduce) { .day-swipe-hint, .day-swipe-hint svg { animation: none; } }
+/* Embedded forms share the outer sheet surface, shadow, and entrance. */
+.phase-sheet .phase-embedded-sheet { padding: 0; max-height: none; width: 100%; overflow: visible; border-radius: 0; background: transparent; box-shadow: none; animation: none; }
+/* Field's zero-margin helper must not collapse this existing form's spacing. */
+.phase-sheet .create-sheet > .ui-field { margin-bottom: 13px; }
+.phase-sheet .custom-place-form :is(input:not([type=file]),textarea) { font-weight: 400; }
+.day-editor .block-toolbar > span, .day-editor .insert-toolbar > span { font-size: var(--type-caption); font-weight: 600; letter-spacing: normal; }
+.day-editor .insert-toolbar button { font-size: var(--type-subhead); }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }

@@ -4,6 +4,8 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 
 ## Retained product decisions
 
+Service scope: build the intended server-backed user flows. Do not expose JSON file backup/restore or add temporary developer utilities to product menus just because the backend is not connected. The user removed that menu on 2026-09-15. Trash/deletion recovery is a service feature; its user-flow proposal is `docs/execution/TRASH_USER_FLOW.md`, not an implemented or approved retention policy. Confirm the concrete flow before implementing trash.
+
 Schedule recall: when the user says “일정” or asks to see this project's schedule, read `docs/execution/FIRST_RELEASE_20_WEEK_BASELINE.md` and show its six-row table unchanged. This is the user's selected baseline: frontend phases 1/2/3 at 2 weeks each, backend 5 weeks, AI/RAG 5 weeks unchanged, app integration/release 4 weeks; target 2027-02-02. Do not substitute holiday-adjusted dates or earlier schedules unless the user requests a change. Keep the table feature-focused without separate design, implementation, or customer-review process items.
 
 Before data acquisition, external place search, AI recommendation, or landmark gallery work, read `docs/DATA_SUPPLY_AND_NAVER_PLAN.md` and the latest entry in `docs/handoff/CURRENT_HANDOFF.md`. These retain the user's spot-first travel flow, Naver API HUB policy gates, licensed internal data/RAG separation, and planned same-landmark horizontal photo gallery. Gallery and API plans are not completed product features. Keep the current role-specific design and local-only scope; do not infer permission to publish from older history.

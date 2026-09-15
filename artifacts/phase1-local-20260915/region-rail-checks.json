@@ -1,0 +1,183 @@
+{
+  "date": "2026-09-15",
+  "checks": [
+    {
+      "check": "video Gangwon selection",
+      "result": "two video places, feed starts at top; photo keeps Gangwon and shows Anmok"
+    },
+    {
+      "check": "photo Busan to video without content",
+      "snapshot": "- main:\n  - strong: spotlog\n  - generic: 1개 장소 저장\n  - generic \"장소 보기 방식\":\n    - button \"영상\" [active]:\n      - text: 영상\n    - button \"사진\":\n      - text: 사진\n    - button \"지역 안내\":\n      - text: 지역 안내\n  - heading \"부산 영상을 준비하고 있어요\" [level=2]\n  - paragraph: 다른 지역의 장소 영상을 먼저 살펴보세요.\n  - button \"지역 선택\":\n    - text: 지역 선택\n  - navigation \"주요 메뉴\":\n    - button \"홈\":\n      - generic: 홈\n    - button \"여행기\":\n      - generic: 여행기\n    - button \"장소\":\n      - generic: 장소\n    - button \"내 여행\":\n      - generic: 내 여행\n    - button \"저장\":\n      - generic: 저장"
+    },
+    {
+      "width": 320,
+      "view": "video",
+      "button": {
+        "height": 46,
+        "width": 46,
+        "x": 256.5,
+        "y": 672.609375
+      },
+      "label": "제주",
+      "labelSize": "12px",
+      "oldPlaceCount": 0,
+      "overflow": false,
+      "topRegion": 0
+    },
+    {
+      "width": 320,
+      "view": "photo",
+      "button": {
+        "height": 46,
+        "width": 46,
+        "x": 256.5,
+        "y": 672.609375
+      },
+      "label": "제주",
+      "labelSize": "12px",
+      "oldPlaceCount": 0,
+      "overflow": false,
+      "topRegion": 0
+    },
+    {
+      "width": 390,
+      "view": "video",
+      "button": {
+        "height": 46,
+        "width": 46,
+        "x": 326.5,
+        "y": 672.609375
+      },
+      "label": "제주",
+      "labelSize": "12px",
+      "oldPlaceCount": 0,
+      "overflow": false,
+      "topRegion": 0
+    },
+    {
+      "width": 390,
+      "view": "photo",
+      "button": {
+        "height": 46,
+        "width": 46,
+        "x": 326.5,
+        "y": 672.609375
+      },
+      "label": "제주",
+      "labelSize": "12px",
+      "oldPlaceCount": 0,
+      "overflow": false,
+      "topRegion": 0
+    },
+    {
+      "width": 460,
+      "view": "video",
+      "button": {
+        "height": 46,
+        "width": 46,
+        "x": 396.5,
+        "y": 672.609375
+      },
+      "label": "제주",
+      "labelSize": "12px",
+      "oldPlaceCount": 0,
+      "overflow": false,
+      "topRegion": 0
+    },
+    {
+      "width": 460,
+      "view": "photo",
+      "button": {
+        "height": 46,
+        "width": 46,
+        "x": 396.5,
+        "y": 672.609375
+      },
+      "label": "제주",
+      "labelSize": "12px",
+      "oldPlaceCount": 0,
+      "overflow": false,
+      "topRegion": 0
+    },
+    {
+      "width": 320,
+      "view": "region sheet",
+      "roles": [
+        {
+          "size": "14px",
+          "text": "모든 지역"
+        },
+        {
+          "size": "12px",
+          "text": "15개 장소"
+        },
+        {
+          "size": "14px",
+          "text": "서울"
+        },
+        {
+          "size": "12px",
+          "text": "1개 장소"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "view": "region sheet",
+      "roles": [
+        {
+          "size": "14px",
+          "text": "모든 지역"
+        },
+        {
+          "size": "12px",
+          "text": "15개 장소"
+        },
+        {
+          "size": "14px",
+          "text": "서울"
+        },
+        {
+          "size": "12px",
+          "text": "1개 장소"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 460,
+      "view": "region sheet",
+      "roles": [
+        {
+          "size": "14px",
+          "text": "모든 지역"
+        },
+        {
+          "size": "12px",
+          "text": "15개 장소"
+        },
+        {
+          "size": "14px",
+          "text": "서울"
+        },
+        {
+          "size": "12px",
+          "text": "1개 장소"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "check": "photo drag still changes same-place photo",
+      "state": {
+        "photo": "1",
+        "place": "jeju-hyeopjae",
+        "topPlaceCount": 0
+      }
+    }
+  ],
+  "webBuild": "passed",
+  "tests": 11,
+  "physicalAndroid": false
+}

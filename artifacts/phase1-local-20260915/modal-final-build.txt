@@ -1,0 +1,69 @@
+
+> spotlog@1.0.0 web:build
+> npm run build --workspace @spotlog/web
+
+
+> @spotlog/web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 1890 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                          0.47 kB │ gzip:   0.29 kB
+dist/assets/jeju-aewol-travel-notes-Be-LXJMF.webp       79.76 kB
+dist/assets/jeju-hyeopjae-udon-dinner-Bf6NCz0w.webp    101.46 kB
+dist/assets/gangwon-east-sea-sunrise-BKoDeWES.webp     111.21 kB
+dist/assets/gyeongju-donggung-C19WkUCa.jpg             118.19 kB
+dist/assets/spa-COepYCq0.jpg                           146.48 kB
+dist/assets/jeju-west-hotel-night-DClj6H8k.jpg         150.31 kB
+dist/assets/night-market-CceaUVSe.jpg                  161.35 kB
+dist/assets/busan-haeundae-blue-hour-wlBFIqqn.webp     163.19 kB
+dist/assets/jeju-hyeopjae-udon-Cz94FHY8.jpg            164.51 kB
+dist/assets/jeju-osulloc-morning-dew-HyESjvLH.webp     171.69 kB
+dist/assets/osulloc-tea-B6Hc88fY.jpg                   174.53 kB
+dist/assets/hyeopjae-scenery-B0yDzKQL.jpg              177.38 kB
+dist/assets/gyeongju-woljeonggyo-DbvnFIQc.jpg          197.79 kB
+dist/assets/local-food-FU7q1UfV.jpg                    202.87 kB
+dist/assets/osulloc-museum-D1lMo5h0.jpg                203.10 kB
+dist/assets/marble-mountain-CbTwj9N9.jpg               207.37 kB
+dist/assets/jeju-aewol-bakery-oBrOaP-D.jpg             207.98 kB
+dist/assets/gyeongju-cheomseongdae-ZksrDkWA.jpg        213.89 kB
+dist/assets/anmok-beach-D8IGZuJ9.jpg                   215.64 kB
+dist/assets/jeju-west-guide-cover-CVH5GF-a.jpg         230.49 kB
+dist/assets/gyeongju-daereungwon-Duu25E2m.jpg          231.90 kB
+dist/assets/jeju-hyeopjae-tidepool-Dc3nxX4O.webp       233.18 kB
+dist/assets/hyeopjae-shore-CsSl8C_9.jpg                240.66 kB
+dist/assets/jeju-saebyeol-trail-CGeU0QEE.webp          240.85 kB
+dist/assets/jeju-sanbangsan-cafe-BIcbiJWh.jpg          248.83 kB
+dist/assets/jeju-osulloc-tea-field-D_okO3ye.jpg        255.22 kB
+dist/assets/jeju-sagye-tidepool-CxAGYl0m.webp          262.04 kB
+dist/assets/saebyeol-ridge-7Fdr8Yw1.jpg                281.73 kB
+dist/assets/saebyeol-autumn-DpT5dhFI.jpg               304.16 kB
+dist/assets/jeju-sagye-coast-CgEknOW-.jpg              310.18 kB
+dist/assets/resort-CPFOxvNM.jpg                        321.61 kB
+dist/assets/sagye-rocks-Xe3mvRDd.jpg                   348.10 kB
+dist/assets/jeju-saebyeol-oreum-D5mPmj0S.jpg           354.96 kB
+dist/assets/seoul-forest-evening-DPpAlJ_g.webp         372.68 kB
+dist/assets/sagye-coast-7-4cBguH.jpg                   378.84 kB
+dist/assets/busan-dongbaek-riXv9_cQ.jpg                401.94 kB
+dist/assets/danang-beach-BGP69XQ2.jpg                  419.12 kB
+dist/assets/seoulforest-path-BK5vIzLM.jpg              540.34 kB
+dist/assets/busan-dongbaek-camellia-DbSunhUS.png       658.32 kB
+dist/assets/busan-gwangalli-BmB5XF9m.png             1,737.66 kB
+dist/assets/busan-gukje-B9IDteUo.png                 2,043.60 kB
+dist/assets/busan-gamcheon-yZay2bAk.png              2,442.27 kB
+dist/assets/busan-igidae-DRVjc6T-.png                2,490.34 kB
+dist/assets/busan-haeundae-BxtwOP4K.png              2,570.87 kB
+dist/assets/busan-jagalchi-BEmttbwO.png              2,679.07 kB
+dist/assets/index-C-CC90dB.css                         209.36 kB │ gzip:  33.88 kB
+dist/assets/index-Bn8HG9ST.js                          457.12 kB │ gzip: 143.42 kB
+dist/assets/maplibre-gl-Bq0Iu7NJ.js                    952.34 kB │ gzip: 248.00 kB
+
+✓ built in 648ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

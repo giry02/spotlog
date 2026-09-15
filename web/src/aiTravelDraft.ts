@@ -164,3 +164,51 @@ export const localTravelDraftProvider: TravelDraftProvider = {
   id: 'local-catalog',
   generate: async (input, places) => buildLocalTravelDraft(input, places),
 };
+
+/** Saved-only preview: keep every selected place and every requested DAY. Never query the catalog. */
+export function buildSavedTravelDraft(places: Place[], dayCount: number): TravelDraftResult {
+  const uniquePlaces = [...new Map(places.map((place) => [place.id, place])).values()];
+  const regions = unique(uniquePlaces.map((place) => place.area.split(/\s+/)[0]));
+  const region = regions.join(' · ') || '국내';
+  const result: TravelDraftResult = {
+    provider: 'local-catalog', journey: null, sourcePlaceIds: [], omittedPlaceIds: [], errors: [],
+    conditions: { region, dayCount, pace: 'balanced', transport: 'undecided', interests: [], excludedKinds: [], excludedThemes: [] },
+    notices: ['저장 목록에서 선택한 지역의 장소만 사용했어요. 외부 AI·실제 이동 경로는 연결되지 않았어요.'],
+  };
+  if (!uniquePlaces.length) result.errors.push('저장한 장소를 한 곳 이상 선택해 주세요.');
+  if (!Number.isInteger(dayCount) || dayCount < 1 || dayCount > 7) result.errors.push('여행 기간은 1~7일로 선택해 주세요.');
+  if (result.errors.length) return result;
+  const hasCoordinates = (place: Place) => Number.isFinite(place.lat) && Number.isFinite(place.lng) && place.lat >= 33 && place.lat <= 39 && place.lng >= 124 && place.lng <= 132;
+  if (uniquePlaces.some((place) => !hasCoordinates(place))) result.notices.push('좌표가 확인되지 않은 장소도 보존했어요. 내 여행에서 위치와 방문 순서를 확인해 주세요.');
+  // Keep regions together; within a region, use straight-line proximity when coordinates exist.
+  const ordered = regions.flatMap((name) => {
+    const remaining = uniquePlaces.filter((place) => place.area.split(/\s+/)[0] === name);
+    const group = [remaining.shift()!];
+    while (remaining.length) {
+      const previous = group[group.length - 1];
+      const nearest = remaining.map((place, index) => ({ index, km: hasCoordinates(previous) && hasCoordinates(place) ? distance(previous, place) : NaN })).filter((item) => Number.isFinite(item.km)).sort((a, b) => a.km - b.km)[0];
+      group.push(remaining.splice(nearest?.index ?? 0, 1)[0]);
+    }
+    return group;
+  });
+  const id = `journey-${crypto.randomUUID()}`;
+  let offset = 0;
+  const days: Journey['days'] = Array.from({ length: dayCount }, (_, index) => {
+    const count = Math.ceil((ordered.length - offset) / (dayCount - index));
+    const visits = ordered.slice(offset, offset + count).map((place, visit) => ({
+      ...structuredClone(place), visitId: `${id}:day-${index + 1}:visit-${visit}`, time: undefined, move: '경로·이동시간 확인 필요',
+    }));
+    offset += count;
+    return { day: index + 1, date: `DAY ${index + 1}`, title: visits.length ? visits.map((place) => place.name).join(' · ') : '장소를 더 골라 주세요',
+      story: visits.length ? '저장한 장소를 지역과 직선거리를 참고해 나눈 로컬 초안입니다. 실제 이동 경로는 확인이 필요합니다.' : '장소를 추가할 수 있도록 비워 둔 DAY입니다.', places: visits,
+      blocks: visits.map((place) => ({ id: `${place.visitId}:block`, type: 'PLACE' as const, placeId: place.id, visitId: place.visitId })) };
+  });
+  result.sourcePlaceIds = ordered.map((place) => place.id);
+  if (days.some((day) => !day.places.length)) result.notices.push('선택한 기간을 유지하고 장소가 없는 DAY는 비워 뒀어요.');
+  if (regions.length > 1) result.notices.push('여러 지역이 포함돼 있어요. 지역 사이 이동 가능 여부와 교통편을 확인해 주세요.');
+  result.notices.push('사진·영업시간·체류시간은 방문 전에 확인해 주세요.');
+  result.journey = { id, title: `${region} 여행 초안`, region, dateRange: '날짜 미정', duration: dayCount === 1 ? '당일 여행' : `${dayCount - 1}박 ${dayCount}일`,
+    status: 'PLANNING', visibility: 'PRIVATE', cover: ordered[0].image, summary: `저장한 ${ordered.length}곳을 ${dayCount}일로 나눈 로컬 초안입니다.`,
+    story: result.notices.join('\n'), tags: ['저장한 장소', '로컬 추천 초안'], saves: 0, views: 0, author: 'Spotlog 여행자', isMine: true, recommendationKind: 'AI', days };
+  return result;
+}

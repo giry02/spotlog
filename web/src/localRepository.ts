@@ -52,6 +52,11 @@ const hasStrings = (value: Record<string, unknown>, keys: string[]) => keys.ever
 function isPlace(value: unknown): boolean {
   if (!isObject(value) || !hasStrings(value, ['id', 'name', 'area', 'address', 'image', 'description', 'note', 'duration'])) return false;
   if (!['LANDMARK', 'STAY', 'FOOD', 'CAFE', 'SHOP'].includes(String(value.kind))) return false;
+  if (value.photos !== undefined && (!Array.isArray(value.photos) || !value.photos.every((photo) => isObject(photo)
+    && hasStrings(photo, ['image', 'alt', 'caption'])
+    && ['mediaId', 'placeId', 'sourceId'].every((key) => optionalString(photo[key]))
+    && (photo.placeId === undefined || photo.placeId === value.id)
+    && (photo.availability === undefined || ['available', 'withdrawn'].includes(String(photo.availability)))))) return false;
   // User-entered places may have no coordinates: JSON encodes their NaN as null.
   return (value.lat === null || isFiniteNumber(value.lat)) && (value.lng === null || isFiniteNumber(value.lng));
 }
@@ -146,7 +151,7 @@ export function createLocalRepository(storage: Storage): LocalRepository {
   const storageFailure = (error: unknown) => {
     const name = isObject(error) && isString(error.name) ? error.name : '';
     issue = name === 'QuotaExceededError'
-      ? '기기 저장 공간이 부족해 변경 사항을 저장하지 못했습니다. 기존 기록은 유지됩니다. 백업을 내려받아 주세요.'
+      ? '기기 저장 공간이 부족해 변경 사항을 저장하지 못했습니다. 기존 기록은 유지됩니다. 저장 공간을 확보한 뒤 다시 시도해 주세요.'
       : '기기 저장소에 접근할 수 없어 변경 사항을 저장하지 못했습니다. 브라우저의 저장소 설정을 확인해 주세요.';
   };
 
@@ -169,14 +174,14 @@ export function createLocalRepository(storage: Storage): LocalRepository {
         }
         recoverySource = existing;
         blocked = true;
-        issue = '저장 데이터 형식을 확인할 수 없습니다. 원본 보호를 위해 저장을 중단했습니다. 백업을 내려받거나 정상 백업을 복원해 주세요.';
+        issue = '저장된 기록을 읽을 수 없어 변경 사항을 저장하지 못했습니다. 원본 기록을 보호하기 위해 저장을 중단했습니다.';
         return;
       }
       const invalidKeys = Object.keys(originalRecords).filter((key) => !validRecord(key, originalRecords[key]));
       records = Object.fromEntries(Object.entries(originalRecords).filter(([key, raw]) => validRecord(key, raw)));
       if (invalidKeys.length) {
         blocked = true;
-        issue = '기존 기록 일부를 읽을 수 없습니다. 원본을 덮어쓰지 않도록 저장을 중단했습니다. 백업을 내려받거나 정상 백업을 복원해 주세요.';
+        issue = '기존 기록 일부를 읽을 수 없어 변경 사항을 저장하지 못했습니다. 원본 기록을 보호하기 위해 저장을 중단했습니다.';
         return;
       }
       // One raw snapshot must succeed before the authoritative schema changes.

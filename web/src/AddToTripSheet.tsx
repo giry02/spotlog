@@ -1,4 +1,4 @@
-import { useMemo, useState, type FormEvent } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { Check, Plus } from 'lucide-react';
 import { BottomSheet } from './BottomSheet';
 import { Button, Field } from './ui';
@@ -40,6 +40,22 @@ export function AddToTripSheet({ places, journeys, initialJourneyId, initialDay 
   const includedVisits = chosenDay?.places.filter((visit) => uniquePlaces.some((place) => place.id === visit.id)) ?? [];
   const alreadyCount = uniquePlaces.filter((place) => chosenDay?.places.some((visit) => visit.id === place.id)).length;
   const canConfirm = uniquePlaces.length > 0 && days.some((day) => day.day === targetDay) && (!isNew || Boolean(title.trim()));
+  const dayTrack = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    const track = dayTrack.current;
+    if (!track) return;
+    const revealSelected = () => {
+      const button = track.querySelector<HTMLElement>('[aria-pressed="true"]');
+      if (!button) return;
+      const bounds = button.getBoundingClientRect(), viewport = track.getBoundingClientRect();
+      if (bounds.left < viewport.left) track.scrollLeft += bounds.left - viewport.left;
+      else if (bounds.right > viewport.right) track.scrollLeft += bounds.right - viewport.right;
+    };
+    revealSelected();
+    const resize = new ResizeObserver(revealSelected);
+    resize.observe(track);
+    return () => resize.disconnect();
+  }, [targetDay, days.length, journeyId]);
 
   const selectJourney = (id: string) => {
     setJourneyId(id); setError('');
@@ -78,7 +94,7 @@ export function AddToTripSheet({ places, journeys, initialJourneyId, initialDay 
       </>}
       <div className="trip-placement-day-field">
         <p className="ui-field-label">담을 날짜{!isNew && selected && <span> · {tripPeriodLabel(selected.days.length)}</span>}</p>
-        <div className="phase-day-options" role="group" aria-label="담을 DAY">
+        <div ref={dayTrack} className="phase-day-options" role="group" aria-label="담을 DAY">
           {days.map((day) => <button key={day.day} type="button" className={targetDay === day.day ? 'active' : ''} aria-pressed={targetDay === day.day} onClick={() => { setTargetDay(day.day); setError(''); }}>
             <span>DAY {day.day}{selected?.days.find((item) => item.day === day.day)?.places.some((place) => uniquePlaces.some((candidate) => candidate.id === place.id)) ? ' · 담김' : ''}</span>{day.date && day.date !== `DAY ${day.day}` && <small>{day.date}</small>}
           </button>)}

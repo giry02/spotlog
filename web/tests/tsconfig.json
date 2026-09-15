@@ -1,0 +1,4 @@
+{
+  "extends": "../tsconfig.json",
+  "include": ["phase1-fixture.tsx", "../src/vite-env.d.ts", "../../shared"]
+}

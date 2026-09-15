@@ -1,0 +1,117 @@
+[
+  {
+    "region": "서울",
+    "requestedDays": 1,
+    "days": 1,
+    "meta": "선택 3곳 · 당일치기 · 경로 검증 전",
+    "places": [
+      "seoul-seoulforest",
+      "seoul-seongsu-yeonbang",
+      "seoul-tukseom-hangang"
+    ]
+  },
+  {
+    "region": "서울",
+    "requestedDays": 2,
+    "days": 2,
+    "meta": "선택 3곳 · 1박 2일 · 경로 검증 전",
+    "places": [
+      "seoul-seoulforest",
+      "seoul-seongsu-yeonbang",
+      "seoul-tukseom-hangang"
+    ]
+  },
+  {
+    "region": "서울",
+    "requestedDays": 3,
+    "days": 3,
+    "meta": "선택 3곳 · 2박 3일 · 경로 검증 전",
+    "places": [
+      "seoul-seoulforest",
+      "seoul-seongsu-yeonbang",
+      "seoul-tukseom-hangang"
+    ]
+  },
+  {
+    "region": "부산",
+    "requestedDays": 1,
+    "days": 1,
+    "meta": "선택 3곳 · 당일치기 · 경로 검증 전",
+    "places": [
+      "public-busan-dongbaek",
+      "public-busan-haeundae",
+      "public-busan-gamcheon"
+    ]
+  },
+  {
+    "region": "부산",
+    "requestedDays": 2,
+    "days": 2,
+    "meta": "선택 6곳 · 1박 2일 · 경로 검증 전",
+    "places": [
+      "public-busan-dongbaek",
+      "public-busan-haeundae",
+      "public-busan-gwangalli",
+      "public-busan-gamcheon",
+      "public-busan-igidae",
+      "busan-haedong-yonggungsa"
+    ]
+  },
+  {
+    "region": "부산",
+    "requestedDays": 3,
+    "days": 3,
+    "meta": "선택 9곳 · 2박 3일 · 경로 검증 전",
+    "places": [
+      "public-busan-dongbaek",
+      "public-busan-haeundae",
+      "busan-amso",
+      "public-busan-gamcheon",
+      "public-busan-gukje",
+      "public-busan-jagalchi",
+      "public-busan-igidae",
+      "public-busan-gwangalli",
+      "busan-haedong-yonggungsa"
+    ]
+  },
+  {
+    "region": "제주",
+    "requestedDays": 1,
+    "days": 1,
+    "meta": "선택 3곳 · 당일치기 · 경로 검증 전",
+    "places": [
+      "jeju-hyeopjae",
+      "jeju-osulloc",
+      "jeju-sagye"
+    ]
+  },
+  {
+    "region": "제주",
+    "requestedDays": 2,
+    "days": 2,
+    "meta": "선택 6곳 · 1박 2일 · 경로 검증 전",
+    "places": [
+      "jeju-hyeopjae",
+      "jeju-suudon",
+      "jeju-osulloc",
+      "jeju-sagye",
+      "jeju-oneonly",
+      "jeju-saebyeol"
+    ]
+  },
+  {
+    "region": "제주",
+    "requestedDays": 3,
+    "days": 3,
+    "meta": "선택 7곳 · 2박 3일 · 경로 검증 전",
+    "places": [
+      "jeju-hyeopjae",
+      "jeju-suudon",
+      "jeju-aewol-bakery",
+      "jeju-osulloc",
+      "jeju-oneonly",
+      "jeju-sagye",
+      "jeju-saebyeol"
+    ]
+  }
+]
