@@ -21,6 +21,9 @@ import busanHaeundaeCover from '../../assets/spotlog/busan-haeundae-blue-hour.we
 import gangwonEastSeaCover from '../../assets/spotlog/gangwon-east-sea-sunrise.webp';
 import seoulForestCover from '../../assets/spotlog/seoul-forest-evening.webp';
 import spa from '../../assets/spotlog/spa.jpg';
+import { publicTourismPlaces } from './publicTourismContent';
+import type { PlacePhotoInput } from './placePhotos';
+import { licensedPlaceSources } from './licensedPlaceSources';
 
 const cloudinaryVideo = (id: string) => `https://res.cloudinary.com/demo/video/upload/c_fill,g_center,h_1280,w_720,q_auto:eco/${id}.mp4`;
 
@@ -37,6 +40,7 @@ export interface Place {
   lat: number;
   lng: number;
   image: string;
+  photos?: PlacePhotoInput[];
   description: string;
   note: string;
   duration: string;
@@ -46,6 +50,7 @@ export interface Place {
   hook?: string;
   bestTime?: string;
   video?: string;
+  motionImages?: string[];
   tags?: string[];
 }
 
@@ -99,7 +104,7 @@ export const discoveryLandmarks: Place[] = [
   },
   {
     id: 'gangneung-anmok', kind: 'LANDMARK', name: '안목해변', area: '강원 강릉', address: '강원 강릉시 창해로 14번길', lat: 37.7712, lng: 128.9474,
-    creator: 'eastsea.notes', hook: '커피 한 잔 들고 오래 걷기 좋은 동해', description: '아침 파도와 해변 산책이 하루의 방향을 정해주는 강릉의 대표 장면입니다.', note: '해가 뜬 직후에는 산책로가 비교적 한산해요.', duration: '50분', bestTime: '07:00–09:00', image: resort, video: cloudinaryVideo('kayak'), tags: ['강릉', '동해', '아침산책'],
+    creator: 'eastsea.notes', hook: '커피 한 잔 들고 오래 걷기 좋은 동해', description: '아침 파도와 해변 산책이 하루의 방향을 정해주는 강릉의 대표 장면입니다.', note: '해가 뜬 직후에는 산책로가 비교적 한산해요.', duration: '50분', bestTime: '07:00–09:00', image: gangwonEastSeaCover, motionImages: [gangwonEastSeaCover], tags: ['강릉', '동해', '아침산책'],
   },
   {
     id: 'jeongseon-rail', kind: 'LANDMARK', name: '정선 아우라지', area: '강원 정선', address: '강원 정선군 여량면 아우라지길 69', lat: 37.4728, lng: 128.7232,
@@ -107,7 +112,7 @@ export const discoveryLandmarks: Place[] = [
   },
   {
     id: 'seoul-seoulforest', kind: 'LANDMARK', name: '서울숲', area: '서울 성동', address: '서울 성동구 뚝섬로 273', lat: 37.5444, lng: 127.0374,
-    creator: 'seoul.afterwork', hook: '도심에서 가장 쉽게 만나는 초록의 저녁', description: '퇴근 뒤에도 충분한 산책. 성수의 작은 가게와 이어 한나절 여행으로 만들기 좋습니다.', note: '자전거 길과 보행로가 나뉘는 구간을 확인하세요.', duration: '1시간 30분', bestTime: '16:00–18:00', image: food, video: cloudinaryVideo('forest_bike'), tags: ['서울', '산책', '성수'],
+    creator: 'seoul.afterwork', hook: '도심에서 가장 쉽게 만나는 초록의 저녁', description: '퇴근 뒤에도 충분한 산책. 성수의 작은 가게와 이어 한나절 여행으로 만들기 좋습니다.', note: '자전거 길과 보행로가 나뉘는 구간을 확인하세요.', duration: '1시간 30분', bestTime: '16:00–18:00', image: seoulForestCover, motionImages: [seoulForestCover], tags: ['서울', '산책', '성수'],
   },
 ];
 
@@ -263,6 +268,16 @@ const catalogOnlyPlaces: Place[] = [
 ];
 
 export const placeCatalog: Place[] = Array.from(new Map(
-  [...discoveryLandmarks, ...initialJourneys.flatMap((journey) => journey.days.flatMap((day) => day.places)), ...catalogOnlyPlaces]
+  [...discoveryLandmarks, ...initialJourneys.flatMap((journey) => journey.days.flatMap((day) => day.places)), ...catalogOnlyPlaces, ...publicTourismPlaces]
     .map((place) => [place.id, place]),
-).values());
+).values()).map((place) => {
+  // New catalog selections carry photo identities into saved travel drafts.
+  // Existing journeys, authored galleries and the video samples are not rewritten.
+  const sources = licensedPlaceSources.filter((source) => source.placeId === place.id);
+  if (!sources.length || place.photos !== undefined) return place;
+  return { ...place, image: sources[0].image, photos: sources.map((source) => ({
+    mediaId: `licensed:${source.id}`, placeId: place.id, sourceId: source.id,
+    image: source.image, alt: source.title, caption: source.caption ?? source.title,
+    objectPosition: source.objectPosition,
+  })) };
+});

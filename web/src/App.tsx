@@ -29,7 +29,6 @@ import {
   Map as MapIcon,
   MapPin,
   MessageCircle,
-  MoreHorizontal,
   Navigation,
   Clapperboard,
   Plus,
@@ -58,9 +57,21 @@ import seoulForestCover from '../../assets/spotlog/seoul-forest-evening.webp';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { type ChangeEvent, FormEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { NotificationPreferences } from '../../shared/hybridBridge';
-import { publicTourismJourneys } from './publicTourismContent';
+import { createLocalRepository } from './localRepository';
+import { LandmarkGuideCard } from './LandmarkGuideCard';
+import { DayNavigation } from './DayNavigation';
+import { getPlacePhotos } from './PhotoPlaceCard';
+import { PhotoLandmarkFeed } from './PhotoLandmarkFeed';
+import { MediaRegionButton } from './MediaRegionButton';
+import { BottomSheet, hasActiveSheet } from './BottomSheet';
+import { normalizeVisits, removeVisit } from './visits';
+import { AddToTripSheet } from './AddToTripSheet';
+import { applyTripPlacement, type TripPlacementRequest } from './tripPlacement';
+import { AiTravelSheet } from './AiTravelSheet';
+import { publicTourismJourneys, publicTourismPlaces } from './publicTourismContent';
 import { PhotoCredit, PublicSourceNotes, StoryPhoto } from './PublicTourismCredit';
-import { hasActiveSheet } from './PublicSourceSheet';
+import { Button, Field } from './ui';
+import { StyleGuide } from './StyleGuide';
 import {
   discoveryLandmarks,
   initialJourneys,
@@ -74,8 +85,8 @@ import {
 } from './data';
 import { isNativeShell, notifyNavigationState, notifyReady, openExternal, previewCreatorNotification, shareContent, subscribeNavigationCommands, subscribeNotificationStatus, updateNotificationPreferences } from './nativeBridge';
 
-type Tab = 'home' | 'community' | 'discover' | 'trips' | 'saved' | 'profile' | 'photo-stories';
-type PlaceView = 'VIDEO' | 'GUIDE';
+type Tab = 'home' | 'community' | 'discover' | 'trips' | 'saved' | 'profile' | 'photo-stories' | 'style-guide';
+type PlaceView = 'VIDEO' | 'GUIDE' | 'PHOTO';
 
 type PreviewLocale = 'ko' | 'en';
 
@@ -111,6 +122,8 @@ interface SpotlogNavigationState {
   journeyId: string | null;
   templateId: string | null;
   editorId: string | null;
+  scrollTop?: number;
+  detailDay?: number | null;
 }
 
 interface HomeTripTemplate {
@@ -305,7 +318,7 @@ const defaultCheers: CheerStore = {
 
 const readCreatorProfile = (): CreatorProfile => {
   try {
-    const value = JSON.parse(localStorage.getItem(storageKeys.profile) ?? 'null') as Partial<CreatorProfile> | null;
+    const value = JSON.parse(localRepository.getItem(storageKeys.profile) ?? 'null') as Partial<CreatorProfile> | null;
     return value ? { ...defaultCreatorProfile, ...value } : defaultCreatorProfile;
   } catch {
     return defaultCreatorProfile;
@@ -314,7 +327,7 @@ const readCreatorProfile = (): CreatorProfile => {
 
 const readComments = (): JourneyComment[] => {
   try {
-    const stored = JSON.parse(localStorage.getItem(storageKeys.comments) ?? '[]') as JourneyComment[];
+    const stored = JSON.parse(localRepository.getItem(storageKeys.comments) ?? '[]') as JourneyComment[];
     if (!Array.isArray(stored)) return defaultComments;
     const ids = new Set(stored.map((comment) => comment.id));
     return [...defaultComments.filter((comment) => !ids.has(comment.id)), ...stored];
@@ -325,7 +338,7 @@ const readComments = (): JourneyComment[] => {
 
 const readCheers = (): CheerStore => {
   try {
-    const stored = JSON.parse(localStorage.getItem(storageKeys.cheers) ?? '{}') as CheerStore;
+    const stored = JSON.parse(localRepository.getItem(storageKeys.cheers) ?? '{}') as CheerStore;
     return Object.fromEntries(Object.entries(defaultCheers).map(([journeyId, cheers]) => [journeyId, { ...cheers, ...stored[journeyId] }]).concat(Object.entries(stored).filter(([journeyId]) => !defaultCheers[journeyId])));
   } catch {
     return defaultCheers;
@@ -334,7 +347,7 @@ const readCheers = (): CheerStore => {
 
 const readNotificationPreferences = (): NotificationPreferences => {
   try {
-    const stored = JSON.parse(localStorage.getItem(storageKeys.notifications) ?? 'null') as Partial<NotificationPreferences> | null;
+    const stored = JSON.parse(localRepository.getItem(storageKeys.notifications) ?? 'null') as Partial<NotificationPreferences> | null;
     if (!stored || typeof stored.enabled !== 'boolean' || typeof stored.viewMilestone !== 'number' || stored.viewMilestone <= 0) return defaultNotificationPreferences;
     return { enabled: stored.enabled, viewMilestone: stored.viewMilestone };
   } catch {
@@ -344,7 +357,7 @@ const readNotificationPreferences = (): NotificationPreferences => {
 
 const readSavedIds = () => {
   try {
-    const value: unknown = JSON.parse(localStorage.getItem(storageKeys.saved) ?? '[]');
+    const value: unknown = JSON.parse(localRepository.getItem(storageKeys.saved) ?? '[]');
     return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [];
   } catch {
     return [];
@@ -359,9 +372,9 @@ const normalizeGeneratedJourneyTitle = (journey: Journey): Journey => {
 
 const readJourneys = (): Journey[] => {
   try {
-    const value: unknown = JSON.parse(localStorage.getItem(storageKeys.journeys) ?? 'null');
-    if (!Array.isArray(value) || !value.length) return publishedJourneySeeds;
-    const stored = (value as Journey[]).map(normalizeGeneratedJourneyTitle);
+    const value: unknown = JSON.parse(localRepository.getItem(storageKeys.journeys) ?? 'null');
+    if (!Array.isArray(value)) return publishedJourneySeeds.map(normalizeVisits);
+    const stored = (value as Journey[]).map(normalizeGeneratedJourneyTitle).map(normalizeVisits);
     const publishedGuides = publishedJourneySeeds.filter((journey) => !journey.isMine && journey.status === 'PUBLISHED');
     const guideById = new Map(publishedGuides.map((journey) => [journey.id, journey]));
     const refreshed = stored.map((journey) => {
@@ -370,9 +383,9 @@ const readJourneys = (): Journey[] => {
       return { ...seed, saves: Math.max(seed.saves, Number(journey.saves) || 0), views: Math.max(seed.views ?? 0, Number(journey.views) || 0) };
     });
     const storedIds = new Set(refreshed.map((journey) => journey.id));
-    return [...publishedGuides.filter((journey) => !storedIds.has(journey.id)), ...refreshed];
+    return [...publishedGuides.filter((journey) => !storedIds.has(journey.id)), ...refreshed].map(normalizeVisits);
   } catch {
-    return publishedJourneySeeds;
+    return publishedJourneySeeds.map(normalizeVisits);
   }
 };
 
@@ -399,8 +412,9 @@ const isSpotlogNavigationState = (value: unknown): value is SpotlogNavigationSta
   const state = value as Partial<SpotlogNavigationState>;
   return state.spotlog === true
     && typeof state.depth === 'number'
-    && ['home', 'community', 'discover', 'trips', 'saved', 'profile', 'photo-stories'].includes(String(state.tab))
-    && ['VIDEO', 'GUIDE'].includes(String(state.placeView));
+    && ['home', 'community', 'discover', 'trips', 'saved', 'profile', 'photo-stories', ...(import.meta.env.DEV ? ['style-guide'] : [])].includes(String(state.tab))
+    && ['VIDEO', 'GUIDE', 'PHOTO'].includes(String(state.placeView))
+    && (state.detailDay == null || (Number.isInteger(state.detailDay) && state.detailDay > 0));
 };
 const spotlogNavigationUrl = (state: SpotlogNavigationState) => {
   const screen = state.editorId
@@ -419,7 +433,9 @@ const navigationStateFromHash = (): SpotlogNavigationState => {
   const base: SpotlogNavigationState = { spotlog: true, depth: 0, tab: 'home', placeView: 'VIDEO', journeyId: null, templateId: null, editorId: null };
   if (screen === 'places-guide') return { ...base, tab: 'discover', placeView: 'GUIDE' };
   if (screen === 'places-video') return { ...base, tab: 'discover', placeView: 'VIDEO' };
+  if (screen === 'places-photo') return { ...base, tab: 'discover', placeView: 'PHOTO' };
   if (screen === 'photo-stories') return { ...base, tab: 'photo-stories' };
+  if (screen === 'style-guide' && import.meta.env.DEV) return { ...base, tab: 'style-guide' };
   if (['home', 'community', 'trips', 'saved', 'profile'].includes(screen)) return { ...base, tab: screen as Tab };
   if (screen.startsWith('journey-')) return { ...base, journeyId: screen.slice('journey-'.length) };
   if (screen.startsWith('recommendation-')) return { ...base, templateId: screen.slice('recommendation-'.length) };
@@ -777,6 +793,10 @@ const homeCommunityJourneys: Journey[] = [
 ];
 
 const publishedJourneySeeds: Journey[] = [...initialJourneys, ...homeCommunityJourneys, ...publicTourismJourneys];
+// Prefer the verified photo/content version for the same place without deleting legacy IDs or saves.
+const aiCandidateKey = (place: Place) => `${place.area.split(/\s+/)[0]}:${place.name.replace(/\s+/g, '')}`;
+const officialCandidateKeys = new Set(publicTourismPlaces.map(aiCandidateKey));
+const aiPlaceCandidates = [...publicTourismPlaces, ...placeCatalog.filter((place) => !officialCandidateKeys.has(aiCandidateKey(place)))];
 
 const scrollCarouselItem = (track: HTMLDivElement | null, index: number) => {
   const item = track?.children.item(index) as HTMLElement | null;
@@ -823,27 +843,52 @@ function useRollingCarousel(itemCount: number, intervalMs = 4800) {
   return { trackRef, activeIndex, goTo, syncIndex };
 }
 
+const localRepository = createLocalRepository({
+  getItem: (key: string) => window.localStorage.getItem(key),
+  setItem: (key: string, value: string) => window.localStorage.setItem(key, value),
+} as Storage);
+
+function useLocalState<T>(key: string, read: () => T): [T, (action: T | ((current: T) => T)) => boolean] {
+  const [value, setValue] = useState(read);
+  const current = useRef(value);
+  const update = (action: T | ((current: T) => T)) => {
+    const next = typeof action === 'function' ? (action as (current: T) => T)(current.current) : action;
+    if (!localRepository.setItem(key, JSON.stringify(next))) { window.dispatchEvent(new Event('spotlog-storage-issue')); return false; }
+    current.current = next;
+    setValue(next);
+    window.dispatchEvent(new Event('spotlog-storage-issue'));
+    return true;
+  };
+  return [value, update];
+}
+
 export default function App() {
   const [tab, setTab] = useState<Tab>('home');
-  const [savedIds, setSavedIds] = useState<string[]>(readSavedIds);
-  const [journeys, setJourneys] = useState<Journey[]>(readJourneys);
+  const [savedIds, setSavedIds] = useLocalState<string[]>(storageKeys.saved, readSavedIds);
+  const [journeys, persistJourneys] = useLocalState<Journey[]>(storageKeys.journeys, readJourneys);
+  const setJourneys = (action: Journey[] | ((current: Journey[]) => Journey[])) => persistJourneys((current) => (typeof action === 'function' ? action(current) : action).map(normalizeVisits));
+  const [storageIssue, setStorageIssue] = useState(localRepository.getIssue());
   const [selectedJourneyId, setSelectedJourneyId] = useState<string | null>(null);
   const [selectedTemplate, setSelectedTemplate] = useState<HomeTripTemplate | null>(null);
   const [searchDraft, setSearchDraft] = useState<TripSearchFilters>({ destination: '', duration: 'ALL' });
   const [placeView, setPlaceView] = useState<PlaceView>('VIDEO');
+  const guideScrollTop = useRef(0);
   const [editingJourneyId, setEditingJourneyId] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
+  const [placementPlaces, setPlacementPlaces] = useState<Place[] | null>(null);
+  const [aiTravelOpen, setAiTravelOpen] = useState(false);
+  const [savedTravelPreview, setSavedTravelPreview] = useState<{ places: Place[]; dayCount: number } | null>(null);
+  const [detailDay, setDetailDay] = useState<number | null>(null);
   const [toast, setToast] = useState('');
-  const [profile, setProfile] = useState<CreatorProfile>(readCreatorProfile);
-  const [comments, setComments] = useState<JourneyComment[]>(readComments);
-  const [cheers, setCheers] = useState<CheerStore>(readCheers);
-  const [notificationPreferences, setNotificationPreferences] = useState<NotificationPreferences>(readNotificationPreferences);
+  const [profile, setProfile] = useLocalState<CreatorProfile>(storageKeys.profile, readCreatorProfile);
+  const [comments, setComments] = useLocalState<JourneyComment[]>(storageKeys.comments, readComments);
+  const [cheers, setCheers] = useLocalState<CheerStore>(storageKeys.cheers, readCheers);
+  const [notificationPreferences, setNotificationPreferences] = useLocalState<NotificationPreferences>(storageKeys.notifications, readNotificationPreferences);
   const [notificationPermission, setNotificationPermission] = useState<'granted' | 'denied' | 'undetermined'>('undetermined');
   const viewedJourneyIds = useRef(new Set<string>());
   const native = isNativeShell();
-  const savedPlaces = useMemo(() => placeCatalog.filter((place) => savedIds.includes(place.id)), [savedIds]);
-  const aiSamplePlaces = useMemo(() => Array.from(new Map(initialJourneys.flatMap((journey) => journey.days.flatMap((day) => day.places)).filter((place) => place.kind === 'LANDMARK' && place.area.startsWith('제주')).map((place) => [place.id, place])).values()).slice(0, 4), []);
-  const planningJourney = useMemo(() => journeys.find((journey) => journey.status === 'PLANNING') ?? journeys[0], [journeys]);
+  const savedPlaces = useMemo(() => { const byId = new Map([...placeCatalog, ...journeys.flatMap((journey) => journey.days.flatMap((day) => day.places))].map((place) => [place.id, place])); return [...placeCatalog.filter(place => savedIds.includes(place.id)), ...savedIds.filter(id => !placeCatalog.some(place => place.id === id)).map(id => byId.get(id)).filter((place): place is Place => Boolean(place))]; }, [savedIds, journeys]);
+  const ownJourneys = useMemo(() => journeys.filter((journey) => journey.isMine), [journeys]);
   const selectedTemplateJourney = useMemo(() => selectedTemplate ? previewTemplateJourney(selectedTemplate) : null, [selectedTemplate]);
   const selectedJourney = selectedTemplateJourney ?? journeys.find((journey) => journey.id === selectedJourneyId) ?? null;
   const editingJourney = journeys.find((journey) => journey.id === editingJourneyId) ?? null;
@@ -855,19 +900,32 @@ export default function App() {
     setSelectedTemplate(state.templateId ? homeTripTemplates.find((template) => template.id === state.templateId) ?? null : null);
     setEditingJourneyId(state.editorId);
     setCreating(false);
+    setPlacementPlaces(null);
+    setAiTravelOpen(false);
+    setSavedTravelPreview(null);
+    setDetailDay(state.detailDay ?? null);
   }, []);
 
   const writeNavigationState = (next: Partial<Omit<SpotlogNavigationState, 'spotlog' | 'depth'>>, mode: 'push' | 'replace' = 'push') => {
     const previous = isSpotlogNavigationState(window.history.state) ? window.history.state : null;
+    if (previous?.tab === 'discover' && previous.placeView === 'GUIDE' && !previous.journeyId && !previous.templateId && !previous.editorId) {
+      guideScrollTop.current = document.querySelector('.content')?.scrollTop ?? 0;
+    }
+    const replacingSheet = Boolean(window.history.state?.spotlogSheet);
+    if (replacingSheet) mode = 'replace';
+    if (previous && mode === 'push') window.history.replaceState({ ...previous, scrollTop: document.querySelector('.content')?.scrollTop ?? 0 }, '');
     const state: SpotlogNavigationState = {
       spotlog: true,
-      depth: mode === 'replace' ? previous?.depth ?? 0 : (previous?.depth ?? 0) + 1,
+      depth: replacingSheet ? (previous?.depth ?? 0) + 1 : mode === 'replace' ? previous?.depth ?? 0 : (previous?.depth ?? 0) + 1,
       tab: next.tab ?? tab,
       placeView: next.placeView ?? placeView,
       journeyId: next.journeyId === undefined ? selectedJourneyId : next.journeyId,
       templateId: next.templateId === undefined ? selectedTemplate?.id ?? null : next.templateId,
       editorId: next.editorId === undefined ? editingJourneyId : next.editorId,
+      scrollTop: next.scrollTop ?? 0,
+      detailDay: next.detailDay ?? null,
     };
+    setDetailDay(state.detailDay ?? null);
     window.history[mode === 'push' ? 'pushState' : 'replaceState'](state, '', spotlogNavigationUrl(state));
     notifyNavigationState(state.depth > 0);
   };
@@ -892,6 +950,9 @@ export default function App() {
     applyNavigationState(initial);
     notifyNavigationState(initial.depth > 0);
     const handlePopState = (event: PopStateEvent) => {
+      // A sheet's internal disclosure owns its back/forward transition. Applying
+      // page navigation here would discard the still-open trip/AI form.
+      if (event.state?.spotlogSheet && hasActiveSheet()) return;
       const state: SpotlogNavigationState = isSpotlogNavigationState(event.state)
         ? event.state
         : navigationStateFromHash();
@@ -924,21 +985,53 @@ export default function App() {
     setNotificationPermission(status.permission);
   }), []);
   useEffect(() => notifyReady(), []);
-  useEffect(() => localStorage.setItem(storageKeys.saved, JSON.stringify(savedIds)), [savedIds]);
-  useEffect(() => localStorage.setItem(storageKeys.journeys, JSON.stringify(journeys)), [journeys]);
-  useEffect(() => localStorage.setItem(storageKeys.profile, JSON.stringify(profile)), [profile]);
-  useEffect(() => localStorage.setItem(storageKeys.comments, JSON.stringify(comments)), [comments]);
-  useEffect(() => localStorage.setItem(storageKeys.cheers, JSON.stringify(cheers)), [cheers]);
-  useEffect(() => localStorage.setItem(storageKeys.notifications, JSON.stringify(notificationPreferences)), [notificationPreferences]);
+  useEffect(() => { const check = () => setStorageIssue(localRepository.getIssue()); window.addEventListener('spotlog-storage-issue', check); return () => window.removeEventListener('spotlog-storage-issue', check); }, []);
   useEffect(() => {
-    document.querySelector<HTMLElement>('.content')?.scrollTo({ top: 0, behavior: 'instant' });
+    const frame = requestAnimationFrame(() => document.querySelector<HTMLElement>('.content')?.scrollTo({ top: window.history.state?.scrollTop ?? 0, behavior: 'instant' }));
+    return () => cancelAnimationFrame(frame);
   }, [tab, selectedJourneyId, selectedTemplate, editingJourneyId, placeView]);
 
   const showToast = (message: string) => {
-    setToast(message);
+    setToast(localRepository.getIssue() ?? message);
     window.setTimeout(() => setToast(''), 2200);
   };
-  const toggleSaved = (id: string) => setSavedIds((current) => current.includes(id) ? current.filter((value) => value !== id) : [...current, id]);
+  const toggleSaved = (id: string) => {
+    const exists = savedIds.includes(id);
+    const nextIds = exists ? savedIds.filter((value) => value !== id) : [...savedIds, id];
+    if (!setSavedIds(nextIds)) return false;
+    // Retired collection data remains in backups; saved-place actions no longer rewrite it.
+    showToast(exists ? '저장한 장소에서 뺐습니다. 여행에 담긴 방문은 유지됩니다.' : '장소를 저장했습니다.');
+    return true;
+  };
+  const openMyJourney = (journeyId: string, day = 1) => {
+    setTab('trips'); setSelectedJourneyId(journeyId); setSelectedTemplate(null); setEditingJourneyId(null); setCreating(false);
+    writeNavigationState({ tab: 'trips', journeyId, templateId: null, editorId: null, detailDay: day }, 'push');
+  };
+  const confirmTripPlacement = (request: TripPlacementRequest): string | null => {
+    const result = applyTripPlacement(journeys, request, profile.displayName);
+    if (!result.ok) return result.error;
+    if (result.addedCount && !setJourneys(result.journeys)) return localRepository.getIssue() ?? '저장하지 못했어요. 다시 시도해 주세요.';
+    // Replace the sheet's history entry before unmounting so Back returns to Saved.
+    openMyJourney(result.journeyId, result.targetDay);
+    setPlacementPlaces(null);
+    showToast(result.addedCount ? `DAY ${result.targetDay}에 담았습니다.` : `이미 담긴 DAY ${result.targetDay}로 이동했습니다.`);
+    return null;
+  };
+  const removePlacedVisit = (journeyId: string, dayNumber: number, visitId: string): string | null => {
+    const target = journeys.find((journey) => journey.id === journeyId && journey.isMine);
+    if (!target || !target.days.some((day) => day.day === dayNumber && day.places.some((place) => place.visitId === visitId))) return '담긴 장소를 다시 확인해 주세요.';
+    if (!setJourneys((current) => current.map((journey) => journey.id === journeyId ? removeVisit(journey, dayNumber, visitId) : journey))) return localRepository.getIssue() ?? '해제하지 못했어요. 다시 시도해 주세요.';
+    showToast(`DAY ${dayNumber} 담김을 해제했습니다. 저장한 장소는 유지됩니다.`);
+    return null;
+  };
+  const acceptAiDraft = (draft: Journey): string | null => {
+    const created = { ...draft, author: profile.displayName, recommendationKind: 'AI' as const, isMine: true, visibility: 'PRIVATE' as const };
+    if (!setJourneys((current) => [created, ...current])) return null;
+    openMyJourney(created.id);
+    setAiTravelOpen(false);
+    showToast('내 여행에 초안을 저장했습니다. 일정을 확인하고 수정해 주세요.');
+    return created.id;
+  };
   const changeNotificationPreferences = (preferences: NotificationPreferences) => {
     setNotificationPreferences(preferences);
     updateNotificationPreferences(preferences);
@@ -967,7 +1060,7 @@ export default function App() {
   const changePlaceView = (next: PlaceView) => {
     if (next === placeView) return;
     setPlaceView(next);
-    writeNavigationState({ tab: 'discover', placeView: next, journeyId: null, templateId: null, editorId: null });
+    writeNavigationState({ tab: 'discover', placeView: next, journeyId: null, templateId: null, editorId: null, scrollTop: next === 'GUIDE' ? guideScrollTop.current : 0 });
   };
   const sharePlace = async (place: Place) => {
     try {
@@ -986,58 +1079,6 @@ export default function App() {
       showToast('공유를 취소했습니다.');
     }
   };
-  const addToPlanningJourney = (place: Place, requestedDay: number) => {
-    const target = planningJourney;
-    if (!target) {
-      showToast('먼저 내 여행을 만들어주세요.');
-      return;
-    }
-    const targetDayNumber = Math.max(1, Math.trunc(requestedDay));
-    const alreadyAdded = target.days.some((day) => day.places.some((item) => item.id === place.id));
-    if (alreadyAdded) {
-      showToast(`${target.title}에 이미 담겨 있습니다.`);
-      return;
-    }
-    setJourneys((current) => current.map((journey) => {
-      if (journey.id !== target.id) return journey;
-      const nextDays = [...journey.days];
-      const lastDayNumber = Math.max(0, ...nextDays.map((day) => day.day));
-      for (let dayNumber = lastDayNumber + 1; dayNumber <= targetDayNumber; dayNumber += 1) {
-        nextDays.push({
-          day: dayNumber,
-          date: `DAY ${dayNumber}`,
-          title: `${dayNumber}일차 기록`,
-          story: '이날의 이야기를 기록할 자리입니다.',
-          places: [],
-          blocks: [{ id: `text-${journey.id}-day-${dayNumber}-${Date.now()}`, type: 'TEXT', heading: `${dayNumber}일차 이야기`, body: '' }],
-        });
-      }
-      return {
-        ...journey,
-        duration: nextDays.length === 1 ? '당일 여행' : `${nextDays.length - 1}박 ${nextDays.length}일`,
-        days: nextDays.map((day) => day.day !== targetDayNumber ? day : {
-          ...day,
-          places: [...day.places, { ...place, move: '이동시간 확인 필요' }],
-          blocks: [...day.blocks, { id: `place-${place.id}-${Date.now()}`, type: 'PLACE' as const, placeId: place.id }],
-        }),
-      };
-    }));
-    showToast(`DAY ${targetDayNumber}에 담았습니다.`);
-  };
-  const removeFromPlanningJourney = (place: Place) => {
-    const target = planningJourney;
-    const placedDay = target?.days.find((day) => day.places.some((item) => item.id === place.id));
-    if (!target || !placedDay) return;
-    setJourneys((current) => current.map((journey) => journey.id !== target.id ? journey : {
-      ...journey,
-      days: journey.days.map((day) => day.day !== placedDay.day ? day : {
-        ...day,
-        places: day.places.filter((item) => item.id !== place.id),
-        blocks: day.blocks.filter((block) => block.type !== 'PLACE' || block.placeId !== place.id),
-      }),
-    }));
-    showToast(`DAY ${placedDay.day}에서 뺐습니다.`);
-  };
   const createJourney = (title: string, region: string) => {
     const id = `journey-${Date.now()}`;
     const journey: Journey = {
@@ -1046,22 +1087,14 @@ export default function App() {
       days: [{ day: 1, date: 'DAY 1', title: '첫날의 기록', story: '이날의 이야기를 기록할 자리입니다.', places: [], blocks: [{ id: `text-${Date.now()}`, type: 'TEXT', heading: '첫 번째 이야기', body: '' }] }],
       author: 'Spotlog 여행자', isMine: true,
     };
-    setJourneys((current) => [journey, ...current]);
-    setCreating(false);
-    setEditingJourneyId(id);
-    writeNavigationState({ tab: 'trips', journeyId: null, templateId: null, editorId: id });
+    if (!setJourneys((current) => [journey, ...current])) return;
+    openMyJourney(id);
     showToast('새 여행을 만들었습니다.');
   };
 
-  const generateAiJourney = (places: Place[], dayCount: number, isSample: boolean) => {
-    const draft = buildAiJourneyDraft(places, dayCount, isSample);
-    setJourneys((current) => [draft, ...current]);
-    setTab('trips');
-    setSelectedJourneyId(draft.id);
-    setSelectedTemplate(null);
-    setEditingJourneyId(null);
-    writeNavigationState({ tab: 'trips', journeyId: draft.id, templateId: null, editorId: null });
-    showToast('AI 여행 초안을 만들었습니다.');
+  const generateAiJourney = (places: Place[], dayCount: number) => {
+    if (!places.length || places.some(place => !savedIds.includes(place.id))) return;
+    setSavedTravelPreview({ places: structuredClone(places), dayCount });
   };
 
   const startRecommendedJourney = (template: HomeTripTemplate) => {
@@ -1077,7 +1110,7 @@ export default function App() {
       author: 'Spotlog 여행자',
       sourceAuthor: 'Spotlog 큐레이션',
     };
-    setJourneys((current) => [draft, ...current]);
+    if (!setJourneys((current) => [draft, ...current])) return;
     setSelectedJourneyId(null);
     setSelectedTemplate(null);
     setTab('trips');
@@ -1087,7 +1120,7 @@ export default function App() {
   };
 
   const saveJourney = (updated: Journey) => {
-    setJourneys((current) => current.map((journey) => journey.id === updated.id ? updated : journey));
+    if (!setJourneys((current) => current.map((journey) => journey.id === updated.id ? updated : journey))) return;
     setEditingJourneyId(null);
     setSelectedJourneyId(updated.id);
     setSelectedTemplate(null);
@@ -1097,7 +1130,7 @@ export default function App() {
 
   const deleteJourney = (target: Journey) => {
     if (!target.isMine || !window.confirm(`“${target.title}” 여행기를 삭제할까요?\n삭제한 여행기는 복구할 수 없습니다.`)) return;
-    setJourneys((current) => current.filter((journey) => journey.id !== target.id));
+    if (!setJourneys((current) => current.filter((journey) => journey.id !== target.id))) return;
     goBack();
     showToast('여행기를 삭제했습니다.');
   };
@@ -1139,6 +1172,7 @@ export default function App() {
     const id = `journey-copy-${Date.now()}`;
     const copied: Journey = {
       ...structuredClone(source),
+      days: source.days.map((day) => ({ ...structuredClone(day), places: day.places.map((place) => ({ ...place, visitId: undefined })), blocks: day.blocks.map((block) => ({ ...block, visitId: undefined })) })),
       id,
       title: `${source.title} · 내 버전`,
       status: 'PLANNING',
@@ -1150,7 +1184,7 @@ export default function App() {
       sourceJourneyId: source.id,
       sourceAuthor: source.author,
     };
-    setJourneys((current) => [copied, ...current.map((journey) => journey.id === source.id ? { ...journey, saves: journey.saves + 1 } : journey)]);
+    if (!setJourneys((current) => [copied, ...current.map((journey) => journey.id === source.id ? { ...journey, saves: journey.saves + 1 } : journey)])) return;
     setSelectedJourneyId(null);
     setTab('trips');
     setEditingJourneyId(id);
@@ -1164,43 +1198,48 @@ export default function App() {
     setSelectedTemplate(null);
     setEditingJourneyId(null);
     setTab(next);
-    writeNavigationState({ tab: next, journeyId: null, templateId: null, editorId: null });
+    writeNavigationState({ tab: next, journeyId: null, templateId: null, editorId: null, scrollTop: next === 'discover' && placeView === 'GUIDE' ? guideScrollTop.current : 0 });
   };
 
   return (
     <main className={`app-shell tab-${tab} place-${placeView.toLowerCase()} ${selectedJourney || editingJourney || tab === 'profile' || tab === 'photo-stories' ? 'detail-open' : ''}`}>
       <section className="content">
+        {storageIssue && <div className="local-storage-warning" role="alert">{storageIssue}</div>}
+        <div className={placeView !== 'GUIDE' ? 'discovery-pane' : ''} hidden={tab !== 'discover' || Boolean(selectedJourney || editingJourney)}><Discover view={placeView} onViewChange={changePlaceView} savedIds={savedIds} onToggle={toggleSaved} onShare={sharePlace} /></div>
         {editingJourney ? (
           <JourneyEditor journey={editingJourney} onBack={goBack} onSave={saveJourney} />
         ) : selectedJourney ? (
-          <JourneyDetail key={selectedJourney.id} journey={selectedJourney} profile={profile} comments={comments.filter((comment) => comment.journeyId === selectedJourney.id)} cheers={cheers[selectedJourney.id] ?? { LOVE: 0, BEST: 0, HELPFUL: 0 }} authorJourneys={selectedJourney.isMine ? journeys.filter((journey) => journey.isMine) : journeys.filter((journey) => !journey.isMine && journey.author === selectedJourney.author)} onBack={goBack} onShare={() => void shareJourney(selectedJourney)} onSharePlace={(place) => void sharePlace(place)} onEdit={() => editJourney(selectedJourney.id)} onDelete={() => deleteJourney(selectedJourney)} onCopy={() => selectedTemplate ? startRecommendedJourney(selectedTemplate) : copyJourney(selectedJourney)} onComment={(body) => addJourneyComment(selectedJourney.id, body)} onCheer={(cheer) => toggleJourneyCheer(selectedJourney.id, cheer)} onOpenJourney={openJourney} copyLabel={selectedTemplateJourney ? '이 일정 내 여행에 담기' : undefined} />
+          <JourneyDetail key={`${selectedJourney.id}:${detailDay ?? 1}`} initialDay={detailDay ?? 1} journey={selectedJourney} profile={profile} comments={comments.filter((comment) => comment.journeyId === selectedJourney.id)} cheers={cheers[selectedJourney.id] ?? { LOVE: 0, BEST: 0, HELPFUL: 0 }} authorJourneys={selectedJourney.isMine ? journeys.filter((journey) => journey.isMine) : journeys.filter((journey) => !journey.isMine && journey.author === selectedJourney.author)} onBack={goBack} onShare={() => void shareJourney(selectedJourney)} onSharePlace={(place) => void sharePlace(place)} onEdit={() => editJourney(selectedJourney.id)} onDelete={() => deleteJourney(selectedJourney)} onCopy={() => selectedTemplate ? startRecommendedJourney(selectedTemplate) : copyJourney(selectedJourney)} onComment={(body) => addJourneyComment(selectedJourney.id, body)} onCheer={(cheer) => toggleJourneyCheer(selectedJourney.id, cheer)} onOpenJourney={openJourney} copyLabel={selectedTemplateJourney ? '이 일정 내 여행에 담기' : undefined} />
         ) : (
           <>
-            {tab === 'home' && <Home journeys={journeys} templates={homeTripTemplates} onOpen={openJourney} onPreview={openTemplate} onGoCommunity={() => selectTab('community')} onGoPlaces={() => selectTab('discover')} onGoTrips={() => selectTab('trips')} onGoProfile={() => selectTab('profile')} />}
+            {tab === 'home' && <Home journeys={journeys} templates={homeTripTemplates} onOpen={openJourney} onPreview={openTemplate} onGoCommunity={() => selectTab('community')} onGoPlaces={() => selectTab('discover')} onGoTrips={() => selectTab('trips')} onGoProfile={() => selectTab('profile')} onAiTravel={() => setAiTravelOpen(true)} />}
             {tab === 'community' && <Community journeys={journeys} filters={searchDraft} onFiltersChange={setSearchDraft} onOpen={openJourney} />}
-            {tab === 'discover' && <Discover view={placeView} onViewChange={changePlaceView} savedIds={savedIds} onToggle={toggleSaved} onShare={sharePlace} />}
             {tab === 'trips' && <Trips journeys={journeys} onOpen={openJourney} onCreate={() => setCreating(true)} onShare={(journey) => void shareJourney(journey)} />}
-            {tab === 'saved' && <Saved places={savedPlaces} samplePlaces={aiSamplePlaces} targetJourney={planningJourney} onGenerate={generateAiJourney} onRemove={toggleSaved} onAdd={addToPlanningJourney} onRemoveFromTrip={removeFromPlanningJourney} onGoDiscover={() => selectTab('discover')} />}
+            {tab === 'saved' && <Saved places={savedPlaces} journeys={ownJourneys} onGenerate={generateAiJourney} onRemove={toggleSaved} onAdd={(place) => setPlacementPlaces([place])} onGoDiscover={() => selectTab('discover')} />}
+            {import.meta.env.DEV && tab === 'style-guide' && <StyleGuide onBack={goBack} />}
             {tab === 'profile' && <Profile native={native} journeys={journeys} comments={comments} cheers={cheers} profile={profile} notificationPreferences={notificationPreferences} notificationPermission={notificationPermission} onBack={goBack} onProfileChange={setProfile} onNotificationPreferencesChange={changeNotificationPreferences} onPreviewNotification={() => showToast(previewCreatorNotification(notificationPreferences.viewMilestone) ? '테스트 푸시를 보냈습니다.' : '테스트 푸시는 Spotlog 앱에서 확인할 수 있습니다.')} onOpen={openJourney} />}
             {tab === 'photo-stories' && <PhotoStoryPreview savedIds={savedIds} onBack={goBack} onToggle={toggleSaved} onShare={(place) => void sharePlace(place)} />}
           </>
         )}
       </section>
 
-      {!selectedJourney && !editingJourney && tab !== 'profile' && tab !== 'photo-stories' && <nav className="tabbar" aria-label="주요 메뉴">
+      {!selectedJourney && !editingJourney && tab !== 'profile' && tab !== 'photo-stories' && tab !== 'style-guide' && <nav className="tabbar" aria-label="주요 메뉴">
         {tabItems.map((item) => {
           const Icon = item.icon;
           return <button key={item.id} className={tab === item.id ? 'active' : ''} onClick={() => selectTab(item.id)}><Icon size={21} strokeWidth={tab === item.id ? 2.3 : 1.8} /><span>{item.label}</span></button>;
         })}
       </nav>}
       {creating && <CreateJourneySheet onClose={() => setCreating(false)} onCreate={createJourney} />}
-      {toast && <div className="toast"><Check size={15} />{toast}</div>}
+      {placementPlaces && <AddToTripSheet places={placementPlaces} journeys={ownJourneys} initialJourneyId={ownJourneys.find((journey) => journey.days.some((day) => day.places.some((place) => placementPlaces.some((selected) => selected.id === place.id))))?.id} initialDay={ownJourneys.flatMap((journey) => journey.days).find((day) => day.places.some((place) => placementPlaces.some((selected) => selected.id === place.id)))?.day} onClose={() => setPlacementPlaces(null)} onConfirm={confirmTripPlacement} onRemove={removePlacedVisit} />}
+      {aiTravelOpen && <AiTravelSheet places={aiPlaceCandidates} onClose={() => setAiTravelOpen(false)} onCreate={acceptAiDraft} />}
+      {savedTravelPreview && <AiTravelSheet places={savedTravelPreview.places} savedDayCount={savedTravelPreview.dayCount} onClose={() => setSavedTravelPreview(null)} onCreate={acceptAiDraft} />}
+      {toast && <div className="toast" role="status"><Check size={15} />{toast}</div>}
     </main>
   );
 }
 
-function Home({ journeys, templates, onOpen, onPreview, onGoCommunity, onGoPlaces, onGoTrips, onGoProfile }: { journeys: Journey[]; templates: HomeTripTemplate[]; onOpen: (id: string) => void; onPreview: (template: HomeTripTemplate) => void; onGoCommunity: () => void; onGoPlaces: () => void; onGoTrips: () => void; onGoProfile: () => void }) {
-  const publicGuides = journeys.filter((journey) => !journey.isMine && journey.status === 'PUBLISHED' && journey.recommendationKind !== 'AI');
+function Home({ journeys, templates, onOpen, onPreview, onGoCommunity, onGoPlaces, onGoTrips, onGoProfile, onAiTravel }: { journeys: Journey[]; templates: HomeTripTemplate[]; onOpen: (id: string) => void; onPreview: (template: HomeTripTemplate) => void; onGoCommunity: () => void; onGoPlaces: () => void; onGoTrips: () => void; onGoProfile: () => void; onAiTravel: () => void }) {
+  const publicGuides = journeys.filter((journey) => !journey.isMine && journey.visibility === 'PUBLIC' && journey.status === 'PUBLISHED' && journey.recommendationKind !== 'AI');
   const authorCopyCount = (author: string) => publicGuides.filter((journey) => journey.author === author).reduce((sum, journey) => sum + journey.saves, 0);
   const recommendationRolling = useRollingCarousel(templates.length, 4600);
   const guideRolling = useRollingCarousel(publicGuides.length, 5200);
@@ -1208,6 +1247,7 @@ function Home({ journeys, templates, onOpen, onPreview, onGoCommunity, onGoPlace
   return <div className="home-page">
     <header className="home-topbar"><div><strong>spotlog</strong><span>다른 사람의 여행에서 내 여행을 시작하세요</span></div><button onClick={onGoProfile} aria-label="프로필"><CircleUserRound size={24} /></button></header>
     <section className="home-lead"><span>TRAVEL STORIES · READY TO EDIT</span><h1>가고 싶은 곳을 찾거나,<br />마음에 드는 여행을 고르세요.</h1><p>공개 여행기를 그대로 읽고, 내 일정으로 복사해 장소와 동선을 자유롭게 바꿀 수 있습니다.</p></section>
+    <button className="home-find-guides" onClick={onAiTravel}><span><Sparkles size={20} /></span><div><small>가고 싶은 여행을 이야기해 주세요</small><strong>AI 여행 만들기</strong><p>지역·기간·취향을 적고 여행 초안을 받아보세요.</p></div><ChevronRight size={19} /></button>
     <section className="home-section"><div className="home-section-heading"><div><small>SPOTLOG CURATION</small><h2>이번 주 추천 일정</h2><p>에디터가 고른 일정을 읽어보고 내 여행에 담으세요</p></div><RollingControls label="추천 일정" count={templates.length} activeIndex={recommendationRolling.activeIndex} onChange={recommendationRolling.goTo} /></div><div className="promoted-track" ref={recommendationRolling.trackRef} onScroll={recommendationRolling.syncIndex}>{templates.map((template) => <article className="promoted-trip" key={template.id}><img src={template.cover} alt="" /><div className="promoted-shade" /><div className="promoted-copy"><span>{template.region} · {template.duration}</span><h2>{template.title}</h2><p>{template.summary}</p><div><button onClick={() => onPreview(template)}>일정 자세히 보기</button><small>{template.places.length}개 장소 · 먼저 보고 담기</small></div></div></article>)}</div><RollingDots label="추천 일정" count={templates.length} activeIndex={recommendationRolling.activeIndex} onChange={recommendationRolling.goTo} /></section>
 
     {publicGuides.length > 0 && <section className="home-section"><div className="home-section-heading"><div><small>TRAVELER'S GUIDE</small><h2>여행자들이 만든 일정</h2><p>실제 여행 기록을 읽고 내 일정으로 가져오세요</p></div><RollingControls label="여행자 일정" count={publicGuides.length} activeIndex={guideRolling.activeIndex} onChange={guideRolling.goTo} /></div><div className="home-guide-list" ref={guideRolling.trackRef} onScroll={guideRolling.syncIndex}>{publicGuides.map((journey) => <article className="home-guide-card" key={journey.id}><button className="home-guide-cover" onClick={() => onOpen(journey.id)}><img src={journey.cover} alt="" /><span>{journey.region}<br />{journey.duration}</span></button><div className="home-guide-copy"><div className="home-guide-author"><CreatorBadge copyCount={authorCopyCount(journey.author)} compact /><small>{journey.author} · {journeyPlaceCount(journey)}곳</small></div><h3>{journey.title}</h3><p>{journey.summary}</p><div className="home-guide-actions"><button onClick={() => onOpen(journey.id)}>여행기 먼저 보기</button></div></div></article>)}</div><RollingDots label="여행자 일정" count={publicGuides.length} activeIndex={guideRolling.activeIndex} onChange={guideRolling.goTo} /></section>}
@@ -1303,7 +1343,7 @@ function Community({ journeys, filters, onFiltersChange, onOpen }: { journeys: J
   return <div className="page community-page">
     <AppHeader title="여행기" subtitle="여행자 기록과 AI 추천 여행" action={<span className="community-header-icon"><Globe2 size={20} /></span>} />
     <div className="duration-chips" role="group" aria-label="여행기 종류"><button className={!aiCategory ? 'active' : ''} aria-pressed={!aiCategory} onClick={() => onFiltersChange({ ...filters, category: 'TRAVELER' })}>여행자 여행기</button><button className={aiCategory ? 'active' : ''} aria-pressed={aiCategory} onClick={() => onFiltersChange({ ...filters, category: 'AI' })}>AI 추천 여행</button></div>
-    <section className="community-intro"><small>{aiCategory ? 'AI TRAVEL PICKS' : "TRAVELER'S STORIES"}</small><h2>먼저 읽어보고,<br />마음에 들면 내 여행에 담으세요.</h2><p>{aiCategory ? '공식 관광 자료와 이용 가능한 사진으로 구성한 추천 샘플입니다. 실제 방문 후기나 외부 AI의 실시간 생성 결과가 아닙니다.' : '지역과 여행 기간을 고르면 실제 여행자가 공개한 글만 찾아볼 수 있습니다.'}</p></section>
+    <section className="community-intro"><small>{aiCategory ? 'AI TRAVEL PICKS' : "TRAVELER'S STORIES"}</small><h2>먼저 읽어보고,<br />마음에 들면 내 여행에 담으세요.</h2><p>{aiCategory ? '공식 관광 자료와 이용 가능한 사진으로 구성한 추천 샘플입니다. 실제 방문 후기나 외부 AI의 실시간 생성 결과가 아닙니다.' : '지역과 여행 기간별 샘플 여행기를 살펴볼 수 있습니다. 조회·담김 수와 반응은 시연용이며 실제 사용자 집계가 아닙니다.'}</p></section>
     <section className="community-search" aria-labelledby="community-search-title">
       <div className="community-search-title"><div><small>FIND A STORY</small><strong id="community-search-title">여행기 검색</strong></div><span>{filteredGuides.length}개</span></div>
       <label className="destination-search"><Search size={19} /><input value={filters.destination} onChange={(event) => onFiltersChange({ ...filters, destination: event.target.value })} placeholder="지역, 제목, 작성자를 검색하세요" aria-label="여행기 지역 검색" />{filters.destination && <button type="button" onClick={() => onFiltersChange({ ...filters, destination: '' })} aria-label="검색 지우기">지우기</button>}</label>
@@ -1334,7 +1374,25 @@ const PLACE_LIST_PAGE_SIZE = 3;
 function Discover({ view, onViewChange, savedIds, onToggle, onShare }: { view: PlaceView; onViewChange: (view: PlaceView) => void; savedIds: string[]; onToggle: (id: string) => void; onShare: (place: Place) => void }) {
   const [query, setQuery] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('');
-  const [showEveryRegion, setShowEveryRegion] = useState(false);
+  const [regionOpen, setRegionOpen] = useState(false);
+  const regionTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const openRegion = (trigger: HTMLButtonElement) => { regionTriggerRef.current = trigger; setRegionOpen(true); };
+  const regionWasOpen = useRef(false);
+  useEffect(() => {
+    const restore = regionWasOpen.current && !regionOpen && view !== 'GUIDE';
+    regionWasOpen.current = regionOpen;
+    if (!restore) return;
+    const frame = requestAnimationFrame(() => {
+      const previous = regionTriggerRef.current;
+      const target = previous?.isConnected ? previous : document.querySelector<HTMLButtonElement>(view === 'PHOTO'
+        ? '.photo-landmark-reel[data-active="true"] .media-region-trigger,.photo-reel-empty .photo-region-button'
+        : '.feed-card[data-active="true"] .media-region-trigger,.video-reel-empty .photo-region-button')
+        ?? document.querySelector<HTMLButtonElement>('.feed-card .media-region-trigger');
+      target?.focus({ preventScroll: true });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [regionOpen, view]);
+  // All regions stay available in a compact horizontal strip.
   const [visiblePlaceCount, setVisiblePlaceCount] = useState(PLACE_LIST_PAGE_SIZE);
   const placeLoadSentinelRef = useRef<HTMLDivElement>(null);
   const guideLandmarks = useMemo(() => placeCatalog
@@ -1343,6 +1401,12 @@ function Discover({ view, onViewChange, savedIds, onToggle, onShare }: { view: P
   const regionGroups = domesticRegionOrder
     .map((region) => ({ region, places: guideLandmarks.filter((place) => landmarkRegion(place) === region) }))
     .filter((group) => group.places.length > 0);
+  const photoPlaces = useMemo(() => guideLandmarks.filter((place) => getPlacePhotos(place).length > 0)
+    .sort((left, right) => getPlacePhotos(right).length - getPlacePhotos(left).length), [guideLandmarks]);
+  const mediaPlaces = view === 'VIDEO' ? discoveryLandmarks : photoPlaces;
+  const mediaRegions = domesticRegionOrder.map((region) => ({ region, count: mediaPlaces.filter((place) => landmarkRegion(place) === region).length }))
+    .filter((group) => group.count > 0 || group.region === selectedRegion);
+  const videoPlaces = discoveryLandmarks.filter((place) => !selectedRegion || landmarkRegion(place) === selectedRegion);
   const visiblePlaces = guideLandmarks.filter((place) => {
     const matchesRegion = !selectedRegion || landmarkRegion(place) === selectedRegion;
     return matchesRegion && matchesDestination(query, [place.area, place.name, place.hook, place.description, place.note, ...(place.tags ?? [])]);
@@ -1350,10 +1414,10 @@ function Discover({ view, onViewChange, savedIds, onToggle, onShare }: { view: P
   const resultTitle = query.trim()
     ? `'${query.trim()}' 검색 결과`
     : selectedRegion ? `${selectedRegion} 랜드마크` : '국내 랜드마크';
-  const hasActiveResults = Boolean(query.trim() || selectedRegion);
+  const hasActiveResults = true;
   const displayedPlaces = visiblePlaces.slice(0, visiblePlaceCount);
   const hasMorePlaces = displayedPlaces.length < visiblePlaces.length;
-  const displayedRegionGroups = showEveryRegion ? regionGroups : regionGroups.slice(0, 8);
+  const displayedRegionGroups = regionGroups;
   const chooseRegion = (region: string) => {
     setSelectedRegion(region);
   };
@@ -1367,61 +1431,90 @@ function Discover({ view, onViewChange, savedIds, onToggle, onShare }: { view: P
     }, { root: document.querySelector<HTMLElement>('.content'), rootMargin: '0px 0px 280px', threshold: 0.01 });
     observer.observe(sentinel);
     return () => observer.disconnect();
-  }, [hasActiveResults, hasMorePlaces, visiblePlaces.length]);
+  }, [hasActiveResults, hasMorePlaces, visiblePlaces.length, displayedPlaces.length, view]);
 
-  return <div className={`place-discover ${view === 'VIDEO' ? 'is-video' : 'is-guide'}`}>
+  return <div className={`place-discover ${view === 'VIDEO' ? 'is-video' : view === 'PHOTO' ? 'is-photo' : 'is-guide'}`}>
     <header className="place-discover-header"><div><strong>spotlog</strong><span>{savedIds.length}개 장소 저장</span></div><PlaceViewToggle view={view} onChange={onViewChange} /></header>
-    {view === 'VIDEO' ? <div className="feed">{discoveryLandmarks.map((place) => <FeedCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} />)}</div> : <div className="place-guide-content">
-      <section className="place-guide-lead"><small>LANDMARK GUIDE</small><h1>각 지역에 무엇이 있는지 보고<br />내 여행에 하나씩 담아보세요.</h1><p>{regionGroups.length}개 지역의 대표 장소 {guideLandmarks.length}곳을 모았습니다. 영상이 없는 장소도 안내 글로 살펴보고 같은 저장 목록에 담을 수 있어요.</p></section>
+    {view === 'VIDEO' ? <div className="feed" key={selectedRegion}>{videoPlaces.length ? videoPlaces.map((place) => <FeedCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} region={selectedRegion} onChooseRegion={openRegion} />) : <div className="photo-reel-empty video-reel-empty"><Clapperboard size={28} /><h2>{selectedRegion} 영상을 준비하고 있어요</h2><p>다른 지역의 장소 영상을 먼저 살펴보세요.</p><button type="button" className="photo-region-button" onClick={(event) => openRegion(event.currentTarget)}><MapPin size={16} />지역 선택</button></div>}</div> : view === 'PHOTO' ? <PhotoLandmarkFeed places={photoPlaces.filter((place) => !selectedRegion || landmarkRegion(place) === selectedRegion)} savedIds={savedIds} onToggle={onToggle} onShare={onShare} region={selectedRegion} onChooseRegion={openRegion} /> : <div className="place-guide-content">
+      <section className="place-guide-lead"><small>LANDMARK GUIDE</small><h1>각 지역에 무엇이 있는지 보고<br />내 여행에 하나씩 담아보세요.</h1><p>지역이나 장소를 검색하고 마음에 드는 곳을 빠르게 저장하세요.</p><span className="local-data-note">로컬 샘플 콘텐츠 · 사진과 운영 정보는 방문 전 확인이 필요합니다.</span></section>
       <section className="place-guide-search"><label className="destination-search"><Search size={19} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="지역이나 랜드마크를 검색하세요" aria-label="랜드마크 지역 검색" />{query && <button type="button" onClick={() => setQuery('')} aria-label="검색 지우기">지우기</button>}</label></section>
       <section className="region-directory" aria-label="지역별 대표 랜드마크">
         <div className="region-directory-heading"><div><small>REGION DIRECTORY</small><h2>지역별로 둘러보기</h2></div><span>{regionGroups.length}개 지역 · {guideLandmarks.length}곳</span></div>
-        <div className="region-count-grid">
+        <div className="region-count-grid phase-region-strip">
           <button type="button" className={!selectedRegion ? 'active' : ''} onClick={() => chooseRegion('')} aria-pressed={!selectedRegion}><strong>전체</strong><small>{guideLandmarks.length}</small></button>
           {displayedRegionGroups.map(({ region, places }) => <button type="button" key={region} className={selectedRegion === region ? 'active' : ''} onClick={() => chooseRegion(region)} aria-pressed={selectedRegion === region}><strong>{region}</strong><small>{places.length}</small></button>)}
         </div>
-        <button type="button" className="region-directory-more" onClick={() => setShowEveryRegion((current) => !current)}>{showEveryRegion ? <ArrowUp size={15} /> : <ArrowDown size={15} />}{showEveryRegion ? '지역 접어보기' : `나머지 ${regionGroups.length - displayedRegionGroups.length}개 지역 펼쳐보기`}</button>
       </section>
       <section className="place-guide-results"><div className="place-guide-heading"><div><small>PLACES TO SAVE</small><h2>{hasActiveResults ? resultTitle : '지역을 골라 장소 보기'}</h2></div><span>{hasActiveResults ? `${visiblePlaces.length}곳` : '지역별로 나눠보기'}</span></div>{!hasActiveResults ? <div className="region-result-empty"><MapPin size={23} /><div><strong>위에서 지역을 선택하세요</strong><p>선택한 지역의 장소를 3곳씩 불러오며, 아래로 스크롤하면 다음 장소가 자동으로 이어집니다.</p></div></div> : visiblePlaces.length ? <><div className="landmark-guide-list">{displayedPlaces.map((place) => <LandmarkGuideCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} />)}</div>{hasMorePlaces ? <div ref={placeLoadSentinelRef} className="place-load-sentinel" aria-live="polite"><span className="place-load-indicator" aria-hidden="true"><i /><i /><i /></span><div><strong>아래로 스크롤하면 다음 {Math.min(PLACE_LIST_PAGE_SIZE, visiblePlaces.length - displayedPlaces.length)}곳을 불러옵니다</strong><small>{displayedPlaces.length} / {visiblePlaces.length}곳 표시 중</small></div></div> : visiblePlaces.length > PLACE_LIST_PAGE_SIZE && <div className="place-list-end"><Check size={15} />{visiblePlaces.length}곳을 모두 불러왔습니다</div>}</> : <div className="community-empty"><MapPin size={27} /><h2>아직 준비된 장소가 없어요</h2><p>다른 지역이나 랜드마크 이름으로 찾아보세요.</p><button onClick={() => { setQuery(''); setSelectedRegion(''); }}>전체 장소 보기</button></div>}</section>
     </div>}
+    {regionOpen && <BottomSheet title="어느 지역을 볼까요?" description="지역을 고르면 해당 지역의 장소가 이어집니다." onClose={() => setRegionOpen(false)}>
+      <div className="photo-region-options" aria-label="탐색 지역">
+        {[{ region: '', count: mediaPlaces.length }, ...mediaRegions].map(({ region, count }) => <button type="button" key={region || 'all'} aria-pressed={selectedRegion === region} onClick={() => { chooseRegion(region); setRegionOpen(false); }}>
+          <span><strong>{region || '모든 지역'}</strong><small>{count ? `${count}개 장소` : `${view === 'VIDEO' ? '영상' : '사진'} 준비 중`}</small></span>{selectedRegion === region && <Check size={18} aria-hidden="true" />}
+        </button>)}
+      </div>
+    </BottomSheet>}
   </div>;
 }
 
 function PlaceViewToggle({ view, onChange }: { view: PlaceView; onChange: (view: PlaceView) => void }) {
-  return <div className="place-view-toggle" aria-label="장소 보기 방식"><button className={view === 'VIDEO' ? 'active' : ''} onClick={() => onChange('VIDEO')}><Clapperboard size={14} />영상</button><button className={view === 'GUIDE' ? 'active' : ''} onClick={() => onChange('GUIDE')}><MapIcon size={14} />지역 안내</button></div>;
+  return <div className="place-view-toggle" aria-label="장소 보기 방식"><button className={view === 'VIDEO' ? 'active' : ''} onClick={() => onChange('VIDEO')}><Clapperboard size={14} />영상</button><button aria-pressed={view === 'PHOTO'} className={view === 'PHOTO' ? 'active' : ''} onClick={() => onChange('PHOTO')}><ImagePlus size={14} />사진</button><button className={view === 'GUIDE' ? 'active' : ''} onClick={() => onChange('GUIDE')}><MapIcon size={14} />지역 안내</button></div>;
 }
 
-function LandmarkGuideCard({ place, saved, onToggle, onShare }: { place: Place; saved: boolean; onToggle: () => void; onShare: () => void }) {
-  return <article className="landmark-guide-card"><div className="landmark-guide-image"><img src={place.image} alt={`${place.name} 여행 사진`} /><span>{landmarkRegion(place)} · 랜드마크</span></div><div className="landmark-guide-copy"><small>{place.area} · {place.bestTime ?? place.duration}</small><h3>{place.name}</h3><strong>{place.hook ?? `${place.area} 일정에 담기 좋은 대표 장소`}</strong><p>{place.description}</p><blockquote>여행자 메모 · {place.note}</blockquote><div className="landmark-guide-tags">{place.tags?.map((tag) => <span key={tag}>#{tag}</span>)}</div><div className="landmark-guide-actions"><button className={saved ? 'saved' : ''} onClick={onToggle}><Bookmark size={16} fill={saved ? 'currentColor' : 'none'} />{saved ? '저장됨' : '이 장소 저장'}</button><button onClick={onShare}><Share2 size={16} />공유</button></div></div></article>;
+
+function MotionPhotoReel({ images, active, label }: { images: string[]; active: boolean; label: string }) {
+  const scenes = useMemo(() => images.length > 1 ? images : [images[0], images[0], images[0]], [images]);
+  const [activeScene, setActiveScene] = useState(0);
+
+  useEffect(() => {
+    if (!active) {
+      setActiveScene(0);
+      return;
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const timer = window.setInterval(() => setActiveScene((current) => (current + 1) % scenes.length), 3600);
+    return () => window.clearInterval(timer);
+  }, [active, scenes.length]);
+
+  return <div className={`motion-photo-reel ${active ? 'is-running' : 'is-paused'}`} role="img" aria-label={`${label} 포토 모션`}>
+    {scenes.map((image, index) => <span className={`motion-photo-scene motion-cut-${index % 3} ${activeScene === index ? 'is-active' : ''}`} key={`${image}-${index}`} aria-hidden="true"><img src={image} alt="" /></span>)}
+    <div className="motion-photo-progress" aria-hidden="true">{scenes.map((_, index) => <i className={index === activeScene ? 'is-active' : index < activeScene ? 'is-complete' : ''} key={index}><span /></i>)}</div>
+    <div className="motion-photo-label"><Sparkles size={13} />PHOTO MOTION · {images.length > 1 ? `${images.length} SCENES` : '1 PHOTO · 3 CUTS'}</div>
+  </div>;
 }
 
-function FeedCard({ place, saved, onToggle, onShare }: { place: Place; saved: boolean; onToggle: () => void; onShare: () => void }) {
+function FeedCard({ place, saved, onToggle, onShare, region, onChooseRegion }: { place: Place; saved: boolean; onToggle: () => void; onShare: () => void; region: string; onChooseRegion: (trigger: HTMLButtonElement) => void }) {
   const cardRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [muted, setMuted] = useState(true);
+  const [active, setActive] = useState(false);
+  const motionImages = place.motionImages?.filter(Boolean) ?? [];
 
   useEffect(() => {
     const card = cardRef.current;
-    const video = videoRef.current;
-    if (!card || !video) return;
+    if (!card) return;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && entry.intersectionRatio > 0.65) void video.play().catch(() => undefined);
+      const visible = entry.isIntersecting && entry.intersectionRatio > 0.65;
+      setActive(visible);
+      const video = videoRef.current;
+      if (!video) return;
+      if (visible) void video.play().catch(() => undefined);
       else video.pause();
     }, { threshold: [0.65] });
     observer.observe(card);
     return () => observer.disconnect();
   }, []);
 
-  return <article className="feed-card" ref={cardRef}>
-    <video ref={videoRef} src={place.video} poster={place.image} autoPlay muted={muted} loop playsInline preload="metadata" />
+  return <article className="feed-card" ref={cardRef} data-active={active}>
+    {motionImages.length ? <MotionPhotoReel images={motionImages} active={active} label={place.name} /> : <video ref={videoRef} src={place.video} poster={place.image} autoPlay muted={muted} loop playsInline preload="metadata" />}
     <div className="video-shade" />
     <div className="feed-copy">
       <div className="creator-row"><span className="creator-avatar">{place.creator?.slice(0, 1).toUpperCase()}</span><strong>{place.creator}</strong><button>팔로우</button></div>
       <h1>{place.hook}</h1><p>{place.description}</p>
       <div className="tags">{place.tags?.map((tag) => <span key={tag}>#{tag}</span>)}</div>
-      <button className="place-pill" onClick={onToggle}><span><MapPin size={16} /></span><span className="place-pill-copy"><strong>{place.name}</strong><small>{place.area} · {saved ? '저장됨' : '여행에 담기'}</small></span><ChevronRight size={17} /></button>
+      <button className="place-pill" onClick={onToggle}><span><MapPin size={16} /></span><span className="place-pill-copy"><strong>{place.name}</strong><small>{place.area} · {saved ? '저장됨' : '빠른 저장'}</small></span><ChevronRight size={17} /></button>
     </div>
-    <div className="feed-actions"><ActionButton label={saved ? '저장됨' : '저장'} onClick={onToggle} active={saved} icon={Bookmark} /><ActionButton label="공유" onClick={onShare} icon={Share2} /><ActionButton label={muted ? '소리 켜기' : '음소거'} onClick={() => setMuted((value) => !value)} icon={muted ? VolumeX : Volume2} /><button className="more-button" aria-label="더보기"><MoreHorizontal size={23} /></button></div>
+    <div className="feed-actions"><ActionButton label={saved ? '저장됨' : '저장'} onClick={onToggle} active={saved} icon={Bookmark} /><ActionButton label="공유" onClick={onShare} icon={Share2} />{motionImages.length ? <div className="motion-action" aria-label="사진으로 만든 자동 영상"><span><Sparkles size={21} /></span><em>포토 모션</em></div> : <ActionButton label={muted ? '소리 켜기' : '음소거'} onClick={() => setMuted((value) => !value)} icon={muted ? VolumeX : Volume2} />}<MediaRegionButton region={region} onChoose={onChooseRegion} /></div>
   </article>;
 }
 
@@ -1446,56 +1539,51 @@ function JourneySection({ title, description, journeys, onOpen, onShare }: { tit
   </article><PhotoCredit image={journey.cover} /></div>)}</div></section>;
 }
 
-function SavedPlaceCard({ place, placement, targetDay, onRemove, onAdd, onRemoveFromTrip }: { place: Place; placement?: { day: number; date: string; journeyTitle: string }; targetDay: number; onRemove: (id: string) => void; onAdd: (place: Place) => void; onRemoveFromTrip: (place: Place) => void }) {
-  const placementLabel = placement ? `DAY ${placement.day} 담김 해제` : `DAY ${targetDay}에 담기`;
+function SavedPlaceCard({ place, placement, onRemove, onAdd }: { place: Place; placement?: { day: number; date: string; journeyTitle: string; count: number }; onRemove: (id: string) => void; onAdd: (place: Place) => void }) {
+  const placementLabel = placement ? '담김 확인·해제' : '여행에 담기';
   return <article className={`saved-card ${placement ? 'is-added-to-trip' : ''}`}>
     <img src={place.image} alt={`${place.name} 저장 사진`} />
     <div className="saved-card-copy">
-      <div className="saved-card-eyebrow"><span>{place.area}</span>{placement && <em><Check size={12} />DAY {placement.day}</em>}</div>
+      <div className="saved-card-eyebrow"><span>{place.area}</span>{placement && <em><Check size={12} />{placement.count > 1 ? `${placement.count}개 일정` : `DAY ${placement.day}`}</em>}</div>
       <h3>{place.name}</h3>
       <p>{place.hook ?? place.description}</p>
       <div className="saved-place-time"><Clock3 size={13} />{place.bestTime ?? place.duration}</div>
-      <button className={`add-to-trip ${placement ? 'is-added' : ''}`} onClick={() => placement ? onRemoveFromTrip(place) : onAdd(place)} aria-pressed={Boolean(placement)} aria-label={placement ? `${place.name}, ${placement.journeyTitle} DAY ${placement.day}에서 빼기` : `${place.name}, DAY ${targetDay}에 담기`} title={placement ? `${placement.journeyTitle} · ${placement.date}` : undefined}>{placement && <Check size={13} />}{placementLabel}</button>
+      <PhotoCredit image={place.image} />
+      <button className={`add-to-trip ${placement ? 'is-added' : ''}`} onClick={() => onAdd(place)} aria-label={`${place.name}, ${placementLabel}`} title={placement ? `${placement.journeyTitle} · ${placement.date}` : undefined}>{placement && <Check size={13} />}{placementLabel}</button>
     </div>
     <button onClick={() => onRemove(place.id)} aria-label={`${place.name} 저장 취소`}><Bookmark size={19} fill="currentColor" /></button>
   </article>;
 }
 
-function Saved({ places, samplePlaces, targetJourney, onGenerate, onRemove, onAdd, onRemoveFromTrip, onGoDiscover }: { places: Place[]; samplePlaces: Place[]; targetJourney?: Journey; onGenerate: (places: Place[], dayCount: number, isSample: boolean) => void; onRemove: (id: string) => void; onAdd: (place: Place, targetDay: number) => void; onRemoveFromTrip: (place: Place) => void; onGoDiscover: () => void }) {
+function Saved({ places, journeys, onGenerate, onRemove, onAdd, onGoDiscover }: { places: Place[]; journeys: Journey[]; onGenerate: (places: Place[], dayCount: number) => void; onRemove: (id: string) => void; onAdd: (place: Place) => void; onGoDiscover: () => void }) {
   const [dayCount, setDayCount] = useState(2);
-  const [generating, setGenerating] = useState<'saved' | 'sample' | null>(null);
   const [savedRegion, setSavedRegion] = useState('');
   const [collapsedRegions, setCollapsedRegions] = useState<string[]>([]);
-  const previewPlaces = places.length ? places : samplePlaces;
-  const maxDays = Math.max(1, Math.min(3, previewPlaces.length));
-  const effectiveDayCount = Math.min(dayCount, maxDays);
   const savedRegionNames = Array.from(new Set(places.map(landmarkRegion))).sort((a, b) => domesticRegionOrder.indexOf(a) - domesticRegionOrder.indexOf(b));
   const savedRegionGroups = savedRegionNames.map((region) => ({ region, places: places.filter((place) => landmarkRegion(place) === region) }));
   const visibleSavedGroups = savedRegion ? savedRegionGroups.filter((group) => group.region === savedRegion) : savedRegionGroups;
+  const selectedPlaces = visibleSavedGroups.flatMap((group) => group.places);
   const placementsByPlace = useMemo(() => {
-    const placements = new Map<string, { day: number; date: string; journeyTitle: string }>();
-    targetJourney?.days.forEach((day) => day.places.forEach((place) => placements.set(place.id, { day: day.day, date: day.date, journeyTitle: targetJourney.title })));
+    const placements = new Map<string, { day: number; date: string; journeyTitle: string; count: number }>();
+    journeys.filter((journey) => journey.isMine).forEach((journey) => journey.days.forEach((day) => day.places.forEach((place) => placements.set(place.id, { day: day.day, date: day.date, journeyTitle: journey.title, count: (placements.get(place.id)?.count ?? 0) + 1 }))));
     return placements;
-  }, [targetJourney]);
+  }, [journeys]);
   const toggleSavedRegion = (region: string) => setCollapsedRegions((current) => current.includes(region) ? current.filter((value) => value !== region) : [...current, region]);
   useEffect(() => {
     if (savedRegion && !savedRegionNames.includes(savedRegion)) setSavedRegion('');
   }, [savedRegion, savedRegionNames.join('|')]);
-  const runGenerator = (source: Place[], isSample: boolean) => {
-    if (!source.length || generating) return;
-    setGenerating(isSample ? 'sample' : 'saved');
-    window.setTimeout(() => onGenerate(source, isSample ? Math.min(2, source.length) : effectiveDayCount, isSample), 850);
+  const runGenerator = () => {
+    if (selectedPlaces.length) onGenerate(selectedPlaces, dayCount);
   };
 
   return <div className="page saved-page"><AppHeader title="저장한 장소" subtitle={`${places.length}개의 국내 랜드마크`} />
     <section className="ai-trip-card" aria-labelledby="ai-trip-title">
-      <div className="ai-trip-heading"><span className="ai-trip-icon"><Sparkles size={19} /></span><div><small>AI TRIP MAKER</small><h2 id="ai-trip-title">저장한 장소로 여행 만들기</h2></div><span className="ai-trip-kpi">{places.length ? `${places.length}곳 · ${savedRegionGroups.length}지역` : '샘플 4곳'}</span></div>
-      <p>{places.length ? '위치와 체류시간을 분석해 날짜별 동선 초안을 만듭니다.' : '제주 랜드마크 샘플로 결과를 먼저 볼 수 있습니다.'}</p>
-      {places.length > 0 && <div className="ai-day-picker"><span>여행 기간</span><div>{Array.from({ length: maxDays }, (_, index) => index + 1).map((days) => <button key={days} className={effectiveDayCount === days ? 'active' : ''} onClick={() => setDayCount(days)} disabled={Boolean(generating)}>{days}일</button>)}</div></div>}
-      <button className="ai-generate-button" onClick={() => runGenerator(previewPlaces, !places.length)} disabled={Boolean(generating)}><Sparkles size={18} className={generating ? 'is-spinning' : ''} />{generating ? '장소와 동선을 분석하는 중…' : places.length ? 'AI로 여행 초안 만들기' : '제주 샘플 여행 만들어보기'}<ChevronRight size={18} /></button>
-      {places.length > 0 && <button className="ai-sample-button" onClick={() => runGenerator(samplePlaces, true)} disabled={Boolean(generating)}>제주 랜드마크 4곳 샘플도 보기</button>}
+      <div className="ai-trip-heading"><span className="ai-trip-icon"><Sparkles size={19} /></span><div><small>AI TRIP MAKER</small><h2 id="ai-trip-title">저장한 장소로 여행 만들기</h2></div><span className="ai-trip-kpi">{places.length ? `${places.length}곳 · ${savedRegionGroups.length}지역` : '0곳'}</span></div>
+      <p>{places.length ? `${savedRegion || '전체 지역'}의 저장한 ${selectedPlaces.length}곳으로 초안을 만들어요. 확인 후 내 여행에 저장합니다.` : '가고 싶은 장소를 먼저 저장해 주세요.'}</p>
+      {places.length > 0 && <div className="ai-day-picker"><span>여행 기간</span><div role="group" aria-label="저장한 장소 여행 기간">{Array.from({ length: 7 }, (_, index) => index + 1).map((days) => <button type="button" key={days} className={dayCount === days ? 'active' : ''} aria-pressed={dayCount === days} onClick={() => setDayCount(days)}>{days}일</button>)}</div></div>}
+      <button className="ai-generate-button" onClick={runGenerator} disabled={!selectedPlaces.length}><Sparkles size={18} />{places.length ? 'AI 여행 초안 미리보기' : '장소를 저장한 뒤 만들 수 있어요'}<ChevronRight size={18} /></button>
     </section>
-    {places.length ? <><section className="saved-region-filter"><div><small>SAVED BY REGION</small><h2>지역별 저장 장소</h2></div><div className="saved-region-chips"><button type="button" className={!savedRegion ? 'active' : ''} onClick={() => setSavedRegion('')}>전체 <span>{places.length}</span></button>{savedRegionGroups.map(({ region, places: regionPlaces }) => <button type="button" key={region} className={savedRegion === region ? 'active' : ''} onClick={() => setSavedRegion(region)}>{region} <span>{regionPlaces.length}</span></button>)}</div></section><div className="saved-region-groups">{visibleSavedGroups.map(({ region, places: regionPlaces }) => { const collapsed = collapsedRegions.includes(region); return <section className="saved-region-section" key={region}><button type="button" className="saved-region-heading" onClick={() => toggleSavedRegion(region)} aria-expanded={!collapsed}><span><strong>{region}</strong><small>{regionPlaces.length}곳</small></span><span>{regionPlaces.map((place) => place.name).join(' · ')}</span>{collapsed ? <ArrowDown size={17} /> : <ArrowUp size={17} />}</button>{!collapsed && <div className="saved-list">{regionPlaces.map((place) => <SavedPlaceCard key={place.id} place={place} placement={placementsByPlace.get(place.id)} targetDay={effectiveDayCount} onRemove={onRemove} onAdd={(selectedPlace) => onAdd(selectedPlace, effectiveDayCount)} onRemoveFromTrip={onRemoveFromTrip} />)}</div>}</section>; })}</div></> : <div className="empty saved-empty"><span className="empty-icon"><Bookmark size={28} /></span><h2>내 장소를 더 담아보세요</h2><p>영상이나 지역 안내 목록에서 마음에 드는 랜드마크를 저장하면<br />AI가 내 장소만으로 새 여행을 만들어줍니다.</p><button className="outline" onClick={onGoDiscover}><Compass size={17} />장소 둘러보기</button></div>}
+    {places.length ? <><section className="saved-region-filter"><div><small>SAVED BY REGION</small><h2>지역별 저장 장소</h2></div><div className="saved-region-chips"><button type="button" className={!savedRegion ? 'active' : ''} onClick={() => setSavedRegion('')}>전체 <span>{places.length}</span></button>{savedRegionGroups.map(({ region, places: regionPlaces }) => <button type="button" key={region} className={savedRegion === region ? 'active' : ''} onClick={() => setSavedRegion(region)}>{region} <span>{regionPlaces.length}</span></button>)}</div></section><div className="saved-region-groups">{visibleSavedGroups.map(({ region, places: regionPlaces }) => { const collapsed = collapsedRegions.includes(region); return <section className="saved-region-section" key={region}><button type="button" className="saved-region-heading" onClick={() => toggleSavedRegion(region)} aria-expanded={!collapsed}><span><strong>{region}</strong><small>{regionPlaces.length}곳</small></span><span>{regionPlaces.map((place) => place.name).join(' · ')}</span>{collapsed ? <ArrowDown size={17} /> : <ArrowUp size={17} />}</button>{!collapsed && <div className="saved-list">{regionPlaces.map((place) => <SavedPlaceCard key={place.id} place={place} placement={placementsByPlace.get(place.id)} onRemove={onRemove} onAdd={onAdd} />)}</div>}</section>; })}</div></> : <div className="empty saved-empty"><span className="empty-icon"><Bookmark size={28} /></span><h2>내 장소를 더 담아보세요</h2><p>영상이나 지역 안내 목록에서 마음에 드는 랜드마크를 저장하면<br />AI가 내 장소만으로 새 여행을 만들어줍니다.</p><button className="outline" onClick={onGoDiscover}><Compass size={17} />장소 둘러보기</button></div>}
   </div>;
 }
 
@@ -1539,8 +1627,8 @@ function CreatorJourneySection({ journey, profile, authorJourneys, onOpenJourney
   </section>;
 }
 
-function JourneyDetail({ journey, profile, comments, cheers, authorJourneys, onBack, onShare, onSharePlace, onEdit, onDelete, onCopy, onComment, onCheer, onOpenJourney, copyLabel = '이 여행 복사해서 만들기' }: { journey: Journey; profile: CreatorProfile; comments: JourneyComment[]; cheers: JourneyCheers; authorJourneys: Journey[]; onBack: () => void; onShare: () => void; onSharePlace: (place: Place) => void; onEdit: () => void; onDelete: () => void; onCopy: () => void; onComment: (body: string) => void; onCheer: (cheer: CheerKey) => void; onOpenJourney: (id: string) => void; copyLabel?: string }) {
-  const [selectedDay, setSelectedDay] = useState(journey.days[0]?.day ?? 1);
+function JourneyDetail({ journey, initialDay = 1, profile, comments, cheers, authorJourneys, onBack, onShare, onSharePlace, onEdit, onDelete, onCopy, onComment, onCheer, onOpenJourney, copyLabel = '이 여행 복사해서 만들기' }: { journey: Journey; initialDay?: number; profile: CreatorProfile; comments: JourneyComment[]; cheers: JourneyCheers; authorJourneys: Journey[]; onBack: () => void; onShare: () => void; onSharePlace: (place: Place) => void; onEdit: () => void; onDelete: () => void; onCopy: () => void; onComment: (body: string) => void; onCheer: (cheer: CheerKey) => void; onOpenJourney: (id: string) => void; copyLabel?: string }) {
+  const [selectedDay, setSelectedDay] = useState(journey.days.some(day => day.day === initialDay) ? initialDay : journey.days[0]?.day ?? 1);
   const dayHeadingRef = useRef<HTMLElement>(null);
   const day = journey.days.find((item) => item.day === selectedDay) ?? journey.days[0];
   const myCopyCount = authorJourneys.filter((item) => item.isMine && item.status === 'PUBLISHED').reduce((sum, item) => sum + item.saves, 0);
@@ -1552,8 +1640,8 @@ function JourneyDetail({ journey, profile, comments, cheers, authorJourneys, onB
   return <div className="journey-detail">
     <header className="detail-topbar"><button onClick={onBack} aria-label="뒤로"><ArrowLeft size={21} /></button><strong>{journey.isMine ? '내 여행기' : journey.recommendationKind === 'AI' ? 'AI 추천 여행' : '여행 가이드'}</strong><button onClick={journey.isMine ? onEdit : onShare} aria-label={journey.isMine ? '여행기 편집' : '여행 공유'}>{journey.isMine ? <Edit3 size={19} /> : <Share2 size={20} />}</button></header>
     <section className="detail-hero"><img src={journey.cover} alt="" /><div className="detail-hero-shade" /><div className="detail-title"><span>{journey.region} · {journey.duration}</span><h1>{journey.title}</h1><p>{journey.dateRange}</p></div></section>
-    <section className="journal-lead"><PhotoCredit image={journey.cover} />{journey.recommendationKind === 'AI' && <p className="local-data-note"><Sparkles size={13} /> AI 추천 여행 · {journey.recommendationBasis === 'OFFICIAL_SOURCE_SAMPLE' ? '공식 자료로 구성한 샘플' : '로컬 추천으로 만든 초안'}</p>}<div className="author-line"><CreatorAvatar name={journey.isMine ? profile.displayName : journey.author} image={journey.isMine ? profile.avatar : undefined} size="medium" /><div><span className="author-name-row"><CreatorBadge copyCount={authorCopyCount} compact /><strong>{journey.isMine ? profile.displayName : journey.author}</strong></span><small>{journey.visibility === 'PUBLIC' ? '전체 공개 여행일기' : '나만 보는 여행 초안'}</small></div><button onClick={onShare}><Share2 size={16} />공유</button></div>{journey.sourceAuthor && <div className="copied-source"><Copy size={14} />{journey.sourceAuthor}의 여행기를 복사해 만든 내 버전</div>}<p className="summary">{journey.summary}</p><p className="story">{journey.story}</p><div className="guide-facts"><div><small>전체 일정</small><strong>{journey.duration}</strong></div><div><small>기록 장소</small><strong>{journeyPlaceCount(journey)}곳</strong></div><div><small>가이드 구성</small><strong>{journey.days.length}개 DAY</strong></div></div><div className="journal-meta"><span><Eye size={14} />{(journey.views ?? 0).toLocaleString()}회 조회</span><span><Copy size={14} />{journey.saves.toLocaleString()}명이 담아감</span><span><MessageCircle size={14} />댓글 {comments.length}개</span><span><MapPin size={14} />{journeyPlaceCount(journey)}개 장소</span></div><div className="journal-tags">{journey.tags.map((tag) => <span key={tag}>#{tag}</span>)}</div></section>
-    <nav className="day-tabs" aria-label="여행 날짜"><button className="day-tabs-back" onClick={onBack} aria-label="목록으로 돌아가기"><ArrowLeft size={20} /></button>{journey.days.map((item) => <button key={item.day} className={selectedDay === item.day ? 'active' : ''} aria-current={selectedDay === item.day ? 'page' : undefined} onClick={() => selectDay(item.day)}><small>DAY {item.day}</small><strong>{item.date}</strong></button>)}</nav>
+    <section className="journal-lead"><PhotoCredit image={journey.cover} />{journey.recommendationKind === 'AI' && <p className="local-data-note"><Sparkles size={13} /> AI 추천 여행 · {journey.recommendationBasis === 'OFFICIAL_SOURCE_SAMPLE' ? '공식 자료로 구성한 샘플' : '로컬 추천으로 만든 초안'}</p>}<div className="author-line"><CreatorAvatar name={journey.isMine ? profile.displayName : journey.author} image={journey.isMine ? profile.avatar : undefined} size="medium" /><div><span className="author-name-row"><CreatorBadge copyCount={authorCopyCount} compact /><strong>{journey.isMine ? profile.displayName : journey.author}</strong></span><small>{journey.visibility === 'PUBLIC' ? '전체 공개 여행일기' : '나만 보는 여행 초안'}</small></div><button onClick={onShare}><Share2 size={16} />공유</button></div>{journey.sourceAuthor && <div className="copied-source"><Copy size={14} />{journey.sourceAuthor}의 여행기를 복사해 만든 내 버전</div>}<p className="summary">{journey.summary}</p><p className="story">{journey.story}</p><div className="guide-facts"><div><small>전체 일정</small><strong>{journey.duration}</strong></div><div><small>기록 장소</small><strong>{journeyPlaceCount(journey)}곳</strong></div><div><small>가이드 구성</small><strong>{journey.days.length}개 DAY</strong></div></div><div className="journal-meta"><span><Eye size={14} />{(journey.views ?? 0).toLocaleString()}회 조회</span><span><Copy size={14} />{journey.saves.toLocaleString()}명이 담아감</span><span><MessageCircle size={14} />댓글 {comments.length}개</span><span><MapPin size={14} />{journeyPlaceCount(journey)}개 장소</span></div><p className="local-data-note">로컬 미리보기 · 조회·담김 수와 댓글에는 샘플이 포함되어 있으며 실제 사용자 집계가 아닙니다.</p><div className="journal-tags">{journey.tags.map((tag) => <span key={tag}>#{tag}</span>)}</div></section>
+    <DayNavigation days={journey.days} selectedDay={selectedDay} onSelect={selectDay} onBack={onBack} />
     {day && <>
       <section className="day-heading" ref={dayHeadingRef}><small>DAY {day.day} · {day.date}</small><h2>{day.title}</h2><p>{day.story}</p></section>
       {day.blocks.length > 0
@@ -1579,7 +1667,7 @@ function JourneyDetail({ journey, profile, comments, cheers, authorJourneys, onB
 function GuidePlaceEmbed({ place, onShare, showImage = true }: { place?: Place; onShare: (place: Place) => void; showImage?: boolean }) {
   if (!place) return null;
   const Icon = kindIcon[place.kind];
-  return <aside className="guide-place-embed">{showImage && <img src={place.image} alt="" />}<div className="guide-place-copy">{showImage && <PhotoCredit image={place.image} />}<div className="place-kind"><Icon size={13} />{placeKindLabel[place.kind]}</div><h3>{place.name}</h3><div className="guide-place-time"><Clock3 size={14} />{place.time ? `${place.time} 도착 · ${place.duration} 체류` : place.duration}</div><p>{place.description}</p><blockquote>“{place.note}”</blockquote><div><button onClick={() => openExternal(kakaoDirectionsUrl(place))}><Navigation size={15} />길찾기</button><button onClick={() => onShare(place)}><Share2 size={15} />공유</button></div></div></aside>;
+  return <aside className="guide-place-embed">{showImage && place.image && <img src={place.image} alt="" />}<div className="guide-place-copy">{showImage && <PhotoCredit image={place.image} />}<div className="place-kind"><Icon size={13} />{placeKindLabel[place.kind]}</div><h3>{place.name}</h3><div className="guide-place-time"><Clock3 size={14} />{place.time ? `${place.time} 도착 · ${place.duration} 체류` : place.duration}</div><p>{place.description}</p><blockquote>“{place.note}”</blockquote><div><button onClick={() => openExternal(kakaoDirectionsUrl(place))}><Navigation size={15} />길찾기</button><button onClick={() => onShare(place)}><Share2 size={15} />공유</button></div></div></aside>;
 }
 
 function JourneyEditor({ journey, onBack, onSave }: { journey: Journey; onBack: () => void; onSave: (journey: Journey) => void }) {
@@ -1593,7 +1681,7 @@ function JourneyEditor({ journey, onBack, onSave }: { journey: Journey; onBack: 
     days: current.days.map((item) => item.day === selectedDay ? { ...item, ...patch } : item),
   }));
   const updateBlock = (id: string, patch: Partial<StoryBlock>) => updateDay({ blocks: day.blocks.map((block) => block.id === id ? { ...block, ...patch } : block) });
-  const updatePlace = (id: string, patch: Partial<Place>) => updateDay({ places: day.places.map((place) => place.id === id ? { ...place, ...patch } : place) });
+  const updatePlace = (block: StoryBlock, patch: Partial<Place>) => updateDay({ places: day.places.map((place) => (block.visitId ? place.visitId === block.visitId : place.id === block.placeId) ? { ...place, ...patch } : place) });
   const moveBlock = (index: number, direction: -1 | 1) => {
     const target = index + direction;
     if (target < 0 || target >= day.blocks.length) return;
@@ -1603,17 +1691,14 @@ function JourneyEditor({ journey, onBack, onSave }: { journey: Journey; onBack: 
   };
   const removeBlock = (block: StoryBlock) => {
     const blocks = day.blocks.filter((item) => item.id !== block.id);
-    const stillUsed = block.placeId && blocks.some((item) => item.placeId === block.placeId);
-    updateDay({ blocks, places: stillUsed ? day.places : day.places.filter((place) => place.id !== block.placeId) });
+    const stillUsed = blocks.some((item) => block.visitId ? item.visitId === block.visitId : item.placeId === block.placeId);
+    updateDay({ blocks, places: stillUsed || block.type !== 'PLACE' ? day.places : day.places.filter((place) => block.visitId ? place.visitId !== block.visitId : place.id !== block.placeId) });
   };
   const addTextBlock = () => updateDay({ blocks: [...day.blocks, { id: `text-${Date.now()}`, type: 'TEXT', heading: '', body: '' }] });
   const addImageBlock = () => updateDay({ blocks: [...day.blocks, { id: `image-${Date.now()}`, type: 'IMAGE', image: '', caption: '' }] });
   const addPlaceBlock = (place: Place) => {
-    const exists = day.places.some((item) => item.id === place.id);
-    updateDay({
-      places: exists ? day.places : [...day.places, { ...place, move: day.places.length ? '이동시간 확인 필요' : '여행 시작' }],
-      blocks: [...day.blocks, { id: `place-${place.id}-${Date.now()}`, type: 'PLACE', placeId: place.id }],
-    });
+    const visitId = crypto.randomUUID();
+    updateDay({ places: [...day.places, { ...place, visitId, move: day.places.length ? '이동시간 확인 필요' : '여행 시작' }], blocks: [...day.blocks, { id: `block-${visitId}`, type: 'PLACE', placeId: place.id, visitId }] });
     setPickerKind(null);
   };
   const addDay = () => {
@@ -1657,6 +1742,7 @@ function JourneyEditor({ journey, onBack, onSave }: { journey: Journey; onBack: 
     </section>
 
     <nav className="editor-day-tabs" aria-label="작성할 날짜">
+      <button type="button" className="day-tabs-back" onClick={onBack} aria-label="작성 화면 뒤로가기"><ArrowLeft size={20} /></button>
       {draft.days.map((item) => <button type="button" key={item.day} className={item.day === selectedDay ? 'active' : ''} onClick={() => setSelectedDay(item.day)}>DAY {item.day}</button>)}
       <button type="button" className="add-day" onClick={addDay}><Plus size={14} />날짜</button>
       {draft.days.length > 1 && <button type="button" className="remove-day" onClick={removeSelectedDay} aria-label={`DAY ${selectedDay} 삭제`}><Trash2 size={14} />DAY {selectedDay} 삭제</button>}
@@ -1668,7 +1754,7 @@ function JourneyEditor({ journey, onBack, onSave }: { journey: Journey; onBack: 
         ? <article className="editor-text-block" key={block.id}><div className="block-toolbar"><span>글</span><BlockControls index={index} total={day.blocks.length} onMove={moveBlock} onRemove={() => removeBlock(block)} /></div><input aria-label={`글 ${index + 1} 소제목`} value={block.heading ?? ''} onChange={(event) => updateBlock(block.id, { heading: event.target.value })} placeholder="소제목을 입력하세요" /><textarea aria-label={`글 ${index + 1} 본문`} rows={6} value={block.body ?? ''} onChange={(event) => updateBlock(block.id, { body: event.target.value })} placeholder="이 장소에서 무엇을 보고 느꼈는지, 다음 장소로 왜 이동했는지 써보세요." /></article>
         : block.type === 'IMAGE'
           ? <EditorImageBlock key={block.id} block={block} index={index} total={day.blocks.length} onUpdate={(patch) => updateBlock(block.id, patch)} onMove={moveBlock} onRemove={() => removeBlock(block)} />
-          : <EditorPlaceBlock key={block.id} block={block} place={day.places.find((place) => place.id === block.placeId)} index={index} total={day.blocks.length} onUpdate={(patch) => block.placeId && updatePlace(block.placeId, patch)} onMove={moveBlock} onRemove={() => removeBlock(block)} />
+          : <EditorPlaceBlock key={block.id} block={block} place={day.places.find((place) => block.visitId ? place.visitId === block.visitId : place.id === block.placeId)} index={index} total={day.blocks.length} onUpdate={(patch) => updatePlace(block, patch)} onMove={moveBlock} onRemove={() => removeBlock(block)} />
       )}</div>
       {!day.blocks.length && <div className="empty-composer"><Edit3 size={24} /><strong>첫 장면을 시작해 보세요</strong><p>글, 사진, 장소 카드를 원하는 순서로 추가할 수 있습니다.</p></div>}
       <div className="insert-toolbar"><span>본문에 삽입</span><div><button onClick={addTextBlock}><Edit3 size={16} />글</button><button onClick={addImageBlock}><ImagePlus size={16} />사진</button><button onClick={() => setPickerKind('LANDMARK')}><MapPin size={16} />장소</button><button onClick={() => setPickerKind('STAY')}><Hotel size={16} />숙소</button><button onClick={() => setPickerKind('FOOD')}><Utensils size={16} />맛집</button><button onClick={() => setPickerKind('CAFE')}><Coffee size={16} />카페</button></div></div>
@@ -1701,7 +1787,7 @@ function EditorImageBlock({ block, index, total, onUpdate, onMove, onRemove }: {
 function EditorPlaceBlock({ block, place, index, total, onUpdate, onMove, onRemove }: { block: StoryBlock; place?: Place; index: number; total: number; onUpdate: (patch: Partial<Place>) => void; onMove: (index: number, direction: -1 | 1) => void; onRemove: () => void }) {
   if (!place) return null;
   const Icon = kindIcon[place.kind];
-  return <article className="editor-place-block"><div className="block-toolbar"><span><Icon size={13} />{placeKindLabel[place.kind]} 카드</span><BlockControls index={index} total={total} onMove={onMove} onRemove={onRemove} /></div><div className="editor-place-preview"><img src={place.image} alt="" /><div><strong>{place.name}</strong><small>{place.address}</small><p>{place.note}</p><PhotoCredit image={place.image} /></div></div><div className="editor-place-fields"><label><span>도착 시각</span><input type="time" value={place.time ?? ''} onChange={(event) => onUpdate({ time: event.target.value })} /></label><label><span>체류 시간</span><input value={place.duration} onChange={(event) => onUpdate({ duration: event.target.value })} placeholder="예: 1시간 20분" /></label><label className="wide-field"><span>이동 메모</span><input value={place.move ?? ''} onChange={(event) => onUpdate({ move: event.target.value })} placeholder="예: 차량 25분" /></label></div></article>;
+  return <article className="editor-place-block"><div className="block-toolbar"><span><Icon size={13} />{placeKindLabel[place.kind]} 카드</span><BlockControls index={index} total={total} onMove={onMove} onRemove={onRemove} /></div><div className="editor-place-preview">{place.image && <img src={place.image} alt="" />}<div><strong>{place.name}</strong><small>{place.address}</small><p>{place.note}</p><PhotoCredit image={place.image} /></div></div><div className="editor-place-fields"><label><span>도착 시각</span><input type="time" value={place.time ?? ''} onChange={(event) => onUpdate({ time: event.target.value })} /></label><label><span>체류 시간</span><input value={place.duration} onChange={(event) => onUpdate({ duration: event.target.value })} placeholder="예: 1시간 20분" /></label><label className="wide-field"><span>이동 메모</span><input value={place.move ?? ''} onChange={(event) => onUpdate({ move: event.target.value })} placeholder="예: 차량 25분" /></label></div></article>;
 }
 
 function PlacePicker({ kind, region, onClose, onSelect }: { kind: PlaceKind; region: string; onClose: () => void; onSelect: (place: Place) => void }) {
@@ -1721,7 +1807,6 @@ function PlacePicker({ kind, region, onClose, onSelect }: { kind: PlaceKind; reg
   const addCustomPlace = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!custom.name.trim()) return;
-    const fallbackImage = candidates[0]?.image ?? discoveryLandmarks[0].image;
     onSelect({
       id: `custom-${kind.toLowerCase()}-${Date.now()}`,
       kind,
@@ -1730,13 +1815,14 @@ function PlacePicker({ kind, region, onClose, onSelect }: { kind: PlaceKind; reg
       address: custom.address.trim(),
       lat: Number.NaN,
       lng: Number.NaN,
-      image: custom.image || fallbackImage,
+      image: custom.image,
+      photos: custom.image ? undefined : [],
       description: custom.description.trim() || '직접 기록한 여행 장소입니다.',
       note: custom.note.trim() || '다녀온 뒤의 경험과 추천 포인트를 더 적어보세요.',
       duration: custom.duration.trim() || (kind === 'STAY' ? '숙박' : '체류 시간 미입력'),
     });
   };
-  return <div className="sheet-backdrop"><section className="place-picker"><div className="sheet-handle" /><header><div><small>ADD TO STORY</small><h2>{placeKindLabel[kind]} 삽입</h2></div><button onClick={onClose} aria-label="장소 선택 닫기">×</button></header>
+  return <BottomSheet title={`${placeKindLabel[kind]} 삽입`} onClose={onClose}><section className="place-picker phase-embedded-sheet">
     <div className="place-picker-tabs"><button className={mode === 'CUSTOM' ? 'active' : ''} onClick={() => setMode('CUSTOM')}>직접 등록</button><button className={mode === 'CATALOG' ? 'active' : ''} onClick={() => setMode('CATALOG')}>목록에서 선택</button></div>
     {mode === 'CUSTOM' ? <form className="custom-place-form" onSubmit={addCustomPlace}>
       <p>모든 업체를 미리 등록할 필요 없이, 직접 다녀온 정보를 여행기에 남기세요.</p>
@@ -1747,8 +1833,8 @@ function PlacePicker({ kind, region, onClose, onSelect }: { kind: PlaceKind; reg
       <label><span>정보 소개</span><textarea rows={2} value={custom.description} onChange={(event) => updateCustom('description', event.target.value)} placeholder={kind === 'STAY' ? '객실, 위치, 주변 동선 등 기본 정보를 적어주세요.' : '어떤 곳인지 간단히 소개해 주세요.'} /></label>
       <label><span>내 경험과 추천 포인트</span><textarea rows={3} value={custom.note} onChange={(event) => updateCustom('note', event.target.value)} placeholder={kind === 'STAY' ? '실제로 묵어보니 좋았던 점, 체크인 팁 등을 적어주세요.' : '직접 다녀와서 알게 된 팁을 적어주세요.'} /></label>
       <button className="primary custom-place-submit" type="submit"><Plus size={17} />{placeKindLabel[kind]} 카드 추가</button>
-    </form> : <><p>준비된 항목은 빠르게 고르는 보조 목록입니다. 없으면 직접 등록하세요.</p><div className="picker-list">{candidates.map((place) => <button key={place.id} onClick={() => onSelect(place)}><img src={place.image} alt="" /><span><strong>{place.name}</strong><small>{place.area} · {place.address}</small></span><Plus size={17} /></button>)}</div></>}
-  </section></div>;
+    </form> : <><p>준비된 항목은 빠르게 고르는 보조 목록입니다. 없으면 직접 등록하세요.</p><div className="picker-list">{candidates.map((place) => <button key={place.id} onClick={() => onSelect(place)}><img src={place.image} alt="" /><span><strong>{place.name}</strong><small>{place.area} · {place.address}</small><PhotoCredit image={place.image} plain /></span><Plus size={17} /></button>)}</div></>}
+  </section></BottomSheet>;
 }
 
 function RouteMap({ places }: { places: Place[] }) {
@@ -1915,8 +2001,8 @@ function RouteMap({ places }: { places: Place[] }) {
       const schedule = scheduleCheckForLeg(leg);
       return <div className="route-leg" key={`${leg.from.id}-${leg.to.id}`}><span className="route-leg-icon">{leg.mode === 'WALK' ? <Footprints size={15} /> : <Car size={15} />}</span><div><small>{leg.from.time ?? '--:--'} → {leg.to.time ?? '--:--'} · {leg.mode === 'WALK' ? '도보' : '차량'}</small><strong>{leg.from.name} → {leg.to.name}</strong>{schedule && <span className={`route-leg-schedule ${schedule.margin < 0 ? 'conflict' : 'okay'}`}>{schedule.text}</span>}</div><em>약 {leg.minutes}분<br />{leg.distanceKm.toFixed(1)}km</em></div>;
     })}</div>}
-    {routeResult.legs.length > 0 && <div className={`route-schedule-summary ${conflictCount ? 'conflict' : 'okay'}`}><Check size={15} /><span>{scheduleChecks.length === 0 ? '도착 시각과 체류시간을 입력하면 일정 충돌을 확인합니다.' : conflictCount ? `${conflictCount}개 구간의 시간이 부족합니다.` : `시간을 입력한 ${scheduleChecks.length}개 구간 모두 여유가 있습니다.`}</span></div>}
-    {routeResult.legs.length > 0 && <p className="route-data-note">{routeResult.source === 'ROAD' ? '도로 경로 기준 예상치입니다. 실시간 교통은 길찾기에서 다시 확인하세요.' : '도로 경로를 불러오지 못해 직선거리 기준으로 계산했습니다.'}</p>}
+    {routeResult.legs.length > 0 && <div className={`route-schedule-summary ${conflictCount ? 'conflict' : 'okay'}`}><Check size={15} /><span>{scheduleChecks.length === 0 ? '도착 시각과 체류시간을 입력하면 일정 충돌을 확인합니다.' : conflictCount ? `추정 계산상 ${conflictCount}개 구간의 시간이 부족합니다.` : `추정 계산상 ${scheduleChecks.length}개 구간에 여유가 있습니다. 실제 이동은 확인이 필요합니다.`}</span></div>}
+    {routeResult.legs.length > 0 && <p className="route-data-note">{routeResult.source === 'ROAD' ? '자동차 도로 기준의 샘플 경로입니다. 도보 표시는 도로 거리에 보행 속도를 적용한 추정이며 실제 보행 경로가 아닙니다. 실시간 교통·운영 정보는 길찾기에서 확인하세요.' : '도로 경로를 불러오지 못해 직선거리로 추정했습니다. 실제 이동 경로·시간이 아닙니다.'}</p>}
   </section>;
 }
 
@@ -1934,7 +2020,7 @@ function CreateJourneySheet({ onClose, onCreate }: { onClose: () => void; onCrea
     event.preventDefault();
     onCreate(title.trim() || `${region}에서 남길 새로운 기록`, region);
   };
-  return <div className="sheet-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}><form className="create-sheet" onSubmit={submit}><div className="sheet-handle" /><div className="sheet-title"><div><small>NEW DOMESTIC TRIP</small><h2>새 여행 만들기</h2></div><button type="button" onClick={onClose} aria-label="닫기">×</button></div><label><span>국내 지역</span><select value={region} onChange={(event) => setRegion(event.target.value)}><option>제주</option><option>서울</option><option>강릉</option><option>부산</option><option>경주</option><option>전주</option></select></label><label><span>여행 제목</span><input value={title} onChange={(event) => setTitle(event.target.value)} placeholder={`${region}에서 남길 새로운 기록`} /></label><p>여행은 여러 개 만들 수 있습니다. 먼저 비공개 초안으로 만들고, 다녀온 뒤 상세 일기와 동선을 공개할 수 있어요.</p><button className="primary wide" type="submit"><Plus size={18} />여행 만들기</button></form></div>;
+  return <BottomSheet title="새 여행 만들기" onClose={onClose}><form className="create-sheet phase-embedded-sheet" onSubmit={submit}><Field label="국내 지역"><select value={region} onChange={(event) => setRegion(event.target.value)}><option>제주</option><option>서울</option><option>강릉</option><option>부산</option><option>경주</option><option>전주</option></select></Field><Field label="여행 제목"><input value={title} onChange={(event) => setTitle(event.target.value)} placeholder={`${region}에서 남길 새로운 기록`} /></Field><p>여행은 여러 개 만들 수 있습니다. 우선 이 기기에 비공개 초안으로 저장합니다.</p><Button className="wide" type="submit"><Plus size={18} />여행 만들기</Button></form></BottomSheet>;
 }
 
 function Profile({ native, journeys, comments, cheers, profile, notificationPreferences, notificationPermission, onBack, onProfileChange, onNotificationPreferencesChange, onPreviewNotification, onOpen }: { native: boolean; journeys: Journey[]; comments: JourneyComment[]; cheers: CheerStore; profile: CreatorProfile; notificationPreferences: NotificationPreferences; notificationPermission: 'granted' | 'denied' | 'undetermined'; onBack: () => void; onProfileChange: (profile: CreatorProfile) => void; onNotificationPreferencesChange: (preferences: NotificationPreferences) => void; onPreviewNotification: () => void; onOpen: (id: string) => void }) {

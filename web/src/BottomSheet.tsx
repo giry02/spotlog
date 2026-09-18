@@ -2,11 +2,8 @@ import { createContext, useCallback, useContext, useEffect, useId, useLayoutEffe
 import { createPortal } from 'react-dom';
 import { ArrowLeft, X } from 'lucide-react';
 import { notifyNavigationState } from './nativeBridge';
-import './public-source-sheet.css';
-
-function IconButton(props: React.ButtonHTMLAttributes<HTMLButtonElement>) {
-  return <button type="button" {...props} />;
-}
+import './phase-one.css';
+import { IconButton } from './ui';
 
 export const hasActiveSheet = () => Boolean(document.querySelector('[data-spotlog-sheet]'));
 

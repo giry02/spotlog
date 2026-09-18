@@ -6,6 +6,7 @@ import busanHaeundae from '../../assets/spotlog/public-tourism/busan-haeundae.pn
 import busanIgidae from '../../assets/spotlog/public-tourism/busan-igidae.png';
 import busanJagalchi from '../../assets/spotlog/public-tourism/busan-jagalchi.png';
 import busanDongbaek from '../../assets/spotlog/public-tourism/busan-dongbaek.jpg';
+import busanDongbaekCamellia from '../../assets/spotlog/public-tourism/busan-dongbaek-camellia.png';
 import gyeongjuCheomseongdae from '../../assets/spotlog/public-tourism/gyeongju-cheomseongdae.jpg';
 import gyeongjuDaereungwon from '../../assets/spotlog/public-tourism/gyeongju-daereungwon.jpg';
 import gyeongjuDonggung from '../../assets/spotlog/public-tourism/gyeongju-donggung.jpg';
@@ -37,6 +38,7 @@ type SourceInput = Omit<PublicTourismSource, 'license' | 'licenseUrl' | 'verifie
 const source = (entry: SourceInput): PublicTourismSource => ({ ...entry, license: '공공누리 제1유형', licenseUrl, verifiedAt });
 
 export const publicTourismSources: PublicTourismSource[] = [
+  { ...source({ id: 'busan-dongbaek-camellia', placeId: 'public-busan-dongbaek', title: '동백섬 · 동백꽃', image: busanDongbaekCamellia, sourceUrl: busanArchive('METADATA010728'), imageSourceUrl: 'https://visitbusan.net/archive/upload/2025/08/11/20250811164949740659_m.png', owner: '부산관광공사 글로벌마케팅팀', author: '하이픈그룹', publishedAt: '2024-10-01 (원문 생산일자)', coordinateSourceUrl: busanArchive('METADATA010728') }), verifiedAt: '2026-09-15' },
   source({ id: 'busan-gamcheon', placeId: 'public-busan-gamcheon', title: '감천문화마을', image: busanGamcheon, sourceUrl: busanArchive('METADATA005396'), imageSourceUrl: 'https://visitbusan.net/archive/upload/2025/02/20/20250220170806170847_m.png', owner: '부산광역시', author: '부산광역시 정언모', coordinateSourceUrl: busanArchive('METADATA005396') }),
   source({ id: 'busan-gukje', placeId: 'public-busan-gukje', title: '국제시장', image: busanGukje, sourceUrl: busanArchive('METADATA004398'), imageSourceUrl: 'https://visitbusan.net/archive/upload/2025/02/20/20250220153350589637_m.png', owner: '부산광역시·부산관광공사', author: '(주)써머트리, 이음미디어(주)', publishedAt: '2019', coordinateSourceUrl: busanArchive('METADATA004398') }),
   source({ id: 'busan-gwangalli', placeId: 'public-busan-gwangalli', title: '광안리해수욕장', image: busanGwangalli, sourceUrl: busanArchive('METADATA006340'), imageSourceUrl: 'https://visitbusan.net/archive/upload/2025/02/21/20250221095006231873_m.png', owner: '부산광역시', author: '부산광역시 시민사진기자 정을호', coordinateSourceUrl: busanArchive('METADATA006340') }),

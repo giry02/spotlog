@@ -1,0 +1,14 @@
+/* Original card image, typography and spacing remain in styles.css. */
+.landmark-guide-actions > :only-child { grid-column: 1 / -1; }
+.landmark-guide-image-error { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #797972; background: #f2f2ee; }
+.landmark-guide-image-error p { margin: 0; font-size: 13px; line-height: 1.65; }
+.landmark-guide-image::after { pointer-events: none; }
+.landmark-gallery-track { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; }
+.landmark-gallery-track::-webkit-scrollbar { display: none; }
+.landmark-gallery-track figure { flex: 0 0 100%; min-width: 0; height: 100%; margin: 0; scroll-snap-align: start; scroll-snap-stop: always; }
+.landmark-gallery-controls { position: absolute; inset: 50% 8px auto; z-index: 2; display: flex; justify-content: space-between; transform: translateY(-50%); pointer-events: none; }
+.landmark-gallery-controls button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid #ffffff60; border-radius: 50%; background: #18181599; color: white; pointer-events: auto; }
+.landmark-gallery-controls button:disabled { opacity: .4; }
+.landmark-gallery-count { position: absolute; z-index: 2; right: 13px; bottom: 12px; padding: 4px 9px; border-radius: 999px; background: #181815b3; color: white; font-size: var(--type-caption); line-height: 1.5; }
+.landmark-guide-copy > .landmark-gallery-caption { color: #74746f; font-size: var(--type-caption); line-height: 1.5; }
+.landmark-gallery-track:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
