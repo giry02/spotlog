@@ -44,6 +44,12 @@
 .saved-page .ai-day-picker { align-items: flex-start; flex-direction: column; gap: 8px; }
 .saved-page .ai-day-picker > div { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); width: 100%; gap: 6px; }
 .saved-page .ai-day-picker button { min-height: 44px; font-size: var(--type-caption); }
+.saved-page .ai-day-picker-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; }
+.saved-page .ai-day-picker-header > span { color: rgba(255,255,255,.64); font-size: var(--type-micro); font-weight: 600; }
+.saved-page .ai-day-picker .ai-day-more-toggle { display: inline-flex; align-items: center; gap: 4px; min-height: 28px; padding: 0; border: 0; border-radius: 0; color: rgba(255,255,255,.8); background: transparent; font-weight: 600; white-space: nowrap; }
+.ai-day-more-toggle svg { transform: rotate(90deg); }
+.ai-day-more-toggle[aria-expanded="true"] svg { transform: rotate(-90deg); }
+.saved-page .ai-day-picker > .ai-day-extra-options[hidden] { display: none; }
 .toast.toast { z-index: 600; width: max-content; max-width: min(420px, calc(100vw - 32px)); white-space: normal; overflow-wrap: anywhere; line-height: 1.6; border-radius: 18px; }
 .toast.toast > svg { flex: 0 0 auto; }
 .discovery-pane { height: 100%; }
