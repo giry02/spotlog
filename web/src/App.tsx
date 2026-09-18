@@ -67,7 +67,7 @@ import { BottomSheet, hasActiveSheet } from './BottomSheet';
 import { normalizeVisits, removeVisit } from './visits';
 import { AddToTripSheet } from './AddToTripSheet';
 import { applyTripPlacement, type TripPlacementRequest } from './tripPlacement';
-import { AiTravelSheet } from './AiTravelSheet';
+import { AiTravelSheet, type AiTravelSheetDraft } from './AiTravelSheet';
 import { publicTourismJourneys, publicTourismPlaces } from './publicTourismContent';
 import { PhotoCredit, PublicSourceNotes, StoryPhoto } from './PublicTourismCredit';
 import { Button, Field } from './ui';
@@ -877,6 +877,8 @@ export default function App() {
   const [creating, setCreating] = useState(false);
   const [placementPlaces, setPlacementPlaces] = useState<Place[] | null>(null);
   const [aiTravelOpen, setAiTravelOpen] = useState(false);
+  const aiTravelDraft = useRef<AiTravelSheetDraft | null>(null);
+  const savedTravelDraft = useRef<AiTravelSheetDraft | null>(null);
   const [savedTravelPreview, setSavedTravelPreview] = useState<{ places: Place[]; dayCount: number } | null>(null);
   const [detailDay, setDetailDay] = useState<number | null>(null);
   const [toast, setToast] = useState('');
@@ -1231,8 +1233,8 @@ export default function App() {
       </nav>}
       {creating && <CreateJourneySheet onClose={() => setCreating(false)} onCreate={createJourney} />}
       {placementPlaces && <AddToTripSheet places={placementPlaces} journeys={ownJourneys} initialJourneyId={ownJourneys.find((journey) => journey.days.some((day) => day.places.some((place) => placementPlaces.some((selected) => selected.id === place.id))))?.id} initialDay={ownJourneys.flatMap((journey) => journey.days).find((day) => day.places.some((place) => placementPlaces.some((selected) => selected.id === place.id)))?.day} onClose={() => setPlacementPlaces(null)} onConfirm={confirmTripPlacement} onRemove={removePlacedVisit} />}
-      {aiTravelOpen && <AiTravelSheet places={aiPlaceCandidates} onClose={() => setAiTravelOpen(false)} onCreate={acceptAiDraft} />}
-      {savedTravelPreview && <AiTravelSheet places={savedTravelPreview.places} savedDayCount={savedTravelPreview.dayCount} onClose={() => setSavedTravelPreview(null)} onCreate={acceptAiDraft} />}
+      {aiTravelOpen && <AiTravelSheet draftRef={aiTravelDraft} places={aiPlaceCandidates} onClose={() => setAiTravelOpen(false)} onCreate={acceptAiDraft} />}
+      {savedTravelPreview && <AiTravelSheet draftRef={savedTravelDraft} places={savedTravelPreview.places} savedDayCount={savedTravelPreview.dayCount} onClose={() => setSavedTravelPreview(null)} onCreate={acceptAiDraft} />}
       {toast && <div className="toast" role="status"><Check size={15} />{toast}</div>}
     </main>
   );

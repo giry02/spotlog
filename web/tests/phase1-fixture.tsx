@@ -1,8 +1,8 @@
 // Development-only entry. No localStorage, user records, or production route.
-import { StrictMode, useState } from 'react';
+import { StrictMode, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { LandmarkGuideCard } from '../src/LandmarkGuideCard';
-import { AiTravelSheet } from '../src/AiTravelSheet';
+import { AiTravelSheet, type AiTravelSheetDraft } from '../src/AiTravelSheet';
 import { PhotoLandmarkFeed } from '../src/PhotoLandmarkFeed';
 import { buildLocalTravelDraft, type TravelDraftProvider } from '../src/aiTravelDraft';
 import { publicTourismPlaces, publicTourismSources } from '../src/publicTourismContent';
@@ -19,6 +19,8 @@ const slowProvider: TravelDraftProvider = { id: 'qa-delayed', generate: (input, 
 function Fixture() {
   const [place, setPlace] = useState<Place>({ ...source, photos });
   const [sheet, setSheet] = useState<'saved' | 'slow' | null>(null);
+  const promptDraft = useRef<AiTravelSheetDraft | null>(null);
+  const savedDraft = useRef<AiTravelSheetDraft | null>(null);
   const [fail, setFail] = useState(true);
   const [saved, setSaved] = useState(0);
   const [feed, setFeed] = useState(false);
@@ -39,7 +41,7 @@ function Fixture() {
       <output aria-label="저장 횟수">저장 횟수 {saved}</output>
       {!feed && <LandmarkGuideCard place={place} actions={null} />}
     </div>{feed && <div style={{ height: 650 }}><PhotoLandmarkFeed places={[place]} savedIds={[]} onToggle={() => {}} onShare={() => {}} /></div>}</section></main>
-    {sheet && <AiTravelSheet key={sheet} places={[place]} savedDayCount={sheet === 'saved' ? 7 : undefined} initialPrompt={`${source.area.split(' ')[0]} 2일`} provider={sheet === 'slow' ? slowProvider : undefined}
+    {sheet && <AiTravelSheet key={sheet} draftRef={sheet === 'saved' ? savedDraft : promptDraft} places={[place]} savedDayCount={sheet === 'saved' ? 7 : undefined} initialPrompt={`${source.area.split(' ')[0]} 2일`} provider={sheet === 'slow' ? slowProvider : undefined}
       onClose={() => setSheet(null)} onCreate={(journey) => { if (fail) return null; setSaved((current) => current + 1); return journey.id; }} />}
   </>;
 }

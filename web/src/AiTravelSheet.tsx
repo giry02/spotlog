@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import { ArrowLeft, Check, ChevronRight, Plus, Sparkles } from 'lucide-react';
 import { BottomSheet } from './BottomSheet';
 import { LandmarkGuideCard } from './LandmarkGuideCard';
@@ -8,7 +8,20 @@ import { buildSavedTravelDraft, interpretTravelPrompt, localTravelDraftProvider,
 import { aiTravelVisitKey, selectAiTravelVisits } from './aiTravelSelection';
 import './ai-travel.css';
 
+type TravelOverrides = Partial<Pick<TravelConditions, 'region' | 'dayCount' | 'pace' | 'transport'>>;
+
+/** Owned by the app so dismissing a sheet does not discard its unfinished work. */
+export interface AiTravelSheetDraft {
+  context: string;
+  prompt: string;
+  overrides: TravelOverrides;
+  preview: TravelDraftResult | null;
+  selectedDay: number;
+  excludedVisits: Set<string>;
+}
+
 export interface AiTravelSheetProps {
+  draftRef: RefObject<AiTravelSheetDraft | null>;
   initialPrompt?: string;
   savedDayCount?: number;
   provider?: TravelDraftProvider;
@@ -20,12 +33,18 @@ const paceLabels: Record<TravelPace, string> = { slow: '여유롭게', balanced:
 const transportLabels: Record<TravelTransport, string> = { undecided: '미정', walk: '도보', transit: '대중교통', car: '자동차' };
 const periodLabel = (days: number) => days === 1 ? '당일치기' : `${days - 1}박 ${days}일`;
 
-export function AiTravelSheet({ initialPrompt = '', savedDayCount, provider = localTravelDraftProvider, places, onClose, onCreate }: AiTravelSheetProps) {
-  const [prompt, setPrompt] = useState(initialPrompt);
-  const [overrides, setOverrides] = useState<Partial<Pick<TravelConditions, 'region' | 'dayCount' | 'pace' | 'transport'>>>({});
-  const [preview, setPreview] = useState<TravelDraftResult | null>(() => savedDayCount === undefined ? null : buildSavedTravelDraft(places, savedDayCount));
-  const [selectedDay, setSelectedDay] = useState(1);
-  const [excludedVisits, setExcludedVisits] = useState<Set<string>>(new Set());
+export function AiTravelSheet({ draftRef, initialPrompt = '', savedDayCount, provider = localTravelDraftProvider, places, onClose, onCreate }: AiTravelSheetProps) {
+  // Changed saved places or trip length start their own preview, never an old selection.
+  const context = JSON.stringify(savedDayCount === undefined ? ['prompt', initialPrompt] : ['saved', savedDayCount, places.map((place) => place.id)]);
+  const [resumedDraft] = useState(() => draftRef.current?.context === context ? draftRef.current : null);
+  const [prompt, setPrompt] = useState(resumedDraft?.prompt ?? initialPrompt);
+  const [overrides, setOverrides] = useState<TravelOverrides>(resumedDraft?.overrides ?? {});
+  const [preview, setPreview] = useState<TravelDraftResult | null>(() => resumedDraft ? resumedDraft.preview : savedDayCount === undefined ? null : buildSavedTravelDraft(places, savedDayCount));
+  const [selectedDay, setSelectedDay] = useState(resumedDraft?.selectedDay ?? 1);
+  const [excludedVisits, setExcludedVisits] = useState<Set<string>>(() => new Set(resumedDraft?.excludedVisits));
+  useLayoutEffect(() => {
+    draftRef.current = { context, prompt, overrides, preview, selectedDay, excludedVisits };
+  }, [draftRef, context, prompt, overrides, preview, selectedDay, excludedVisits]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const saving = useRef(false);
@@ -69,7 +88,7 @@ export function AiTravelSheet({ initialPrompt = '', savedDayCount, provider = lo
     saving.current = true; setBusy(true); setError('');
     try {
       if (!onCreate(structuredClone(selectedJourney))) { setError('여행을 저장하지 못했어요. 초안을 유지했으니 저장 공간을 확인한 뒤 다시 시도해 주세요.'); saving.current = false; setBusy(false); }
-      else close();
+      else { draftRef.current = null; close(); }
     } catch { setError('여행을 저장하지 못했어요. 초안은 닫지 않고 유지했어요.'); saving.current = false; setBusy(false); }
   };
   const toggleVisit = (visitKey: string) => {
