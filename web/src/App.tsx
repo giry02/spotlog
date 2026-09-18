@@ -1544,13 +1544,15 @@ function JourneySection({ title, description, journeys, onOpen, onShare }: { tit
 function SavedPlaceCard({ place, placement, onRemove, onAdd }: { place: Place; placement?: { day: number; date: string; journeyTitle: string; count: number }; onRemove: (id: string) => void; onAdd: (place: Place) => void }) {
   const placementLabel = placement ? '담김 확인·해제' : '여행에 담기';
   return <article className={`saved-card ${placement ? 'is-added-to-trip' : ''}`}>
-    <img src={place.image} alt={`${place.name} 저장 사진`} />
+    <div className="saved-card-media">
+      <img src={place.image} alt={`${place.name} 저장 사진`} />
+      <PhotoCredit image={place.image} />
+    </div>
     <div className="saved-card-copy">
       <div className="saved-card-eyebrow"><span>{place.area}</span>{placement && <em><Check size={12} />{placement.count > 1 ? `${placement.count}개 일정` : `DAY ${placement.day}`}</em>}</div>
       <h3>{place.name}</h3>
       <p>{place.hook ?? place.description}</p>
       <div className="saved-place-time"><Clock3 size={13} />{place.bestTime ?? place.duration}</div>
-      <PhotoCredit image={place.image} />
       <button className={`add-to-trip ${placement ? 'is-added' : ''}`} onClick={() => onAdd(place)} aria-label={`${place.name}, ${placementLabel}`} title={placement ? `${placement.journeyTitle} · ${placement.date}` : undefined}>{placement && <Check size={13} />}{placementLabel}</button>
     </div>
     <button onClick={() => onRemove(place.id)} aria-label={`${place.name} 저장 취소`}><Bookmark size={19} fill="currentColor" /></button>
