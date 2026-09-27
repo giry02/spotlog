@@ -1,2 +1,4 @@
-import ConnectedWorkspace from '@/components/connected-workspace';
-export default function Home(){return <ConnectedWorkspace/>;}
+import TripWorkspace from '@/components/trip-workspace';
+export default function Home() {
+  return <TripWorkspace />;
+}
