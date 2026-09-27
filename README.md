@@ -1,6 +1,14 @@
-# 모아 — 대화에서 기능으로
+# 모아 — Spotlog 챗봇 모바일 체험
 
-Spotlog의 현재 모바일웹 디자인을 적용한 대화형 기능 연결 체험판입니다. 질문 또는 카드 조작마다 사용자 메시지와 새 응답·기능 카드가 아래에 누적됩니다. 이전 응답은 당시 결과 그대로 남습니다. 사용자의 말과 버튼 조작이 같은 선택·필터 상태를 변경하고, 독립된 유닛들이 그 상태와 검색 결과를 입력으로 사용합니다. 실제 Jev·LLM 호출은 없습니다.
+Spotlog의 챗봇 하위 프로젝트입니다. Spotlog 디자인을 적용한 모바일 대화형 기능 연결 체험판입니다. 질문 또는 카드 조작마다 사용자 메시지와 새 응답·기능 카드가 아래에 누적됩니다. 이전 응답은 당시 결과 그대로 남습니다. 사용자의 말과 버튼 조작이 같은 선택·필터 상태를 변경하고, 독립된 유닛들이 그 상태와 검색 결과를 입력으로 사용합니다. 실제 Jev·LLM 호출은 없습니다.
+
+## 접속과 모바일 시연
+
+- 공개 체험: https://moa-adaptive-mobile-demo.companydasom.chatgpt.site
+- 이 체험판의 소스만 보관하는 GitHub 브랜치: https://github.com/giry02/spotlog/tree/codex/moa-demo
+- PC에서는 휴대폰 프레임, 휴대폰에서는 화면 전체를 사용합니다. 헤더와 입력창은 유지되고 대화 영역만 스크롤됩니다. 다음 질문 칩은 가로로 넘길 수 있습니다.
+- 화면 높이·안전 영역과 키보드에 따른 표시 영역 변화를 반영합니다. 실제 기기·브라우저마다 키보드 동작은 다를 수 있습니다.
+- 집 와이파이에서 로컬 시연하려면 PowerShell에서 `$env:MOA_DEV_HOST = '0.0.0.0'` 설정 후 `npm run dev`를 실행하고, 터미널에 표시되는 Wi-Fi Network 주소로 접속합니다. 기본 실행은 localhost만 사용합니다.
 
 ## 실행과 확인
 
@@ -35,6 +43,6 @@ Spotlog의 현재 모바일웹 디자인을 적용한 대화형 기능 연결 �
 
 ## 디자인과 사진
 
-Spotlog `docs/STYLE_GUIDE.md` (2026-09-21), `web/src/theme.css`, `web/src/ai-planner.css` 기준. 모바일 폭 460px, 바탕 #f8f8f6, 잉크 #171716, 코럴 #ff5a3d. 원래 선언과 시스템 대체 글꼴을 사용합니다.
+Spotlog `docs/STYLE_GUIDE.md` (2026-09-21), `web/src/theme.css`, `web/src/ai-planner.css` 기준. PC 휴대폰 프레임 폭 414px, 모바일에서는 기기 화면 폭, 바탕 #f8f8f6, 잉크 #171716, 코럴 #ff5a3d. 원래 선언과 시스템 대체 글꼴을 사용합니다.
 
 Spotlog에서 이미 출처를 기록한 Wikimedia Commons 사진 5개를 복사했습니다. 오설록 건물·차나무: 골뱅이(IM Seongbin), 새별오름: HiHoHo, 서울숲: Enigma7seven (CC BY-SA 3.0). 협재해변: Lcarrion88 (CC BY-SA 4.0). 원본·라이선스·변경 내역은 `public/images/ATTRIBUTION.json`과 화면의 사진 출처에 표시합니다. 파일 추가 편집은 없으며 화면 비율에 따라 일부가 잘립니다. 사진은 현재 시설 모습을 보장하지 않습니다.

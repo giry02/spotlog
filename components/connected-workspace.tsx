@@ -25,6 +25,9 @@ import {
   Gamepad2,
   Eye,
   Navigation,
+  Signal,
+  Wifi,
+  BatteryFull,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -961,8 +964,11 @@ export default function ConnectedWorkspace() {
       setInput('');
     }
   };
-  const reset = () =>
+  const reset = () => {
+    setInput('');
     setSessions((old) => ({ ...old, [domain]: createConversation(domain) }));
+    scrollPaneRef.current?.scrollTo({ top: 0, behavior: 'instant' });
+  };
   const back = () =>
     setSessions((old) => ({ ...old, [domain]: undoConversation(old[domain]) }));
   const resume = (id: number) =>
@@ -971,15 +977,50 @@ export default function ConnectedWorkspace() {
       [domain]: resumeConversation(old[domain], id),
     }));
   const latestRef = useRef<HTMLElement | null>(null);
+  const scrollPaneRef = useRef<HTMLElement | null>(null);
   const seenTurn = useRef(domain + ':1');
   const lastTurn = current.turns[current.turns.length - 1];
-  const scrollToLatest = () =>
-    latestRef.current?.scrollIntoView({
+  const scrollToLatest = () => {
+    const pane = scrollPaneRef.current;
+    const turn = latestRef.current;
+    if (!pane || !turn) return;
+    pane.scrollTo({
+      top:
+        pane.scrollTop +
+        turn.getBoundingClientRect().top -
+        pane.getBoundingClientRect().top -
+        16,
       behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
         ? 'instant'
         : 'smooth',
-      block: 'start',
     });
+  };
+  useEffect(() => {
+    document.documentElement.classList.add('moa-mobile-open');
+    const viewport = window.visualViewport;
+    const resize = () => {
+      document.documentElement.style.setProperty(
+        '--moa-viewport-height',
+        `${viewport?.height ?? window.innerHeight}px`,
+      );
+      document.documentElement.style.setProperty(
+        '--moa-viewport-top',
+        `${viewport?.offsetTop ?? 0}px`,
+      );
+    };
+    resize();
+    viewport?.addEventListener('resize', resize);
+    viewport?.addEventListener('scroll', resize);
+    window.addEventListener('resize', resize);
+    return () => {
+      document.documentElement.classList.remove('moa-mobile-open');
+      document.documentElement.style.removeProperty('--moa-viewport-height');
+      document.documentElement.style.removeProperty('--moa-viewport-top');
+      viewport?.removeEventListener('resize', resize);
+      viewport?.removeEventListener('scroll', resize);
+      window.removeEventListener('resize', resize);
+    };
+  }, []);
   useEffect(() => {
     const key = domain + ':' + lastTurn.id;
     if (seenTurn.current === key) return;
@@ -1095,15 +1136,24 @@ export default function ConnectedWorkspace() {
     x.path.endsWith(getPlace(photoId)?.image.split('/').at(-1) ?? 'none'),
   );
   return (
-    <div className="demo-stage">
-      <div className="mobile-shell cx-shell">
+    <div className="demo-stage moa-mobile-stage">
+      <div className="mobile-shell cx-shell moa-device">
+        <div className="moa-statusbar" aria-hidden="true">
+          <span>9:41</span>
+          <i />
+          <div>
+            <Signal size={15} />
+            <Wifi size={15} />
+            <BatteryFull size={21} />
+          </div>
+        </div>
         <header className="topbar">
           <a href="/" className="brand">
-            moa<span>발견</span>
+            moa<span>Spotlog 챗봇</span>
           </a>
           <div className="top-actions">
             <button className="mode-badge" onClick={() => setPanel('about')}>
-              기능 연결 체험
+              체험판
               <Info size={13} />
             </button>
             <Button
@@ -1127,8 +1177,13 @@ export default function ConnectedWorkspace() {
               모니터 비교
             </TabsTrigger>
           </TabsList>
-          <TabsContent value={domain}>
-            <main className="cx-page">
+          <TabsContent value={domain} className="moa-chat-panel">
+            <main
+              className="cx-page"
+              ref={scrollPaneRef}
+              aria-label="대화와 기능 카드"
+              tabIndex={0}
+            >
               <div className="cx-reference-label">
                 <span>지금 보고 있는 기준</span>
                 <button onClick={() => setPanel('reference')}>
@@ -1136,7 +1191,7 @@ export default function ConnectedWorkspace() {
                   <ChevronRight size={13} />
                 </button>
               </div>
-              <div className={'cx-reference ' + (s.nearby ? 'condensed' : '')}>
+              <div className="cx-reference condensed">
                 {domain === 'places' ? (
                   <img
                     src={getPlace(s.anchorId).image}
@@ -1282,15 +1337,6 @@ export default function ConnectedWorkspace() {
                   );
                 })}
               </div>
-              <div className="cx-suggestions">
-                <span>이어서 말해보세요</span>
-                {suggestions.map((q) => (
-                  <Button variant="outline" key={q} onClick={() => say(q)}>
-                    {q}
-                    <ArrowUpRight size={15} />
-                  </Button>
-                ))}
-              </div>
               <div
                 className="sr-only"
                 role="status"
@@ -1309,18 +1355,24 @@ export default function ConnectedWorkspace() {
             </main>
           </TabsContent>
         </Tabs>
+        {current.turns.length > 1 && (
+          <button
+            className="moa-latest"
+            aria-label="최근 대화로 이동"
+            onClick={scrollToLatest}
+          >
+            <ArrowDown size={14} />
+            최근 대화
+          </button>
+        )}
         <footer className="composer-dock cx-conversation-dock">
-          <div className="cx-dock-next">
-            <button onClick={() => say(suggestions[0])}>
-              <Sparkles size={13} />
-              {suggestions[0]}
-            </button>
-            {current.turns.length > 1 && (
-              <button aria-label="최근 대화로 이동" onClick={scrollToLatest}>
-                <ArrowDown size={14} />
-                최근 대화
+          <div className="moa-quick-replies" aria-label="이어서 물어보기">
+            {suggestions.map((q) => (
+              <button key={q} onClick={() => say(q)}>
+                {q}
+                <ArrowUpRight size={14} />
               </button>
-            )}
+            ))}
           </div>
           <form
             className="composer"
@@ -1333,11 +1385,13 @@ export default function ConnectedWorkspace() {
               aria-label="원하는 조건이나 다음 질문"
               placeholder={
                 domain === 'places'
-                  ? '두 번째 장소 근처 맛집은?'
-                  : '게임도 하고 눈이 편했으면 좋겠어'
+                  ? '어떤 곳을 찾고 있나요?'
+                  : '원하는 모니터 조건을 말해보세요'
               }
               value={input}
               maxLength={500}
+              enterKeyHint="send"
+              autoComplete="off"
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && e.nativeEvent.isComposing)
@@ -1353,46 +1407,24 @@ export default function ConnectedWorkspace() {
             </Button>
           </form>
           <div className="dock-caption">
-            <span>새 답변은 아래로 이어져요</span>
+            <span>모아 · 질문에 맞춰 연결되는 기능</span>
             <button onClick={() => setPanel('about')}>체험 안내</button>
           </div>
         </footer>
+        <div className="moa-home-indicator" aria-hidden="true">
+          <span />
+        </div>
       </div>
-      <aside className="desktop-inspector">
-        <div className="inspector-header">
-          <GitBranch size={20} />
-          <strong>대화에서 기능으로</strong>
-        </div>
-        <Wiring view={view} />
-        <div className="cx-try-note">
-          <strong>이렇게 체험해 보세요</strong>
-          <ol>
-            {(domain === 'places'
-              ? [
-                  '“두 번째 장소 근처 맛집은?” 입력',
-                  '도보 범위를 5분으로 줄이기',
-                  '지도 핀 선택 → 메뉴·이동 확인',
-                  '다른 장소 선택 → 주변 결과 갱신',
-                ]
-              : [
-                  '게임·눈 편의 조건 더하기',
-                  '예산을 30만원으로 줄이기',
-                  '제품을 비교에 추가하기',
-                  '선택 제품을 새 기준으로 바꾸기',
-                ]
-            ).map((x) => (
-              <li key={x}>{x}</li>
-            ))}
-          </ol>
-        </div>
-      </aside>
       <Dialog
         open={panel !== null}
         onOpenChange={(open) => {
           if (!open) setPanel(null);
         }}
       >
-        <DialogContent className="bottom-sheet" showCloseButton={false}>
+        <DialogContent
+          className="bottom-sheet moa-mobile-sheet"
+          showCloseButton={false}
+        >
           <DialogHeader>
             <div className="sheet-title-row">
               <DialogTitle>
