@@ -1,3 +1,4 @@
+import { naverDirectionsUrl } from './placeDirections';
 import {
   Award,
   ArrowLeft,
@@ -395,10 +396,7 @@ const readJourneys = (): Journey[] => {
   }
 };
 
-const makePlaceShareText = (place: Place) => `${place.name}\n${place.address}\n${place.description}\n\n카카오맵 길찾기\n${kakaoDirectionsUrl(place)}\n\nSpotlog 여행 기록에서 공유`;
-const kakaoDirectionsUrl = (place: Place) => Number.isFinite(place.lat) && Number.isFinite(place.lng)
-  ? `https://map.kakao.com/link/to/${encodeURIComponent(place.name)},${place.lat},${place.lng}`
-  : `https://map.kakao.com/?q=${encodeURIComponent(`${place.name} ${place.address}`)}`;
+const makePlaceShareText = (place: Place) => `${place.name}\n${place.address}\n${place.description}\n\n네이버 지도 길찾기\n${naverDirectionsUrl(place)}\n\nSpotlog 여행 기록에서 공유`;
 const journeyPlaceCount = (journey: Journey) => journey.days.reduce((sum, day) => sum + day.places.length, 0);
 const tripDurationLabel = (duration: TripDurationFilter) => tripDurationOptions.find((option) => option.id === duration)?.label ?? '전체 기간';
 const matchesTripDuration = (durationText: string, filter: TripDurationFilter) => {
@@ -1696,7 +1694,7 @@ function JourneyDetail({ journey, initialDay = 1, profile, comments, cheers, aut
 function GuidePlaceEmbed({ place, onShare, showImage = true }: { place?: Place; onShare: (place: Place) => void; showImage?: boolean }) {
   if (!place) return null;
   const Icon = kindIcon[place.kind];
-  return <aside className="guide-place-embed">{showImage && place.image && <img src={place.image} alt="" />}<div className="guide-place-copy">{showImage && <PhotoCredit image={place.image} />}<div className="place-kind"><Icon size={13} />{placeKindLabel[place.kind]}</div><h3>{place.name}</h3><div className="guide-place-time"><Clock3 size={14} />{place.time ? `${place.time} 도착 · ${place.duration} 체류` : place.duration}</div><p>{place.description}</p><blockquote>“{place.note}”</blockquote><div><button onClick={() => openExternal(kakaoDirectionsUrl(place))}><Navigation size={15} />길찾기</button><button onClick={() => onShare(place)}><Share2 size={15} />공유</button></div></div></aside>;
+  return <aside className="guide-place-embed">{showImage && place.image && <img src={place.image} alt="" />}<div className="guide-place-copy">{showImage && <PhotoCredit image={place.image} />}<div className="place-kind"><Icon size={13} />{placeKindLabel[place.kind]}</div><h3>{place.name}</h3><div className="guide-place-time"><Clock3 size={14} />{place.time ? `${place.time} 도착 · ${place.duration} 체류` : place.duration}</div><p>{place.description}</p><blockquote>“{place.note}”</blockquote><div><button onClick={() => openExternal(naverDirectionsUrl(place))}><Navigation size={15} />길찾기</button><button onClick={() => onShare(place)}><Share2 size={15} />공유</button></div></div></aside>;
 }
 
 function JourneyEditor({ journey, onBack, onSave }: { journey: Journey; onBack: () => void; onSave: (journey: Journey) => void }) {
@@ -2039,7 +2037,7 @@ const kindIcon: Record<PlaceKind, LucideIcon> = { LANDMARK: MapPin, STAY: Hotel,
 
 function PlaceJournalCard({ place, index, onShare }: { place: Place; index: number; onShare: () => void }) {
   const Icon = kindIcon[place.kind];
-  return <article className="place-journal-card"><div className="timeline-rail"><span>{index + 1}</span><i /></div><div className="place-card-body"><div className="move-label"><Footprints size={13} />{place.move}</div><img src={place.image} alt="" /><div className="place-card-copy"><div className="place-kind"><Icon size={13} />{placeKindLabel[place.kind]}</div><h3>{place.name}</h3><p className="address">{place.address}</p><p>{place.description}</p><blockquote>{place.note}</blockquote><div className="place-card-actions"><button onClick={() => openExternal(kakaoDirectionsUrl(place))}><Navigation size={15} />길찾기</button><button onClick={onShare}><Share2 size={15} />장소 공유</button></div></div></div></article>;
+  return <article className="place-journal-card"><div className="timeline-rail"><span>{index + 1}</span><i /></div><div className="place-card-body"><div className="move-label"><Footprints size={13} />{place.move}</div><img src={place.image} alt="" /><div className="place-card-copy"><div className="place-kind"><Icon size={13} />{placeKindLabel[place.kind]}</div><h3>{place.name}</h3><p className="address">{place.address}</p><p>{place.description}</p><blockquote>{place.note}</blockquote><div className="place-card-actions"><button onClick={() => openExternal(naverDirectionsUrl(place))}><Navigation size={15} />길찾기</button><button onClick={onShare}><Share2 size={15} />장소 공유</button></div></div></div></article>;
 }
 
 function CreateJourneySheet({ onClose, onCreate }: { onClose: () => void; onCreate: (title: string, region: string) => void }) {
