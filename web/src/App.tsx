@@ -68,6 +68,7 @@ import { normalizeVisits, removeVisit } from './visits';
 import { AddToTripSheet } from './AddToTripSheet';
 import { applyTripPlacement, type TripPlacementRequest } from './tripPlacement';
 import { AiTravelSheet, type AiTravelSheetDraft } from './AiTravelSheet';
+import { SavedLandmarkDetailSheet } from './SavedLandmarkDetailSheet';
 import { SavedTripControls } from './SavedTripControls';
 import { newSavedTripDraft, pickSavedTripPlace, forgetSavedTripPlace, type SavedTripDraft } from './savedTripBuilder';
 import { publicTourismJourneys, publicTourismPlaces } from './publicTourismContent';
@@ -1545,9 +1546,10 @@ function JourneySection({ title, description, journeys, onOpen, onShare }: { tit
 }
 
 function SavedPlaceCard({ place, placement, selection, onRemove, onAdd }: { selection?: { label: string; badge: string; included: boolean }; place: Place; placement?: { day: number; date: string; journeyTitle: string; count: number }; onRemove: (id: string) => void; onAdd: (place: Place) => void }) {
+  const [detailOpen, setDetailOpen] = useState(false);
   const placementLabel = selection?.label ?? (placement ? '담김 확인·해제' : '여행에 담기');
   const included = selection ? selection.included : Boolean(placement);
-  return <article className={`saved-card ${included ? 'is-added-to-trip' : ''}`}>
+  return <><article className={`saved-card ${included ? 'is-added-to-trip' : ''}`}>
     <div className="saved-card-media">
       <img src={place.image} alt={`${place.name} 저장 사진`} />
       <PhotoCredit image={place.image} />
@@ -1557,10 +1559,13 @@ function SavedPlaceCard({ place, placement, selection, onRemove, onAdd }: { sele
       <h3>{place.name}</h3>
       <p>{place.hook ?? place.description}</p>
       <div className="saved-place-time"><Clock3 size={13} />{place.bestTime ?? place.duration}</div>
-      <button className={`add-to-trip ${included ? 'is-added' : ''}`} onClick={() => onAdd(place)} aria-label={`${place.name}, ${placementLabel}`} title={!selection && placement ? `${placement.journeyTitle} · ${placement.date}` : undefined}>{included && <Check size={13} />}{placementLabel}</button>
+      <div className="saved-card-actions">
+        <button className={`add-to-trip ${included ? 'is-added' : ''}`} onClick={() => onAdd(place)} aria-label={`${place.name}, ${placementLabel}`} title={!selection && placement ? `${placement.journeyTitle} · ${placement.date}` : undefined}>{included && <Check size={13} />}{placementLabel}</button>
+        <button type="button" className="saved-place-detail-button" aria-label={`${place.name} 상세보기`} aria-haspopup="dialog" onClick={() => setDetailOpen(true)}>상세보기<ChevronRight size={14} aria-hidden="true" /></button>
+      </div>
     </div>
     <button onClick={() => onRemove(place.id)} aria-label={`${place.name} 저장 취소`}><Bookmark size={19} fill="currentColor" /></button>
-  </article>;
+  </article>{detailOpen && <SavedLandmarkDetailSheet place={place} onClose={() => setDetailOpen(false)} />}</>;
 }
 
 function Saved({ places, journeys, draft, onDraftChange, onCreate, onRemove, onAdd, onGoDiscover }: { places: Place[]; journeys: Journey[]; draft: SavedTripDraft; onDraftChange: (draft: SavedTripDraft) => void; onCreate: (journey: Journey) => string | null; onRemove: (id: string) => void; onAdd: (place: Place) => void; onGoDiscover: () => void }) {

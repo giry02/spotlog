@@ -21,8 +21,8 @@
 .phase-day-options button { flex-shrink: 0; padding: 0 15px; border-radius: 11px; border: 1px solid #ddddd8; background: white; font-size: 14px; }.phase-day-options .active { color: white; background: #242422; border-color: #242422; }
 .local-storage-warning { padding: 12px 18px; color: #8d3825; background: #fff1e9; font-size: 14px; }
 .local-data-note { font-size: 12px; color: #797972; line-height: 1.6; }
-.tab-discover.place-guide .content { height: calc(100dvh - 70px - env(safe-area-inset-bottom)); }
-.tab-discover.place-photo .content { height: 100dvh; overflow: hidden; background: #111; }
+.tab-discover.place-guide:not(.detail-open) .content { height: calc(100% - 74px - env(safe-area-inset-bottom)); }
+.tab-discover.place-photo .content { height: 100%; overflow: hidden; background: #111; }
 .place-discover.is-photo { height: 100%; background: #111; }
 .is-photo .place-discover-header { position: absolute; top: 0; color: white; background: linear-gradient(180deg, rgba(0,0,0,.62), transparent); }
 .is-photo .place-discover-header > div:first-child span { color: rgba(255,255,255,.7); }

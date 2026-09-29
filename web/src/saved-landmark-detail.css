@@ -1,0 +1,17 @@
+/* Saved's existing card stays compact; detail reuses the current sheet and gallery. */
+.saved-card-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 10px; }
+.saved-card-copy .saved-card-actions .add-to-trip { margin-top: 0; }
+.saved-place-detail-button { display: inline-flex; align-items: center; justify-content: center; gap: 2px; min-height: 34px; padding: 0 4px; border: 0; border-radius: 8px; background: transparent; color: #62625c; font-size: var(--type-caption); font-weight: 600; }
+.saved-place-detail-button:hover { background: #f4f4f0; color: var(--ink); }
+.saved-place-detail-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.saved-landmark-detail .landmark-guide-card { border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+.saved-landmark-detail .landmark-guide-image { overflow: hidden; border-radius: 16px; }
+.saved-landmark-detail .landmark-guide-copy { padding: 16px 0 0; }
+.saved-landmark-detail .landmark-guide-copy > h3 { display: none; }
+.saved-landmark-detail .landmark-guide-copy > p:not(.landmark-gallery-caption) { font-size: var(--type-body); line-height: var(--leading-body); }
+.saved-landmark-facts { display: grid; grid-template-columns: 74px minmax(0,1fr); gap: 12px; margin: 20px 0 0; padding-top: 20px; border-top: 1px solid var(--line); font-size: var(--type-subhead); line-height: 1.6; }
+.saved-landmark-facts dt { color: var(--muted); }
+.saved-landmark-facts dd { min-width: 0; margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+.phase-sheet:has(.saved-landmark-detail) { animation: saved-landmark-rise .2s ease-out; }
+@keyframes saved-landmark-rise { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .phase-sheet:has(.saved-landmark-detail) { animation: none; } }
