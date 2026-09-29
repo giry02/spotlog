@@ -33,6 +33,11 @@ export type JourneyStatus = 'PLANNING' | 'TRAVELING' | 'PUBLISHED';
 export interface Place {
   id: string;
   visitId?: string;
+  anchorVisitId?: string;
+  personal?: boolean;
+  locationVerified?: boolean;
+  stayDayIds?: string[];
+  bookingFixed?: boolean;
   kind: PlaceKind;
   name: string;
   area: string;
@@ -55,6 +60,7 @@ export interface Place {
 }
 
 export interface JourneyDay {
+  dayId?: string;
   day: number;
   date: string;
   title: string;
@@ -76,6 +82,8 @@ export interface StoryBlock {
 
 export interface Journey {
   id: string;
+  purpose?: 'PLAN' | 'JOURNAL';
+  sourceTripId?: string;
   title: string;
   region: string;
   dateRange: string;

@@ -75,6 +75,9 @@ import { publicTourismJourneys, publicTourismPlaces } from './publicTourismConte
 import { PhotoCredit, PublicSourceNotes, StoryPhoto } from './PublicTourismCredit';
 import { Button, Field } from './ui';
 import { StyleGuide } from './StyleGuide';
+import { PersonalTrip } from './PersonalTrip';
+import { CreatePlanSheet } from './CreatePlanSheet';
+import { isPersonalPlan, normalizePlan, removePlanVisit } from './tripPlan';
 import {
   discoveryLandmarks,
   initialJourneys,
@@ -869,7 +872,7 @@ export default function App() {
   const [tab, setTab] = useState<Tab>('home');
   const [savedIds, setSavedIds] = useLocalState<string[]>(storageKeys.saved, readSavedIds);
   const [journeys, persistJourneys] = useLocalState<Journey[]>(storageKeys.journeys, readJourneys);
-  const setJourneys = (action: Journey[] | ((current: Journey[]) => Journey[])) => persistJourneys((current) => (typeof action === 'function' ? action(current) : action).map(normalizeVisits));
+  const setJourneys = (action: Journey[] | ((current: Journey[]) => Journey[])) => persistJourneys((current) => (typeof action === 'function' ? action(current) : action).map(journey => normalizePlan(normalizeVisits(journey))));
   const [storageIssue, setStorageIssue] = useState(localRepository.getIssue());
   const [selectedJourneyId, setSelectedJourneyId] = useState<string | null>(null);
   const [selectedTemplate, setSelectedTemplate] = useState<HomeTripTemplate | null>(null);
@@ -878,6 +881,7 @@ export default function App() {
   const guideScrollTop = useRef(0);
   const [editingJourneyId, setEditingJourneyId] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
+  const [planCreating, setPlanCreating] = useState(false);
   const [placementPlaces, setPlacementPlaces] = useState<Place[] | null>(null);
   const [aiTravelOpen, setAiTravelOpen] = useState(false);
   const aiTravelDraft = useRef<AiTravelSheetDraft | null>(null);
@@ -904,6 +908,7 @@ export default function App() {
     setSelectedTemplate(state.templateId ? homeTripTemplates.find((template) => template.id === state.templateId) ?? null : null);
     setEditingJourneyId(state.editorId);
     setCreating(false);
+    setPlanCreating(false);
     setPlacementPlaces(null);
     setAiTravelOpen(false);
     setDetailDay(state.detailDay ?? null);
@@ -1023,12 +1028,12 @@ export default function App() {
   const removePlacedVisit = (journeyId: string, dayNumber: number, visitId: string): string | null => {
     const target = journeys.find((journey) => journey.id === journeyId && journey.isMine);
     if (!target || !target.days.some((day) => day.day === dayNumber && day.places.some((place) => place.visitId === visitId))) return '담긴 장소를 다시 확인해 주세요.';
-    if (!setJourneys((current) => current.map((journey) => journey.id === journeyId ? removeVisit(journey, dayNumber, visitId) : journey))) return localRepository.getIssue() ?? '해제하지 못했어요. 다시 시도해 주세요.';
+    if (!setJourneys((current) => current.map((journey) => journey.id === journeyId ? (isPersonalPlan(journey) ? removePlanVisit(journey, visitId, false) : removeVisit(journey, dayNumber, visitId)) : journey))) return localRepository.getIssue() ?? '해제하지 못했어요. 다시 시도해 주세요.';
     showToast(`DAY ${dayNumber} 담김을 해제했습니다. 저장한 장소는 유지됩니다.`);
     return null;
   };
   const acceptAiDraft = (draft: Journey): string | null => {
-    const created = { ...draft, author: profile.displayName, recommendationKind: 'AI' as const, isMine: true, visibility: 'PRIVATE' as const };
+    const created = { ...draft, purpose: 'PLAN' as const, author: profile.displayName, recommendationKind: 'AI' as const, isMine: true, visibility: 'PRIVATE' as const };
     if (!setJourneys((current) => [created, ...current])) return null;
     openMyJourney(created.id);
     setAiTravelOpen(false);
@@ -1096,7 +1101,7 @@ export default function App() {
   };
 
   const createSavedTrip = (draft: Journey): string | null => {
-    const created = { ...draft, author: profile.displayName, isMine: true, visibility: 'PRIVATE' as const };
+    const created = { ...draft, purpose: 'PLAN' as const, author: profile.displayName, isMine: true, visibility: 'PRIVATE' as const };
     if (!setJourneys((current) => [created, ...current])) return null;
     setSavedTripDraft(newSavedTripDraft());
     openMyJourney(created.id);
@@ -1215,13 +1220,15 @@ export default function App() {
         <div className={placeView !== 'GUIDE' ? 'discovery-pane' : ''} hidden={tab !== 'discover' || Boolean(selectedJourney || editingJourney)}><Discover view={placeView} onViewChange={changePlaceView} savedIds={savedIds} onToggle={toggleSaved} onShare={sharePlace} /></div>
         {editingJourney ? (
           <JourneyEditor journey={editingJourney} onBack={goBack} onSave={saveJourney} />
+        ) : selectedJourney && isPersonalPlan(selectedJourney) ? (
+          <PersonalTrip key={selectedJourney.id} journey={selectedJourney} initialDay={detailDay ?? 1} catalog={placeCatalog} savedPlaces={savedPlaces} onBack={goBack} onChange={next => setJourneys(current => current.map(item => item.id === next.id ? next : item))} onAddLandmark={() => selectTab('discover')} />
         ) : selectedJourney ? (
           <JourneyDetail key={`${selectedJourney.id}:${detailDay ?? 1}`} initialDay={detailDay ?? 1} journey={selectedJourney} profile={profile} comments={comments.filter((comment) => comment.journeyId === selectedJourney.id)} cheers={cheers[selectedJourney.id] ?? { LOVE: 0, BEST: 0, HELPFUL: 0 }} authorJourneys={selectedJourney.isMine ? journeys.filter((journey) => journey.isMine) : journeys.filter((journey) => !journey.isMine && journey.author === selectedJourney.author)} onBack={goBack} onShare={() => void shareJourney(selectedJourney)} onSharePlace={(place) => void sharePlace(place)} onEdit={() => editJourney(selectedJourney.id)} onDelete={() => deleteJourney(selectedJourney)} onCopy={() => selectedTemplate ? startRecommendedJourney(selectedTemplate) : copyJourney(selectedJourney)} onComment={(body) => addJourneyComment(selectedJourney.id, body)} onCheer={(cheer) => toggleJourneyCheer(selectedJourney.id, cheer)} onOpenJourney={openJourney} copyLabel={selectedTemplateJourney ? '이 일정 내 여행에 담기' : undefined} />
         ) : (
           <>
             {tab === 'home' && <Home journeys={journeys} templates={homeTripTemplates} onOpen={openJourney} onPreview={openTemplate} onGoCommunity={() => selectTab('community')} onGoPlaces={() => selectTab('discover')} onGoTrips={() => selectTab('trips')} onGoProfile={() => selectTab('profile')} onAiTravel={() => setAiTravelOpen(true)} />}
             {tab === 'community' && <Community journeys={journeys} filters={searchDraft} onFiltersChange={setSearchDraft} onOpen={openJourney} />}
-            {tab === 'trips' && <Trips journeys={journeys} onOpen={openJourney} onCreate={() => setCreating(true)} onShare={(journey) => void shareJourney(journey)} />}
+            {tab === 'trips' && <Trips journeys={journeys} onOpen={openJourney} onCreate={() => setPlanCreating(true)} onCreateJournal={() => setCreating(true)} onShare={(journey) => void shareJourney(journey)} />}
             {tab === 'saved' && <Saved places={savedPlaces} journeys={ownJourneys} draft={savedTripDraft} onDraftChange={setSavedTripDraft} onCreate={createSavedTrip} onRemove={toggleSaved} onAdd={(place) => setPlacementPlaces([place])} onGoDiscover={() => selectTab('discover')} />}
             {import.meta.env.DEV && tab === 'style-guide' && <StyleGuide onBack={goBack} />}
             {tab === 'profile' && <Profile native={native} journeys={journeys} comments={comments} cheers={cheers} profile={profile} notificationPreferences={notificationPreferences} notificationPermission={notificationPermission} onBack={goBack} onProfileChange={setProfile} onNotificationPreferencesChange={changeNotificationPreferences} onPreviewNotification={() => showToast(previewCreatorNotification(notificationPreferences.viewMilestone) ? '테스트 푸시를 보냈습니다.' : '테스트 푸시는 Spotlog 앱에서 확인할 수 있습니다.')} onOpen={openJourney} />}
@@ -1237,6 +1244,7 @@ export default function App() {
         })}
       </nav>}
       {creating && <CreateJourneySheet onClose={() => setCreating(false)} onCreate={createJourney} />}
+      {planCreating && <CreatePlanSheet places={savedPlaces.filter(place => place.kind === 'LANDMARK')} author={profile.displayName} onClose={() => setPlanCreating(false)} onCreate={journey => { if (!setJourneys(current => [journey, ...current])) return false; setPlanCreating(false); openMyJourney(journey.id); return true; }} />}
       {placementPlaces && <AddToTripSheet places={placementPlaces} journeys={ownJourneys} initialJourneyId={ownJourneys.find((journey) => journey.days.some((day) => day.places.some((place) => placementPlaces.some((selected) => selected.id === place.id))))?.id} initialDay={ownJourneys.flatMap((journey) => journey.days).find((day) => day.places.some((place) => placementPlaces.some((selected) => selected.id === place.id)))?.day} onClose={() => setPlacementPlaces(null)} onConfirm={confirmTripPlacement} onRemove={removePlacedVisit} />}
       {aiTravelOpen && <AiTravelSheet draftRef={aiTravelDraft} places={aiPlaceCandidates} onClose={() => setAiTravelOpen(false)} onCreate={acceptAiDraft} />}
       {toast && <div className="toast" role="status"><Check size={15} />{toast}</div>}
@@ -1528,13 +1536,15 @@ function ActionButton({ label, onClick, icon: Icon, active = false }: { label: s
   return <div className="action-item"><button className={active ? 'active' : ''} onClick={onClick} aria-label={label}><Icon size={23} fill={active ? 'currentColor' : 'none'} /></button><span>{label}</span></div>;
 }
 
-function Trips({ journeys, onOpen, onCreate, onShare }: { journeys: Journey[]; onOpen: (id: string) => void; onCreate: () => void; onShare: (journey: Journey) => void }) {
+function Trips({ journeys, onOpen, onCreate, onCreateJournal, onShare }: { journeys: Journey[]; onOpen: (id: string) => void; onCreate: () => void; onCreateJournal: () => void; onShare: (journey: Journey) => void }) {
   const myTrips = journeys.filter((journey) => journey.isMine);
   return <div className="page trips-page">
-    <AppHeader title="내 여행" subtitle="계획하고, 기록하고, 다시 나누는 여행" action={<button className="header-action solid" onClick={onCreate} aria-label="새 여행"><Plus size={20} /></button>} />
-    <section className="journey-intro"><div><span>PLAN · WRITE · SHARE</span><h2>동선 위에 이야기를 쓰는<br />나만의 여행 가이드</h2></div><Edit3 size={32} /></section>
-    {myTrips.length > 0 && <JourneySection title="내 여행과 여행기" description="계획 중인 초안과 내가 발행한 글" journeys={myTrips} onOpen={onOpen} onShare={onShare} />}
-    <button className="primary wide create-trip-button" onClick={onCreate}><Edit3 size={18} />새 여행기 만들기</button>
+    <AppHeader title="내 여행" subtitle="저장한 곳을 이어 만드는 나의 동선" action={<button className="header-action solid" onClick={onCreate} aria-label="새 여행"><Plus size={20} /></button>} />
+    <section className="journey-intro"><div><span>MY TRIP</span><h2>가고 싶은 곳을 잇고<br />주변에서 골라 담아요</h2></div><MapIcon size={32} /></section>
+    {myTrips.some(isPersonalPlan) && <JourneySection title="내 동선" description="가고 싶은 장소와 함께 담은 업체" journeys={myTrips.filter(isPersonalPlan)} onOpen={onOpen} onShare={onShare} />}
+    {myTrips.some(journey => !isPersonalPlan(journey)) && <JourneySection title="여행기와 이전 기록" description="작성하고 보관한 여행 이야기" journeys={myTrips.filter(journey => !isPersonalPlan(journey))} onOpen={onOpen} onShare={onShare} />}
+    <button className="primary wide create-trip-button" onClick={onCreate}><Plus size={18} />저장한 곳으로 여행 만들기</button>
+    <button className="outline wide create-trip-button" onClick={onCreateJournal}><Edit3 size={16} />새 여행기 쓰기</button>
   </div>;
 }
 

@@ -1,0 +1,50 @@
+/* Personal itinerary actions reuse the existing 36px / R11 / 12px compact role.
+   Keep page actions, form inputs, and other card types on their own styles. */
+.personal-trip .plan-stops { gap: 10px; }
+.personal-trip .plan-stop { padding: 12px; }
+.personal-trip .plan-stop-main > div { display: flex; flex-direction: column; gap: 2px; }
+.personal-trip .plan-stop-main h3 { margin: 0; }
+.personal-trip .plan-stop > .public-photo-credit { margin-top: 2px; margin-left: 72px; }
+.personal-trip .plan-stop-actions { gap: 4px; margin-top: 6px; }
+.personal-trip .plan-stop-actions > .outline {
+  min-height: 36px;
+  padding: 0 10px;
+  gap: 5px;
+  border-radius: 11px;
+  border-color: #e5e4df;
+  background: #f8f8f6;
+  font-size: var(--type-caption);
+  font-weight: 700;
+  line-height: 1.5;
+  box-shadow: none;
+}
+.personal-trip .plan-stop-actions > .outline > svg { width: 14px; height: 14px; }
+.personal-trip .plan-stop-actions > button:not(.outline) {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0;
+  color: #73736d;
+}
+.personal-trip .plan-stop-actions > button:disabled { opacity: .25; }
+.personal-trip .plan-stop-actions > button:not(:disabled):hover { background: #eeede8; }
+.personal-trip .plan-day > .outline.wide {
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 11px;
+  background: transparent;
+  font-size: var(--type-caption);
+  line-height: 1.5;
+  box-shadow: none;
+}
+
+/* Nearby-card actions share the compact secondary-button role. */
+.nearby-row > .outline {
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 11px;
+  font-size: var(--type-caption);
+  line-height: 1.5;
+  box-shadow: none;
+}

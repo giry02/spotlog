@@ -18,7 +18,7 @@ export function createJourneyFromPlaces(options: NewJourneyOptions, author: stri
   const places = [...new Map(options.places.map(place => [place.id, place])).values()].map((place, index) => ({ ...place, visitId: `${id}:visit-${index}`, move: '이동시간 확인 필요' }));
   const region = [...new Set(places.map(place => place.area.split(/\s+/)[0]))].join(' · ') || '국내';
   return {
-    id, title, region, dateRange: start ? `${dateAt(0)} ~ ${dateAt(options.days - 1)}` : '날짜 미정',
+    id, purpose: 'PLAN', title, region, dateRange: start ? `${dateAt(0)} ~ ${dateAt(options.days - 1)}` : '날짜 미정',
     duration: options.days === 1 ? '당일 여행' : `${options.days - 1}박 ${options.days}일`,
     status: 'PLANNING', visibility: 'PRIVATE', cover: places[0]?.image ?? '',
     summary: places.length ? `저장한 ${places.length}곳으로 시작하는 여행입니다.` : '새로운 여행을 준비합니다.', story: '',
