@@ -747,6 +747,67 @@
 .tr-sheet .sheet-body {
   overscroll-behavior: contain;
 }
+.moa-sheet-backdrop[data-slot='dialog-overlay'] {
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: #17171666;
+  backdrop-filter: none;
+}
+.moa-bottom-sheet[data-slot='dialog-content'] {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 51;
+  width: 100%;
+  max-width: none;
+  max-height: min(720px, 88%);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 12px 20px max(20px, env(safe-area-inset-bottom));
+  border: 0;
+  border-radius: 26px 26px 0 0;
+  background: #fafaf8;
+  box-shadow: 0 -12px 35px #17171620;
+  transform: translateY(0);
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.moa-bottom-sheet[data-starting-style],
+.moa-bottom-sheet[data-ending-style] {
+  transform: translateY(100%);
+}
+.moa-bottom-sheet[data-ending-style] {
+  pointer-events: none;
+}
+.moa-bottom-sheet [data-slot='dialog-header'],
+.moa-bottom-sheet .tr-sheet-handle {
+  flex-shrink: 0;
+}
+.moa-bottom-sheet [data-slot='dialog-title'] {
+  font-size: 20px;
+  line-height: 1.5;
+}
+.moa-bottom-sheet [data-slot='dialog-description'] {
+  font-size: 14px;
+  color: #777773;
+  line-height: 1.6;
+}
+.moa-bottom-sheet .sheet-body {
+  min-height: 0;
+  overflow-y: auto;
+}
+.tr-sheet-handle {
+  width: 38px;
+  height: 4px;
+  margin: 0 auto -4px;
+  border-radius: 4px;
+  background: #cacac1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .moa-bottom-sheet[data-slot='dialog-content'] {
+    transition: none;
+  }
+}
 .tr-business-card {
   margin-top: 14px;
   border: 1px solid #e5e5de;

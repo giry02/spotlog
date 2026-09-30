@@ -808,9 +808,16 @@ export default function TripWorkspace() {
     createTripSession(),
   );
   const [input, setInput] = useState('');
-  const [panel, setPanel] = useState<
+  const [panel, updatePanel] = useState<
     'scenarios' | 'library' | 'about' | 'wiring' | 'history' | 'business' | null
   >(null);
+  const [panelOpen, setPanelOpen] = useState(false);
+  const setPanel = (next: typeof panel) => {
+    if (next) {
+      updatePanel(next);
+      setPanelOpen(true);
+    } else setPanelOpen(false);
+  };
   const [detail, setDetail] = useState<{
     reference: BusinessRef;
     state: TripState;
@@ -822,6 +829,7 @@ export default function TripWorkspace() {
   const [ready, setReady] = useState(false);
   const [storageError, setStorageError] = useState(false);
   const blockedStorage = useRef(false);
+  const deviceRef = useRef<HTMLDivElement | null>(null);
   const scrollPane = useRef<HTMLElement | null>(null),
     latestRef = useRef<HTMLElement | null>(null);
   const s = currentTrip(session);
@@ -952,7 +960,10 @@ export default function TripWorkspace() {
   );
   return (
     <div className="demo-stage moa-mobile-stage">
-      <div className="mobile-shell cx-shell moa-device tr-device">
+      <div
+        className="mobile-shell cx-shell moa-device tr-device"
+        ref={deviceRef}
+      >
         <div className="moa-statusbar" aria-hidden="true">
           <span>9:41</span>
           <i />
@@ -1180,18 +1191,21 @@ export default function TripWorkspace() {
         </div>
       </div>
       <Dialog
-        open={panel !== null}
-        onOpenChange={(open) => {
-          if (!open) setPanel(null);
+        open={panelOpen}
+        onOpenChange={setPanelOpen}
+        onOpenChangeComplete={(open) => {
+          if (!open) updatePanel(null);
         }}
       >
         <DialogContent
+          presentation="bottom-sheet"
+          portalContainer={deviceRef}
           className={
-            'bottom-sheet moa-mobile-sheet tr-sheet' +
-            (panel === 'business' ? ' tr-detail-sheet' : '')
+            'tr-sheet' + (panel === 'business' ? ' tr-detail-sheet' : '')
           }
           showCloseButton={false}
         >
+          <div className="tr-sheet-handle" aria-hidden="true" />
           <DialogHeader>
             <div className="sheet-title-row">
               <DialogTitle>
