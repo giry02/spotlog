@@ -1,0 +1,23 @@
+{
+  "mode": "built-in image_gen",
+  "purpose": "Generic fictional category images for the Moa travel prototype, never real business photographs.",
+  "date": "2026-09-30",
+  "changes": "Converted original PNGs to JPEG at quality 82; no content edits.",
+  "images": [
+    {
+      "path": "/images/demo-restaurant.jpg",
+      "saved_path": "E:/AI_Project/etc/public/images/demo-restaurant.jpg",
+      "prompt": "Use case: photorealistic-natural\nAsset type: category representative image for a fictional Korean travel chatbot mobile place detail sheet.\nPrimary request: A relaxed contemporary Korean neighborhood restaurant interior with wooden tables, natural daylight, greenery, and an open clean serving counter. Elegant but modest everyday lunch spot.\nStyle/medium: natural editorial interior photograph, realistic materials, quiet unoccupied atmosphere.\nComposition/framing: landscape 1536x1024, balanced wide view of the room suitable for a mobile header crop.\nConstraints: original generic fictional interior; no identifiable real business; no people, logos, signage, lettering, watermarks; no food closeups, because menus vary."
+    },
+    {
+      "path": "/images/demo-cafe.jpg",
+      "saved_path": "E:/AI_Project/etc/public/images/demo-cafe.jpg",
+      "prompt": "Use case: photorealistic-natural\nAsset type: category representative image for a fictional Korean travel chatbot mobile place detail sheet.\nPrimary request: A light filled quiet Korean neighborhood cafe with coffee and tea cups on wood tables, large windows, and green plants. Cozy and modest, everyday neighborhood atmosphere.\nStyle/medium: natural editorial interior photograph with realistic wood grain and ceramic textures.\nComposition/framing: landscape 1536x1024, balanced wide room view suitable for a mobile header crop.\nLighting/mood: soft natural daylight, warm and restful.\nConstraints: original generic fictional interior; no identifiable real business; no people, logos, text, signage, lettering, or watermarks; avoid luxury hotel styling."
+    },
+    {
+      "path": "/images/demo-stay.jpg",
+      "saved_path": "E:/AI_Project/etc/public/images/demo-stay.jpg",
+      "prompt": "Use case: photorealistic-natural\nAsset type: category representative image for a fictional Korean travel chatbot mobile place detail sheet.\nPrimary request: A small clean Korean travel stay bedroom with a double bed, cream linen, wood details, and soft green scenery visible through a window.\nStyle/medium: natural editorial interior photograph with realistic linen and wood textures.\nComposition/framing: landscape 1536x1024, balanced wide view of the compact bedroom suitable for a mobile header crop.\nLighting/mood: natural daylight, peaceful and welcoming.\nConstraints: original generic fictional room; no identifiable real lodging; no people, text, logos, signage, lettering, or watermarks; no indication of live availability."
+    }
+  ]
+}

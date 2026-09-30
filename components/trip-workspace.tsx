@@ -59,6 +59,13 @@ import {
   money,
 } from '@/lib/trip-data';
 import credits from '@/lib/photo-credits.json';
+import { businessDetails, type BusinessRef } from '@/lib/business-details';
+import {
+  BusinessPreview,
+  BusinessDetailBody,
+  BusinessDetailAction,
+  type OpenBusiness,
+} from '@/components/business-detail';
 import './trip-workspace.css';
 
 const STORAGE_KEY = 'moa.spotlog.travel.v1';
@@ -269,7 +276,15 @@ function SelectedPlace({ state, act }: { state: TripState; act: Act }) {
     </section>
   );
 }
-function FoodUnit({ state, act }: { state: TripState; act: Act }) {
+function FoodUnit({
+  state,
+  act,
+  onDetail,
+}: {
+  state: TripState;
+  act: Act;
+  onDetail: OpenBusiness;
+}) {
   const results = foodResults(state);
   const pickedId = state.foodKind === '카페' ? state.cafeId : state.foodId;
   const picked = results.find((r) => r.id === pickedId);
@@ -277,6 +292,19 @@ function FoodUnit({ state, act }: { state: TripState; act: Act }) {
     return (
       <section className="tr-unit tr-confirm">
         <UnitTitle icon={Check} label="선택한 곳" title={picked.name} />
+        <button
+          className="tr-chosen-detail"
+          onClick={() => onDetail({ kind: 'food', id: picked.id }, state)}
+        >
+          <img
+            src={businessDetails({ kind: 'food', id: picked.id })?.image}
+            alt="AI 생성 업체 유형 예시"
+          />
+          <span>
+            {businessDetails({ kind: 'food', id: picked.id })?.headline}
+            <strong>메뉴·분위기·방문 정보 보기</strong>
+          </span>
+        </button>
         <div className="tr-mini-route">
           <span>{findPlace(state.anchorId)?.name}</span>
           <ArrowDown size={16} />
@@ -387,52 +415,47 @@ function FoodUnit({ state, act }: { state: TripState; act: Act }) {
             </Button>
           </div>
         )}
-        {results.map((item, i) => (
-          <button
-            className={
-              'tr-business ' + (pickedId === item.id ? 'is-selected' : '')
-            }
+        {results.map((item) => (
+          <BusinessPreview
             key={item.id}
-            aria-pressed={pickedId === item.id}
-            onClick={() => act({ type: 'food', id: item.id })}
-            aria-label={`${item.name} 선택`}
-          >
-            <span className="tr-business-number">
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <span>
-              <strong>{item.name}</strong>
-              <span>
-                {item.menu} · {money(item.price)}
-              </span>
-              <small>
-                {item.cuisine} · 가상 {state.foodKind}
-              </small>
-            </span>
-            <span className="tr-distance">
-              {pickedId === item.id ? (
-                <Check size={18} />
-              ) : (
-                <>
-                  <strong>{item.walk}분</strong>
-                  <small>도보 예시</small>
-                </>
-              )}
-            </span>
-          </button>
+            reference={{ kind: 'food', id: item.id }}
+            onOpen={() => onDetail({ kind: 'food', id: item.id }, state)}
+            onSelect={() => act({ type: 'food', id: item.id })}
+          />
         ))}
         <p className="tr-meta">식당·메뉴·가격·도보 시간은 체험용 예시입니다.</p>
       </section>
     </>
   );
 }
-function StayUnit({ state, act }: { state: TripState; act: Act }) {
+function StayUnit({
+  state,
+  act,
+  onDetail,
+}: {
+  state: TripState;
+  act: Act;
+  onDetail: OpenBusiness;
+}) {
   const results = stayResults(state);
   const picked = results.find((item) => item.id === state.stayId);
   if (picked)
     return (
       <section className="tr-unit tr-confirm">
         <UnitTitle icon={BedDouble} label="선택한 숙소" title={picked.name} />
+        <button
+          className="tr-chosen-detail"
+          onClick={() => onDetail({ kind: 'stay', id: picked.id }, state)}
+        >
+          <img
+            src={businessDetails({ kind: 'stay', id: picked.id })?.image}
+            alt="AI 생성 객실 유형 예시"
+          />
+          <span>
+            {businessDetails({ kind: 'stay', id: picked.id })?.headline}
+            <strong>객실·시설·체크인 정보 보기</strong>
+          </span>
+        </button>
         <div className="tr-linked">
           <MapPin size={14} />
           {findPlace(state.anchorId)?.name} 중심 · {period(state.days)}
@@ -518,36 +541,12 @@ function StayUnit({ state, act }: { state: TripState; act: Act }) {
         </div>
       )}
       {results.map((item) => (
-        <article
-          className={
-            'tr-stay ' + (state.stayId === item.id ? 'is-selected' : '')
-          }
+        <BusinessPreview
           key={item.id}
-        >
-          <div>
-            <span className="tr-stay-icon">
-              <BedDouble size={25} />
-            </span>
-            <div>
-              <strong>{item.name}</strong>
-              <p>{item.tags.slice(0, 2).join(' · ')}</p>
-            </div>
-          </div>
-          <div className="tr-stay-bottom">
-            <span>
-              <strong>{money(item.price)}</strong>
-              <small>1박 예시 · 가상 숙소</small>
-            </span>
-            <Button
-              variant={state.stayId === item.id ? 'default' : 'outline'}
-              aria-pressed={state.stayId === item.id}
-              onClick={() => act({ type: 'stay', id: item.id })}
-            >
-              {state.stayId === item.id ? <Check size={15} /> : null}
-              {state.stayId === item.id ? '선택됨' : '이 숙소 선택'}
-            </Button>
-          </div>
-        </article>
+          reference={{ kind: 'stay', id: item.id }}
+          onOpen={() => onDetail({ kind: 'stay', id: item.id }, state)}
+          onSelect={() => act({ type: 'stay', id: item.id })}
+        />
       ))}
       {state.stayId && (
         <Button className="tr-primary" onClick={() => act({ type: 'build' })}>
@@ -573,11 +572,13 @@ function PlanUnit({
   act,
   route = false,
   archived,
+  onDetail,
 }: {
   state: TripState;
   act: Act;
   route?: boolean;
   archived: boolean;
+  onDetail: OpenBusiness;
 }) {
   const day = state.activeDay;
   const [menu, setMenu] = useState<string | null>(null);
@@ -663,6 +664,29 @@ function PlanUnit({
                       : `${findPlace(visit.anchorId)?.name} 주변 · ${visit.entityId ? '체험 후보' : '직접 선택 필요'}`}
                   </p>
                 )}
+                {visit.kind !== 'place' && visit.entityId && !visit.locked && (
+                  <button
+                    className="tr-stop-detail"
+                    onClick={() =>
+                      onDetail(
+                        {
+                          kind: visit.kind === 'stay' ? 'stay' : 'food',
+                          id: visit.entityId!,
+                          visitId: visit.id,
+                        },
+                        {
+                          ...state,
+                          anchorId: visit.anchorId,
+                          activeDay: visit.day,
+                        },
+                      )
+                    }
+                  >
+                    {visit.kind === 'stay'
+                      ? '객실·시설 상세보기'
+                      : '메뉴·방문 정보 상세보기'}
+                  </button>
+                )}
                 {menu === visit.id && !route && (
                   <div className="tr-edit-actions">
                     <button onClick={() => act({ type: 'edit', id: visit.id })}>
@@ -744,10 +768,12 @@ function Units({
   state,
   act,
   archived,
+  onDetail,
 }: {
   state: TripState;
   act: Act;
   archived: boolean;
+  onDetail: OpenBusiness;
 }) {
   return (
     <fieldset
@@ -757,8 +783,12 @@ function Units({
     >
       {state.stage === 'discover' && <PlaceList state={state} act={act} />}
       {state.stage === 'place' && <SelectedPlace state={state} act={act} />}
-      {state.stage === 'food' && <FoodUnit state={state} act={act} />}
-      {state.stage === 'stay' && <StayUnit state={state} act={act} />}
+      {state.stage === 'food' && (
+        <FoodUnit state={state} act={act} onDetail={onDetail} />
+      )}
+      {state.stage === 'stay' && (
+        <StayUnit state={state} act={act} onDetail={onDetail} />
+      )}
       {state.stage === 'saved' && <PlaceList state={state} act={act} saved />}
       {(state.stage === 'plan' || state.stage === 'route') && (
         <PlanUnit
@@ -766,6 +796,7 @@ function Units({
           act={act}
           archived={archived}
           route={state.stage === 'route'}
+          onDetail={onDetail}
         />
       )}
     </fieldset>
@@ -778,8 +809,16 @@ export default function TripWorkspace() {
   );
   const [input, setInput] = useState('');
   const [panel, setPanel] = useState<
-    'scenarios' | 'library' | 'about' | 'wiring' | 'history' | null
+    'scenarios' | 'library' | 'about' | 'wiring' | 'history' | 'business' | null
   >(null);
+  const [detail, setDetail] = useState<{
+    reference: BusinessRef;
+    state: TripState;
+  } | null>(null);
+  const onDetail: OpenBusiness = (reference, state) => {
+    setDetail({ reference, state });
+    setPanel('business');
+  };
   const [ready, setReady] = useState(false);
   const [storageError, setStorageError] = useState(false);
   const blockedStorage = useRef(false);
@@ -1045,7 +1084,12 @@ export default function TripWorkspace() {
                           </span>
                         )}
                       </div>
-                      <Units state={snap} act={act} archived={!active} />
+                      <Units
+                        state={snap}
+                        act={act}
+                        archived={!active}
+                        onDetail={onDetail}
+                      />
                       {!active && (
                         <div className="cx-past-actions">
                           <span>당시 조건과 결과</span>
@@ -1142,21 +1186,26 @@ export default function TripWorkspace() {
         }}
       >
         <DialogContent
-          className="bottom-sheet moa-mobile-sheet tr-sheet"
+          className={
+            'bottom-sheet moa-mobile-sheet tr-sheet' +
+            (panel === 'business' ? ' tr-detail-sheet' : '')
+          }
           showCloseButton={false}
         >
           <DialogHeader>
             <div className="sheet-title-row">
               <DialogTitle>
-                {panel === 'scenarios'
-                  ? '어떤 여행을 해볼까요?'
-                  : panel === 'library'
-                    ? '찜한 장소와 내 여행'
-                    : panel === 'wiring'
-                      ? '이번 답변에 연결된 기능'
-                      : panel === 'history'
-                        ? '이어온 대화'
-                        : 'Spotlog 여행 체험'}
+                {panel === 'business' && detail
+                  ? businessDetails(detail.reference)?.name
+                  : panel === 'scenarios'
+                    ? '어떤 여행을 해볼까요?'
+                    : panel === 'library'
+                      ? '찜한 장소와 내 여행'
+                      : panel === 'wiring'
+                        ? '이번 답변에 연결된 기능'
+                        : panel === 'history'
+                          ? '이어온 대화'
+                          : 'Spotlog 여행 체험'}
               </DialogTitle>
               <Button
                 variant="ghost"
@@ -1168,18 +1217,26 @@ export default function TripWorkspace() {
               </Button>
             </div>
             <DialogDescription>
-              {panel === 'scenarios'
-                ? '새 대화로 시작합니다. 찜과 저장한 여행은 유지돼요.'
-                : panel === 'library'
-                  ? '이 브라우저에 저장한 체험 데이터입니다.'
-                  : panel === 'wiring'
-                    ? '선택한 장소·DAY·조건을 다음 카드가 함께 사용해요.'
-                    : panel === 'history'
-                      ? '이전 결과의 조건으로 다시 이어갈 수 있어요.'
-                      : 'Spotlog의 여행 기능을 대화 속에서 연결하는 체험판입니다.'}
+              {panel === 'business'
+                ? '가상 업체 상세정보 · 방문을 결정하는 흐름을 체험해 보세요.'
+                : panel === 'scenarios'
+                  ? '새 대화로 시작합니다. 찜과 저장한 여행은 유지돼요.'
+                  : panel === 'library'
+                    ? '이 브라우저에 저장한 체험 데이터입니다.'
+                    : panel === 'wiring'
+                      ? '선택한 장소·DAY·조건을 다음 카드가 함께 사용해요.'
+                      : panel === 'history'
+                        ? '이전 결과의 조건으로 다시 이어갈 수 있어요.'
+                        : 'Spotlog의 여행 기능을 대화 속에서 연결하는 체험판입니다.'}
             </DialogDescription>
           </DialogHeader>
           <div className="sheet-body">
+            {panel === 'business' && detail && (
+              <BusinessDetailBody
+                reference={detail.reference}
+                state={detail.state}
+              />
+            )}
             {panel === 'scenarios' && (
               <>
                 {scenarioCards}
@@ -1355,6 +1412,11 @@ export default function TripWorkspace() {
                   제주·서울, 일정은 최대 3일까지 지원합니다.
                 </p>
                 <p>
+                  식당·카페·숙소 상세 화면에는 분위기, 메뉴·객실, 시설, 운영시간
+                  예시와 여행에 맞는 이유가 담겨 있어요. 업체 사진은 AI로 만든
+                  유형별 예시이며 실제 업체 사진이 아닙니다.
+                </p>
+                <p>
                   대화·찜·내 여행은 이 브라우저에 저장됩니다. 실제 Spotlog
                   계정·서버·실시간 검색·예약·결제와 연결되지 않았어요.
                 </p>
@@ -1379,6 +1441,24 @@ export default function TripWorkspace() {
               </div>
             )}
           </div>
+          {panel === 'business' && detail && (
+            <BusinessDetailAction
+              reference={detail.reference}
+              state={detail.state}
+              onChoose={() => {
+                const ref = detail.reference;
+                if (ref.visitId) act({ type: 'edit', id: ref.visitId });
+                else if (
+                  ref.kind === 'stay'
+                    ? detail.state.stayId !== ref.id
+                    : detail.state.foodId !== ref.id &&
+                      detail.state.cafeId !== ref.id
+                )
+                  act({ type: ref.kind, id: ref.id });
+                setPanel(null);
+              }}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </div>
