@@ -1,0 +1,110 @@
+[
+  {
+    "width": 320,
+    "label": "korean",
+    "overflow": false,
+    "bodyOverflow": false,
+    "bodyFont": "16px",
+    "summaryFont": "20px",
+    "captionFont": "13px",
+    "languageHeight": 36,
+    "translations": 0,
+    "notices": 0
+  },
+  {
+    "width": 320,
+    "label": "english",
+    "overflow": false,
+    "bodyOverflow": false,
+    "bodyFont": "16px",
+    "summaryFont": "20px",
+    "captionFont": "13px",
+    "languageHeight": 36,
+    "translations": 6,
+    "notices": 1
+  },
+  {
+    "width": 320,
+    "label": "english-day1-reselected",
+    "overflow": false,
+    "bodyOverflow": false,
+    "bodyFont": "16px",
+    "summaryFont": "20px",
+    "captionFont": "13px",
+    "languageHeight": 36,
+    "translations": 6,
+    "notices": 1
+  },
+  {
+    "width": 390,
+    "label": "korean",
+    "overflow": false,
+    "bodyOverflow": false,
+    "bodyFont": "16px",
+    "summaryFont": "20px",
+    "captionFont": "13px",
+    "languageHeight": 36,
+    "translations": 0,
+    "notices": 0
+  },
+  {
+    "width": 390,
+    "label": "english",
+    "overflow": false,
+    "bodyOverflow": false,
+    "bodyFont": "16px",
+    "summaryFont": "20px",
+    "captionFont": "13px",
+    "languageHeight": 36,
+    "translations": 6,
+    "notices": 1
+  },
+  {
+    "width": 390,
+    "label": "english-day1-reselected",
+    "overflow": false,
+    "bodyOverflow": false,
+    "bodyFont": "16px",
+    "summaryFont": "20px",
+    "captionFont": "13px",
+    "languageHeight": 36,
+    "translations": 6,
+    "notices": 1
+  },
+  {
+    "width": 460,
+    "label": "korean",
+    "overflow": false,
+    "bodyOverflow": false,
+    "bodyFont": "16px",
+    "summaryFont": "20px",
+    "captionFont": "13px",
+    "languageHeight": 36,
+    "translations": 0,
+    "notices": 0
+  },
+  {
+    "width": 460,
+    "label": "english",
+    "overflow": false,
+    "bodyOverflow": false,
+    "bodyFont": "16px",
+    "summaryFont": "20px",
+    "captionFont": "13px",
+    "languageHeight": 36,
+    "translations": 6,
+    "notices": 1
+  },
+  {
+    "width": 460,
+    "label": "english-day1-reselected",
+    "overflow": false,
+    "bodyOverflow": false,
+    "bodyFont": "16px",
+    "summaryFont": "20px",
+    "captionFont": "13px",
+    "languageHeight": 36,
+    "translations": 6,
+    "notices": 1
+  }
+]
