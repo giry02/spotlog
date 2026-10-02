@@ -42,6 +42,7 @@ import {
   explanation,
   foodResults,
   nextQuestions,
+  nextPendingVisit,
   placeResults,
   stayResults,
   visitName,
@@ -58,6 +59,7 @@ import {
   period,
   money,
 } from '@/lib/trip-data';
+import { directionsTarget, nearbyMapSearch } from '@/lib/travel-links';
 import credits from '@/lib/photo-credits.json';
 import { businessDetails, type BusinessRef } from '@/lib/business-details';
 import {
@@ -83,6 +85,9 @@ const stageNames = {
   saved: '찜한 장소',
   plan: '내 여행',
   route: '방문 순서',
+  directions: '길찾기',
+  progress: '여행 이어가기',
+  external: '실제 주변 검색',
 };
 type Act = (action: TripAction) => void;
 
@@ -764,6 +769,298 @@ function PlanUnit({
     </section>
   );
 }
+function DirectionsUnit({
+  state,
+  act,
+  archived,
+}: {
+  state: TripState;
+  act: Act;
+  archived: boolean;
+}) {
+  const target = directionsTarget(state);
+  return (
+    <section className="tr-unit tr-directions">
+      <UnitTitle
+        icon={Route}
+        label="지도 연결"
+        title={
+          target.business?.name ??
+          (target.unavailable
+            ? '방문 위치 확인 필요'
+            : (target.place?.name ?? '먼저 장소를 골라주세요'))
+        }
+      />
+      {target.unavailable ? (
+        <>
+          <p className="tr-feature-note">
+            {target.visit?.locked
+              ? '예약한 숙소의 실제 위치는 아직 입력하지 않았어요.'
+              : '이 업체는 가상 체험 데이터라 실제 위치가 없어요.'}{' '}
+            정확한 길찾기를 제공할 수 없어요.
+          </p>
+          {target.place && (
+            <button
+              className="tr-feature-secondary"
+              onClick={() =>
+                act({ type: 'directions', placeId: target.place!.id })
+              }
+            >
+              <MapPin size={15} />
+              기준 장소 {target.place.name} 길찾기
+              <ChevronRight size={15} />
+            </button>
+          )}
+        </>
+      ) : target.links ? (
+        <>
+          <p className="tr-feature-note">
+            목적지를 지도에 전달해요. 출발지와 교통수단을 고르면 실제 경로를
+            확인할 수 있어요.
+          </p>
+          <div className="tr-map-links">
+            <a
+              aria-disabled={archived}
+              tabIndex={archived ? -1 : 0}
+              onClick={(e) => {
+                if (archived) e.preventDefault();
+              }}
+              href={target.links.directions}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              현재 위치에서 길찾기
+              <ArrowUpRight size={16} />
+            </a>
+            <a
+              aria-disabled={archived}
+              tabIndex={archived ? -1 : 0}
+              onClick={(e) => {
+                if (archived) e.preventDefault();
+              }}
+              href={target.links.kakao}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              카카오지도에서 확인
+              <ArrowUpRight size={16} />
+            </a>
+            <a
+              aria-disabled={archived}
+              tabIndex={archived ? -1 : 0}
+              onClick={(e) => {
+                if (archived) e.preventDefault();
+              }}
+              href={target.links.naver}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              네이버지도에서 확인
+              <ArrowUpRight size={16} />
+            </a>
+          </div>
+          <p className="tr-meta">
+            외부 지도에서 열기 · 경로·교통·도착점은 지도에서 확인
+          </p>
+        </>
+      ) : (
+        <Button onClick={() => act({ type: 'show', stage: 'discover' })}>
+          장소부터 찾기
+        </Button>
+      )}
+    </section>
+  );
+}
+function ExternalSearchUnit({
+  state,
+  act,
+  archived,
+}: {
+  state: TripState;
+  act: Act;
+  archived: boolean;
+}) {
+  const place = findPlace(state.anchorId);
+  return (
+    <section className="tr-unit">
+      <UnitTitle
+        icon={MapPin}
+        label="실제 주변 업체"
+        title={
+          place ? `${place.name} 주변 지도 검색` : '기준 장소부터 정해볼까요?'
+        }
+      />
+      {place ? (
+        <>
+          <p className="tr-feature-note">
+            실제 메뉴·위치·방문 정보는 지도에서 살펴보세요. 아래 링크는 체험
+            후보와 별개의 외부 검색입니다.
+          </p>
+          <div className="tr-map-links">
+            {(['식당', '카페', '숙소'] as const).map((kind) => (
+              <a
+                key={kind}
+                href={nearbyMapSearch(place.id, kind)!}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-disabled={archived}
+                tabIndex={archived ? -1 : 0}
+                onClick={(e) => {
+                  if (archived) e.preventDefault();
+                }}
+              >
+                {kind} 지도에서 찾기
+                <ArrowUpRight size={16} />
+              </a>
+            ))}
+          </div>
+          <p className="tr-meta">
+            검색 결과·영업·예약 정보는 지도 서비스에서 제공해요.
+          </p>
+        </>
+      ) : (
+        <Button onClick={() => act({ type: 'show', stage: 'discover' })}>
+          장소 찾기
+        </Button>
+      )}
+    </section>
+  );
+}
+function ProgressUnit({ state, act }: { state: TripState; act: Act }) {
+  const next = nextPendingVisit(state);
+  const checked = state.plan.filter((v) => v.status).length;
+  const [expanded, setExpanded] = useState(
+    !next || state.notice.includes('여러 DAY'),
+  );
+  return (
+    <section className="tr-unit tr-progress">
+      <UnitTitle
+        icon={Check}
+        label="여행 이어가기"
+        title={
+          next
+            ? `DAY ${next.day} · 다음 방문`
+            : state.plan.length
+              ? '모든 방문을 확인했어요'
+              : '아직 만든 일정이 없어요'
+        }
+        count={`${checked} / ${state.plan.length} 확인`}
+      />
+      {next && (
+        <div className="tr-next-visit">
+          <span>
+            {next.label} ·{' '}
+            {next.kind === 'place'
+              ? '장소'
+              : next.kind === 'stay'
+                ? '숙박'
+                : next.kind === 'cafe'
+                  ? '카페'
+                  : '식당'}
+          </span>
+          <h3>{visitName(next)}</h3>
+          <div className="tr-progress-actions">
+            <Button onClick={() => act({ type: 'directions', id: next.id })}>
+              <Route size={15} />
+              길찾기
+            </Button>
+            <Button
+              onClick={() =>
+                act({ type: 'progress', id: next.id, status: 'done' })
+              }
+            >
+              <Check size={15} />
+              다녀왔어요
+            </Button>
+          </div>
+          <button
+            className="tr-text-link"
+            onClick={() =>
+              act({ type: 'progress', id: next.id, status: 'skipped' })
+            }
+          >
+            이번에는 건너뛰기
+            <ArrowRight size={14} />
+          </button>
+        </div>
+      )}
+      {!state.plan.length && (
+        <Button onClick={() => act({ type: 'build' })}>
+          선택한 곳으로 일정 만들기
+        </Button>
+      )}
+      {!!state.plan.length && (
+        <>
+          <button
+            className="tr-feature-secondary"
+            aria-expanded={expanded}
+            onClick={() => setExpanded(!expanded)}
+          >
+            DAY별 방문 기록
+            <ChevronDown size={16} />
+          </button>
+          {expanded && (
+            <ul className="tr-visit-records">
+              {state.plan.map((v) => (
+                <li key={v.id}>
+                  <div>
+                    <small>
+                      DAY {v.day} · {v.label}
+                    </small>
+                    <strong>{visitName(v)}</strong>
+                    <span>
+                      {v.status === 'done'
+                        ? '방문 완료'
+                        : v.status === 'skipped'
+                          ? '건너뜀'
+                          : '미방문'}
+                    </span>
+                  </div>
+                  <div className="tr-record-actions">
+                    {v.status ? (
+                      <button
+                        onClick={() =>
+                          act({ type: 'progress', id: v.id, status: 'pending' })
+                        }
+                      >
+                        미방문으로
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          onClick={() =>
+                            act({ type: 'progress', id: v.id, status: 'done' })
+                          }
+                        >
+                          완료
+                        </button>
+                        <button
+                          onClick={() =>
+                            act({
+                              type: 'progress',
+                              id: v.id,
+                              status: 'skipped',
+                            })
+                          }
+                        >
+                          건너뛰기
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="tr-meta">
+            방문 상태는 이 기기에 기록돼요. 내 여행 저장본은 다시 저장할 때
+            갱신됩니다.
+          </p>
+        </>
+      )}
+    </section>
+  );
+}
 function Units({
   state,
   act,
@@ -790,6 +1087,13 @@ function Units({
         <StayUnit state={state} act={act} onDetail={onDetail} />
       )}
       {state.stage === 'saved' && <PlaceList state={state} act={act} saved />}
+      {state.stage === 'directions' && (
+        <DirectionsUnit state={state} act={act} archived={archived} />
+      )}
+      {state.stage === 'external' && (
+        <ExternalSearchUnit state={state} act={act} archived={archived} />
+      )}
+      {state.stage === 'progress' && <ProgressUnit state={state} act={act} />}
       {(state.stage === 'plan' || state.stage === 'route') && (
         <PlanUnit
           state={state}
@@ -1376,7 +1680,8 @@ export default function TripWorkspace() {
                 </ol>
                 <p className="tr-demo-note">
                   지금은 규칙과 샘플 문장으로 동작합니다. 실제 연결 단계에서는
-                  Jev가 유닛을 고르고 검색 결과를 LLM이 설명합니다.
+                  Flowise로 요청 해석·검색·설명을 연결하고, 확인된 결과를 기능
+                  카드로 보여줄 수 있어요. 실제 AI 연결은 아직 없습니다.
                 </p>
               </>
             )}
@@ -1420,6 +1725,12 @@ export default function TripWorkspace() {
                   교체하지 않아요.
                 </p>
                 <h3>이번 체험의 데이터</h3>
+                <p>
+                  “여기 길찾기 해줘”는 외부 지도 카드, “실제 식당 찾아줘”는 기준
+                  장소의 지도 검색, “다녀왔어”와 “다음 어디 가?”는 방문 상태와
+                  다음 일정 카드로 이어져요. 가상 업체에는 실제 길찾기를
+                  제공하지 않습니다.
+                </p>
                 <p>
                   장소 사진은 출처가 있는 실제 사진입니다.
                   식당·숙소·메뉴·가격·도보 시간은 가상 예시예요. 장소 탐색은

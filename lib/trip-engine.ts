@@ -8,6 +8,7 @@ import {
   period,
   type Region,
 } from './trip-data';
+import { directionsTarget } from './travel-links';
 
 export type Stage =
   | 'discover'
@@ -16,7 +17,10 @@ export type Stage =
   | 'stay'
   | 'plan'
   | 'saved'
-  | 'route';
+  | 'route'
+  | 'directions'
+  | 'progress'
+  | 'external';
 export type Visit = {
   id: string;
   day: number;
@@ -25,6 +29,7 @@ export type Visit = {
   anchorId: string;
   label: string;
   locked: boolean;
+  status?: 'done' | 'skipped';
 };
 export type TripState = {
   stage: Stage;
@@ -52,6 +57,9 @@ export type TripState = {
   editingId: string | null;
   activeDay: number;
   savedPlanId: string | null;
+  directionsVisitId?: string | null;
+  directionsPlaceId?: string | null;
+  directionsBusinessId?: string | null;
 };
 export type TripTurn = { id: number; state: TripState; restoredFrom?: number };
 export type SavedPlan = {
@@ -84,6 +92,8 @@ export type TripAction =
   | { type: 'edit'; id: string }
   | { type: 'remove'; id: string }
   | { type: 'move'; id: string; direction: -1 | 1 }
+  | { type: 'directions'; id?: string; placeId?: string; businessId?: string }
+  | { type: 'progress'; id: string; status: 'done' | 'skipped' | 'pending' }
   | { type: 'save' }
   | { type: 'open'; id: string }
   | { type: 'resume'; id: number };
@@ -144,6 +154,7 @@ export function isTripSession(value: unknown): value is TripSession {
         ['place', 'food', 'cafe', 'stay'].includes(v.kind) &&
         typeof v.label === 'string' &&
         typeof v.locked === 'boolean' &&
+        (v.status === undefined || ['done', 'skipped'].includes(v.status)) &&
         Boolean(findPlace(v.anchorId)) &&
         (v.entityId === null ||
           Boolean(
@@ -172,6 +183,9 @@ export function isTripSession(value: unknown): value is TripSession {
           'plan',
           'saved',
           'route',
+          'directions',
+          'progress',
+          'external',
         ].includes(s.stage) &&
         typeof s.question === 'string' &&
         typeof s.notice === 'string' &&
@@ -204,6 +218,13 @@ const copy = (s: TripState): TripState => ({
   savedIds: [...s.savedIds],
   plan: s.plan.map((v) => ({ ...v })),
 });
+/** Continue in itinerary order, starting at the selected DAY. Old visits default to pending. */
+export function nextPendingVisit(s: TripState): Visit | undefined {
+  return (
+    s.plan.find((v) => v.day >= s.activeDay && !v.status) ??
+    s.plan.find((v) => !v.status)
+  );
+}
 export function placeResults(s: TripState) {
   const reference = findPlace(s.similarTo);
   return places
@@ -407,6 +428,7 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
       }
       target.entityId = p.id;
       target.anchorId = p.id;
+      delete target.status;
       s.stage = 'plan';
       s.editingId = null;
     } else {
@@ -477,6 +499,7 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
         : ['food', 'cafe'].includes(target.kind))
     ) {
       target.entityId = id;
+      delete target.status;
       s.stage = 'plan';
       s.editingId = null;
       s.notice = `DAY ${target.day} ${target.label}만 바꿨어요. 다른 방문과 예약 숙소는 유지했어요.`;
@@ -672,10 +695,151 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
     s.stage = 'plan';
     s.question = `${visitName(a)} 방문 순서를 ${action.direction < 0 ? '앞으로' : '뒤로'}`;
   }
+  if (action.type === 'directions') {
+    const visit = action.id
+      ? s.plan.find((v) => v.id === action.id)
+      : undefined;
+    if (action.id && !visit) return before;
+    if (action.placeId && !findPlace(action.placeId)) return before;
+    if (
+      action.businessId &&
+      !findFood(action.businessId) &&
+      !findStay(action.businessId)
+    )
+      return before;
+    s.stage = 'directions';
+    s.directionsVisitId = visit?.id ?? null;
+    s.directionsPlaceId = action.placeId ?? s.anchorId;
+    s.directionsBusinessId =
+      action.businessId ??
+      (!visit && !action.placeId
+        ? before.stage === 'food'
+          ? before.foodKind === '카페'
+            ? before.cafeId
+            : before.foodId
+          : before.stage === 'stay'
+            ? before.stayId
+            : null
+        : null);
+    s.question = `${visit ? visitName(visit) : (findPlace(s.directionsPlaceId)?.name ?? '여기')} 길찾기 해줘`;
+  }
+  if (action.type === 'progress') {
+    const visit = s.plan.find((v) => v.id === action.id);
+    if (!visit) return before;
+    if (action.status === 'pending') delete visit.status;
+    else visit.status = action.status;
+    s.activeDay = visit.day;
+    const next = nextPendingVisit(s);
+    if (next) {
+      s.activeDay = next.day;
+      s.anchorId = next.anchorId;
+    }
+    s.stage = 'progress';
+    s.editingId = null;
+    s.question = `${visitName(visit)} ${action.status === 'done' ? '다녀왔어' : action.status === 'skipped' ? '이번에는 건너뛸래' : '아직 안 갔어'}`;
+    s.notice = `${visitName(visit)} · ${action.status === 'done' ? '방문 완료' : action.status === 'skipped' ? '건너뜀' : '미방문'} 상태로 표시했어요. 일정의 장소와 예약은 유지돼요.`;
+  }
   if (action.type === 'message') {
     const q = action.text.trim().slice(0, 500);
     if (!q) return before;
     s.question = q;
+    // Resolve functional requests before generic place/business selection, so map and
+    // progress questions cannot silently replace chosen businesses or rebuild a plan.
+    const mentions = (id: string, name: string) =>
+      q.replace(/\s/g, '').includes(name.replace(/\s/g, '')) ||
+      (id === 'osulloc' && /오설록/.test(q)) ||
+      (id === 'hyeopjae' && /협재/.test(q));
+    const namedVisit = before.plan.filter(
+      (v) => v.entityId && mentions(v.entityId, visitName(v)),
+    );
+    if (
+      namedVisit.length > 1 &&
+      /(길.?찾|다녀왔|방문했|건너뛰|건너뛸|안 갔)/.test(q)
+    )
+      return {
+        ...s,
+        stage: 'progress',
+        notice:
+          '같은 장소가 여러 DAY에 있어요. 아래 날짜별 방문에서 해당 항목을 골라주세요.',
+      };
+    if (/길\s?찾|가는 길|어떻게 가|찾아가는/.test(q)) {
+      const namedPlace = places.find(
+        (p) =>
+          q.includes(p.name) ||
+          (p.id === 'osulloc' && /오설록/.test(q)) ||
+          (p.id === 'hyeopjae' && /협재/.test(q)),
+      );
+      const visit =
+        namedVisit[0] ??
+        (/다음/.test(q) || before.stage === 'progress'
+          ? nextPendingVisit(before)
+          : undefined);
+      const business = [...restaurants, ...stays].find((p) =>
+        q.replace(/\s/g, '').includes(p.name.replace(/\s/g, '')),
+      );
+      return {
+        ...reduceTrip(before, {
+          type: 'directions',
+          id: visit?.id,
+          placeId: namedPlace?.id,
+          businessId: business?.id,
+        }),
+        question: q,
+      };
+    }
+    if (
+      /(실제|진짜).*(식당|맛집|카페|숙소)|지도에서.*(식당|맛집|카페|숙소)/.test(
+        q,
+      )
+    )
+      return {
+        ...s,
+        stage: 'external',
+        foodKind: /카페/.test(q) ? '카페' : '식당',
+        notice: !s.anchorId
+          ? '주변 검색의 기준이 될 장소를 먼저 골라주세요.'
+          : '',
+      };
+    if (/다녀왔|방문했|갔다 왔|건너뛰|건너뛸|아직\s?안\s?갔/.test(q)) {
+      const namedEntity = [...places, ...restaurants, ...stays].find((p) =>
+        mentions(p.id, p.name),
+      );
+      if (namedEntity && !namedVisit.length)
+        return {
+          ...s,
+          stage: 'progress',
+          notice:
+            '그 장소는 현재 일정에 없어요. 현재 일정의 방문 기록만 바꿀 수 있어요.',
+        };
+      const visit = namedVisit[0] ?? nextPendingVisit(before);
+      if (!visit)
+        return {
+          ...s,
+          stage: 'progress',
+          notice:
+            '표시할 미방문 항목이 없어요. 아래 방문 기록에서 다시 미방문으로 되돌릴 수 있어요.',
+        };
+      return {
+        ...reduceTrip(before, {
+          type: 'progress',
+          id: visit.id,
+          status: /아직\s?안\s?갔|안\s?다녀왔|방문\s?안/.test(q)
+            ? 'pending'
+            : /건너뛰|건너뛸/.test(q)
+              ? 'skipped'
+              : 'done',
+        }),
+        question: q,
+      };
+    }
+    if (/다음.*(어디|방문|일정)|여행.*(진행|이어)|이어서 방문/.test(q)) {
+      const next = nextPendingVisit(s);
+      if (next) {
+        s.activeDay = next.day;
+        s.anchorId = next.anchorId;
+      }
+      return { ...s, stage: 'progress' };
+    }
     if (s.plan.length && /(카페|식당|선택한 곳).{0,18}(담아|추가)/.test(q))
       return { ...reduceTrip(before, { type: 'add-selected' }), question: q };
     let recognized = false;
@@ -705,7 +869,12 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
       s.days = 1;
       recognized = true;
     }
-    if (/숙소.{0,10}(이미.{0,5}예약|예약했|예약해.?뒀|예약 완료|예약돼)|예약한 숙소/.test(q) && !/아직|미예약|예약.{0,6}(안|않|못)/.test(q)) {
+    if (
+      /숙소.{0,10}(이미.{0,5}예약|예약했|예약해.?뒀|예약 완료|예약돼)|예약한 숙소/.test(
+        q,
+      ) &&
+      !/아직|미예약|예약.{0,6}(안|않|못)/.test(q)
+    ) {
       s.booked = true;
       s.stayId = null;
       if (s.days === 1 && !duration && !/당일|반나절/.test(q)) s.days = 2;
@@ -995,6 +1164,24 @@ export function explanation(s: TripState) {
     return '찜한 장소를 여행의 출발점으로 쓸 수 있어요. 한 지역을 고르면 해당 지역의 장소만 DAY별로 배치합니다.';
   if (s.stage === 'route')
     return '선택한 DAY의 방문 순서예요. 일정의 순서와 같은 장소를 보여주며, 실제 지도나 이동시간 조회는 아닙니다.';
+  if (s.stage === 'directions') {
+    const target = directionsTarget(s);
+    return target.unavailable
+      ? '이 방문의 실제 위치가 없어 길찾기를 열 수 없어요. 기준 장소의 지도는 따로 확인할 수 있어요.'
+      : !target.place
+        ? '길찾기 목적지가 될 장소를 먼저 골라주세요.'
+        : '길찾기는 지도에서 실제로 확인할 수 있어요. 장소명으로 목적지를 전달하고, 출발지·교통수단은 지도에서 정합니다.';
+  }
+  if (s.stage === 'external')
+    return `${place?.name ?? '선택할 장소'} 주변의 실제 업체는 지도 검색으로 확인할 수 있어요. 지도에서 확인한 결과를 체험 일정에 자동으로 담지는 않아요.`;
+  if (s.stage === 'progress') {
+    const next = nextPendingVisit(s);
+    return !s.plan.length
+      ? '먼저 일정을 만들면 다녀온 곳과 다음 방문을 이어서 확인할 수 있어요.'
+      : next
+        ? `다음은 DAY ${next.day} · ${visitName(next)}이에요. 다녀온 곳을 표시하고 남은 일정으로 이어가세요.`
+        : '모든 방문을 확인했어요. 방문 기록은 아래에서 다시 미방문으로 되돌릴 수 있어요.';
+  }
   return s.plan.length
     ? `${s.region} ${period(s.days)}, ${s.plan.length}개의 방문·식사·숙박으로 연결했어요.${s.booked ? ' 예약한 숙소는 그대로 두었어요.' : ''} DAY를 바꾸거나 필요한 항목만 수정해 보세요.`
     : '아직 만든 일정이 없어요. 장소를 고르거나 지역·기간을 말해주면 초안을 만들게요.';
@@ -1007,6 +1194,7 @@ export function nextQuestions(s: TripState): string[] {
       return [
         '여기 근처 식당 찾아줘',
         '근처 숙소도 찾아줘',
+        '여기 길찾기 해줘',
         `${s.region} 1박 2일 일정 짜줘`,
       ];
     case 'food':
@@ -1036,7 +1224,29 @@ export function nextQuestions(s: TripState): string[] {
       ];
     case 'route':
       return ['일정 다시 보여줘', '점심 바꿔줘'];
+    case 'directions':
+      return ['실제 식당 찾아줘', '다음 어디 가?', '일정 다시 보여줘'];
+    case 'external':
+      return [
+        '여기 근처 식당 찾아줘',
+        '여기 근처 카페 찾아줘',
+        '일정 다시 보여줘',
+      ];
+    case 'progress':
+      return nextPendingVisit(s)
+        ? [
+            '다음 장소 길찾기 해줘',
+            '다녀왔어',
+            '이번엔 건너뛸래',
+            '일정 다시 보여줘',
+          ]
+        : ['일정 다시 보여줘', '다른 장소 찾아줘'];
     default:
-      return ['점심 바꿔줘', '방문 순서 보여줘', '근처 카페 찾아줘'];
+      return [
+        '다음 어디 가?',
+        '점심 바꿔줘',
+        '방문 순서 보여줘',
+        '근처 카페 찾아줘',
+      ];
   }
 }
