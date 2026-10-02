@@ -744,6 +744,15 @@
   padding: 7px 14px;
   flex-shrink: 0;
 }
+.tr-reset-notice {
+  margin: 0;
+  padding: 10px 16px;
+  color: #65655d;
+  background: #f0f0ea;
+  font-size: 12px;
+  line-height: 1.6;
+  flex-shrink: 0;
+}
 .tr-sheet .sheet-body {
   overscroll-behavior: contain;
 }

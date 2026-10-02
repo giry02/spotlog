@@ -19,6 +19,7 @@ import {
   MapPin,
   MoreHorizontal,
   Route,
+  RotateCcw,
   Signal,
   Sparkles,
   Trash2,
@@ -1112,6 +1113,7 @@ export default function TripWorkspace() {
     createTripSession(),
   );
   const [input, setInput] = useState('');
+  const [resetNotice, setResetNotice] = useState(false);
   const [panel, updatePanel] = useState<
     'scenarios' | 'library' | 'about' | 'wiring' | 'history' | 'business' | null
   >(null);
@@ -1138,8 +1140,10 @@ export default function TripWorkspace() {
     latestRef = useRef<HTMLElement | null>(null);
   const s = currentTrip(session);
   const started = session.turns.length > 1;
-  const act: Act = (action) =>
+  const act: Act = (action) => {
+    setResetNotice(false);
     setSession((previous) => appendTrip(previous, action));
+  };
   const say = (text: string) => {
     if (!text.trim() || text.length > 500) return;
     if (/내 여행.{0,5}저장|일정.{0,5}저장/.test(text) && s.plan.length)
@@ -1225,6 +1229,7 @@ export default function TripWorkspace() {
   const startScenario = (id: string) => {
     const scenario = scenarios.find((x) => x.id === id);
     if (!scenario) return;
+    setResetNotice(false);
     const savedIds =
       id === 'saved'
         ? [...new Set([...s.savedIds, 'hyeopjae', 'osulloc'])]
@@ -1239,9 +1244,13 @@ export default function TripWorkspace() {
     setPanel(null);
   };
   const blank = () => {
-    setSession(createTripSession(s.savedIds, session.library));
+    setSession((previous) =>
+      createTripSession(currentTrip(previous).savedIds, previous.library),
+    );
     setInput('');
     setPanel(null);
+    setDetail(null);
+    setResetNotice(true);
   };
   const scenarioCards = (
     <div className="tr-scenarios">
@@ -1290,6 +1299,16 @@ export default function TripWorkspace() {
             <Button
               variant="ghost"
               size="icon"
+              aria-label="대화 초기화"
+              title="대화 초기화"
+              disabled={!ready || (!started && !input)}
+              onClick={blank}
+            >
+              <RotateCcw size={18} />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
               aria-label="찜한 장소와 내 여행"
               onClick={() => setPanel('library')}
             >
@@ -1322,6 +1341,11 @@ export default function TripWorkspace() {
             )}
           </div>
         </div>
+        {resetNotice && (
+          <p className="tr-reset-notice" role="status">
+            대화를 초기화했어요. 찜한 장소와 저장한 여행은 유지돼요.
+          </p>
+        )}
         {storageError && (
           <p className="tr-storage-error" role="status">
             이 브라우저에 저장할 수 없어 현재 화면에서만 유지됩니다.
