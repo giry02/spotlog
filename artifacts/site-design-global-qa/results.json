@@ -1,0 +1,655 @@
+{
+  "widths": [
+    {
+      "width": 320,
+      "groups": 12,
+      "imageCount": 30,
+      "navCount": 16,
+      "nav": [
+        {
+          "title": "01공통 기준",
+          "id": "sg-foundation",
+          "top": 98.4375,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "02전체 화면",
+          "id": "sg-screens",
+          "top": 98.453125,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "03부품별 기준",
+          "id": "sg-components",
+          "top": 98.046875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "04추가 작업 원칙",
+          "id": "sg-process",
+          "top": 97.65625,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "홈",
+          "id": "sg-home",
+          "top": 97.921875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "여행기·검색",
+          "id": "sg-community",
+          "top": 97.53125,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "장소·지역 안내",
+          "id": "sg-guide",
+          "top": 98.359375,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "장소·영상과 사진",
+          "id": "sg-feeds",
+          "top": 97.578125,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "저장",
+          "id": "sg-saved",
+          "top": 97.65625,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "내 여행·새 여행",
+          "id": "sg-trips",
+          "top": 97.75,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "여행기 상세·DAY·지도",
+          "id": "sg-detail",
+          "top": 98.140625,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "여행기 반응·작성자",
+          "id": "sg-social",
+          "top": 97.796875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "여행기 편집·장소 삽입",
+          "id": "sg-editor",
+          "top": 98.203125,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "프로필·설정",
+          "id": "sg-profile",
+          "top": 97.953125,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "데이터 안내·백업 팝업",
+          "id": "sg-utility",
+          "top": 97.84375,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "분리된 실험 화면",
+          "id": "sg-experiments",
+          "top": 97.53125,
+          "toolbarBottom": 67.09375
+        }
+      ],
+      "overflow": {
+        "document": false,
+        "content": false,
+        "guide": false
+      },
+      "storageUnchanged": true,
+      "backToSaved": true,
+      "directLinkBackToHome": true,
+      "savedShell": {
+        "width": 320,
+        "maxWidth": "460px"
+      },
+      "returnedShell": {
+        "width": 320,
+        "maxWidth": "460px"
+      }
+    },
+    {
+      "width": 390,
+      "groups": 12,
+      "imageCount": 30,
+      "navCount": 16,
+      "nav": [
+        {
+          "title": "01공통 기준",
+          "id": "sg-foundation",
+          "top": 98.046875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "02전체 화면",
+          "id": "sg-screens",
+          "top": 98.21875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "03부품별 기준",
+          "id": "sg-components",
+          "top": 98.3125,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "04추가 작업 원칙",
+          "id": "sg-process",
+          "top": 97.53125,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "홈",
+          "id": "sg-home",
+          "top": 97.6875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "여행기·검색",
+          "id": "sg-community",
+          "top": 98.09375,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "장소·지역 안내",
+          "id": "sg-guide",
+          "top": 97.5,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "장소·영상과 사진",
+          "id": "sg-feeds",
+          "top": 98.21875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "저장",
+          "id": "sg-saved",
+          "top": 97.71875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "내 여행·새 여행",
+          "id": "sg-trips",
+          "top": 98.21875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "여행기 상세·DAY·지도",
+          "id": "sg-detail",
+          "top": 98.15625,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "여행기 반응·작성자",
+          "id": "sg-social",
+          "top": 97.875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "여행기 편집·장소 삽입",
+          "id": "sg-editor",
+          "top": 98.125,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "프로필·설정",
+          "id": "sg-profile",
+          "top": 97.546875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "데이터 안내·백업 팝업",
+          "id": "sg-utility",
+          "top": 97.578125,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "분리된 실험 화면",
+          "id": "sg-experiments",
+          "top": 98.375,
+          "toolbarBottom": 67.09375
+        }
+      ],
+      "overflow": {
+        "document": false,
+        "content": false,
+        "guide": false
+      },
+      "storageUnchanged": true,
+      "backToSaved": true,
+      "directLinkBackToHome": true,
+      "savedShell": {
+        "width": 390,
+        "maxWidth": "460px"
+      },
+      "returnedShell": {
+        "width": 390,
+        "maxWidth": "460px"
+      }
+    },
+    {
+      "width": 460,
+      "groups": 12,
+      "imageCount": 30,
+      "navCount": 16,
+      "nav": [
+        {
+          "title": "01공통 기준",
+          "id": "sg-foundation",
+          "top": 98.046875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "02전체 화면",
+          "id": "sg-screens",
+          "top": 98.265625,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "03부품별 기준",
+          "id": "sg-components",
+          "top": 97.828125,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "04추가 작업 원칙",
+          "id": "sg-process",
+          "top": 98.046875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "홈",
+          "id": "sg-home",
+          "top": 97.734375,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "여행기·검색",
+          "id": "sg-community",
+          "top": 98.359375,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "장소·지역 안내",
+          "id": "sg-guide",
+          "top": 97.671875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "장소·영상과 사진",
+          "id": "sg-feeds",
+          "top": 98.390625,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "저장",
+          "id": "sg-saved",
+          "top": 97.890625,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "내 여행·새 여행",
+          "id": "sg-trips",
+          "top": 98.390625,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "여행기 상세·DAY·지도",
+          "id": "sg-detail",
+          "top": 97.84375,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "여행기 반응·작성자",
+          "id": "sg-social",
+          "top": 98.171875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "여행기 편집·장소 삽입",
+          "id": "sg-editor",
+          "top": 98.421875,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "프로필·설정",
+          "id": "sg-profile",
+          "top": 98.453125,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "데이터 안내·백업 팝업",
+          "id": "sg-utility",
+          "top": 98.484375,
+          "toolbarBottom": 67.09375
+        },
+        {
+          "title": "분리된 실험 화면",
+          "id": "sg-experiments",
+          "top": 97.890625,
+          "toolbarBottom": 67.09375
+        }
+      ],
+      "overflow": {
+        "document": false,
+        "content": false,
+        "guide": false
+      },
+      "storageUnchanged": true,
+      "backToSaved": true,
+      "directLinkBackToHome": true,
+      "savedShell": {
+        "width": 460,
+        "maxWidth": "460px"
+      },
+      "returnedShell": {
+        "width": 460,
+        "maxWidth": "460px"
+      }
+    },
+    {
+      "width": 1440,
+      "groups": 12,
+      "imageCount": 30,
+      "navCount": 16,
+      "nav": [
+        {
+          "title": "01공통 기준",
+          "id": "sg-foundation",
+          "top": 98.390625,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "02전체 화면",
+          "id": "sg-screens",
+          "top": 97.890625,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "03부품별 기준",
+          "id": "sg-components",
+          "top": 97.828125,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "04추가 작업 원칙",
+          "id": "sg-process",
+          "top": 126.890625,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "홈",
+          "id": "sg-home",
+          "top": 97.984375,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "여행기·검색",
+          "id": "sg-community",
+          "top": 98.4375,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "장소·지역 안내",
+          "id": "sg-guide",
+          "top": 97.890625,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "장소·영상과 사진",
+          "id": "sg-feeds",
+          "top": 97.65625,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "저장",
+          "id": "sg-saved",
+          "top": 97.8125,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "내 여행·새 여행",
+          "id": "sg-trips",
+          "top": 97.96875,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "여행기 상세·DAY·지도",
+          "id": "sg-detail",
+          "top": 97.953125,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "여행기 반응·작성자",
+          "id": "sg-social",
+          "top": 98.328125,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "여행기 편집·장소 삽입",
+          "id": "sg-editor",
+          "top": 97.625,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "프로필·설정",
+          "id": "sg-profile",
+          "top": 98.3125,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "데이터 안내·백업 팝업",
+          "id": "sg-utility",
+          "top": 98,
+          "toolbarBottom": 75
+        },
+        {
+          "title": "분리된 실험 화면",
+          "id": "sg-experiments",
+          "top": 98.453125,
+          "toolbarBottom": 75
+        }
+      ],
+      "overflow": {
+        "document": false,
+        "content": false,
+        "guide": false
+      },
+      "storageUnchanged": true,
+      "backToSaved": true,
+      "directLinkBackToHome": true,
+      "savedShell": {
+        "width": 460,
+        "maxWidth": "460px"
+      },
+      "returnedShell": {
+        "width": 460,
+        "maxWidth": "460px"
+      }
+    }
+  ],
+  "errors": [],
+  "links": [
+    {
+      "href": "http://127.0.0.1:5173/design-guide/discovery-home.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/discovery-home-lower.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/discovery-community.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/discovery-community-card.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/discovery-community-empty.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/discovery-places-guide.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/discovery-places-card.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/discovery-places-empty.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/discovery-places-video.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/discovery-places-photo.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/discovery-photo-sheet.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/saved-list.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/saved-empty.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-trips.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-trips-empty.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-create-sheet.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-public-detail.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-own-detail.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-detail-day.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-detail-map.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-social.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-creator.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-editor.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-editor-blocks.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-place-sheet.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-profile.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-profile-options.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/journey-settings.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/utility-backup.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "href": "http://127.0.0.1:5173/design-guide/discovery-photo-stories.png",
+      "status": 200,
+      "type": "image/png"
+    }
+  ],
+  "scope": [
+    {
+      "width": 320,
+      "unscoped": []
+    },
+    {
+      "width": 390,
+      "unscoped": []
+    },
+    {
+      "width": 460,
+      "unscoped": []
+    },
+    {
+      "width": 1440,
+      "unscoped": []
+    }
+  ]
+}

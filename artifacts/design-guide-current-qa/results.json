@@ -1,0 +1,29 @@
+{
+  "comparisons": [
+    {
+      "width": 320,
+      "elements": 53,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 390,
+      "elements": 53,
+      "overflow": false,
+      "differences": []
+    },
+    {
+      "width": 460,
+      "elements": 53,
+      "overflow": false,
+      "differences": []
+    }
+  ],
+  "checks": [
+    "Guide interactive samples do not mutate local repository",
+    "Empty Saved has no sample link, cannot create sample journey, and discover navigation works",
+    "DAY 2 add/remove preserves DAY 1 text and saved bookmark",
+    "Saved-place generation still creates one 2-day trip containing only the two saved places"
+  ],
+  "errors": []
+}

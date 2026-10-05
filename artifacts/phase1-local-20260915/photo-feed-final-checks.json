@@ -1,0 +1,443 @@
+{
+  "date": "2026-09-15",
+  "environment": "in-app Chromium, mouse input; no physical Android device",
+  "checks": [
+    {
+      "check": "single-place drag",
+      "state": {
+        "active": [
+          {
+            "id": "seoul-seoulforest",
+            "left": 0,
+            "photo": "0",
+            "text": "서울장소 1 / 1사진 1 / 1"
+          }
+        ],
+        "height": 844,
+        "top": 0
+      }
+    },
+    {
+      "check": "same place two real sources",
+      "credit": " \"사진 출처\" [active]:\n  - banner:\n    - heading \"사진 출처\" [level=2]\n    - button \"닫기\":\n  - heading \"동백섬 · 동백꽃\" [level=3]\n  - term: 제공\n  - definition: 부산관광공사 글로벌마케팅팀\n  - term: 저작자\n  - definition: 하이픈그룹\n  - term: 이용 조건\n  - definition:\n    - link \"공공누리 제1유형\":\n      - /url: https://www.kogl.or.kr/info/licenseType1.do\n  - term: 제작일\n  - definition: 2024-10-01 (원문 생산일자)\n  - term: 확인일\n  - definition: 2026-09-15\n  - link \"공식 자료 보기\":\n    - /url: https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA010728&menuCd=36\n  - link \"사진 원본 보기\":\n    - /url: https://visitbusan.net/archive/upload/2025/08/11/20250811164949740659_m.png"
+    },
+    {
+      "check": "empty region",
+      "snapshot": "- main:\n  - strong: spotlog\n  - generic: 1개 장소 저장\n  - generic \"장소 보기 방식\":\n    - button \"영상\":\n      - text: 영상\n    - button \"사진\" [active] [pressed]:\n      - text: 사진\n    - button \"지역 안내\":\n      - text: 지역 안내\n  - heading \"경기 사진을 준비하고 있어요\" [level=2]\n  - paragraph: 다른 지역의 장소 사진을 먼저 살펴보세요.\n  - button \"지역 선택\":\n    - text: 지역 선택\n  - navigation \"주요 메뉴\":\n    - button \"홈\":\n      - generic: 홈\n    - button \"여행기\":\n      - generic: 여행기\n    - button \"장소\":\n      - generic: 장소\n    - button \"내 여행\":\n      - generic: 내 여행\n    - button \"저장\":\n      - generic: 저장"
+    },
+    {
+      "check": "320 first to last drag",
+      "state": {
+        "active": [
+          {
+            "id": "jeju-saebyeol",
+            "left": 0,
+            "photo": "0",
+            "text": "제주장소 4 / 4사진 1 / 2"
+          }
+        ],
+        "height": 844,
+        "top": 3376
+      }
+    },
+    {
+      "check": "320 last to first drag",
+      "state": {
+        "active": [
+          {
+            "id": "jeju-hyeopjae",
+            "left": 320,
+            "photo": "1",
+            "text": "제주장소 1 / 4사진 2 / 2"
+          }
+        ],
+        "height": 844,
+        "top": 844
+      }
+    },
+    {
+      "check": "390 first to last drag",
+      "state": {
+        "active": [
+          {
+            "id": "jeju-saebyeol",
+            "left": 0,
+            "photo": "0",
+            "text": "제주장소 4 / 4사진 1 / 2"
+          }
+        ],
+        "height": 844,
+        "top": 3376
+      }
+    },
+    {
+      "check": "390 last to first drag",
+      "state": {
+        "active": [
+          {
+            "id": "jeju-hyeopjae",
+            "left": 390,
+            "photo": "1",
+            "text": "제주장소 1 / 4사진 2 / 2"
+          }
+        ],
+        "height": 844,
+        "top": 844
+      }
+    },
+    {
+      "check": "region cancel retained position",
+      "state": {
+        "active": [
+          {
+            "id": "jeju-hyeopjae",
+            "left": 390,
+            "photo": "1",
+            "text": "제주장소 1 / 4사진 2 / 2"
+          }
+        ],
+        "height": 844,
+        "top": 844
+      }
+    }
+  ],
+  "swipeChecks": [
+    {
+      "width": 320,
+      "step": "horizontal",
+      "state": {
+        "active": [
+          {
+            "id": "jeju-hyeopjae",
+            "left": 320,
+            "photo": "1",
+            "text": "제주장소 1 / 4사진 2 / 2"
+          }
+        ],
+        "height": 844,
+        "top": 844
+      }
+    },
+    {
+      "width": 390,
+      "step": "horizontal",
+      "state": {
+        "active": [
+          {
+            "id": "jeju-hyeopjae",
+            "left": 390,
+            "photo": "1",
+            "text": "제주장소 1 / 4사진 2 / 2"
+          }
+        ],
+        "height": 844,
+        "top": 844
+      }
+    },
+    {
+      "width": 460,
+      "step": "horizontal",
+      "state": {
+        "active": [
+          {
+            "id": "jeju-hyeopjae",
+            "left": 460,
+            "photo": "1",
+            "text": "제주장소 1 / 4사진 2 / 2"
+          }
+        ],
+        "height": 844,
+        "top": 844
+      }
+    }
+  ],
+  "regionScreens": [
+    {
+      "buttons": [
+        {
+          "size": "14px",
+          "text": "모든 지역15개 장소",
+          "width": 135
+        },
+        {
+          "size": "14px",
+          "text": "서울1개 장소",
+          "width": 135
+        },
+        {
+          "size": "14px",
+          "text": "강원1개 장소",
+          "width": 135
+        },
+        {
+          "size": "14px",
+          "text": "경북4개 장소",
+          "width": 135
+        },
+        {
+          "size": "14px",
+          "text": "부산5개 장소",
+          "width": 135
+        },
+        {
+          "size": "14px",
+          "text": "제주4개 장소",
+          "width": 135
+        }
+      ],
+      "overflow": false,
+      "title": "20px",
+      "width": 320
+    },
+    {
+      "buttons": [
+        {
+          "size": "14px",
+          "text": "모든 지역15개 장소",
+          "width": 170
+        },
+        {
+          "size": "14px",
+          "text": "서울1개 장소",
+          "width": 170
+        },
+        {
+          "size": "14px",
+          "text": "강원1개 장소",
+          "width": 170
+        },
+        {
+          "size": "14px",
+          "text": "경북4개 장소",
+          "width": 170
+        },
+        {
+          "size": "14px",
+          "text": "부산5개 장소",
+          "width": 170
+        },
+        {
+          "size": "14px",
+          "text": "제주4개 장소",
+          "width": 170
+        }
+      ],
+      "overflow": false,
+      "title": "20px",
+      "width": 390
+    },
+    {
+      "buttons": [
+        {
+          "size": "14px",
+          "text": "모든 지역15개 장소",
+          "width": 205
+        },
+        {
+          "size": "14px",
+          "text": "서울1개 장소",
+          "width": 205
+        },
+        {
+          "size": "14px",
+          "text": "강원1개 장소",
+          "width": 205
+        },
+        {
+          "size": "14px",
+          "text": "경북4개 장소",
+          "width": 205
+        },
+        {
+          "size": "14px",
+          "text": "부산5개 장소",
+          "width": 205
+        },
+        {
+          "size": "14px",
+          "text": "제주4개 장소",
+          "width": 205
+        }
+      ],
+      "overflow": false,
+      "title": "20px",
+      "width": 460
+    }
+  ],
+  "editorFinalChecks": [
+    {
+      "width": 320,
+      "roles": [
+        {
+          "size": "12px",
+          "text": "글",
+          "weight": "600"
+        },
+        {
+          "size": "16px",
+          "text": "글 1 소제목",
+          "weight": "700"
+        },
+        {
+          "size": "16px",
+          "text": "글 1 본문",
+          "weight": "400"
+        },
+        {
+          "size": "12px",
+          "text": "본문에 삽입",
+          "weight": "600"
+        },
+        {
+          "size": "14px",
+          "text": "글",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "사진",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "장소",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "숙소",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "맛집",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "카페",
+          "weight": "700"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "roles": [
+        {
+          "size": "12px",
+          "text": "글",
+          "weight": "600"
+        },
+        {
+          "size": "16px",
+          "text": "글 1 소제목",
+          "weight": "700"
+        },
+        {
+          "size": "16px",
+          "text": "글 1 본문",
+          "weight": "400"
+        },
+        {
+          "size": "12px",
+          "text": "본문에 삽입",
+          "weight": "600"
+        },
+        {
+          "size": "14px",
+          "text": "글",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "사진",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "장소",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "숙소",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "맛집",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "카페",
+          "weight": "700"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 460,
+      "roles": [
+        {
+          "size": "12px",
+          "text": "글",
+          "weight": "600"
+        },
+        {
+          "size": "16px",
+          "text": "글 1 소제목",
+          "weight": "700"
+        },
+        {
+          "size": "16px",
+          "text": "글 1 본문",
+          "weight": "400"
+        },
+        {
+          "size": "12px",
+          "text": "본문에 삽입",
+          "weight": "600"
+        },
+        {
+          "size": "14px",
+          "text": "글",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "사진",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "장소",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "숙소",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "맛집",
+          "weight": "700"
+        },
+        {
+          "size": "14px",
+          "text": "카페",
+          "weight": "700"
+        }
+      ],
+      "overflow": false
+    }
+  ],
+  "tests": {
+    "total": 72,
+    "passed": 72,
+    "webBuild": "passed",
+    "typography": 7
+  }
+}

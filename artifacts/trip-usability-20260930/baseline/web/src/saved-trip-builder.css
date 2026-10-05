@@ -1,0 +1,40 @@
+.saved-trip-modes { position: relative; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px; margin-top: 12px; }
+.saved-trip-modes button { display: flex; align-items: center; justify-content: center; gap: 5px; min-height: 36px; padding: 6px; border: 1px solid #ffffff35; border-radius: 10px; background: #ffffff0f; color: white; font-size: var(--type-caption); font-weight: 650; }
+.saved-trip-modes button:last-child { color: #201a17; background: #ffb59e; border-color: #ffb59e; }
+.saved-trip-modes button[aria-pressed=true] { border-color: #ffb59e; color: #ffb59e; }
+.saved-trip-modes button:disabled { opacity: .45; }
+.saved-trip-modes svg { flex-shrink: 0; }
+.saved-trip-period-options { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 6px; }
+.saved-trip-period-options[hidden] { display: none; }
+.saved-trip-period-options button { min-width: 0; padding: 6px 2px; border: 1px solid var(--line); border-radius: 11px; background: white; color: var(--ink); font-size: var(--type-caption); font-weight: 650; }
+.saved-trip-period-options button[aria-pressed=true] { border-color: #ffb5a2; background: #fff1ec; color: #a24431; }
+.saved-trip-more { display: flex; align-items: center; gap: 4px; margin-left: auto; border: 0; background: transparent; color: var(--muted); font-size: var(--type-caption); }
+.saved-trip-settings { margin: 10px 0 18px; color: var(--muted); font-size: var(--type-caption); }
+.saved-trip-settings summary { cursor: pointer; padding: 8px 0; }
+.saved-trip-settings > div { display: grid; gap: 12px; margin-top: 12px; }
+.saved-trip-settings .ui-field { margin: 0; }
+.saved-trip-settings input { min-width: 0; }
+.saved-trip-toolbar { position: sticky; top: 0; z-index: 25; padding: 8px 0; margin: 0 0 8px; background: #f8f8f6; border-bottom: 1px solid var(--line); }
+.saved-trip-toolbar .day-tabs { position: static; padding: 8px 0 0; margin: 0; min-height: 0; border: 0; background: transparent; }
+.saved-trip-toolbar .day-tabs-back { display: none; }
+.saved-trip-toolbar .day-tabs-track { width: 100%; }
+.saved-trip-toolbar .day-tabs-track button { min-width: 82px; min-height: 44px; padding: 5px 10px; border-radius: 10px; }
+.saved-trip-toolbar .day-tabs-track small,.saved-trip-toolbar .day-tabs-track strong { font-size: var(--type-caption); line-height: 1.25; }
+.saved-trip-toolbar-row { display: flex; align-items: center; gap: 8px; }
+.saved-trip-toolbar-row > span { margin-right: auto; color: var(--muted); font-size: var(--type-caption); }
+.saved-trip-period-link { display: inline-flex; align-items: center; gap: 2px; padding: 0; min-height: 36px; border: 0; background: transparent; color: var(--ink); font-size: var(--type-caption); font-weight: 650; }
+.saved-trip-confirm { display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; min-height: 36px; padding: 0 10px; border: 0; border-radius: 10px; background: #242422; color: white; font-size: var(--type-caption); font-weight: 650; }
+.saved-trip-confirm:disabled { opacity: .4; }
+.saved-trip-status { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: 0 0 14px; font-size: var(--type-caption); color: var(--muted); }
+.saved-trip-status button { padding: 4px 0; flex-shrink: 0; border: 0; background: transparent; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; font-size: var(--type-caption); }
+.saved-trip-order { margin-bottom: 14px; border: 1px solid var(--line); border-radius: 12px; background: white; padding: 10px; font-size: var(--type-caption); }
+.saved-trip-order summary { cursor: pointer; }
+.saved-trip-order ol { padding: 0; margin: 6px 0 0; list-style: none; }
+.saved-trip-order li { display: flex; align-items: center; gap: 4px; }
+.saved-trip-order li span { flex: 1; min-width: 0; }
+.saved-trip-order button,.saved-trip-unplaced button { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; min-height: 36px; padding: 0 6px; border: 0; border-radius: 8px; background: transparent; color: var(--ink); font-size: var(--type-caption); }
+.saved-trip-order button:disabled { opacity: .25; }
+.saved-trip-unplaced { padding: 12px; margin-bottom: 12px; border-radius: 12px; background: #fff0e8; font-size: var(--type-caption); }
+.saved-trip-unplaced p { margin: 0 0 6px; }
+.saved-trip-unplaced > div { display: flex; align-items: center; gap: 6px; }
+.saved-trip-unplaced span { flex: 1; }

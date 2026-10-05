@@ -1,0 +1,2 @@
+The file does not exist at "C:/Users/Giry/Documents/Spotlog/web/node_modules/.vite/deps/maplibre-gl-worker.mjs" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+The file does not exist at "C:/Users/Giry/Documents/Spotlog/web/node_modules/.vite/deps/maplibre-gl-worker.mjs" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.

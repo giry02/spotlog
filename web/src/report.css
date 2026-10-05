@@ -1,0 +1,8 @@
+.report-context-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px}
+.report-context-button{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:36px;padding:6px 8px;border:0;border-radius:8px;background:transparent;color:inherit;font:inherit;font-size:12px;cursor:pointer;opacity:.76}
+.report-context-button:hover{opacity:1;background:rgba(128,128,128,.12)}
+.report-context-button:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+.card-comment-actions .report-context-button{min-width:36px;padding:6px}
+.card-comment-actions .report-context-button span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.photo-reel-actions .report-context-actions{flex-direction:column;gap:0;margin:0}
+.photo-reel-actions .report-context-button{color:#fff;flex-direction:column;font-size:12px}

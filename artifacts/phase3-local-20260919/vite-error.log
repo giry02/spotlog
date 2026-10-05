@@ -1,0 +1,322 @@
+The file does not exist at "C:/Users/Giry/Documents/Spotlog/web/node_modules/.vite/deps/maplibre-gl-worker.mjs" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.
+오전 9:53:37 [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'details'.
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/AiPlannerSheet.tsx:24:212 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m24 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mr[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249mu[0m[38;5;249mr[0m[38;5;249mn[0m[38;5;249m [0m[38;5;249m<[0mdetails[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249ma[0m[38;5;249mi[0m[38;5;249m-[0m[38;5;249mp[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mn[0m[38;5;249me[0m[38;5;249mr[0m[38;5;249m-[0m[38;5;249md[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mi[0m[38;5;249ml[0m[38;5;249ms[0m[38;5;249m"[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249ms[0m[38;5;249mu[0m[38;5;249mm[0m[38;5;249mm[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249my[0m[38;5;249m>[0m[38;5;249m{[0m[38;5;249mi[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m}[0m[38;5;249m<[0m[38;5;249ms[0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249m>[0m[38;5;249m{[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249mb[0m[38;5;249me[0m[38;5;249ml[0m[38;5;249m}[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249ms[0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249mC[0m[38;5;249mh[0m[38;5;249me[0m[38;5;249mv[0m[38;5;249mr[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mD[0m[38;5;249mo[0m[38;5;249mw[0m[38;5;249mn[0m[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249ma[0m[38;5;249mi[0m[38;5;249m-[0m[38;5;249mp[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mn[0m[38;5;249me[0m[38;5;249mr[0m[38;5;249m-[0m[38;5;249mc[0m[38;5;249mh[0m[38;5;249me[0m[38;5;249mv[0m[38;5;249mr[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mz[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m1[0m[38;5;249m6[0m[38;5;249m}[0m[38;5;249m/[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249ms[0m[38;5;249mu[0m[38;5;249mm[0m[38;5;249mm[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249my[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249md[0m[38;5;249mi[0m[38;5;249mv[0m[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249ma[0m[38;5;249mi[0m[38;5;249m-[0m[38;5;249mp[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mn[0m[38;5;249me[0m[38;5;249mr[0m[38;5;249m-[0m[38;5;249md[0m[38;5;249mi[0m[38;5;249ms[0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249mo[0m[38;5;249ms[0m[38;5;249mu[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249m-[0m[38;5;249mb[0m[38;5;249mo[0m[38;5;249md[0m[38;5;249my[0m[38;5;249m"[0m[38;5;249m>[0m[38;5;249m{[0m[38;5;249mc[0m[38;5;249mh[0m[38;5;249mi[0m[38;5;249ml[0m[38;5;249md[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249m}[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249md[0m[38;5;249mi[0m[38;5;249mv[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249m/[0mPlannerDisclosure[38;5;249m>[0m[38;5;249m;[0m
+ [38;5;240m   │[0m           ───┬───                                                                                                                                                                                                  ────────┬────────  
+ [38;5;240m   │[0m              ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── Opened here
+ [38;5;240m   │[0m                                                                                                                                                                                                                            │          
+ [38;5;240m   │[0m                                                                                                                                                                                                                            ╰────────── Expected `</details>`
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/Giry/Documents/Spotlog/web/src/AiPlannerSheet.tsx
+      at transformWithOxc (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4103:19)
+      at TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4174:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:51)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+      at async viteTransformMiddleware (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:25205:20)
+오전 9:53:37 [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'details'.
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/AiPlannerSheet.tsx:24:212 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m24 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mr[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249mu[0m[38;5;249mr[0m[38;5;249mn[0m[38;5;249m [0m[38;5;249m<[0mdetails[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249ma[0m[38;5;249mi[0m[38;5;249m-[0m[38;5;249mp[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mn[0m[38;5;249me[0m[38;5;249mr[0m[38;5;249m-[0m[38;5;249md[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mi[0m[38;5;249ml[0m[38;5;249ms[0m[38;5;249m"[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249ms[0m[38;5;249mu[0m[38;5;249mm[0m[38;5;249mm[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249my[0m[38;5;249m>[0m[38;5;249m{[0m[38;5;249mi[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m}[0m[38;5;249m<[0m[38;5;249ms[0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249m>[0m[38;5;249m{[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249mb[0m[38;5;249me[0m[38;5;249ml[0m[38;5;249m}[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249ms[0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249mC[0m[38;5;249mh[0m[38;5;249me[0m[38;5;249mv[0m[38;5;249mr[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mD[0m[38;5;249mo[0m[38;5;249mw[0m[38;5;249mn[0m[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249ma[0m[38;5;249mi[0m[38;5;249m-[0m[38;5;249mp[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mn[0m[38;5;249me[0m[38;5;249mr[0m[38;5;249m-[0m[38;5;249mc[0m[38;5;249mh[0m[38;5;249me[0m[38;5;249mv[0m[38;5;249mr[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mz[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m1[0m[38;5;249m6[0m[38;5;249m}[0m[38;5;249m/[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249ms[0m[38;5;249mu[0m[38;5;249mm[0m[38;5;249mm[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249my[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249md[0m[38;5;249mi[0m[38;5;249mv[0m[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249ma[0m[38;5;249mi[0m[38;5;249m-[0m[38;5;249mp[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mn[0m[38;5;249me[0m[38;5;249mr[0m[38;5;249m-[0m[38;5;249md[0m[38;5;249mi[0m[38;5;249ms[0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249mo[0m[38;5;249ms[0m[38;5;249mu[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249m-[0m[38;5;249mb[0m[38;5;249mo[0m[38;5;249md[0m[38;5;249my[0m[38;5;249m"[0m[38;5;249m>[0m[38;5;249m{[0m[38;5;249mc[0m[38;5;249mh[0m[38;5;249mi[0m[38;5;249ml[0m[38;5;249md[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249m}[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249md[0m[38;5;249mi[0m[38;5;249mv[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249m/[0mPlannerDisclosure[38;5;249m>[0m[38;5;249m;[0m
+ [38;5;240m   │[0m           ───┬───                                                                                                                                                                                                  ────────┬────────  
+ [38;5;240m   │[0m              ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── Opened here
+ [38;5;240m   │[0m                                                                                                                                                                                                                            │          
+ [38;5;240m   │[0m                                                                                                                                                                                                                            ╰────────── Expected `</details>`
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/Giry/Documents/Spotlog/web/src/AiPlannerSheet.tsx
+      at transformWithOxc (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4103:19)
+      at TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4174:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:51)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+      at async viteTransformMiddleware (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:25205:20)
+오전 9:53:37 [vite] (client) [console.error] [vite] Failed to reload /src/AiPlannerSheet.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오전 9:53:37 [vite] (client) [console.error] [vite] Failed to reload /src/AiPlannerSheet.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오전 10:33:33 [vite] (client) [console.error] You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.
+오전 10:33:33 [vite] (client) [console.error] You are calling ReactDOMClient.createRoot() on a container that has already been passed to createRoot() before. Instead, call root.render() on the existing root instead if you want to update it.
+오후 4:42:08 [vite] (client) [Unhandled error] ReferenceError: CalendarDays is not defined
+ > AiPlannerSheet src/AiPlannerSheet.tsx:143:215
+    141 |        <div className="ai-planner-tabs" aria-label={say("추천 방식")}>{([['region','지역·취향 추천'],['saved','저장 장소로 추천']] as c...
+    142 |        <Field label={say("어떤 여행을 하고 싶으세요?")} hint={locale==='en'?"Describe your destination and trip length. Adjust th...
+    143 |  ...ale==='en'?'Destination needed':'지역을 알려주세요'))}</span><span><CalendarDays size={14}/>{period(conditions.dayCount,lo...
+        |                                                                 ^
+    144 |        <p className="ai-planner-note ai-planner-intent">{locale==='en'?`Meals ${intent.food==='include'?'included':'ex...
+    145 |        {error&&<p className="ui-error" role="alert">{say(error)}</p>}
+ > Object.react_stack_bottom_frame ../node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks ../node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent ../node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork ../node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV ../node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork ../node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync ../node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync ../node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+ > performWorkOnRoot ../node_modules/react-dom/cjs/react-dom-client.development.js:16583:34
+
+오후 4:42:08 [vite] (client) [console.warn] An error occurred in the <AiPlannerSheet> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+오후 9:49:17 [vite] (client) [console.error] [vite] ReferenceError: formatClock is not defined
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167757182:684:11
+    at Array.map (<anonymous>)
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167757182:672:38
+    at Array.from (<anonymous>)
+    at buildAiJourneyDraft (http://127.0.0.1:5210/src/App.tsx?t=1790167757182:666:21)
+    at publishTemplateJourney (http://127.0.0.1:5210/src/App.tsx?t=1790167757182:861:20)
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167757182:911:2
+오후 9:49:17 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:49:17 [vite] (client) [console.error] [vite] ReferenceError: formatClock is not defined
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167757182:684:11
+    at Array.map (<anonymous>)
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167757182:672:38
+    at Array.from (<anonymous>)
+    at buildAiJourneyDraft (http://127.0.0.1:5210/src/App.tsx?t=1790167757182:666:21)
+    at publishTemplateJourney (http://127.0.0.1:5210/src/App.tsx?t=1790167757182:861:20)
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167757182:911:2
+오후 9:49:17 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:51:08 [vite] (client) [console.error] [vite] ReferenceError: formatClock is not defined
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167868909:684:11
+    at Array.map (<anonymous>)
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167868909:672:38
+    at Array.from (<anonymous>)
+    at buildAiJourneyDraft (http://127.0.0.1:5210/src/App.tsx?t=1790167868909:666:21)
+    at publishTemplateJourney (http://127.0.0.1:5210/src/App.tsx?t=1790167868909:861:20)
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167868909:911:2
+오후 9:51:08 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:51:09 [vite] (client) [console.error] [vite] ReferenceError: formatClock is not defined
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167868909:684:11
+    at Array.map (<anonymous>)
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167868909:672:38
+    at Array.from (<anonymous>)
+    at buildAiJourneyDraft (http://127.0.0.1:5210/src/App.tsx?t=1790167868909:666:21)
+    at publishTemplateJourney (http://127.0.0.1:5210/src/App.tsx?t=1790167868909:861:20)
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167868909:911:2
+오후 9:51:09 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:51:09 [vite] (client) [console.error] [vite] ReferenceError: formatClock is not defined
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167868909:684:11
+    at Array.map (<anonymous>)
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167868909:672:38
+    at Array.from (<anonymous>)
+    at buildAiJourneyDraft (http://127.0.0.1:5210/src/App.tsx?t=1790167868909:666:21)
+    at publishTemplateJourney (http://127.0.0.1:5210/src/App.tsx?t=1790167868909:861:20)
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167868909:911:2
+오후 9:51:09 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:51:09 [vite] (client) [console.error] [vite] ReferenceError: formatClock is not defined
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167868909:684:11
+    at Array.map (<anonymous>)
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167868909:672:38
+    at Array.from (<anonymous>)
+    at buildAiJourneyDraft (http://127.0.0.1:5210/src/App.tsx?t=1790167868909:666:21)
+    at publishTemplateJourney (http://127.0.0.1:5210/src/App.tsx?t=1790167868909:861:20)
+    at http://127.0.0.1:5210/src/App.tsx?t=1790167868909:911:2
+오후 9:51:09 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:54:24 [vite] (client) [console.error] [vite] SyntaxError: The requested module '/src/ExternalPlaceSearch.ts' does not provide an export named 'ExternalPlaceSearch'
+오후 9:54:24 [vite] (client) [console.error] [vite] Failed to reload /src/NearbyBusinessSheet.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:54:24 [vite] (client) [console.error] [vite] SyntaxError: The requested module '/src/ExternalPlaceSearch.ts' does not provide an export named 'ExternalPlaceSearch'
+오후 9:54:24 [vite] (client) [console.error] [vite] Failed to reload /src/NearbyBusinessSheet.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:54:24 [vite] (client) Pre-transform error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'div'.
+ - Expected `</div>` in src/AccountSheet.tsx at 9146..9149
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/AccountSheet.tsx:46:24 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m46 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m{[0m[38;5;249mv[0m[38;5;249mi[0m[38;5;249me[0m[38;5;249mw[0m[38;5;249m=[0m[38;5;249m=[0m[38;5;249m=[0m[38;5;249m'[0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mg[0m[38;5;249mn[0m[38;5;249mi[0m[38;5;249mn[0m[38;5;249m'[0m[38;5;249m&[0m[38;5;249m&[0m[38;5;249m<[0mdiv[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mu[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m-[0m[38;5;249ml[0m[38;5;249mi[0m[38;5;249mn[0m[38;5;249mk[0m[38;5;249ms[0m[38;5;249m"[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249mB[0m[38;5;249mu[0m[38;5;249mt[0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mz[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mm[0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249mv[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249mi[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mg[0m[38;5;249mh[0m[38;5;249mo[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249md[0m[38;5;249mi[0m[38;5;249ms[0m[38;5;249ma[0m[38;5;249mb[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249md[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249mb[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249my[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mC[0m[38;5;249ml[0m[38;5;249mi[0m[38;5;249mc[0m[38;5;249mk[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m=[0m[38;5;249m>[0m[38;5;249mc[0m[38;5;249mh[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mg[0m[38;5;249me[0m[38;5;249m([0m[38;5;249m'[0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mg[0m[38;5;249mn[0m[38;5;249mu[0m[38;5;249mp[0m[38;5;249m'[0m[38;5;249m)[0m[38;5;249m}[0m[38;5;249m>[0m[38;5;249m{[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249m?[0m[38;5;249m'[0m[38;5;249mC[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249m [0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mu[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m'[0m[38;5;249m:[0m[38;5;249m'[0m[38;5;249m회[0m[38;5;249m원[0m[38;5;249m가[0m[38;5;249m입[0m[38;5;249m'[0m[38;5;249m}[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249mB[0m[38;5;249mu[0m[38;5;249mt[0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249mB[0m[38;5;249mu[0m[38;5;249mt[0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mz[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mm[0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249mv[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249mi[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mg[0m[38;5;249mh[0m[38;5;249mo[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249md[0m[38;5;249mi[0m[38;5;249ms[0m[38;5;249ma[0m[38;5;249mb[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249md[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249mb[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249my[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mC[0m[38;5;249ml[0m[38;5;249mi[0m[38;5;249mc[0m[38;5;249mk[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m=[0m[38;5;249m>[0m[38;5;249mc[0m[38;5;249mh[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mg[0m[38;5;249me[0m[38;5;249m([0m[38;5;249m'[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249m'[0m[38;5;249m)[0m[38;5;249m}[0m[38;5;249m>[0m[38;5;249m{[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249m?[0m[38;5;249m'[0m[38;5;249mF[0m[38;5;249mo[0m[38;5;249mr[0m[38;5;249mg[0m[38;5;249mo[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mw[0m[38;5;249mo[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249m?[0m[38;5;249m'[0m[38;5;249m:[0m[38;5;249m'[0m[38;5;249m비[0m[38;5;249m밀[0m[38;5;249m번[0m[38;5;249m호[0m[38;5;249m [0m[38;5;249m찾[0m[38;5;249m기[0m[38;5;249m'[0m[38;5;249m}[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249mB[0m[38;5;249mu[0m[38;5;249mt[0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249m>[0m[38;5;249m}[0m
+ [38;5;240m   │[0m                        ─┬─  
+ [38;5;240m   │[0m                         ╰─── Opened here
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/Giry/Documents/Spotlog/web/src/AccountSheet.tsx
+오후 9:54:24 [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'div'.
+ - Expected `</div>` in src/AccountSheet.tsx at 9146..9149
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/AccountSheet.tsx:46:24 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m46 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m{[0m[38;5;249mv[0m[38;5;249mi[0m[38;5;249me[0m[38;5;249mw[0m[38;5;249m=[0m[38;5;249m=[0m[38;5;249m=[0m[38;5;249m'[0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mg[0m[38;5;249mn[0m[38;5;249mi[0m[38;5;249mn[0m[38;5;249m'[0m[38;5;249m&[0m[38;5;249m&[0m[38;5;249m<[0mdiv[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mu[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m-[0m[38;5;249ml[0m[38;5;249mi[0m[38;5;249mn[0m[38;5;249mk[0m[38;5;249ms[0m[38;5;249m"[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249mB[0m[38;5;249mu[0m[38;5;249mt[0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mz[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mm[0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249mv[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249mi[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mg[0m[38;5;249mh[0m[38;5;249mo[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249md[0m[38;5;249mi[0m[38;5;249ms[0m[38;5;249ma[0m[38;5;249mb[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249md[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249mb[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249my[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mC[0m[38;5;249ml[0m[38;5;249mi[0m[38;5;249mc[0m[38;5;249mk[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m=[0m[38;5;249m>[0m[38;5;249mc[0m[38;5;249mh[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mg[0m[38;5;249me[0m[38;5;249m([0m[38;5;249m'[0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mg[0m[38;5;249mn[0m[38;5;249mu[0m[38;5;249mp[0m[38;5;249m'[0m[38;5;249m)[0m[38;5;249m}[0m[38;5;249m>[0m[38;5;249m{[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249m?[0m[38;5;249m'[0m[38;5;249mC[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249m [0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mu[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m'[0m[38;5;249m:[0m[38;5;249m'[0m[38;5;249m회[0m[38;5;249m원[0m[38;5;249m가[0m[38;5;249m입[0m[38;5;249m'[0m[38;5;249m}[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249mB[0m[38;5;249mu[0m[38;5;249mt[0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249mB[0m[38;5;249mu[0m[38;5;249mt[0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mz[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mm[0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249mv[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249mi[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mg[0m[38;5;249mh[0m[38;5;249mo[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249md[0m[38;5;249mi[0m[38;5;249ms[0m[38;5;249ma[0m[38;5;249mb[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249md[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249mb[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249my[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mC[0m[38;5;249ml[0m[38;5;249mi[0m[38;5;249mc[0m[38;5;249mk[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m=[0m[38;5;249m>[0m[38;5;249mc[0m[38;5;249mh[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mg[0m[38;5;249me[0m[38;5;249m([0m[38;5;249m'[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249m'[0m[38;5;249m)[0m[38;5;249m}[0m[38;5;249m>[0m[38;5;249m{[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249m?[0m[38;5;249m'[0m[38;5;249mF[0m[38;5;249mo[0m[38;5;249mr[0m[38;5;249mg[0m[38;5;249mo[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mw[0m[38;5;249mo[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249m?[0m[38;5;249m'[0m[38;5;249m:[0m[38;5;249m'[0m[38;5;249m비[0m[38;5;249m밀[0m[38;5;249m번[0m[38;5;249m호[0m[38;5;249m [0m[38;5;249m찾[0m[38;5;249m기[0m[38;5;249m'[0m[38;5;249m}[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249mB[0m[38;5;249mu[0m[38;5;249mt[0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249m>[0m[38;5;249m}[0m
+ [38;5;240m   │[0m                        ─┬─  
+ [38;5;240m   │[0m                         ╰─── Opened here
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/Giry/Documents/Spotlog/web/src/AccountSheet.tsx
+      at transformWithOxc (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4103:19)
+      at TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4174:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:51)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+      at async viteTransformMiddleware (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:25205:20)
+오후 9:54:24 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:54:24 [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mExpected corresponding JSX closing tag for 'div'.
+ - Expected `</div>` in src/AccountSheet.tsx at 9146..9149
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/AccountSheet.tsx:46:24 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m46 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m{[0m[38;5;249mv[0m[38;5;249mi[0m[38;5;249me[0m[38;5;249mw[0m[38;5;249m=[0m[38;5;249m=[0m[38;5;249m=[0m[38;5;249m'[0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mg[0m[38;5;249mn[0m[38;5;249mi[0m[38;5;249mn[0m[38;5;249m'[0m[38;5;249m&[0m[38;5;249m&[0m[38;5;249m<[0mdiv[38;5;249m [0m[38;5;249mc[0m[38;5;249ml[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mN[0m[38;5;249ma[0m[38;5;249mm[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mu[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m-[0m[38;5;249ml[0m[38;5;249mi[0m[38;5;249mn[0m[38;5;249mk[0m[38;5;249ms[0m[38;5;249m"[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249mB[0m[38;5;249mu[0m[38;5;249mt[0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mz[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mm[0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249mv[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249mi[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mg[0m[38;5;249mh[0m[38;5;249mo[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249md[0m[38;5;249mi[0m[38;5;249ms[0m[38;5;249ma[0m[38;5;249mb[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249md[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249mb[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249my[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mC[0m[38;5;249ml[0m[38;5;249mi[0m[38;5;249mc[0m[38;5;249mk[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m=[0m[38;5;249m>[0m[38;5;249mc[0m[38;5;249mh[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mg[0m[38;5;249me[0m[38;5;249m([0m[38;5;249m'[0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mg[0m[38;5;249mn[0m[38;5;249mu[0m[38;5;249mp[0m[38;5;249m'[0m[38;5;249m)[0m[38;5;249m}[0m[38;5;249m>[0m[38;5;249m{[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249m?[0m[38;5;249m'[0m[38;5;249mC[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249m [0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mu[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m'[0m[38;5;249m:[0m[38;5;249m'[0m[38;5;249m회[0m[38;5;249m원[0m[38;5;249m가[0m[38;5;249m입[0m[38;5;249m'[0m[38;5;249m}[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249mB[0m[38;5;249mu[0m[38;5;249mt[0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249mB[0m[38;5;249mu[0m[38;5;249mt[0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249mi[0m[38;5;249mz[0m[38;5;249me[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mm[0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249mc[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249mv[0m[38;5;249ma[0m[38;5;249mr[0m[38;5;249mi[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mt[0m[38;5;249m=[0m[38;5;249m"[0m[38;5;249mg[0m[38;5;249mh[0m[38;5;249mo[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249md[0m[38;5;249mi[0m[38;5;249ms[0m[38;5;249ma[0m[38;5;249mb[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249md[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249mb[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249my[0m[38;5;249m}[0m[38;5;249m [0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249mC[0m[38;5;249ml[0m[38;5;249mi[0m[38;5;249mc[0m[38;5;249mk[0m[38;5;249m=[0m[38;5;249m{[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m=[0m[38;5;249m>[0m[38;5;249mc[0m[38;5;249mh[0m[38;5;249ma[0m[38;5;249mn[0m[38;5;249mg[0m[38;5;249me[0m[38;5;249m([0m[38;5;249m'[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249m'[0m[38;5;249m)[0m[38;5;249m}[0m[38;5;249m>[0m[38;5;249m{[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249m?[0m[38;5;249m'[0m[38;5;249mF[0m[38;5;249mo[0m[38;5;249mr[0m[38;5;249mg[0m[38;5;249mo[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249mp[0m[38;5;249ma[0m[38;5;249ms[0m[38;5;249ms[0m[38;5;249mw[0m[38;5;249mo[0m[38;5;249mr[0m[38;5;249md[0m[38;5;249m?[0m[38;5;249m'[0m[38;5;249m:[0m[38;5;249m'[0m[38;5;249m비[0m[38;5;249m밀[0m[38;5;249m번[0m[38;5;249m호[0m[38;5;249m [0m[38;5;249m찾[0m[38;5;249m기[0m[38;5;249m'[0m[38;5;249m}[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249mB[0m[38;5;249mu[0m[38;5;249mt[0m[38;5;249mt[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249m>[0m[38;5;249m<[0m[38;5;249m/[0m[38;5;249m>[0m[38;5;249m}[0m
+ [38;5;240m   │[0m                        ─┬─  
+ [38;5;240m   │[0m                         ╰─── Opened here
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/Giry/Documents/Spotlog/web/src/AccountSheet.tsx
+      at transformWithOxc (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4103:19)
+      at TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4174:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:51)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+      at async viteTransformMiddleware (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:25205:20)
+오후 9:54:24 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:55:43 [vite] (client) [console.error] [vite] SyntaxError: The requested module '/src/ExternalPlaceSearch.ts' does not provide an export named 'ExternalPlaceSearch'
+오후 9:55:43 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:55:43 [vite] (client) [console.error] [vite] SyntaxError: The requested module '/src/ExternalPlaceSearch.ts' does not provide an export named 'ExternalPlaceSearch'
+오후 9:55:43 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:55:43 [vite] (client) [console.error] [vite] SyntaxError: The requested module '/src/ExternalPlaceSearch.ts' does not provide an export named 'ExternalPlaceSearch'
+오후 9:55:43 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 9:55:43 [vite] (client) [console.error] [vite] SyntaxError: The requested module '/src/ExternalPlaceSearch.ts' does not provide an export named 'ExternalPlaceSearch'
+오후 9:55:43 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 10:05:43 [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mIdentifier `copy` has already been declared
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/PersonalTrip.tsx:22:9 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m22 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0mcopy[38;5;249m=[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mU[0m[38;5;249mi[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m         ──┬─  
+ [38;5;240m   │[0m           ╰─── `copy` has already been declared here
+ [38;5;240m   │[0m 
+ [38;5;246m37 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249m[[0mcopy[38;5;249m,[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m][0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m [0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mS[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249m([0m[38;5;249mf[0m[38;5;249ma[0m[38;5;249ml[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m          ──┬─  
+ [38;5;240m   │[0m            ╰─── It can not be redeclared here
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/Giry/Documents/Spotlog/web/src/PersonalTrip.tsx
+      at transformWithOxc (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4103:19)
+      at TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4174:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:51)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 10:05:43 [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mIdentifier `copy` has already been declared
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/PersonalTrip.tsx:22:9 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m22 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0mcopy[38;5;249m=[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mU[0m[38;5;249mi[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m         ──┬─  
+ [38;5;240m   │[0m           ╰─── `copy` has already been declared here
+ [38;5;240m   │[0m 
+ [38;5;246m37 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249m[[0mcopy[38;5;249m,[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m][0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m [0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mS[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249m([0m[38;5;249mf[0m[38;5;249ma[0m[38;5;249ml[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m          ──┬─  
+ [38;5;240m   │[0m            ╰─── It can not be redeclared here
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/Giry/Documents/Spotlog/web/src/PersonalTrip.tsx
+      at transformWithOxc (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4103:19)
+      at TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4174:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:51)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 10:05:43 [vite] (client) [console.error] [vite] Failed to reload /src/PersonalTrip.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 10:05:43 [vite] (client) [console.error] [vite] Failed to reload /src/PersonalTrip.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 10:05:43 [vite] (client) Pre-transform error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mIdentifier `copy` has already been declared
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/PersonalTrip.tsx:22:9 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m22 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0mcopy[38;5;249m=[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mU[0m[38;5;249mi[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m         ──┬─  
+ [38;5;240m   │[0m           ╰─── `copy` has already been declared here
+ [38;5;240m   │[0m 
+ [38;5;246m37 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249m[[0mcopy[38;5;249m,[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m][0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m [0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mS[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249m([0m[38;5;249mf[0m[38;5;249ma[0m[38;5;249ml[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m          ──┬─  
+ [38;5;240m   │[0m            ╰─── It can not be redeclared here
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/Giry/Documents/Spotlog/web/src/PersonalTrip.tsx
+오후 10:05:43 [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mIdentifier `copy` has already been declared
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/PersonalTrip.tsx:22:9 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m22 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0mcopy[38;5;249m=[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mU[0m[38;5;249mi[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m         ──┬─  
+ [38;5;240m   │[0m           ╰─── `copy` has already been declared here
+ [38;5;240m   │[0m 
+ [38;5;246m37 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249m[[0mcopy[38;5;249m,[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m][0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m [0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mS[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249m([0m[38;5;249mf[0m[38;5;249ma[0m[38;5;249ml[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m          ──┬─  
+ [38;5;240m   │[0m            ╰─── It can not be redeclared here
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/Giry/Documents/Spotlog/web/src/PersonalTrip.tsx
+      at transformWithOxc (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4103:19)
+      at TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4174:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:51)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 10:05:43 [vite] (client) Pre-transform error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mIdentifier `copy` has already been declared
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/PersonalTrip.tsx:22:9 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m22 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0mcopy[38;5;249m=[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mU[0m[38;5;249mi[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m         ──┬─  
+ [38;5;240m   │[0m           ╰─── `copy` has already been declared here
+ [38;5;240m   │[0m 
+ [38;5;246m37 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249m[[0mcopy[38;5;249m,[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m][0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m [0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mS[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249m([0m[38;5;249mf[0m[38;5;249ma[0m[38;5;249ml[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m          ──┬─  
+ [38;5;240m   │[0m            ╰─── It can not be redeclared here
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/Giry/Documents/Spotlog/web/src/PersonalTrip.tsx
+오후 10:05:43 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 10:05:43 [vite] (client) [console.error] [vite] Failed to reload /src/PersonalTrip.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 10:05:43 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 10:05:43 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 10:05:44 [vite] Internal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mIdentifier `copy` has already been declared
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/PersonalTrip.tsx:22:9 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m22 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0mcopy[38;5;249m=[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mU[0m[38;5;249mi[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m         ──┬─  
+ [38;5;240m   │[0m           ╰─── `copy` has already been declared here
+ [38;5;240m   │[0m 
+ [38;5;246m37 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249m[[0mcopy[38;5;249m,[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m][0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m [0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mS[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249m([0m[38;5;249mf[0m[38;5;249ma[0m[38;5;249ml[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m          ──┬─  
+ [38;5;240m   │[0m            ╰─── It can not be redeclared here
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/Giry/Documents/Spotlog/web/src/PersonalTrip.tsx
+      at transformWithOxc (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4103:19)
+      at TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:4174:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:51)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+      at async viteTransformMiddleware (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:25205:20)
+오후 10:05:44 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 10:05:44 [vite] (client) [console.error] [vite] Failed to reload /src/PersonalTrip.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 10:05:44 [vite] (client) Pre-transform error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] [0mIdentifier `copy` has already been declared
+    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/PersonalTrip.tsx:22:9 [38;5;246m][0m
+    [38;5;246m│[0m
+ [38;5;246m22 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0mcopy[38;5;249m=[0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mU[0m[38;5;249mi[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m([0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m         ──┬─  
+ [38;5;240m   │[0m           ╰─── `copy` has already been declared here
+ [38;5;240m   │[0m 
+ [38;5;246m37 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249m[[0mcopy[38;5;249m,[0m[38;5;249m [0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mt[0m[38;5;249mC[0m[38;5;249mo[0m[38;5;249mp[0m[38;5;249my[0m[38;5;249m][0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m [0m[38;5;249mu[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249mS[0m[38;5;249mt[0m[38;5;249ma[0m[38;5;249mt[0m[38;5;249me[0m[38;5;249m([0m[38;5;249mf[0m[38;5;249ma[0m[38;5;249ml[0m[38;5;249ms[0m[38;5;249me[0m[38;5;249m)[0m[38;5;249m;[0m
+ [38;5;240m   │[0m          ──┬─  
+ [38;5;240m   │[0m            ╰─── It can not be redeclared here
+[38;5;246m────╯[0m
+
+  Plugin: vite:oxc
+  File: C:/Users/Giry/Documents/Spotlog/web/src/PersonalTrip.tsx
+오후 10:05:44 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 10:05:44 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)

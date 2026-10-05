@@ -1,0 +1,86 @@
+[
+  {
+    "width": 320,
+    "referenceGap": 15,
+    "captionSourceGap": 15.640625,
+    "coverSourceGap": 15.203125,
+    "caption": {
+      "font": "13px / 21.45px \"DM Sans\", Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      "fontSize": "13px",
+      "padding": "13px 15px 7px",
+      "margin": "0px",
+      "height": 84.3125
+    },
+    "button": {
+      "font": "11px / 17.6px \"DM Sans\", Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      "fontSize": "11px",
+      "padding": "4px 0px",
+      "margin": "0px",
+      "height": 28
+    },
+    "lead": {
+      "font": "16px / 27.2px \"DM Sans\", Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      "fontSize": "16px",
+      "padding": "9px 20px 26px",
+      "margin": "0px",
+      "height": 1087.21875
+    },
+    "horizontal": false
+  },
+  {
+    "width": 390,
+    "referenceGap": 15,
+    "captionSourceGap": 15.640625,
+    "coverSourceGap": 15.203125,
+    "caption": {
+      "font": "13px / 21.45px \"DM Sans\", Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      "fontSize": "13px",
+      "padding": "13px 15px 7px",
+      "margin": "0px",
+      "height": 84.3125
+    },
+    "button": {
+      "font": "11px / 17.6px \"DM Sans\", Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      "fontSize": "11px",
+      "padding": "4px 0px",
+      "margin": "0px",
+      "height": 28
+    },
+    "lead": {
+      "font": "16px / 27.2px \"DM Sans\", Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      "fontSize": "16px",
+      "padding": "9px 20px 26px",
+      "margin": "0px",
+      "height": 860.671875
+    },
+    "horizontal": false
+  },
+  {
+    "width": 460,
+    "referenceGap": 15,
+    "captionSourceGap": 15.640625,
+    "coverSourceGap": 15.203125,
+    "caption": {
+      "font": "13px / 21.45px \"DM Sans\", Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      "fontSize": "13px",
+      "padding": "13px 15px 7px",
+      "margin": "0px",
+      "height": 62.875
+    },
+    "button": {
+      "font": "11px / 17.6px \"DM Sans\", Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      "fontSize": "11px",
+      "padding": "4px 0px",
+      "margin": "0px",
+      "height": 28
+    },
+    "lead": {
+      "font": "16px / 27.2px \"DM Sans\", Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+      "fontSize": "16px",
+      "padding": "9px 20px 26px",
+      "margin": "0px",
+      "height": 806.296875
+    },
+    "horizontal": false
+  }
+]

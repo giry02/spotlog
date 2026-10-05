@@ -1,0 +1,122 @@
+{
+  "photo": [
+    {
+      "images": [
+        {
+          "height": 205,
+          "imageDisplay": "block",
+          "name": "첨성대 사진 1장",
+          "overflowY": "hidden",
+          "scrollHeight": 205
+        }
+      ],
+      "overflow": false,
+      "width": 320
+    },
+    {
+      "images": [
+        {
+          "height": 205,
+          "imageDisplay": "block",
+          "name": "첨성대 사진 1장",
+          "overflowY": "hidden",
+          "scrollHeight": 205
+        }
+      ],
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "images": [
+        {
+          "height": 205,
+          "imageDisplay": "block",
+          "name": "첨성대 사진 1장",
+          "overflowY": "hidden",
+          "scrollHeight": 205
+        }
+      ],
+      "overflow": false,
+      "width": 460
+    }
+  ],
+  "detail": [
+    {
+      "bodyOverflow": false,
+      "dialog": 320,
+      "overflow": false,
+      "photoHeight": 205,
+      "photoScrollHeight": 205,
+      "width": 320
+    },
+    {
+      "bodyOverflow": false,
+      "dialog": 390,
+      "overflow": false,
+      "photoHeight": 205,
+      "photoScrollHeight": 205,
+      "width": 390
+    },
+    {
+      "bodyOverflow": false,
+      "dialog": 460,
+      "overflow": false,
+      "photoHeight": 205,
+      "photoScrollHeight": 205,
+      "width": 460
+    }
+  ],
+  "cards": [
+    {
+      "cards": [
+        {
+          "buttonFont": "12px",
+          "buttonHeight": 34,
+          "overflow": false,
+          "width": 264
+        },
+        {
+          "buttonFont": "12px",
+          "buttonHeight": 34,
+          "overflow": false,
+          "width": 264
+        }
+      ],
+      "width": 320
+    },
+    {
+      "cards": [
+        {
+          "buttonFont": "12px",
+          "buttonHeight": 34,
+          "overflow": false,
+          "width": 334
+        },
+        {
+          "buttonFont": "12px",
+          "buttonHeight": 34,
+          "overflow": false,
+          "width": 334
+        }
+      ],
+      "width": 390
+    },
+    {
+      "cards": [
+        {
+          "buttonFont": "12px",
+          "buttonHeight": 34,
+          "overflow": false,
+          "width": 404
+        },
+        {
+          "buttonFont": "12px",
+          "buttonHeight": 34,
+          "overflow": false,
+          "width": 404
+        }
+      ],
+      "width": 460
+    }
+  ]
+}

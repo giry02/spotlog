@@ -1,0 +1,620 @@
+[
+  {
+    "width": 320,
+    "label": "before",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 320,
+    "label": "initial",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 320,
+    "label": "visited",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 320,
+    "label": "place-menu",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [
+      {
+        "text": "미방문",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "완료",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "건너뛰기",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "이 장소만 다른 곳으로 교체",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      }
+    ],
+    "inputs": [
+      {
+        "type": "textarea",
+        "size": "16px"
+      },
+      {
+        "type": "time",
+        "size": "16px"
+      },
+      {
+        "type": "number",
+        "size": "16px"
+      }
+    ],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 320,
+    "label": "replacement-list",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [
+      {
+        "type": "text",
+        "size": "14px"
+      }
+    ],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 320,
+    "label": "replacement-confirm",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 320,
+    "label": "replacement-failure",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 320,
+    "label": "map-warning",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [
+      {
+        "text": "확인·수정",
+        "role": "점심 식당 · 구간 확인·수정",
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "시간 설정",
+        "role": "예약한 숙소 · 구간 확인·수정",
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      }
+    ],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 320,
+    "label": "warning-actions",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [
+      {
+        "text": "첫 랜드마크 · 체류시간 수정",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "점심 식당 · 방문 시각 수정",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "이 장소를 다른 DAY로 이동",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "가까운 후보 보기 · 직선거리 기준",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      }
+    ],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 320,
+    "label": "all-visited",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 320,
+    "actions": "complete, reload, skip, restore, food/cafe replacement cancel/failure/commit/undo, warning edit, DAY resume, DAY/trip finish",
+    "errors": []
+  },
+  {
+    "width": 390,
+    "label": "before",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 390,
+    "label": "initial",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 390,
+    "label": "visited",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 390,
+    "label": "place-menu",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [
+      {
+        "text": "미방문",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "완료",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "건너뛰기",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "이 장소만 다른 곳으로 교체",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      }
+    ],
+    "inputs": [
+      {
+        "type": "textarea",
+        "size": "16px"
+      },
+      {
+        "type": "time",
+        "size": "16px"
+      },
+      {
+        "type": "number",
+        "size": "16px"
+      }
+    ],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 390,
+    "label": "replacement-list",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [
+      {
+        "type": "text",
+        "size": "14px"
+      }
+    ],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 390,
+    "label": "replacement-confirm",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 390,
+    "label": "replacement-failure",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 390,
+    "label": "map-warning",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [
+      {
+        "text": "확인·수정",
+        "role": "점심 식당 · 구간 확인·수정",
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "시간 설정",
+        "role": "예약한 숙소 · 구간 확인·수정",
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      }
+    ],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 390,
+    "label": "warning-actions",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [
+      {
+        "text": "첫 랜드마크 · 체류시간 수정",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "점심 식당 · 방문 시각 수정",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "이 장소를 다른 DAY로 이동",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "가까운 후보 보기 · 직선거리 기준",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      }
+    ],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 390,
+    "label": "all-visited",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 390,
+    "actions": "complete, reload, skip, restore, food/cafe replacement cancel/failure/commit/undo, warning edit, DAY resume, DAY/trip finish",
+    "errors": []
+  },
+  {
+    "width": 460,
+    "label": "before",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 460,
+    "label": "initial",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 460,
+    "label": "visited",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 460,
+    "label": "place-menu",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [
+      {
+        "text": "미방문",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "완료",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "건너뛰기",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "이 장소만 다른 곳으로 교체",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      }
+    ],
+    "inputs": [
+      {
+        "type": "textarea",
+        "size": "16px"
+      },
+      {
+        "type": "time",
+        "size": "16px"
+      },
+      {
+        "type": "number",
+        "size": "16px"
+      }
+    ],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 460,
+    "label": "replacement-list",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [
+      {
+        "type": "text",
+        "size": "14px"
+      }
+    ],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 460,
+    "label": "replacement-confirm",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 460,
+    "label": "replacement-failure",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 460,
+    "label": "map-warning",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [
+      {
+        "text": "확인·수정",
+        "role": "점심 식당 · 구간 확인·수정",
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "시간 설정",
+        "role": "예약한 숙소 · 구간 확인·수정",
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      }
+    ],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 460,
+    "label": "warning-actions",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [
+      {
+        "text": "첫 랜드마크 · 체류시간 수정",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "점심 식당 · 방문 시각 수정",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "이 장소를 다른 DAY로 이동",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      },
+      {
+        "text": "가까운 후보 보기 · 직선거리 기준",
+        "role": null,
+        "height": 36,
+        "size": "12px",
+        "weight": "700"
+      }
+    ],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 460,
+    "label": "all-visited",
+    "overflow": false,
+    "bodyOverflow": false,
+    "controls": [],
+    "inputs": [],
+    "cover": 230,
+    "photo": 56,
+    "cardName": "16px"
+  },
+  {
+    "width": 460,
+    "actions": "complete, reload, skip, restore, food/cafe replacement cancel/failure/commit/undo, warning edit, DAY resume, DAY/trip finish",
+    "errors": []
+  }
+]

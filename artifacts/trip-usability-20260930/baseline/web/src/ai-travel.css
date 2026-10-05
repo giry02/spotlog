@@ -1,0 +1,23 @@
+/* New content inside the existing BottomSheet. No original screen or sheet shell overrides. */
+.ai-travel-form { display: grid; gap: 18px; }
+.ai-travel-form textarea { resize: vertical; line-height: 1.75; }
+.ai-travel-conditions { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 18px 12px; }
+.ai-travel-example, .ai-travel-back { display: inline-flex; align-items: center; gap: 5px; justify-self: start; padding: 0; text-align: left; }
+.ai-travel-readback { display: grid; gap: 5px; margin: 0; padding: 12px 0; border-block: 1px solid var(--line); color: #73736e; font-size: 13px; line-height: 1.7; }
+.ai-travel-form .phase-hint { margin: 0; }
+.ai-travel-preview > h3 { margin: 10px 0 6px; font-family: 'Manrope',sans-serif; font-size: 20px; line-height: 1.35; outline: none; }
+.ai-travel-result-meta { margin: 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.ai-travel-day-options { position: sticky; top: -20px; z-index: 2; padding-block: 12px; background: #fafaf8; border-bottom: 1px solid var(--line); }
+.ai-travel-day-options button { display: flex; gap: 8px; align-items: center; }
+.ai-travel-day-options small { font-size: 12px; }
+.ai-travel-days { min-width: 0; }
+.ai-travel-day { scroll-margin-top: 68px; }
+.ai-travel-day h4 { display: flex; justify-content: space-between; align-items: center; margin: 0 0 12px; font-size: 14px; line-height: 1.5; }
+.ai-travel-day h4 span { color: var(--muted); font-size: 12px; font-weight: 400; }
+.ai-travel-day > p { color: var(--muted); font-size: 12px; line-height: 1.7; margin: 0; }
+.ai-travel-preview .landmark-guide-actions button.is-included[aria-pressed="true"] { color: #176759; background: #e3f2ed; border-color: #e3f2ed; }
+.ai-travel-notices { margin: 18px 0; padding-block: 12px; border-block: 1px solid var(--line); color: #73736e; font-size: 13px; line-height: 1.7; }
+.ai-travel-notices summary { cursor: pointer; }
+.ai-travel-notices ul { padding-left: 18px; margin: 12px 0 0; display: grid; gap: 8px; }
+.ai-travel-preview > .ui-error { margin: 18px 0; }
+@media (max-width: 360px) { .ai-travel-conditions { grid-template-columns: minmax(0,1fr); } }

@@ -1,0 +1,96 @@
+[
+  {
+    "width": 320,
+    "overflow": false,
+    "fields": [
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      }
+    ],
+    "bodyOverflow": false,
+    "draftRestored": true,
+    "generatedDays": 3,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "overflow": false,
+    "fields": [
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      }
+    ],
+    "bodyOverflow": false,
+    "draftRestored": true,
+    "generatedDays": 3,
+    "errors": []
+  },
+  {
+    "width": 460,
+    "overflow": false,
+    "fields": [
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      }
+    ],
+    "bodyOverflow": false,
+    "draftRestored": true,
+    "generatedDays": 3,
+    "errors": []
+  },
+  {
+    "savedMode": true,
+    "savedLandmarksRetained": true
+  }
+]

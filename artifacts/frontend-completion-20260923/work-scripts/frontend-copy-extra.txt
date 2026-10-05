@@ -1,0 +1,53 @@
+여행 날짜|Trip days
+목록으로 돌아가기|Back to list
+드래그해서 날짜 보기|Drag to see more days
+좌우로 밀어 날짜 보기|Swipe to see more days
+좋아요 취소|Unlike
+좋아요 목록|People who liked this
+이 여행기의 장소에 남긴 반응 미리보기예요.|Preview of reactions to this place in this journal.
+아직 좋아요가 없어요.|No likes yet.
+저장하지 못했어요. 입력한 내용은 유지돼요. 다시 시도해 주세요.|Could not save. Your input is kept. Please try again.
+댓글을 저장하지 못했어요.|Could not save the comment.
+ · 수정됨| · Edited
+삭제된 댓글입니다.|This comment was deleted.
+답글|Reply
+수정|Edit
+신고 표시됨|Report marked
+신고|Report
+이 댓글을 삭제할까요? 답글은 남아요.|Delete this comment? Replies will remain.
+댓글 삭제|Delete comment
+취소|Cancel
+이 여행기의 장소에 대한 이야기 · 이 기기의 미리보기|Comments on this journal’s place · Preview on this device
+최신순|Newest first
+이 장소에 첫 댓글을 남겨보세요.|Be the first to comment on this place.
+댓글 더 보기|More comments
+신고 이유|Reason for reporting
+스팸·광고|Spam or advertising
+욕설·괴롭힘|Abuse or harassment
+개인정보 노출|Personal information
+기타|Other
+신고 선택을 이 기기에 기록해요. 운영자에게 전송되는 기능은 아직 연결되지 않았어요.|The report is recorded on this device. Sending it to moderators is not connected yet.
+신고 표시|Mark as reported
+댓글 수정 중|Editing comment
+댓글 수정|Edit comment
+답글 작성|Write a reply
+이 장소에 대한 이야기를 남겨주세요.|Share your thoughts on this place.
+/1,000 · 작성 중 내용은 이 장소 카드에 보관돼요.|/1,000 · Your draft is kept with this place card.
+수정 저장|Save changes
+답글 등록|Post reply
+댓글 등록|Post comment
+· 옆으로 사진 넘기기|· Swipe through photos
+여행기 표지로|Use as journal cover
+사진을 준비하고 있어요|Preparing photos
+여행 사진 추가|Add trip photos
+여러 장 선택 · 카드마다 최대 8장|Select multiple photos · Up to 8 per card
+한 카드에는 사진을 8장까지 넣을 수 있어요.|You can add up to 8 photos per card.
+사진을 불러오지 못했어요. 다시 선택해 주세요.|Could not load the photos. Please select them again.
+사진을 불러오지 못했어요|Could not load the photo
+장소 사진 준비 중|Preparing place photos
+자료 안내|About this information
+여행자 메모|Traveler notes
+이 장소 저장|Save this place
+주소 확인 중|Address unverified
+추천 체류|Suggested visit length
+방문 참고|Visit notes

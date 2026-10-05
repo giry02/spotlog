@@ -1,3 +1,4 @@
+import { CARD_SOCIAL_KEY, isCardSocialStore } from './cardSocialState.ts';
 /** Versioned, local-only storage. Legacy records are never deleted by migration. */
 export interface SavedCollection {
   id: string;
@@ -12,6 +13,7 @@ export interface SavedLibrary {
 }
 
 export const LIBRARY_KEY = 'spotlog.saved-library.v1';
+export const PLACE_DIRECTORY_KEY = 'spotlog.personal-places.v1';
 export const REPOSITORY_KEY = 'spotlog.local.repository.v2';
 export const MIGRATION_BACKUP_KEY = 'spotlog.local.before-migration.v2';
 export const RESTORE_BACKUP_KEY = 'spotlog.local.before-restore.v2';
@@ -25,6 +27,8 @@ const knownKeys = new Set([
   'spotlog.web.cheers.v1',
   'spotlog.web.notifications.v1',
   LIBRARY_KEY,
+  CARD_SOCIAL_KEY,
+  PLACE_DIRECTORY_KEY,
 ]);
 
 type Records = Record<string, string>;
@@ -52,6 +56,8 @@ const hasStrings = (value: Record<string, unknown>, keys: string[]) => keys.ever
 function isPlace(value: unknown): boolean {
   if (!isObject(value) || !hasStrings(value, ['id', 'name', 'area', 'address', 'image', 'description', 'note', 'duration'])) return false;
   if (!['LANDMARK', 'STAY', 'FOOD', 'CAFE', 'SHOP'].includes(String(value.kind))) return false;
+  if(value.planningSlot!==undefined&&!['morning','lunch','afternoon','dinner','stay'].includes(String(value.planningSlot)))return false;
+  if(!['visitId','anchorVisitId'].every(key=>optionalString(value[key]))||!['personal','locationVerified','bookingFixed'].every(key=>value[key]===undefined||typeof value[key]==='boolean')||(value.stayDayIds!==undefined&&!isStringArray(value.stayDayIds)))return false;
   if (value.photos !== undefined && (!Array.isArray(value.photos) || !value.photos.every((photo) => isObject(photo)
     && hasStrings(photo, ['image', 'alt', 'caption'])
     && ['mediaId', 'placeId', 'sourceId'].every((key) => optionalString(photo[key]))
@@ -63,17 +69,44 @@ function isPlace(value: unknown): boolean {
 
 function isStoryBlock(value: unknown): boolean {
   if (!isObject(value) || !isString(value.id) || !['TEXT', 'IMAGE', 'PLACE'].includes(String(value.type))) return false;
-  return ['heading', 'body', 'image', 'caption', 'placeId'].every((key) => optionalString(value[key]));
+  return ['heading', 'body', 'image', 'caption', 'placeId', 'visitId'].every((key) => optionalString(value[key]))
+    && (value.images === undefined || (Array.isArray(value.images) && value.images.every(image=>isObject(image)&&hasStrings(image,['id','image','caption']))));
+}
+
+function isPlanningPreferences(value: unknown): boolean {
+  if(!isObject(value) || !hasStrings(value,['region','startDate','prompt','arrival','departure','companions','meals','accessibility']))return false;
+  if(!['region','saved'].includes(String(value.mode)) || !['slow','balanced','full'].includes(String(value.pace)) || !['undecided','walk','transit','car'].includes(String(value.transport)) || !['normal','less'].includes(String(value.walking)))return false;
+  if(!Number.isInteger(value.dayCount)||Number(value.dayCount)<1||Number(value.dayCount)>7 || !['requiredIds','excludedIds','fixedIds'].every(key=>isStringArray(value[key])) || typeof value.suggestFood!=='boolean'||typeof value.suggestStay!=='boolean')return false;
+  if(value.startDate && (!/^\d{4}-\d{2}-\d{2}$/.test(String(value.startDate)) || !Number.isFinite(Date.parse(`${value.startDate}T00:00:00Z`)) || new Date(`${value.startDate}T00:00:00Z`).toISOString().slice(0,10)!==value.startDate))return false;
+  return [value.arrival,value.departure].every(time=>time===''||/^([01]\d|2[0-3]):[0-5]\d$/.test(String(time)));
 }
 
 function isJourney(value: unknown): boolean {
   if (!isObject(value) || !hasStrings(value, ['id', 'title', 'region', 'dateRange', 'duration', 'cover', 'summary', 'story', 'author'])) return false;
   if (!['PLANNING', 'TRAVELING', 'PUBLISHED'].includes(String(value.status)) || !['PUBLIC', 'PRIVATE'].includes(String(value.visibility))) return false;
   if (typeof value.isMine !== 'boolean' || !isFiniteNumber(value.saves) || !isStringArray(value.tags) || !Array.isArray(value.days)) return false;
+  if (value.trash !== undefined && (!isJourneyTrash(value.trash) || value.visibility !== 'PRIVATE' || value.isMine !== true)) return false;
+  if (value.purpose !== undefined && !['PLAN','JOURNAL'].includes(String(value.purpose))) return false;
+  if (value.planningPreferences !== undefined && (!isPlanningPreferences(value.planningPreferences) || value.purpose !== 'PLAN' || value.visibility !== 'PRIVATE')) return false;
+  if(!optionalString(value.startDate)||!optionalString(value.sourceTripId))return false;
+  if (value.travelProgress !== undefined) {
+    const progress = value.travelProgress;
+    if (value.purpose !== 'PLAN' || value.isMine !== true || value.visibility !== 'PRIVATE'
+      || !isObject(progress) || !isString(progress.dayId) || !optionalString(progress.visitId) || !isObject(progress.visits)) return false;
+    const visitIds = new Set(value.days.flatMap(day => isObject(day) && Array.isArray(day.places) ? day.places.flatMap(place => isObject(place) && isString(place.visitId) ? [place.visitId] : []) : []));
+    if (!value.days.some(day => isObject(day) && day.dayId === progress.dayId && (progress.visitId === undefined || Array.isArray(day.places) && day.places.some(place => isObject(place) && place.visitId === progress.visitId)))) return false;
+    if (!Object.entries(progress.visits).every(([id, record]) => visitIds.has(id) && isObject(record)
+      && ['done', 'skipped'].includes(String(record.status)) && isString(record.recordedAt)
+      && /^\d{4}-\d{2}-\d{2}T/.test(record.recordedAt) && Number.isFinite(Date.parse(record.recordedAt)))) return false;
+  }
+  if (value.editorDraft !== undefined && (!isObject(value.editorDraft) || !isString(value.editorDraft.updatedAt) || !isObject(value.editorDraft.value) || value.editorDraft.value.editorDraft !== undefined || value.editorDraft.value.id !== value.id || !isJourney(value.editorDraft.value))) return false;
+  if(isObject(value.editorDraft)&&((value.editorDraft.selectedDay!==undefined&&(!Number.isInteger(value.editorDraft.selectedDay)||Number(value.editorDraft.selectedDay)<1))||(value.editorDraft.scrollTop!==undefined&&(!isFiniteNumber(value.editorDraft.scrollTop)||value.editorDraft.scrollTop<0))))return false;
   return value.days.every((day) => isObject(day)
     && Number.isInteger(day.day) && Number(day.day) > 0
     && hasStrings(day, ['date', 'title', 'story'])
+    && optionalString(day.dayId)
     && Array.isArray(day.places) && day.places.every(isPlace)
+    && (day.planningGaps===undefined||Array.isArray(day.planningGaps)&&day.planningGaps.every(gap=>isObject(gap)&&isString(gap.id)&&['morning','lunch','afternoon','dinner','stay'].includes(String(gap.slot))&&['FOOD','CAFE','STAY'].includes(String(gap.kind))&&['missing-data','booked'].includes(String(gap.reason))&&optionalString(gap.afterVisitId)&&optionalString(gap.beforeVisitId)))
     && Array.isArray(day.blocks) && day.blocks.every(isStoryBlock));
 }
 
@@ -94,6 +127,8 @@ function validateValue(key: string, value: unknown): boolean {
     case 'spotlog.web.saved.v3': return isStringArray(value);
     case 'spotlog.web.journeys.v4': return Array.isArray(value) && value.every(isJourney);
     case LIBRARY_KEY: return isSavedLibrary(value);
+    case CARD_SOCIAL_KEY: return isCardSocialStore(value);
+    case PLACE_DIRECTORY_KEY: return Array.isArray(value)&&value.every(isPlace);
     case 'spotlog.web.profile.v1':
       return isObject(value) && hasStrings(value, ['displayName', 'bio']) && optionalString(value.avatar);
     case 'spotlog.web.comments.v1':
@@ -281,3 +316,4 @@ export function createLocalRepository(storage: Storage): LocalRepository {
     },
   };
 }
+import { isJourneyTrash } from './tripTrash.ts';

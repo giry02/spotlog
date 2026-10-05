@@ -1,0 +1,14 @@
+[
+  {
+    "name": "development",
+    "pages": 32,
+    "characters": 16537,
+    "minimum_page_characters": 221
+  },
+  {
+    "name": "ai-guide",
+    "pages": 34,
+    "characters": 17281,
+    "minimum_page_characters": 226
+  }
+]

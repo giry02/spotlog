@@ -1,0 +1,32 @@
+import { execFileSync } from 'node:child_process';
+import { mkdirSync, writeFileSync, readFileSync, existsSync, cpSync, unlinkSync } from 'node:fs';
+import { resolve, join } from 'node:path';
+
+// Local snapshot trees and replayable patches; never creates a commit or pushes a ref.
+const stage = process.argv[2];
+if (!['week1','week2'].includes(stage)) throw new Error('Expected week1 or week2');
+const root = resolve(import.meta.dirname, '..');
+const git = (args, options = {}) => execFileSync('git', args, { cwd: root, encoding: 'utf8', ...options }).trim();
+const gitDir = resolve(root, git(['rev-parse','--git-dir']));
+const store = join(gitDir, 'spotlog-phase2');
+const output = join(store, stage);
+if (existsSync(join(output, 'manifest.json'))) throw new Error('Snapshot exists; preserve the previous checkpoint.');
+mkdirSync(output, { recursive: true });
+const parent = stage === 'week1' ? git(['rev-parse','HEAD^{tree}']) : JSON.parse(readFileSync(join(store,'week1','manifest.json'),'utf8')).tree;
+const index = join(output, 'snapshot.index');
+const env = { ...process.env, GIT_INDEX_FILE: index };
+git(['read-tree','HEAD'], { env });
+git(['-c','core.safecrlf=false','add','-A','--','AGENTS.md','docs','web/src','web/tests','web/tsconfig.json','scripts/phase2-checkpoint.mjs'], { env });
+const tree = git(['write-tree'], { env });
+const patch = execFileSync('git', ['diff','--binary','--full-index', parent, tree], { cwd: root });
+writeFileSync(join(output,'changes.patch'), patch);
+git(['read-tree', parent], { env });
+git(['apply','--cached','--check',join(output,'changes.patch')], { env });
+git(['apply','--cached',join(output,'changes.patch')], { env });
+if(git(['write-tree'],{env})!==tree)throw new Error('Patch replay does not match the checkpoint.');
+execFileSync('git', ['archive','--format=zip',`--output=${join(output,'source.zip')}`, tree], { cwd: root });
+if (existsSync(join(root,'web','dist'))) cpSync(join(root,'web','dist'), join(output,'site'), { recursive: true });
+const manifest = { stage, head: git(['rev-parse','HEAD']), parentTree: parent, tree, createdAt: new Date().toISOString(), patch: 'changes.patch', archive: 'source.zip', published: false, files: git(['diff','--name-only',parent,tree]).split('\n') };
+writeFileSync(join(output,'manifest.json'), JSON.stringify(manifest,null,2));
+unlinkSync(index);
+console.log(JSON.stringify({ stage, tree, folder: output, patchChecked: true, published: false }, null, 2));

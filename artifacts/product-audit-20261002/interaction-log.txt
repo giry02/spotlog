@@ -1,0 +1,459 @@
+{
+  "touch": [
+    {
+      "step": "initial",
+      "value": {
+        "title": "동백섬",
+        "photo": "사진 1 / 2",
+        "photoIndex": "0",
+        "feed": 844,
+        "track": 0,
+        "trackWidth": 390,
+        "tabbar": {
+          "x": 0,
+          "y": 770,
+          "width": 390,
+          "height": 74,
+          "top": 770,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "body": 0
+      }
+    },
+    {
+      "step": "vertical-next",
+      "value": {
+        "title": "협재해수욕장",
+        "photo": "사진 1 / 2",
+        "photoIndex": "0",
+        "feed": 1688,
+        "track": 0,
+        "trackWidth": 390,
+        "tabbar": {
+          "x": 0,
+          "y": 770,
+          "width": 390,
+          "height": 74,
+          "top": 770,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "body": 0
+      }
+    },
+    {
+      "step": "vertical-previous",
+      "value": {
+        "title": "동백섬",
+        "photo": "사진 1 / 2",
+        "photoIndex": "0",
+        "feed": 844,
+        "track": 0,
+        "trackWidth": 390,
+        "tabbar": {
+          "x": 0,
+          "y": 770,
+          "width": 390,
+          "height": 74,
+          "top": 770,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "body": 0
+      }
+    },
+    {
+      "step": "horizontal-next",
+      "value": {
+        "title": "동백섬",
+        "photo": "사진 2 / 2",
+        "photoIndex": "1",
+        "feed": 844,
+        "track": 389,
+        "trackWidth": 390,
+        "tabbar": {
+          "x": 0,
+          "y": 770,
+          "width": 390,
+          "height": 74,
+          "top": 770,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "body": 0
+      }
+    },
+    {
+      "step": "DAY touch horizontal scroll",
+      "value": {
+        "before": 0,
+        "after": 415
+      }
+    }
+  ],
+  "shortHeight": [
+    {
+      "name": "ai-input-short-height",
+      "overflow": false
+    },
+    {
+      "name": "ai-preview-short-height",
+      "overflow": false
+    }
+  ],
+  "keyboard": [
+    {
+      "test": "AI dialog Tab remains inside",
+      "focused": [
+        {
+          "tag": "SELECT",
+          "text": "지역 선택부산경북경북 경주제주강원강원 강릉강원 정선서울경기경기 수원경기 양평인천충북충북 단양충북 청주충남충남",
+          "inDialog": true
+        },
+        {
+          "tag": "SELECT",
+          "text": "기간 선택당일치기1박 2일2박 3일3박 4일4박 5일5박 6일6박 7일",
+          "inDialog": true
+        },
+        {
+          "tag": "SELECT",
+          "text": "여유롭게적당히알차게",
+          "inDialog": true
+        },
+        {
+          "tag": "SELECT",
+          "text": "미정도보대중교통자동차",
+          "inDialog": true
+        },
+        {
+          "tag": "BUTTON",
+          "text": "초안 만들기",
+          "inDialog": true
+        },
+        {
+          "tag": "BUTTON",
+          "text": "닫기",
+          "inDialog": true
+        },
+        {
+          "tag": "BUTTON",
+          "text": "지역·취향 추천",
+          "inDialog": true
+        },
+        {
+          "tag": "BUTTON",
+          "text": "저장 장소로 추천",
+          "inDialog": true
+        },
+        {
+          "tag": "TEXTAREA",
+          "text": "부산 2박 3일 바다",
+          "inDialog": true
+        },
+        {
+          "tag": "SELECT",
+          "text": "지역 선택부산경북경북 경주제주강원강원 강릉강원 정선서울경기경기 수원경기 양평인천충북충북 단양충북 청주충남충남",
+          "inDialog": true
+        },
+        {
+          "tag": "SELECT",
+          "text": "기간 선택당일치기1박 2일2박 3일3박 4일4박 5일5박 6일6박 7일",
+          "inDialog": true
+        },
+        {
+          "tag": "SELECT",
+          "text": "여유롭게적당히알차게",
+          "inDialog": true
+        },
+        {
+          "tag": "SELECT",
+          "text": "미정도보대중교통자동차",
+          "inDialog": true
+        },
+        {
+          "tag": "BUTTON",
+          "text": "초안 만들기",
+          "inDialog": true
+        },
+        {
+          "tag": "BUTTON",
+          "text": "닫기",
+          "inDialog": true
+        },
+        {
+          "tag": "BUTTON",
+          "text": "지역·취향 추천",
+          "inDialog": true
+        },
+        {
+          "tag": "BUTTON",
+          "text": "저장 장소로 추천",
+          "inDialog": true
+        }
+      ]
+    },
+    {
+      "test": "Escape/reopen draft",
+      "prompt": "부산 2박 3일 바다"
+    }
+  ],
+  "contrast": [
+    {
+      "name": "home",
+      "count": 59,
+      "examples": [
+        {
+          "text": "다른 사람의 여행에서 내 여행을 시작하세요",
+          "size": 11,
+          "color": "rgb(133, 133, 128)",
+          "background": [
+            248,
+            248,
+            246
+          ],
+          "ratio": 3.49,
+          "selector": ""
+        },
+        {
+          "text": "TRAVEL STORIES · READY TO EDIT",
+          "size": 9,
+          "color": "rgb(255, 90, 61)",
+          "background": [
+            248,
+            248,
+            246
+          ],
+          "ratio": 2.91,
+          "selector": "home-lead"
+        },
+        {
+          "text": "공개 여행기를 그대로 읽고, 내 일정으로 복사해 장소와 동선을 자유롭게 바꿀 수 있습니다.",
+          "size": 13,
+          "color": "rgb(115, 115, 111)",
+          "background": [
+            248,
+            248,
+            246
+          ],
+          "ratio": 4.48,
+          "selector": "home-lead"
+        },
+        {
+          "text": "가고 싶은 여행을 이야기해 주세요",
+          "size": 9,
+          "color": "rgb(255, 90, 61)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 3.1,
+          "selector": ""
+        },
+        {
+          "text": "지역·기간·취향을 적고 여행 초안을 받아보세요.",
+          "size": 11,
+          "color": "rgb(139, 139, 134)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 3.42,
+          "selector": ""
+        },
+        {
+          "text": "SPOTLOG CURATION",
+          "size": 9,
+          "color": "rgb(176, 107, 89)",
+          "background": [
+            248,
+            248,
+            246
+          ],
+          "ratio": 3.88,
+          "selector": ""
+        }
+      ]
+    },
+    {
+      "name": "guide",
+      "count": 63,
+      "examples": [
+        {
+          "text": "0",
+          "size": 10,
+          "color": "rgb(142, 142, 137)",
+          "background": [
+            248,
+            248,
+            246
+          ],
+          "ratio": 3.1,
+          "selector": ""
+        },
+        {
+          "text": "개 장소 저장",
+          "size": 10,
+          "color": "rgb(142, 142, 137)",
+          "background": [
+            248,
+            248,
+            246
+          ],
+          "ratio": 3.1,
+          "selector": ""
+        },
+        {
+          "text": "영상",
+          "size": 11,
+          "color": "rgb(119, 119, 114)",
+          "background": [
+            233,
+            233,
+            229
+          ],
+          "ratio": 3.7,
+          "selector": "place-view-toggle"
+        },
+        {
+          "text": "사진",
+          "size": 11,
+          "color": "rgb(119, 119, 114)",
+          "background": [
+            233,
+            233,
+            229
+          ],
+          "ratio": 3.7,
+          "selector": "place-view-toggle"
+        },
+        {
+          "text": "LANDMARK GUIDE",
+          "size": 9,
+          "color": "rgb(255, 90, 61)",
+          "background": [
+            248,
+            248,
+            246
+          ],
+          "ratio": 2.91,
+          "selector": "place-guide-lead"
+        },
+        {
+          "text": "지역이나 장소를 검색하고 마음에 드는 곳을 빠르게 저장하세요.",
+          "size": 13,
+          "color": "rgb(115, 115, 111)",
+          "background": [
+            248,
+            248,
+            246
+          ],
+          "ratio": 4.48,
+          "selector": "place-guide-lead"
+        }
+      ]
+    },
+    {
+      "name": "journal",
+      "count": 57,
+      "examples": [
+        {
+          "text": "여행 가이드",
+          "size": 14,
+          "color": "rgb(255, 255, 255)",
+          "background": [
+            250,
+            249,
+            246
+          ],
+          "ratio": 1.05,
+          "selector": "detail-topbar"
+        },
+        {
+          "text": "전체 공개 여행일기",
+          "size": 12,
+          "color": "rgb(144, 144, 139)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 3.21,
+          "selector": ""
+        },
+        {
+          "text": "전체 일정",
+          "size": 11,
+          "color": "rgb(146, 146, 141)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 3.13,
+          "selector": ""
+        },
+        {
+          "text": "기록 장소",
+          "size": 11,
+          "color": "rgb(146, 146, 141)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 3.13,
+          "selector": ""
+        },
+        {
+          "text": "가이드 구성",
+          "size": 11,
+          "color": "rgb(146, 146, 141)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 3.13,
+          "selector": ""
+        },
+        {
+          "text": "12,480",
+          "size": 12,
+          "color": "rgb(138, 138, 133)",
+          "background": [
+            255,
+            255,
+            255
+          ],
+          "ratio": 3.47,
+          "selector": "journal-meta"
+        }
+      ]
+    }
+  ],
+  "zoom": [
+    {
+      "name": "ai-input-text200",
+      "overflow": false,
+      "bodyOverflow": false
+    },
+    {
+      "name": "guide-text200",
+      "overflow": false,
+      "bodyOverflow": false
+    },
+    {
+      "name": "journal-text200",
+      "overflow": false,
+      "bodyOverflow": false
+    }
+  ],
+  "errors": []
+}

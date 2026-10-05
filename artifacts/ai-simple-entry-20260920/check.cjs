@@ -1,0 +1,66 @@
+const { chromium } = require('C:/Users/Giry/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const out = __dirname;
+(async () => {
+  const browser = await chromium.launch({headless:true,channel:'chrome'});
+  const results=[];
+  try {
+    for (const width of [320,390,460]) {
+      const context=await browser.newContext({viewport:{width,height:900}});
+      const page=await context.newPage();
+      const errors=[];page.on('pageerror',error=>errors.push(error.message));
+      await page.goto('http://127.0.0.1:5210/#home');
+      await page.getByRole('button',{name:/AI 여행 만들기/}).click();
+      const sheet=page.locator('.phase-sheet');
+      await sheet.locator('textarea').waitFor();
+      assert.equal(await sheet.locator('select').count(),4);
+      assert.equal(await sheet.locator('input[type=date],input[type=time],details').count(),0);
+      assert.equal(await sheet.getByRole('button',{name:'저장 장소로 추천',exact:true}).count(),1);
+      const sizes=await sheet.evaluate(el=>({overflow:el.scrollWidth>el.clientWidth,fields:[...el.querySelectorAll('textarea,select')].map(n=>({size:getComputedStyle(n).fontSize,weight:getComputedStyle(n).fontWeight})),bodyOverflow:document.documentElement.scrollWidth>window.innerWidth}));
+      assert.equal(sizes.overflow,false);assert.equal(sizes.bodyOverflow,false);
+      assert.ok(sizes.fields.every(n=>n.size==='16px'&&n.weight==='400'));
+      await sheet.screenshot({path:path.join(out,`initial-${width}.png`)});
+      await sheet.locator('textarea').fill('제주 1박 2일, 카페는 빼고 바다를 보고 싶어요.');
+      await sheet.getByLabel('여행 기간').selectOption('3');
+      await sheet.getByLabel('여행 속도').selectOption('slow');
+      await sheet.getByLabel('이동수단 · 경로 검증 전').selectOption('car');
+      await sheet.getByRole('button',{name:'닫기',exact:true}).click();
+      await page.getByRole('button',{name:/AI 여행 만들기/}).click();
+      assert.equal(await sheet.getByLabel('여행 기간').inputValue(),'3');
+      await page.reload();await page.getByRole('button',{name:/AI 여행 만들기/}).click();
+      assert.equal(await sheet.getByLabel('여행 기간').inputValue(),'3');
+      assert.equal(await sheet.getByLabel('여행 속도').inputValue(),'slow');
+      await sheet.getByRole('button',{name:'초안 만들기',exact:true}).click();
+      await sheet.locator('.ai-travel-preview').waitFor();
+      assert.equal(await sheet.locator('.ai-travel-day-options button').count(),3);
+      await sheet.screenshot({path:path.join(out,`result-${width}.png`)});
+      await sheet.getByRole('button',{name:'조건 바꾸기',exact:true}).click();
+      assert.equal(await sheet.locator('select').count(),4);
+      assert.equal(await sheet.locator('details').count(),0);
+      const persisted=await page.evaluate(()=>JSON.parse(localStorage.getItem('spotlog.ai-planner-draft.v1:local-profile')).draft.conditions);
+      assert.equal(persisted.startDate,'');assert.equal(persisted.arrival,'');assert.deepEqual(persisted.fixedIds,[]);
+      assert.deepEqual(errors,[]);
+      results.push({width,...sizes,draftRestored:true,generatedDays:3,errors});
+      await context.close();
+    }
+    const context=await browser.newContext({viewport:{width:390,height:900}});
+    const page=await context.newPage();
+    await page.addInitScript(()=>localStorage.setItem('spotlog.web.saved.v3',JSON.stringify(['jeju-hyeopjae','jeju-osulloc'])));
+    await page.goto('http://127.0.0.1:5210/#home');await page.getByRole('button',{name:/AI 여행 만들기/}).click();
+    const sheet=page.locator('.phase-sheet');
+    await sheet.getByRole('button',{name:'저장 장소로 추천',exact:true}).click();
+    assert.equal(await sheet.getByRole('button',{name:'저장 장소로 추천',exact:true}).getAttribute('aria-pressed'),'true');
+    await sheet.getByRole('button',{name:'초안 만들기',exact:true}).click();
+    await sheet.locator('.ai-travel-preview').waitFor();
+    const draft=await page.evaluate(()=>JSON.parse(localStorage.getItem('spotlog.ai-planner-draft.v1:local-profile')).draft);
+    assert.equal(draft.conditions.mode,'saved');
+    const placeIds=draft.preview.data.journey.days.flatMap(d=>d.places.map(p=>p.id));
+    assert.ok(placeIds.includes('jeju-hyeopjae'));assert.ok(placeIds.includes('jeju-osulloc'));
+    results.push({savedMode:true,savedLandmarksRetained:true});
+    fs.writeFileSync(path.join(out,'results.json'),JSON.stringify(results,null,2));
+    console.log(JSON.stringify(results));
+    await context.close();
+  } finally {await browser.close();}
+})().catch(error=>{console.error(error);process.exitCode=1;});

@@ -1,0 +1,70 @@
+/* Personal itinerary actions reuse the existing 36px / R11 / 12px compact role.
+   Keep page actions, form inputs, and other card types on their own styles. */
+.personal-trip .plan-stops { gap: 10px; }
+.personal-trip .plan-stop { padding: 12px; }
+.personal-trip .plan-stop-main > div { display: flex; flex-direction: column; gap: 2px; }
+.personal-trip .plan-stop-main h3 { margin: 0; }
+.personal-trip .plan-stop > .public-photo-credit { margin-top: 2px; margin-left: 72px; }
+.personal-trip .plan-stop-actions { gap: 4px; margin-top: 6px; }
+.personal-trip .plan-stop-actions > .outline {
+  min-height: 36px;
+  padding: 0 10px;
+  gap: 5px;
+  border-radius: 11px;
+  border-color: #e5e4df;
+  background: #f8f8f6;
+  font-size: var(--type-caption);
+  font-weight: 700;
+  line-height: 1.5;
+  box-shadow: none;
+}
+.personal-trip .plan-stop-actions > .outline > svg { width: 14px; height: 14px; }
+.personal-trip .plan-stop-actions > button:not(.outline) {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0;
+  color: #73736d;
+}
+.personal-trip .plan-stop-actions > button:disabled { opacity: .25; }
+.personal-trip .plan-stop-actions > button:not(:disabled):hover { background: #eeede8; }
+.personal-trip .plan-day > .outline.wide {
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 11px;
+  background: transparent;
+  font-size: var(--type-caption);
+  line-height: 1.5;
+  box-shadow: none;
+}
+
+/* Nearby sheets use card actions, not full-size page confirmation buttons. */
+.phase-sheet .nearby-row>.outline { min-height:36px; padding:0 10px; border-radius:11px; font-size:var(--type-caption); font-weight:700; line-height:1.5; box-shadow:none; }
+.phase-sheet .nearby-search { position:relative; display:flex; align-items:center; margin:0; }
+.phase-sheet .nearby-search>svg { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; }
+.phase-sheet .nearby-search>input { padding-left:38px; font-size:var(--type-subhead); font-weight:400; }
+.phase-sheet .nearby-saved-button { min-height:40px; padding:0 12px; border-radius:11px; font-size:var(--type-caption); line-height:1.5; box-shadow:none; }
+.phase-sheet .nearby-register-button { min-height:36px; font-size:var(--type-caption); line-height:1.5; }
+.phase-sheet .plan-form .plan-check { display:flex; align-items:center; gap:8px; font-size:var(--type-subhead); font-weight:400; margin:0; }
+.phase-sheet .plan-form .plan-check input { margin:0; }
+.plan-timeline-gap { display:grid; gap:6px; background:#f1f1ed; }
+.plan-timeline-gap>small,.plan-timeline-gap>p { margin:0; font-size:var(--type-caption); color:var(--muted); line-height:1.5; }
+.plan-timeline-gap>strong { font-size:var(--type-subhead); }
+.plan-timeline-gap>.ui-button { justify-self:start; }
+.plan-timeline-context { line-height:1.5; }
+
+/* Keep names readable without shrinking the type or the existing photos. */
+.phase-sheet .nearby-open strong { word-break:keep-all; overflow-wrap:anywhere; }
+@media (max-width:360px) {
+  .phase-sheet .nearby-open>.plan-image-empty { display:none; }
+}
+
+/* Empty sheet results should leave the next actions visible, not use a page's 500px empty state. */
+.phase-sheet .nearby-empty { min-height:0; padding:24px 0; gap:8px; }
+.phase-sheet .nearby-empty p { margin:0; font-size:var(--type-caption); line-height:1.5; }
+.phase-sheet .nearby-empty>.outline { margin-top:8px; }
+.phase-sheet .nearby-search>input { padding-right:46px; }
+.phase-sheet .nearby-search-clear { position:absolute; right:6px; width:36px; min-width:36px; height:36px; min-height:36px; display:grid; place-items:center; padding:0; border:0; border-radius:8px; background:transparent; color:var(--muted); }
+.phase-sheet .nearby-search-clear:hover { background:#eeede8; }
+.phase-sheet .nearby-source-link { display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:var(--type-caption); line-height:1.5; color:inherit; }

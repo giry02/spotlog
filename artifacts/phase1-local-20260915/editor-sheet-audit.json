@@ -1,0 +1,1449 @@
+{
+  "createBefore": [
+    {
+      "elements": [
+        {
+          "animation": "none",
+          "background": "rgb(250, 250, 248)",
+          "className": "phase-sheet",
+          "height": 384.796875,
+          "shadow": "rgba(0, 0, 0, 0.067) 0px -12px 40px 0px",
+          "size": "16px",
+          "tag": "DIV",
+          "weight": "400",
+          "width": 320
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "phase-sheet-body",
+          "height": 299.796875,
+          "shadow": "none",
+          "size": "16px",
+          "tag": "DIV",
+          "weight": "400",
+          "width": 320
+        },
+        {
+          "animation": "sheet-up",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "create-sheet phase-embedded-sheet",
+          "height": 255.796875,
+          "shadow": "rgba(0, 0, 0, 0.18) 0px -18px 50px 0px",
+          "size": "16px",
+          "tag": "FORM",
+          "weight": "400",
+          "width": 280
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "ui-field-label",
+          "height": 18,
+          "shadow": "none",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700",
+          "width": 280
+        },
+        {
+          "animation": "none",
+          "background": "rgb(255, 255, 255)",
+          "className": "",
+          "height": 50,
+          "shadow": "none",
+          "size": "16px",
+          "tag": "SELECT",
+          "weight": "400",
+          "width": 280
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "ui-field-label",
+          "height": 18,
+          "shadow": "none",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700",
+          "width": 280
+        },
+        {
+          "animation": "none",
+          "background": "rgb(255, 255, 255)",
+          "className": "",
+          "height": 50,
+          "shadow": "none",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400",
+          "width": 280
+        }
+      ],
+      "width": 320
+    },
+    {
+      "elements": [
+        {
+          "animation": "none",
+          "background": "rgb(250, 250, 248)",
+          "className": "phase-sheet",
+          "height": 384.796875,
+          "shadow": "rgba(0, 0, 0, 0.067) 0px -12px 40px 0px",
+          "size": "16px",
+          "tag": "DIV",
+          "weight": "400",
+          "width": 390
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "phase-sheet-body",
+          "height": 299.796875,
+          "shadow": "none",
+          "size": "16px",
+          "tag": "DIV",
+          "weight": "400",
+          "width": 390
+        },
+        {
+          "animation": "sheet-up",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "create-sheet phase-embedded-sheet",
+          "height": 255.796875,
+          "shadow": "rgba(0, 0, 0, 0.18) 0px -18px 50px 0px",
+          "size": "16px",
+          "tag": "FORM",
+          "weight": "400",
+          "width": 350
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "ui-field-label",
+          "height": 18,
+          "shadow": "none",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700",
+          "width": 350
+        },
+        {
+          "animation": "none",
+          "background": "rgb(255, 255, 255)",
+          "className": "",
+          "height": 50,
+          "shadow": "none",
+          "size": "16px",
+          "tag": "SELECT",
+          "weight": "400",
+          "width": 350
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "ui-field-label",
+          "height": 18,
+          "shadow": "none",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700",
+          "width": 350
+        },
+        {
+          "animation": "none",
+          "background": "rgb(255, 255, 255)",
+          "className": "",
+          "height": 50,
+          "shadow": "none",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400",
+          "width": 350
+        }
+      ],
+      "width": 390
+    },
+    {
+      "elements": [
+        {
+          "animation": "none",
+          "background": "rgb(250, 250, 248)",
+          "className": "phase-sheet",
+          "height": 366.796875,
+          "shadow": "rgba(0, 0, 0, 0.067) 0px -12px 40px 0px",
+          "size": "16px",
+          "tag": "DIV",
+          "weight": "400",
+          "width": 460
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "phase-sheet-body",
+          "height": 281.796875,
+          "shadow": "none",
+          "size": "16px",
+          "tag": "DIV",
+          "weight": "400",
+          "width": 460
+        },
+        {
+          "animation": "sheet-up",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "create-sheet phase-embedded-sheet",
+          "height": 237.796875,
+          "shadow": "rgba(0, 0, 0, 0.18) 0px -18px 50px 0px",
+          "size": "16px",
+          "tag": "FORM",
+          "weight": "400",
+          "width": 420
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "ui-field-label",
+          "height": 18,
+          "shadow": "none",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700",
+          "width": 420
+        },
+        {
+          "animation": "none",
+          "background": "rgb(255, 255, 255)",
+          "className": "",
+          "height": 50,
+          "shadow": "none",
+          "size": "16px",
+          "tag": "SELECT",
+          "weight": "400",
+          "width": 420
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "ui-field-label",
+          "height": 18,
+          "shadow": "none",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700",
+          "width": 420
+        },
+        {
+          "animation": "none",
+          "background": "rgb(255, 255, 255)",
+          "className": "",
+          "height": 50,
+          "shadow": "none",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400",
+          "width": 420
+        }
+      ],
+      "width": 460
+    }
+  ],
+  "createAfter": [
+    {
+      "documentOverflow": false,
+      "fonts": [
+        {
+          "label": "새 여행 만들기",
+          "size": "20px",
+          "tag": "H2",
+          "weight": "700"
+        },
+        {
+          "label": "국내 지역",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "제주서울강릉부산경주전주",
+          "size": "16px",
+          "tag": "SELECT",
+          "weight": "400"
+        },
+        {
+          "label": "여행 제목",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "제주에서 남길 새로운 기록",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        }
+      ],
+      "sheets": [
+        {
+          "animation": "none",
+          "background": "rgb(250, 250, 248)",
+          "className": "phase-sheet",
+          "clientWidth": 320,
+          "height": 384.796875,
+          "scrollWidth": 320,
+          "shadow": "rgba(0, 0, 0, 0.067) 0px -12px 40px 0px",
+          "width": 320
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "phase-sheet-body",
+          "clientWidth": 320,
+          "height": 299.796875,
+          "scrollWidth": 320,
+          "shadow": "none",
+          "width": 320
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "create-sheet phase-embedded-sheet",
+          "clientWidth": 280,
+          "height": 255.796875,
+          "scrollWidth": 280,
+          "shadow": "none",
+          "width": 280
+        }
+      ],
+      "width": 320
+    },
+    {
+      "documentOverflow": false,
+      "fonts": [
+        {
+          "label": "새 여행 만들기",
+          "size": "20px",
+          "tag": "H2",
+          "weight": "700"
+        },
+        {
+          "label": "국내 지역",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "제주서울강릉부산경주전주",
+          "size": "16px",
+          "tag": "SELECT",
+          "weight": "400"
+        },
+        {
+          "label": "여행 제목",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "제주에서 남길 새로운 기록",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        }
+      ],
+      "sheets": [
+        {
+          "animation": "none",
+          "background": "rgb(250, 250, 248)",
+          "className": "phase-sheet",
+          "clientWidth": 390,
+          "height": 384.796875,
+          "scrollWidth": 390,
+          "shadow": "rgba(0, 0, 0, 0.067) 0px -12px 40px 0px",
+          "width": 390
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "phase-sheet-body",
+          "clientWidth": 390,
+          "height": 299.796875,
+          "scrollWidth": 390,
+          "shadow": "none",
+          "width": 390
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "create-sheet phase-embedded-sheet",
+          "clientWidth": 350,
+          "height": 255.796875,
+          "scrollWidth": 350,
+          "shadow": "none",
+          "width": 350
+        }
+      ],
+      "width": 390
+    },
+    {
+      "documentOverflow": false,
+      "fonts": [
+        {
+          "label": "새 여행 만들기",
+          "size": "20px",
+          "tag": "H2",
+          "weight": "700"
+        },
+        {
+          "label": "국내 지역",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "제주서울강릉부산경주전주",
+          "size": "16px",
+          "tag": "SELECT",
+          "weight": "400"
+        },
+        {
+          "label": "여행 제목",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "제주에서 남길 새로운 기록",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        }
+      ],
+      "sheets": [
+        {
+          "animation": "none",
+          "background": "rgb(250, 250, 248)",
+          "className": "phase-sheet",
+          "clientWidth": 460,
+          "height": 366.796875,
+          "scrollWidth": 460,
+          "shadow": "rgba(0, 0, 0, 0.067) 0px -12px 40px 0px",
+          "width": 460
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "phase-sheet-body",
+          "clientWidth": 460,
+          "height": 281.796875,
+          "scrollWidth": 460,
+          "shadow": "none",
+          "width": 460
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "create-sheet phase-embedded-sheet",
+          "clientWidth": 420,
+          "height": 237.796875,
+          "scrollWidth": 420,
+          "shadow": "none",
+          "width": 420
+        }
+      ],
+      "width": 460
+    }
+  ],
+  "editorFonts": [
+    {
+      "elements": [
+        {
+          "height": 18.6875,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "SPAN",
+          "text": "글",
+          "weight": "800"
+        },
+        {
+          "height": 50,
+          "lineHeight": "24.8px",
+          "size": "16px",
+          "tag": "INPUT",
+          "text": "글 1 소제목",
+          "weight": "700"
+        },
+        {
+          "height": 192,
+          "lineHeight": "28px",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "text": "글 1 본문",
+          "weight": "400"
+        },
+        {
+          "height": 18.6875,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "SPAN",
+          "text": "본문에 삽입",
+          "weight": "800"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "글",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "사진",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "장소",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "숙소",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "맛집",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "카페",
+          "weight": "700"
+        }
+      ],
+      "width": 320
+    },
+    {
+      "elements": [
+        {
+          "height": 18.6875,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "SPAN",
+          "text": "글",
+          "weight": "800"
+        },
+        {
+          "height": 50,
+          "lineHeight": "24.8px",
+          "size": "16px",
+          "tag": "INPUT",
+          "text": "글 1 소제목",
+          "weight": "700"
+        },
+        {
+          "height": 192,
+          "lineHeight": "28px",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "text": "글 1 본문",
+          "weight": "400"
+        },
+        {
+          "height": 18.6875,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "SPAN",
+          "text": "본문에 삽입",
+          "weight": "800"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "글",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "사진",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "장소",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "숙소",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "맛집",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "카페",
+          "weight": "700"
+        }
+      ],
+      "width": 390
+    },
+    {
+      "elements": [
+        {
+          "height": 18.6875,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "SPAN",
+          "text": "글",
+          "weight": "800"
+        },
+        {
+          "height": 50,
+          "lineHeight": "24.8px",
+          "size": "16px",
+          "tag": "INPUT",
+          "text": "글 1 소제목",
+          "weight": "700"
+        },
+        {
+          "height": 192,
+          "lineHeight": "28px",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "text": "글 1 본문",
+          "weight": "400"
+        },
+        {
+          "height": 18.6875,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "SPAN",
+          "text": "본문에 삽입",
+          "weight": "800"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "글",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "사진",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "장소",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "숙소",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "맛집",
+          "weight": "700"
+        },
+        {
+          "height": 58,
+          "lineHeight": "18.7px",
+          "size": "11px",
+          "tag": "BUTTON",
+          "text": "카페",
+          "weight": "700"
+        }
+      ],
+      "width": 460
+    }
+  ],
+  "placeBeforeWeightFix": [
+    {
+      "documentOverflow": false,
+      "fonts": [
+        {
+          "label": "랜드마크 삽입",
+          "size": "20px",
+          "tag": "H2",
+          "weight": "700"
+        },
+        {
+          "label": "랜드마크 사진 추가",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "랜드마크 이름 *",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "장소 이름",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "600"
+        },
+        {
+          "label": "지역",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "예: 부산 해운대",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "600"
+        },
+        {
+          "label": "머문 시간",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "약 1시간",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "600"
+        },
+        {
+          "label": "주소",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "주소를 입력하면 길찾기 검색에 사용합니다",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "600"
+        },
+        {
+          "label": "정보 소개",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "어떤 곳인지 간단히 소개해 주세요.",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "weight": "600"
+        },
+        {
+          "label": "내 경험과 추천 포인트",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "직접 다녀와서 알게 된 팁을 적어주세요.",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "weight": "600"
+        }
+      ],
+      "sheets": [
+        {
+          "animation": "none",
+          "background": "rgb(250, 250, 248)",
+          "className": "phase-sheet",
+          "clientWidth": 320,
+          "height": 742.71875,
+          "scrollWidth": 320,
+          "shadow": "rgba(0, 0, 0, 0.067) 0px -12px 40px 0px",
+          "width": 320
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "phase-sheet-body",
+          "clientWidth": 305,
+          "height": 657.71875,
+          "scrollWidth": 305,
+          "shadow": "none",
+          "width": 320
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "place-picker phase-embedded-sheet",
+          "clientWidth": 265,
+          "height": 931.921875,
+          "scrollWidth": 265,
+          "shadow": "none",
+          "width": 265
+        }
+      ],
+      "width": 320
+    },
+    {
+      "documentOverflow": false,
+      "fonts": [
+        {
+          "label": "랜드마크 삽입",
+          "size": "20px",
+          "tag": "H2",
+          "weight": "700"
+        },
+        {
+          "label": "랜드마크 사진 추가",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "랜드마크 이름 *",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "장소 이름",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "600"
+        },
+        {
+          "label": "지역",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "예: 부산 해운대",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "600"
+        },
+        {
+          "label": "머문 시간",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "약 1시간",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "600"
+        },
+        {
+          "label": "주소",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "주소를 입력하면 길찾기 검색에 사용합니다",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "600"
+        },
+        {
+          "label": "정보 소개",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "어떤 곳인지 간단히 소개해 주세요.",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "weight": "600"
+        },
+        {
+          "label": "내 경험과 추천 포인트",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "직접 다녀와서 알게 된 팁을 적어주세요.",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "weight": "600"
+        }
+      ],
+      "sheets": [
+        {
+          "animation": "none",
+          "background": "rgb(250, 250, 248)",
+          "className": "phase-sheet",
+          "clientWidth": 390,
+          "height": 742.71875,
+          "scrollWidth": 390,
+          "shadow": "rgba(0, 0, 0, 0.067) 0px -12px 40px 0px",
+          "width": 390
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "phase-sheet-body",
+          "clientWidth": 375,
+          "height": 657.71875,
+          "scrollWidth": 375,
+          "shadow": "none",
+          "width": 390
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "place-picker phase-embedded-sheet",
+          "clientWidth": 335,
+          "height": 931.921875,
+          "scrollWidth": 335,
+          "shadow": "none",
+          "width": 335
+        }
+      ],
+      "width": 390
+    },
+    {
+      "documentOverflow": false,
+      "fonts": [
+        {
+          "label": "랜드마크 삽입",
+          "size": "20px",
+          "tag": "H2",
+          "weight": "700"
+        },
+        {
+          "label": "랜드마크 사진 추가",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "랜드마크 이름 *",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "장소 이름",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "600"
+        },
+        {
+          "label": "지역",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "예: 부산 해운대",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "600"
+        },
+        {
+          "label": "머문 시간",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "약 1시간",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "600"
+        },
+        {
+          "label": "주소",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "주소를 입력하면 길찾기 검색에 사용합니다",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "600"
+        },
+        {
+          "label": "정보 소개",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "어떤 곳인지 간단히 소개해 주세요.",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "weight": "600"
+        },
+        {
+          "label": "내 경험과 추천 포인트",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "직접 다녀와서 알게 된 팁을 적어주세요.",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "weight": "600"
+        }
+      ],
+      "sheets": [
+        {
+          "animation": "none",
+          "background": "rgb(250, 250, 248)",
+          "className": "phase-sheet",
+          "clientWidth": 460,
+          "height": 742.71875,
+          "scrollWidth": 460,
+          "shadow": "rgba(0, 0, 0, 0.067) 0px -12px 40px 0px",
+          "width": 460
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "phase-sheet-body",
+          "clientWidth": 445,
+          "height": 657.71875,
+          "scrollWidth": 445,
+          "shadow": "none",
+          "width": 460
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "place-picker phase-embedded-sheet",
+          "clientWidth": 405,
+          "height": 913.328125,
+          "scrollWidth": 405,
+          "shadow": "none",
+          "width": 405
+        }
+      ],
+      "width": 460
+    }
+  ],
+  "placeFinal": [
+    {
+      "documentOverflow": false,
+      "fonts": [
+        {
+          "label": "랜드마크 삽입",
+          "size": "20px",
+          "tag": "H2",
+          "weight": "700"
+        },
+        {
+          "label": "랜드마크 사진 추가",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "랜드마크 이름 *",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "장소 이름",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        },
+        {
+          "label": "지역",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "예: 부산 해운대",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        },
+        {
+          "label": "머문 시간",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "약 1시간",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        },
+        {
+          "label": "주소",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "주소를 입력하면 길찾기 검색에 사용합니다",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        },
+        {
+          "label": "정보 소개",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "어떤 곳인지 간단히 소개해 주세요.",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "weight": "400"
+        },
+        {
+          "label": "내 경험과 추천 포인트",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "직접 다녀와서 알게 된 팁을 적어주세요.",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "weight": "400"
+        }
+      ],
+      "sheets": [
+        {
+          "animation": "none",
+          "background": "rgb(250, 250, 248)",
+          "className": "phase-sheet",
+          "clientWidth": 320,
+          "height": 742.71875,
+          "scrollWidth": 320,
+          "shadow": "rgba(0, 0, 0, 0.067) 0px -12px 40px 0px",
+          "width": 320
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "phase-sheet-body",
+          "clientWidth": 305,
+          "height": 657.71875,
+          "scrollWidth": 305,
+          "shadow": "none",
+          "width": 320
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "place-picker phase-embedded-sheet",
+          "clientWidth": 265,
+          "height": 931.921875,
+          "scrollWidth": 265,
+          "shadow": "none",
+          "width": 265
+        }
+      ],
+      "width": 320
+    },
+    {
+      "documentOverflow": false,
+      "fonts": [
+        {
+          "label": "랜드마크 삽입",
+          "size": "20px",
+          "tag": "H2",
+          "weight": "700"
+        },
+        {
+          "label": "랜드마크 사진 추가",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "랜드마크 이름 *",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "장소 이름",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        },
+        {
+          "label": "지역",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "예: 부산 해운대",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        },
+        {
+          "label": "머문 시간",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "약 1시간",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        },
+        {
+          "label": "주소",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "주소를 입력하면 길찾기 검색에 사용합니다",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        },
+        {
+          "label": "정보 소개",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "어떤 곳인지 간단히 소개해 주세요.",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "weight": "400"
+        },
+        {
+          "label": "내 경험과 추천 포인트",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "직접 다녀와서 알게 된 팁을 적어주세요.",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "weight": "400"
+        }
+      ],
+      "sheets": [
+        {
+          "animation": "none",
+          "background": "rgb(250, 250, 248)",
+          "className": "phase-sheet",
+          "clientWidth": 390,
+          "height": 742.71875,
+          "scrollWidth": 390,
+          "shadow": "rgba(0, 0, 0, 0.067) 0px -12px 40px 0px",
+          "width": 390
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "phase-sheet-body",
+          "clientWidth": 375,
+          "height": 657.71875,
+          "scrollWidth": 375,
+          "shadow": "none",
+          "width": 390
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "place-picker phase-embedded-sheet",
+          "clientWidth": 335,
+          "height": 931.921875,
+          "scrollWidth": 335,
+          "shadow": "none",
+          "width": 335
+        }
+      ],
+      "width": 390
+    },
+    {
+      "documentOverflow": false,
+      "fonts": [
+        {
+          "label": "랜드마크 삽입",
+          "size": "20px",
+          "tag": "H2",
+          "weight": "700"
+        },
+        {
+          "label": "랜드마크 사진 추가",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "랜드마크 이름 *",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "장소 이름",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        },
+        {
+          "label": "지역",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "예: 부산 해운대",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        },
+        {
+          "label": "머문 시간",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "약 1시간",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        },
+        {
+          "label": "주소",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "주소를 입력하면 길찾기 검색에 사용합니다",
+          "size": "16px",
+          "tag": "INPUT",
+          "weight": "400"
+        },
+        {
+          "label": "정보 소개",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "어떤 곳인지 간단히 소개해 주세요.",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "weight": "400"
+        },
+        {
+          "label": "내 경험과 추천 포인트",
+          "size": "12px",
+          "tag": "SPAN",
+          "weight": "700"
+        },
+        {
+          "label": "직접 다녀와서 알게 된 팁을 적어주세요.",
+          "size": "16px",
+          "tag": "TEXTAREA",
+          "weight": "400"
+        }
+      ],
+      "sheets": [
+        {
+          "animation": "none",
+          "background": "rgb(250, 250, 248)",
+          "className": "phase-sheet",
+          "clientWidth": 460,
+          "height": 742.71875,
+          "scrollWidth": 460,
+          "shadow": "rgba(0, 0, 0, 0.067) 0px -12px 40px 0px",
+          "width": 460
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "phase-sheet-body",
+          "clientWidth": 445,
+          "height": 657.71875,
+          "scrollWidth": 445,
+          "shadow": "none",
+          "width": 460
+        },
+        {
+          "animation": "none",
+          "background": "rgba(0, 0, 0, 0)",
+          "className": "place-picker phase-embedded-sheet",
+          "clientWidth": 405,
+          "height": 913.328125,
+          "scrollWidth": 405,
+          "shadow": "none",
+          "width": 405
+        }
+      ],
+      "width": 460
+    }
+  ]
+}

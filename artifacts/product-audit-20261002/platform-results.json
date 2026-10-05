@@ -1,0 +1,70 @@
+{
+  "fonts": [
+    {
+      "route": "home",
+      "selector": ".home-lead p",
+      "fonts": [
+        {
+          "familyName": "DM Sans 9pt",
+          "postScriptName": "DM-Sans-9pt-14pt",
+          "isCustomFont": true,
+          "glyphCount": 13
+        },
+        {
+          "familyName": "Malgun Gothic",
+          "postScriptName": "MalgunGothic",
+          "isCustomFont": false,
+          "glyphCount": 36
+        }
+      ],
+      "style": {
+        "font": "\"DM Sans\", Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "13px",
+        "text": "공개 여행기를 그대로 읽고, 내 일정으로 복사해 장소와 동선을 자유롭게 바꿀 수 있습니다."
+      }
+    },
+    {
+      "route": "journey-jeju-west-slow",
+      "selector": ".story-text-block p",
+      "fonts": [
+        {
+          "familyName": "DM Sans 9pt",
+          "postScriptName": "DM-Sans-9pt-14pt",
+          "isCustomFont": true,
+          "glyphCount": 54
+        },
+        {
+          "familyName": "Malgun Gothic",
+          "postScriptName": "MalgunGothic",
+          "isCustomFont": false,
+          "glyphCount": 153
+        }
+      ],
+      "style": {
+        "font": "\"DM Sans\", Pretendard, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif",
+        "size": "16px",
+        "text": "제주에 도착한 날은 욕심내지 않고 서쪽으로 바로 향했다. 오후 네 시가 넘으니 한낮의 관광객이 조금씩 빠지고, 바다는 민트색에서 은빛으로 천천히 바뀌기 시작했다."
+      }
+    }
+  ],
+  "layout": [
+    {
+      "name": "places-guide-390",
+      "firstCard": [
+        {
+          "class": "landmark-guide-card",
+          "top": 622.484375
+        },
+        {
+          "class": "landmark-guide-card",
+          "top": 1231.078125
+        },
+        {
+          "class": "landmark-guide-card",
+          "top": 1775.671875
+        }
+      ],
+      "tabbar": 770
+    }
+  ]
+}

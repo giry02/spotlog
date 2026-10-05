@@ -174,18 +174,20 @@ export function HybridShell() {
         onMessage={(event) => void handleMessage(event)}
         onShouldStartLoadWithRequest={handleNavigation}
         onError={(event) => setLoadError(event.nativeEvent.description || '모바일웹을 불러오지 못했습니다.')}
+        onHttpError={(event) => { if(event.nativeEvent.url.split('#')[0]===webUrl.split('#')[0])setLoadError(`HTTP ${event.nativeEvent.statusCode}`); }}
+        onContentProcessDidTerminate={() => setLoadError('화면 연결이 종료됐어요. 다시 연결해 주세요.')}
+        onRenderProcessGone={() => setLoadError('화면 연결이 종료됐어요. 다시 연결해 주세요.')}
         renderLoading={() => <View style={styles.loading}><ActivityIndicator color="#315CFD" /><Text style={styles.loadingText}>Spotlog 모바일웹을 여는 중</Text></View>}
       />
 
-      {bridgeReady && <View pointerEvents="none" style={styles.bridgeDot} />}
+      {__DEV__ && bridgeReady && <View pointerEvents="none" style={styles.bridgeDot} />}
 
       {loadError && (
         <View style={styles.error}>
           <View style={styles.errorIcon}><Text style={styles.errorIconText}>!</Text></View>
           <Text style={styles.errorTitle}>모바일웹에 연결할 수 없어요</Text>
-          <Text style={styles.errorCopy}>먼저 `npm run web`으로 웹 서버를 실행해 주세요. 실제 기기에서는 컴퓨터의 LAN 주소를 환경 변수로 지정해야 합니다.</Text>
-          <View style={styles.urlBox}><Text style={styles.urlLabel}>현재 웹 주소</Text><Text style={styles.url} selectable>{webUrl}</Text></View>
-          <Text style={styles.errorDetail}>{loadError}</Text>
+          <Text style={styles.errorCopy}>인터넷 연결을 확인하고 다시 연결해 주세요. 저장한 여행은 지워지지 않아요.</Text>
+          {__DEV__ && <><View style={styles.urlBox}><Text style={styles.urlLabel}>개발용 웹 주소</Text><Text style={styles.url} selectable>{webUrl}</Text></View><Text style={styles.errorDetail}>{loadError}</Text></>}
           <Pressable onPress={() => setReloadKey((value) => value + 1)} style={styles.retry} accessibilityRole="button"><Text style={styles.retryText}>다시 연결</Text></Pressable>
         </View>
       )}

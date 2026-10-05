@@ -1,3 +1,4 @@
+import { useUiCopy } from './frontendCopy';
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { Bookmark, ChevronLeft, ChevronRight, ImageOff, Share2 } from 'lucide-react';
 import { placeKindLabel, type Place } from './data';
@@ -5,6 +6,9 @@ import { getPlacePhotos } from './PhotoPlaceCard';
 import { activePhotoIndex } from './placePhotos';
 import { Button } from './ui';
 import { PhotoCredit } from './PublicTourismCredit';
+import { PlaceReportActions } from './ReportSheet';
+import { TranslationText } from './TranslationText';
+import { sourceVersion } from './travelGuide';
 import './landmark-guide-card.css';
 
 type LandmarkGuideCardProps = {
@@ -26,6 +30,7 @@ type LandmarkGuideCardProps = {
 
 /** Large discovery/confirmation card. Saved's outer list keeps its small horizontal card. */
 export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryAction, footer, actions }: LandmarkGuideCardProps) {
+  const copy=useUiCopy();
   const photos = getPlacePhotos(place, true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const photoIndex = activePhotoIndex(photos, selectedId);
@@ -65,10 +70,10 @@ export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryActi
         }}>
         {photos.map((entry, index) => <figure key={entry.mediaId} aria-hidden={index !== photoIndex}>
           {failedImages.has(entry.image)
-            ? <div className="landmark-guide-image-error" role="img" aria-label={`${place.name} 사진 불러오기 실패`}><ImageOff size={26} aria-hidden="true" /><p>사진을 불러오지 못했어요</p></div>
+            ? <div className="landmark-guide-image-error" role="img" aria-label={`${place.name} 사진 불러오기 실패`}><ImageOff size={26} aria-hidden="true" /><p>{copy("사진을 불러오지 못했어요")}</p></div>
             : Math.abs(index - photoIndex) <= 1 && <img src={entry.image} alt={entry.alt} loading="lazy" decoding="async" draggable={false} onError={() => setFailedImages((current) => new Set(current).add(entry.image))} />}
         </figure>)}
-      </div> : <div className="landmark-guide-image-error" role="img" aria-label={`${place.name} 사진 준비 중`}><ImageOff size={26} aria-hidden="true" /><p>장소 사진 준비 중</p></div>}
+      </div> : <div className="landmark-guide-image-error" role="img" aria-label={`${place.name} 사진 준비 중`}><ImageOff size={26} aria-hidden="true" /><p>{copy("장소 사진 준비 중")}</p></div>}
       <span>{place.area.split(/\s+/)[0]} · {placeKindLabel[place.kind]}</span>
       {photos.length > 1 && <>
         <div className="landmark-gallery-controls">
@@ -80,12 +85,13 @@ export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryActi
     </div>
     <div className="landmark-guide-copy">
       <small>{place.area} · {place.bestTime ?? place.duration}</small><h3>{place.name}</h3>
-      <strong>{place.hook ?? `${place.area} 일정에 담기 좋은 장소`}</strong><p>{place.description}</p>
-      {place.note && <blockquote>{place.tags?.includes('공공자료') ? '자료 안내' : '여행자 메모'} · {place.note}</blockquote>}
+      <strong>{place.hook ?? `${place.area} 일정에 담기 좋은 장소`}</strong><TranslationText sourceId={`place:${place.id}:description`} sourceVersion={sourceVersion(place.description)} text={place.description} kind="journal"/>
+      {place.note && <blockquote>{place.tags?.includes('공공자료') ? copy("자료 안내") : copy("여행자 메모")} · {place.note}</blockquote>}
       {photo?.caption && <p className="landmark-gallery-caption" aria-live="polite">{photo.caption}</p>}
       {photo && <PhotoCredit image={photo.image} sourceId={photo.sourceId} />}
       <div className="landmark-guide-tags">{place.tags?.map(tag => <span key={tag}>#{tag}</span>)}</div>
-      {actions !== null && <div className="landmark-guide-actions">{actions !== undefined ? actions : <>{primaryAction ?? <Button size="card" onClick={onToggle} aria-pressed={saved}><Bookmark size={16} fill={saved ? 'currentColor' : 'none'} />{saved ? '저장됨' : '이 장소 저장'}</Button>}<Button size="card" variant="secondary" onClick={onShare}><Share2 size={16} />공유</Button></>}</div>}
+      <PlaceReportActions place={place} photo={photo} />
+      {actions !== null && <div className="landmark-guide-actions">{actions !== undefined ? actions : <>{primaryAction ?? <Button size="card" onClick={onToggle} aria-pressed={saved}><Bookmark size={16} fill={saved ? 'currentColor' : 'none'} />{saved ? copy("저장됨") : copy("이 장소 저장")}</Button>}<Button size="card" variant="secondary" onClick={onShare}><Share2 size={16} />{copy("공유")}</Button></>}</div>}
       {footer}
     </div>
   </article>;

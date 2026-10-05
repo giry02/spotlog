@@ -1,0 +1,3 @@
+.media-region-action { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.media-region-action .media-region-trigger { display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border: 1px solid rgba(255,255,255,.24); border-radius: 50%; color: #fff; background: rgba(15,15,15,.3); backdrop-filter: blur(8px); }
+.media-region-action > span { color: #fff; font-size: var(--type-caption); font-weight: 600; line-height: 1.7; text-shadow: 0 1px 8px rgba(0,0,0,.5); }

@@ -1,0 +1,35 @@
+[
+  {
+    "width": 320,
+    "metrics": {
+      "width": 320,
+      "bodyOverflow": false,
+      "documentOverflow": false
+    },
+    "created": 1,
+    "localStorageUnchanged": true,
+    "errors": []
+  },
+  {
+    "width": 390,
+    "metrics": {
+      "width": 390,
+      "bodyOverflow": false,
+      "documentOverflow": false
+    },
+    "created": 1,
+    "localStorageUnchanged": true,
+    "errors": []
+  },
+  {
+    "width": 460,
+    "metrics": {
+      "width": 460,
+      "bodyOverflow": false,
+      "documentOverflow": false
+    },
+    "created": 1,
+    "localStorageUnchanged": true,
+    "errors": []
+  }
+]

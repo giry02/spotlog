@@ -1,0 +1,2488 @@
+{
+  "cases": [
+    {
+      "kind": "create",
+      "width": 320,
+      "height": 844,
+      "body": {
+        "h": 299.796875,
+        "w": 320,
+        "x": 0,
+        "y": 544.203125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 280
+        },
+        {
+          "role": "제주에서 남길 새로운 기록",
+          "size": "16px",
+          "weight": "400",
+          "width": 280
+        }
+      ],
+      "header": {
+        "h": 85,
+        "w": 320,
+        "x": 0,
+        "y": 459.203125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 384.796875,
+        "w": 320,
+        "x": 0,
+        "y": 459.203125
+      },
+      "title": "새 여행 만들기"
+    },
+    {
+      "kind": "create",
+      "width": 390,
+      "height": 844,
+      "body": {
+        "h": 299.796875,
+        "w": 390,
+        "x": 0,
+        "y": 544.203125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 350
+        },
+        {
+          "role": "제주에서 남길 새로운 기록",
+          "size": "16px",
+          "weight": "400",
+          "width": 350
+        }
+      ],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 459.203125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 384.796875,
+        "w": 390,
+        "x": 0,
+        "y": 459.203125
+      },
+      "title": "새 여행 만들기"
+    },
+    {
+      "kind": "create",
+      "width": 460,
+      "height": 844,
+      "body": {
+        "h": 281.796875,
+        "w": 460,
+        "x": 0,
+        "y": 562.203125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 420
+        },
+        {
+          "role": "제주에서 남길 새로운 기록",
+          "size": "16px",
+          "weight": "400",
+          "width": 420
+        }
+      ],
+      "header": {
+        "h": 85,
+        "w": 460,
+        "x": 0,
+        "y": 477.203125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 366.796875,
+        "w": 460,
+        "x": 0,
+        "y": 477.203125
+      },
+      "title": "새 여행 만들기"
+    },
+    {
+      "kind": "create",
+      "width": 390,
+      "height": 400,
+      "body": {
+        "h": 267,
+        "w": 390,
+        "x": 0,
+        "y": 133
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "제주에서 남길 새로운 기록",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        }
+      ],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "새 여행 만들기"
+    },
+    {
+      "kind": "ai-input",
+      "width": 320,
+      "height": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 320,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "부산에서 1박 2일, 바다를 보고 싶어요. 카페는 빼고 많이 걷지 않았으면 좋겠어요.",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "AI 여행 만들기로컬 추천 미리보기 · 외부 AI 미연결"
+    },
+    {
+      "kind": "ai-input",
+      "width": 390,
+      "height": 844,
+      "body": {
+        "h": 641.921875,
+        "w": 390,
+        "x": 0,
+        "y": 202.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "부산에서 1박 2일, 바다를 보고 싶어요. 카페는 빼고 많이 걷지 않았으면 좋겠어요.",
+          "size": "16px",
+          "weight": "400",
+          "width": 350
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 169
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 169
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 169
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 169
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 103.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 740.71875,
+        "w": 390,
+        "x": 0,
+        "y": 103.28125
+      },
+      "title": "AI 여행 만들기로컬 추천 미리보기 · 외부 AI 미연결"
+    },
+    {
+      "kind": "ai-input",
+      "width": 460,
+      "height": 844,
+      "body": {
+        "h": 619.828125,
+        "w": 460,
+        "x": 0,
+        "y": 224.171875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "부산에서 1박 2일, 바다를 보고 싶어요. 카페는 빼고 많이 걷지 않았으면 좋겠어요.",
+          "size": "16px",
+          "weight": "400",
+          "width": 420
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 204
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 204
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 204
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 204
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 460,
+        "x": 0,
+        "y": 125.375
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 718.625,
+        "w": 460,
+        "x": 0,
+        "y": 125.375
+      },
+      "title": "AI 여행 만들기로컬 추천 미리보기 · 외부 AI 미연결"
+    },
+    {
+      "kind": "ai-input",
+      "width": 390,
+      "height": 400,
+      "body": {
+        "h": 253.203125,
+        "w": 390,
+        "x": 0,
+        "y": 146.796875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "부산에서 1박 2일, 바다를 보고 싶어요. 카페는 빼고 많이 걷지 않았으면 좋겠어요.",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 161.5
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 161.5
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 161.5
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 161.5
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "AI 여행 만들기로컬 추천 미리보기 · 외부 AI 미연결"
+    },
+    {
+      "kind": "ai-preview",
+      "width": 320,
+      "height": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 320,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "여행 초안 미리보기로컬 추천 미리보기 · 외부 AI 미연결"
+    },
+    {
+      "kind": "ai-preview",
+      "width": 390,
+      "height": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 390,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 390,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "여행 초안 미리보기로컬 추천 미리보기 · 외부 AI 미연결"
+    },
+    {
+      "kind": "ai-preview",
+      "width": 460,
+      "height": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 460,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 460,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 460,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "여행 초안 미리보기로컬 추천 미리보기 · 외부 AI 미연결"
+    },
+    {
+      "kind": "ai-preview",
+      "width": 390,
+      "height": 400,
+      "body": {
+        "h": 253.203125,
+        "w": 390,
+        "x": 0,
+        "y": 146.796875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "여행 초안 미리보기로컬 추천 미리보기 · 외부 AI 미연결"
+    },
+    {
+      "kind": "nested-source",
+      "w": 320,
+      "h": 844,
+      "body": {
+        "h": 229.515625,
+        "w": 320,
+        "x": 0,
+        "y": 614.484375
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 320,
+        "x": 0,
+        "y": 529.484375
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 314.515625,
+        "w": 320,
+        "x": 0,
+        "y": 529.484375
+      },
+      "title": "사진 출처"
+    },
+    {
+      "kind": "nested-source",
+      "w": 390,
+      "h": 844,
+      "body": {
+        "h": 229.515625,
+        "w": 390,
+        "x": 0,
+        "y": 614.484375
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 529.484375
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 314.515625,
+        "w": 390,
+        "x": 0,
+        "y": 529.484375
+      },
+      "title": "사진 출처"
+    },
+    {
+      "kind": "nested-source",
+      "w": 460,
+      "h": 844,
+      "body": {
+        "h": 229.515625,
+        "w": 460,
+        "x": 0,
+        "y": 614.484375
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 460,
+        "x": 0,
+        "y": 529.484375
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 314.515625,
+        "w": 460,
+        "x": 0,
+        "y": 529.484375
+      },
+      "title": "사진 출처"
+    },
+    {
+      "kind": "nested-source",
+      "w": 390,
+      "h": 400,
+      "body": {
+        "h": 229.515625,
+        "w": 390,
+        "x": 0,
+        "y": 170.484375
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 85.484375
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 314.515625,
+        "w": 390,
+        "x": 0,
+        "y": 85.484375
+      },
+      "title": "사진 출처"
+    },
+    {
+      "kind": "placement-existing",
+      "w": 320,
+      "h": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 320,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "내 여행에 담기서울숲"
+    },
+    {
+      "kind": "placement-existing",
+      "w": 390,
+      "h": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 390,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 390,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "내 여행에 담기서울숲"
+    },
+    {
+      "kind": "placement-existing",
+      "w": 460,
+      "h": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 460,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 460,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 460,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "내 여행에 담기서울숲"
+    },
+    {
+      "kind": "placement-existing",
+      "w": 390,
+      "h": 400,
+      "body": {
+        "h": 253.203125,
+        "w": 390,
+        "x": 0,
+        "y": 146.796875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "내 여행에 담기서울숲"
+    },
+    {
+      "kind": "placement-new-day7",
+      "w": 320,
+      "h": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 320,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "서울 여행",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "INPUT",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "내 여행에 담기서울숲"
+    },
+    {
+      "kind": "placement-new-day7",
+      "w": 390,
+      "h": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 390,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "서울 여행",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "INPUT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 390,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "내 여행에 담기서울숲"
+    },
+    {
+      "kind": "placement-new-day7",
+      "w": 460,
+      "h": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 460,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        },
+        {
+          "role": "서울 여행",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        },
+        {
+          "role": "INPUT",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 460,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 460,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "내 여행에 담기서울숲"
+    },
+    {
+      "kind": "placement-new-day7",
+      "w": 390,
+      "h": 400,
+      "body": {
+        "h": 253.203125,
+        "w": 390,
+        "x": 0,
+        "y": 146.796875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "서울 여행",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "INPUT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "내 여행에 담기서울숲"
+    },
+    {
+      "kind": "picker-custom",
+      "w": 320,
+      "h": 844,
+      "body": {
+        "h": 657.71875,
+        "w": 320,
+        "x": 0,
+        "y": 186.28125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [
+        {
+          "role": "INPUT",
+          "size": "16px",
+          "weight": "600",
+          "width": 263
+        },
+        {
+          "role": "장소 이름",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "예: 부산 해운대",
+          "size": "16px",
+          "weight": "400",
+          "width": 128
+        },
+        {
+          "role": "약 1시간",
+          "size": "16px",
+          "weight": "400",
+          "width": 128
+        },
+        {
+          "role": "주소를 입력하면 길찾기 검색에 사용합니다",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "어떤 곳인지 간단히 소개해 주세요.",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "직접 다녀와서 알게 된 팁을 적어주세요.",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        }
+      ],
+      "header": {
+        "h": 85,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "랜드마크 삽입"
+    },
+    {
+      "kind": "picker-custom",
+      "w": 390,
+      "h": 844,
+      "body": {
+        "h": 657.71875,
+        "w": 390,
+        "x": 0,
+        "y": 186.28125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [
+        {
+          "role": "INPUT",
+          "size": "16px",
+          "weight": "600",
+          "width": 333
+        },
+        {
+          "role": "장소 이름",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "예: 부산 해운대",
+          "size": "16px",
+          "weight": "400",
+          "width": 163
+        },
+        {
+          "role": "약 1시간",
+          "size": "16px",
+          "weight": "400",
+          "width": 163
+        },
+        {
+          "role": "주소를 입력하면 길찾기 검색에 사용합니다",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "어떤 곳인지 간단히 소개해 주세요.",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "직접 다녀와서 알게 된 팁을 적어주세요.",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        }
+      ],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 390,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "랜드마크 삽입"
+    },
+    {
+      "kind": "picker-custom",
+      "w": 460,
+      "h": 844,
+      "body": {
+        "h": 657.71875,
+        "w": 460,
+        "x": 0,
+        "y": 186.28125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [
+        {
+          "role": "INPUT",
+          "size": "16px",
+          "weight": "600",
+          "width": 403
+        },
+        {
+          "role": "장소 이름",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        },
+        {
+          "role": "예: 부산 해운대",
+          "size": "16px",
+          "weight": "400",
+          "width": 198
+        },
+        {
+          "role": "약 1시간",
+          "size": "16px",
+          "weight": "400",
+          "width": 198
+        },
+        {
+          "role": "주소를 입력하면 길찾기 검색에 사용합니다",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        },
+        {
+          "role": "어떤 곳인지 간단히 소개해 주세요.",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        },
+        {
+          "role": "직접 다녀와서 알게 된 팁을 적어주세요.",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        }
+      ],
+      "header": {
+        "h": 85,
+        "w": 460,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 460,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "랜드마크 삽입"
+    },
+    {
+      "kind": "picker-custom",
+      "w": 390,
+      "h": 400,
+      "body": {
+        "h": 267,
+        "w": 390,
+        "x": 0,
+        "y": 133
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [
+        {
+          "role": "INPUT",
+          "size": "16px",
+          "weight": "600",
+          "width": 333
+        },
+        {
+          "role": "장소 이름",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "예: 부산 해운대",
+          "size": "16px",
+          "weight": "400",
+          "width": 163
+        },
+        {
+          "role": "약 1시간",
+          "size": "16px",
+          "weight": "400",
+          "width": 163
+        },
+        {
+          "role": "주소를 입력하면 길찾기 검색에 사용합니다",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "어떤 곳인지 간단히 소개해 주세요.",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "직접 다녀와서 알게 된 팁을 적어주세요.",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        }
+      ],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "랜드마크 삽입"
+    },
+    {
+      "kind": "picker-catalog",
+      "w": 320,
+      "h": 844,
+      "body": {
+        "h": 657.71875,
+        "w": 320,
+        "x": 0,
+        "y": 186.28125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "랜드마크 삽입"
+    },
+    {
+      "kind": "picker-catalog",
+      "w": 390,
+      "h": 844,
+      "body": {
+        "h": 657.71875,
+        "w": 390,
+        "x": 0,
+        "y": 186.28125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 390,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "랜드마크 삽입"
+    },
+    {
+      "kind": "picker-catalog",
+      "w": 460,
+      "h": 844,
+      "body": {
+        "h": 657.71875,
+        "w": 460,
+        "x": 0,
+        "y": 186.28125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 460,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 460,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "랜드마크 삽입"
+    },
+    {
+      "kind": "picker-catalog",
+      "w": 390,
+      "h": 400,
+      "body": {
+        "h": 267,
+        "w": 390,
+        "x": 0,
+        "y": 133
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "랜드마크 삽입"
+    },
+    {
+      "kind": "create-after",
+      "w": 320,
+      "h": 844,
+      "body": {
+        "h": 321.796875,
+        "w": 320,
+        "x": 0,
+        "y": 522.203125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 280
+        },
+        {
+          "role": "제주에서 남길 새로운 기록",
+          "size": "16px",
+          "weight": "400",
+          "width": 280
+        }
+      ],
+      "header": {
+        "h": 85,
+        "w": 320,
+        "x": 0,
+        "y": 437.203125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 406.796875,
+        "w": 320,
+        "x": 0,
+        "y": 437.203125
+      },
+      "title": "새 여행 만들기"
+    },
+    {
+      "kind": "create-after",
+      "w": 390,
+      "h": 844,
+      "body": {
+        "h": 321.796875,
+        "w": 390,
+        "x": 0,
+        "y": 522.203125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 350
+        },
+        {
+          "role": "제주에서 남길 새로운 기록",
+          "size": "16px",
+          "weight": "400",
+          "width": 350
+        }
+      ],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 437.203125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 406.796875,
+        "w": 390,
+        "x": 0,
+        "y": 437.203125
+      },
+      "title": "새 여행 만들기"
+    },
+    {
+      "kind": "create-after",
+      "w": 460,
+      "h": 844,
+      "body": {
+        "h": 303.796875,
+        "w": 460,
+        "x": 0,
+        "y": 540.203125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 420
+        },
+        {
+          "role": "제주에서 남길 새로운 기록",
+          "size": "16px",
+          "weight": "400",
+          "width": 420
+        }
+      ],
+      "header": {
+        "h": 85,
+        "w": 460,
+        "x": 0,
+        "y": 455.203125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 388.796875,
+        "w": 460,
+        "x": 0,
+        "y": 455.203125
+      },
+      "title": "새 여행 만들기"
+    },
+    {
+      "kind": "create-after",
+      "w": 390,
+      "h": 400,
+      "body": {
+        "h": 267,
+        "w": 390,
+        "x": 0,
+        "y": 133
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [
+        "none"
+      ],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "제주에서 남길 새로운 기록",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        }
+      ],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "새 여행 만들기"
+    },
+    {
+      "kind": "region-photo",
+      "w": 320,
+      "h": 844,
+      "body": {
+        "h": 280.5625,
+        "w": 320,
+        "x": 0,
+        "y": 563.4375
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 122.59375,
+        "w": 320,
+        "x": 0,
+        "y": 440.84375
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 403.15625,
+        "w": 320,
+        "x": 0,
+        "y": 440.84375
+      },
+      "title": "어느 지역을 볼까요?지역을 고르면 해당 지역의 장소가 이어집니다."
+    },
+    {
+      "kind": "region-photo",
+      "w": 390,
+      "h": 844,
+      "body": {
+        "h": 280.5625,
+        "w": 390,
+        "x": 0,
+        "y": 563.4375
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 464.640625
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 379.359375,
+        "w": 390,
+        "x": 0,
+        "y": 464.640625
+      },
+      "title": "어느 지역을 볼까요?지역을 고르면 해당 지역의 장소가 이어집니다."
+    },
+    {
+      "kind": "region-photo",
+      "w": 460,
+      "h": 844,
+      "body": {
+        "h": 280.5625,
+        "w": 460,
+        "x": 0,
+        "y": 563.4375
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 460,
+        "x": 0,
+        "y": 464.640625
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 379.359375,
+        "w": 460,
+        "x": 0,
+        "y": 464.640625
+      },
+      "title": "어느 지역을 볼까요?지역을 고르면 해당 지역의 장소가 이어집니다."
+    },
+    {
+      "kind": "region-photo",
+      "w": 390,
+      "h": 400,
+      "body": {
+        "h": 253.203125,
+        "w": 390,
+        "x": 0,
+        "y": 146.796875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "어느 지역을 볼까요?지역을 고르면 해당 지역의 장소가 이어집니다."
+    },
+    {
+      "kind": "cc-source",
+      "w": 320,
+      "h": 844,
+      "body": {
+        "h": 381.828125,
+        "w": 320,
+        "x": 0,
+        "y": 462.171875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 320,
+        "x": 0,
+        "y": 377.171875
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 466.828125,
+        "w": 320,
+        "x": 0,
+        "y": 377.171875
+      },
+      "title": "사진 출처"
+    },
+    {
+      "kind": "cc-source",
+      "w": 390,
+      "h": 844,
+      "body": {
+        "h": 362.640625,
+        "w": 390,
+        "x": 0,
+        "y": 481.359375
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 396.359375
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 447.640625,
+        "w": 390,
+        "x": 0,
+        "y": 396.359375
+      },
+      "title": "사진 출처"
+    },
+    {
+      "kind": "cc-source",
+      "w": 460,
+      "h": 844,
+      "body": {
+        "h": 343.453125,
+        "w": 460,
+        "x": 0,
+        "y": 500.546875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 460,
+        "x": 0,
+        "y": 415.546875
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 428.453125,
+        "w": 460,
+        "x": 0,
+        "y": 415.546875
+      },
+      "title": "사진 출처"
+    },
+    {
+      "kind": "cc-source",
+      "w": 390,
+      "h": 400,
+      "body": {
+        "h": 267,
+        "w": 390,
+        "x": 0,
+        "y": 133
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "사진 출처"
+    },
+    {
+      "kind": "cc-long-title",
+      "w": 320,
+      "h": 844,
+      "body": {
+        "h": 420.203125,
+        "w": 320,
+        "x": 0,
+        "y": 423.796875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 320,
+        "x": 0,
+        "y": 338.796875
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 505.203125,
+        "w": 320,
+        "x": 0,
+        "y": 338.796875
+      },
+      "title": "사진 출처"
+    },
+    {
+      "kind": "cc-long-title",
+      "w": 390,
+      "h": 844,
+      "body": {
+        "h": 381.828125,
+        "w": 390,
+        "x": 0,
+        "y": 462.171875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 377.171875
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 466.828125,
+        "w": 390,
+        "x": 0,
+        "y": 377.171875
+      },
+      "title": "사진 출처"
+    },
+    {
+      "kind": "cc-long-title",
+      "w": 460,
+      "h": 844,
+      "body": {
+        "h": 362.640625,
+        "w": 460,
+        "x": 0,
+        "y": 481.359375
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 460,
+        "x": 0,
+        "y": 396.359375
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 447.640625,
+        "w": 460,
+        "x": 0,
+        "y": 396.359375
+      },
+      "title": "사진 출처"
+    },
+    {
+      "kind": "cc-long-title",
+      "w": 390,
+      "h": 400,
+      "body": {
+        "h": 267,
+        "w": 390,
+        "x": 0,
+        "y": 133
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 85,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "사진 출처"
+    },
+    {
+      "kind": "place-story",
+      "w": 320,
+      "h": 844,
+      "body": {
+        "h": 432.375,
+        "w": 320,
+        "x": 0,
+        "y": 411.625
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 320,
+        "x": 0,
+        "y": 312.828125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 531.171875,
+        "w": 320,
+        "x": 0,
+        "y": 312.828125
+      },
+      "title": "오설록 티뮤지엄제주 안덕"
+    },
+    {
+      "kind": "place-story",
+      "w": 390,
+      "h": 844,
+      "body": {
+        "h": 352.78125,
+        "w": 390,
+        "x": 0,
+        "y": 491.21875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 392.421875
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 451.578125,
+        "w": 390,
+        "x": 0,
+        "y": 392.421875
+      },
+      "title": "오설록 티뮤지엄제주 안덕"
+    },
+    {
+      "kind": "place-story",
+      "w": 460,
+      "h": 844,
+      "body": {
+        "h": 352.78125,
+        "w": 460,
+        "x": 0,
+        "y": 491.21875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 460,
+        "x": 0,
+        "y": 392.421875
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 451.578125,
+        "w": 460,
+        "x": 0,
+        "y": 392.421875
+      },
+      "title": "오설록 티뮤지엄제주 안덕"
+    },
+    {
+      "kind": "place-story",
+      "w": 390,
+      "h": 400,
+      "body": {
+        "h": 253.203125,
+        "w": 390,
+        "x": 0,
+        "y": 146.796875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "오설록 티뮤지엄제주 안덕"
+    },
+    {
+      "kind": "region-video",
+      "w": 320,
+      "h": 844,
+      "body": {
+        "h": 198.375,
+        "w": 320,
+        "x": 0,
+        "y": 645.625
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 122.59375,
+        "w": 320,
+        "x": 0,
+        "y": 523.03125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 320.96875,
+        "w": 320,
+        "x": 0,
+        "y": 523.03125
+      },
+      "title": "어느 지역을 볼까요?지역을 고르면 해당 지역의 장소가 이어집니다."
+    },
+    {
+      "kind": "region-video",
+      "w": 390,
+      "h": 844,
+      "body": {
+        "h": 198.375,
+        "w": 390,
+        "x": 0,
+        "y": 645.625
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 546.828125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 297.171875,
+        "w": 390,
+        "x": 0,
+        "y": 546.828125
+      },
+      "title": "어느 지역을 볼까요?지역을 고르면 해당 지역의 장소가 이어집니다."
+    },
+    {
+      "kind": "region-video",
+      "w": 460,
+      "h": 844,
+      "body": {
+        "h": 198.375,
+        "w": 460,
+        "x": 0,
+        "y": 645.625
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 460,
+        "x": 0,
+        "y": 546.828125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 297.171875,
+        "w": 460,
+        "x": 0,
+        "y": 546.828125
+      },
+      "title": "어느 지역을 볼까요?지역을 고르면 해당 지역의 장소가 이어집니다."
+    },
+    {
+      "kind": "region-video",
+      "w": 390,
+      "h": 400,
+      "body": {
+        "h": 198.375,
+        "w": 390,
+        "x": 0,
+        "y": 201.625
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 102.828125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 297.171875,
+        "w": 390,
+        "x": 0,
+        "y": 102.828125
+      },
+      "title": "어느 지역을 볼까요?지역을 고르면 해당 지역의 장소가 이어집니다."
+    },
+    {
+      "kind": "placement-day7-after",
+      "w": 460,
+      "h": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 460,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        },
+        {
+          "role": "서울 여행",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        },
+        {
+          "role": "INPUT",
+          "size": "16px",
+          "weight": "400",
+          "width": 405
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 460,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 460,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "내 여행에 담기서울숲",
+      "dayVisible": true
+    },
+    {
+      "kind": "placement-day7-after",
+      "w": 390,
+      "h": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 390,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "서울 여행",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "INPUT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 390,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "내 여행에 담기서울숲",
+      "dayVisible": true
+    },
+    {
+      "kind": "placement-day7-after",
+      "w": 320,
+      "h": 844,
+      "body": {
+        "h": 643.921875,
+        "w": 320,
+        "x": 0,
+        "y": 200.078125
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "서울 여행",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        },
+        {
+          "role": "INPUT",
+          "size": "16px",
+          "weight": "400",
+          "width": 265
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 742.71875,
+        "w": 320,
+        "x": 0,
+        "y": 101.28125
+      },
+      "title": "내 여행에 담기서울숲",
+      "dayVisible": true
+    },
+    {
+      "kind": "placement-day7-after",
+      "w": 390,
+      "h": 400,
+      "body": {
+        "h": 253.203125,
+        "w": 390,
+        "x": 0,
+        "y": 146.796875
+      },
+      "bodyOverflowX": false,
+      "documentOverflow": false,
+      "embedShadows": [],
+      "fields": [
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "서울 여행",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "SELECT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        },
+        {
+          "role": "INPUT",
+          "size": "16px",
+          "weight": "400",
+          "width": 335
+        }
+      ],
+      "header": {
+        "h": 98.796875,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "headerClipped": false,
+      "sheet": {
+        "h": 352,
+        "w": 390,
+        "x": 0,
+        "y": 48
+      },
+      "title": "내 여행에 담기서울숲",
+      "dayVisible": true
+    }
+  ],
+  "summary": {
+    "count": 60,
+    "overflowFailures": [],
+    "day7Failures": []
+  },
+  "savedPhotoCheck": {
+    "day": "DAY 7 · DAY 7\n7일차",
+    "images": [
+      {
+        "loaded": true,
+        "src": "/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/licensed-places/seoulforest-path.jpg"
+      }
+    ],
+    "title": "사진 출처 검수 · DAY 7",
+    "source": " \"사진 출처\" [active]:\n  - banner:\n    - heading \"사진 출처\" [level=2]\n    - button \"닫기\":\n  - paragraph: 사진별 저작자와 이용 조건을 아래에서 확인할 수 있어요. 자료 사진은 촬영 시점의 모습이며, 여행 작성자가 직접 촬영하거나 방문했다는 의미는 아닙니다.\n  - heading \"서울숲 · 가을 산책길\" [level=3]\n  - term: 원제\n  - definition: Seoulforest path01.jpg\n  - term: 제공\n  - definition: Wikimedia Commons\n  - term: 저작자\n  - definition: Enigma7seven\n  - term: 이용 조건\n  - definition:\n    - link \"CC BY-SA 3.0\":\n      - /url: https://creativecommons.org/licenses/by-sa/3.0\n  - term: 제작일\n  - definition: 2009-11-26\n  - term: 확인일\n  - definition: 2026-09-15\n  - term: 변경 사항\n  - definition: Wikimedia Commons 제공 축소본 사용. 파일 추가 편집 없음. 화면 비율에 따라 일부가 잘려 보일 수 있습니다.\n  - term: 재사용\n  - definition: 저작자와 출처·이용허락 링크를 표시해야 합니다. 사진을 수정하여 공유할 때에는 동일한 이용허락 조건을 따라야 합니다.\n  - link \"출처 페이지 보기\":\n    - /url: https://commons.wikimedia.org/wiki/File:Seoulforest_path01.jpg\n  - link \"사진 원본 보기\":\n    - /url: https://upload.wikimedia.org/wikipedia/commons/f/ff/Seoulforest_path01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original"
+  },
+  "qaCreatedUrl": "http://127.0.0.1:5192/#journey-journey-c6be9f53-5cc6-4528-b74e-b46b10e23c5e",
+  "photos": [
+    {
+      "images": [
+        {
+          "loaded": true,
+          "src": "/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/licensed-places/osulloc-museum.jpg"
+        },
+        {
+          "loaded": true,
+          "src": "/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/licensed-places/osulloc-tea.jpg"
+        }
+      ],
+      "place": "jeju-osulloc",
+      "text": "사진 2 / 2\n제주 안덕\n장소 사진\n오설록 티뮤지엄\n\n오설록에서 가까이 바라본 차나무와 찻잎.\n\n사진 출처\n장소 이야기\n옆으로 사진 · 위로 넘겨 다음 장소\n저장\n공유\n제주"
+    },
+    {
+      "images": [
+        {
+          "loaded": true,
+          "src": "/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/licensed-places/sagye-coast.jpg"
+        },
+        {
+          "loaded": true,
+          "src": "/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/licensed-places/sagye-rocks.jpg"
+        }
+      ],
+      "place": "jeju-sagye",
+      "text": "사진 2 / 2\n제주 안덕\n장소 사진\n사계해안\n\n사계의 바위 해안에서 바라본 바다.\n\n사진 출처\n장소 이야기\n옆으로 사진 · 위로 넘겨 다음 장소\n저장\n공유\n제주"
+    },
+    {
+      "images": [
+        {
+          "loaded": true,
+          "src": "/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/licensed-places/saebyeol-autumn.jpg"
+        },
+        {
+          "loaded": true,
+          "src": "/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/licensed-places/saebyeol-ridge.jpg"
+        }
+      ],
+      "place": "jeju-saebyeol",
+      "text": "사진 2 / 2\n제주 애월\n장소 사진\n새별오름\n\n잔디 너머로 바라본 새별오름의 봄 능선.\n\n사진 출처\n장소 이야기\n옆으로 사진 · 위로 넘겨 다음 장소\n저장\n공유\n제주"
+    },
+    {
+      "images": [
+        {
+          "loaded": true,
+          "src": "/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/licensed-places/seoulforest-path.jpg"
+        }
+      ],
+      "place": "seoul-seoulforest"
+    },
+    {
+      "images": [
+        {
+          "loaded": true,
+          "src": "/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/licensed-places/anmok-beach.jpg"
+        }
+      ],
+      "place": "gangneung-anmok"
+    }
+  ],
+  "realAndroidVerified": false
+}

@@ -1,0 +1,5064 @@
+{
+  "errors": [],
+  "counts": {
+    "development-plan": 46,
+    "development-summary": 18,
+    "ai-guide-plan": 67,
+    "ai-guide-summary": 12
+  },
+  "records": [
+    {
+      "kind": "development-plan",
+      "number": 1,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 2,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 3,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 4,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 5,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 6,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 7,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 8,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 9,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 10,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 11,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 12,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 13,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 14,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 15,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 16,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 17,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 18,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 19,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 20,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 21,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 22,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 23,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 24,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 25,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 26,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 27,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 28,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 29,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 30,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 31,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 32,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 33,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 34,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 35,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 36,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 37,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 38,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 39,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 40,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 41,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 42,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 43,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 44,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 45,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 46,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "print": [
+        {
+          "number": "slide-1",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-2",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-3",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-4",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-5",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-6",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-7",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-8",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-9",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-10",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-11",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-12",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-13",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-14",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-15",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-16",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-17",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-18",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-19",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-20",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-21",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-22",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-23",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-24",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-25",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-26",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-27",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-28",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-29",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-30",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-31",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-32",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-33",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-34",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-35",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-36",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-37",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-38",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-39",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-40",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-41",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-42",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-43",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-44",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-45",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-46",
+          "overflow": false,
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "kind": "development-plan",
+      "number": 1,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 2,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 3,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 4,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 5,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 6,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 7,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 8,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 9,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 10,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 11,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 12,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 13,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 14,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 15,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 16,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 17,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 18,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 19,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 20,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 21,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 22,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 23,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 24,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 25,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 26,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 27,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 28,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 29,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 30,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 31,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 32,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 33,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 34,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 35,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 36,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 37,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 38,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 39,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 40,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 41,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 42,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 43,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 44,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 45,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 46,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 1,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 2,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 3,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 4,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 5,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 6,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 7,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 8,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 9,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 10,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 11,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 12,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 13,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 14,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 15,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 16,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 17,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 18,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 19,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 20,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 21,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 22,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 23,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 24,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 25,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 26,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 27,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 28,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 29,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 30,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 31,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 32,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 33,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 34,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 35,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 36,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 37,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 38,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 39,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 40,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 41,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 42,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 43,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 44,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 45,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 46,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 1,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 2,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 3,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 4,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 5,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 6,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 7,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 8,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 9,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 10,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 11,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 12,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 13,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 14,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 15,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 16,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 17,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 18,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 19,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 20,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 21,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 22,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 23,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 24,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 25,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 26,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 27,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 28,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 29,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 30,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 31,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 32,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 33,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 34,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 35,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 36,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 37,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 38,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 39,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 40,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 41,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 42,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 43,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 44,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 45,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-plan",
+      "number": 46,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 1,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 2,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 3,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 4,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 5,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 6,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 7,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 8,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 9,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 10,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 11,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 12,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 13,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 14,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 15,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 16,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 17,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 18,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "print": [
+        {
+          "number": "slide-1",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-2",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-3",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-4",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-5",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-6",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-7",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-8",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-9",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-10",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-11",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-12",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-13",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-14",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-15",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-16",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-17",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-18",
+          "overflow": false,
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "kind": "development-summary",
+      "number": 1,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 2,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 3,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 4,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 5,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 6,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 7,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 8,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 9,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 10,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 11,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 12,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 13,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 14,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 15,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 16,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 17,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 18,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 1,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 2,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 3,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 4,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 5,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 6,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 7,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 8,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 9,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 10,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 11,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 12,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 13,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 14,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 15,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 16,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 17,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 18,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 1,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 2,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 3,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 4,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 5,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 6,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 7,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 8,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 9,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 10,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 11,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 12,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 13,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 14,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 15,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 16,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 17,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "development-summary",
+      "number": 18,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 1,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 2,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 3,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 4,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 5,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 6,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 7,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 8,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 9,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 10,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 11,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 12,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 13,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 14,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 15,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 16,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 17,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 18,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 19,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 20,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 21,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 22,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 23,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 24,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 25,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 26,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 27,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 28,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 29,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 30,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 31,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 32,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 33,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 34,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 35,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 36,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 37,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 38,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 39,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 40,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 41,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 42,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 43,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 44,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 45,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 46,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 47,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 48,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 49,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 50,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 51,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 52,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 53,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 54,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 55,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 56,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 57,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 58,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 59,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 60,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 61,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 62,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 63,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 64,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 65,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 66,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 67,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "print": [
+        {
+          "number": "slide-1",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-2",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-3",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-4",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-5",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-6",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-7",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-8",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-9",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-10",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-11",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-12",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-13",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-14",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-15",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-16",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-17",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-18",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-19",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-20",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-21",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-22",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-23",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-24",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-25",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-26",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-27",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-28",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-29",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-30",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-31",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-32",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-33",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-34",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-35",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-36",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-37",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-38",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-39",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-40",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-41",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-42",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-43",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-44",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-45",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-46",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-47",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-48",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-49",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-50",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-51",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-52",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-53",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-54",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-55",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-56",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-57",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-58",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-59",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-60",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-61",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-62",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-63",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-64",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-65",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-66",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-67",
+          "overflow": false,
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 1,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 2,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 3,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 4,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 5,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 6,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 7,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 8,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 9,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 10,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 11,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 12,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 13,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 14,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 15,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 16,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 17,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 18,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 19,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 20,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 21,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 22,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 23,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 24,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 25,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 26,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 27,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 28,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 29,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 30,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 31,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 32,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 33,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 34,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 35,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 36,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 37,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 38,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 39,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 40,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 41,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 42,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 43,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 44,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 45,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 46,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 47,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 48,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 49,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 50,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 51,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 52,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 53,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 54,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 55,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 56,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 57,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 58,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 59,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 60,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 61,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 62,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 63,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 64,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 65,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 66,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 67,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 1,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 2,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 3,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 4,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 5,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 6,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 7,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 8,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 9,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 10,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 11,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 12,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 13,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 14,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 15,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 16,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 17,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 18,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 19,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 20,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 21,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 22,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 23,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 24,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 25,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 26,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 27,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 28,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 29,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 30,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 31,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 32,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 33,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 34,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 35,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 36,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 37,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 38,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 39,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 40,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 41,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 42,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 43,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 44,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 45,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 46,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 47,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 48,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 49,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 50,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 51,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 52,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 53,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 54,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 55,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 56,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 57,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 58,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 59,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 60,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 61,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 62,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 63,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 64,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 65,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 66,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 67,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 1,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 2,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 3,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 4,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 5,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 6,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 7,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 8,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 9,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 10,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 11,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 12,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 13,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 14,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 15,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 16,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 17,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 18,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 19,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 20,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 21,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 22,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 23,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 24,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 25,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 26,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 27,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 28,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 29,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 30,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 31,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 32,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 33,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 34,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 35,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 36,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 37,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 38,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 39,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 40,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 41,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 42,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 43,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 44,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 45,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 46,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 47,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 48,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 49,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 50,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 51,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 52,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 53,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 54,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 55,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 56,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 57,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 58,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 59,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 60,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 61,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 62,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 63,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 64,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 65,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 66,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-plan",
+      "number": 67,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 1,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 2,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 3,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 4,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 5,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 6,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 7,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 8,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 9,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 10,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 11,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 12,
+      "viewport": 1440,
+      "height": 768,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "print": [
+        {
+          "number": "slide-1",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-2",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-3",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-4",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-5",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-6",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-7",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-8",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-9",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-10",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-11",
+          "overflow": false,
+          "overlap": false
+        },
+        {
+          "number": "slide-12",
+          "overflow": false,
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 1,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 2,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 3,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 4,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 5,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 6,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 7,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 8,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 9,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 10,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 11,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 12,
+      "viewport": 320,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 1,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 2,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 3,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 4,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 5,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 6,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 7,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 8,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 9,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 10,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 11,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 12,
+      "viewport": 390,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 1,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 2,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 3,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 4,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 5,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 6,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 7,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 8,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 9,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 10,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 11,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    },
+    {
+      "kind": "ai-guide-summary",
+      "number": 12,
+      "viewport": 460,
+      "horizontal": false,
+      "overlap": false
+    }
+  ],
+  "links": [
+    {
+      "href": "./spotlog-ai-guide-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html"
+    },
+    {
+      "href": "./spotlog-ai-guide-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html"
+    },
+    {
+      "href": "./spotlog-ai-guide-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html"
+    },
+    {
+      "href": "./spotlog-ai-guide-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html"
+    },
+    {
+      "href": "./spotlog-ai-guide-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html"
+    },
+    {
+      "href": "./spotlog-ai-guide-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html"
+    },
+    {
+      "href": "./spotlog-ai-guide-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html#slide-4",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html#slide-4"
+    },
+    {
+      "href": "./spotlog-ai-guide-summary.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-summary.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html#slide-11",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html#slide-11"
+    },
+    {
+      "href": "./spotlog-ai-guide-summary.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-summary.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html#slide-12",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html#slide-12"
+    },
+    {
+      "href": "./spotlog-development-plan.html#slide-13",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html#slide-13"
+    },
+    {
+      "href": "./spotlog-development-plan.html#slide-14",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html#slide-14"
+    },
+    {
+      "href": "./spotlog-development-plan.html#slide-15",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html#slide-15"
+    },
+    {
+      "href": "./spotlog-ai-guide-summary.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-summary.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html#slide-17",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html#slide-17"
+    },
+    {
+      "href": "./spotlog-ai-guide-summary.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-summary.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html#slide-27",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html#slide-27"
+    },
+    {
+      "href": "./spotlog-development-plan.html#slide-19",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html#slide-19"
+    },
+    {
+      "href": "./spotlog-ai-guide-summary.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-summary.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html#slide-24",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html#slide-24"
+    },
+    {
+      "href": "./spotlog-ai-guide-summary.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-summary.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html#slide-29",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html#slide-29"
+    },
+    {
+      "href": "./spotlog-ai-guide-summary.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-summary.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html"
+    },
+    {
+      "href": "./spotlog-development-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-plan.html"
+    },
+    {
+      "href": "./spotlog-ai-guide-plan.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html"
+    },
+    {
+      "href": "./spotlog-ai-guide-plan.html#slide-6",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html#slide-6"
+    },
+    {
+      "href": "./spotlog-development-summary.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-summary.html"
+    },
+    {
+      "href": "./spotlog-ai-guide-plan.html#slide-7",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html#slide-7"
+    },
+    {
+      "href": "./spotlog-development-summary.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-summary.html"
+    },
+    {
+      "href": "./spotlog-ai-guide-plan.html#slide-29",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html#slide-29"
+    },
+    {
+      "href": "./spotlog-development-summary.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-summary.html"
+    },
+    {
+      "href": "./spotlog-ai-guide-plan.html#slide-39",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html#slide-39"
+    },
+    {
+      "href": "./spotlog-development-summary.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-summary.html"
+    },
+    {
+      "href": "./spotlog-ai-guide-plan.html#slide-46",
+      "resolved": "http://127.0.0.1:5173/spotlog-ai-guide-plan.html#slide-46"
+    },
+    {
+      "href": "./spotlog-development-summary.html",
+      "resolved": "http://127.0.0.1:5173/spotlog-development-summary.html"
+    }
+  ],
+  "failures": []
+}

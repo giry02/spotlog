@@ -1,0 +1,72 @@
+{
+  "date": "2026-09-07",
+  "tool": "Built-in image_gen",
+  "purpose": "Local app icon concept comparison, not applied to the app",
+  "referencePage": "C:\\Users\\Giry\\Documents\\HotelnGO\\assets\\brand\\spotlog\\spotlog-logo-types.html",
+  "basePrompt": "Use case: logo-brand. Asset type: ONE Android app icon proposal for Spotlog. The attached image is an EXISTING SPOTLOG BRAND REFERENCE, not an edit target. Use its clearly recognizable travel motif, but redesign it into a genuinely simple, polished contemporary app icon for a tasteful emotional travel journal. Do NOT reproduce the wordmark or Korean tagline. The user's priority is approachable visual clarity and attractive simplicity, not mysterious monograms or pseudo-luxury. Keep only one recognisable primary symbol plus at most one integrated detail. No initials, no lettering, no abstract glyphs, no ornate curves, no extra clip art or binoculars, no sparkles. Flat graphic design with crisp vector-like geometry, optically balanced generous margins, confidently weighted edges; NOT a photorealistic mockup. Square 1024x1024 opaque image, background fills every pixel; ONE centered symbol about 54% canvas width. No external rounded tile, no frames around the whole icon, no text, no number, no watermark. No shadows, glow, bevels, 3D, grain, embossing or artificial lighting. ",
+  "options": [
+    {
+      "id": "01",
+      "name": "여행 노트",
+      "ref": "journal",
+      "family": "기록",
+      "desc": "기록장과 위치점 · 오트밀 / 월넛",
+      "prompt": "Background warm oatmeal #F1E8DC. Main mark walnut brown #795541. A very clean upright rounded closed travel notebook silhouette with one minimal spine line and one SMALL cream location pin inset in the center of its cover. No spiral, no extra page stripes or page corner, no binoculars. The cover silhouette and small inset pin should form one well-balanced immediately recognizable icon. Refined calm editorial travel mood.",
+      "sourceImage": "C:\\Users\\Giry\\.codex\\generated_images\\01a00d5a-887a-70b2-93cf-260846464314\\exec-14b0f45e-71de-4709-9335-ea1345dbe7d2.png"
+    },
+    {
+      "id": "03",
+      "name": "두 개의 스팟",
+      "ref": "route",
+      "family": "동선",
+      "desc": "두 지점과 짧은 경로 · 레드 / 블루",
+      "prompt": "Background warm near-white #FCFAF7. Closely follow the existing logo's clearest idea: two clean circular ring endpoints linked by a single SHORT rounded diagonal curved route. Lower-left endpoint muted tomato red #DC5860, upper-right endpoint cornflower blue #4E83C5, connecting thin-but-legible curved stroke in red. Create a compact balanced silhouette, circle endpoints as thick simple rings. No added arrow, no extra nodes, no letter S; route is a single gentle asymmetrical bend rising from lower-left to upper-right. Make this substantially more polished and optically clean than the supplied legacy reference.",
+      "sourceImage": "C:\\Users\\Giry\\.codex\\generated_images\\01a00d5a-887a-70b2-93cf-260846464314\\exec-92aa7f49-7dce-498c-bc8f-4dc80ee6714d.png"
+    },
+    {
+      "id": "05",
+      "name": "접어둔 지도",
+      "ref": "map",
+      "family": "지도",
+      "desc": "3면 지도와 작은 위치점 · 블루",
+      "prompt": "Background softened bright sky blue #4687C8. Main mark is a very simple ivory folded map with exactly THREE panels and TWO clean fold separations, seen straight-on. Panels joined into a single compact horizontal silhouette with zig-zag top and bottom edges. One small muted brick-red circular spot on right panel, no route line, no pin, no tiny landmarks. Generous panel widths, clean filled shapes, recognizable contemporary map symbol, not a detailed paper illustration.",
+      "sourceImage": "C:\\Users\\Giry\\.codex\\generated_images\\01a00d5a-887a-70b2-93cf-260846464314\\exec-18a10b56-ed74-48f1-839a-ff13fc9b1062.png"
+    },
+    {
+      "id": "06",
+      "name": "지도 위의 길",
+      "ref": "map",
+      "family": "지도",
+      "desc": "지도 안의 한 줄 경로 · 세이지 / 포레스트",
+      "prompt": "Background pale sage #E5ECE5. Main mark deep forest #3C6258: compact two-panel folded map with a subtle central fold angle. One white flowing diagonal route cut THROUGH the map as negative space, with gently rounded ends, NO extra dot or pin. The route visibly belongs to the map shape, not an alphabet letter. Exactly one map and one integrated path, clean geometric silhouette, simple sophisticated outdoors-travel feeling.",
+      "sourceImage": "C:\\Users\\Giry\\.codex\\generated_images\\01a00d5a-887a-70b2-93cf-260846464314\\exec-c048a08c-36c1-4880-8fa9-e61e3112fd3e.png"
+    },
+    {
+      "id": "07",
+      "name": "저장한 순간",
+      "ref": "save",
+      "family": "저장",
+      "desc": "북마크 하나 · 라벤더 / 아이보리",
+      "prompt": "Background dusty lavender purple #8475AE. Main mark warm ivory #FAF7F1: a single broad outlined BOOKMARK, rounded upper corners and a single neat V notch at bottom. Use a uniform substantial stroke, spacious hollow center. At the top right of the bookmark outline integrate one small simple upward-pointing arrow by turning the stroke upward; no separate badge, no page outer frame. It must clearly read first as a bookmark. Calm, clean, effortless. Retain the bookmark/share idea of the supplied reference but strip away all excess framing.",
+      "sourceImage": "C:\\Users\\Giry\\.codex\\generated_images\\01a00d5a-887a-70b2-93cf-260846464314\\exec-f1413452-2cd2-4974-a2b5-4a7d8447dbd8.png"
+    },
+    {
+      "id": "10",
+      "name": "기억한 장소",
+      "ref": "save",
+      "family": "장면",
+      "desc": "위치 핀 속 북마크 · 버건디 / 크림",
+      "prompt": "Background deep muted burgundy #84525B. Main mark warm ivory #FCF5ED: ONE classic rounded location pin silhouette, a rounded top and a softened tapering single bottom tip. Instead of the usual round hole, place a very simple wide BOOKMARK-SHAPED cutout inside the upper body, with a small V notch at its bottom. Two concepts merge as one immediately legible location mark, not a ghost or letter. Calm balanced proportions and substantial filled mass, no outline, no additional dots or paths, no separate elements.",
+      "sourceImage": "C:\\Users\\Giry\\.codex\\generated_images\\01a00d5a-887a-70b2-93cf-260846464314\\exec-33af0414-3817-46f7-af00-d363d1b8eede.png"
+    }
+  ],
+  "activeIds": [
+    "01",
+    "03",
+    "05",
+    "06",
+    "07",
+    "10"
+  ],
+  "excludedArchive": "excluded/2026-09-07"
+}

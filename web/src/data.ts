@@ -22,6 +22,7 @@ import gangwonEastSeaCover from '../../assets/spotlog/gangwon-east-sea-sunrise.w
 import seoulForestCover from '../../assets/spotlog/seoul-forest-evening.webp';
 import spa from '../../assets/spotlog/spa.jpg';
 import { publicTourismPlaces } from './publicTourismContent';
+import { plannerBusinessPlaces } from './plannerBusinessCatalog';
 import type { PlacePhotoInput } from './placePhotos';
 import { licensedPlaceSources } from './licensedPlaceSources';
 
@@ -29,10 +30,26 @@ const cloudinaryVideo = (id: string) => `https://res.cloudinary.com/demo/video/u
 
 export type PlaceKind = 'LANDMARK' | 'STAY' | 'FOOD' | 'CAFE' | 'SHOP';
 export type JourneyStatus = 'PLANNING' | 'TRAVELING' | 'PUBLISHED';
+export type VisitProgressStatus = 'done' | 'skipped';
+/** Private progress belongs to this trip's visit IDs, never the shared place. */
+export interface TripTravelProgress {
+  dayId: string;
+  visitId?: string;
+  visits: Record<string, { status: VisitProgressStatus; recordedAt: string }>;
+}
+export type PlanningSlot = 'morning' | 'lunch' | 'afternoon' | 'dinner' | 'stay';
+export interface PlanningGap { id: string; slot: PlanningSlot; kind: 'FOOD' | 'CAFE' | 'STAY'; reason: 'missing-data' | 'booked'; afterVisitId?: string; beforeVisitId?: string }
 
 export interface Place {
   id: string;
   visitId?: string;
+  anchorVisitId?: string;
+  personal?: boolean;
+  locationVerified?: boolean;
+  stayDayIds?: string[];
+  bookingFixed?: boolean;
+  /** Suggested part of the day, never verified opening hours or travel time. */
+  planningSlot?: PlanningSlot;
   kind: PlaceKind;
   name: string;
   area: string;
@@ -55,16 +72,19 @@ export interface Place {
 }
 
 export interface JourneyDay {
+  dayId?: string;
   day: number;
   date: string;
   title: string;
   story: string;
   places: Place[];
   blocks: StoryBlock[];
+  planningGaps?: PlanningGap[];
 }
 
 export interface StoryBlock {
   id: string;
+  images?: Array<{ id: string; image: string; caption: string }>;
   visitId?: string;
   type: 'TEXT' | 'IMAGE' | 'PLACE';
   heading?: string;
@@ -75,7 +95,23 @@ export interface StoryBlock {
 }
 
 export interface Journey {
+  /** Safe optional identity on published review projections. */
+  publicAuthorId?: string;
+  publicSourceKind?: 'SERVER' | 'PUBLIC_SAMPLE' | 'EDITORIAL' | 'SYNTHETIC';
   id: string;
+  travelProgress?: TripTravelProgress;
+  trash?: { deletedAt: string; expiresAt: string; ownerId: string; previousVisibility: 'PUBLIC' | 'PRIVATE'; previousStatus: JourneyStatus };
+  purpose?: 'PLAN' | 'JOURNAL';
+  /** Private planning input. Never copy this into a public journal. */
+  planningPreferences?: {
+    mode: 'region' | 'saved'; region: string; dayCount: number; startDate: string; prompt: string;
+    pace: 'slow' | 'balanced' | 'full'; transport: 'undecided' | 'walk' | 'transit' | 'car';
+    arrival: string; departure: string; walking: 'normal' | 'less'; companions: string; meals: string; accessibility: string;
+    requiredIds: string[]; excludedIds: string[]; fixedIds: string[]; suggestFood: boolean; suggestStay: boolean;
+  };
+  sourceTripId?: string;
+  startDate?: string;
+  editorDraft?: { updatedAt: string; selectedDay?: number; scrollTop?: number; value: Omit<Journey, 'editorDraft'> };
   title: string;
   region: string;
   dateRange: string;
@@ -268,7 +304,7 @@ const catalogOnlyPlaces: Place[] = [
 ];
 
 export const placeCatalog: Place[] = Array.from(new Map(
-  [...discoveryLandmarks, ...initialJourneys.flatMap((journey) => journey.days.flatMap((day) => day.places)), ...catalogOnlyPlaces, ...publicTourismPlaces]
+  [...discoveryLandmarks, ...initialJourneys.flatMap((journey) => journey.days.flatMap((day) => day.places)), ...catalogOnlyPlaces, ...publicTourismPlaces, ...plannerBusinessPlaces]
     .map((place) => [place.id, place]),
 ).values()).map((place) => {
   // New catalog selections carry photo identities into saved travel drafts.

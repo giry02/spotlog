@@ -1,0 +1,38 @@
+[
+  {
+    "buttonFont": "12px",
+    "overflow": false,
+    "rows": 1,
+    "visible": [
+      "당일",
+      "1박 2일",
+      "2박 3일",
+      "3박 4일"
+    ],
+    "width": 320
+  },
+  {
+    "buttonFont": "12px",
+    "overflow": false,
+    "rows": 1,
+    "visible": [
+      "당일",
+      "1박 2일",
+      "2박 3일",
+      "3박 4일"
+    ],
+    "width": 390
+  },
+  {
+    "buttonFont": "12px",
+    "overflow": false,
+    "rows": 1,
+    "visible": [
+      "당일",
+      "1박 2일",
+      "2박 3일",
+      "3박 4일"
+    ],
+    "width": 460
+  }
+]

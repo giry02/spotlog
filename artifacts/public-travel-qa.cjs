@@ -1,0 +1,33 @@
+const {chromium}=require('C:/Users/Giry/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const fs=require('fs'); const assert=require('node:assert/strict');
+const out='artifacts/travel-additions-qa'; fs.mkdirSync(out,{recursive:true});
+(async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});const results=[];
+for(const width of [320,390,460]){ const context=await browser.newContext({viewport:{width,height:900}});const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
+await page.goto('http://127.0.0.1:5173/#home');await page.getByRole('button',{name:/가고 싶은 여행을 이야기/}).waitFor();await page.screenshot({path:`${out}/after-home-${width}.png`});
+await page.getByRole('navigation',{name:'주요 메뉴'}).getByRole('button',{name:'여행기',exact:true}).click();
+const travelerCount=await page.locator('.community-card').count();assert(travelerCount>0);
+await page.getByRole('button',{name:'AI 추천 여행',exact:true}).click();assert.equal(await page.locator('.community-card').count(),4);assert.equal(await page.locator('.community-card .public-photo-credit').count(),4);
+assert.equal(await page.locator('.community-meta').getByText(/공식 자료 기반 샘플/).count(),4);
+await page.screenshot({path:`${out}/ai-category-${width}.png`});
+await page.getByRole('button',{name:'당일치기',exact:true}).click();assert.equal(await page.locator('.community-card').count(),1);
+await page.locator('.community-card').getByRole('button',{name:'여행기 먼저 보기'}).click();await page.locator('.public-source-notes').waitFor();
+await page.locator('.story-image-block').first().scrollIntoViewIfNeeded();await page.screenshot({path:`${out}/official-story-${width}.png`});
+assert(await page.locator('.story-image-block .public-photo-credit').count()>0);
+await page.locator('.public-source-notes').scrollIntoViewIfNeeded();await page.screenshot({path:`${out}/official-sources-${width}.png`});
+assert(await page.locator('.public-source-notes a').count()>=2);
+await page.getByRole('button',{name:'이 여행 복사해서 만들기',exact:true}).click();await page.locator('.editor-cover').waitFor();
+const own=await page.evaluate(()=>JSON.parse(JSON.parse(localStorage.getItem('spotlog.local.repository.v2')).records['spotlog.web.journeys.v4']).filter(j=>j.isMine));
+assert(own.some(j=>j.sourceJourneyId==='public-busan-coast-day' && j.visibility==='PRIVATE' && j.recommendationKind==='AI'));
+const copied=own.find(j=>j.sourceJourneyId==='public-busan-coast-day');await page.goto('http://127.0.0.1:5173/#journey-'+copied.id);await page.locator('.public-source-notes').waitFor();assert(await page.locator('.public-source-notes').count()>0);
+await page.goto('http://127.0.0.1:5173/#community');await page.getByRole('button',{name:'AI 추천 여행',exact:true}).click();await page.getByRole('button',{name:'전체 기간',exact:true}).click();assert.equal(await page.locator('.community-card').count(),4);
+await page.goto('http://127.0.0.1:5173/#places-guide');await page.getByRole('textbox',{name:/장소|지역/}).first().fill('동백섬');await page.locator('[data-place-id="public-busan-dongbaek"]').waitFor();
+await page.locator('[data-place-id="public-busan-dongbaek"]').getByRole('button',{name:'이 장소 저장',exact:true}).click();
+await page.getByRole('navigation',{name:'주요 메뉴'}).getByRole('button',{name:'저장',exact:true}).click();await page.locator('.saved-card').filter({hasText:'동백섬'}).waitFor();
+assert(await page.locator('.saved-card').filter({hasText:'동백섬'}).locator('.public-photo-credit').count()===1);await page.screenshot({path:`${out}/official-saved-${width}.png`});
+const geometry=await page.evaluate(()=>({doc:document.documentElement.scrollWidth<=innerWidth,body:document.body.scrollWidth<=innerWidth}));assert(geometry.doc&&geometry.body);
+const data=await page.evaluate(async()=>{const m=await import('/src/publicTourismContent.ts');return {sources:m.publicTourismSources,journeys:m.publicTourismJourneys,places:m.publicTourismPlaces}});
+assert.equal(data.sources.length,11);assert.equal(data.journeys.length,4);assert.equal(data.places.length,11);
+for(const source of data.sources){assert.equal(source.license,'공공누리 제1유형');assert(source.sourceUrl.startsWith('https://')); const res=await page.request.get('http://127.0.0.1:5173'+source.image);assert(res.ok());}
+assert(data.journeys.every(j=>j.days.every(d=>d.places.length>0 && d.blocks.some(b=>b.type==='TEXT') && d.blocks.some(b=>b.type==='IMAGE'))));
+assert.deepEqual(errors,[]);results.push({width,ok:true,travelerCount,aiPublic:4,photos:11,copiedPrivate:true,sourceLinks:true,savedCredit:true,geometry});await context.close();}
+await browser.close();fs.writeFileSync(`${out}/public-results.json`,JSON.stringify(results,null,2));console.log(JSON.stringify(results));})().catch(e=>{console.error(e);process.exit(1)});

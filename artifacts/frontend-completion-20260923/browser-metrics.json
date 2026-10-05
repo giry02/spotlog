@@ -1,0 +1,116 @@
+[
+  {
+    "advanced": false,
+    "dialogWidth": 320,
+    "inputs": [
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      }
+    ],
+    "overflow": false,
+    "screen": "AI form",
+    "width": 320
+  },
+  {
+    "advanced": false,
+    "dialogWidth": 390,
+    "inputs": [
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      }
+    ],
+    "overflow": false,
+    "screen": "AI form",
+    "width": 390
+  },
+  {
+    "advanced": false,
+    "dialogWidth": 460,
+    "inputs": [
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      },
+      {
+        "size": "16px",
+        "weight": "400"
+      }
+    ],
+    "overflow": false,
+    "screen": "AI form",
+    "width": 460
+  },
+  {
+    "inputSizes": [
+      "16px",
+      "16px"
+    ],
+    "overflow": false,
+    "screen": "Nearby manual English",
+    "width": 320
+  },
+  {
+    "inputSizes": [
+      "16px",
+      "16px"
+    ],
+    "overflow": false,
+    "screen": "Nearby manual English",
+    "width": 390
+  },
+  {
+    "inputSizes": [
+      "16px",
+      "16px"
+    ],
+    "overflow": false,
+    "screen": "Nearby manual English",
+    "width": 460
+  }
+]

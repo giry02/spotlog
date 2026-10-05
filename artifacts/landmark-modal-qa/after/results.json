@@ -1,0 +1,630 @@
+[
+  {
+    "name": "discovery",
+    "width": 320,
+    "ok": true,
+    "geometry": {
+      "documentOverflow": false,
+      "bodyOverflow": false,
+      "width": 320
+    },
+    "metrics": {
+      "card": {
+        "width": 284,
+        "height": 551.03125,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "21px",
+        "padding": "0px"
+      },
+      "photo": {
+        "width": 282,
+        "height": 205,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "title": {
+        "width": 250,
+        "height": 27.296875,
+        "fontSize": "21px",
+        "lineHeight": "27.3px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "description": {
+        "width": 250,
+        "height": 64.3125,
+        "fontSize": "13px",
+        "lineHeight": "21.45px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "action": {
+        "width": 139.59375,
+        "height": 46,
+        "fontSize": "12px",
+        "lineHeight": "20.4px",
+        "radius": "12px",
+        "padding": "1px 6px"
+      },
+      "photoLoaded": true
+    }
+  },
+  {
+    "name": "ai-preview",
+    "width": 320,
+    "ok": true,
+    "geometry": {
+      "documentOverflow": false,
+      "bodyOverflow": false,
+      "bounds": {
+        "left": 0,
+        "right": 320,
+        "height": 742.71875
+      },
+      "width": 320
+    },
+    "cardCount": 4,
+    "cardMetrics": {
+      "card": {
+        "width": 280,
+        "height": 604.078125,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "21px",
+        "padding": "0px"
+      },
+      "photo": {
+        "width": 278,
+        "height": 205,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "title": {
+        "width": 246,
+        "height": 27.296875,
+        "fontSize": "21px",
+        "lineHeight": "27.3px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "description": {
+        "width": 246,
+        "height": 64.3125,
+        "fontSize": "13px",
+        "lineHeight": "21.45px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "action": {
+        "width": 246,
+        "height": 46,
+        "fontSize": "12px",
+        "lineHeight": "20.4px",
+        "radius": "12px",
+        "padding": "1px 6px"
+      },
+      "photoLoaded": true
+    },
+    "previewAndCancelUnsaved": true
+  },
+  {
+    "name": "new-add",
+    "width": 320,
+    "ok": true,
+    "geometry": {
+      "documentOverflow": false,
+      "bodyOverflow": false,
+      "bounds": {
+        "left": 0,
+        "right": 320,
+        "height": 742.71875
+      },
+      "width": 320
+    },
+    "cardCount": 1,
+    "cardMetrics": {
+      "card": {
+        "width": 280,
+        "height": 593.171875,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "21px",
+        "padding": "0px"
+      },
+      "photo": {
+        "width": 278,
+        "height": 205,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "title": {
+        "width": 246,
+        "height": 27.296875,
+        "fontSize": "21px",
+        "lineHeight": "27.3px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "description": {
+        "width": 246,
+        "height": 64.3125,
+        "fontSize": "13px",
+        "lineHeight": "21.45px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "action": null,
+      "photoLoaded": true
+    },
+    "cancelUnsaved": true
+  },
+  {
+    "name": "existing-add",
+    "width": 320,
+    "ok": true,
+    "geometry": {
+      "documentOverflow": false,
+      "bodyOverflow": false,
+      "bounds": {
+        "left": 0,
+        "right": 320,
+        "height": 742.71875
+      },
+      "width": 320
+    },
+    "cardCount": 1,
+    "exactMembershipVisible": true,
+    "cancelUnsaved": true
+  },
+  {
+    "name": "ai-selection",
+    "width": 320,
+    "ok": true,
+    "allExcludedDisabled": true,
+    "daySwitchPreserved": true,
+    "previewStateUnsaved": true,
+    "selectedColors": {
+      "color": "rgb(23, 103, 89)",
+      "background": "rgb(227, 242, 237)"
+    },
+    "stickyBounds": {
+      "headerBottom": 200.078125,
+      "tabsTop": 200.078125,
+      "gap": 0,
+      "cssTop": "-20px"
+    },
+    "onlyApprovedPlacesSaved": true,
+    "emptyDayRetained": true
+  },
+  {
+    "name": "discovery",
+    "width": 390,
+    "ok": true,
+    "geometry": {
+      "documentOverflow": false,
+      "bodyOverflow": false,
+      "width": 390
+    },
+    "metrics": {
+      "card": {
+        "width": 354,
+        "height": 529.59375,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "21px",
+        "padding": "0px"
+      },
+      "photo": {
+        "width": 352,
+        "height": 205,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "title": {
+        "width": 320,
+        "height": 27.296875,
+        "fontSize": "21px",
+        "lineHeight": "27.3px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "description": {
+        "width": 320,
+        "height": 42.875,
+        "fontSize": "13px",
+        "lineHeight": "21.45px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "action": {
+        "width": 179.796875,
+        "height": 46,
+        "fontSize": "12px",
+        "lineHeight": "20.4px",
+        "radius": "12px",
+        "padding": "1px 6px"
+      },
+      "photoLoaded": true
+    }
+  },
+  {
+    "name": "ai-preview",
+    "width": 390,
+    "ok": true,
+    "geometry": {
+      "documentOverflow": false,
+      "bodyOverflow": false,
+      "bounds": {
+        "left": 0,
+        "right": 390,
+        "height": 742.71875
+      },
+      "width": 390
+    },
+    "cardCount": 4,
+    "cardMetrics": {
+      "card": {
+        "width": 350,
+        "height": 587.03125,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "21px",
+        "padding": "0px"
+      },
+      "photo": {
+        "width": 348,
+        "height": 205,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "title": {
+        "width": 316,
+        "height": 27.296875,
+        "fontSize": "21px",
+        "lineHeight": "27.3px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "description": {
+        "width": 316,
+        "height": 64.3125,
+        "fontSize": "13px",
+        "lineHeight": "21.45px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "action": {
+        "width": 316,
+        "height": 46,
+        "fontSize": "12px",
+        "lineHeight": "20.4px",
+        "radius": "12px",
+        "padding": "1px 6px"
+      },
+      "photoLoaded": true
+    },
+    "previewAndCancelUnsaved": true
+  },
+  {
+    "name": "new-add",
+    "width": 390,
+    "ok": true,
+    "geometry": {
+      "documentOverflow": false,
+      "bodyOverflow": false,
+      "bounds": {
+        "left": 0,
+        "right": 390,
+        "height": 742.71875
+      },
+      "width": 390
+    },
+    "cardCount": 1,
+    "cardMetrics": {
+      "card": {
+        "width": 350,
+        "height": 576.125,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "21px",
+        "padding": "0px"
+      },
+      "photo": {
+        "width": 348,
+        "height": 205,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "title": {
+        "width": 316,
+        "height": 27.296875,
+        "fontSize": "21px",
+        "lineHeight": "27.3px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "description": {
+        "width": 316,
+        "height": 64.3125,
+        "fontSize": "13px",
+        "lineHeight": "21.45px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "action": null,
+      "photoLoaded": true
+    },
+    "cancelUnsaved": true
+  },
+  {
+    "name": "existing-add",
+    "width": 390,
+    "ok": true,
+    "geometry": {
+      "documentOverflow": false,
+      "bodyOverflow": false,
+      "bounds": {
+        "left": 0,
+        "right": 390,
+        "height": 742.71875
+      },
+      "width": 390
+    },
+    "cardCount": 1,
+    "exactMembershipVisible": true,
+    "cancelUnsaved": true
+  },
+  {
+    "name": "ai-selection",
+    "width": 390,
+    "ok": true,
+    "allExcludedDisabled": true,
+    "daySwitchPreserved": true,
+    "previewStateUnsaved": true,
+    "selectedColors": {
+      "color": "rgb(23, 103, 89)",
+      "background": "rgb(227, 242, 237)"
+    },
+    "stickyBounds": {
+      "headerBottom": 200.078125,
+      "tabsTop": 200.078125,
+      "gap": 0,
+      "cssTop": "-20px"
+    },
+    "onlyApprovedPlacesSaved": true,
+    "emptyDayRetained": true
+  },
+  {
+    "name": "discovery",
+    "width": 460,
+    "ok": true,
+    "geometry": {
+      "documentOverflow": false,
+      "bodyOverflow": false,
+      "width": 460
+    },
+    "metrics": {
+      "card": {
+        "width": 424,
+        "height": 512.546875,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "21px",
+        "padding": "0px"
+      },
+      "photo": {
+        "width": 422,
+        "height": 205,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "title": {
+        "width": 390,
+        "height": 27.296875,
+        "fontSize": "21px",
+        "lineHeight": "27.3px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "description": {
+        "width": 390,
+        "height": 42.875,
+        "fontSize": "13px",
+        "lineHeight": "21.45px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "action": {
+        "width": 220.015625,
+        "height": 46,
+        "fontSize": "12px",
+        "lineHeight": "20.4px",
+        "radius": "12px",
+        "padding": "1px 6px"
+      },
+      "photoLoaded": true
+    }
+  },
+  {
+    "name": "ai-preview",
+    "width": 460,
+    "ok": true,
+    "geometry": {
+      "documentOverflow": false,
+      "bodyOverflow": false,
+      "bounds": {
+        "left": 0,
+        "right": 460,
+        "height": 742.71875
+      },
+      "width": 460
+    },
+    "cardCount": 4,
+    "cardMetrics": {
+      "card": {
+        "width": 420,
+        "height": 565.59375,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "21px",
+        "padding": "0px"
+      },
+      "photo": {
+        "width": 418,
+        "height": 205,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "title": {
+        "width": 386,
+        "height": 27.296875,
+        "fontSize": "21px",
+        "lineHeight": "27.3px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "description": {
+        "width": 386,
+        "height": 42.875,
+        "fontSize": "13px",
+        "lineHeight": "21.45px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "action": {
+        "width": 386,
+        "height": 46,
+        "fontSize": "12px",
+        "lineHeight": "20.4px",
+        "radius": "12px",
+        "padding": "1px 6px"
+      },
+      "photoLoaded": true
+    },
+    "previewAndCancelUnsaved": true
+  },
+  {
+    "name": "new-add",
+    "width": 460,
+    "ok": true,
+    "geometry": {
+      "documentOverflow": false,
+      "bodyOverflow": false,
+      "bounds": {
+        "left": 0,
+        "right": 460,
+        "height": 742.71875
+      },
+      "width": 460
+    },
+    "cardCount": 1,
+    "cardMetrics": {
+      "card": {
+        "width": 420,
+        "height": 554.6875,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "21px",
+        "padding": "0px"
+      },
+      "photo": {
+        "width": 418,
+        "height": 205,
+        "fontSize": "16px",
+        "lineHeight": "27.2px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "title": {
+        "width": 386,
+        "height": 27.296875,
+        "fontSize": "21px",
+        "lineHeight": "27.3px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "description": {
+        "width": 386,
+        "height": 42.875,
+        "fontSize": "13px",
+        "lineHeight": "21.45px",
+        "radius": "0px",
+        "padding": "0px"
+      },
+      "action": null,
+      "photoLoaded": true
+    },
+    "cancelUnsaved": true
+  },
+  {
+    "name": "existing-add",
+    "width": 460,
+    "ok": true,
+    "geometry": {
+      "documentOverflow": false,
+      "bodyOverflow": false,
+      "bounds": {
+        "left": 0,
+        "right": 460,
+        "height": 742.71875
+      },
+      "width": 460
+    },
+    "cardCount": 1,
+    "exactMembershipVisible": true,
+    "cancelUnsaved": true
+  },
+  {
+    "name": "ai-selection",
+    "width": 460,
+    "ok": true,
+    "allExcludedDisabled": true,
+    "daySwitchPreserved": true,
+    "previewStateUnsaved": true,
+    "selectedColors": {
+      "color": "rgb(23, 103, 89)",
+      "background": "rgb(227, 242, 237)"
+    },
+    "stickyBounds": {
+      "headerBottom": 200.078125,
+      "tabsTop": 200.078125,
+      "gap": 0,
+      "cssTop": "-20px"
+    },
+    "onlyApprovedPlacesSaved": true,
+    "emptyDayRetained": true
+  },
+  {
+    "name": "photo-failure",
+    "width": 390,
+    "ok": true,
+    "photoFailureShown": true,
+    "sourceCreditRetained": true,
+    "normalCardHeight": true,
+    "originalDataPreserved": true
+  },
+  {
+    "name": "photo-empty",
+    "width": 390,
+    "ok": true,
+    "emptyPhotoShown": true,
+    "originalDataPreserved": true
+  }
+]

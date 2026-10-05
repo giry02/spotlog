@@ -1,0 +1,50 @@
+{
+  "excludedAt": "2026-09-07",
+  "reason": "User rejected these concepts",
+  "ids": [
+    "02",
+    "03-B",
+    "04",
+    "08",
+    "09"
+  ],
+  "options": [
+    {
+      "id": "02",
+      "name": "펼친 기록",
+      "ref": "journal",
+      "family": "기록",
+      "desc": "펼친 책 한 장 · 테라코타 / 크림",
+      "prompt": "Background muted terracotta #A76E58. Warm ivory #FCF4EB main mark: an elegantly simple OPEN BOOK seen front-on, two softly rounded pages, one clean center valley, wide shape with slightly curved lower edges. Integrate a very small solid circular spot on upper right page, no other detail. Simple flat filled silhouettes, no outlines around filled shapes. Modern quiet travel diary brand, not a school textbook illustration.",
+      "sourceImage": "C:\\Users\\Giry\\.codex\\generated_images\\01a00d5a-887a-70b2-93cf-260846464314\\exec-6c74e628-2b7f-41bb-9fff-066f05990252.png"
+    },
+    {
+      "id": "04",
+      "name": "이어지는 여행",
+      "ref": "route",
+      "family": "동선",
+      "desc": "두 장소를 잇는 아치 · 딥 블루",
+      "prompt": "Background muted deep ocean blue #284D6B. One ivory #F9F6EF mark made of two solid circular dots along the bottom left and right, connected by a generous simple upside-down U-shaped rounded route arch. The dots are seamlessly incorporated into the route's two bottom endpoints. Very simple unmistakable connection/route mark. Keep the arch slightly wider than tall, pure geometry, a medium stroke and ample empty center, not a letter or a headphone illustration; no secondary lines, no mountains, no map base.",
+      "sourceImage": "C:\\Users\\Giry\\.codex\\generated_images\\01a00d5a-887a-70b2-93cf-260846464314\\exec-235086d9-fc55-4137-9b60-ffa2a96f089d.png"
+    },
+    {
+      "id": "08",
+      "name": "나의 보관함",
+      "ref": "save",
+      "family": "저장",
+      "desc": "카드 속 북마크 · 아이보리 / 플럼",
+      "prompt": "Background ivory #F7F3ED. Main mark rich muted plum #72556F. One compact rounded rectangular CARD OUTLINE with a short solid bookmark tab hanging from the top edge INSIDE the card. Exactly two simple elements merged into one unified save-card icon, consistent optical weight, softly geometric, generous breathing space. No arrow, no circular badge, no lines of text, no tiny decorations. Understated premium travel collection identity.",
+      "sourceImage": "C:\\Users\\Giry\\.codex\\generated_images\\01a00d5a-887a-70b2-93cf-260846464314\\exec-6f141700-9b05-458f-b984-03abb1ae0c1e.png"
+    },
+    {
+      "id": "09",
+      "name": "한 장의 여행",
+      "ref": "journal",
+      "family": "장면",
+      "desc": "사진 한 장과 작은 태양 · 미스트 블루",
+      "prompt": "Background misty powder blue #DCE9EF. Main mark midnight slate #405C6E. A single minimal slightly vertical rounded photograph frame. Inside: just one low smooth horizon curve and one small filled circular sun above it, as simple as a universal photo symbol. No mountains, no palm trees, no pin, no book spine, no wordmark. Wide clean negative space above horizon, medium weight outline, stable centered composition. Inspired by the journal idea but expressing photographed travel moments rather than a literal notebook. This is original generic photo icon geometry, NOT the Instagram camera logo.",
+      "sourceImage": "C:\\Users\\Giry\\.codex\\generated_images\\01a00d5a-887a-70b2-93cf-260846464314\\exec-f10355df-b3df-4f95-a7d0-378845672834.png"
+    }
+  ],
+  "sVariantPromptFile": "03-B.prompt.json"
+}

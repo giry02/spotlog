@@ -1,0 +1,112 @@
+{
+  "date": "2026-10-02",
+  "localOnly": true,
+  "normalScreenStates": 114,
+  "widths": [
+    320,
+    390,
+    460
+  ],
+  "regressionChecks": 15,
+  "extraChecks": 5,
+  "moduleTestsPassed": 44,
+  "typecheck": "passed",
+  "webBuild": "passed (existing large-chunk warning)",
+  "overflowStates": 0,
+  "completedImageFailures": 0,
+  "errors": [],
+  "layout": [
+    {
+      "width": 320,
+      "firstPrivateCard": 378.390625,
+      "firstGuideCard": 499.59375
+    },
+    {
+      "width": 390,
+      "firstPrivateCard": 378.390625,
+      "firstGuideCard": 478.59375
+    },
+    {
+      "width": 460,
+      "firstPrivateCard": 378.390625,
+      "firstGuideCard": 478.59375
+    }
+  ],
+  "simulatedTouch": "verified; no physical Android run",
+  "keyboard": "dialog focus and Escape/reopen verified",
+  "fontSimulation": "200% isolated DOM font/line-height only",
+  "files": [
+    {
+      "file": "web/src/App.tsx",
+      "beforeSha256": "3c6e4878314d42822f051c744854b854cc8059a100ece45a43a3ce11a5be8227",
+      "afterSha256": "4f1553b6f3f0b2ace8ae81f521f32ff1cdcc94fd1fdb4ac9bd689853e2513324",
+      "hasOriginalSnapshot": true
+    },
+    {
+      "file": "web/src/BottomSheet.tsx",
+      "beforeSha256": "912198d1c0812d55790e8e236363a912b4a468a5fd445c79a045aeeeea35ece4",
+      "afterSha256": "4a09aea9c7f0c44bdb10e6fbff3348ecb7240959293a741f0178d838a5ae4a44",
+      "hasOriginalSnapshot": true
+    },
+    {
+      "file": "web/src/PersonalTrip.tsx",
+      "beforeSha256": "135fa367ede73d6bac3785c05d66fd74b33eb7dc15866dcaa2916dfa9eaf9664",
+      "afterSha256": "675e70131a1cffd3bad0315379d0434413ab4821809d7917264fc8db65aa4616",
+      "hasOriginalSnapshot": true
+    },
+    {
+      "file": "web/src/DayNavigation.tsx",
+      "beforeSha256": "ba53cbc386721cc1cbc580d036e2b361a920b3736612b74fe65b4002d2d96558",
+      "afterSha256": "5c8d3b6e8c516a85ce5be13a52736547d2ea77583aab6c830cdffce2de98d64a",
+      "hasOriginalSnapshot": true
+    },
+    {
+      "file": "web/src/SavedTripControls.tsx",
+      "beforeSha256": "9674a585992aff9917361ed35c08d40e72c7aa272de449041b42dcb4e0822ef9",
+      "afterSha256": "33321fd901be422a17f3ebe88b27d30082048c6a4612319cabf56b1c64c89bb2",
+      "hasOriginalSnapshot": true
+    },
+    {
+      "file": "web/src/savedTripBuilder.ts",
+      "beforeSha256": "439d5b085ba0f22044cc21673c531d6235b4100f9813db0728168185cbcdc133",
+      "afterSha256": "607e69c6cd521e59aac5b178864fb7cb072e4eeb70287a4148489dc5ac0c342b",
+      "hasOriginalSnapshot": true
+    },
+    {
+      "file": "web/src/saved-trip-builder.css",
+      "beforeSha256": "2bc480fdf9587101a7083a36adb1b6e7e9971260b6bf7e26b1ac4ceb98f052d4",
+      "afterSha256": "a21c3eb96618e191b193acf8d0e1b15d2365d4f060ce75f3811ca345d07e38ae",
+      "hasOriginalSnapshot": true
+    },
+    {
+      "file": "web/src/locale.tsx",
+      "beforeSha256": "649d3956880b6672c1d48554281441fad9ae16efcfdd97d1e68928a23f43f976",
+      "afterSha256": "2daedaa601bd9ee46fc7ddbd1fe94f2149aea466bec0e3427fde625d1d0d7ce8",
+      "hasOriginalSnapshot": true
+    },
+    {
+      "file": "web/src/main.tsx",
+      "beforeSha256": "26131c3eb7faeacdb9d6ebfb3ee971856c8c6dd5d48ad43aebd524fb5ab4a904",
+      "afterSha256": "143353c5ff6f8a18dadb1eb4d2d0d7e54c2e8b7d49db1654445b78c9d49f3ee9",
+      "hasOriginalSnapshot": true
+    },
+    {
+      "file": "web/src/ai-planner.css",
+      "beforeSha256": "7b5ea8efe2b72b5414fa7cfbaeb0d2d5adb063cdcc9c5756f296963466db94a7",
+      "afterSha256": "29e23b9b66e30f14fe1f20a12e7453a277e3feaa311767cbf6cac5e6d45228b6",
+      "hasOriginalSnapshot": true
+    },
+    {
+      "file": "web/src/product-ux-refinement.css",
+      "beforeSha256": null,
+      "afterSha256": "0406381f033b0ba3fa5a89fed05162b73fb3066ad3e8ed1110dd7daeaf096e02",
+      "hasOriginalSnapshot": false
+    },
+    {
+      "file": "web/tests/savedTripBuilder.test.mjs",
+      "beforeSha256": null,
+      "afterSha256": "4b8ed28d02e0fbd17b67b942987feb1190931bab32a63e35c27470e175162651",
+      "hasOriginalSnapshot": false
+    }
+  ]
+}

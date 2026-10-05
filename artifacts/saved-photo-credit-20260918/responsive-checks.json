@@ -1,0 +1,62 @@
+[
+  {
+    "cards": [
+      {
+        "creditFont": "11px",
+        "creditInImage": true,
+        "height": 188,
+        "imageHeight": 186,
+        "name": "안목해변"
+      },
+      {
+        "creditFont": null,
+        "creditInImage": true,
+        "height": 206.6875,
+        "imageHeight": 204.6875,
+        "name": "오죽헌"
+      }
+    ],
+    "overflow": false,
+    "width": 320
+  },
+  {
+    "cards": [
+      {
+        "creditFont": "11px",
+        "creditInImage": true,
+        "height": 188,
+        "imageHeight": 186,
+        "name": "안목해변"
+      },
+      {
+        "creditFont": null,
+        "creditInImage": true,
+        "height": 188,
+        "imageHeight": 186,
+        "name": "오죽헌"
+      }
+    ],
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "cards": [
+      {
+        "creditFont": "11px",
+        "creditInImage": true,
+        "height": 176,
+        "imageHeight": 174,
+        "name": "안목해변"
+      },
+      {
+        "creditFont": null,
+        "creditInImage": true,
+        "height": 176,
+        "imageHeight": 174,
+        "name": "오죽헌"
+      }
+    ],
+    "overflow": false,
+    "width": 460
+  }
+]

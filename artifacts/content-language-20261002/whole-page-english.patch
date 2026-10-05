@@ -1,0 +1,338 @@
+diff --git a/web/src/App.tsx b/web/src/App.tsx
+index 0bf9502..c4c53a5 100644
+--- a/web/src/App.tsx
++++ b/web/src/App.tsx
+@@ -80,7 +80,7 @@ import { AiPlannerSheet, type AiPlannerDraft } from './AiPlannerSheet';
+ import { AiPlanRevisionSheet } from './AiPlanRevisionSheet';
+ import { journeyVersion } from './aiPlanner';
+ import TravelGuideSheet from './TravelGuideSheet';
+-import { TranslationText } from './TranslationText';
++import { ContentLanguageControls, ContentTranslationScope, TranslationText } from './TranslationText';
+ import { mergeActiveJourneyChanges } from './tripTrash';
+ import { sourceVersion } from './travelGuide';
+ import { LocaleProvider, useLocale } from './locale';
+@@ -1565,7 +1565,7 @@ function JourneySocialSection({ comments, cheers, profile, myCopyCount, onCommen
+   return <section className="journey-social" aria-labelledby="journey-social-title">
+     <header><div><small>TRAVELER REACTIONS</small><h2 id="journey-social-title">{copy("이 여행에 남긴 응원")}</h2></div><span><MessageCircle size={15} />{comments.length}</span></header>
+     <div className="quick-cheers">{cheerOptions.map(({ id, label, icon: Icon }) => <button key={id} className={cheers.selected === id ? 'active' : ''} onClick={() => onCheer(id)} aria-pressed={cheers.selected === id}><Icon size={16} fill={cheers.selected === id ? 'currentColor' : 'none'} /><strong>{copy(label)}</strong><span>{cheers[id].toLocaleString()}</span></button>)}</div>
+-    <div className="comment-list">{comments.length ? comments.map((comment) => <article className="journey-comment" key={comment.id}><CreatorAvatar name={comment.author} image={comment.avatar} size="small" /><div><div className="comment-author"><CreatorBadge copyCount={comment.authorCopies} compact /><strong>{comment.author}</strong><time>{comment.createdAt}</time></div><p>{comment.body}</p></div></article>) : <div className="comment-empty"><Heart size={21} /><strong>{copy("첫 응원을 남겨보세요")}</strong><span>{copy("좋았던 점 한마디가 작성자에게 다음 여행을 올릴 힘이 됩니다.")}</span></div>}</div>
++    <div className="comment-list">{comments.length ? comments.map((comment) => <article className="journey-comment" key={comment.id}><CreatorAvatar name={comment.author} image={comment.avatar} size="small" /><div><div className="comment-author"><CreatorBadge copyCount={comment.authorCopies} compact /><strong>{comment.author}</strong><time>{comment.createdAt}</time></div><TranslationText sourceId={`journal-comment:${comment.id}`} sourceVersion={sourceVersion(comment.body)} text={comment.body} kind="comment" /></div></article>) : <div className="comment-empty"><Heart size={21} /><strong>{copy("첫 응원을 남겨보세요")}</strong><span>{copy("좋았던 점 한마디가 작성자에게 다음 여행을 올릴 힘이 됩니다.")}</span></div>}</div>
+     <form className="comment-composer" onSubmit={submit}><CreatorAvatar name={profile.displayName} image={profile.avatar} size="small" /><label><span className="sr-only">{copy("댓글 작성")}</span><input value={commentDraft} onChange={(event) => setCommentDraft(event.target.value)} maxLength={180} placeholder={copy("좋았던 점을 따뜻하게 남겨주세요")} aria-label={copy("댓글 작성")} /></label><button type="submit" disabled={!commentDraft.trim()}>{copy("등록")}</button></form>
+     <p className="social-kind-note"><CreatorBadge copyCount={myCopyCount} compact />{' '}{copy("내 등급이 댓글에도 함께 표시됩니다.")}</p>
+   </section>;
+@@ -1596,16 +1596,17 @@ function JourneyDetail({ journey, initialDay = 1, profile, comments, cheers, aut
+     setSelectedDay(dayNumber);
+     window.requestAnimationFrame(() => dayHeadingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+   };
+-  return <div className="journey-detail">
++  const read = (field: string, text: string, as: 'p' | 'h1' | 'h2' | 'h3' = 'p', className?: string) => <TranslationText sourceId={`${journey.id}:${field}`} sourceVersion={sourceVersion(text)} text={text} kind="journal" as={as} className={className} />;
++  return <ContentTranslationScope><div className="journey-detail">
+     <header className="detail-topbar"><button onClick={onBack} aria-label={copy("뒤로")}><ArrowLeft size={21} /></button><strong>{journey.isMine ? copy("내 여행기") : journey.recommendationKind === 'AI' ? copy("AI 추천 여행") : copy("여행 가이드")}</strong><button onClick={journey.isMine ? onEdit : onShare} aria-label={journey.isMine ? copy("여행기 편집") : copy("여행 공유")}>{journey.isMine ? <Edit3 size={19} /> : <Share2 size={20} />}</button></header>
+-    <section className="detail-hero"><img src={journey.cover} alt="" /><div className="detail-hero-shade" /><div className="detail-title"><span>{journey.region} · {journey.duration}</span><h1>{journey.title}</h1><p>{journey.dateRange}</p></div></section>
+-    <section className="journal-lead"><PhotoCredit image={journey.cover} />{journey.recommendationKind === 'AI' && <p className="local-data-note"><Sparkles size={13} />{' '}{copy("AI 추천 여행 ·")}{' '}{journey.recommendationBasis === 'OFFICIAL_SOURCE_SAMPLE' ? copy("공식 자료로 구성한 샘플") : copy("로컬 추천으로 만든 초안")}</p>}<div className="author-line"><CreatorAvatar name={journey.isMine ? profile.displayName : journey.author} image={journey.isMine ? profile.avatar : undefined} size="medium" /><div><span className="author-name-row"><CreatorBadge copyCount={authorCopyCount} compact /><strong>{journey.isMine ? profile.displayName : journey.author}</strong></span><small>{journey.visibility === 'PUBLIC' ? copy("전체 공개 여행일기") : copy("나만 보는 여행 초안")}</small></div><button onClick={onShare}><Share2 size={16} />{copy("공유")}</button></div>{journey.sourceAuthor && <div className="copied-source"><Copy size={14} />{journey.sourceAuthor}{copy("의 여행기를 복사해 만든 내 버전")}</div>}<p className="summary">{journey.summary}</p><p className="story">{journey.story}</p><div className="guide-facts"><div><small>{copy("전체 일정")}</small><strong>{journey.duration}</strong></div><div><small>{copy("기록 장소")}</small><strong>{journeyPlaceCount(journey)}{copy("곳")}</strong></div><div><small>{copy("가이드 구성")}</small><strong>{journey.days.length}{copy("개 DAY")}</strong></div></div><div className="journal-meta"><span><Eye size={14} />{(journey.views ?? 0).toLocaleString()}{copy("회 조회")}</span><span><Copy size={14} />{journey.saves.toLocaleString()}{copy("명이 담아감")}</span><span><MessageCircle size={14} />{copy("댓글")}{' '}{comments.length}{copy("개")}</span><span><MapPin size={14} />{journeyPlaceCount(journey)}{copy("개 장소")}</span></div><p className="local-data-note">{copy("로컬 미리보기 · 조회·담김 수와 댓글에는 샘플이 포함되어 있으며 실제 사용자 집계가 아닙니다.")}</p><div className="journal-tags">{journey.tags.map((tag) => <span key={tag}>#{tag}</span>)}</div></section>
++    <section className="detail-hero"><img src={journey.cover} alt="" /><div className="detail-hero-shade" /><div className="detail-title"><span>{journey.region} · {journey.duration}</span>{read('title', journey.title, 'h1')}<p>{journey.dateRange}</p></div></section>
++    <section className="journal-lead"><PhotoCredit image={journey.cover} /><ContentLanguageControls />{journey.recommendationKind === 'AI' && <p className="local-data-note"><Sparkles size={13} />{' '}{copy("AI 추천 여행 ·")}{' '}{journey.recommendationBasis === 'OFFICIAL_SOURCE_SAMPLE' ? copy("공식 자료로 구성한 샘플") : copy("로컬 추천으로 만든 초안")}</p>}<div className="author-line"><CreatorAvatar name={journey.isMine ? profile.displayName : journey.author} image={journey.isMine ? profile.avatar : undefined} size="medium" /><div><span className="author-name-row"><CreatorBadge copyCount={authorCopyCount} compact /><strong>{journey.isMine ? profile.displayName : journey.author}</strong></span><small>{journey.visibility === 'PUBLIC' ? copy("전체 공개 여행일기") : copy("나만 보는 여행 초안")}</small></div><button onClick={onShare}><Share2 size={16} />{copy("공유")}</button></div>{journey.sourceAuthor && <div className="copied-source"><Copy size={14} />{journey.sourceAuthor}{copy("의 여행기를 복사해 만든 내 버전")}</div>}{read('summary', journey.summary, 'p', 'summary')}{read('story', journey.story, 'p', 'story')}<div className="guide-facts"><div><small>{copy("전체 일정")}</small><strong>{journey.duration}</strong></div><div><small>{copy("기록 장소")}</small><strong>{journeyPlaceCount(journey)}{copy("곳")}</strong></div><div><small>{copy("가이드 구성")}</small><strong>{journey.days.length}{copy("개 DAY")}</strong></div></div><div className="journal-meta"><span><Eye size={14} />{(journey.views ?? 0).toLocaleString()}{copy("회 조회")}</span><span><Copy size={14} />{journey.saves.toLocaleString()}{copy("명이 담아감")}</span><span><MessageCircle size={14} />{copy("댓글")}{' '}{comments.length}{copy("개")}</span><span><MapPin size={14} />{journeyPlaceCount(journey)}{copy("개 장소")}</span></div><p className="local-data-note">{copy("로컬 미리보기 · 조회·담김 수와 댓글에는 샘플이 포함되어 있으며 실제 사용자 집계가 아닙니다.")}</p><div className="journal-tags">{journey.tags.map((tag) => <span key={tag}>#{tag}</span>)}</div></section>
+     <DayNavigation days={journey.days} selectedDay={selectedDay} onSelect={selectDay} onBack={onBack} />
+     {day && <>
+-      <section className="day-heading" ref={dayHeadingRef}><small>DAY {day.day} · {day.date}</small><h2>{day.title}</h2><p>{day.story}</p>{day.story && <TranslationText sourceId={`${journey.id}:${day.dayId ?? day.day}:story`} sourceVersion={sourceVersion(day.story)} text={day.story} kind="journal" showOriginal={false}/>}</section>
++      <section className="day-heading" ref={dayHeadingRef}><small>DAY {day.day} · {day.date}</small>{read(`${day.dayId ?? day.day}:title`, day.title, 'h2')}{read(`${day.dayId ?? day.day}:story`, day.story)}</section>
+       {day.blocks.length > 0
+         ? <article className="guide-story">{day.blocks.map((block) => <div className="journal-content-card" key={block.id}>{block.type === 'TEXT'
+-          ? <section className="story-text-block" key={block.id}>{block.heading && <h3>{block.heading}</h3>}<p>{block.body}</p>{block.body && <TranslationText sourceId={`${journey.id}:${block.id}`} sourceVersion={sourceVersion(block.body)} text={block.body} kind="journal" showOriginal={false}/>}</section>
++          ? <section className="story-text-block" key={block.id}>{block.heading && read(`${block.id}:heading`, block.heading, 'h3')}{read(block.id, block.body ?? '')}</section>
+           : block.type === 'IMAGE'
+             ? <JournalPhotos block={block}/>
+             : <GuidePlaceEmbed key={block.id} place={day.places.find((place) => block.visitId ? place.visitId === block.visitId : place.id === block.placeId)} onShare={onSharePlace} social={{journeyId:journey.id,blockId:block.id}} showImage={!(journey.recommendationBasis === 'OFFICIAL_SOURCE_SAMPLE' && Boolean(block.visitId) && day.blocks.some((item) => item.type === 'IMAGE' && item.visitId === block.visitId))} />
+@@ -1620,14 +1621,14 @@ function JourneyDetail({ journey, initialDay = 1, profile, comments, cheers, aut
+       ? <><button onClick={onEdit}><Edit3 size={18} />{copy("이 여행기 이어서 쓰기")}</button></>
+       : <><button className="share-small" onClick={onShare} aria-label={copy("여행기 공유")}><Share2 size={18} /></button><button onClick={onCopy}><Copy size={18} />{copyLabel}</button></>
+     }</footer>
+-  </div>;
++  </div></ContentTranslationScope>;
+ }
+ 
+ function GuidePlaceEmbed({ place, onShare, showImage = true, preview = false, social }: { place?: Place; onShare: (place: Place) => void; showImage?: boolean;preview?:boolean;social?:{journeyId:string;blockId:string} }) {
+   const copy=useUiCopy();
+   if (!place) return null;
+   const Icon = kindIcon[place.kind];
+-  return <aside className="guide-place-embed">{showImage && place.image && <img src={place.image} alt="" />}<div className="guide-place-copy">{showImage && <PhotoCredit image={place.image} />}<div className="place-kind"><Icon size={13} />{placeKindLabel[place.kind]}</div><h3>{place.name}</h3><div className="guide-place-time"><Clock3 size={14} />{place.time ? `${place.time} 도착 · ${place.duration} 체류` : place.duration}</div><p>{place.description}</p>{place.note&&<blockquote>“{place.note}”</blockquote>}{!preview&&<div><button onClick={() => openExternal(naverDirectionsUrl(place))}><Navigation size={15} />{copy("길찾기")}</button><button onClick={() => onShare(place)}><Share2 size={15} />{copy("공유")}</button></div>}</div>{!preview&&social&&<CardSocial {...social} placeName={place.name}/>}</aside>;
++  return <aside className="guide-place-embed">{showImage && place.image && <img src={place.image} alt="" />}<div className="guide-place-copy">{showImage && <PhotoCredit image={place.image} />}<div className="place-kind"><Icon size={13} />{placeKindLabel[place.kind]}</div><TranslationText as="h3" sourceId={`place:${place.id}:name`} sourceVersion={sourceVersion(place.name)} text={place.name} kind="journal" /><div className="guide-place-time"><Clock3 size={14} />{place.time ? `${place.time} 도착 · ${place.duration} 체류` : place.duration}</div><TranslationText sourceId={`place:${place.id}:description`} sourceVersion={sourceVersion(place.description)} text={place.description} kind="journal" />{place.note&&<blockquote>“<TranslationText as="span" sourceId={`place:${place.id}:note`} sourceVersion={sourceVersion(place.note)} text={place.note} kind="journal" />”</blockquote>}{!preview&&<div><button onClick={() => openExternal(naverDirectionsUrl(place))}><Navigation size={15} />{copy("길찾기")}</button><button onClick={() => onShare(place)}><Share2 size={15} />{copy("공유")}</button></div>}</div>{!preview&&social&&<CardSocial {...social} placeName={place.name}/>}</aside>;
+ }
+ 
+ function JourneyEditor({ journey, onBack, onSave, onDraft }: { journey: Journey; onBack: () => void; onSave: (journey: Journey) => boolean; onDraft:(journey:Journey,view?:{selectedDay:number;scrollTop:number})=>boolean }) {
+diff --git a/web/src/CardSocial.tsx b/web/src/CardSocial.tsx
+index 034f623..9d3ebcf 100644
+--- a/web/src/CardSocial.tsx
++++ b/web/src/CardSocial.tsx
+@@ -1,5 +1,5 @@
+ import { useUiCopy } from './frontendCopy';
+-import { TranslationText } from './TranslationText';
++import { ContentLanguageControls, ContentTranslationScope, TranslationText } from './TranslationText';
+ import { sourceVersion } from './travelGuide';
+ import {createContext,useContext,useLayoutEffect,useRef,useState,type ReactNode} from 'react';
+ import {Heart,MessageCircle,Reply,Edit3,Trash2,Flag} from 'lucide-react';
+@@ -34,10 +34,10 @@ function CardComments({thread,user,onSave,onClose,placeName}:{thread:CardThread;
+   const submit=()=>{try{if(save(saveCardComment(thread,user,draft.body,draft.parentId,draft.editingId))){if(!draft.parentId&&!draft.editingId)setPostedRoot(value=>value+1);setDraft({body:''});}}catch(error){setError(error instanceof Error?error.message:copy("댓글을 저장하지 못했어요."));}};
+   const row=(comment:CardComment)=>{
+     const name=comment.authorId===user.id?user.name:comment.author,avatar=comment.authorId===user.id?user.avatar:comment.avatar;
+-    return <article key={comment.id} className={`card-comment ${comment.parentId?'card-reply':''}`}><div className="card-comment-author"><CreatorAvatar name={name} image={avatar} size="small"/><div className="card-comment-byline"><strong>{name}</strong><small>{new Date(comment.createdAt).toLocaleDateString('ko-KR')}{comment.editedAt?copy(" · 수정됨"):''}</small></div></div><p>{comment.deleted?copy("삭제된 댓글입니다."):comment.body}</p>{!comment.deleted && <TranslationText sourceId={`comment:${comment.id}`} sourceVersion={sourceVersion(comment.body)} text={comment.body} kind="comment" showOriginal={false}/>}{!comment.deleted&&<div className="card-comment-actions"><button aria-label={copy("답글")} title={copy("답글")} onClick={()=>editDraft({body:'',parentId:comment.parentId??comment.id})}><Reply size={16} aria-hidden="true"/></button>{comment.authorId===user.id?<><button aria-label={copy("수정")} title={copy("수정")} onClick={()=>editDraft({body:comment.body,parentId:comment.parentId,editingId:comment.id})}><Edit3 size={16} aria-hidden="true"/></button><button aria-label={copy("삭제")} title={copy("삭제")} onClick={()=>setRemoving(comment.id)}><Trash2 size={16} aria-hidden="true"/></button></>:<button aria-label={comment.reportReason?copy("신고 표시됨"):copy("신고")} title={comment.reportReason?copy("신고 표시됨"):copy("신고")} disabled={Boolean(comment.reportReason)} onClick={()=>setReporting(comment.id)}><Flag size={16} aria-hidden="true"/></button>}</div>}{removing===comment.id&&<div className="plan-form"><p>{copy("이 댓글을 삭제할까요? 답글은 남아요.")}</p><Button variant="danger" onClick={()=>{try{if(save(deleteCardComment(thread,user.id,comment.id)))setRemoving(null);}catch(error){setError(String(error));}}}>{copy("댓글 삭제")}</Button><Button variant="secondary" onClick={()=>setRemoving(null)}>{copy("취소")}</Button></div>}</article>;
++    return <article key={comment.id} className={`card-comment ${comment.parentId?'card-reply':''}`}><div className="card-comment-author"><CreatorAvatar name={name} image={avatar} size="small"/><div className="card-comment-byline"><strong>{name}</strong><small>{new Date(comment.createdAt).toLocaleDateString('ko-KR')}{comment.editedAt?copy(" · 수정됨"):''}</small></div></div>{comment.deleted ? <p>{copy("삭제된 댓글입니다.")}</p> : <TranslationText sourceId={`comment:${comment.id}`} sourceVersion={sourceVersion(comment.body)} text={comment.body} kind="comment" />}{!comment.deleted&&<div className="card-comment-actions"><button aria-label={copy("답글")} title={copy("답글")} onClick={()=>editDraft({body:'',parentId:comment.parentId??comment.id})}><Reply size={16} aria-hidden="true"/></button>{comment.authorId===user.id?<><button aria-label={copy("수정")} title={copy("수정")} onClick={()=>editDraft({body:comment.body,parentId:comment.parentId,editingId:comment.id})}><Edit3 size={16} aria-hidden="true"/></button><button aria-label={copy("삭제")} title={copy("삭제")} onClick={()=>setRemoving(comment.id)}><Trash2 size={16} aria-hidden="true"/></button></>:<button aria-label={comment.reportReason?copy("신고 표시됨"):copy("신고")} title={comment.reportReason?copy("신고 표시됨"):copy("신고")} disabled={Boolean(comment.reportReason)} onClick={()=>setReporting(comment.id)}><Flag size={16} aria-hidden="true"/></button>}</div>}{removing===comment.id&&<div className="plan-form"><p>{copy("이 댓글을 삭제할까요? 답글은 남아요.")}</p><Button variant="danger" onClick={()=>{try{if(save(deleteCardComment(thread,user.id,comment.id)))setRemoving(null);}catch(error){setError(String(error));}}}>{copy("댓글 삭제")}</Button><Button variant="secondary" onClick={()=>setRemoving(null)}>{copy("취소")}</Button></div>}</article>;
+   };
+   const groups=getCardCommentGroups(thread.comments),parent=draft.parentId?thread.comments.find(item=>item.id===draft.parentId):null;
+-  return <BottomSheet title={`${placeName} 댓글 ${thread.comments.filter(item=>!item.deleted).length}`} description={copy("이 여행기의 장소에 대한 이야기 · 이 기기의 미리보기")} onClose={onClose}><div ref={list} className="plan-form card-comment-sheet">
++  return <ContentTranslationScope><BottomSheet title={`${placeName} 댓글 ${thread.comments.filter(item=>!item.deleted).length}`} description={copy("이 여행기의 장소에 대한 이야기 · 이 기기의 미리보기")} onClose={onClose}><div ref={list} className="plan-form card-comment-sheet"><ContentLanguageControls />
+     <span className="card-comment-order">{copy("최신순")}</span>
+     {!groups.length&&<p>{copy("이 장소에 첫 댓글을 남겨보세요.")}</p>}
+     {groups.slice(0,limit).map(({comment,replies})=><div key={comment.id}>{row(comment)}{replies.map(row)}</div>)}
+@@ -46,5 +46,5 @@ function CardComments({thread,user,onSave,onClose,placeName}:{thread:CardThread;
+     {(parent||draft.editingId)&&<div className="card-comment-context"><span>{draft.editingId?copy("댓글 수정 중"):`${parent?.authorId===user.id?user.name:parent?.author}에게 답글`}</span><button onClick={()=>editDraft({body:''})}>{copy("취소")}</button></div>}
+     <Field label={draft.editingId?copy("댓글 수정"):parent?copy("답글 작성"):copy("댓글 작성")}><textarea rows={3} maxLength={1000} value={draft.body} onChange={event=>editDraft({...draft,body:event.target.value})} placeholder={copy("이 장소에 대한 이야기를 남겨주세요.")}/></Field>
+     <p className="plan-help">{draft.body.length}{copy("/1,000 · 작성 중 내용은 이 장소 카드에 보관돼요.")}</p><Button disabled={!draft.body.trim()} onClick={submit}>{error?copy("다시 저장"):draft.editingId?copy("수정 저장"):parent?copy("답글 등록"):copy("댓글 등록")}</Button>{error&&<p role="alert" className="ui-error">{error}</p>}
+-  </div></BottomSheet>;
++  </div></BottomSheet></ContentTranslationScope>;
+ }
+diff --git a/web/src/JournalPhotos.tsx b/web/src/JournalPhotos.tsx
+index ecd89c7..b7c5530 100644
+--- a/web/src/JournalPhotos.tsx
++++ b/web/src/JournalPhotos.tsx
+@@ -1,6 +1,4 @@
+ import { useUiCopy } from './frontendCopy';
+-import { TranslationText } from './TranslationText';
+-import { sourceVersion } from './travelGuide';
+ import {useEffect,useRef,useState,type ReactNode} from 'react';
+ import {ImagePlus,ArrowUp,ArrowDown,X} from 'lucide-react';
+ import type {StoryBlock} from './data';
+@@ -14,7 +12,7 @@ export function JournalPhotos({block}:{block:StoryBlock}){
+     onPointerDown={event=>{if(event.pointerType!=='mouse'||event.button!==0||(event.target as HTMLElement).closest('button,a'))return;drag.current={x:event.clientX,scroll:event.currentTarget.scrollLeft};event.currentTarget.style.scrollSnapType='none';event.currentTarget.setPointerCapture(event.pointerId);}}
+     onPointerMove={event=>{if(drag.current){event.preventDefault();event.currentTarget.scrollLeft=drag.current.scroll+drag.current.x-event.clientX;}}}
+     onPointerUp={event=>{if(!drag.current)return;drag.current=null;const el=event.currentTarget;el.style.scrollSnapType='x mandatory';el.scrollTo({left:Math.round(el.scrollLeft/el.clientWidth)*el.clientWidth,behavior:'smooth'});}}
+-    onPointerCancel={event=>{drag.current=null;event.currentTarget.style.scrollSnapType='x mandatory';}} onDragStart={event=>event.preventDefault()}>{photos.map(photo=><div className="journal-photo-slide" key={photo.id}><StoryPhoto image={photo.image} caption={photo.caption}/>{photo.caption && <TranslationText sourceId={`${block.id}:${photo.id}`} sourceVersion={sourceVersion(photo.caption)} text={photo.caption} kind="caption" showOriginal={false}/>}</div>)}</div>{photos.length>1&&<p className="journal-photo-position" aria-live="polite">{index+1} / {photos.length}{' '}{copy("· 옆으로 사진 넘기기")}</p>}</div>;
++    onPointerCancel={event=>{drag.current=null;event.currentTarget.style.scrollSnapType='x mandatory';}} onDragStart={event=>event.preventDefault()}>{photos.map(photo=><div className="journal-photo-slide" key={photo.id}><StoryPhoto image={photo.image} caption={photo.caption} captionSourceId={`${block.id}:${photo.id}`}/></div>)}</div>{photos.length>1&&<p className="journal-photo-position" aria-live="polite">{index+1} / {photos.length}{' '}{copy("· 옆으로 사진 넘기기")}</p>}</div>;
+ }
+ export function JournalImageEditor({block,toolbar,onUpdate,onCover,resize}:{block:StoryBlock;toolbar:ReactNode;onUpdate:(patch:Partial<StoryBlock>)=>void;onCover:(image:string)=>void;resize:(file:File)=>Promise<string>}){
+   const copy=useUiCopy();
+diff --git a/web/src/PublicTourismCredit.tsx b/web/src/PublicTourismCredit.tsx
+index 90b24c6..7eb638d 100644
+--- a/web/src/PublicTourismCredit.tsx
++++ b/web/src/PublicTourismCredit.tsx
+@@ -4,6 +4,8 @@ import type { Journey } from './data';
+ import { BottomSheet, useBottomSheetDetail } from './BottomSheet';
+ import { getPhotoSource, photoSources, type PhotoSource } from './photoSources';
+ import { photoCaptionWithoutDuplicateCredit } from './photoCaption';
++import { TranslationText } from './TranslationText';
++import { sourceVersion } from './travelGuide';
+ import './public-tourism.css';
+ 
+ function SourceDetails({ sources, note }: { sources: PhotoSource[]; note?: string }) {
+@@ -51,9 +53,9 @@ export function PhotoCredit({ image, sourceId, plain = false }: { image: string;
+ }
+ 
+ /** Existing story-image-block layout, with legacy duplicate text removed only for display. */
+-export function StoryPhoto({ image, caption }: { image: string; caption?: string }) {
++export function StoryPhoto({ image, caption, captionSourceId }: { image: string; caption?: string; captionSourceId?: string }) {
+   const description = photoCaptionWithoutDuplicateCredit(caption, getPhotoSource(image));
+-  return <figure className="story-image-block"><img src={image} alt={description || '여행 사진'} />{description && <figcaption>{description}</figcaption>}<PhotoCredit image={image} /></figure>;
++  return <figure className="story-image-block"><img src={image} alt={description || '여행 사진'} />{description && <TranslationText as="figcaption" sourceId={captionSourceId ?? `photo:${image}:caption`} sourceVersion={sourceVersion(description)} text={description} kind="caption" />}<PhotoCredit image={image} /></figure>;
+ }
+ 
+ export function PublicSourceNotes({ journey }: { journey: Journey }) {
+diff --git a/web/src/TranslationText.tsx b/web/src/TranslationText.tsx
+index cab89b6..99d557d 100644
+--- a/web/src/TranslationText.tsx
++++ b/web/src/TranslationText.tsx
+@@ -1,51 +1,97 @@
+-import { useEffect, useRef, useState } from 'react';
+-import { Languages } from 'lucide-react';
++import { createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react';
+ import type { AiTranslationRequest, TranslationAdapter } from './aiPlanner';
+-import { useLocale } from './locale';
++import { LanguageControls, useLocale } from './locale';
+ import { createTranslationCache, localTranslationAdapter, TRANSLATION_GLOSSARY_VERSION, translationState, validateTranslationResponse, type TranslationRecord } from './travelGuide';
+ import './travel-guide.css';
+ 
+-/** Attach to authored text without rewriting the original source or its IDs. */
+-export function TranslationText({ sourceId, sourceVersion, text, kind, glossaryVersion = TRANSLATION_GLOSSARY_VERSION, showOriginal = true, adapter = localTranslationAdapter }: {
++type ReadingStatus = 'original' | 'loading' | 'sample' | 'reviewed' | 'unavailable' | 'failed';
++type ReadingContext = {
++  statuses: Record<string, ReadingStatus>; retryEpoch: number;
++  report: (id: string, status: ReadingStatus | null) => void; retry: () => void;
++};
++const ReadingContext = createContext<ReadingContext | null>(null);
++
++/** One reading preference and one status notice for the whole document. */
++export function ContentTranslationScope({ children }: { children: ReactNode }) {
++  const [statuses, setStatuses] = useState<Record<string, ReadingStatus>>({});
++  const [retryEpoch, setRetryEpoch] = useState(0);
++  const report = useCallback((id: string, status: ReadingStatus | null) => {
++    setStatuses(current => {
++      if (current[id] === status || (status === null && !(id in current))) return current;
++      const next = { ...current };
++      if (status === null) delete next[id]; else next[id] = status;
++      return next;
++    });
++  }, []);
++  const retry = useCallback(() => setRetryEpoch(current => current + 1), []);
++  const value = useMemo(() => ({ statuses, retryEpoch, report, retry }), [statuses, retryEpoch, report, retry]);
++  return <ReadingContext.Provider value={value}>{children}</ReadingContext.Provider>;
++}
++
++export function ContentLanguageControls() {
++  const { locale } = useLocale();
++  const reading = useContext(ReadingContext);
++  const statuses = Object.values(reading?.statuses ?? {});
++  const loading = statuses.includes('loading');
++  const failed = statuses.includes('failed');
++  const unavailable = statuses.includes('unavailable');
++  const sample = statuses.includes('sample');
++  const notice = loading ? 'Loading English…' : failed
++    ? 'Some translations could not be loaded. The original text is shown.'
++    : unavailable ? 'Some text has no English translation yet. The original is shown.'
++    : sample ? 'Sample translations.' : '';
++  return <div className="content-language-controls">
++    <LanguageControls />
++    {locale === 'en' && notice && <div className="content-language-status" role="status">
++      <span>{notice}{!loading && sample && (failed || unavailable) ? ' Available translations are samples.' : ''}</span>
++      {failed && !loading && <button type="button" className="guide-button" onClick={reading?.retry}>Try again</button>}
++    </div>}
++  </div>;
++}
++
++/** Replace the visible text, never the authored source. Typography belongs to its parent. */
++export function TranslationText({ sourceId, sourceVersion, text, kind, glossaryVersion = TRANSLATION_GLOSSARY_VERSION, as: Tag = 'p', className, adapter = localTranslationAdapter }: {
+   sourceId: string; sourceVersion: string; text: string; kind: 'journal' | 'caption' | 'comment';
+-  glossaryVersion?: string; showOriginal?: boolean; adapter?: TranslationAdapter;
++  glossaryVersion?: string; as?: 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'blockquote' | 'figcaption'; className?: string; adapter?: TranslationAdapter;
+ }) {
+-  const { t } = useLocale();
+-  const [record, setRecord] = useState<TranslationRecord | null>(null);
+-  const [translated, setTranslated] = useState(false);
+-  const [busy, setBusy] = useState(false);
+-  const [failed, setFailed] = useState(false);
+-  const controller = useRef<AbortController | null>(null);
+-  const sequence = useRef(0);
++  const { locale } = useLocale();
++  const reading = useContext(ReadingContext);
++  const report = reading?.report;
++  const retryEpoch = reading?.retryEpoch ?? 0;
++  const id = useId();
+   const cache = useRef(createTranslationCache());
++  const key = JSON.stringify([sourceId, sourceVersion, text, glossaryVersion]);
++  const [result, setResult] = useState<{ key: string; record: TranslationRecord | null; failed: boolean }>({ key: '', record: null, failed: false });
+   const request: AiTranslationRequest = { requestId: '', sourceId, sourceVersion, language: 'en', glossaryVersion, text, selectedPlaceIds: [], dayIds: [], lockedVisitIds: [] };
+-  const state = translationState(record, request);
+-  useEffect(() => { controller.current?.abort(); setBusy(false); setFailed(false); return () => controller.current?.abort(); }, [sourceId, sourceVersion, text, glossaryVersion]);
+-  const translate = async () => {
+-    controller.current?.abort(); const abort = new AbortController(); controller.current = abort;
+-    const current = ++sequence.current; const input = { ...request, requestId: crypto.randomUUID() };
+-    setFailed(false); setBusy(true);
++  const current = result.key === key ? result : null;
++  const state = translationState(current?.record ?? null, request);
++  const ready = locale === 'en' && (state === 'sample' || state === 'reviewed');
++  const status: ReadingStatus = locale === 'ko' || !text.trim() ? 'original' : current?.failed ? 'failed'
++    : state === 'original' || state === 'stale' ? 'loading' : state;
++
++  useEffect(() => {
++    if (locale !== 'en' || !text.trim()) return;
++    const abort = new AbortController();
++    const input: AiTranslationRequest = { requestId: crypto.randomUUID(), sourceId, sourceVersion, language: 'en', glossaryVersion, text, selectedPlaceIds: [], dayIds: [], lockedVisitIds: [] };
+     const cached = cache.current.get(input);
+-    if (cached) { setRecord(cached); setTranslated(true); setBusy(false); return; }
+-    try {
+-      const response: unknown = await adapter.translate(input, abort.signal);
+-      if (abort.signal.aborted || sequence.current !== current) return;
+-      const result = validateTranslationResponse(response, input);
+-      const next: TranslationRecord = { sourceId, sourceVersion, original: text, language: 'en', glossaryVersion, translated: result.data.text, status: result.data.status };
+-      cache.current.put(input, next); setRecord(next); setTranslated(true);
+-    } catch { if (!abort.signal.aborted && current === sequence.current) { setFailed(true); setTranslated(false); } }
+-    finally { if (!abort.signal.aborted && current === sequence.current) setBusy(false); }
+-  };
+-  const ready = translated && (state === 'sample' || state === 'reviewed');
+-  return <div className={`translation-text translation-${kind}`}>
+-    {showOriginal && !ready && <p className="translation-original" lang="ko">{text}</p>}
+-    {ready && <p className="translation-result" lang="en">{record?.translated}</p>}
+-    <div className="translation-actions">
+-      <button type="button" onClick={() => ready ? setTranslated(false) : void translate()} disabled={busy} aria-expanded={ready}><Languages size={14} />{busy ? t('translating') : ready ? t(showOriginal ? 'original' : 'hideTranslation') : t('translate')}</button>
+-      {ready && <span>{t(state === 'reviewed' ? 'translationReviewed' : 'translationSample')}</span>}
+-    </div>
+-    {state === 'stale' && <p className="translation-notice" role="status">{t('translationStale')}</p>}
+-    {translated && state === 'unavailable' && <p className="translation-notice" role="status">{t('translationUnavailable')}</p>}
+-    {failed && <p className="translation-notice" role="alert">{t('translationError')}</p>}
+-  </div>;
++    if (cached) { setResult({ key, record: cached, failed: false }); return; }
++    setResult({ key, record: null, failed: false });
++    void (async () => {
++      try {
++        const response: unknown = await adapter.translate(input, abort.signal);
++        if (abort.signal.aborted) return;
++        const translated = validateTranslationResponse(response, input);
++        const record: TranslationRecord = { sourceId, sourceVersion, original: text, language: 'en', glossaryVersion, translated: translated.data.text, status: translated.data.status };
++        cache.current.put(input, record);
++        setResult({ key, record, failed: false });
++      } catch {
++        if (!abort.signal.aborted) setResult({ key, record: null, failed: true });
++      }
++    })();
++    return () => abort.abort();
++  }, [locale, sourceId, sourceVersion, text, glossaryVersion, key, adapter, retryEpoch]);
++
++  useEffect(() => { report?.(id, status); }, [report, id, status]);
++  useEffect(() => () => report?.(id, null), [report, id]);
++  return <Tag className={className} lang={ready ? 'en' : 'ko'} data-content-kind={kind}>{ready ? current?.record?.translated : text}</Tag>;
+ }
+diff --git a/web/src/TravelGuideSheet.tsx b/web/src/TravelGuideSheet.tsx
+index 53578b7..09fd18c 100644
+--- a/web/src/TravelGuideSheet.tsx
++++ b/web/src/TravelGuideSheet.tsx
+@@ -5,7 +5,7 @@ import { BottomSheet, useBottomSheetDetail } from './BottomSheet';
+ import { LanguageControls, useLocale, type MessageKey } from './locale';
+ import { createGuideSessionStore, guideAnswerKey, guideDayId, guideRequest, guideSessionKey, guideVisitId, koreanPlaceAddress, localGuideAdapter, sourceVersion, validateGuideResponse, type GuideSession } from './travelGuide';
+ import type { GuideAdapter } from './aiPlanner';
+-import { TranslationText } from './TranslationText';
++import { ContentLanguageControls, ContentTranslationScope, TranslationText } from './TranslationText';
+ import { PhotoCredit } from './PublicTourismCredit';
+ import './travel-guide.css';
+ 
+@@ -70,8 +70,8 @@ function GuideContent({ journey, initialDay = 1, adapter = localGuideAdapter }:
+   const quick: MessageKey[] = ['today', 'nextPlace', 'highlights', 'hours', 'accessibility'];
+   const quickIcons = [CalendarDays, ArrowRight, Sparkles, Clock3, Accessibility];
+   const activeAnswer = session.answers[session.lastAnswerByScope[scope]] ?? null;
+-  return <section className="travel-guide">
+-    <div className="guide-topline"><span className="guide-meta">{t('sample')}</span><LanguageControls /></div>
++  return <ContentTranslationScope><section className="travel-guide">
++    <div className="guide-topline"><span className="guide-meta">{t('sample')}</span><ContentLanguageControls /></div>
+     <label className="guide-field"><span>{t('day')}</span><select value={guideDayId(day)} onChange={event => setSession(current => ({ ...current, dayId: event.target.value }))}>
+       {journey.days.map(value => <option key={guideDayId(value)} value={guideDayId(value)}>DAY {value.day}{value.date && value.date!==`DAY ${value.day}` ? ` · ${value.date}` : ''}</option>)}
+     </select></label>
+@@ -95,7 +95,7 @@ function GuideContent({ journey, initialDay = 1, adapter = localGuideAdapter }:
+     </form>
+     {error?.scope === scope && <div className="guide-error ui-error" role="alert"><p>{error.question}</p><p>{t('guideFailure')}</p><button type="button" className="guide-button" onClick={() => void ask(error.question)}>{t('retry')}</button></div>}
+     {activeAnswer && <section className="guide-answer" aria-live="polite"><h3>{activeAnswer.question}</h3><p>{activeAnswer.value.data.text}</p><div className="guide-sources"><strong>{t('sources')}</strong>{activeAnswer.value.sources.map(source => <span key={source.id}>{source.label} · {source.checkedAt ?? t('unknownDate')}</span>)}</div></section>}
+-  </section>;
++  </section></ContentTranslationScope>;
+ }
+ 
+ export default function TravelGuideSheet({ journey, initialDay = 1, onClose, adapter }: { journey: Journey; initialDay?: number; onClose: () => void; adapter?: GuideAdapter }) {
+diff --git a/web/src/travel-guide.css b/web/src/travel-guide.css
+index 0ec4e90..f39de43 100644
+--- a/web/src/travel-guide.css
++++ b/web/src/travel-guide.css
+@@ -27,14 +27,11 @@
+ .guide-account h3 { margin-top: 8px; margin-bottom: 0; }
+ .guide-account > p { margin: 0; font-size: var(--type-subhead); font-weight: 400; line-height: 1.5; }
+ .guide-account > .guide-meta { font-size: var(--type-caption); }
+-.translation-text { min-width: 0; margin-top: 10px; }
+-.translation-original, .translation-result { margin: 0 0 8px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: var(--type-body); line-height: var(--leading-body); font-weight: 400; }
+-.translation-caption .translation-original, .translation-caption .translation-result, .translation-comment .translation-original, .translation-comment .translation-result { font-size: var(--type-subhead); line-height: 1.5; }
+-.translation-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: var(--type-caption); line-height: 1.5; color: var(--muted); }
+-.translation-actions button { display: inline-flex; align-items: center; gap: 5px; min-height: 36px; padding: 4px 0; background: none; border: 0; color: var(--muted); font-size: var(--type-caption); line-height: 1.5; }
+-.translation-actions button:disabled { opacity: .5; }
+-.translation-notice { margin: 6px 0 0; color: var(--muted); font-size: var(--type-caption); line-height: 1.5; }
+-.phase-sheet .guide-button,.phase-sheet .guide-language button,.phase-sheet .translation-actions button { min-height:36px; }
++.content-language-controls { display: grid; gap: 8px; min-width: 0; }
++.journal-lead > .content-language-controls { margin-top: 12px; }
++.content-language-status { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; color: var(--muted); font-size: var(--type-caption); line-height: var(--leading-caption); }
++.content-language-status > span { min-width: 0; overflow-wrap: anywhere; }
++.phase-sheet .guide-button,.phase-sheet .guide-language button { min-height:36px; }
+ .phase-sheet .guide-field { margin:0; }
+ .guide-place-heading { display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
+ .guide-place-heading>div { min-width:0; }

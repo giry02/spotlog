@@ -1,0 +1,221 @@
+{
+  "records": [
+    {
+      "type": "unchanged-screen",
+      "route": "home",
+      "width": 320
+    },
+    {
+      "type": "unchanged-screen",
+      "route": "saved",
+      "width": 320
+    },
+    {
+      "type": "unchanged-screen",
+      "route": "places-guide",
+      "width": 320
+    },
+    {
+      "type": "unchanged-screen",
+      "route": "places-video",
+      "width": 320
+    },
+    {
+      "type": "story-day",
+      "width": 320,
+      "trip": 0,
+      "day": 0
+    },
+    {
+      "type": "story-day",
+      "width": 320,
+      "trip": 1,
+      "day": 0
+    },
+    {
+      "type": "story-day",
+      "width": 320,
+      "trip": 1,
+      "day": 1
+    },
+    {
+      "type": "story-day",
+      "width": 320,
+      "trip": 2,
+      "day": 0
+    },
+    {
+      "type": "story-day",
+      "width": 320,
+      "trip": 2,
+      "day": 1
+    },
+    {
+      "type": "story-day",
+      "width": 320,
+      "trip": 2,
+      "day": 2
+    },
+    {
+      "type": "story-day",
+      "width": 320,
+      "trip": 3,
+      "day": 0
+    },
+    {
+      "type": "story-day",
+      "width": 320,
+      "trip": 3,
+      "day": 1
+    },
+    {
+      "type": "filter-copy-refresh",
+      "width": 320
+    },
+    {
+      "type": "unchanged-screen",
+      "route": "home",
+      "width": 390
+    },
+    {
+      "type": "unchanged-screen",
+      "route": "saved",
+      "width": 390
+    },
+    {
+      "type": "unchanged-screen",
+      "route": "places-guide",
+      "width": 390
+    },
+    {
+      "type": "unchanged-screen",
+      "route": "places-video",
+      "width": 390
+    },
+    {
+      "type": "story-day",
+      "width": 390,
+      "trip": 0,
+      "day": 0
+    },
+    {
+      "type": "story-day",
+      "width": 390,
+      "trip": 1,
+      "day": 0
+    },
+    {
+      "type": "story-day",
+      "width": 390,
+      "trip": 1,
+      "day": 1
+    },
+    {
+      "type": "story-day",
+      "width": 390,
+      "trip": 2,
+      "day": 0
+    },
+    {
+      "type": "story-day",
+      "width": 390,
+      "trip": 2,
+      "day": 1
+    },
+    {
+      "type": "story-day",
+      "width": 390,
+      "trip": 2,
+      "day": 2
+    },
+    {
+      "type": "story-day",
+      "width": 390,
+      "trip": 3,
+      "day": 0
+    },
+    {
+      "type": "story-day",
+      "width": 390,
+      "trip": 3,
+      "day": 1
+    },
+    {
+      "type": "filter-copy-refresh",
+      "width": 390
+    },
+    {
+      "type": "unchanged-screen",
+      "route": "home",
+      "width": 460
+    },
+    {
+      "type": "unchanged-screen",
+      "route": "saved",
+      "width": 460
+    },
+    {
+      "type": "unchanged-screen",
+      "route": "places-guide",
+      "width": 460
+    },
+    {
+      "type": "unchanged-screen",
+      "route": "places-video",
+      "width": 460
+    },
+    {
+      "type": "story-day",
+      "width": 460,
+      "trip": 0,
+      "day": 0
+    },
+    {
+      "type": "story-day",
+      "width": 460,
+      "trip": 1,
+      "day": 0
+    },
+    {
+      "type": "story-day",
+      "width": 460,
+      "trip": 1,
+      "day": 1
+    },
+    {
+      "type": "story-day",
+      "width": 460,
+      "trip": 2,
+      "day": 0
+    },
+    {
+      "type": "story-day",
+      "width": 460,
+      "trip": 2,
+      "day": 1
+    },
+    {
+      "type": "story-day",
+      "width": 460,
+      "trip": 2,
+      "day": 2
+    },
+    {
+      "type": "story-day",
+      "width": 460,
+      "trip": 3,
+      "day": 0
+    },
+    {
+      "type": "story-day",
+      "width": 460,
+      "trip": 3,
+      "day": 1
+    },
+    {
+      "type": "filter-copy-refresh",
+      "width": 460
+    }
+  ],
+  "errors": []
+}
