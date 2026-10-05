@@ -1,0 +1,188 @@
+
+  VITE v8.2.2  ready in 1051 ms
+
+  ➜  Local:   http://127.0.0.1:5210/
+  ➜  press h + enter to show help
+오후 2:23:32 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 2:23:59 [vite] (client) hmr update /src/App.tsx
+오후 2:24:00 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 2:24:00 [vite] (client) hmr update /src/AiPlanRevisionSheet.tsx
+오후 2:25:22 [vite] (client) page reload tests/phase3-review.html
+오후 2:25:43 [vite] (client) hmr update /src/SavedTripControls.tsx
+오후 2:25:43 [vite] (client) hmr update /src/CreatePlanSheet.tsx
+오후 2:25:59 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 2:26:40 [vite] (client) hmr update /src/App.tsx, /src/LandmarkGuideCard.tsx, /src/SavedLandmarkDetailSheet.tsx
+오후 2:26:40 [vite] (client) hmr update /src/App.tsx
+오후 2:26:40 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx, /src/CreatePlanSheet.tsx, /src/PersonalTrip.tsx, /src/NearbyBusinessSheet.tsx
+오후 2:27:14 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 2:27:14 [vite] (client) hmr update /src/AiPlanRevisionSheet.tsx
+오후 2:28:41 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 2:29:54 [vite] (client) hmr update /src/App.tsx, /src/TranslationText.tsx, /src/TravelGuideSheet.tsx, /src/JournalPhotos.tsx, /src/CardSocial.tsx
+오후 2:29:54 [vite] (client) hmr update /src/TranslationText.tsx
+오후 2:29:54 [vite] (client) hmr update /src/TravelGuideSheet.tsx
+오후 2:29:54 [vite] (client) hmr invalidate /src/JournalPhotos.tsx Could not Fast Refresh ("blockImages" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 2:29:54 [vite] (client) hmr update /src/App.tsx
+오후 2:30:22 [vite] (client) hmr update /src/App.tsx, /src/SavedTripControls.tsx
+오후 2:30:27 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 2:31:04 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 2:31:04 [vite] (client) hmr update /src/AiPlanRevisionSheet.tsx
+오후 2:31:21 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 2:31:39 [vite] (client) hmr update /src/App.tsx
+오후 2:31:39 [vite] (client) hmr update /src/PersonalTrip.tsx
+오후 2:32:29 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 2:33:54 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 2:38:04 [vite] (client) hmr update /src/ai-planner.css
+오후 2:38:04 [vite] (client) hmr update /src/travel-guide.css
+오후 2:38:04 [vite] (client) hmr update /src/phase-three-integration.css
+오전 9:53:37 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 9:53:54 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 9:54:46 [vite] (client) hmr update /src/ai-planner.css
+오전 9:56:53 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 9:56:53 [vite] (client) hmr update /src/ProfilePreferencesSheet.tsx
+오전 9:56:53 [vite] (client) hmr update /src/phase-three-integration.css
+오전 9:56:53 [vite] (client) hmr update /src/AiPlanRevisionSheet.tsx
+오전 9:58:40 [vite] (client) hmr update /src/ai-planner.css
+오전 9:58:40 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 9:59:12 [vite] (client) hmr update /src/TravelGuideSheet.tsx
+오전 9:59:12 [vite] (client) hmr update /src/travel-guide.css
+오전 10:01:29 [vite] (client) hmr update /src/PersonalTrip.tsx
+오전 10:01:29 [vite] (client) hmr update /src/TravelGuideSheet.tsx
+오전 10:03:08 [vite] (client) hmr update /src/NearbyBusinessSheet.tsx
+오전 10:03:08 [vite] (client) hmr update /src/personal-trip-refinement.css
+오전 10:28:02 [vite] (client) hmr update /src/App.tsx, /src/TranslationText.tsx, /src/TravelGuideSheet.tsx, /src/JournalPhotos.tsx, /src/CardSocial.tsx
+오전 10:28:02 [vite] (client) hmr update /src/TravelGuideSheet.tsx
+오전 10:28:02 [vite] (client) hmr invalidate /src/TravelGuideSheet.tsx Could not Fast Refresh (new export)
+오전 10:28:02 [vite] (client) hmr update /src/App.tsx
+오전 10:28:02 [vite] (client) hmr invalidate /src/JournalPhotos.tsx Could not Fast Refresh ("blockImages" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오전 10:28:02 [vite] (client) hmr update /src/App.tsx
+오전 10:28:06 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:28:50 [vite] (client) hmr update /src/AiPlanRevisionSheet.tsx
+오전 10:28:59 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:29:01 [vite] (client) hmr update /src/locale.tsx
+오전 10:29:01 [vite] (client) hmr update /src/TranslationText.tsx
+오전 10:29:01 [vite] (client) hmr update /src/TravelGuideSheet.tsx
+오전 10:29:01 [vite] (client) hmr update /src/ProfilePreferencesSheet.tsx
+오전 10:29:01 [vite] (client) hmr update /src/locale.tsx
+오전 10:29:01 [vite] (client) hmr invalidate /src/locale.tsx Could not Fast Refresh ("localizedTripError" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오전 10:29:01 [vite] (client) hmr update /src/App.tsx, /src/TranslationText.tsx, /src/ProfilePreferencesSheet.tsx, /src/BottomSheet.tsx, /src/TravelGuideSheet.tsx, /src/PersonalTrip.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx, /src/SavedTripControls.tsx, /src/CreatePlanSheet.tsx
+오전 10:29:01 [vite] (client) hmr invalidate /src/TravelGuideSheet.tsx Could not Fast Refresh ("clearTravelGuideSessions" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오전 10:29:01 [vite] (client) hmr update /src/App.tsx
+오전 10:29:18 [vite] (client) hmr update /src/AiPlanRevisionSheet.tsx
+오전 10:30:24 [vite] (client) page reload tests/guide-review.html
+오전 10:30:59 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:31:35 [vite] (client) hmr update /src/ai-planner.css
+오전 10:33:07 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:33:11 [vite] (client) hmr update /src/App.tsx
+오전 10:33:32 [vite] (client) hmr update /src/phase-three-integration.css
+오전 10:33:32 [vite] (client) hmr update /src/TravelGuideSheet.tsx
+오전 10:33:32 [vite] (client) hmr update /tests/guide-review.tsx
+오전 10:33:32 [vite] (client) hmr invalidate /src/TravelGuideSheet.tsx Could not Fast Refresh ("clearTravelGuideSessions" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오전 10:33:32 [vite] (client) hmr update /src/App.tsx, /tests/guide-review.tsx
+오전 10:33:33 [vite] (client) hmr invalidate /tests/guide-review.tsx Could not Fast Refresh ("true" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오전 10:33:33 [vite] (client) page reload tests/guide-review.tsx
+오전 10:34:16 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:35:06 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:36:55 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:39:02 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:40:38 [vite] (client) hmr update /src/ai-planner.css
+오전 10:41:03 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:41:03 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:41:40 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:43:10 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:45:22 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 10:45:26 [vite] (client) hmr update /src/ai-planner.css
+오후 3:00:48 [vite] (client) hmr update /src/App.tsx, /src/LandmarkGuideCard.tsx, /src/SavedLandmarkDetailSheet.tsx
+오후 3:00:48 [vite] (client) hmr update /src/App.tsx
+오후 3:04:22 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 3:05:19 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 3:05:19 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 3:05:19 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 3:05:19 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 3:05:32 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 3:06:29 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 3:06:37 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 3:08:33 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 3:09:02 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 3:09:02 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 3:09:33 [vite] (client) hmr update /src/ai-planner.css
+오후 3:09:33 [vite] (client) hmr update /src/PersonalTrip.tsx
+오후 3:09:33 [vite] (client) hmr update /src/personal-trip-refinement.css
+오후 3:10:15 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 3:10:15 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 3:10:15 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 3:10:15 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 3:10:23 [vite] (client) hmr update /src/AiPlannerSheet.tsx, /src/PersonalTrip.tsx
+오후 3:12:30 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 3:12:30 [vite] (client) hmr update /src/AiPlannerSheet.tsx, /src/PersonalTrip.tsx
+오후 3:12:30 [vite] (client) hmr update /src/ai-planner.css
+오후 3:12:30 [vite] (client) hmr update /src/NearbyBusinessSheet.tsx
+오후 3:12:31 [vite] (client) hmr update /src/PersonalTrip.tsx
+오후 3:12:56 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 3:12:56 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 3:14:30 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx, /src/CreatePlanSheet.tsx, /src/PersonalTrip.tsx, /src/NearbyBusinessSheet.tsx, /tests/guide-review.tsx
+오후 3:15:02 [vite] (client) hmr update /src/AiPlannerSheet.tsx, /src/PersonalTrip.tsx
+오후 3:15:29 [vite] (client) hmr update /src/AiPlannerSheet.tsx, /src/PersonalTrip.tsx
+오후 3:15:50 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 3:15:51 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 3:16:56 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx, /src/CreatePlanSheet.tsx, /src/PersonalTrip.tsx, /src/NearbyBusinessSheet.tsx, /tests/guide-review.tsx
+오후 3:18:47 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 3:18:47 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 3:21:45 [vite] (client) hmr update /src/App.tsx, /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 3:23:34 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 4:42:06 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 4:42:07 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 4:43:17 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 4:43:17 [vite] (client) hmr update /src/ai-planner.css
+오후 4:45:55 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 8:20:35 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 8:21:52 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오전 8:21:52 [vite] (client) hmr update /src/ai-planner.css
+오전 8:26:12 [vite] (client) hmr update /src/App.tsx, /src/LandmarkGuideCard.tsx, /src/SavedLandmarkDetailSheet.tsx
+오후 9:49:17 [vite] (client) hmr update /src/App.tsx
+오후 9:51:08 [vite] (client) hmr update /src/App.tsx
+오후 9:51:08 [vite] (client) hmr update /src/App.tsx
+오후 9:54:24 [vite] (client) hmr update /src/NearbyBusinessSheet.tsx
+오후 9:54:24 [vite] (client) hmr update /src/App.tsx
+오후 9:55:16 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 9:55:16 [vite] (client) hmr update /src/AiPlanRevisionSheet.tsx
+오후 9:55:43 [vite] (client) hmr update /src/App.tsx
+오후 9:55:43 [vite] (client) hmr update /src/App.tsx
+오후 10:05:43 [vite] (client) hmr update /src/PersonalTrip.tsx
+오후 10:05:43 [vite] (client) hmr update /src/NearbyBusinessSheet.tsx
+오후 10:05:43 [vite] (client) hmr update /src/App.tsx
+오후 10:05:43 [vite] (client) hmr update /src/BottomSheet.tsx
+오후 10:05:43 [vite] (client) hmr invalidate /src/BottomSheet.tsx Could not Fast Refresh ("hasActiveSheet" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 10:05:43 [vite] (client) hmr update /src/App.tsx, /src/AddToTripSheet.tsx, /src/AiPlannerSheet.tsx, /src/SavedTripControls.tsx, /src/PhotoLandmarkFeed.tsx, /src/AiPlanRevisionSheet.tsx, /src/TripTrashSheet.tsx, /src/SavedLandmarkDetailSheet.tsx, /src/ProfilePreferencesSheet.tsx, /src/PublicTourismCredit.tsx, /src/TravelGuideSheet.tsx, /src/CreatePlanSheet.tsx, /src/CardSocial.tsx, /src/PersonalTrip.tsx, /src/NearbyBusinessSheet.tsx, /src/AccountSheet.tsx
+오후 10:05:43 [vite] (client) hmr invalidate /src/TravelGuideSheet.tsx Could not Fast Refresh ("clearTravelGuideSessions" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 10:05:43 [vite] (client) hmr update /src/App.tsx, /tests/guide-review.tsx
+오후 10:06:59 [vite] (client) hmr update /src/PersonalTrip.tsx
+오후 10:07:49 [vite] (client) hmr update /src/App.tsx
+오후 10:08:46 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 10:08:46 [vite] (client) hmr update /src/NearbyBusinessSheet.tsx
+오후 10:08:46 [vite] (client) hmr update /src/NearbyBusinessSheet.tsx, /src/App.tsx, /src/BottomSheet.tsx, /src/PersonalTrip.tsx
+오후 10:10:29 [vite] (client) page reload tests/frontend-completion.html
+오후 10:12:17 [vite] (client) hmr update /src/BottomSheet.tsx
+오후 10:12:17 [vite] (client) hmr invalidate /src/BottomSheet.tsx Could not Fast Refresh ("hasActiveSheet" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 10:12:17 [vite] (client) hmr update /src/App.tsx, /src/AddToTripSheet.tsx, /src/AiPlannerSheet.tsx, /src/SavedTripControls.tsx, /src/PhotoLandmarkFeed.tsx, /src/AiPlanRevisionSheet.tsx, /src/TripTrashSheet.tsx, /src/SavedLandmarkDetailSheet.tsx, /src/ProfilePreferencesSheet.tsx, /src/PublicTourismCredit.tsx, /src/TravelGuideSheet.tsx, /src/CreatePlanSheet.tsx, /src/CardSocial.tsx, /src/PersonalTrip.tsx, /src/NearbyBusinessSheet.tsx, /src/AccountSheet.tsx
+오후 10:12:17 [vite] (client) hmr invalidate /src/TravelGuideSheet.tsx Could not Fast Refresh ("clearTravelGuideSessions" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 10:12:17 [vite] (client) hmr update /src/App.tsx, /tests/guide-review.tsx
+오후 10:15:48 [vite] (client) hmr update /src/NearbyBusinessSheet.tsx, /src/App.tsx, /src/BottomSheet.tsx, /src/PersonalTrip.tsx
+오후 10:15:48 [vite] (client) hmr invalidate /src/BottomSheet.tsx Could not Fast Refresh ("hasActiveSheet" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 10:15:48 [vite] (client) hmr update /src/App.tsx, /src/AddToTripSheet.tsx, /src/AiPlannerSheet.tsx, /src/SavedTripControls.tsx, /src/PhotoLandmarkFeed.tsx, /src/AiPlanRevisionSheet.tsx, /src/TripTrashSheet.tsx, /src/SavedLandmarkDetailSheet.tsx, /src/ProfilePreferencesSheet.tsx, /src/PublicTourismCredit.tsx, /src/TravelGuideSheet.tsx, /src/CreatePlanSheet.tsx, /src/CardSocial.tsx, /src/PersonalTrip.tsx, /src/NearbyBusinessSheet.tsx, /src/AccountSheet.tsx
+오후 10:15:48 [vite] (client) hmr update /src/DayNavigation.tsx
+오후 10:15:48 [vite] (client) hmr update /src/CardSocial.tsx
+오후 10:15:48 [vite] (client) hmr update /src/JournalPhotos.tsx
+오후 10:15:48 [vite] (client) hmr update /src/LandmarkGuideCard.tsx
+오후 10:15:48 [vite] (client) hmr update /src/SavedLandmarkDetailSheet.tsx
+오후 10:15:48 [vite] (client) hmr update /src/TripTrashSheet.tsx
+오후 10:15:48 [vite] (client) hmr invalidate /src/JournalPhotos.tsx Could not Fast Refresh ("blockImages" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 10:15:48 [vite] (client) hmr update /src/App.tsx
+오후 10:18:35 [vite] (client) hmr update /src/PersonalTrip.tsx
+오후 10:22:12 [vite] (client) hmr update /src/App.tsx
+오후 10:22:12 [vite] (client) hmr update /src/App.tsx
+오후 10:22:52 [vite] (client) hmr update /src/App.tsx
+오후 10:22:52 [vite] (client) hmr update /src/NearbyBusinessSheet.tsx, /src/App.tsx, /src/BottomSheet.tsx, /src/PersonalTrip.tsx, /src/DayNavigation.tsx, /src/CardSocial.tsx, /src/JournalPhotos.tsx, /src/LandmarkGuideCard.tsx, /src/SavedLandmarkDetailSheet.tsx, /src/TripTrashSheet.tsx
+오후 10:23:51 [vite] (client) page reload src/serviceRequest.ts
+오후 10:23:51 [vite] (client) hmr update /src/AiPlannerSheet.tsx, /src/AiPlanRevisionSheet.tsx
+오후 10:23:51 [vite] vite.config.ts changed, restarting server...
+오후 10:23:51 [vite] server restarted.

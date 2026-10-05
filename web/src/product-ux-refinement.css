@@ -1,0 +1,76 @@
+/* Approved 2026-10-02 review corrections. Reuse existing type and control roles. */
+.home-topbar span { color: #62625e; font-size: var(--type-caption); }
+.home-find-guides small { color: #a24431; font-size: var(--type-caption); }
+.home-find-guides p { color: #62625e; font-size: var(--type-subhead); line-height: 1.5; }
+.home-guide-author small,
+.home-guide-copy button,
+.community-author > strong,
+.community-meta span,
+.community-search-title > span,
+.community-results-heading > span { font-size: var(--type-caption); }
+.home-guide-copy > p { font-size: 13px; line-height: 1.6; color: #62625e; }
+.home-shortcuts small { font-size: var(--type-caption); color: #62625e; }
+.community-intro p { font-size: var(--type-subhead); line-height: 1.5; color: rgba(255,255,255,.85); }
+
+.place-discover.is-guide .place-discover-header { min-height: 72px; padding-block: 12px; }
+.place-discover.is-guide .place-discover-header > div:first-child span { font-size: var(--type-caption); color: #62625e; }
+.place-discover.is-guide .place-view-toggle button { font-size: var(--type-caption); }
+.place-discover.is-guide .place-guide-lead { padding: 10px 2px 16px; }
+.place-discover.is-guide .place-guide-lead p { font-size: var(--type-subhead); line-height: 1.5; color: #62625e; }
+.place-discover.is-guide .place-guide-search { padding: 10px; }
+.place-discover.is-guide .region-directory { margin-top: 16px; }
+.place-discover.is-guide .place-guide-results { margin-top: 18px; }
+.region-directory-heading > span,
+.region-count-grid small,
+.place-guide-heading > span,
+.place-load-sentinel strong,
+.place-load-sentinel small,
+.place-list-end,
+.landmark-guide-copy > small,
+.landmark-guide-tags span { font-size: var(--type-caption); }
+.place-load-sentinel small,
+.place-list-end,
+.landmark-guide-tags span { color: #62625e; }
+.region-result-empty p,
+.landmark-guide-copy blockquote { font-size: var(--type-subhead); line-height: 1.5; }
+
+.saved-page .saved-trip-maker > p { font-size: var(--type-subhead); line-height: 1.5; color: rgba(255,255,255,.85); }
+.saved-page .saved-trip-maker .ai-trip-kpi { font-size: var(--type-caption); }
+.saved-page .saved-trip-maker h2 { white-space: normal; text-overflow: clip; overflow: visible; }
+.saved-page .saved-region-chips button,
+.saved-page .saved-region-chips button span,
+.saved-page .saved-region-heading small,
+.saved-page .saved-region-heading > span:nth-child(2) { font-size: var(--type-caption); }
+.saved-page .saved-card-copy p { font-size: var(--type-subhead); color: #62625e; }
+.saved-page .saved-card-copy .saved-place-time { font-size: var(--type-caption); color: #62625e; }
+.saved-page .saved-card-copy .add-to-trip { font-size: var(--type-caption); }
+.phase-sheet .saved-region-chips button { font-size: var(--type-caption); }
+
+.personal-trip .editor-topbar small { font-size: var(--type-caption); }
+.personal-trip .editor-topbar > div { min-width: 0; }
+.personal-trip .editor-topbar strong { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.personal-trip .plan-cover { height: auto; min-height: 132px; }
+.personal-trip .plan-cover > img { position: absolute; inset: 0; }
+.personal-trip .plan-cover > div { position: relative; inset: auto; min-height: 132px; padding: 16px; }
+.personal-trip .plan-day { padding-top: 16px; }
+.personal-trip .phase-three-trip-tools { gap: 6px; }
+.personal-trip .phase-three-trip-tools button { flex: 1; min-width: 0; padding: 8px; gap: 4px; }
+.personal-trip .phase-three-trip-tools button > svg { flex-shrink: 0; }
+.personal-trip .phase-three-trip-tools .plan-map-toggle { margin-bottom: 0; }
+.personal-trip .plan-stop-copy small.ai-planner-kind { color: var(--kind-ink); font-weight: 700; }
+.personal-trip .plan-travel-next .plan-next-complete { flex: none; min-height: 36px; padding: 0 8px; font-size: var(--type-caption); gap: 4px; }
+.personal-trip .plan-travel-next .plan-directions-link { padding-inline: 8px; gap: 4px; }
+.day-tabs.day-tabs-compact { padding-block: 10px; }
+.day-tabs-compact .day-tabs-track > button { min-width: 82px; min-height: 44px; padding: 6px 12px; justify-content: center; }
+.day-tabs-compact .day-tabs-track small { font-size: var(--type-caption); }
+
+.detail-creator-copy > p { font-size: var(--type-subhead); line-height: 1.5; color: #62625e; }
+.creator-journey-heading > span,
+.comment-author > strong,
+.comment-author > time,
+.comment-composer > button,
+.social-kind-note,
+.quick-cheers span,
+.journal-meta span { font-size: var(--type-caption); }
+.comment-author > time,
+.social-kind-note { color: #62625e; }

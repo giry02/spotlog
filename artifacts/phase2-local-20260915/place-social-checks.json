@@ -1,0 +1,140 @@
+[
+  {
+    "icons": [
+      {
+        "height": 36,
+        "label": "답글",
+        "text": "",
+        "title": "답글"
+      },
+      {
+        "height": 36,
+        "label": "수정",
+        "text": "",
+        "title": "수정"
+      },
+      {
+        "height": 36,
+        "label": "삭제",
+        "text": "",
+        "title": "삭제"
+      },
+      {
+        "height": 36,
+        "label": "답글",
+        "text": "",
+        "title": "답글"
+      },
+      {
+        "height": 36,
+        "label": "수정",
+        "text": "",
+        "title": "수정"
+      },
+      {
+        "height": 36,
+        "label": "삭제",
+        "text": "",
+        "title": "삭제"
+      }
+    ],
+    "inputSize": "16px",
+    "overflow": 0,
+    "sheetOverflow": [
+      0
+    ],
+    "width": 320
+  },
+  {
+    "icons": [
+      {
+        "height": 36,
+        "label": "답글",
+        "text": "",
+        "title": "답글"
+      },
+      {
+        "height": 36,
+        "label": "수정",
+        "text": "",
+        "title": "수정"
+      },
+      {
+        "height": 36,
+        "label": "삭제",
+        "text": "",
+        "title": "삭제"
+      },
+      {
+        "height": 36,
+        "label": "답글",
+        "text": "",
+        "title": "답글"
+      },
+      {
+        "height": 36,
+        "label": "수정",
+        "text": "",
+        "title": "수정"
+      },
+      {
+        "height": 36,
+        "label": "삭제",
+        "text": "",
+        "title": "삭제"
+      }
+    ],
+    "inputSize": "16px",
+    "overflow": 0,
+    "sheetOverflow": [
+      0
+    ],
+    "width": 390
+  },
+  {
+    "icons": [
+      {
+        "height": 36,
+        "label": "답글",
+        "text": "",
+        "title": "답글"
+      },
+      {
+        "height": 36,
+        "label": "수정",
+        "text": "",
+        "title": "수정"
+      },
+      {
+        "height": 36,
+        "label": "삭제",
+        "text": "",
+        "title": "삭제"
+      },
+      {
+        "height": 36,
+        "label": "답글",
+        "text": "",
+        "title": "답글"
+      },
+      {
+        "height": 36,
+        "label": "수정",
+        "text": "",
+        "title": "수정"
+      },
+      {
+        "height": 36,
+        "label": "삭제",
+        "text": "",
+        "title": "삭제"
+      }
+    ],
+    "inputSize": "16px",
+    "overflow": 0,
+    "sheetOverflow": [
+      0
+    ],
+    "width": 460
+  }
+]

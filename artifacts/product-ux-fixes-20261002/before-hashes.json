@@ -1,0 +1,34 @@
+[
+  {
+    "Path": "C:\\Users\\Giry\\Documents\\Spotlog\\web\\src\\App.tsx",
+    "Hash": "3C6E4878314D42822F051C744854B854CC8059A100ECE45A43A3CE11A5BE8227"
+  },
+  {
+    "Path": "C:\\Users\\Giry\\Documents\\Spotlog\\web\\src\\PersonalTrip.tsx",
+    "Hash": "135FA367EDE73D6BAC3785C05D66FD74B33EB7DC15866DCAA2916DFA9EAF9664"
+  },
+  {
+    "Path": "C:\\Users\\Giry\\Documents\\Spotlog\\web\\src\\DayNavigation.tsx",
+    "Hash": "BA53CBC386721CC1CBC580D036E2B361A920B3736612B74FE65B4002D2D96558"
+  },
+  {
+    "Path": "C:\\Users\\Giry\\Documents\\Spotlog\\web\\src\\SavedTripControls.tsx",
+    "Hash": "9674A585992AFF9917361ED35C08D40E72C7AA272DE449041B42DCB4E0822EF9"
+  },
+  {
+    "Path": "C:\\Users\\Giry\\Documents\\Spotlog\\web\\src\\savedTripBuilder.ts",
+    "Hash": "439D5B085BA0F22044CC21673C531D6235B4100F9813DB0728168185CBCDC133"
+  },
+  {
+    "Path": "C:\\Users\\Giry\\Documents\\Spotlog\\web\\src\\saved-trip-builder.css",
+    "Hash": "2BC480FDF9587101A7083A36ADB1B6E7E9971260B6BF7E26B1AC4CEB98F052D4"
+  },
+  {
+    "Path": "C:\\Users\\Giry\\Documents\\Spotlog\\web\\src\\locale.tsx",
+    "Hash": "649D3956880B6672C1D48554281441FAD9AE16EFCFDD97D1E68928A23F43F976"
+  },
+  {
+    "Path": "C:\\Users\\Giry\\Documents\\Spotlog\\web\\src\\main.tsx",
+    "Hash": "26131C3EB7FAEACDB9D6EBFB3EE971856C8C6DD5D48AD43AEBD524FB5AB4A904"
+  }
+]

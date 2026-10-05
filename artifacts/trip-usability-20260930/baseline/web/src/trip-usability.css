@@ -1,0 +1,16 @@
+/* Reuse itinerary/sheet compact roles; leave covers, DAY tabs and photo sizes intact. */
+.plan-travel-next { display:grid; gap:6px; margin:0 0 16px; }
+.plan-travel-next>div { display:flex; align-items:center; gap:8px; }
+.plan-travel-next .outline { min-height:36px; padding:0 10px; border-radius:11px; font-size:var(--type-caption); line-height:1.5; box-shadow:none; min-width:0; }
+.plan-travel-next>div>.outline { flex:1; text-align:left; }
+.plan-travel-next .outline>span { min-width:0; overflow-wrap:anywhere; }
+.plan-directions-link { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:36px; padding:0 10px; border:1px solid var(--line); border-radius:11px; background:white; color:inherit; font-size:var(--type-caption); font-weight:700; line-height:1.5; text-decoration:none; flex-shrink:0; }
+.plan-visit-state { display:flex; align-items:center; gap:5px; }
+.personal-trip .plan-visit-complete[aria-pressed=true] { color:#247a70; background:#e4f3ef; }
+.phase-sheet .plan-progress-options { display:flex; flex-wrap:wrap; gap:8px; }
+.plan-progress-options>.ui-button { flex:1; padding:0 10px; white-space:nowrap; }
+.phase-sheet .plan-form .plan-local-action,.phase-sheet .plan-progress-options>.ui-button { min-height:36px; font-size:var(--type-caption); font-weight:700; line-height:1.5; border-radius:11px; }
+.plan-progress-options>.ui-button[aria-pressed=true] { background:#242420; border-color:#242420; color:white; }
+.route-warning-action { display:inline-flex; align-items:center; gap:6px; min-height:36px; margin-top:6px; padding:0 10px; border:1px solid var(--line); border-radius:11px; background:white; color:inherit; font-size:var(--type-caption); font-weight:700; line-height:1.5; text-align:left; }
+.route-warning-action>svg { flex-shrink:0; }
+.route-warning-action:focus-visible,.plan-directions-link:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }

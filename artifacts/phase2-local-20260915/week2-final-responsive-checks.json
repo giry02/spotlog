@@ -1,0 +1,351 @@
+[
+  {
+    "label": "week2-nearby",
+    "height": 844,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 595.171875,
+        "overflow": 0
+      }
+    ],
+    "width": 320
+  },
+  {
+    "label": "week2-nearby",
+    "height": 844,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 553.375,
+        "overflow": 0
+      }
+    ],
+    "width": 390
+  },
+  {
+    "label": "week2-nearby",
+    "height": 844,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 553.375,
+        "overflow": 0
+      }
+    ],
+    "width": 460
+  },
+  {
+    "label": "week2-nearby-short",
+    "height": 400,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 352,
+        "overflow": 0
+      }
+    ],
+    "width": 390
+  },
+  {
+    "label": "week2-place-menu",
+    "height": 844,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "TEXTAREA",
+        "weight": "400"
+      },
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 651.546875,
+        "overflow": 0
+      }
+    ],
+    "width": 320
+  },
+  {
+    "label": "week2-place-menu",
+    "height": 844,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "TEXTAREA",
+        "weight": "400"
+      },
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 651.546875,
+        "overflow": 0
+      }
+    ],
+    "width": 390
+  },
+  {
+    "label": "week2-place-menu",
+    "height": 844,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "TEXTAREA",
+        "weight": "400"
+      },
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 651.546875,
+        "overflow": 0
+      }
+    ],
+    "width": 460
+  },
+  {
+    "label": "week2-day-transfer",
+    "height": 844,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "SELECT",
+        "weight": "400"
+      },
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      },
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 502.390625,
+        "overflow": 0
+      }
+    ],
+    "width": 320
+  },
+  {
+    "label": "week2-day-transfer",
+    "height": 844,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "SELECT",
+        "weight": "400"
+      },
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      },
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 502.390625,
+        "overflow": 0
+      }
+    ],
+    "width": 390
+  },
+  {
+    "label": "week2-day-transfer",
+    "height": 844,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "SELECT",
+        "weight": "400"
+      },
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      },
+      {
+        "font": "16px",
+        "type": "INPUT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 484.390625,
+        "overflow": 0
+      }
+    ],
+    "width": 460
+  },
+  {
+    "label": "week2-plan",
+    "height": 844,
+    "inputs": [],
+    "overflow": 0,
+    "sheets": [],
+    "width": 320
+  },
+  {
+    "label": "week2-plan",
+    "height": 844,
+    "inputs": [],
+    "overflow": 0,
+    "sheets": [],
+    "width": 390
+  },
+  {
+    "label": "week2-plan",
+    "height": 844,
+    "inputs": [],
+    "overflow": 0,
+    "sheets": [],
+    "width": 460
+  },
+  {
+    "label": "week2-preview",
+    "height": 844,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "SELECT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 742.71875,
+        "overflow": 0
+      }
+    ],
+    "width": 320
+  },
+  {
+    "label": "week2-preview",
+    "height": 844,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "SELECT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 742.71875,
+        "overflow": 0
+      }
+    ],
+    "width": 390
+  },
+  {
+    "label": "week2-preview",
+    "height": 844,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "SELECT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 742.71875,
+        "overflow": 0
+      }
+    ],
+    "width": 460
+  },
+  {
+    "label": "week2-preview-short",
+    "height": 400,
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "SELECT",
+        "weight": "400"
+      }
+    ],
+    "overflow": 0,
+    "sheets": [
+      {
+        "background": "rgb(250, 250, 248)",
+        "height": 352,
+        "overflow": 0
+      }
+    ],
+    "width": 390
+  }
+]

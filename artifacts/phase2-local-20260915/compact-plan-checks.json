@@ -1,0 +1,182 @@
+[
+  {
+    "id": "w1-320",
+    "button": [
+      {
+        "font": "12px",
+        "height": 36
+      }
+    ],
+    "cards": [
+      {
+        "height": 160.390625,
+        "overflow": 0
+      },
+      {
+        "height": 130.390625,
+        "overflow": 0
+      }
+    ],
+    "overflow": 0,
+    "title": "1주차 · 저장으로 만든 제주 여행",
+    "width": 320
+  },
+  {
+    "id": "w1-390",
+    "button": [
+      {
+        "font": "12px",
+        "height": 36
+      }
+    ],
+    "cards": [
+      {
+        "height": 160.390625,
+        "overflow": 0
+      },
+      {
+        "height": 130.390625,
+        "overflow": 0
+      }
+    ],
+    "overflow": 0,
+    "title": "1주차 · 저장으로 만든 제주 여행",
+    "width": 390
+  },
+  {
+    "id": "w1-460",
+    "button": [
+      {
+        "font": "12px",
+        "height": 36
+      }
+    ],
+    "cards": [
+      {
+        "height": 160.390625,
+        "overflow": 0
+      },
+      {
+        "height": 130.390625,
+        "overflow": 0
+      }
+    ],
+    "overflow": 0,
+    "title": "1주차 · 저장으로 만든 제주 여행",
+    "width": 460
+  },
+  {
+    "id": "w2-320",
+    "button": [
+      {
+        "font": "12px",
+        "height": 36
+      },
+      {
+        "font": "12px",
+        "height": 36
+      }
+    ],
+    "cards": [
+      {
+        "height": 182.390625,
+        "overflow": 0
+      },
+      {
+        "height": 170.390625,
+        "overflow": 0
+      },
+      {
+        "height": 144.390625,
+        "overflow": 0
+      },
+      {
+        "height": 218.390625,
+        "overflow": 0
+      },
+      {
+        "height": 144.390625,
+        "overflow": 0
+      }
+    ],
+    "overflow": 0,
+    "title": "2차 확인용 제주",
+    "width": 320
+  },
+  {
+    "id": "w2-390",
+    "button": [
+      {
+        "font": "12px",
+        "height": 36
+      },
+      {
+        "font": "12px",
+        "height": 36
+      }
+    ],
+    "cards": [
+      {
+        "height": 182.390625,
+        "overflow": 0
+      },
+      {
+        "height": 152.390625,
+        "overflow": 0
+      },
+      {
+        "height": 144.390625,
+        "overflow": 0
+      },
+      {
+        "height": 182.390625,
+        "overflow": 0
+      },
+      {
+        "height": 126.390625,
+        "overflow": 0
+      }
+    ],
+    "overflow": 0,
+    "title": "2차 확인용 제주",
+    "width": 390
+  },
+  {
+    "id": "w2-460",
+    "button": [
+      {
+        "font": "12px",
+        "height": 36
+      },
+      {
+        "font": "12px",
+        "height": 36
+      }
+    ],
+    "cards": [
+      {
+        "height": 182.390625,
+        "overflow": 0
+      },
+      {
+        "height": 152.390625,
+        "overflow": 0
+      },
+      {
+        "height": 126.390625,
+        "overflow": 0
+      },
+      {
+        "height": 182.390625,
+        "overflow": 0
+      },
+      {
+        "height": 126.390625,
+        "overflow": 0
+      }
+    ],
+    "overflow": 0,
+    "title": "2차 확인용 제주",
+    "width": 460
+  }
+]

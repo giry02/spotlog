@@ -1,0 +1,41 @@
+.travel-guide { display: grid; gap: 16px; }
+.guide-topline { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+.guide-meta, .guide-status { margin: 0; font-size: var(--type-caption); color: var(--muted); line-height: var(--leading-caption); }
+.guide-language { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.guide-language button, .guide-button { min-height: 36px; padding: 7px 12px; border: 1px solid #deded9; border-radius: 12px; background: #fff; color: var(--ink); font-size: var(--type-caption); font-weight: 700; line-height: 1.5; display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.guide-language button[aria-pressed="true"] { border-color: #ffae9e; background: #fff0eb; }
+.guide-button:disabled { opacity: .45; cursor: default; }
+.guide-button svg { flex-shrink: 0; }
+.guide-field { display: grid; gap: 7px; margin: 0; min-width: 0; }
+.guide-field > span { font-size: var(--type-caption); font-weight: 700; }
+.guide-field select, .guide-field textarea { width: 100%; min-width: 0; padding: 12px; border: 1px solid #deded9; border-radius: 12px; background: white; color: var(--ink); font-size: var(--type-body); font-weight: 400; line-height: 1.5; }
+.guide-field textarea { resize: vertical; }
+.guide-place, .guide-answer { padding: 16px; border: 1px solid #e1e1dc; border-radius: 16px; background: white; min-width: 0; }
+.guide-place h3, .guide-answer h3, .guide-account h3 { font-size: var(--type-body); font-weight: 700; line-height: 1.5; margin: 0 0 8px; }
+.guide-address { margin: 0 0 12px; color: var(--muted); font-size: var(--type-caption); line-height: 1.5; overflow-wrap: anywhere; }
+.guide-questions { display: flex; flex-wrap: wrap; gap: 7px; }
+.guide-question-form { display: flex; flex-wrap: wrap; gap: 8px; }
+.guide-question-form .guide-field { flex: 0 0 100%; }
+.guide-answer > p { margin: 0; font-size: var(--type-body); font-weight: 400; line-height: var(--leading-body); white-space: pre-wrap; overflow-wrap: anywhere; }
+.guide-sources { display: grid; gap: 4px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: var(--type-caption); line-height: 1.5; color: var(--muted); overflow-wrap: anywhere; }
+.guide-empty, .guide-error { font-size: var(--type-subhead); line-height: 1.5; color: var(--muted); }
+.guide-korean-address { display: grid; gap: 16px; padding: 12px 0; }
+.guide-korean-address h3 { margin: 0; font-size: var(--type-title); font-weight: 700; line-height: 1.4; overflow-wrap: anywhere; }
+.guide-korean-address > p:not(.guide-status) { margin: 0; font-size: var(--type-headline); line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; }
+.guide-korean-address .guide-button { justify-self: start; }
+.guide-account { display: grid; gap: 12px; }
+.guide-account h3 { margin-top: 8px; margin-bottom: 0; }
+.guide-account > p { margin: 0; font-size: var(--type-subhead); font-weight: 400; line-height: 1.5; }
+.guide-account > .guide-meta { font-size: var(--type-caption); }
+.content-language-controls { display: grid; gap: 8px; min-width: 0; }
+.journal-lead > .content-language-controls { margin-top: 12px; }
+.content-language-status { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; color: var(--muted); font-size: var(--type-caption); line-height: var(--leading-caption); }
+.content-language-status > span { min-width: 0; overflow-wrap: anywhere; }
+.phase-sheet .guide-button,.phase-sheet .guide-language button { min-height:36px; }
+.phase-sheet .guide-field { margin:0; }
+.guide-place-heading { display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
+.guide-place-heading>div { min-width:0; }
+.guide-place-media { width:64px; flex:0 0 64px; }
+.guide-place-media>img { display:block; width:64px; height:64px; border-radius:10px; object-fit:cover; }
+.guide-place-media>.public-photo-credit { margin-top:4px; }
+.guide-place-heading .guide-address { margin:0; }

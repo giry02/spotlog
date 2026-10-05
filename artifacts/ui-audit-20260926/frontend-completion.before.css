@@ -1,0 +1,23 @@
+/* New connection states reuse the existing sheet/button roles. */
+.account-form,.account-fields {display:grid;gap:18px;min-width:0;}
+.account-form p {margin:0;font-size:var(--type-subhead);line-height:1.65;overflow-wrap:anywhere;}
+.account-form .account-notice {padding:12px;border-radius:12px;background:#f0f0eb;font-size:var(--type-caption);}
+.account-identity {display:flex;gap:12px;align-items:center;min-width:0;}
+.account-identity>div {min-width:0;}
+.account-identity strong {font-size:var(--type-body);}
+.account-identity p {color:var(--muted);}
+.phase-sheet .account-check {display:flex;align-items:flex-start;gap:8px;font-size:var(--type-subhead);font-weight:400;margin:0;}
+.account-check input {width:18px;height:18px;min-height:18px;margin-top:3px;flex-shrink:0;}
+.account-check a {color:inherit;text-underline-offset:3px;}
+.account-links {display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;}
+.external-place-result {display:grid;gap:6px;padding:14px 0;border-bottom:1px solid var(--line,#e5e4df);min-width:0;}
+.external-place-result strong {font-size:var(--type-body);overflow-wrap:anywhere;}
+.external-place-result small,.external-place-result p {font-size:var(--type-caption);margin:0;color:var(--muted);overflow-wrap:anywhere;}
+.phase-sheet .external-place-result button,.phase-sheet .nearby-external-button {min-height:36px;font-size:var(--type-caption);border-radius:11px;padding:0 10px;box-shadow:none;justify-self:start;}
+.route-provider {position:relative;}
+.route-provider-state {position:absolute;inset:0;display:grid;place-content:center;justify-items:center;padding:20px;background:#f3f3ef;text-align:center;}
+.route-provider-state p {font-size:var(--type-subhead);line-height:1.6;}
+.route-provider-state button {min-height:36px;font-size:var(--type-caption);}
+.route-map .route-marker {cursor:pointer;}
+.frontend-partial-note {display:flex;gap:8px;align-items:flex-start;font-size:var(--type-caption);line-height:1.6;padding:12px;background:#f2f1eb;border-radius:12px;}
+.frontend-partial-note svg {flex-shrink:0;margin-top:2px;}

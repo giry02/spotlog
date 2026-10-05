@@ -1,0 +1,35 @@
+const fs = require('fs');
+const path = require('path');
+const crypto = require('crypto');
+const assert = require('assert/strict');
+const root = path.resolve(__dirname, '../..');
+const read = file => JSON.parse(fs.readFileSync(path.join(__dirname, file), 'utf8'));
+const scan = read('screen-results.json');
+const flow = read('flow-results.json');
+const regression = read('regression-results.json');
+const extra = read('extra-state-results.json');
+const interactions = read('interaction-results.json');
+const normal = [...scan, ...flow.screens, ...regression.screens, ...extra.screens];
+const errors = [320,390,460].flatMap(width => read(`errors-${width}.json`)).concat(flow.errors, regression.errors, extra.errors, interactions.errors);
+assert.equal(errors.length, 0);
+assert.ok(normal.every(s => !s.overflow && !s.bodyOverflow && !s.imageFailures.length));
+assert.equal(normal.length, 114);
+const touch = interactions.touch;
+assert.notEqual(touch[0].value.title, touch[1].value.title);
+assert.equal(touch[0].value.title, touch[2].value.title);
+assert.equal(touch[3].value.photoIndex, '1');
+assert.ok(touch[4].value.after > touch[4].value.before);
+assert.ok(interactions.keyboard[0].focused.every(f => f.inDialog));
+assert.equal(interactions.keyboard[1].prompt, '부산 2박 3일 바다');
+assert.ok(interactions.zoom.every(s => !s.overflow && !s.bodyOverflow));
+const changed = ['App.tsx','BottomSheet.tsx','PersonalTrip.tsx','DayNavigation.tsx','SavedTripControls.tsx','savedTripBuilder.ts','saved-trip-builder.css','locale.tsx','main.tsx','ai-planner.css','product-ux-refinement.css'].map(n => 'web/src/' + n).concat('web/tests/savedTripBuilder.test.mjs');
+const hash = file => fs.existsSync(file) ? crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex') : null;
+const files = changed.map(file => ({ file, beforeSha256: hash(path.join(__dirname,'before',file)), afterSha256: hash(path.join(root,file)), hasOriginalSnapshot: fs.existsSync(path.join(__dirname,'before',file)) }));
+for (const { file } of files) {
+  const target = path.join(__dirname,'after',file);
+  fs.mkdirSync(path.dirname(target), { recursive: true });
+  fs.copyFileSync(path.join(root,file), target);
+}
+const summary = { date:'2026-10-02', localOnly:true, normalScreenStates:normal.length, widths:[320,390,460], regressionChecks:regression.checks.length, extraChecks:extra.checks.length, moduleTestsPassed:44, typecheck:'passed', webBuild:'passed (existing large-chunk warning)', overflowStates:normal.filter(s=>s.overflow||s.bodyOverflow).length, completedImageFailures:normal.flatMap(s=>s.imageFailures).length, errors, layout:regression.layout, simulatedTouch:'verified; no physical Android run', keyboard:'dialog focus and Escape/reopen verified', fontSimulation:'200% isolated DOM font/line-height only', files };
+fs.writeFileSync(path.join(__dirname,'verification-summary.json'), JSON.stringify(summary,null,2));
+console.log(JSON.stringify({screens:summary.normalScreenStates,checks:summary.regressionChecks+summary.extraChecks,errors:summary.errors.length,overflows:summary.overflowStates,imageFailures:summary.completedImageFailures,changedProductFiles:files.length,originalSnapshots:files.filter(f=>f.hasOriginalSnapshot).length}));

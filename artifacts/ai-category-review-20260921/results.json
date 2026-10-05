@@ -1,0 +1,233 @@
+[
+  {
+    "width": 320,
+    "overflow": false,
+    "badges": [
+      {
+        "kind": "LANDMARK",
+        "label": "랜드마크",
+        "size": "12px",
+        "color": "rgb(23, 103, 89)",
+        "background": "rgb(227, 242, 237)",
+        "icon": true
+      },
+      {
+        "kind": "LANDMARK",
+        "label": "랜드마크",
+        "size": "12px",
+        "color": "rgb(23, 103, 89)",
+        "background": "rgb(227, 242, 237)",
+        "icon": true
+      },
+      {
+        "kind": "FOOD",
+        "label": "음식점",
+        "size": "12px",
+        "color": "rgb(163, 67, 50)",
+        "background": "rgb(255, 240, 236)",
+        "icon": true
+      },
+      {
+        "kind": "LANDMARK",
+        "label": "랜드마크",
+        "size": "12px",
+        "color": "rgb(23, 103, 89)",
+        "background": "rgb(227, 242, 237)",
+        "icon": true
+      },
+      {
+        "kind": "FOOD",
+        "label": "음식점",
+        "size": "12px",
+        "color": "rgb(163, 67, 50)",
+        "background": "rgb(255, 240, 236)",
+        "icon": true
+      },
+      {
+        "kind": "STAY",
+        "label": "숙소",
+        "size": "12px",
+        "color": "rgb(66, 95, 136)",
+        "background": "rgb(237, 242, 249)",
+        "icon": true
+      }
+    ],
+    "titles": [
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px"
+    ],
+    "candidateNames": [
+      "신라스테이 해운대",
+      "파라다이스호텔부산",
+      "웨스틴 조선 부산",
+      "시그니엘 부산",
+      "파크하얏트부산"
+    ],
+    "restored": true,
+    "savedNewPlaceIds": [
+      "catalog-busan-dongbaek-sashimi",
+      "catalog-busan-namcheon-noodles",
+      "catalog-busan-park-hyatt",
+      "catalog-busan-mongsil"
+    ],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "overflow": false,
+    "badges": [
+      {
+        "kind": "LANDMARK",
+        "label": "랜드마크",
+        "size": "12px",
+        "color": "rgb(23, 103, 89)",
+        "background": "rgb(227, 242, 237)",
+        "icon": true
+      },
+      {
+        "kind": "LANDMARK",
+        "label": "랜드마크",
+        "size": "12px",
+        "color": "rgb(23, 103, 89)",
+        "background": "rgb(227, 242, 237)",
+        "icon": true
+      },
+      {
+        "kind": "FOOD",
+        "label": "음식점",
+        "size": "12px",
+        "color": "rgb(163, 67, 50)",
+        "background": "rgb(255, 240, 236)",
+        "icon": true
+      },
+      {
+        "kind": "LANDMARK",
+        "label": "랜드마크",
+        "size": "12px",
+        "color": "rgb(23, 103, 89)",
+        "background": "rgb(227, 242, 237)",
+        "icon": true
+      },
+      {
+        "kind": "FOOD",
+        "label": "음식점",
+        "size": "12px",
+        "color": "rgb(163, 67, 50)",
+        "background": "rgb(255, 240, 236)",
+        "icon": true
+      },
+      {
+        "kind": "STAY",
+        "label": "숙소",
+        "size": "12px",
+        "color": "rgb(66, 95, 136)",
+        "background": "rgb(237, 242, 249)",
+        "icon": true
+      }
+    ],
+    "titles": [
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px"
+    ],
+    "candidateNames": [
+      "신라스테이 해운대",
+      "파라다이스호텔부산",
+      "웨스틴 조선 부산",
+      "시그니엘 부산",
+      "파크하얏트부산"
+    ],
+    "restored": true,
+    "savedNewPlaceIds": [
+      "catalog-busan-dongbaek-sashimi",
+      "catalog-busan-namcheon-noodles",
+      "catalog-busan-park-hyatt",
+      "catalog-busan-mongsil"
+    ],
+    "errors": []
+  },
+  {
+    "width": 460,
+    "overflow": false,
+    "badges": [
+      {
+        "kind": "LANDMARK",
+        "label": "랜드마크",
+        "size": "12px",
+        "color": "rgb(23, 103, 89)",
+        "background": "rgb(227, 242, 237)",
+        "icon": true
+      },
+      {
+        "kind": "LANDMARK",
+        "label": "랜드마크",
+        "size": "12px",
+        "color": "rgb(23, 103, 89)",
+        "background": "rgb(227, 242, 237)",
+        "icon": true
+      },
+      {
+        "kind": "FOOD",
+        "label": "음식점",
+        "size": "12px",
+        "color": "rgb(163, 67, 50)",
+        "background": "rgb(255, 240, 236)",
+        "icon": true
+      },
+      {
+        "kind": "LANDMARK",
+        "label": "랜드마크",
+        "size": "12px",
+        "color": "rgb(23, 103, 89)",
+        "background": "rgb(227, 242, 237)",
+        "icon": true
+      },
+      {
+        "kind": "FOOD",
+        "label": "음식점",
+        "size": "12px",
+        "color": "rgb(163, 67, 50)",
+        "background": "rgb(255, 240, 236)",
+        "icon": true
+      },
+      {
+        "kind": "STAY",
+        "label": "숙소",
+        "size": "12px",
+        "color": "rgb(66, 95, 136)",
+        "background": "rgb(237, 242, 249)",
+        "icon": true
+      }
+    ],
+    "titles": [
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px"
+    ],
+    "candidateNames": [
+      "신라스테이 해운대",
+      "파라다이스호텔부산",
+      "웨스틴 조선 부산",
+      "시그니엘 부산",
+      "파크하얏트부산"
+    ],
+    "restored": true,
+    "savedNewPlaceIds": [
+      "catalog-busan-dongbaek-sashimi",
+      "catalog-busan-namcheon-noodles",
+      "catalog-busan-park-hyatt",
+      "catalog-busan-mongsil"
+    ],
+    "errors": []
+  }
+]

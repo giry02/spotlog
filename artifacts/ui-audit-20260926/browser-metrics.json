@@ -1,0 +1,32 @@
+[
+  {
+    "clearSize": 36,
+    "dialogWidth": 320,
+    "emptyHeight": 189.1875,
+    "inputFont": "14px",
+    "inputWeight": "400",
+    "overflow": false,
+    "resetSize": 40,
+    "viewport": 320
+  },
+  {
+    "clearSize": 36,
+    "dialogWidth": 390,
+    "emptyHeight": 189.1875,
+    "inputFont": "14px",
+    "inputWeight": "400",
+    "overflow": false,
+    "resetSize": 40,
+    "viewport": 390
+  },
+  {
+    "clearSize": 36,
+    "dialogWidth": 460,
+    "emptyHeight": 189.1875,
+    "inputFont": "14px",
+    "inputWeight": "400",
+    "overflow": false,
+    "resetSize": 40,
+    "viewport": 460
+  }
+]

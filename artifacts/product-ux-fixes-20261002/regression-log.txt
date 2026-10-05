@@ -1,0 +1,1 @@
+{"checks":15,"screens":27,"layout":[{"width":320,"firstPrivateCard":378.390625,"firstGuideCard":499.59375},{"width":390,"firstPrivateCard":378.390625,"firstGuideCard":478.59375},{"width":460,"firstPrivateCard":378.390625,"firstGuideCard":478.59375}],"errors":[]}

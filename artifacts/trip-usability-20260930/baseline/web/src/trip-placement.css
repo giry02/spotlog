@@ -1,0 +1,18 @@
+/* Placement is an existing BottomSheet/Field/day-options composition, not a Saved toolbar. */
+.trip-placement-form { display: grid; gap: 18px; }
+.trip-placement-places { min-width: 0; }
+.trip-placement-card-state { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+.trip-placement-card-state p { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.trip-placement-card-state p.is-included { color: #176759; }
+.trip-placement-card-state small { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; line-height: 1.65; overflow-wrap: anywhere; }
+.trip-placement-places .landmark-guide-actions button.trip-placement-card-remove { color: #176759; background: #e3f2ed; border-color: #e3f2ed; }
+.trip-placement-places .landmark-guide-actions button.trip-placement-card-remove:hover { color: #a34332; background: #fff0ec; border-color: #fff0ec; }
+.trip-placement-form .trip-placement-day-field { min-width: 0; }
+.trip-placement-form .trip-placement-day-field > .ui-field-label { margin: 0 0 8px; }
+.trip-placement-form .trip-placement-day-field > .ui-field-label span { color: var(--muted); font-weight: 400; }
+.trip-placement-form .phase-day-options { margin: 0; }
+.trip-placement-form .phase-day-options button { display: flex; flex-direction: column; align-items: center; justify-content: center; padding-block: 8px; }
+.trip-placement-form .phase-day-options small { font-size: 12px; line-height: 1.5; }
+.trip-placement-form .trip-placement-note { margin: 0; }
+.trip-placement-form .trip-placement-included { display: flex; align-items: flex-start; gap: 6px; margin: 8px 0 0; color: #176759; font-size: 13px; line-height: 1.7; }
+.trip-placement-form .trip-placement-included > svg { flex: 0 0 auto; margin-top: 4px; }

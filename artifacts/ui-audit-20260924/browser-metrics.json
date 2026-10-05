@@ -1,0 +1,33 @@
+{
+  "signup390": {
+    "inputs": [
+      {
+        "font": "16px",
+        "type": "text",
+        "weight": "400",
+        "width": 350
+      },
+      {
+        "font": "16px",
+        "type": "email",
+        "weight": "400",
+        "width": 350
+      },
+      {
+        "font": "16px",
+        "type": "password",
+        "weight": "400",
+        "width": 350
+      }
+    ],
+    "pageWidth": 390,
+    "passwordHint": [
+      "8자 이상 입력해 주세요."
+    ],
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  "console": []
+}

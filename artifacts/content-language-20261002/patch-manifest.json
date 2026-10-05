@@ -1,0 +1,42 @@
+{
+  "scope": "Whole-page English reading only",
+  "basis": "Local review prototype before the 2026-10-02 change; not the published week-3 checkout",
+  "normalization": "UTF-8, LF",
+  "files": [
+    {
+      "path": "web/src/TranslationText.tsx",
+      "beforeSha256": "f84e1faedc9ba9ff9b4d9958a1fa411574f7569ea3996c5a9d85d799339e13ed",
+      "afterSha256": "e9f8c363d608987be13863ca733b2690aae0bc1230960a389cdab020f5b80095"
+    },
+    {
+      "path": "web/src/App.tsx",
+      "beforeSha256": "178a26c0b8c941bdfd5835c12cf1add3bf70298ca74ab4e5cf84bdfb7c1d188c",
+      "afterSha256": "ad65f26770aa1752dea62168512f21e85d31714eaac1a3aac08a8d0ea6dd9b24"
+    },
+    {
+      "path": "web/src/JournalPhotos.tsx",
+      "beforeSha256": "f53a0d0275c933785a50a5914fa7a542a8f1be837fcc69989378041a1b13bcef",
+      "afterSha256": "a165f718befd68ec6fa969e01153b0918c23348df4ad2179a782753cd31026b2"
+    },
+    {
+      "path": "web/src/CardSocial.tsx",
+      "beforeSha256": "6740751c81ac438b96cbc97e0a289dd00ea689b125f6614d669dd7c03deb4682",
+      "afterSha256": "e1610893199f17cf9c9c8ea33f181581aa5b73ce0032cf1d99a2b4c987088991"
+    },
+    {
+      "path": "web/src/PublicTourismCredit.tsx",
+      "beforeSha256": "281dc60c6f96f4cd37c10daeca4354ab78195a0818ffd9f5789deea2f856e4b4",
+      "afterSha256": "b6331d555a445e45c011f12e45b78a779314fec3a23c2b1d3722182a656e0630"
+    },
+    {
+      "path": "web/src/TravelGuideSheet.tsx",
+      "beforeSha256": "137d48c757de4517276f4b0f12958bd3fda90dc6d80aa4c7b08b417e2638f620",
+      "afterSha256": "29593367c2cdd7cfc98ebb5201979033ea1c9aac73a3c514065cc716eecf3abf"
+    },
+    {
+      "path": "web/src/travel-guide.css",
+      "beforeSha256": "7ff2138212cd94143e791ba8572c58df81937f5f5d7f8eed1ab4bd6f04fff7ed",
+      "afterSha256": "377e20822e79d7ba69ee7e81f9ab100cc00aa65279035828637fc44bcc9f6884"
+    }
+  ]
+}

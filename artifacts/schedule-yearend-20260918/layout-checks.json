@@ -1,0 +1,56 @@
+[
+  {
+    "bodyOverflow": false,
+    "id": "slide-1",
+    "noteFooterGap": null,
+    "overflow": false
+  },
+  {
+    "bodyOverflow": false,
+    "id": "slide-2",
+    "noteFooterGap": 20,
+    "overflow": false
+  },
+  {
+    "bodyOverflow": false,
+    "id": "slide-3",
+    "noteFooterGap": 19,
+    "overflow": false
+  },
+  {
+    "bodyOverflow": false,
+    "id": "slide-4",
+    "noteFooterGap": 27,
+    "overflow": false
+  },
+  {
+    "bodyOverflow": false,
+    "id": "slide-5",
+    "noteFooterGap": 22,
+    "overflow": false
+  },
+  {
+    "bodyOverflow": false,
+    "id": "slide-6",
+    "noteFooterGap": 27,
+    "overflow": false
+  },
+  {
+    "bodyOverflow": false,
+    "id": "slide-7",
+    "noteFooterGap": 15,
+    "overflow": false
+  },
+  {
+    "bodyOverflow": false,
+    "id": "slide-8",
+    "noteFooterGap": 31,
+    "overflow": false
+  },
+  {
+    "bodyOverflow": false,
+    "id": "slide-9",
+    "noteFooterGap": 15,
+    "overflow": false
+  }
+]

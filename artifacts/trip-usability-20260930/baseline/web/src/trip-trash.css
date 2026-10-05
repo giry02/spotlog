@@ -1,0 +1,26 @@
+/* Reuse current sheet/list typography and compact 36px actions; no global restyling. */
+.trip-trash { display: grid; gap: 14px; min-width: 0; }
+.trip-trash p { margin: 0; }
+.trip-trash-help, .trip-trash-confirm p, .trip-trash-result p, .trip-trash-empty p { font-size: var(--type-subhead); font-weight: 400; line-height: 1.5; color: var(--muted); }
+.trip-trash h3 { margin: 0; font-size: var(--type-headline); font-weight: 700; line-height: 1.4; overflow-wrap: anywhere; }
+.trip-trash > .ui-button { justify-self: start; }
+.phase-sheet .trip-trash .ui-button--compact { min-height: 36px; font-size: var(--type-caption); }
+.trip-trash-list { display: grid; gap: 10px; list-style: none; padding: 0; margin: 0; }
+.trip-trash-list li { min-width: 0; }
+.trip-trash-list li > button { position: relative; display: grid; gap: 3px; width: 100%; padding: 12px 36px 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: white; text-align: left; color: var(--ink); overflow-wrap: anywhere; }
+.trip-trash-list strong { font-size: var(--type-body); font-weight: 700; line-height: 1.5; }
+.trip-trash-list span, .trip-trash-detail > span, .trip-trash-detail > p, .trip-trash-detail dl { font-size: var(--type-caption); font-weight: 400; line-height: 1.5; color: var(--muted); }
+.trip-trash-list .trip-trash-kind { color: #a85b47; font-weight: 600; }
+.trip-trash-list li > button > svg { position: absolute; right: 12px; top: calc(50% - 9px); color: var(--muted); }
+.trip-trash-detail, .trip-trash-confirm, .trip-trash-result { display: grid; gap: 10px; }
+.trip-trash-detail { padding: 14px; border: 1px solid var(--line); background: white; border-radius: 12px; }
+.trip-trash-detail dl { margin: 0; display: grid; gap: 8px; }
+.trip-trash-detail dl div { display: grid; gap: 2px; }
+.trip-trash-detail dt { font-weight: 600; color: var(--ink); }
+.trip-trash-detail dd { margin: 0; overflow-wrap: anywhere; }
+.trip-trash-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.trip-trash-actions > .ui-button { flex: 1 1 100px; min-width: 0; width: auto; font-size: var(--type-subhead); white-space: normal; }
+.trip-trash-empty { padding: 20px 4px; display: grid; justify-items: center; text-align: center; gap: 10px; }
+.trip-trash-empty > svg { color: var(--muted); }
+.trip-trash-result { padding: 12px; border: 1px solid #cde7df; border-radius: 12px; background: #edf7f2; }
+.trip-trash-result .ui-button { justify-self: start; }
