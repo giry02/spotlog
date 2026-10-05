@@ -95,6 +95,9 @@ export interface StoryBlock {
 }
 
 export interface Journey {
+  /** Safe optional identity on published review projections. */
+  publicAuthorId?: string;
+  publicSourceKind?: 'SERVER' | 'PUBLIC_SAMPLE' | 'EDITORIAL' | 'SYNTHETIC';
   id: string;
   travelProgress?: TripTravelProgress;
   trash?: { deletedAt: string; expiresAt: string; ownerId: string; previousVisibility: 'PUBLIC' | 'PRIVATE'; previousStatus: JourneyStatus };

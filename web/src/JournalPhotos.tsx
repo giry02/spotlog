@@ -1,10 +1,11 @@
 import { useUiCopy } from './frontendCopy';
 import {useEffect,useRef,useState,type ReactNode} from 'react';
 import {ImagePlus,ArrowUp,ArrowDown,X} from 'lucide-react';
-import type {StoryBlock} from './data';
+import type {Journey,StoryBlock} from './data';
+import { ReportButton } from './ReportSheet';
 import {StoryPhoto} from './PublicTourismCredit';
 export const blockImages=(block:StoryBlock)=>block.images??(block.image?[{id:`${block.id}:photo`,image:block.image,caption:block.caption??''}]:[]);
-export function JournalPhotos({block}:{block:StoryBlock}){
+export function JournalPhotos({block,journey}:{block:StoryBlock;journey?:Journey}){
   const copy=useUiCopy();
   const photos=blockImages(block),rail=useRef<HTMLDivElement>(null),drag=useRef<{x:number;scroll:number}|null>(null),[index,setIndex]=useState(0);
   if(!photos.length)return null;
@@ -12,7 +13,7 @@ export function JournalPhotos({block}:{block:StoryBlock}){
     onPointerDown={event=>{if(event.pointerType!=='mouse'||event.button!==0||(event.target as HTMLElement).closest('button,a'))return;drag.current={x:event.clientX,scroll:event.currentTarget.scrollLeft};event.currentTarget.style.scrollSnapType='none';event.currentTarget.setPointerCapture(event.pointerId);}}
     onPointerMove={event=>{if(drag.current){event.preventDefault();event.currentTarget.scrollLeft=drag.current.scroll+drag.current.x-event.clientX;}}}
     onPointerUp={event=>{if(!drag.current)return;drag.current=null;const el=event.currentTarget;el.style.scrollSnapType='x mandatory';el.scrollTo({left:Math.round(el.scrollLeft/el.clientWidth)*el.clientWidth,behavior:'smooth'});}}
-    onPointerCancel={event=>{drag.current=null;event.currentTarget.style.scrollSnapType='x mandatory';}} onDragStart={event=>event.preventDefault()}>{photos.map(photo=><div className="journal-photo-slide" key={photo.id}><StoryPhoto image={photo.image} caption={photo.caption} captionSourceId={`${block.id}:${photo.id}`}/></div>)}</div>{photos.length>1&&<p className="journal-photo-position" aria-live="polite">{index+1} / {photos.length}{' '}{copy("· 옆으로 사진 넘기기")}</p>}</div>;
+    onPointerCancel={event=>{drag.current=null;event.currentTarget.style.scrollSnapType='x mandatory';}} onDragStart={event=>event.preventDefault()}>{photos.map(photo=><div className="journal-photo-slide" key={photo.id}><StoryPhoto image={photo.image} caption={photo.caption} captionSourceId={`${block.id}:${photo.id}`}/></div>)}</div>{photos.length>1&&<p className="journal-photo-position" aria-live="polite">{index+1} / {photos.length}{' '}{copy("· 옆으로 사진 넘기기")}</p>}{journey?.visibility==='PUBLIC'&&journey.status==='PUBLISHED'&&journey.purpose!=='PLAN'&&photos[index]&&<ReportButton target={{type:'PHOTO',id:photos[index].id,label:`${journey.title} · 여행 사진`,journey,cardId:block.id,photo:photos[index]}} label="사진 신고"/>}</div>;
 }
 export function JournalImageEditor({block,toolbar,onUpdate,onCover,resize}:{block:StoryBlock;toolbar:ReactNode;onUpdate:(patch:Partial<StoryBlock>)=>void;onCover:(image:string)=>void;resize:(file:File)=>Promise<string>}){
   const copy=useUiCopy();

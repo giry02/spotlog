@@ -11,6 +11,8 @@ import { PhotoCredit } from './PublicTourismCredit';
 import { Button, Field } from './ui';
 import { distanceBetween, nearbyCandidates } from './tripPlan';
 import { plannerBusinessSourceById } from './plannerBusinessCatalog';
+import { nearbyReviewOrder, usePublicReview } from './publicReview';
+import { PlaceReportActions } from './ReportSheet';
 
 export type StayChoice = { dayId: string; nights: number; fixed: boolean };
 type Props = { journey: Journey; dayId: string; anchor: Place; catalog: Place[]; savedPlaces: Place[]; initialKind?:PlaceKind; slotLabel?:string; replacing?:Place; closerTo?:Place; onClose: () => void; onAdd: (place: Place, stay?: StayChoice) => string | null };
@@ -24,7 +26,7 @@ function CandidateDetail({ place, anchor, added, journey, dayId, onAdd, replacin
   const [error,setError]=useState('');
   const [stay,setStay]=useState(false);
   const source = plannerBusinessSourceById.get(place.id);
-  return <div className="plan-form">{replacing&&<p className="plan-help">{copy("DAY·순서·방문 시각은 유지해요. 이전 업체의 메모와 방문 상태는 초기화해요.")}</p>}{place.image&&<img className="nearby-detail-image" src={place.image} alt={place.name}/>}<p>{place.description||copy("등록된 상세 설명이 없어요.")}</p><p className="plan-help">{place.address||copy("주소 확인 필요")} · <Distance anchor={anchor} place={place}/></p><p className="plan-help">{copy("방문 전 운영 정보를 확인해 주세요.")}</p>{source&&<a className="nearby-source-link" href={source.sourceUrl} target="_blank" rel="noopener noreferrer">{copy("장소 정보 출처")} · {source.provider}<ExternalLink size={14}/></a>}{stay?<StayForm journey={journey} dayId={dayId} onSubmit={choice=>onAdd(place,choice)}/>:<Button disabled={added} onClick={()=>{if(place.kind==='STAY')setStay(true);else setError(onAdd(place)||'');}}>{added?copy("담긴 장소"):place.kind==='STAY'?copy("숙박일 선택"):replacing?copy("이곳으로 교체"):copy("이 장소 담기")}</Button>}{error&&<p className="ui-error" role="alert">{error}</p>}</div>;
+  return <div className="plan-form">{replacing&&<p className="plan-help">{copy("DAY·순서·방문 시각은 유지해요. 이전 업체의 메모와 방문 상태는 초기화해요.")}</p>}{place.image&&<img className="nearby-detail-image" src={place.image} alt={place.name}/>}<p>{place.description||copy("등록된 상세 설명이 없어요.")}</p><p className="plan-help">{place.address||copy("주소 확인 필요")} · <Distance anchor={anchor} place={place}/></p><p className="plan-help">{copy("방문 전 운영 정보를 확인해 주세요.")}</p>{source&&<a className="nearby-source-link" href={source.sourceUrl} target="_blank" rel="noopener noreferrer">{copy("장소 정보 출처")} · {source.provider}<ExternalLink size={14}/></a>}<PlaceReportActions place={place}/>{stay?<StayForm journey={journey} dayId={dayId} onSubmit={choice=>onAdd(place,choice)}/>:<Button disabled={added} onClick={()=>{if(place.kind==='STAY')setStay(true);else setError(onAdd(place)||'');}}>{added?copy("담긴 장소"):place.kind==='STAY'?copy("숙박일 선택"):replacing?copy("이곳으로 교체"):copy("이 장소 담기")}</Button>}{error&&<p className="ui-error" role="alert">{error}</p>}</div>;
 }
 export function StayForm({journey,dayId,onSubmit}:{journey:Journey;dayId:string;onSubmit:(choice:StayChoice)=>string|null}) {
   const copy=useUiCopy();
@@ -44,6 +46,7 @@ function Candidate({ place, anchor, added, onChoose,journey,dayId,onAdd,replacin
 }
 export function NearbyBusinessSheet({ journey, dayId, anchor, catalog, savedPlaces, initialKind='FOOD', slotLabel, replacing, closerTo, onClose, onAdd }: Props) {
   const copy=useUiCopy();
+  const { state: reviewState } = usePublicReview();
   const {locale}=useLocale(),en=locale==='en';
   const [replacementChoice,setReplacementChoice]=useState<Place|null>(null);
   const [kind, setKind] = useState<PlaceKind>(initialKind);
@@ -67,10 +70,11 @@ export function NearbyBusinessSheet({ journey, dayId, anchor, catalog, savedPlac
       ? [...new Map(catalog.filter(place => place.kind === kind && place.area.split(' ')[0] === anchor.area.split(' ')[0]).map(place => [place.id, place])).values()]
       : nearbyCandidates(anchor, catalog, kind, expandedRange ? 15 : 3);
     const term = query.trim().toLocaleLowerCase();
-    return candidates.filter(place => (!term || `${place.name} ${place.address}`.toLocaleLowerCase().includes(term))
+    const filtered = candidates.filter(place => (!term || `${place.name} ${place.address}`.toLocaleLowerCase().includes(term))
       && (!replacing || place.area.split(' ')[0]===replacing.area.split(' ')[0])
       && (!closerTo || place.id===replacing?.id || (distanceBetween(closerTo,place)!==null && distanceBetween(closerTo,replacing!)!==null && distanceBetween(closerTo,place)!<distanceBetween(closerTo,replacing!)!)));
-  }, [anchor, catalog, kind, query, source, savedPlaces, expandedRange,replacing,closerTo]);
+    return source === 'nearby' ? nearbyReviewOrder(filtered, anchor.id, reviewState) : filtered;
+  }, [anchor, catalog, kind, query, source, savedPlaces, expandedRange,replacing,closerTo,reviewState]);
   const hasWiderResults = source==='nearby' && !query.trim() && !expandedRange && nearbyCandidates(anchor,catalog,kind).length>results.length;
   const submit = (place: Place, stay?: StayChoice) => { const problem = onAdd(place, stay); if (problem) setError(problem); };
   const choose = (place: Place) => { setError(''); if(replacing)setReplacementChoice(place);else if (place.kind === 'STAY') setStayPlace(place); else submit(place); };

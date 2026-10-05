@@ -6,6 +6,9 @@ import { getPlacePhotos } from './PhotoPlaceCard';
 import { activePhotoIndex } from './placePhotos';
 import { Button } from './ui';
 import { PhotoCredit } from './PublicTourismCredit';
+import { PlaceReportActions } from './ReportSheet';
+import { TranslationText } from './TranslationText';
+import { sourceVersion } from './travelGuide';
 import './landmark-guide-card.css';
 
 type LandmarkGuideCardProps = {
@@ -82,11 +85,12 @@ export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryActi
     </div>
     <div className="landmark-guide-copy">
       <small>{place.area} · {place.bestTime ?? place.duration}</small><h3>{place.name}</h3>
-      <strong>{place.hook ?? `${place.area} 일정에 담기 좋은 장소`}</strong><p>{place.description}</p>
+      <strong>{place.hook ?? `${place.area} 일정에 담기 좋은 장소`}</strong><TranslationText sourceId={`place:${place.id}:description`} sourceVersion={sourceVersion(place.description)} text={place.description} kind="journal"/>
       {place.note && <blockquote>{place.tags?.includes('공공자료') ? copy("자료 안내") : copy("여행자 메모")} · {place.note}</blockquote>}
       {photo?.caption && <p className="landmark-gallery-caption" aria-live="polite">{photo.caption}</p>}
       {photo && <PhotoCredit image={photo.image} sourceId={photo.sourceId} />}
       <div className="landmark-guide-tags">{place.tags?.map(tag => <span key={tag}>#{tag}</span>)}</div>
+      <PlaceReportActions place={place} photo={photo} />
       {actions !== null && <div className="landmark-guide-actions">{actions !== undefined ? actions : <>{primaryAction ?? <Button size="card" onClick={onToggle} aria-pressed={saved}><Bookmark size={16} fill={saved ? 'currentColor' : 'none'} />{saved ? copy("저장됨") : copy("이 장소 저장")}</Button>}<Button size="card" variant="secondary" onClick={onShare}><Share2 size={16} />{copy("공유")}</Button></>}</div>}
       {footer}
     </div>

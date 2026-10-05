@@ -2,6 +2,8 @@
 
 Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before writing any code.
 
+2026-10-06 customer-only GitHub upload authorized: The user requested uploading current customer frontend while excluding the administrator. This branch codex/customer-frontend-20261006 contains the customer frontend and its independent public service DTOs; administrator UI/source/entry/config/contracts/tests remain in the original local review checkout. Do not treat GitHub backup as public-site activation or actual-source handoff. See docs/execution/CUSTOMER_FRONTEND_UPLOAD_20261006.md.
+
 ## Retained product decisions
 2026-10-05 complete local GitHub backup authorized: The user explicitly requested uploading all current local work. Back up the integrated review prototype, native shell, source data/assets, contracts, planning documents and review artifacts on codex/full-local-backup-20261005. This supersedes older local-only/no-push restrictions for this backup. Keep dependency/build output and local secret configuration excluded by Git; do not activate the public site, rewrite weekly release refs, or dispatch changes to the actual-source conversation. Older statements about unuploaded files describe their historical status. See docs/execution/FULL_LOCAL_BACKUP_20261005.md.
 

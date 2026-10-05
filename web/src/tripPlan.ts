@@ -161,7 +161,7 @@ function copiedDays(sourceDays: JourneyDay[], itineraryOnly = false): JourneyDay
   }));
 }
 export function copyPersonalPlan(source: Journey, author: string): Journey {
-  const clean = normalizePlan(source);
+  const { publicAuthorId: _publicAuthorId, publicSourceKind: _publicSourceKind, ...clean } = normalizePlan(source);
   // Legacy sources are normalized by App before this operation. Authored originals remain untouched.
   return { ...structuredClone(clean), travelProgress: undefined, id: `trip-${id()}`, purpose: 'PLAN', sourceTripId: undefined, editorDraft: undefined, sourceJourneyId: source.id, sourceAuthor: source.author,
     title: `${source.title} · 내 동선`, story: '', summary: '가고 싶은 곳을 내 동선으로 가져왔어요.', status: 'PLANNING', visibility: 'PRIVATE', author, isMine: true, saves: 0, views: 0,
@@ -174,7 +174,8 @@ export function makeJournalFromPlan(source: Journey, author: string): Journey {
     const { planningGaps: _planningGaps, ...journalDay } = day;
     return { ...journalDay, places: day.places.map(place => ({ ...withoutPlanningSlot(place), note: '', move:undefined, bookingFixed: undefined })) };
   });
-  return { ...structuredClone(source), travelProgress: undefined, id: `journal-${id()}`, purpose: 'JOURNAL', sourceTripId: source.id, planningPreferences: undefined, editorDraft: undefined, title: source.title,
+  const { publicAuthorId: _publicAuthorId, publicSourceKind: _publicSourceKind, ...journalSource } = source;
+  return { ...structuredClone(journalSource), travelProgress: undefined, id: `journal-${id()}`, purpose: 'JOURNAL', sourceTripId: source.id, planningPreferences: undefined, editorDraft: undefined, title: source.title,
     status: 'PLANNING', visibility: 'PRIVATE', story: '', summary: '', author, isMine: true, saves: 0, views: 0, days };
 }
 export function copyPlanDay(journey: Journey, dayId: string): Journey {

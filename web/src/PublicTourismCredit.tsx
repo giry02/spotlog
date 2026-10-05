@@ -1,6 +1,9 @@
 import { useState, type ReactNode } from 'react';
 import { ChevronRight } from 'lucide-react';
 import type { Journey } from './data';
+import { usePublicReview } from './publicReview';
+import type { PublicPlaceProjection, ReviewServiceState } from './reviewServiceBridge';
+import type { PublicSourceCredit } from './publicServiceTypes';
 import { BottomSheet, useBottomSheetDetail } from './BottomSheet';
 import { getPhotoSource, photoSources, type PhotoSource } from './photoSources';
 import { photoCaptionWithoutDuplicateCredit } from './photoCaption';
@@ -8,7 +11,13 @@ import { TranslationText } from './TranslationText';
 import { sourceVersion } from './travelGuide';
 import './public-tourism.css';
 
-function SourceDetails({ sources, note }: { sources: PhotoSource[]; note?: string }) {
+type DisplayPhotoSource = Omit<PhotoSource, 'license'> & { license: string };
+function reviewPhotoSources(state: ReviewServiceState): DisplayPhotoSource[] {
+  const entries: {image:string;credit?:PublicSourceCredit}[] = state.publishedPlaces.flatMap(p => (p as PublicPlaceProjection).publicMediaCredits?.map(c => ({image:c.image,credit:c})) ?? []);
+  [...state.publicJournals, ...state.operatingJournals].forEach(j => { if(j.cover)entries.push({image:j.cover.image,credit:j.cover.sourceCredit}); j.days?.forEach(day => { day.places.forEach(p => { entries.push({image:p.image,credit:p.sourceCredit}); p.photos?.forEach(photo => entries.push({image:photo.image,credit:photo.sourceCredit})); }); day.blocks.forEach(b => { if(b.image)entries.push({image:b.image,credit:b.sourceCredit}); b.images?.forEach(photo => entries.push({image:photo.image,credit:photo.sourceCredit})); }); }); });
+  return [...new Map(entries.filter(e => e.credit && e.image && !state.withdrawnImages.includes(e.image)).map(({image,credit:c}) => [image,{id:`review:${image}`,placeId:'',title:'공개 자료 사진',image,sourceUrl:c!.sourceUrl,imageSourceUrl:c!.sourceUrl,owner:c!.provider,author:c!.author??'개별 촬영자 미표기',license:c!.license??'원문 이용 조건 확인',licenseUrl:c!.licenseUrl??c!.sourceUrl,verifiedAt:c!.checkedAt??'확인일 미제공',changes:c!.changes}])).values()];
+}
+function SourceDetails({ sources, note }: { sources: DisplayPhotoSource[]; note?: string }) {
   return <div className="public-source-details">
     {note && <p className="phase-hint">{note}</p>}
     {sources.map((source) => <section className="public-source-item" key={source.id}>
@@ -28,7 +37,7 @@ function SourceDetails({ sources, note }: { sources: PhotoSource[]; note?: strin
   </div>;
 }
 
-function SourceDisclosure({ sources, note, className, children }: { sources: PhotoSource[]; note?: string; className: string; children: ReactNode }) {
+function SourceDisclosure({ sources, note, className, children }: { sources: DisplayPhotoSource[]; note?: string; className: string; children: ReactNode }) {
   const showSheetDetail = useBottomSheetDetail();
   const [open, setOpen] = useState(false);
   const details = <SourceDetails sources={sources} note={note} />;
@@ -44,7 +53,9 @@ function SourceDisclosure({ sources, note, className, children }: { sources: Pho
 
 /** Attribution follows the image, including saved places and copied journeys. */
 export function PhotoCredit({ image, sourceId, plain = false }: { image: string; sourceId?: string; plain?: boolean }) {
-  const source = sourceId ? photoSources.find((entry) => entry.id === sourceId && entry.image === image) ?? getPhotoSource(image) : getPhotoSource(image);
+  const {state}=usePublicReview();
+  const reviewed=reviewPhotoSources(state).find(s=>s.image===image);
+  const source = reviewed ?? (sourceId ? photoSources.find((entry) => entry.id === sourceId && entry.image === image) ?? getPhotoSource(image) : getPhotoSource(image));
   if (!source) return null;
   const owner = source.author === source.owner || source.author === '개별 촬영자 미표기' ? source.owner : `${source.owner} · ${source.author}`;
   // Plain credit is used inside an existing journey/place button: never nest a button there.
@@ -59,8 +70,9 @@ export function StoryPhoto({ image, caption, captionSourceId }: { image: string;
 }
 
 export function PublicSourceNotes({ journey }: { journey: Journey }) {
+  const {state}=usePublicReview();
   const images = new Set([journey.cover, ...journey.days.flatMap((day) => [...day.places.flatMap((place) => [place.image, ...(place.photos ?? []).filter((photo) => photo.availability !== 'withdrawn').map((photo) => photo.image)]), ...day.blocks.flatMap((block) => [block.image,...(block.images??[]).map(photo=>photo.image)]).filter((image): image is string => Boolean(image))])]);
-  const sources = photoSources.filter((source) => images.has(source.image));
+  const sources = [...new Map([...photoSources,...reviewPhotoSources(state)].filter((source) => images.has(source.image)).map(source=>[source.image,source])).values()];
   if (!sources.length) return null;
   return <section className="day-route-section public-source-notes" aria-label="사진과 자료 출처">
     <SourceDisclosure sources={sources} className="public-source-disclosure" note="사진별 저작자와 이용 조건을 아래에서 확인할 수 있어요. 자료 사진은 촬영 시점의 모습이며, 여행 작성자가 직접 촬영하거나 방문했다는 의미는 아닙니다."><span>사진 출처</span><span>{sources.length}개 자료<ChevronRight size={16} aria-hidden="true" /></span></SourceDisclosure>

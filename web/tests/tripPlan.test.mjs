@@ -85,6 +85,16 @@ test('journal creation is an independent private snapshot without personal notes
   journal.days[0].places[0].name='새 이름';assert.equal(trip.days[0].places[0].name,'beach');
   assert.notEqual(journal.days[0].blocks[0].id,trip.days[0].blocks[0].id);
 });
+test('personal copies and journals drop the original public author and editorial source identity', () => {
+  const source = { ...setup(), publicAuthorId: 'spotlog-editorial', publicSourceKind: 'EDITORIAL', author: 'Spotlog 운영' };
+  const copied = copyPersonalPlan(source, '새 작성자');
+  for (const field of ['publicAuthorId', 'publicSourceKind']) assert.equal(Object.hasOwn(copied, field), false);
+  assert.equal(copied.author, '새 작성자'); assert.equal(copied.isMine, true); assert.equal(copied.visibility, 'PRIVATE');
+  const journal = makeJournalFromPlan(source, '새 작성자');
+  for (const field of ['publicAuthorId', 'publicSourceKind']) assert.equal(Object.hasOwn(journal, field), false);
+  assert.equal(journal.author, '새 작성자'); assert.equal(journal.isMine, true);
+  assert.equal(source.publicAuthorId, 'spotlog-editorial'); assert.equal(source.publicSourceKind, 'EDITORIAL');
+});
 test('one-night replacement leaves other nights unchanged and locked bookings require unlock', () => {
   const trip=addPlanDay(addPlanDay(setup())), first=trip.days[0].dayId;
   const stay=spot('hotel','STAY');
