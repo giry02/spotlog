@@ -8,6 +8,9 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 
 ## Retained product decisions
 
+2026-10-06 journal readability correction authorized: The user reported tiny fonts in the public journal route map and reaction/comment area. Apply existing roles within these areas: 14px actions/notices/route names and statistics, 16px comment body/input, 12px metadata/counts/dates. Reuse existing tokens, readable approved notice color, content-based wrapping/height and 44px comment submit. Preserve other screens, DAY/header, comment reporting and user data. Customer-only GitHub/Pages scope persists; administrator stays local. See docs/execution/JOURNAL_READABILITY_20261006.md.
+
+
 2026-10-06 comment report correction authorized: The user explicitly requested retaining reports for user comments and replies. Restore compact icon-only flags on other users' public journal comments and place-card comments/replies, excluding own or deleted comments. Open the exact comment target, close the card comment sheet first, and preserve the typed comment draft. Keep the one bottom general Report entry and do not restore duplicate top/cover/place/gallery/author controls. This supersedes only the previous removal of inline comment/reply report controls. Customer-only GitHub/public deployment authorization persists; administrator stays local. See docs/execution/COMMENT_REPORT_ACTIONS_20261006.md.
 
 

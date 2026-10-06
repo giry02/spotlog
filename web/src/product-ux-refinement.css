@@ -74,3 +74,46 @@
 .journal-meta span { font-size: var(--type-caption); }
 .comment-author > time,
 .social-kind-note { color: #62625e; }
+
+/* 2026-10-06: readable journal route and reactions, using existing type roles. */
+.journey-detail .day-route-title small,
+.journey-detail .map-label span,
+.journey-detail .map-label strong,
+.journey-detail .route-leg small { font-size: var(--type-caption); line-height: var(--leading-caption); }
+.journey-detail .map-label { height: auto; min-height: 48px; padding-block: 10px; }
+.journey-detail .map-label > svg,
+.journey-detail .route-schedule-summary > svg { flex-shrink: 0; }
+.journey-detail .map-label span { flex-shrink: 0; }
+.journey-detail .map-label strong { min-width: 0; text-align: right; }
+.journey-detail .route-leg { grid-template-columns: 34px minmax(0, 1fr) auto; }
+.journey-detail .route-leg strong { font-size: var(--type-subhead); line-height: var(--leading-caption); white-space: normal; overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }
+.journey-detail .route-leg em,
+.journey-detail .route-leg-schedule,
+.journey-detail .route-schedule-summary,
+.journey-detail .route-data-note,
+.journey-detail .route-summary strong,
+.journey-detail .route-summary span { font-size: var(--type-subhead); line-height: var(--leading-caption); }
+.journey-detail .route-schedule-summary { align-items: flex-start; }
+.journey-detail .route-schedule-summary > svg { margin-top: 3px; }
+.journey-detail .route-leg small,
+.journey-detail .route-data-note { color: #62625e; }
+.journey-detail .route-summary span { overflow-wrap: anywhere; }
+
+.journey-social > header small,
+.journey-social > header > span,
+.journey-social .quick-cheers span,
+.journey-social .comment-author > time { font-size: var(--type-caption); line-height: var(--leading-caption); }
+.journey-social .quick-cheers button { min-height: 76px; }
+.journey-social .quick-cheers strong,
+.journey-social .comment-empty strong,
+.journey-social .comment-empty span,
+.journey-social .comment-author > strong,
+.journey-social .social-kind-note { font-size: var(--type-subhead); line-height: var(--leading-caption); word-break: keep-all; overflow-wrap: anywhere; }
+.journey-social .quick-cheers span,
+.journey-social .comment-empty span { color: #62625e; }
+.journey-social .quick-cheers button.active span { color: inherit; }
+.journey-social .comment-author { flex-wrap: wrap; }
+.journey-social .comment-author > strong { min-width: 0; overflow-wrap: anywhere; }
+.journey-social .journey-comment p { font-size: var(--type-body); line-height: var(--leading-body); }
+.journey-social .comment-composer input { height: 44px; font-size: var(--type-body); font-weight: 400; }
+.journey-social .comment-composer button { height: auto; min-height: 44px; font-size: var(--type-subhead); font-weight: 700; line-height: var(--leading-caption); }

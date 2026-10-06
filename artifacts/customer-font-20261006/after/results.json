@@ -1,0 +1,293 @@
+{
+  "base": "http://127.0.0.1:5216/",
+  "stage": "after",
+  "results": [
+    {
+      "width": 320,
+      "computed": {
+        ".map-label strong": {
+          "size": 12,
+          "weight": "700",
+          "lineHeight": "18px"
+        },
+        ".route-leg small": {
+          "size": 12,
+          "weight": "700",
+          "lineHeight": "18px"
+        },
+        ".route-leg strong": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".route-leg em": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".route-schedule-summary": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".route-data-note": {
+          "size": 14,
+          "weight": "400",
+          "lineHeight": "21px"
+        },
+        ".route-summary strong": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".route-summary span": {
+          "size": 14,
+          "weight": "400",
+          "lineHeight": "21px"
+        },
+        ".journey-social > header > span": {
+          "size": 12,
+          "weight": "700",
+          "lineHeight": "18px"
+        },
+        ".quick-cheers strong": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".quick-cheers span": {
+          "size": 12,
+          "weight": "400",
+          "lineHeight": "18px"
+        },
+        ".comment-author > strong": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".comment-author > time": {
+          "size": 12,
+          "weight": "400",
+          "lineHeight": "18px"
+        },
+        ".journey-comment p": {
+          "size": 16,
+          "weight": "400",
+          "lineHeight": "27.2px"
+        },
+        ".comment-composer input": {
+          "size": 16,
+          "weight": "400",
+          "lineHeight": "27.2px"
+        },
+        ".comment-composer button": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".social-kind-note": {
+          "size": 14,
+          "weight": "400",
+          "lineHeight": "21px"
+        }
+      },
+      "overflow": false,
+      "commentPosting": true,
+      "emptyAndSelected": true
+    },
+    {
+      "width": 390,
+      "computed": {
+        ".map-label strong": {
+          "size": 12,
+          "weight": "700",
+          "lineHeight": "18px"
+        },
+        ".route-leg small": {
+          "size": 12,
+          "weight": "700",
+          "lineHeight": "18px"
+        },
+        ".route-leg strong": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".route-leg em": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".route-schedule-summary": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".route-data-note": {
+          "size": 14,
+          "weight": "400",
+          "lineHeight": "21px"
+        },
+        ".route-summary strong": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".route-summary span": {
+          "size": 14,
+          "weight": "400",
+          "lineHeight": "21px"
+        },
+        ".journey-social > header > span": {
+          "size": 12,
+          "weight": "700",
+          "lineHeight": "18px"
+        },
+        ".quick-cheers strong": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".quick-cheers span": {
+          "size": 12,
+          "weight": "400",
+          "lineHeight": "18px"
+        },
+        ".comment-author > strong": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".comment-author > time": {
+          "size": 12,
+          "weight": "400",
+          "lineHeight": "18px"
+        },
+        ".journey-comment p": {
+          "size": 16,
+          "weight": "400",
+          "lineHeight": "27.2px"
+        },
+        ".comment-composer input": {
+          "size": 16,
+          "weight": "400",
+          "lineHeight": "27.2px"
+        },
+        ".comment-composer button": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".social-kind-note": {
+          "size": 14,
+          "weight": "400",
+          "lineHeight": "21px"
+        }
+      },
+      "overflow": false,
+      "commentPosting": true,
+      "emptyAndSelected": true
+    },
+    {
+      "width": 460,
+      "computed": {
+        ".map-label strong": {
+          "size": 12,
+          "weight": "700",
+          "lineHeight": "18px"
+        },
+        ".route-leg small": {
+          "size": 12,
+          "weight": "700",
+          "lineHeight": "18px"
+        },
+        ".route-leg strong": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".route-leg em": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".route-schedule-summary": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".route-data-note": {
+          "size": 14,
+          "weight": "400",
+          "lineHeight": "21px"
+        },
+        ".route-summary strong": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".route-summary span": {
+          "size": 14,
+          "weight": "400",
+          "lineHeight": "21px"
+        },
+        ".journey-social > header > span": {
+          "size": 12,
+          "weight": "700",
+          "lineHeight": "18px"
+        },
+        ".quick-cheers strong": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".quick-cheers span": {
+          "size": 12,
+          "weight": "400",
+          "lineHeight": "18px"
+        },
+        ".comment-author > strong": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".comment-author > time": {
+          "size": 12,
+          "weight": "400",
+          "lineHeight": "18px"
+        },
+        ".journey-comment p": {
+          "size": 16,
+          "weight": "400",
+          "lineHeight": "27.2px"
+        },
+        ".comment-composer input": {
+          "size": 16,
+          "weight": "400",
+          "lineHeight": "27.2px"
+        },
+        ".comment-composer button": {
+          "size": 14,
+          "weight": "700",
+          "lineHeight": "21px"
+        },
+        ".social-kind-note": {
+          "size": 14,
+          "weight": "400",
+          "lineHeight": "21px"
+        }
+      },
+      "overflow": false,
+      "commentPosting": true,
+      "emptyAndSelected": true
+    },
+    {
+      "width": 390,
+      "route": "jeju-west-slow",
+      "scheduleFont": 14,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "note": "Isolated browser storage; no server writes."
+}
