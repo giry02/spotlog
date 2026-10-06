@@ -1,0 +1,57 @@
+{
+  "base": "http://127.0.0.1:5216/spotlog/",
+  "results": [
+    {
+      "width": 320,
+      "oneFooterReport": true,
+      "noRepeatedReports": true,
+      "groups": [
+        "여행기·작성자",
+        "장소",
+        "사진",
+        "댓글·답글"
+      ],
+      "selectionsPreserved": true,
+      "disconnectedSubmitDisabled": true,
+      "socialPreserved": true,
+      "scroll": 320,
+      "field": "16px"
+    },
+    {
+      "width": 390,
+      "oneFooterReport": true,
+      "noRepeatedReports": true,
+      "groups": [
+        "여행기·작성자",
+        "장소",
+        "사진",
+        "댓글·답글"
+      ],
+      "selectionsPreserved": true,
+      "disconnectedSubmitDisabled": true,
+      "socialPreserved": true,
+      "scroll": 390,
+      "field": "16px"
+    },
+    {
+      "width": 460,
+      "oneFooterReport": true,
+      "noRepeatedReports": true,
+      "groups": [
+        "여행기·작성자",
+        "장소",
+        "사진",
+        "댓글·답글"
+      ],
+      "selectionsPreserved": true,
+      "disconnectedSubmitDisabled": true,
+      "socialPreserved": true,
+      "scroll": 460,
+      "field": "16px"
+    },
+    {
+      "localSelectedPhotoReceipt": true
+    }
+  ],
+  "errors": []
+}
