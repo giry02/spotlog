@@ -24,12 +24,12 @@ export function ReportProvider({ children, journeys }: { children: ReactNode; jo
   const value = { openReport: (target: ReportTarget, choices?: ReportChoice[]) => setSelection({ target, choices }), publicJourney: (id: string) => journeys.find(j => j.id === id && j.visibility === 'PUBLIC' && j.status === 'PUBLISHED' && j.purpose !== 'PLAN' && !j.trash) };
   return <ReportContext.Provider value={value}>{children}{selection && <ReportSheet key={`${selection.target.type}:${selection.target.id}`} target={selection.target} choices={selection.choices} adapter={adapter} onClose={() => setSelection(null)} />}</ReportContext.Provider>;
 }
-export function ReportButton({ target, choices, className = 'report-context-button', label }: { target: ReportTarget; choices?: ReportChoice[]; className?: string; label?: string }) {
+export function ReportButton({ target, choices, className = 'report-context-button', label, iconOnly = false, beforeOpen }: { target: ReportTarget; choices?: ReportChoice[]; className?: string; label?: string; iconOnly?: boolean; beforeOpen?(): void }) {
   const context = useReport(), { locale } = useLocale();
   if (!context) return null;
-  const labels: Record<string, string> = { '신고': 'Report', '장소 신고': 'Report place', '사진 신고': 'Report photo', '여행기 신고': 'Report journal', '표지 신고': 'Report cover', '작성자 신고': 'Report author' };
+  const labels: Record<string, string> = { '신고': 'Report', '장소 신고': 'Report place', '사진 신고': 'Report photo', '여행기 신고': 'Report journal', '표지 신고': 'Report cover', '작성자 신고': 'Report author', '댓글 신고': 'Report comment', '답글 신고': 'Report reply' };
   const text = locale === 'en' ? labels[label ?? '신고'] ?? label ?? 'Report' : label ?? '신고';
-  return <button type="button" className={className} aria-label={`${target.label} · ${text}`} title={text} onClick={event => { event.stopPropagation(); context.openReport(target, choices); }}><Flag size={16} aria-hidden="true" /><span>{text}</span></button>;
+  return <button type="button" className={`${className}${iconOnly ? ' report-context-button--icon' : ''}`} aria-label={`${target.label} · ${text}`} title={text} onClick={event => { event.stopPropagation(); beforeOpen?.(); context.openReport(target, choices); }}><Flag size={16} aria-hidden="true" /><span className={iconOnly ? 'sr-only' : undefined}>{text}</span></button>;
 }
 export function JournalReportButton({ journey, comments, threads, selfName }: { journey: Journey; comments: JourneyComment[]; threads?: CardSocialStore; selfName: string }) {
   const { state } = usePublicReview();
