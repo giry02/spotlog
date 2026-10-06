@@ -98,6 +98,7 @@ import { creatorGradeRules, currentCreatorGrade } from './creatorGrade';
 import { CreatorAvatar } from './CreatorAvatar.tsx';
 import './journal-editing.css';
 import { CARD_SOCIAL_KEY, type CardSocialStore } from './cardSocialState';
+import { journalCommentTime, sampleJournalComments, withSampleCardThreads } from './consumerSocialSamples';
 import { JournalImageEditor, JournalPhotos } from './JournalPhotos';
 import { finishJournalDraft, journalDraftValue, moveJournalBlock, patchJournalDay, stashJournalDraft } from './journalDraft';
 import { Button, Field } from './ui';
@@ -321,11 +322,11 @@ const readCreatorProfile = (): CreatorProfile => {
 const readComments = (): JourneyComment[] => {
   try {
     const stored = JSON.parse(localRepository.getItem(storageKeys.comments) ?? '[]') as JourneyComment[];
-    if (!Array.isArray(stored)) return defaultComments;
+    if (!Array.isArray(stored)) return [...defaultComments, ...sampleJournalComments];
     const ids = new Set(stored.map((comment) => comment.id));
-    return [...defaultComments.filter((comment) => !ids.has(comment.id)), ...stored];
+    return [...defaultComments, ...sampleJournalComments].filter((comment) => !ids.has(comment.id)).concat(stored);
   } catch {
-    return defaultComments;
+    return [...defaultComments, ...sampleJournalComments];
   }
 };
 
@@ -569,7 +570,7 @@ function SpotlogApp() {
   }, [clearToast]);
   const [profile, setProfile] = useLocalState<CreatorProfile>(storageKeys.profile, readCreatorProfile);
   const [comments, setComments] = useLocalState<JourneyComment[]>(storageKeys.comments, readComments);
-  const [cardSocial,setCardSocial] = useLocalState<CardSocialStore>(CARD_SOCIAL_KEY,()=>{try{return JSON.parse(localRepository.getItem(CARD_SOCIAL_KEY)??'{}');}catch{return {};}});
+  const [cardSocial,setCardSocial] = useLocalState<CardSocialStore>(CARD_SOCIAL_KEY,()=>{try{return withSampleCardThreads(JSON.parse(localRepository.getItem(CARD_SOCIAL_KEY)??'{}'));}catch{return withSampleCardThreads({});}});
   const [personalPlaces,setPersonalPlaces]=useLocalState<Place[]>(PLACE_DIRECTORY_KEY,()=>{try{return JSON.parse(localRepository.getItem(PLACE_DIRECTORY_KEY)??'[]');}catch{return [];}});
   const [cheers, setCheers] = useLocalState<CheerStore>(storageKeys.cheers, readCheers);
   const [notificationPreferences, setNotificationPreferences] = useLocalState<NotificationPreferences>(storageKeys.notifications, readNotificationPreferences);
@@ -894,7 +895,7 @@ function SpotlogApp() {
   };
 
   return (
-    <ReportProvider journeys={journeys}><CardSocialProvider store={cardSocial} save={setCardSocial} user={{id:'local-self',name:profile.displayName,avatar:profile.avatar}}><main className={`app-shell tab-${tab} place-${placeView.toLowerCase()} ${selectedJourney || editingJourney || tab === 'profile' || tab === 'photo-stories' ? 'detail-open' : ''}`}>
+    <ReportProvider journeys={selectedJourney && !journeys.some(journey => journey.id === selectedJourney.id) ? [...journeys, selectedJourney] : journeys}><CardSocialProvider store={cardSocial} save={setCardSocial} user={{id:'local-self',name:profile.displayName,avatar:profile.avatar}}><main className={`app-shell tab-${tab} place-${placeView.toLowerCase()} ${selectedJourney || editingJourney || tab === 'profile' || tab === 'photo-stories' ? 'detail-open' : ''}`}>
       <section className="content">
         {storageIssue && <div className="local-storage-warning" role="alert">{storageIssue}</div>}
         <div className={placeView !== 'GUIDE' ? 'discovery-pane' : ''} hidden={tab !== 'discover' || Boolean(selectedJourney || editingJourney)}><Discover view={placeView} onViewChange={changePlaceView} savedIds={savedIds} onToggle={toggleSaved} onShare={sharePlace} /></div>
@@ -1340,7 +1341,7 @@ function JourneySocialSection({ journey, comments, cheers, profile, myCopyCount,
   const copy=useUiCopy();
   const { state: reviewState } = usePublicReview();
   const [commentDraft, setCommentDraft] = useState('');
-  const visibleComments = [...new Map([...reviewState.comments.filter(c => c.journalId === journey.id && !c.cardId && c.moderation === 'VISIBLE').map(c => ({ id: c.commentId, journeyId: c.journalId, author: c.authorName ?? c.authorId, body: c.original, createdAt: c.createdAt, avatar: c.authorAvatar, authorCopies: 0 })), ...comments].filter(c => !reviewState.commentModeration.some(m => m.id === c.id && m.state !== 'VISIBLE')).map(c => [c.id, c])).values()];
+  const visibleComments = [...new Map([...reviewState.comments.filter(c => c.journalId === journey.id && !c.cardId && c.moderation === 'VISIBLE').map(c => ({ id: c.commentId, journeyId: c.journalId, author: c.authorName ?? c.authorId, body: c.original, createdAt: c.createdAt, avatar: c.authorAvatar, authorCopies: 0 })), ...comments].filter(c => !reviewState.commentModeration.some(m => m.id === c.id && m.state !== 'VISIBLE')).map(c => [c.id, c])).values()].sort((left, right) => journalCommentTime(right) - journalCommentTime(left));
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!commentDraft.trim()) return;

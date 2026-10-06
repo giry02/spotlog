@@ -1,0 +1,46 @@
+{
+  "base": "http://127.0.0.1:5216/spotlog/",
+  "results": [
+    {
+      "width": 320,
+      "journalUrl": "http://127.0.0.1:5216/spotlog/#recommendation-curation-jeju-west",
+      "korean": true,
+      "languageControlsRemoved": true,
+      "journalSampleComments": 2,
+      "ownCommentPreserved": true,
+      "cardSampleCommentAndReply": true,
+      "oneReportSheet": true,
+      "draftPreserved": true,
+      "privateDataPreserved": true,
+      "noDuplicateOnReload": true
+    },
+    {
+      "width": 390,
+      "journalUrl": "http://127.0.0.1:5216/spotlog/#recommendation-curation-jeju-west",
+      "korean": true,
+      "languageControlsRemoved": true,
+      "journalSampleComments": 2,
+      "ownCommentPreserved": true,
+      "cardSampleCommentAndReply": true,
+      "oneReportSheet": true,
+      "draftPreserved": true,
+      "privateDataPreserved": true,
+      "noDuplicateOnReload": true
+    },
+    {
+      "width": 460,
+      "journalUrl": "http://127.0.0.1:5216/spotlog/#recommendation-curation-jeju-west",
+      "korean": true,
+      "languageControlsRemoved": true,
+      "journalSampleComments": 2,
+      "ownCommentPreserved": true,
+      "cardSampleCommentAndReply": true,
+      "oneReportSheet": true,
+      "draftPreserved": true,
+      "privateDataPreserved": true,
+      "noDuplicateOnReload": true
+    }
+  ],
+  "errors": [],
+  "note": "Bundled public samples plus isolated own/private fixtures only; no server writes."
+}

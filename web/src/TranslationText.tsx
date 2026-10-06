@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { AiTranslationRequest, TranslationAdapter } from './aiPlanner';
-import { LanguageControls, useLocale } from './locale';
+import { ENGLISH_READING_ENABLED, LanguageControls, useLocale } from './locale';
 import { createTranslationCache, localTranslationAdapter, TRANSLATION_GLOSSARY_VERSION, translationState, validateTranslationResponse, type TranslationRecord } from './travelGuide';
 import './travel-guide.css';
 import { usePublicReview } from './publicReview';
@@ -33,6 +33,7 @@ export function ContentTranslationScope({ children }: { children: ReactNode }) {
 export function ContentLanguageControls() {
   const { locale } = useLocale();
   const reading = useContext(ReadingContext);
+  if (!ENGLISH_READING_ENABLED) return null;
   const statuses = Object.values(reading?.statuses ?? {});
   const loading = statuses.includes('loading');
   const failed = statuses.includes('failed');

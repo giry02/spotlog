@@ -8,6 +8,9 @@ Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before 
 
 ## Retained product decisions
 
+2026-10-06 user correction: Temporarily remove customer Korean/English controls and translation-status containers, including profile/guide entries. Force Korean rendering while preserving the saved language preference and translation data for later. Add other-author journal comment and place-card comment/reply examples only to bundled public sample journals and recommendation previews. Preserve own comments, drafts, likes and private/copy records; merge by stable IDs without duplication. Own comments have no report flag; other authors do. Include the currently viewed public preview in report context so its card comments are reportable. Keep root comments newest-first and replies chronological. Publish customer-only through existing Pages scope; administrator remains local. See docs/execution/PUBLIC_LANGUAGE_AND_COMMENT_SAMPLES_20261006.md.
+
+
 2026-10-06 journal readability correction authorized: The user reported tiny fonts in the public journal route map and reaction/comment area. Apply existing roles within these areas: 14px actions/notices/route names and statistics, 16px comment body/input, 12px metadata/counts/dates. Reuse existing tokens, readable approved notice color, content-based wrapping/height and 44px comment submit. Preserve other screens, DAY/header, comment reporting and user data. Customer-only GitHub/Pages scope persists; administrator stays local. See docs/execution/JOURNAL_READABILITY_20261006.md.
 
 

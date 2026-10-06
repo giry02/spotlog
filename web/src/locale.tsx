@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 
 export type Locale = 'ko' | 'en';
+// English reading is temporarily disabled for the customer release.
+export const ENGLISH_READING_ENABLED: boolean = false;
 export const uiMessages = {
   ko: {
     home: '홈', community: '여행기', discover: '장소', trips: '내 여행', saved: '저장', profile: '프로필',
@@ -58,11 +60,13 @@ const LocaleContext = createContext<LocaleContextValue>({ locale: 'ko', setLocal
 const LANGUAGE_KEY = 'spotlog.ui.language.v1';
 
 export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, updateLocale] = useState<Locale>(() => {
+  const [preferredLocale, updateLocale] = useState<Locale>(() => {
     try { return localStorage.getItem(LANGUAGE_KEY) === 'en' ? 'en' : 'ko'; } catch { return 'ko'; }
   });
+  const locale = ENGLISH_READING_ENABLED ? preferredLocale : 'ko';
   useEffect(() => { document.documentElement.lang = locale; }, [locale]);
   const setLocale = (value: Locale) => {
+    if (!ENGLISH_READING_ENABLED) return;
     updateLocale(value);
     try { localStorage.setItem(LANGUAGE_KEY, value); } catch { /* Language still works for this session. */ }
   };
@@ -122,6 +126,7 @@ export function localizedTripError(locale: Locale, error: unknown): string {
 
 export function LanguageControls() {
   const { locale, setLocale, t } = useLocale();
+  if (!ENGLISH_READING_ENABLED) return null;
   return <div className="guide-language" role="group" aria-label={t('language')}>
     <button type="button" lang="ko" aria-pressed={locale === 'ko'} onClick={() => setLocale('ko')}>한국어</button>
     <button type="button" lang="en" aria-pressed={locale === 'en'} onClick={() => setLocale('en')}>English</button>
