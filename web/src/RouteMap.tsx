@@ -8,6 +8,7 @@ import { useLocale } from './locale';
 import { NaverRouteCanvas } from './NaverRouteCanvas';
 import { adjacentRouteLeg, routeWarnings, type RouteWarning } from './routeWarnings';
 import 'maplibre-gl/dist/maplibre-gl.css';
+import mapWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 export default function RouteMap({ places, selectedVisitId, onSelectVisit, onResolveWarning }: { places: Place[]; selectedVisitId?: string; onSelectVisit?: (id: string) => void; onResolveWarning?: (warning: RouteWarning) => void }) {
   const copy=useUiCopy();
   const {locale}=useLocale(),en=locale==='en';
@@ -57,8 +58,9 @@ export default function RouteMap({ places, selectedVisitId, onSelectVisit, onRes
     let animationFrame: number | null = null;
     let routeOverlay: SVGSVGElement | null = null;
     let detachOverlayListeners: (() => void) | null = null;
-    void import('maplibre-gl').then(({ AttributionControl, LngLatBounds, Map: MapLibreMap, Marker }) => {
+    void import('maplibre-gl').then(({ AttributionControl, LngLatBounds, Map: MapLibreMap, Marker, setWorkerUrl }) => {
       if (disposed) return;
+      setWorkerUrl(mapWorkerUrl);
       const instance = new MapLibreMap({
         container,
         style: {
