@@ -1,3 +1,4 @@
+/** Legacy contract retained for compatibility tests. Customer UI uses the unified EMAIL/GOOGLE/APPLE adapter in socialAccountService.ts. */
 import { isRecord,requestJson,ServiceError,servicePath } from './serviceRequest.ts';
 export interface AccountUser {id:string;displayName:string;email:string}
 export interface AccountAdapter {

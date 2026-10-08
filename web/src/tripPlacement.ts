@@ -1,6 +1,7 @@
 import type { Journey, Place } from './data';
 import { createJourneyFromPlaces } from './journeyCreation';
 import { addVisit } from './visits';
+import { initializeCreatedPlan } from './tripPlan.ts';
 
 export interface TripPlacementRequest {
   journeyId: string | null;
@@ -38,7 +39,7 @@ export function applyTripPlacement(journeys: Journey[], request: TripPlacementRe
     if (request.targetDay > request.dayCount) return { ok: false, error: '선택한 여행 기간 안에서 담을 DAY를 골라 주세요.' };
     const created = createJourneyFromPlaces({ title: request.title, days: request.dayCount, startDate: request.startDate, places: [] }, author);
     if (!created) return { ok: false, error: '여행 제목과 출발 날짜를 확인해 주세요.' };
-    target = { ...created, region: request.region.trim() || [...new Set(places.map((place) => place.area.trim().split(/\s+/)[0]))].filter(Boolean).join(' · ') || '국내', cover: places[0].image, summary: `저장한 ${places.length}곳으로 시작하는 여행입니다.` };
+    target = { ...created, planStage: 'DRAFT', region: request.region.trim() || [...new Set(places.map((place) => place.area.trim().split(/\s+/)[0]))].filter(Boolean).join(' · ') || '국내', cover: places[0].image, summary: `저장한 ${places.length}곳으로 시작하는 여행입니다.` };
   }
 
   let addedCount = 0;
@@ -47,6 +48,7 @@ export function applyTripPlacement(journeys: Journey[], request: TripPlacementRe
     if (next !== target) addedCount += 1;
     target = next;
   }
+  if (request.journeyId === null) target = initializeCreatedPlan(target, author);
   return {
     ok: true,
     journeys: request.journeyId === null ? [target, ...journeys] : journeys.map((journey) => journey.id === target.id ? target : journey),

@@ -1,5 +1,7 @@
 # Expo HAS CHANGED
 
+2026-10-08 customer-only GitHub upload authorized: Publish the current customer review frontend through codex/mobile-foundation and the existing Pages workflow. Include email/social login corrections, consent and privacy screens, error pages, trip candidate review and regional business samples. Keep the administrator local. The explicitly requested prefilled review email login is DEV-only when VITE_ACCOUNT_ENDPOINT is unset; production requires real authentication and must exclude review credentials. See docs/execution/CUSTOMER_FRONTEND_UPLOAD_20261008.md.
+
 Read the exact versioned docs at https://docs.expo.dev/versions/v57.0.0/ before writing any code.
 
 2026-10-06 public deployment authorized: After confirming that GitHub Pages still served the September 18 release, the user explicitly requested deployment. Publish the current customer-only frontend from bebcf2969385719f6ce97ddced1cb5e403cdf1f5 through codex/mobile-foundation and the existing GitHub Pages workflow. Exclude administrator entry/source/config and preserve the original local administrator review checkout. This supersedes earlier no-public-activation restrictions for this customer deployment only. See docs/execution/CUSTOMER_PAGES_DEPLOY_20261006.md.

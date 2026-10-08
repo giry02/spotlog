@@ -12,6 +12,7 @@ export interface JourneyComment {
   id: string;
   journeyId: string;
   author: string;
+  authorId?: string;
   body: string;
   createdAt: string;
   avatar?: string;

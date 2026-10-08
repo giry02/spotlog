@@ -172,8 +172,8 @@ export function AiPlannerSheet({places,savedPlaces,author,draftRef,existingJourn
         <Field label={locale==='en'?'Transport · route unverified':'이동수단 · 경로 검증 전'}><select value={conditions.transport} onChange={e=>change({transport:e.target.value as PlannerConditions['transport']})}><option value="undecided">{say("미정")}</option><option value="walk">{say("도보")}</option><option value="transit">{say("대중교통")}</option><option value="car">{say("자동차")}</option></select></Field>
       </div>
       {error&&<p className="ui-error" role="alert">{say(error)}</p>}
-      <Button type="submit" loading={busy} disabled={needsReset||(conditions.mode==='region'&&!conditions.prompt.trim()&&!conditions.region)}><Sparkles size={17}/>{locale==='en'?'Create draft':'초안 만들기'}</Button>
-      {busy&&<Button type="button" size="compact" variant="ghost" className="ai-planner-cancel" onClick={cancel}>{say("생성 취소 · 입력 유지")}</Button>}
+      <div className="ai-planner-generate"><Button type="submit" loading={busy} disabled={needsReset||(conditions.mode==='region'&&!conditions.prompt.trim()&&!conditions.region)}><Sparkles size={17}/>{locale==='en'?'Create draft':'초안 만들기'}</Button>
+      {busy&&<Button type="button" size="compact" variant="ghost" className="ai-planner-cancel" onClick={cancel}>{say("생성 취소 · 입력 유지")}</Button>}</div>
     </form>:<div className="ai-travel-preview">
       <Button size="compact" variant="secondary" className="ai-planner-back" onClick={()=>{cancel();setConditions(current=>normalizeQuickPlannerConditions(current));setPreview(null);setError('');}}><ArrowLeft size={16}/>{say("조건 바꾸기")}</Button>
       <h3>{preview.data.journey.title}</h3><p className="ai-planner-note">{period(conditions.dayCount,locale)} · {locale==='en'?'Your route is ready to review and save. Change only what you need.':'요청에 맞춰 하루 흐름을 만들었어요. 그대로 저장하고 필요한 곳만 바꿔보세요.'}</p>

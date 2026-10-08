@@ -1,4 +1,5 @@
 import { CARD_SOCIAL_KEY, isCardSocialStore } from './cardSocialState.ts';
+import { PLAN_CREATION_KEY, isPlanCreationDraft } from './planCreationDraft.ts';
 /** Versioned, local-only storage. Legacy records are never deleted by migration. */
 export interface SavedCollection {
   id: string;
@@ -29,6 +30,7 @@ const knownKeys = new Set([
   LIBRARY_KEY,
   CARD_SOCIAL_KEY,
   PLACE_DIRECTORY_KEY,
+  PLAN_CREATION_KEY,
 ]);
 
 type Records = Record<string, string>;
@@ -87,6 +89,20 @@ function isJourney(value: unknown): boolean {
   if (typeof value.isMine !== 'boolean' || !isFiniteNumber(value.saves) || !isStringArray(value.tags) || !Array.isArray(value.days)) return false;
   if (value.trash !== undefined && (!isJourneyTrash(value.trash) || value.visibility !== 'PRIVATE' || value.isMine !== true)) return false;
   if (value.purpose !== undefined && !['PLAN','JOURNAL'].includes(String(value.purpose))) return false;
+  if (value.planStage !== undefined && (value.purpose !== 'PLAN' || value.visibility !== 'PRIVATE' || !['DRAFT','READY'].includes(String(value.planStage)))) return false;
+  if (value.businessCandidates !== undefined) {
+    if (value.purpose !== 'PLAN' || value.visibility !== 'PRIVATE' || value.isMine !== true || !Array.isArray(value.businessCandidates)) return false;
+    const ids = new Set();
+    for (const group of value.businessCandidates) {
+      if (!isObject(group) || !hasStrings(group,['id','dayId','anchorVisitId']) || ids.has(group.id) || !['FOOD','CAFE','STAY'].includes(String(group.kind)) || !optionalString(group.selectedId)) return false;
+      ids.add(group.id);
+      if (group.slot !== undefined && !['morning','lunch','afternoon','dinner','stay'].includes(String(group.slot))) return false;
+      if (!Array.isArray(group.options) || !group.options.length || !group.options.every(option=>isObject(option)&&typeof option.fixed==='boolean'&&isPlace(option.place)&&isObject(option.place)&&option.place.kind===group.kind)) return false;
+      if (new Set(group.options.map(option=>(option as Record<string,Record<string,unknown>>).place.id)).size!==group.options.length) return false;
+      if (group.selectedId !== undefined && !['__keep__','__skip__',...group.options.map(option=>(option as Record<string,Record<string,unknown>>).place.id)].includes(group.selectedId)) return false;
+      if (!value.days.some(day=>isObject(day)&&day.dayId===group.dayId) || !value.days.some(day=>isObject(day)&&Array.isArray(day.places)&&day.places.some(place=>isObject(place)&&place.visitId===group.anchorVisitId&&place.kind==='LANDMARK'))) return false;
+    }
+  }
   if (value.planningPreferences !== undefined && (!isPlanningPreferences(value.planningPreferences) || value.purpose !== 'PLAN' || value.visibility !== 'PRIVATE')) return false;
   if(!optionalString(value.startDate)||!optionalString(value.sourceTripId))return false;
   if (value.travelProgress !== undefined) {
@@ -124,6 +140,7 @@ export function isSavedLibrary(value: unknown): value is SavedLibrary {
 
 function validateValue(key: string, value: unknown): boolean {
   switch (key) {
+    case PLAN_CREATION_KEY: return value === null || isPlanCreationDraft(value);
     case 'spotlog.web.saved.v3': return isStringArray(value);
     case 'spotlog.web.journeys.v4': return Array.isArray(value) && value.every(isJourney);
     case LIBRARY_KEY: return isSavedLibrary(value);
@@ -138,7 +155,8 @@ function validateValue(key: string, value: unknown): boolean {
     case 'spotlog.web.cheers.v1':
       return isObject(value) && Object.values(value).every((cheers) => isObject(cheers)
         && ['LOVE', 'BEST', 'HELPFUL'].every((key) => isFiniteNumber(cheers[key]) && Number(cheers[key]) >= 0)
-        && (cheers.selected === undefined || ['LOVE', 'BEST', 'HELPFUL'].includes(String(cheers.selected))));
+        && (cheers.selected === undefined || ['LOVE', 'BEST', 'HELPFUL'].includes(String(cheers.selected)))
+        && (cheers.selections === undefined || (isObject(cheers.selections) && Object.values(cheers.selections).every(v => ['LOVE', 'BEST', 'HELPFUL'].includes(String(v))))));
     case 'spotlog.web.notifications.v1':
       return isObject(value) && typeof value.enabled === 'boolean' && isFiniteNumber(value.viewMilestone) && value.viewMilestone > 0;
     default: return false;

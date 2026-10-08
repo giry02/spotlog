@@ -1,0 +1,16 @@
+{
+  "fixtureOnly": true,
+  "guest": { "state": "GUEST" },
+  "emailVerificationRequired": { "state": "VERIFICATION_REQUIRED", "email": "sample@example.invalid" },
+  "emailMember": { "state": "SIGNED_IN", "user": { "id": "sample-email-member", "displayName": "인증된 샘플 회원", "provider": "EMAIL", "email": "sample@example.invalid" } },
+  "emailUnverified": { "status": 409, "code": "EMAIL_VERIFICATION_REQUIRED" },
+  "verificationExpired": { "status": 410, "code": "VERIFICATION_EXPIRED" },
+  "pendingSignup": { "state": "PENDING_SIGNUP", "provider": "GOOGLE" },
+  "applePrivateEmailMember": { "state": "SIGNED_IN", "user": { "id": "sample-member-1", "displayName": "샘플 여행자", "provider": "APPLE", "email": "sample@privaterelay.appleid.com" } },
+  "missingEmailMember": { "state": "SIGNED_IN", "user": { "id": "sample-member-2", "displayName": "샘플 여행자", "provider": "GOOGLE", "email": null } },
+  "signupRequiredOnly": { "versions": { "terms": "sample-version-1", "collection": "sample-version-1" }, "accepted": { "terms": true, "collection": true, "age": true, "minimumAge": 14 }, "marketing": { "accepted": false, "version": "sample-version-1" } },
+  "locationConsent": { "accepted": true, "purpose": "NEARBY_SEARCH", "version": "sample-location-1" },
+  "conflict": { "status": 412, "code": "POLICY_VERSION_CHANGED", "message": "최신 공개 문서를 다시 확인하고 동의" },
+  "authenticationExpired": { "status": 401, "code": "SESSION_EXPIRED", "message": "입력을 유지하고 로그인 재개" },
+  "providerDenied": { "state": "GUEST", "reason": "AUTH_CANCELLED", "message": "취소를 회원가입·저장 완료로 취급하지 않음" }
+}

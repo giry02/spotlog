@@ -102,6 +102,9 @@ export interface Journey {
   travelProgress?: TripTravelProgress;
   trash?: { deletedAt: string; expiresAt: string; ownerId: string; previousVisibility: 'PUBLIC' | 'PRIVATE'; previousStatus: JourneyStatus };
   purpose?: 'PLAN' | 'JOURNAL';
+  /** Private shortlist; alternatives are not visits until the customer confirms. */
+  planStage?: 'DRAFT' | 'READY';
+  businessCandidates?: TripCandidateGroup[];
   /** Private planning input. Never copy this into a public journal. */
   planningPreferences?: {
     mode: 'region' | 'saved'; region: string; dayCount: number; startDate: string; prompt: string;
@@ -131,6 +134,16 @@ export interface Journey {
   sourceAuthor?: string;
   recommendationKind?: 'AI';
   recommendationBasis?: 'OFFICIAL_SOURCE_SAMPLE';
+}
+
+export interface TripCandidateGroup {
+  id: string;
+  dayId: string;
+  anchorVisitId: string;
+  kind: 'FOOD' | 'CAFE' | 'STAY';
+  slot?: PlanningSlot;
+  selectedId?: string;
+  options: { place: Place; fixed: boolean }[];
 }
 
 export const discoveryLandmarks: Place[] = [

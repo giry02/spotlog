@@ -1,8 +1,9 @@
 import type { Place } from './data';
+import regionalRecords from './regionalBusinessRecords.json' with { type: 'json' };
 
 export interface PlannerBusinessSource {
   placeId: string;
-  provider: '부산광역시 비짓부산';
+  provider: string;
   providerRecordId: string;
   sourceUrl: string;
   checkedAt: string;
@@ -54,6 +55,15 @@ export const plannerBusinessPlaces: Place[] = records.map(({ recordId: _recordId
   tags: ['공식 관광정보', record.area.split(' ')[1]],
 }));
 
+/** Basic facts checked against official detail/map pages. No borrowed photos, prose or live rates. */
+plannerBusinessPlaces.push(...regionalRecords.map(record => ({
+  id: record.id, kind: record.kind as 'FOOD' | 'CAFE' | 'STAY', name: record.name, area: record.area,
+  address: record.address, lat: record.lat, lng: record.lng, locationVerified: true, image: '',
+  description: `${record.area} 일정에서 비교할 ${record.kind === 'STAY' ? '숙소' : record.kind === 'FOOD' ? '음식점' : '카페'} 후보예요.`,
+  note: '영업 여부와 이용 조건은 방문 전에 확인해 주세요.', duration: record.kind === 'STAY' ? '숙박' : '',
+  tags: ['공식 관광정보', record.area.split(' ')[1]],
+})));
+
 export const plannerBusinessSources: PlannerBusinessSource[] = records.map(record => ({
   placeId: record.id,
   provider: '부산광역시 비짓부산',
@@ -64,4 +74,9 @@ export const plannerBusinessSources: PlannerBusinessSource[] = records.map(recor
   scope: 'name-address-category-coordinate',
 }));
 
+plannerBusinessSources.push(...regionalRecords.map(record => ({
+  placeId: record.id, provider: record.provider, providerRecordId: record.providerRecordId,
+  sourceUrl: record.sourceUrl, checkedAt: '2026-10-06', coordinateReference: '공식 관광 상세 지도 대표 지점' as const,
+  scope: 'name-address-category-coordinate' as const,
+})));
 export const plannerBusinessSourceById = new Map(plannerBusinessSources.map(source => [source.placeId, source]));

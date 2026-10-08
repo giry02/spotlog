@@ -10,6 +10,7 @@ import ts from 'typescript';
 function loadPublicSource() {
   const cache = new Map(), nativeRequire = createRequire(import.meta.url);
   const load = path => {
+    if (extname(path) === '.json') return JSON.parse(readFileSync(path, 'utf8'));
     if (!['.ts', '.tsx', '.js'].includes(extname(path))) return path;
     if (cache.has(path)) return cache.get(path).exports;
     const module = { exports: {} }; cache.set(path, module);

@@ -2,6 +2,7 @@ export class ServiceError extends Error {
   status:number;
   constructor(status:number,message:string){super(message);this.name='ServiceError';this.status=status;}
 }
+export const ACCOUNT_EXPIRED_EVENT = 'spotlog:account-expired';
 /** Relative, same-origin service paths only; provider credentials stay on the server. */
 export function servicePath(path:string):string {
   if(!path.startsWith('/')||path.startsWith('//')||/[\\\r\n#]/.test(path))throw new ServiceError(0,'unconfigured');
@@ -17,7 +18,11 @@ export async function requestJson(path:string,options:RequestInit={},timeoutMs=1
   const headers=new Headers(options.headers);if(!headers.has('Accept'))headers.set('Accept','application/json');
   try {
     const response=await fetch(path,{...options,credentials:'same-origin',cache:'no-store',headers,signal:controller.signal});
-    if(!response.ok)throw new ServiceError(response.status,'request-failed');
+    if(!response.ok){
+      // A rejected member operation invalidates the shared customer identity.
+      if(response.status===401 && !path.startsWith('/api/admin/') && typeof window!=='undefined')window.dispatchEvent(new Event(ACCOUNT_EXPIRED_EVENT));
+      throw new ServiceError(response.status,'request-failed');
+    }
     if(response.status===204)return null;
     try{return await response.json();}catch{if(controller.signal.aborted)throw controller.signal.reason;throw new ServiceError(502,'invalid-response');}
   }catch(error){if(timedOut)throw new ServiceError(504,'timeout');throw error;}

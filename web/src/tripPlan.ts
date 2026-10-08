@@ -1,8 +1,14 @@
 import type { Journey, JourneyDay, Place, PlaceKind } from './data';
 import { normalizeVisits } from './visits.ts';
 import { clearVisitProgress, reconcileTravelProgress } from './tripProgress.ts';
+import { reconcileTripCandidates } from './tripCandidates.ts';
 
 const id = (): string => crypto.randomUUID();
+/** The save button approves a complete route; only actual candidate choices need final review. */
+export function initializeCreatedPlan(source: Journey, author: string): Journey {
+  const journey = normalizePlan(normalizeVisits({ ...source, purpose: 'PLAN', author, isMine: true, visibility: 'PRIVATE' }));
+  return { ...journey, planStage: journey.days.some(day => day.places.length > 0) && !journey.businessCandidates?.length ? 'READY' : 'DRAFT' };
+}
 const planningOrder = ['morning', 'lunch', 'afternoon', 'dinner', 'stay'];
 function withoutPlanningSlot(place: Place): Place {
   const { planningSlot: _planningSlot, ...rest } = place;
@@ -44,11 +50,11 @@ export function normalizePlan(journey: Journey): Journey {
   const normalized=normalizeVisits(journey);
   const first=normalized.days[0]?.date;
   const inferred=isPersonalPlan(journey)&&/^\d{4}-\d{2}-\d{2}$/.test(first??'')&&Number.isFinite(Date.parse(first))&&normalized.days.every((day,index)=>day.date===new Date(Date.parse(`${first}T00:00:00Z`)+index*86400000).toISOString().slice(0,10))?first:undefined;
-  return reconcileTravelProgress({ ...normalized,...(normalized.startDate||inferred?{startDate:normalized.startDate??inferred}:{}), days: normalized.days.map(day => {
+  return reconcileTravelProgress(reconcileTripCandidates({ ...normalized,...(normalized.startDate||inferred?{startDate:normalized.startDate??inferred}:{}), days: normalized.days.map(day => {
     const order=new Map(day.places.map((place,index)=>[place.visitId,index]));
     const cards=day.blocks.filter(block=>block.type==='PLACE').sort((a,b)=>(order.get(a.visitId)??Infinity)-(order.get(b.visitId)??Infinity));let index=0;
     return {...day,dayId:day.dayId??`${journey.id}:day-${day.day}`,blocks:isPersonalPlan(journey)?day.blocks.map(block=>block.type==='PLACE'?cards[index++]:block):day.blocks};
-  }) });
+  }) }));
 }
 export function setPlanDates(journey: Journey, startDate: string): Journey {
   if (startDate && (!/^\d{4}-\d{2}-\d{2}$/.test(startDate) || !Number.isFinite(Date.parse(`${startDate}T00:00:00Z`)) || new Date(`${startDate}T00:00:00Z`).toISOString().slice(0,10) !== startDate)) throw new Error('출발 날짜를 확인해 주세요.');
@@ -162,20 +168,28 @@ function copiedDays(sourceDays: JourneyDay[], itineraryOnly = false): JourneyDay
 }
 export function copyPersonalPlan(source: Journey, author: string): Journey {
   const { publicAuthorId: _publicAuthorId, publicSourceKind: _publicSourceKind, ...clean } = normalizePlan(source);
+  const days = copiedDays(clean.days, true);
+  const businessCandidates = clean.businessCandidates?.map(group => {
+    const dayIndex = clean.days.findIndex(day => day.dayId === group.dayId);
+    const anchorDay = clean.days.findIndex(day => day.places.some(place => place.visitId === group.anchorVisitId));
+    const anchorIndex = clean.days[anchorDay].places.findIndex(place => place.visitId === group.anchorVisitId);
+    return { ...structuredClone(group), id: id(), dayId: days[dayIndex].dayId!, anchorVisitId: days[anchorDay].places[anchorIndex].visitId! };
+  });
   // Legacy sources are normalized by App before this operation. Authored originals remain untouched.
-  return { ...structuredClone(clean), travelProgress: undefined, id: `trip-${id()}`, purpose: 'PLAN', sourceTripId: undefined, editorDraft: undefined, sourceJourneyId: source.id, sourceAuthor: source.author,
+  return { ...structuredClone(clean), businessCandidates, planStage: clean.planStage === 'DRAFT' ? 'DRAFT' : 'READY', travelProgress: undefined, id: `trip-${id()}`, purpose: 'PLAN', sourceTripId: undefined, editorDraft: undefined, sourceJourneyId: source.id, sourceAuthor: source.author,
     title: `${source.title} · 내 동선`, story: '', summary: '가고 싶은 곳을 내 동선으로 가져왔어요.', status: 'PLANNING', visibility: 'PRIVATE', author, isMine: true, saves: 0, views: 0,
-    days: copiedDays(clean.days, true),
+    days,
   };
 }
 export function makeJournalFromPlan(source: Journey, author: string): Journey {
   if (!isPersonalPlan(source)) throw new Error('내 여행에서 여행기를 만들 수 있어요.');
+  if (source.planStage === 'DRAFT' || source.businessCandidates?.length) throw new Error('후보를 먼저 확인하고 내 여행을 완성해 주세요.');
   const days = copiedDays(normalizePlan(source).days, true).map(day => {
     const { planningGaps: _planningGaps, ...journalDay } = day;
     return { ...journalDay, places: day.places.map(place => ({ ...withoutPlanningSlot(place), note: '', move:undefined, bookingFixed: undefined })) };
   });
   const { publicAuthorId: _publicAuthorId, publicSourceKind: _publicSourceKind, ...journalSource } = source;
-  return { ...structuredClone(journalSource), travelProgress: undefined, id: `journal-${id()}`, purpose: 'JOURNAL', sourceTripId: source.id, planningPreferences: undefined, editorDraft: undefined, title: source.title,
+  return { ...structuredClone(journalSource), businessCandidates: undefined, planStage: undefined, travelProgress: undefined, id: `journal-${id()}`, purpose: 'JOURNAL', sourceTripId: source.id, planningPreferences: undefined, editorDraft: undefined, title: source.title,
     status: 'PLANNING', visibility: 'PRIVATE', story: '', summary: '', author, isMine: true, saves: 0, views: 0, days };
 }
 export function copyPlanDay(journey: Journey, dayId: string): Journey {
