@@ -4,6 +4,8 @@
 
 화면은 Spotlog 스타일의 모바일 대화와 기능 카드로 유지합니다. Flowise는 질문을 해석하고 도구를 선택하며 답변을 만듭니다. 모델이 HTML을 생성하지 않습니다. 서버가 검증한 기능 결과에 따라 비교·상세·예산·일정 등 준비된 카드가 나타납니다. 기존 화면을 다른 챗봇 위젯으로 교체할 필요가 없습니다.
 
+여행을 준비할 때는 장소를 하나 고른 즉시 숙소로 넘어가지 않습니다. 여러 장소를 먼저 담고 각 장소 주변의 식당·카페를 계속 담은 뒤, 원할 때만 숙소를 추가하고 모아 둔 항목 전체로 일정을 만듭니다. `collectedIds`는 이번 여행의 담은 항목이고 `savedIds`는 장기 찜입니다. 담은 항목은 같은 지역의 알려진 ID 최대 30개이며 중복되지 않습니다. 숙소를 담거나 명시적으로 선택하지 않았으면 일정을 만들 때 가상 숙소를 자동으로 넣지 않습니다. 이미 예약한 숙소는 유지합니다.
+
 ## 실제 연결 경로
 
 ```text
@@ -48,7 +50,14 @@ URL은 서버가 고정합니다. 클라이언트와 모델에서 endpoint·API 
     "state": { "region": null, "days": 1, "booked": false },
     "candidates": { "places": [], "food": [], "stays": [] },
     "savedTrips": [],
-    "allowedToolTypes": ["region", "configure", "place", "build"]
+    "allowedToolTypes": [
+      "region",
+      "configure",
+      "collect-entity",
+      "uncollect-entity",
+      "show",
+      "build"
+    ]
   }
 }
 ```
@@ -57,7 +66,7 @@ URL은 서버가 고정합니다. 클라이언트와 모델에서 endpoint·API 
 
 Flowise의 Configuration Override는 기본적으로 제한됩니다. 해당 배포의 설정에서 세션 전달을 확인하고 필요한 항목만 허용하세요. 현재 어댑터는 임의 노드 설정이나 `$vars`를 바꾸지 않습니다. context를 `question`에 포함하므로 별도의 변수 override를 넓게 열 필요가 없습니다.
 
-바로 옮길 파일을 함께 제공합니다. [시스템 지침](flowise-system-prompt.txt)은 LLM의 System 메시지에 그대로 붙입니다. [닫힌 전체 출력 스키마](flowise-output.schema.json)는 30개 허용 행동의 필수/선택 필드, enum, 정수 범위, ID 형식과 추가 필드 금지를 모두 포함합니다. `reset/undo/resume/message`는 모델 행동에서 제외했습니다.
+바로 옮길 파일을 함께 제공합니다. [시스템 지침](flowise-system-prompt.txt)은 LLM의 System 메시지에 그대로 붙입니다. [닫힌 전체 출력 스키마](flowise-output.schema.json)는 32개 허용 행동의 필수/선택 필드, enum, 정수 범위, ID 형식과 추가 필드 금지를 모두 포함합니다. `reset/undo/resume/message`는 모델 행동에서 제외했습니다.
 
 Flowise Agentflow V2 기본 LLM의 JSON Structured Output은 Key/Type 행을 구성하는 방식입니다. 이 편집기의 JSON Array 항목은 property-map을 받아 변환하므로, 전체 JSON Schema 파일의 `oneOf`와 `$defs`를 그대로 붙여 넣는 방식과 다릅니다. 이 차이는 [공식 노드 정의](https://github.com/FlowiseAI/Flowise/blob/main/packages/components/nodes/agentflow/LLM/LLM.ts)와 [출력 변환 코드](https://github.com/FlowiseAI/Flowise/blob/main/packages/components/src/utils.ts)로 확인했습니다.
 
@@ -73,6 +82,8 @@ JSON Schema 전체를 지원하는 노드나 별도 검증 코드에는 `flowise
 message는 4000자 이내의 일반 텍스트다. HTML·외부 URL·실행 코드·임의 state를 넣지 않는다.
 actions는 최대 4개이고 순서대로 실행된다. 질문에 필요한 기능만 선택한다.
 알려진 후보와 현재 일정·저장한 여행의 ID를 사용한다. 모르는 ID를 만들지 않는다.
+여러 장소·식당·카페는 collect-entity로 쌓고 기존 담은 항목을 유지한다.
+숙소는 요청할 때만 찾고 담는다. 선택하지 않은 숙소를 build에서 자동으로 넣지 않는다.
 카페와 식당 선택을 구분하고 현재 도보·음식·가격·지역 조건을 유지한다.
 현재에 없는 DAY를 지정하지 않는다. days를 먼저 configure 한 뒤 필요한 DAY를 사용한다.
 예약한 숙소의 방문을 교체·삭제·다른 DAY 이동·새 지역으로 재작성하지 않는다.
@@ -101,12 +112,12 @@ reset/undo/resume은 서버가 명시적인 사용자 제어 문구로 처리하
 
 ```json
 {
-  "message": "제주에서 협재해변을 시작으로 이틀 여행 초안을 만들었어요. 식당과 숙소는 체험 후보예요.",
+  "message": "협재해변과 오설록을 이번 여행에 담았어요. 주변 식당·카페를 더 찾거나 담은 곳으로 일정을 만들 수 있어요.",
   "actions": [
     { "type": "region", "region": "제주" },
-    { "type": "configure", "days": 2, "meals": true, "lodging": true },
-    { "type": "place", "id": "hyeopjae" },
-    { "type": "build" }
+    { "type": "collect-entity", "id": "hyeopjae" },
+    { "type": "collect-entity", "id": "osulloc" },
+    { "type": "show", "stage": "collection" }
   ]
 }
 ```
@@ -115,24 +126,25 @@ reset/undo/resume은 서버가 명시적인 사용자 제어 문구로 처리하
 
 ## 기능과 도구의 대응
 
-| 사용자 요청/화면 기능                 | TripAction                                                   | 실제 서비스 연결 시 역할                                          |
-| ------------------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------------- |
-| 지역·기간·여행 조건 설정              | `region`, `configure`                                        | 지원 지역/기간과 사용자 여행 조건 저장                            |
-| 장소·식당·카페·숙소 후보              | `show`, `place`, `food`, `stay`, `select-entity`             | Spotlog DB/검색 결과 ID를 검증해 선택                             |
-| 분위기가 비슷한 곳                    | 현재 체험의 질문 해석/후보 정렬                              | 실제 유사도 검색 결과를 받아 현재 후보로 등록 후 선택             |
-| 도보·메뉴·숙박비 조건                 | `walk`, `cuisine`, `stay-budget`, `configure.foodBudget`     | 검색 조건 변경과 재조회                                           |
-| 가게·장소 상세                        | `detail {id?}`                                               | 사진·메뉴·시설·주소·운영 출처 조회                                |
-| 후보 2–3개 비교                       | `compare {ids?}`                                             | 같은 종류의 항목 비교 데이터                                      |
-| 선택한 곳으로 일정                    | `build {savedOnly?}`                                         | 여행 초안 생성, 예약 숙소 유지                                    |
-| DAY 변경·방문 추가                    | `day`, `add-selected`, `add-entity {id,day?}`                | 특정 여행 날짜에 장소 ID 추가                                     |
-| 한 방문 교체·삭제·순서 변경·날짜 이동 | `edit`, `remove`, `move {id,direction}`, `transfer {id,day}` | 해당 방문만 수정; 잠긴 숙소 변경 금지                             |
-| 찜·저장한 여행                        | `bookmark {id,saved?}`, `save`, `open`, `library`            | 인증된 사용자의 찜/여행 DB 읽기·쓰기                              |
-| 방문 완료·건너뜀·다음 장소            | `progress {id,status}`, `show:progress`                      | 사용자별 여행 진행 상태                                           |
-| 길찾기·실제 업체 찾기                 | `directions`, `show:external`                                | 검증된 좌표/업체 링크로 지도 앱 연결                              |
-| 여행 예산                             | `budget {people?,rooms?}`                                    | 인원/객실/박수별 알려진 비용과 미포함 비용 계산                   |
-| 일정 점검                             | `check`                                                      | 날짜·중복·미정 항목 점검; 실제 시간 검사는 영업시간/경로 API 필요 |
-| 도움말·대화 기록                      | `help`, `history`                                            | 기능 안내와 기존 결과의 위치 표시                                 |
-| 초기화·실행 취소·이전 결과 이어가기   | 명시적 사용자 문구 → `reset`, `undo`, `resume`               | 모델이 임의로 제어하지 않는 대화 상태 전환                        |
+| 사용자 요청/화면 기능                  | TripAction                                                        | 실제 서비스 연결 시 역할                                          |
+| -------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| 지역·기간·여행 조건 설정               | `region`, `configure`                                             | 지원 지역/기간과 사용자 여행 조건 저장                            |
+| 장소·식당·카페·숙소 후보               | `show`, `place`, `food`, `stay`, `select-entity`                  | Spotlog DB/검색 결과 ID를 검증해 선택                             |
+| 분위기가 비슷한 곳                     | 현재 체험의 질문 해석/후보 정렬                                   | 실제 유사도 검색 결과를 받아 현재 후보로 등록 후 선택             |
+| 도보·메뉴·숙박비 조건                  | `walk`, `cuisine`, `stay-budget`, `configure.foodBudget`          | 검색 조건 변경과 재조회                                           |
+| 가게·장소 상세                         | `detail {id?}`                                                    | 사진·메뉴·시설·주소·운영 출처 조회                                |
+| 후보 2–3개 비교                        | `compare {ids?}`                                                  | 같은 종류의 항목 비교 데이터                                      |
+| 여러 장소·식당·카페를 이번 여행에 담기 | `collect-entity {id}`, `uncollect-entity {id}`, `show:collection` | 장기 찜과 별도로 같은 지역 항목을 모으고 전체 목록 확인           |
+| 선택한 곳으로 일정                     | `build {savedOnly?}`                                              | 담은 항목 전체로 여행 초안 생성, 예약 숙소 유지                   |
+| DAY 변경·방문 추가                     | `day`, `add-selected`, `add-entity {id,day?}`                     | 특정 여행 날짜에 장소 ID 추가                                     |
+| 한 방문 교체·삭제·순서 변경·날짜 이동  | `edit`, `remove`, `move {id,direction}`, `transfer {id,day}`      | 해당 방문만 수정; 잠긴 숙소 변경 금지                             |
+| 찜·저장한 여행                         | `bookmark {id,saved?}`, `save`, `open`, `library`                 | 인증된 사용자의 찜/여행 DB 읽기·쓰기                              |
+| 방문 완료·건너뜀·다음 장소             | `progress {id,status}`, `show:progress`                           | 사용자별 여행 진행 상태                                           |
+| 길찾기·실제 업체 찾기                  | `directions`, `show:external`                                     | 검증된 좌표/업체 링크로 지도 앱 연결                              |
+| 여행 예산                              | `budget {people?,rooms?}`                                         | 인원/객실/박수별 알려진 비용과 미포함 비용 계산                   |
+| 일정 점검                              | `check`                                                           | 날짜·중복·미정 항목 점검; 실제 시간 검사는 영업시간/경로 API 필요 |
+| 도움말·대화 기록                       | `help`, `history`                                                 | 기능 안내와 기존 결과의 위치 표시                                 |
+| 초기화·실행 취소·이전 결과 이어가기    | 명시적 사용자 문구 → `reset`, `undo`, `resume`                    | 모델이 임의로 제어하지 않는 대화 상태 전환                        |
 
 `configure`의 허용 필드는 `days:1–3`, `theme:all|sea|green`, `foodBudget:1–1000000|null`, `booked/meals/cafes/lodging:boolean`뿐입니다. `budget`은 `people:1–20`, `rooms:1–10`, `walk`는 `1–20분`, `stay-budget`은 `1–1000000원`입니다. `compare.ids`는 알려진 ID 2–3개입니다. `directions`는 현재 방문 `id`, 장소 `placeId`, 업체 `businessId` 중 하나만 받습니다. 입력 텍스트와 모델의 결과로 직접 URL을 실행하지 않습니다.
 
@@ -203,7 +215,7 @@ curl http://localhost:3000/api/chat \
 
 오류 응답은 `{"protocolVersion":1,"error":{"code":"...","message":"..."}}`입니다. 화면은 기존 대화와 일정을 유지하고 재시도할 수 있습니다. 400은 잘못된 입력, 403은 다른 origin, 409는 revision 불일치, 413은 요청/기록 범위 초과, 415는 JSON 이외의 형식, 502는 외부 응답/기능 검증 실패, 503은 연결 설정 오류, 504는 응답 시간 초과입니다. 외부 오류 내용이나 자격 증명을 응답에 넣지 않습니다.
 
-한 요청은 최대 1MiB, turn 120개, 저장 여행 50개, 여행 방문 60개로 제한합니다. 모델 응답은 128KiB, 기능 실행은 최대 4개입니다. 이 한도는 데모용 운영 보호 장치이며 서버 DB를 대신하지 않습니다.
+한 요청은 최대 1MiB, turn 120개, 저장 여행 50개, 여행 방문 60개, 이번 여행에 담은 항목 30개로 제한합니다. 모델 응답은 128KiB, 기능 실행은 최대 4개입니다. 기존 저장 대화에서 `collectedIds`가 없는 경우는 빈 컬렉션으로 취급하므로 이전 세션을 계속 사용할 수 있습니다. 이 한도는 데모용 운영 보호 장치이며 서버 DB를 대신하지 않습니다.
 
 ## 실제 Spotlog로 전환할 때 남은 일
 

@@ -6,6 +6,7 @@ import {
   nextQuestions,
   placeResults,
   stayResults,
+  MAX_COLLECTED_ENTITIES,
   type SavedPlan,
   type Stage,
   type TripAction,
@@ -72,6 +73,7 @@ const stages: Stage[] = [
   'history',
   'help',
   'answer',
+  'collection',
 ];
 const fail = (message = '요청 내용을 확인해 주세요.'): never => {
   throw new ChatContractError('INVALID_REQUEST', message);
@@ -126,6 +128,13 @@ function entity(value: unknown): string {
   if (!findPlace(result) && !findFood(result) && !findStay(result))
     fail('존재하지 않는 장소 또는 업체예요.');
   return result;
+}
+function entityRegion(entityId: string): string | undefined {
+  return (
+    findPlace(entityId)?.region ??
+    findStay(entityId)?.region ??
+    findPlace(findFood(entityId)?.placeId ?? null)?.region
+  );
 }
 function place(value: unknown): string {
   const result = id(value);
@@ -222,6 +231,7 @@ function validateState(value: unknown): TripState {
     'cafes',
     'lodging',
     'savedIds',
+    'collectedIds',
     'plan',
     'editingId',
     'activeDay',
@@ -263,6 +273,19 @@ function validateState(value: unknown): TripState {
   for (const key of ['booked', 'meals', 'cafes', 'lodging']) boolean(s[key]);
   const savedIds = array(s.savedIds, 20).map(place);
   unique(savedIds);
+  if (s.collectedIds !== undefined) {
+    const collectedIds = array(s.collectedIds, MAX_COLLECTED_ENTITIES).map(
+      entity,
+    );
+    unique(collectedIds);
+    const collectedRegions = new Set(collectedIds.map(entityRegion));
+    if (
+      collectedRegions.size > 1 ||
+      (s.region !== null &&
+        collectedIds.some((itemId) => entityRegion(itemId) !== s.region))
+    )
+      fail('담은 장소와 업체는 같은 지역이어야 해요.');
+  }
   const visits = validateVisits(s.plan, s.days as number, s.region);
   const visitId = (v: unknown) => {
     if (!visits.some((visit) => visit.id === id(v))) fail();
@@ -430,6 +453,8 @@ export function parseTripAction(value: unknown): TripAction {
       integer(a.day, 1, 3);
       break;
     case 'select-entity':
+    case 'collect-entity':
+    case 'uncollect-entity':
       keys(a, ['type', 'id']);
       entity(a.id);
       break;
@@ -539,6 +564,8 @@ const modelActionTypes = new Set([
   'add-entity',
   'select-entity',
   'configure',
+  'collect-entity',
+  'uncollect-entity',
 ]);
 export function parseModelReply(value: unknown): ModelReply {
   try {
@@ -575,6 +602,7 @@ function currentEntityIds(s: TripState): Set<string> {
       (v): v is string => Boolean(v),
     ),
     ...(s.comparisonIds ?? []),
+    ...(s.collectedIds ?? []),
   ]);
 }
 export function validateActionContext(
@@ -632,6 +660,25 @@ export function validateActionContext(
     if (selectedStay && (s.booked || selectedStay.price > s.stayBudget))
       fail('현재 조건에서 선택할 수 없는 숙소예요.');
   }
+  if (action.type === 'collect-entity') {
+    const collection = s.collectedIds ?? [];
+    const activeRegion =
+      s.region ?? (collection[0] ? entityRegion(collection[0]) : undefined);
+    if (activeRegion && entityRegion(action.id) !== activeRegion)
+      fail('같은 지역의 장소와 업체를 담아 주세요.');
+    if (
+      !collection.includes(action.id) &&
+      collection.length >= MAX_COLLECTED_ENTITIES
+    )
+      fail('이번 여행에 담을 수 있는 항목 수를 넘었어요.');
+    if (s.booked && findStay(action.id))
+      fail('예약한 숙소를 유지해요. 새 숙소를 자동으로 담지 않아요.');
+  }
+  if (
+    action.type === 'uncollect-entity' &&
+    !(s.collectedIds ?? []).includes(action.id)
+  )
+    fail('현재 담은 항목에서 찾을 수 없어요.');
   if (model) {
     if (!modelActionTypes.has(action.type)) fail();
     const available = currentEntityIds(s);
@@ -644,6 +691,8 @@ export function validateActionContext(
               'detail',
               'add-entity',
               'select-entity',
+              'collect-entity',
+              'uncollect-entity',
             ].includes(action.type)
           ? [actionFields.id].filter((v): v is string => typeof v === 'string')
           : action.type === 'directions'

@@ -57,7 +57,7 @@ export const scenarios = [
   {
     id: 'coast',
     title: '장소부터 하나씩',
-    subtitle: '장소 → 식당 → 숙소 → 내 여행',
+    subtitle: '여러 장소·맛집 담기 → 내 여행',
     prompt: '제주에서 바다 볼 만한 곳 찾아줘',
     image: '/images/hyeopjae-scenery.jpg',
     label: '차근차근',

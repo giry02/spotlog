@@ -37,8 +37,12 @@ export function visibleChatCandidates(s: TripState): ChatCandidate[] {
     name: p.name,
     kind: 'place',
   });
-  if (s.stage === 'compare')
-    return (s.comparisonIds ?? []).flatMap((id) => {
+  if (s.stage === 'compare' || s.stage === 'collection')
+    return (
+      s.stage === 'collection'
+        ? (s.collectedIds ?? [])
+        : (s.comparisonIds ?? [])
+    ).flatMap((id) => {
       const p = findPlace(id),
         f = findFood(id),
         h = findStay(id);
@@ -373,6 +377,17 @@ export const chatHelpGroups = [
       '식당 1만5천원 이하로',
       '숙소 10만원 이하로',
       '바다 앞 한상 영업시간 알려줘',
+    ],
+  },
+  {
+    title: '이번 여행에 여러 곳 담기',
+    examples: [
+      '협재 여행에 담아줘',
+      '오설록도 담아줘',
+      '바다 앞 한상도 담아줘',
+      '담은 곳 보여줘',
+      '협재 담은 목록에서 빼줘',
+      '담은 곳으로 일정 짜줘',
     ],
   },
   {

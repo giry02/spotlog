@@ -38,7 +38,7 @@ const {
 } = await import('../lib/chat-contract.ts');
 const { createTripSession, currentTrip, appendTrip } =
   await import('../lib/trip-engine.ts');
-const { predictFlowise, readFlowiseConfig } =
+const { predictFlowise, readFlowiseConfig, modelContext } =
   await import('../lib/flowise-adapter.ts');
 const { POST } = await import('../app/api/chat/route.ts');
 const { env } = await import('cloudflare:workers');
@@ -127,6 +127,188 @@ test('mismatched base revision cannot replace a newer session', () => {
   assert.throws(
     () => parseChatRequest({ ...request(), baseRevision: 2 }),
     errorCode('REVISION_MISMATCH'),
+  );
+});
+
+test('older sessions without collection fields remain compatible', () => {
+  const session = createTripSession();
+  for (const turn of session.turns) delete turn.state.collectedIds;
+  assert.ok(parseTripSession(session));
+  assert.ok(parseChatRequest(request(session)));
+  assert.deepEqual(modelContext(request(session)).state.collectedIds, []);
+});
+
+test('collected IDs must be bounded, canonical, unique and in the same region', () => {
+  const valid = createTripSession();
+  Object.assign(currentTrip(valid), {
+    region: '제주',
+    collectedIds: ['hyeopjae', 'hj-rice', 'hj-cafe'],
+  });
+  assert.ok(parseTripSession(valid));
+  for (const collectedIds of [
+    ['hyeopjae', 'hyeopjae'],
+    ['fake-business'],
+    ['hyeopjae', 'seoulforest'],
+    ['sf-cafe'],
+    Array.from({ length: 31 }, () => 'hyeopjae'),
+  ]) {
+    const session = structuredClone(valid);
+    currentTrip(session).collectedIds = collectedIds;
+    assert.throws(
+      () => parseTripSession(session),
+      errorCode('INVALID_REQUEST'),
+    );
+  }
+});
+
+test('collection actions parse closed fields and respect current region and collection IDs', () => {
+  const session = createTripSession();
+  Object.assign(currentTrip(session), {
+    region: '제주',
+    collectedIds: ['hyeopjae'],
+  });
+  assert.equal(
+    parseChatRequest(
+      request(session, { type: 'collect-entity', id: 'osulloc' }),
+    ).action.type,
+    'collect-entity',
+  );
+  assert.equal(
+    parseChatRequest(
+      request(session, { type: 'uncollect-entity', id: 'hyeopjae' }),
+    ).action.type,
+    'uncollect-entity',
+  );
+  assert.throws(
+    () =>
+      parseChatRequest(
+        request(session, { type: 'collect-entity', id: 'seoulforest' }),
+      ),
+    errorCode('INVALID_REQUEST'),
+  );
+  assert.throws(
+    () =>
+      parseChatRequest(
+        request(session, { type: 'uncollect-entity', id: 'osulloc' }),
+      ),
+    errorCode('INVALID_REQUEST'),
+  );
+  assert.throws(
+    () =>
+      parseModelReply({
+        message: '담았어요',
+        actions: [{ type: 'collect-entity', id: 'hyeopjae', saved: true }],
+      }),
+    errorCode('MODEL_OUTPUT_INVALID'),
+  );
+  assert.ok(
+    modelContext(request(session)).allowedToolTypes.includes('collect-entity'),
+  );
+});
+
+test('model collection batches preserve prior picks, deduplicate, and use current candidates', () => {
+  const session = appendTrip(createTripSession(['saebyeol']), {
+    type: 'place',
+    id: 'hyeopjae',
+  });
+  const input = request(session, {
+    type: 'message',
+    text: '협재해변과 오설록을 이번 여행에 담아줘',
+  });
+  const before = JSON.stringify(session);
+  const result = applyModelReply(
+    input,
+    parseModelReply({
+      message: '두 장소를 담았어요.',
+      actions: [
+        { type: 'collect-entity', id: 'hyeopjae' },
+        { type: 'collect-entity', id: 'osulloc' },
+        { type: 'collect-entity', id: 'hyeopjae' },
+        { type: 'show', stage: 'collection' },
+      ],
+    }),
+  );
+  assert.deepEqual(currentTrip(result).collectedIds, ['hyeopjae', 'osulloc']);
+  assert.deepEqual(currentTrip(result).savedIds, ['saebyeol']);
+  assert.equal(currentTrip(result).stage, 'collection');
+  assert.equal(result.turns.length, session.turns.length + 1);
+  assert.equal(JSON.stringify(session), before);
+  const invalid = parseModelReply({
+    message: '새 식당도 담았어요.',
+    actions: [{ type: 'collect-entity', id: 'of-rice' }],
+  });
+  assert.throws(
+    () => applyModelReply(input, invalid),
+    errorCode('MODEL_ACTION_INVALID'),
+  );
+  assert.equal(JSON.stringify(session), before);
+});
+
+test('uncollect removes only the trip collection while long-term favorites stay intact', () => {
+  const session = createTripSession(['hyeopjae']);
+  Object.assign(currentTrip(session), {
+    region: '제주',
+    collectedIds: ['hyeopjae', 'osulloc'],
+  });
+  const result = applyModelReply(
+    request(session),
+    parseModelReply({
+      message: '이번 여행에서 협재해변만 뺐어요.',
+      actions: [{ type: 'uncollect-entity', id: 'hyeopjae' }],
+    }),
+  );
+  assert.deepEqual(currentTrip(result).collectedIds, ['osulloc']);
+  assert.deepEqual(currentTrip(result).savedIds, ['hyeopjae']);
+});
+
+test('collection to itinerary uses every collected entity without unsolicited lodging', () => {
+  const session = createTripSession();
+  Object.assign(currentTrip(session), {
+    region: '제주',
+    days: 2,
+    anchorId: 'hyeopjae',
+    collectedIds: ['hyeopjae', 'osulloc', 'hj-rice', 'of-cafe'],
+  });
+  const result = applyModelReply(
+    request(session, { type: 'message', text: '담은 곳으로 이틀 일정 짜줘' }),
+    parseModelReply({
+      message: '담은 곳으로 일정을 만들었어요.',
+      actions: [{ type: 'build' }],
+    }),
+  );
+  for (const entityId of currentTrip(session).collectedIds)
+    assert.ok(currentTrip(result).plan.some((v) => v.entityId === entityId));
+  assert.ok(currentTrip(result).plan.every((v) => v.kind !== 'stay'));
+});
+
+test('collection rebuild preserves booked visit identity so the model guard remains strict', () => {
+  let session = appendTrip(createTripSession(), {
+    type: 'message',
+    text: '제주 1박 2일 일정 짜줘. 숙소는 이미 예약했어',
+  });
+  const lockedBefore = structuredClone(
+    currentTrip(session).plan.filter((v) => v.locked),
+  );
+  assert.ok(lockedBefore.length);
+  session = appendTrip(session, { type: 'collect-entity', id: 'hyeopjae' });
+  session = appendTrip(session, { type: 'collect-entity', id: 'hj-rice' });
+  const result = applyModelReply(
+    request(session, {
+      type: 'message',
+      text: '담은 곳으로 일정 만들고 예약한 숙소는 유지해줘',
+    }),
+    parseModelReply({
+      message: '담은 방문과 예약한 숙소를 이어서 배치했어요.',
+      actions: [{ type: 'build' }],
+    }),
+  );
+  assert.deepEqual(
+    currentTrip(result).plan.filter((v) => v.locked),
+    lockedBefore,
+  );
+  assert.equal(
+    new Set(currentTrip(result).plan.map((v) => v.id)).size,
+    currentTrip(result).plan.length,
   );
 });
 

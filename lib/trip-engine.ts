@@ -28,7 +28,9 @@ export type Stage =
   | 'library'
   | 'history'
   | 'help'
-  | 'answer';
+  | 'answer'
+  | 'collection';
+export const MAX_COLLECTED_ENTITIES = 30;
 export type Visit = {
   id: string;
   day: number;
@@ -61,6 +63,7 @@ export type TripState = {
   cafes: boolean;
   lodging: boolean;
   savedIds: string[];
+  collectedIds?: string[];
   plan: Visit[];
   editingId: string | null;
   activeDay: number;
@@ -125,6 +128,8 @@ export type TripAction =
   | { type: 'transfer'; id: string; day: number }
   | { type: 'add-entity'; id: string; day?: number }
   | { type: 'select-entity'; id: string }
+  | { type: 'collect-entity'; id: string }
+  | { type: 'uncollect-entity'; id: string }
   | {
       type: 'configure';
       days?: number;
@@ -159,6 +164,7 @@ export function initialTrip(savedIds: string[] = []): TripState {
     cafes: false,
     lodging: true,
     savedIds: [...savedIds],
+    collectedIds: [],
     plan: [],
     editingId: null,
     activeDay: 1,
@@ -232,6 +238,7 @@ export function isTripSession(value: unknown): value is TripSession {
           'history',
           'help',
           'answer',
+          'collection',
         ].includes(s.stage) &&
         typeof s.question === 'string' &&
         typeof s.notice === 'string' &&
@@ -242,6 +249,11 @@ export function isTripSession(value: unknown): value is TripSession {
         ['식당', '카페'].includes(s.foodKind) &&
         Array.isArray(s.savedIds) &&
         s.savedIds.every((id) => Boolean(findPlace(id))) &&
+        (s.collectedIds === undefined ||
+          (Array.isArray(s.collectedIds) &&
+            s.collectedIds.length <= MAX_COLLECTED_ENTITIES &&
+            new Set(s.collectedIds).size === s.collectedIds.length &&
+            s.collectedIds.every((id) => Boolean(chatEntity(id))))) &&
         (s.comparisonIds === undefined ||
           (Array.isArray(s.comparisonIds) &&
             s.comparisonIds.length <= 3 &&
@@ -280,6 +292,7 @@ export function isTripSession(value: unknown): value is TripSession {
 const copy = (s: TripState): TripState => ({
   ...s,
   savedIds: [...s.savedIds],
+  collectedIds: s.collectedIds ? [...s.collectedIds] : [],
   plan: s.plan.map((v) => ({ ...v })),
   comparisonIds: s.comparisonIds ? [...s.comparisonIds] : undefined,
   librarySnapshot: s.librarySnapshot?.map((p) => ({
@@ -348,7 +361,230 @@ export function visitName(v: Visit) {
     )?.name ?? '장소 확인 필요'
   );
 }
+
+function collectionAnchor(id: string): string | null {
+  return (
+    findPlace(id)?.id ?? findFood(id)?.placeId ?? findStay(id)?.near[0] ?? null
+  );
+}
+function collectionRegion(id: string): Region | null {
+  return (findPlace(id)?.region ??
+    findStay(id)?.region ??
+    findPlace(findFood(id)?.placeId ?? null)?.region ??
+    null) as Region | null;
+}
+function focusCollectedEntity(s: TripState, id: string) {
+  const p = findPlace(id),
+    f = findFood(id),
+    h = findStay(id);
+  s.region = collectionRegion(id);
+  if (p) s.anchorId = p.id;
+  else if (f) {
+    s.anchorId = f.placeId;
+    s.foodKind = f.cuisine === '카페' ? '카페' : '식당';
+    if (f.cuisine === '카페') s.cafeId = f.id;
+    else s.foodId = f.id;
+  } else if (h) {
+    s.stayId = h.id;
+    s.lodging = true;
+    if (!s.anchorId || !h.near.includes(s.anchorId)) s.anchorId = h.near[0];
+  }
+}
+function collectEntities(before: TripState, ids: string[]): TripState {
+  const s = copy(before);
+  const distinct = [...new Set(ids)];
+  const regions = distinct.map(collectionRegion);
+  s.stage = 'collection';
+  s.editingId = null;
+  if (!distinct.length || distinct.some((id) => !chatEntity(id)))
+    return {
+      ...s,
+      notice: '담을 장소·식당·카페·숙소의 이름이나 후보 번호를 말해 주세요.',
+    };
+  const activeRegion = s.collectedIds?.length
+    ? collectionRegion(s.collectedIds[0])
+    : s.region;
+  if (
+    new Set(regions).size !== 1 ||
+    (activeRegion && regions[0] !== activeRegion)
+  )
+    return {
+      ...s,
+      notice:
+        '다른 지역은 한 여행에 섞지 않아요. 현재 지역의 장소·식당·카페를 더 담아주세요.',
+    };
+  if (s.booked && distinct.some((id) => findStay(id)))
+    return {
+      ...s,
+      notice:
+        '예약한 숙소는 유지할게요. 담은 장소·식당·카페를 더 고를 수 있어요.',
+    };
+  const next = [...new Set([...(s.collectedIds ?? []), ...distinct])];
+  if (next.length > MAX_COLLECTED_ENTITIES)
+    return {
+      ...s,
+      notice: `한 여행에는 ${MAX_COLLECTED_ENTITIES}곳까지 담을 수 있어요. 필요 없는 후보를 먼저 빼주세요.`,
+    };
+  const added = next.length - (s.collectedIds?.length ?? 0);
+  s.collectedIds = next;
+  focusCollectedEntity(s, distinct[distinct.length - 1]);
+  s.notice = added
+    ? `${added}곳을 여행에 담았어요. 다른 장소와 식당·카페를 계속 담은 뒤, 원할 때 일정으로 만들 수 있어요.`
+    : '이미 담은 곳이에요. 다른 장소와 식당·카페를 계속 찾아보세요.';
+  if (s.days === 1 && distinct.some((id) => findStay(id))) {
+    s.days = 2;
+    s.notice += ' 숙소를 직접 담아 숙박할 수 있도록 1박 2일로 맞췄어요.';
+  }
+  return s;
+}
+function makeCollectedPlan(before: TripState): TripState {
+  const s = copy(before);
+  const ids = s.collectedIds ?? [];
+  if (!ids.length)
+    return {
+      ...s,
+      stage: 'collection',
+      notice: '아직 여행에 담은 곳이 없어요. 장소·식당·카페를 먼저 담아주세요.',
+    };
+  const region = collectionRegion(ids[0]);
+  if (!region || ids.some((id) => collectionRegion(id) !== region))
+    return {
+      ...s,
+      stage: 'collection',
+      notice:
+        '한 지역의 후보만 일정으로 만들 수 있어요. 담은 지역을 확인해 주세요.',
+    };
+  const collectedStays = ids.map(findStay).filter((h) => h !== undefined);
+  const lockedStays = s.plan.filter((v) => v.kind === 'stay' && v.locked);
+  if (lockedStays.some((v) => v.day >= s.days))
+    return {
+      ...s,
+      days: Math.max(
+        s.days,
+        ...s.plan.map((v) => v.day),
+        ...lockedStays.map((v) => v.day + 1),
+      ),
+      stage: 'collection',
+      notice:
+        '예약 숙소가 있는 숙박 날짜는 유지해요. 예약한 기간보다 짧게 일정을 바꾸지 않았어요.',
+    };
+  if (!s.booked && s.days > 1 && collectedStays.length > s.days - 1)
+    return {
+      ...s,
+      stage: 'collection',
+      notice: `숙박은 ${s.days - 1}박인데 숙소 후보가 ${collectedStays.length}곳이에요. 사용할 숙소만 남기거나 여행 기간을 바꿔주세요.`,
+    };
+  const anchors = [
+    ...new Set(ids.filter((id) => !findStay(id)).map(collectionAnchor)),
+  ].filter((id): id is string => Boolean(id));
+  if (!anchors.length && !collectedStays.length)
+    return { ...s, stage: 'collection', notice: '담은 후보를 확인해 주세요.' };
+  const plan: Visit[] = [];
+  const reservedIds = new Set(lockedStays.map((v) => v.id));
+  let serial = 1;
+  const add = (
+    day: number,
+    kind: Visit['kind'],
+    entityId: string | null,
+    anchorId: string,
+    label: string,
+    locked = false,
+  ) => {
+    while (reservedIds.has(`visit-${serial}`)) serial++;
+    plan.push({
+      id: `visit-${serial++}`,
+      day,
+      kind,
+      entityId,
+      anchorId,
+      label,
+      locked,
+    });
+  };
+  const batchSize = Math.max(1, Math.ceil(anchors.length / s.days));
+  const anchorDays = new Map(
+    anchors.map((anchor, i) => [
+      anchor,
+      Math.min(s.days, Math.floor(i / batchSize) + 1),
+    ]),
+  );
+  for (let day = 1; day <= s.days; day++) {
+    for (const anchor of anchors.filter((id) => anchorDays.get(id) === day)) {
+      if (ids.includes(anchor)) add(day, 'place', anchor, anchor, '방문');
+      for (const id of ids) {
+        const food = findFood(id);
+        if (food?.placeId === anchor) {
+          const meals = plan.filter(
+            (v) => v.day === day && v.kind === 'food',
+          ).length;
+          add(
+            day,
+            food.cuisine === '카페' ? 'cafe' : 'food',
+            food.id,
+            anchor,
+            food.cuisine === '카페'
+              ? '카페에서 쉬기'
+              : meals === 0
+                ? '점심'
+                : meals === 1
+                  ? '저녁'
+                  : '추가 식사',
+          );
+        }
+      }
+    }
+    if (day < s.days) {
+      const existingLocked = lockedStays.filter((v) => v.day === day);
+      if (existingLocked.length) {
+        plan.push(...existingLocked.map((v) => ({ ...v })));
+        continue;
+      }
+      const selectedStay = findStay(s.stayId);
+      const chosen =
+        collectedStays[Math.min(day - 1, collectedStays.length - 1)] ??
+        (s.lodging && selectedStay?.region === region
+          ? selectedStay
+          : undefined);
+      const dayAnchor =
+        plan.filter((v) => v.day === day).at(-1)?.anchorId ??
+        anchors.at(-1) ??
+        chosen?.near[0] ??
+        s.anchorId;
+      if (s.booked && dayAnchor)
+        add(day, 'stay', null, dayAnchor, '숙박', true);
+      else if (chosen && dayAnchor)
+        add(
+          day,
+          'stay',
+          chosen.id,
+          chosen.near.includes(dayAnchor) ? dayAnchor : chosen.near[0],
+          '숙박',
+        );
+    }
+  }
+  s.region = region;
+  s.plan = plan;
+  s.stage = 'plan';
+  s.activeDay = 1;
+  s.editingId = null;
+  s.savedPlanId = null;
+  s.anchorId = anchors[0] ?? collectedStays[0]?.near[0] ?? s.anchorId;
+  s.notice =
+    '여행에 담은 장소·식당·카페만 지역별로 연결했어요. 담지 않은 후보는 자동으로 추가하지 않았어요.';
+  if (s.booked && s.days > 1) s.notice += ' 예약한 숙소는 유지했어요.';
+  else if (s.days > 1 && !plan.some((v) => v.kind === 'stay'))
+    s.notice +=
+      ' 숙소는 아직 고르지 않았어요. 원할 때 나중에 추가할 수 있어요.';
+  else if (s.days === 1 && collectedStays.length)
+    s.notice += ' 당일 여행의 숙소 후보는 일정에 넣지 않았어요.';
+  return s;
+}
 export function makePlan(s: TripState, savedOnly = false): TripState {
+  if (
+    !savedOnly &&
+    ((s.collectedIds?.length ?? 0) > 0 || s.stage === 'collection')
+  )
+    return makeCollectedPlan(s);
   const n = copy(s);
   let candidates = savedOnly
     ? places.filter((p) => s.savedIds.includes(p.id))
@@ -517,25 +753,27 @@ function namedEntities(q: string) {
 }
 function chatCandidates(s: TripState) {
   const ids =
-    s.stage === 'compare'
-      ? (s.comparisonIds ?? [])
-      : s.stage === 'detail' && s.detailId
-        ? [s.detailId]
-        : s.stage === 'food'
-          ? foodResults(s).map((p) => p.id)
-          : s.stage === 'stay'
-            ? stayResults(s).map((p) => p.id)
-            : s.stage === 'saved'
-              ? places
-                  .filter(
-                    (p) =>
-                      s.savedIds.includes(p.id) &&
-                      (!s.region || p.region === s.region),
-                  )
-                  .map((p) => p.id)
-              : s.stage === 'place' && s.anchorId
-                ? [s.anchorId]
-                : placeResults(s).map((p) => p.id);
+    s.stage === 'collection'
+      ? (s.collectedIds ?? [])
+      : s.stage === 'compare'
+        ? (s.comparisonIds ?? [])
+        : s.stage === 'detail' && s.detailId
+          ? [s.detailId]
+          : s.stage === 'food'
+            ? foodResults(s).map((p) => p.id)
+            : s.stage === 'stay'
+              ? stayResults(s).map((p) => p.id)
+              : s.stage === 'saved'
+                ? places
+                    .filter(
+                      (p) =>
+                        s.savedIds.includes(p.id) &&
+                        (!s.region || p.region === s.region),
+                    )
+                    .map((p) => p.id)
+                : s.stage === 'place' && s.anchorId
+                  ? [s.anchorId]
+                  : placeResults(s).map((p) => p.id);
   return ids.flatMap((id) => {
     const entity = chatEntity(id);
     return entity ? [entity] : [];
@@ -604,7 +842,7 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
   const choosePlace = (id: string) => {
     const p = findPlace(id);
     if (!p) return;
-    if (s.plan.length && p.region !== s.region) {
+    if ((s.plan.length || s.collectedIds?.length) && p.region !== s.region) {
       s.notice =
         '현재 일정과 같은 지역의 장소를 골라주세요. 다른 지역 여행은 새 일정으로 시작할 수 있어요.';
       return;
@@ -696,9 +934,52 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
       s.stage = 'plan';
       s.editingId = null;
       s.notice = `DAY ${target.day} ${target.label}만 바꿨어요. 다른 방문과 예약 숙소는 유지했어요.`;
+    } else if (kind === 'stay' && s.plan.length && s.collectedIds?.length) {
+      const hotel = findStay(id)!;
+      let added = 0;
+      let serial =
+        Math.max(
+          0,
+          ...s.plan.map((v) => Number(v.id.replace('visit-', '')) || 0),
+        ) + 1;
+      for (let day = 1; day < s.days; day++) {
+        if (s.plan.some((v) => v.day === day && v.kind === 'stay')) continue;
+        const lastAnchor =
+          s.plan.filter((v) => v.day === day).at(-1)?.anchorId ?? s.anchorId;
+        const anchor =
+          lastAnchor && hotel.near.includes(lastAnchor)
+            ? lastAnchor
+            : hotel.near[0];
+        const nextDay = s.plan.findIndex((v) => v.day > day);
+        s.plan.splice(nextDay < 0 ? s.plan.length : nextDay, 0, {
+          id: `visit-${serial++}`,
+          day,
+          kind: 'stay',
+          entityId: hotel.id,
+          anchorId: anchor,
+          label: '숙박',
+          locked: false,
+        });
+        added++;
+      }
+      if (added) {
+        s.stage = 'plan';
+        s.editingId = null;
+        s.notice += `${s.notice ? ' ' : ''}숙소가 없던 ${added}박에 선택한 숙소만 추가했어요. 방문·식사·카페와 다른 숙박은 그대로예요.`;
+      } else
+        s.notice =
+          '이미 숙박이 배치되어 있어요. 숙소를 바꾸려면 해당 DAY의 숙박 항목에서 교체해 주세요.';
     }
   };
   const setRegion = (region: Region) => {
+    if (
+      s.collectedIds?.length &&
+      region !== collectionRegion(s.collectedIds[0])
+    ) {
+      s.notice =
+        '담은 곳과 다른 지역은 한 여행에 섞지 않아요. 현재 담은 곳을 빼거나 새 대화를 시작해 주세요.';
+      return;
+    }
     if (s.region !== region) {
       s.anchorId = null;
       s.foodId = null;
@@ -791,17 +1072,19 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
       s.similarTo = null;
     }
     s.question =
-      action.stage === 'food'
-        ? `여기 주변 ${action.kind ?? '식당'} 찾아줘`
-        : action.stage === 'stay'
-          ? '근처 숙소도 찾아줘'
-          : action.stage === 'saved'
-            ? '찜한 장소 보여줘'
-            : action.stage === 'route'
-              ? '방문 순서 보여줘'
-              : action.stage === 'plan'
-                ? '일정 다시 보여줘'
-                : '다른 장소도 찾아줘';
+      action.stage === 'collection'
+        ? '여행에 담은 곳 보여줘'
+        : action.stage === 'food'
+          ? `여기 주변 ${action.kind ?? '식당'} 찾아줘`
+          : action.stage === 'stay'
+            ? '근처 숙소도 찾아줘'
+            : action.stage === 'saved'
+              ? '찜한 장소 보여줘'
+              : action.stage === 'route'
+                ? '방문 순서 보여줘'
+                : action.stage === 'plan'
+                  ? '일정 다시 보여줘'
+                  : '다른 장소도 찾아줘';
   }
   if (action.type === 'build') {
     s = makePlan(s, action.savedOnly);
@@ -1002,7 +1285,7 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
       const f = findFood(entity.id),
         h = findStay(entity.id);
       const region = h?.region ?? findPlace(f!.placeId)!.region;
-      if (s.plan.length && region !== s.region)
+      if ((s.plan.length || s.collectedIds?.length) && region !== s.region)
         return {
           ...s,
           question: `${entity.name} 선택해줘`,
@@ -1036,6 +1319,50 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
       }
     }
     s.question = `${entity.name} 선택해줘`;
+  }
+  if (action.type === 'collect-entity') {
+    s = collectEntities(before, [action.id]);
+    s.question = `${chatEntity(action.id)?.name ?? '후보'}을 여행에 담아줘`;
+  }
+  if (action.type === 'uncollect-entity') {
+    const wasCollected = s.collectedIds?.includes(action.id);
+    s.stage = 'collection';
+    s.editingId = null;
+    s.question = `${chatEntity(action.id)?.name ?? '후보'}을 담은 곳에서 빼줘`;
+    if (!wasCollected)
+      s.notice =
+        '현재 여행에 담긴 후보가 아니에요. 다른 담은 곳은 그대로 유지했어요.';
+    else {
+      s.collectedIds = (s.collectedIds ?? []).filter((id) => id !== action.id);
+      const removedFocus =
+        s.anchorId === action.id ||
+        s.foodId === action.id ||
+        s.cafeId === action.id ||
+        s.stayId === action.id;
+      if (s.foodId === action.id)
+        s.foodId =
+          [...s.collectedIds]
+            .reverse()
+            .find(
+              (id) => findFood(id)?.cuisine !== '카페' && Boolean(findFood(id)),
+            ) ?? null;
+      if (s.cafeId === action.id)
+        s.cafeId =
+          [...s.collectedIds]
+            .reverse()
+            .find((id) => findFood(id)?.cuisine === '카페') ?? null;
+      if (s.stayId === action.id)
+        s.stayId =
+          [...s.collectedIds].reverse().find((id) => Boolean(findStay(id))) ??
+          null;
+      if (removedFocus) {
+        const remaining = s.collectedIds.at(-1);
+        if (remaining) focusCollectedEntity(s, remaining);
+        else if (s.anchorId === action.id) s.anchorId = null;
+      }
+      s.notice =
+        '이 후보만 담은 곳에서 뺐어요. 다른 후보·찜·저장한 여행은 그대로예요.';
+    }
   }
   if (action.type === 'detail') {
     const selected =
@@ -1199,6 +1526,116 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
     });
     const entities = namedEntities(q),
       ordinal = ordinalNumber(q);
+    if (/담/.test(q) && /방법|어떻게|무슨\s*뜻|설명해/.test(q))
+      return finish({ type: 'help' });
+    if (
+      /담/.test(q) &&
+      /담지\s*(?:마|않)|안\s*담|(?:빼|제거|삭제|담아).*(?:주지\s*마|하지\s*마|말아|아니)/.test(
+        q,
+      )
+    )
+      return {
+        ...s,
+        stage: 'collection',
+        notice: '담은 후보는 그대로 유지했어요.',
+      };
+    if (
+      /담은\s*(?:곳|후보|장소|목록)|여행에\s*담긴/.test(q) &&
+      /빼|제거|삭제/.test(q)
+    ) {
+      const pool = (before.collectedIds ?? []).map((id) => chatEntity(id)!);
+      const target =
+        entities.length === 1
+          ? entities[0]
+          : ordinal
+            ? pool[ordinal === -1 ? pool.length - 1 : ordinal - 1]
+            : undefined;
+      return target
+        ? finish({ type: 'uncollect-entity', id: target.id })
+        : {
+            ...s,
+            stage: 'collection',
+            notice: '담은 곳에서 뺄 후보 이름 하나나 번호를 말해 주세요.',
+          };
+    }
+    if (
+      /담은\s*(?:곳|후보|장소)|여행에\s*담긴/.test(q) &&
+      /일정.*(?:짜|만들)|일정으로/.test(q)
+    ) {
+      const duration = q.match(
+        /(\d)\s*박\s*(\d)\s*일(?!정|차)|(\d)\s*일(?!정|차)/,
+      );
+      if (duration) {
+        const days = Number(duration[2] ?? duration[3]);
+        if (days < 1 || days > 3)
+          return {
+            ...s,
+            stage: 'collection',
+            notice: '이번 체험은 1~3일 여행을 지원해요.',
+          };
+        s.days = days;
+      }
+      if (/당일|반나절/.test(q)) s.days = 1;
+      const built = makeCollectedPlan(s);
+      built.question = q;
+      return built;
+    }
+    if (
+      /담은\s*(?:곳|후보|장소|목록)|여행에\s*담긴/.test(q) &&
+      /보여|보기|확인|목록/.test(q)
+    )
+      return finish({ type: 'show', stage: 'collection' });
+    const collectionRequest =
+      /담아|담기|담을래|담아둘|여행에\s*추가/.test(q) ||
+      (!before.plan.length && /추가해/.test(q));
+    if (
+      collectionRequest &&
+      !(before.plan.length && /일정|DAY\s*[1-3]|[1-3]\s*일차/i.test(q))
+    ) {
+      let ids = entities.map((p) => p.id);
+      if (ids.length > 1) {
+        const compact = q.replace(/\s/g, '');
+        const position = (id: string) => {
+          const entity = chatEntity(id)!;
+          const literal = compact.indexOf(entity.name.replace(/\s/g, ''));
+          return literal >= 0
+            ? literal
+            : compact.indexOf(
+                id === 'hyeopjae'
+                  ? '협재'
+                  : id === 'osulloc'
+                    ? '오설록'
+                    : id === 'saebyeol'
+                      ? '새별'
+                      : entity.name,
+              );
+        };
+        ids = ids.sort((a, b) => position(a) - position(b));
+      }
+      if (!ids.length && ordinal) {
+        const pool = chatCandidates(before),
+          candidate = pool[ordinal === -1 ? pool.length - 1 : ordinal - 1];
+        if (candidate) ids = [candidate.id];
+      }
+      if (!ids.length) {
+        const selected =
+          before.stage === 'detail'
+            ? before.detailId
+            : before.stage === 'food'
+              ? before.foodKind === '카페'
+                ? before.cafeId
+                : before.foodId
+              : before.stage === 'stay'
+                ? before.stayId
+                : before.stage === 'collection'
+                  ? before.collectedIds?.at(-1)
+                  : before.anchorId;
+        if (selected) ids = [selected];
+      }
+      const result = collectEntities(before, ids);
+      result.question = q;
+      return result;
+    }
     if (
       /도움말|사용법|할 수 있는 기능|가능한 기능|전체 기능|모든 기능|시나리오|연결된 기능|연결 구조|기능 연결|어떤 기능|뭘 할 수/.test(
         q,
@@ -1216,21 +1653,32 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
         };
       const pool = entities.length
         ? entities
-        : /식당|맛집/.test(q)
-          ? restaurants
-              .filter(
-                (p) => p.placeId === before.anchorId && p.cuisine !== '카페',
-              )
-              .map((p) => chatEntity(p.id)!)
-          : /카페/.test(q)
+        : before.stage === 'collection'
+          ? chatCandidates(before).filter((p) =>
+              /식당|맛집/.test(q)
+                ? p.kind === 'food'
+                : /카페/.test(q)
+                  ? p.kind === 'cafe'
+                  : /숙소|숙박/.test(q)
+                    ? p.kind === 'stay'
+                    : true,
+            )
+          : /식당|맛집/.test(q)
             ? restaurants
                 .filter(
-                  (p) => p.placeId === before.anchorId && p.cuisine === '카페',
+                  (p) => p.placeId === before.anchorId && p.cuisine !== '카페',
                 )
                 .map((p) => chatEntity(p.id)!)
-            : /숙소|숙박/.test(q)
-              ? stayResults(before).map((p) => chatEntity(p.id)!)
-              : chatCandidates(before);
+            : /카페/.test(q)
+              ? restaurants
+                  .filter(
+                    (p) =>
+                      p.placeId === before.anchorId && p.cuisine === '카페',
+                  )
+                  .map((p) => chatEntity(p.id)!)
+              : /숙소|숙박/.test(q)
+                ? stayResults(before).map((p) => chatEntity(p.id)!)
+                : chatCandidates(before);
       return finish({
         type: 'compare',
         ids: pool
@@ -1274,9 +1722,14 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
         const pool =
           before.plan.length &&
           /식당|카페|숙소|방문|장소/.test(q) &&
-          !['food', 'stay', 'discover', 'compare', 'saved'].includes(
-            before.stage,
-          )
+          ![
+            'food',
+            'stay',
+            'discover',
+            'compare',
+            'saved',
+            'collection',
+          ].includes(before.stage)
             ? visitTargets(before, q)
                 .map((v) => chatEntity(v.entityId))
                 .filter((v) => Boolean(v))
@@ -1286,9 +1739,14 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
         if (
           before.plan.length &&
           pool.length === 1 &&
-          !['food', 'stay', 'discover', 'compare', 'saved'].includes(
-            before.stage,
-          )
+          ![
+            'food',
+            'stay',
+            'discover',
+            'compare',
+            'saved',
+            'collection',
+          ].includes(before.stage)
         )
           id = pool[0]?.id;
       }
@@ -1917,7 +2375,10 @@ export function appendTrip(
         previous = session.turns[i - 1];
       if (now.state.undoOfTurnId || ignored.has(now.id)) continue;
       if (
-        JSON.stringify(now.state.plan) !== JSON.stringify(previous.state.plan)
+        JSON.stringify(now.state.plan) !==
+          JSON.stringify(previous.state.plan) ||
+        JSON.stringify(now.state.collectedIds ?? []) !==
+          JSON.stringify(previous.state.collectedIds ?? [])
       ) {
         changedIndex = i;
         break;
@@ -1949,12 +2410,27 @@ export function appendTrip(
           '예약 숙소를 바꾸는 변경은 되돌리지 않아요. 예약 숙소는 유지했어요.';
       else {
         state.plan = prior.plan.map((v) => ({ ...v }));
+        state.collectedIds = [...(prior.collectedIds ?? [])];
+        if (
+          JSON.stringify(before.collectedIds ?? []) !==
+          JSON.stringify(prior.collectedIds ?? [])
+        ) {
+          state.anchorId = prior.anchorId;
+          state.foodId = prior.foodId;
+          state.cafeId = prior.cafeId;
+          state.stayId = prior.stayId;
+          state.foodKind = prior.foodKind;
+        }
         state.region = prior.region;
         state.days = prior.days;
         state.activeDay = prior.activeDay;
         state.editingId = null;
         state.undoOfTurnId = session.turns[changedIndex].id;
-        state.stage = state.plan.length ? 'plan' : 'discover';
+        state.stage = state.plan.length
+          ? 'plan'
+          : state.collectedIds.length
+            ? 'collection'
+            : 'discover';
         state.notice =
           '마지막 일정 변경을 되돌렸어요. 찜·저장한 여행과 이후 대화는 유지돼요. 저장본에 반영하려면 다시 저장해 주세요.';
       }
@@ -2040,10 +2516,14 @@ export function explanation(s: TripState) {
       ? `${findPlace(s.similarTo)?.name}의 분위기에서 출발해 ${s.region ?? '다른 지역'}의 후보를 찾았어요. 마음에 드는 곳을 고르면 그 주변으로 이어갈게요.`
       : `${s.region ?? '제주·서울'}에서 ${s.theme === 'sea' ? '바다 풍경을 즐길' : s.theme === 'green' ? '초록 풍경을 만날' : '여행을 시작할'} 장소예요. 먼저 가고 싶은 곳을 골라보세요.`;
   if (s.stage === 'place')
-    return `${place?.name ?? '선택한 장소'}에서 시작할게요. 주변 식당이나 숙소를 찾아도 이 장소를 기준으로 이어집니다.`;
+    return `${place?.name ?? '선택한 장소'}를 살펴보고 있어요. 여행에 담은 뒤 다른 장소와 주변 식당·카페를 계속 고를 수 있어요. 숙소는 원할 때 나중에 골라도 돼요.`;
+  if (s.stage === 'collection')
+    return (s.collectedIds?.length ?? 0)
+      ? `지금 여행에 ${(s.collectedIds ?? []).length}곳을 담았어요. ${place?.name ?? s.region} 주변을 더 찾거나 다른 장소를 계속 담을 수 있어요. 숙박은 선택사항이고, 준비되면 담은 곳만 일정으로 만들어요.`
+      : '이번 여행에 갈 곳을 여러 개 모아보세요. 장소·식당·카페를 담아 두고, 원할 때 일정으로 만들 수 있어요. 찜한 장소와는 별도로 관리돼요.';
   if (s.stage === 'food')
     return (s.foodKind === '카페' ? s.cafeId : s.foodId)
-      ? `${findFood(s.foodKind === '카페' ? s.cafeId : s.foodId)?.name}을 골랐어요. ${place?.name}과 연결해 두었으니 카페·숙소를 더 찾거나 일정으로 만들 수 있어요.`
+      ? `${findFood(s.foodKind === '카페' ? s.cafeId : s.foodId)?.name}을 골랐어요. 여행에 담아 두고 다른 장소·식당·카페를 계속 찾을 수 있어요. 숙소는 지금 고르지 않아도 돼요.`
       : `${place?.name ?? '선택 장소'} 주변 ${s.foodKind} ${foodResults(s).length}곳이에요. 도보 범위와 음식 조건을 바꾸면 같은 후보 목록이 바뀝니다.`;
   if (s.stage === 'stay')
     return s.stayId
@@ -2092,7 +2572,22 @@ export function explanation(s: TripState) {
     : '아직 만든 일정이 없어요. 장소를 고르거나 지역·기간을 말해주면 초안을 만들게요.';
 }
 export function nextQuestions(s: TripState): string[] {
+  const editable =
+    s.plan.find((v) => v.day === s.activeDay && !v.locked) ??
+    s.plan.find((v) => !v.locked);
+  const editCurrent = editable
+    ? `DAY ${editable.day} ${editable.entityId ? visitName(editable) : editable.label} 바꿔줘`
+    : '담은 곳 보여줘';
   switch (s.stage) {
+    case 'collection':
+      return s.collectedIds?.length
+        ? [
+            '다른 장소 더 찾아줘',
+            '여기 근처 식당 찾아줘',
+            '여기 근처 카페 찾아줘',
+            '담은 곳으로 일정 짜줘',
+          ]
+        : ['제주에서 바다 볼 만한 곳 찾아줘', '서울에서 장소 찾아줘'];
     case 'answer':
       return ['도움말 보여줘', '일정 다시 보여줘'];
     case 'help':
@@ -2103,7 +2598,9 @@ export function nextQuestions(s: TripState): string[] {
       ];
     case 'compare':
       return [
-        '첫 번째 후보 선택해줘',
+        s.plan.length
+          ? '첫 번째 후보 선택해줘'
+          : '첫 번째 후보를 여행에 담아줘',
         '두 번째 후보 상세정보 보여줘',
         '일정 다시 보여줘',
       ];
@@ -2118,8 +2615,8 @@ export function nextQuestions(s: TripState): string[] {
     case 'detail':
       return s.detailId
         ? [
-            `${chatEntity(s.detailId)?.name} 선택해줘`,
-            '일정 다시 보여줘',
+            `${chatEntity(s.detailId)?.name} ${s.plan.length ? '선택해줘' : '여행에 담아줘'}`,
+            s.plan.length ? '일정 다시 보여줘' : '담은 곳 보여줘',
             '할 수 있는 기능 알려줘',
           ]
         : ['할 수 있는 기능 알려줘'];
@@ -2139,10 +2636,11 @@ export function nextQuestions(s: TripState): string[] {
       return ['제주에서 바다 볼 만한 곳 찾아줘', '서울숲에서 반나절 일정 짜줘'];
     case 'place':
       return [
+        '이 장소를 여행에 담아줘',
+        '다른 장소 더 찾아줘',
         '여기 근처 식당 찾아줘',
-        '근처 숙소도 찾아줘',
+        '여기 근처 카페 찾아줘',
         '여기 길찾기 해줘',
-        `${s.region} 1박 2일 일정 짜줘`,
       ];
     case 'food':
       return (s.foodKind === '카페' ? s.cafeId : s.foodId)
@@ -2153,16 +2651,22 @@ export function nextQuestions(s: TripState): string[] {
               '방문 순서 보여줘',
             ]
           : [
-              '근처 숙소도 찾아줘',
+              `이 ${s.foodKind}를 여행에 담아줘`,
+              '다른 장소 더 찾아줘',
               '여기 근처 카페 찾아줘',
-              '선택한 곳으로 일정 짜줘',
+              '담은 곳 보여줘',
             ]
         : s.foodKind === '카페'
-          ? ['도보 10분 안에서', '도보 20분 안에서', '일정 다시 보여줘']
-          : ['도보 5분 안에서', '한식만 보여줘', '근처 숙소도 찾아줘'];
+          ? ['첫 번째 카페 메뉴 보여줘', '도보 10분 안에서', '담은 곳 보여줘']
+          : [
+              '첫 번째 식당 메뉴 보여줘',
+              '도보 5분 안에서',
+              '한식만 보여줘',
+              '담은 곳 보여줘',
+            ];
     case 'stay':
       return s.stayId
-        ? ['선택한 곳으로 일정 짜줘', '주변 카페 찾아줘']
+        ? ['이 숙소를 여행에 담아줘', '담은 곳 보여줘', '다른 장소 더 찾아줘']
         : ['숙소 10만원 이하로', '숙소 20만원 이하로', '숙소는 이미 예약했어'];
     case 'saved':
       return [
@@ -2170,7 +2674,7 @@ export function nextQuestions(s: TripState): string[] {
         '찜한 서울 장소로 당일 일정 짜줘',
       ];
     case 'route':
-      return ['일정 다시 보여줘', '점심 바꿔줘'];
+      return ['일정 다시 보여줘', editCurrent];
     case 'directions':
       return ['실제 식당 찾아줘', '다음 어디 가?', '일정 다시 보여줘'];
     case 'external':
@@ -2191,7 +2695,7 @@ export function nextQuestions(s: TripState): string[] {
     default:
       return [
         '다음 어디 가?',
-        '점심 바꿔줘',
+        editCurrent,
         '방문 순서 보여줘',
         '근처 카페 찾아줘',
       ];

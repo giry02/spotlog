@@ -486,6 +486,32 @@
               }
             },
             "minProperties": 2
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "collect-entity"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "uncollect-entity"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
           }
         ]
       }
@@ -529,7 +555,8 @@
         "library",
         "history",
         "help",
-        "answer"
+        "answer",
+        "collection"
       ]
     }
   }

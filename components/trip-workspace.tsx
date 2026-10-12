@@ -54,6 +54,7 @@ import {
   scenarios,
   findPlace,
   findFood,
+  findStay,
   period,
   money,
 } from '@/lib/trip-data';
@@ -82,6 +83,7 @@ const kindIcon = {
   stay: BedDouble,
 };
 const stageNames = {
+  collection: '이번 여행에 담은 곳',
   discover: '장소 찾기',
   place: '장소 선택',
   food: '주변 탐색',
@@ -220,6 +222,21 @@ function PlaceList({
               <span>
                 {state.similarTo ? '체험용 분위기 매칭' : place.description}
               </span>
+              {!state.editingId && !state.plan.length && (
+                <button
+                  className="tr-place-collect"
+                  aria-label={`${place.name} ${state.collectedIds?.includes(place.id) ? '담은 곳 보기' : '여행에 담기'}`}
+                  onClick={() =>
+                    act(
+                      state.collectedIds?.includes(place.id)
+                        ? { type: 'show', stage: 'collection' }
+                        : { type: 'collect-entity', id: place.id },
+                    )
+                  }
+                >
+                  {state.collectedIds?.includes(place.id) ? '담았어요' : '담기'}
+                </button>
+              )}
               <button
                 aria-label={`${place.name} ${state.savedIds.includes(place.id) ? '찜 해제' : '찜하기'}`}
                 aria-pressed={state.savedIds.includes(place.id)}
@@ -258,6 +275,23 @@ function SelectedPlace({ state, act }: { state: TripState; act: Act }) {
         <span className="tr-eyebrow">{place.region} · 여행의 기준 장소</span>
         <h2>{place.name}</h2>
         <p>{place.tags.join(' · ')}</p>
+        {!state.plan.length && (
+          <Button
+            className="tr-primary"
+            onClick={() =>
+              act(
+                state.collectedIds?.includes(place.id)
+                  ? { type: 'show', stage: 'collection' }
+                  : { type: 'collect-entity', id: place.id },
+              )
+            }
+          >
+            {state.collectedIds?.includes(place.id)
+              ? '담은 곳 보기'
+              : '이 장소 여행에 담기'}
+            <ArrowRight size={16} />
+          </Button>
+        )}
         <div className="tr-context-actions">
           <Button onClick={() => act({ type: 'show', stage: 'food' })}>
             <Utensils size={16} />
@@ -265,10 +299,10 @@ function SelectedPlace({ state, act }: { state: TripState; act: Act }) {
           </Button>
           <Button
             variant="outline"
-            onClick={() => act({ type: 'show', stage: 'stay' })}
+            onClick={() => act({ type: 'show', stage: 'discover' })}
           >
-            <BedDouble size={16} />
-            근처 숙소
+            <MapPin size={16} />
+            다른 장소
           </Button>
           <Button
             variant="outline"
@@ -285,10 +319,15 @@ function SelectedPlace({ state, act }: { state: TripState; act: Act }) {
             {state.savedIds.includes(place.id) ? '찜 해제' : '찜하기'}
           </Button>
         </div>
-        <button className="tr-text-link" onClick={() => act({ type: 'build' })}>
-          이 장소부터 일정 만들기
-          <ArrowUpRight size={15} />
-        </button>
+        {state.plan.length > 0 && (
+          <button
+            className="tr-text-link"
+            onClick={() => act({ type: 'add-entity', id: place.id })}
+          >
+            DAY {state.activeDay}에 이 장소 추가
+            <ArrowUpRight size={15} />
+          </button>
+        )}
       </div>
     </section>
   );
@@ -337,12 +376,18 @@ function FoodUnit({
           onClick={() =>
             state.plan.length
               ? act({ type: 'add-selected' })
-              : act({ type: 'show', stage: 'stay' })
+              : act(
+                  state.collectedIds?.includes(picked.id)
+                    ? { type: 'show', stage: 'collection' }
+                    : { type: 'collect-entity', id: picked.id },
+                )
           }
         >
           {state.plan.length
             ? `DAY ${state.activeDay}에 이 ${state.foodKind} 추가`
-            : '이제 숙소 찾아보기'}
+            : state.collectedIds?.includes(picked.id)
+              ? '담은 곳 보기'
+              : `이 ${state.foodKind} 여행에 담기`}
           <ArrowRight size={16} />
         </Button>
         {state.plan.length > 0 ? (
@@ -356,9 +401,9 @@ function FoodUnit({
         ) : (
           <button
             className="tr-text-link"
-            onClick={() => act({ type: 'build' })}
+            onClick={() => act({ type: 'show', stage: 'discover' })}
           >
-            선택한 곳으로 일정 만들기
+            다른 장소 더 찾기
             <ArrowRight size={16} />
           </button>
         )}
@@ -437,7 +482,22 @@ function FoodUnit({
             key={item.id}
             reference={{ kind: 'food', id: item.id }}
             onOpen={() => onDetail({ kind: 'food', id: item.id }, state)}
-            onSelect={() => act({ type: 'food', id: item.id })}
+            selectLabel={
+              !state.plan.length && !state.editingId
+                ? state.collectedIds?.includes(item.id)
+                  ? '담았어요'
+                  : '담기'
+                : '선택'
+            }
+            onSelect={() =>
+              act(
+                !state.plan.length && !state.editingId
+                  ? state.collectedIds?.includes(item.id)
+                    ? { type: 'show', stage: 'collection' }
+                    : { type: 'collect-entity', id: item.id }
+                  : { type: 'food', id: item.id },
+              )
+            }
           />
         ))}
         <p className="tr-meta">식당·메뉴·가격·도보 시간은 체험용 예시입니다.</p>
@@ -504,8 +564,23 @@ function StayUnit({
             {picked.name}
           </span>
         </div>
-        <Button className="tr-primary" onClick={() => act({ type: 'build' })}>
-          이 선택으로 {period(state.days)} 일정 만들기
+        <Button
+          className="tr-primary"
+          onClick={() =>
+            act(
+              state.plan.length
+                ? { type: 'build' }
+                : state.collectedIds?.includes(picked.id)
+                  ? { type: 'show', stage: 'collection' }
+                  : { type: 'collect-entity', id: picked.id },
+            )
+          }
+        >
+          {state.plan.length
+            ? `이 선택으로 ${period(state.days)} 일정 만들기`
+            : state.collectedIds?.includes(picked.id)
+              ? '담은 곳 보기'
+              : '이 숙소 여행에 담기'}
           <ArrowRight size={16} />
         </Button>
         <button
@@ -562,7 +637,22 @@ function StayUnit({
           key={item.id}
           reference={{ kind: 'stay', id: item.id }}
           onOpen={() => onDetail({ kind: 'stay', id: item.id }, state)}
-          onSelect={() => act({ type: 'stay', id: item.id })}
+          selectLabel={
+            !state.plan.length && !state.editingId
+              ? state.collectedIds?.includes(item.id)
+                ? '담았어요'
+                : '담기'
+              : '선택'
+          }
+          onSelect={() =>
+            act(
+              !state.plan.length && !state.editingId
+                ? state.collectedIds?.includes(item.id)
+                  ? { type: 'show', stage: 'collection' }
+                  : { type: 'collect-entity', id: item.id }
+                : { type: 'stay', id: item.id },
+            )
+          }
         />
       ))}
       {state.stayId && (
@@ -757,6 +847,31 @@ function PlanUnit({
             </Button>
           ) : (
             <>
+              {(state.collectedIds?.length ?? 0) > 0 && (
+                <Button
+                  variant="outline"
+                  onClick={() => act({ type: 'show', stage: 'discover' })}
+                >
+                  <MapPin size={16} />
+                  장소 더 추가하기
+                </Button>
+              )}
+              {!state.booked &&
+                state.days > 1 &&
+                Array.from({ length: state.days - 1 }, (_, i) => i + 1).some(
+                  (overnight) =>
+                    !state.plan.some(
+                      (v) => v.day === overnight && v.kind === 'stay',
+                    ),
+                ) && (
+                  <Button
+                    variant="outline"
+                    onClick={() => act({ type: 'show', stage: 'stay' })}
+                  >
+                    <BedDouble size={16} />
+                    숙소 추가하기 · 선택
+                  </Button>
+                )}
               <Button
                 className="tr-primary"
                 onClick={() => act({ type: 'save' })}
@@ -1073,6 +1188,177 @@ function ProgressUnit({ state, act }: { state: TripState; act: Act }) {
     </section>
   );
 }
+function CollectionUnit({
+  state,
+  act,
+  onEntityDetail,
+}: {
+  state: TripState;
+  act: Act;
+  onEntityDetail: (id: string, state: TripState) => void;
+}) {
+  const items = (state.collectedIds ?? []).flatMap((id) => {
+    const p = findPlace(id),
+      f = findFood(id),
+      h = findStay(id);
+    const kind: Visit['kind'] = p
+      ? 'place'
+      : h
+        ? 'stay'
+        : f?.cuisine === '카페'
+          ? 'cafe'
+          : 'food';
+    const item = p ?? f ?? h;
+    return item
+      ? [
+          {
+            id,
+            name: item.name,
+            kind,
+            context: p?.region ?? (f ? findPlace(f.placeId)?.name : h?.region),
+          },
+        ]
+      : [];
+  });
+  const staysCollected = items.filter((item) => item.kind === 'stay').length;
+  return (
+    <section className="tr-unit tr-collection">
+      <UnitTitle
+        icon={MapPin}
+        label="이번 여행에 담은 곳"
+        title="가고 싶은 곳부터 모아보세요"
+        count={`${items.length}곳`}
+      />
+      <p className="tr-collection-intro">
+        장소·식당·카페를 여러 곳 담을 수 있어요. 숙소는 필요할 때 찾아도 좋아요.
+      </p>
+      {items.length ? (
+        <ol className="tr-collection-list" aria-label="이번 여행에 담은 목록">
+          {items.map((item, index) => {
+            const Icon = kindIcon[item.kind];
+            return (
+              <li key={item.id}>
+                <button
+                  className="tr-collection-item"
+                  onClick={() => onEntityDetail(item.id, state)}
+                  aria-label={`${item.name} 상세보기`}
+                >
+                  <span className="tr-collection-number">{index + 1}</span>
+                  <span>
+                    <strong>{item.name}</strong>
+                    <small>
+                      <Icon size={12} />
+                      {item.kind === 'place'
+                        ? '장소'
+                        : item.kind === 'stay'
+                          ? '숙소'
+                          : item.kind === 'cafe'
+                            ? '카페'
+                            : '식당'}{' '}
+                      · {item.context}
+                    </small>
+                  </span>
+                  <ChevronRight size={15} />
+                </button>
+                {item.kind === 'place' && (
+                  <button
+                    className="tr-collection-nearby"
+                    aria-label={`${item.name} 주변 찾기`}
+                    onClick={() => act({ type: 'select-entity', id: item.id })}
+                  >
+                    주변
+                  </button>
+                )}
+                <button
+                  className="tr-collection-remove"
+                  aria-label={`${item.name} 담은 목록에서 빼기`}
+                  onClick={() => act({ type: 'uncollect-entity', id: item.id })}
+                >
+                  <X size={17} />
+                </button>
+              </li>
+            );
+          })}
+        </ol>
+      ) : (
+        <p className="tr-meta">
+          아직 담은 곳이 없어요. 아래에서 장소부터 찾아보세요.
+        </p>
+      )}
+      <div className="tr-collection-next">
+        <Button onClick={() => act({ type: 'show', stage: 'discover' })}>
+          <MapPin size={16} />
+          다른 장소 더 찾기
+        </Button>
+        <Button
+          variant="outline"
+          disabled={!state.anchorId}
+          onClick={() => act({ type: 'show', stage: 'food' })}
+        >
+          <Utensils size={16} />
+          주변 식당 찾기
+        </Button>
+        <Button
+          variant="outline"
+          disabled={!state.anchorId}
+          onClick={() => act({ type: 'show', stage: 'food', kind: '카페' })}
+        >
+          <Coffee size={16} />
+          주변 카페 찾기
+        </Button>
+        {!state.booked && (
+          <Button
+            variant="outline"
+            onClick={() => act({ type: 'show', stage: 'stay' })}
+          >
+            <BedDouble size={16} />
+            숙소 찾기 · 선택
+          </Button>
+        )}
+      </div>
+      {state.anchorId && (
+        <p className="tr-meta">
+          주변 탐색 기준 · {findPlace(state.anchorId)?.name}
+        </p>
+      )}
+      <div className="tr-collection-build">
+        <span>여행 기간</span>
+        <div className="tr-pills" aria-label="담은 곳으로 만들 여행 기간">
+          {[1, 2, 3].map((days) => (
+            <button
+              key={days}
+              aria-pressed={state.days === days}
+              onClick={() => act({ type: 'configure', days })}
+            >
+              {period(days)}
+            </button>
+          ))}
+        </div>
+        <Button
+          className="tr-primary"
+          disabled={!items.length}
+          onClick={() => act({ type: 'build' })}
+        >
+          담은 {items.length}곳으로 일정 만들기
+          <ArrowRight size={16} />
+        </Button>
+        {state.booked ? (
+          <p className="tr-meta">
+            <LockKeyhole size={12} /> 예약한 숙소는 유지해요.
+          </p>
+        ) : (
+          <p className="tr-meta">
+            {state.days === 1
+              ? '당일 일정에는 숙박을 넣지 않아요.'
+              : staysCollected
+                ? '담은 숙소를 숙박 일정에 연결해요.'
+                : '숙소를 담지 않아도 일정부터 만들 수 있어요.'}
+          </p>
+        )}
+      </div>
+    </section>
+  );
+}
 function Units({
   state,
   act,
@@ -1105,6 +1391,13 @@ function Units({
         onFullDetail={onFullDetail}
         onEntityDetail={onEntityDetail}
       />
+      {state.stage === 'collection' && (
+        <CollectionUnit
+          state={state}
+          act={act}
+          onEntityDetail={onEntityDetail}
+        />
+      )}
       {state.stage === 'discover' && <PlaceList state={state} act={act} />}
       {state.stage === 'place' && <SelectedPlace state={state} act={act} />}
       {state.stage === 'food' && (
@@ -1130,6 +1423,25 @@ function Units({
           onDetail={onDetail}
         />
       )}
+      {!state.plan.length &&
+        state.stage !== 'collection' &&
+        (state.collectedIds?.length ?? 0) > 0 && (
+          <button
+            className="tr-collection-summary"
+            onClick={() => act({ type: 'show', stage: 'collection' })}
+          >
+            <span>
+              <MapPin size={16} />
+              <strong>
+                이번 여행에 {state.collectedIds!.length}곳 담았어요
+              </strong>
+            </span>
+            <span>
+              목록 보기
+              <ChevronRight size={14} />
+            </span>
+          </button>
+        )}
     </fieldset>
   );
 }
@@ -1939,24 +2251,30 @@ export default function TripWorkspace() {
                   {period(s.days)}
                 </div>
                 <ol className="tr-wiring">
-                  {(s.stage === 'food'
+                  {(s.stage === 'collection'
                     ? [
-                        '선택한 장소 ID → 같은 장소의 식당·카페 검색',
-                        `도보 ${s.walk}분·${s.cuisine}·예산 → 후보 필터`,
-                        '선택한 업체 ID → 메뉴·도보 정보 → 일정의 식사 자리',
+                        '여러 장소·식당·카페 선택 → 이번 여행의 담은 목록',
+                        '기준 장소 변경 → 앞서 담은 곳은 그대로 유지',
+                        '담은 목록·기간 → DAY별 일정, 숙소는 선택',
                       ]
-                    : s.stage === 'stay'
+                    : s.stage === 'food'
                       ? [
-                          '여행 지역·기준 장소 → 주변 숙소 후보',
-                          `1박 ${money(s.stayBudget)} → 비교 결과`,
-                          '선택 숙소 ID → 숙박 DAY에 연결',
+                          '선택한 장소 ID → 같은 장소의 식당·카페 검색',
+                          `도보 ${s.walk}분·${s.cuisine}·예산 → 후보 필터`,
+                          '선택한 업체 ID → 메뉴·도보 정보 → 일정의 식사 자리',
                         ]
-                      : [
-                          '장소 검색·찜 목록 → 방문 장소 ID',
-                          '지역·기간·식사·예약 조건 → DAY별 초안',
-                          '방문 ID를 지정한 수정 → 해당 자리만 교체',
-                          '같은 방문 목록 → 일정·방문 순서·내 여행 저장',
-                        ]
+                      : s.stage === 'stay'
+                        ? [
+                            '여행 지역·기준 장소 → 주변 숙소 후보',
+                            `1박 ${money(s.stayBudget)} → 비교 결과`,
+                            '선택 숙소 ID → 숙박 DAY에 연결',
+                          ]
+                        : [
+                            '장소 검색·찜 목록 → 방문 장소 ID',
+                            '지역·기간·식사·예약 조건 → DAY별 초안',
+                            '방문 ID를 지정한 수정 → 해당 자리만 교체',
+                            '같은 방문 목록 → 일정·방문 순서·내 여행 저장',
+                          ]
                   ).map((text, i) => (
                     <li key={text}>
                       <span>0{i + 1}</span>
@@ -2062,13 +2380,13 @@ export default function TripWorkspace() {
                   const ref = detail.reference;
                   if (ref.kind === 'place') return;
                   if (ref.visitId) act({ type: 'edit', id: ref.visitId });
-                  else if (
-                    ref.kind === 'stay'
-                      ? detail.state.stayId !== ref.id
-                      : detail.state.foodId !== ref.id &&
-                        detail.state.cafeId !== ref.id
-                  )
-                    act({ type: 'select-entity', id: ref.id });
+                  else if (!detail.state.plan.length && !detail.state.editingId)
+                    act(
+                      detail.state.collectedIds?.includes(ref.id)
+                        ? { type: 'show', stage: 'collection' }
+                        : { type: 'collect-entity', id: ref.id },
+                    );
+                  else act({ type: 'select-entity', id: ref.id });
                   setPanel(null);
                 }}
               />
@@ -2079,11 +2397,21 @@ export default function TripWorkspace() {
               <Button
                 disabled={busy}
                 onClick={() => {
-                  act({ type: 'select-entity', id: detail.reference.id });
+                  act(
+                    detail.state.plan.length || detail.state.editingId
+                      ? { type: 'select-entity', id: detail.reference.id }
+                      : detail.state.collectedIds?.includes(detail.reference.id)
+                        ? { type: 'show', stage: 'collection' }
+                        : { type: 'collect-entity', id: detail.reference.id },
+                  );
                   setPanel(null);
                 }}
               >
-                이 장소 선택
+                {detail.state.plan.length || detail.state.editingId
+                  ? '이 장소 선택'
+                  : detail.state.collectedIds?.includes(detail.reference.id)
+                    ? '담은 곳 보기'
+                    : '이 장소 여행에 담기'}
               </Button>
             </div>
           )}

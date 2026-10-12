@@ -15,10 +15,12 @@ export function BusinessPreview({
   reference,
   onOpen,
   onSelect,
+  selectLabel = '선택',
 }: {
   reference: BusinessRef;
   onOpen: () => void;
   onSelect: () => void;
+  selectLabel?: string;
 }) {
   const d = businessDetails(reference);
   if (!d) return null;
@@ -58,8 +60,8 @@ export function BusinessPreview({
           <strong>{d.price}</strong>
           <small>{d.primary}</small>
         </span>
-        <button onClick={onSelect} aria-label={`${d.name} 선택`}>
-          선택
+        <button onClick={onSelect} aria-label={`${d.name} ${selectLabel}`}>
+          {selectLabel}
         </button>
       </div>
       <button
@@ -187,10 +189,7 @@ export function BusinessDetailAction({
 }) {
   const d = businessDetails(reference);
   if (!d) return null;
-  const already =
-    reference.kind === 'stay'
-      ? state.stayId === reference.id
-      : state.foodId === reference.id || state.cafeId === reference.id;
+  const already = state.collectedIds?.includes(reference.id);
   return (
     <div className="tr-detail-action">
       <span>
@@ -200,11 +199,13 @@ export function BusinessDetailAction({
       <Button onClick={onChoose}>
         {reference.visitId
           ? '이 일정의 다른 후보 찾기'
-          : already
-            ? '선택한 곳으로 돌아가기'
-            : state.editingId
-              ? `이 ${d.kind}으로 교체`
-              : `이 ${d.kind} 선택`}
+          : state.editingId
+            ? `이 ${d.kind}으로 교체`
+            : state.plan.length
+              ? `이 ${d.kind} 선택`
+              : already
+                ? '담은 곳 보기'
+                : `이 ${d.kind} 여행에 담기`}
       </Button>
     </div>
   );
