@@ -77,8 +77,6 @@ import { applyTripPlacement, type TripPlacementRequest } from './tripPlacement';
 import { SavedTripControls } from './SavedTripControls';
 import { newSavedTripDraft, pickSavedTripPlace, forgetSavedTripPlace, type SavedTripDraft } from './savedTripBuilder';
 import { AiPlannerSheet, type AiPlannerDraft } from './AiPlannerSheet';
-import { AiPlanRevisionSheet } from './AiPlanRevisionSheet';
-import { journeyVersion } from './aiPlanner';
 import TravelGuideSheet from './TravelGuideSheet';
 import { ContentLanguageControls, ContentTranslationScope, TranslationText } from './TranslationText';
 import { mergeActiveJourneyChanges } from './tripTrash';
@@ -560,7 +558,6 @@ function SpotlogApp() {
   const [trashOpen, setTrashOpen] = useState(false);
   const [trashTarget, setTrashTarget] = useState<string | null>(null);
   const [guideDay, setGuideDay] = useState<number | null>(null);
-  const [reviseDay, setReviseDay] = useState<number | null>(null);
   const setJourneys = (action: Journey[] | ((current: Journey[]) => Journey[])) => persistJourneys((current) => (typeof action === 'function' ? action(current) : action).map(journey => normalizePlan(normalizeVisits({ ...journey, purpose: journey.purpose ?? (journey.isMine && !current.some(previous => previous.id === journey.id) ? 'PLAN' : undefined) }))));
   const [storageIssue, setStorageIssue] = useState(localRepository.getIssue());
   const [selectedJourneyId, setSelectedJourneyId] = useState<string | null>(null);
@@ -625,7 +622,6 @@ function SpotlogApp() {
     setTrashOpen(false);
     setTrashTarget(null);
     setGuideDay(null);
-    setReviseDay(null);
     setDetailDay(state.detailDay ?? null);
   }, [clearToast]);
 
@@ -959,7 +955,7 @@ function SpotlogApp() {
         {editingJourney ? (
           <JourneyEditor key={editingJourney.id} journey={editingJourney} onBack={goBack} onSave={saveJourney} onDraft={(draft,view)=>setJourneys(current=>current.map(item=>item.id===draft.id?stashJournalDraft(item,draft,view):item))} />
         ) : selectedJourney && isPersonalPlan(selectedJourney) ? (
-          <PersonalTrip key={selectedJourney.id} journey={selectedJourney} initialDay={detailDay ?? 1} onGuide={setGuideDay} onRefine={setReviseDay} onTrash={() => setTrashTarget(selectedJourney.id)} onSaveBusiness={saveBusiness} catalog={[...ownJourneys.flatMap(journey=>journey.days.flatMap(day=>day.places)).filter(place=>place.personal),...placeCatalog]} savedPlaces={savedPlaces} onBack={goBack} onChange={next => setJourneys(current => current.map(item => item.id === next.id ? next : item))} onAddLandmark={() => selectTab('discover')} onCopy={()=>copyJourney(selectedJourney)} onJournal={options=>createJournal(selectedJourney,options)} renderMap={(places,selected,onSelect,onResolve)=><RouteMap places={places} selectedVisitId={selected} onSelectVisit={onSelect} onResolveWarning={onResolve}/>} />
+          <PersonalTrip key={selectedJourney.id} journey={selectedJourney} initialDay={detailDay ?? 1} onGuide={setGuideDay} onTrash={() => setTrashTarget(selectedJourney.id)} onSaveBusiness={saveBusiness} catalog={[...ownJourneys.flatMap(journey=>journey.days.flatMap(day=>day.places)).filter(place=>place.personal),...placeCatalog]} savedPlaces={savedPlaces} onBack={goBack} onChange={next => setJourneys(current => current.map(item => item.id === next.id ? next : item))} onAddLandmark={() => selectTab('discover')} onCopy={()=>copyJourney(selectedJourney)} onJournal={options=>createJournal(selectedJourney,options)} renderMap={(places,selected,onSelect,onResolve)=><RouteMap places={places} selectedVisitId={selected} onSelectVisit={onSelect} onResolveWarning={onResolve}/>} />
         ) : selectedJourney ? (
           <JourneyDetail key={`${selectedJourney.id}:${detailDay ?? 1}`} initialDay={detailDay ?? 1} journey={selectedJourney} profile={profile} comments={comments.filter((comment) => comment.journeyId === selectedJourney.id)} cheers={cheers[selectedJourney.id] ?? { LOVE: 0, BEST: 0, HELPFUL: 0 }} authorJourneys={selectedJourney.isMine ? journeys.filter((journey) => journey.isMine && !isPersonalPlan(journey)) : journeys.filter((journey) => !journey.isMine && journey.author === selectedJourney.author)} onBack={goBack} onShare={() => void shareJourney(selectedJourney)} onSharePlace={(place) => void sharePlace(place)} onEdit={() => editJourney(selectedJourney.id)} onCopy={() => selectedTemplate ? startRecommendedJourney(selectedTemplate) : copyJourney(selectedJourney)} onComment={(body) => addJourneyComment(selectedJourney.id, body)} onCheer={(cheer) => toggleJourneyCheer(selectedJourney.id, cheer)} onOpenJourney={openJourney} copyLabel={selectedTemplateJourney ? copy("이 일정 내 여행에 담기") : undefined} />
         ) : (
@@ -988,7 +984,6 @@ function SpotlogApp() {
       {trashOpen && <TripTrashSheet language={locale} journeys={allJourneys} ownerId="local-profile" onChange={setJourneys} onClose={() => setTrashOpen(false)} onOpen={journey => { setTrashOpen(false); openMyJourney(journey.id); }} />}
       {trashTarget && <MoveToTrashSheet journeys={allJourneys} journeyId={trashTarget} ownerId="local-profile" language={locale} onChange={setJourneys} onMoved={() => { setTrashTarget(null); if (selectedJourneyId === trashTarget) selectTab('trips'); showToast(locale === 'en' ? 'Moved to Trash. You can restore it for six months.' : copy("휴지통으로 이동했어요. 6개월 동안 복원할 수 있어요.")); }} onClose={() => setTrashTarget(null)} />}
       {selectedJourney && guideDay !== null && <TravelGuideSheet journey={selectedJourney} initialDay={guideDay} onClose={() => setGuideDay(null)} />}
-      {selectedJourney && reviseDay !== null && <AiPlanRevisionSheet journey={selectedJourney} initialDay={reviseDay} onClose={() => setReviseDay(null)} onApply={(next, sourceVersion) => { const current = journeys.find(item => item.id === next.id); if (!current || journeyVersion(current) !== sourceVersion) return false; return setJourneys(items => items.map(item => item.id === next.id ? next : item)); }} />}
       {toast && <div className="toast" role="status"><Check size={15} />{toast}</div>}
     </main></CardSocialProvider></ReportProvider>
   );

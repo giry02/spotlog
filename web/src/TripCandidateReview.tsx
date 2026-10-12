@@ -28,7 +28,7 @@ function CandidateInformation({ place, image, anchor, status }: { place: Place; 
   </span>;
 }
 
-export function TripCandidateReview({ journey, onChange, onClose }: { journey: Journey; onChange: (next: Journey) => boolean; onClose: () => void }) {
+export function TripCandidateReview({ journey, onChange, onClose, onConfirmed }: { journey: Journey; onChange: (next: Journey) => boolean; onClose: () => void; onConfirmed?: () => void }) {
   const [error, setError] = useState('');
   const { state } = usePublicReview();
   const photo = (place: Place) => candidatePhoto(place, state.withdrawnImages);
@@ -52,9 +52,9 @@ export function TripCandidateReview({ journey, onChange, onClose }: { journey: J
           </fieldset>;
         })}
       </section>)}
-      {!groups.length && <p className="plan-help">담은 랜드마크로 바로 만들 수 있어요. 음식점·숙소는 나중에 추가해도 돼요.</p>}
+      {!groups.length && <p className="plan-help">담은 장소로 바로 만들 수 있어요. 다른 장소는 나중에 추가해도 돼요.</p>}
       {error && <p className="ui-error" role="alert">{error}</p>}
-      <div className="candidate-confirm"><p role="status">{unresolved ? `${unresolved}개 후보 묶음에서 한 곳을 골라주세요.` : '선택한 곳만 일정에 반영돼요.'}</p><Button disabled={unresolved > 0} onClick={() => { try { if (onChange(confirmTripCandidates(journey))) onClose(); else setError('완성하지 못했어요. 후보와 일정은 그대로예요.'); } catch (error) { setError(error instanceof Error ? error.message : '다시 확인해 주세요.'); } }}><Check size={17}/>{journey.planStage === 'DRAFT' ? '내 여행 완성' : '선택한 후보 반영'}</Button></div>
+      <div className="candidate-confirm"><p role="status">{unresolved ? `${unresolved}개 후보 묶음에서 한 곳을 골라주세요.` : '선택한 곳만 일정에 반영돼요.'}</p><Button disabled={unresolved > 0} onClick={() => { try { if (onChange(confirmTripCandidates(journey))) { onConfirmed?.(); onClose(); } else setError('완성하지 못했어요. 후보와 일정은 그대로예요.'); } catch (error) { setError(error instanceof Error ? error.message : '다시 확인해 주세요.'); } }}><Check size={17}/>{journey.planStage === 'DRAFT' ? '내 여행 완성' : '선택한 후보 반영'}</Button></div>
     </div>
   </BottomSheet>;
 }

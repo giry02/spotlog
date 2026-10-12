@@ -104,7 +104,12 @@ function isJourney(value: unknown): boolean {
       if (!Array.isArray(group.options) || !group.options.length || !group.options.every(option=>isObject(option)&&typeof option.fixed==='boolean'&&isPlace(option.place)&&isObject(option.place)&&option.place.kind===group.kind)) return false;
       if (new Set(group.options.map(option=>(option as Record<string,Record<string,unknown>>).place.id)).size!==group.options.length) return false;
       if (group.selectedId !== undefined && !['__keep__','__skip__',...group.options.map(option=>(option as Record<string,Record<string,unknown>>).place.id)].includes(group.selectedId)) return false;
-      if (!value.days.some(day=>isObject(day)&&day.dayId===group.dayId) || !value.days.some(day=>isObject(day)&&Array.isArray(day.places)&&day.places.some(place=>isObject(place)&&place.visitId===group.anchorVisitId&&place.kind==='LANDMARK'))) return false;
+      // Nearby choices can start at an independent meal/cafe/shop visit as well as a landmark.
+      // Food/cafe choices belong to the base DAY; accommodation can be assigned to another night.
+      if (!value.days.some(day => isObject(day) && day.dayId === group.dayId)
+        || !value.days.some(day => isObject(day) && (group.kind === 'STAY' || day.dayId === group.dayId)
+          && Array.isArray(day.places) && day.places.some(place => isObject(place) && place.visitId === group.anchorVisitId
+            && (place.kind === 'LANDMARK' || !place.anchorVisitId && place.kind !== 'STAY')))) return false;
     }
   }
   if (value.planningPreferences !== undefined && (!isPlanningPreferences(value.planningPreferences) || value.purpose !== 'PLAN' || value.visibility !== 'PRIVATE')) return false;

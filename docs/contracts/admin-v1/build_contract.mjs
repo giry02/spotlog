@@ -84,7 +84,7 @@ const json = value => JSON.stringify(value, null, 2) + '\n';
 function output(name, value) {
   const filename = path.join(dir, name), expected = json(value);
   if (process.argv.includes('--check')) {
-    if (fs.readFileSync(filename, 'utf8') !== expected) throw new Error(name + ' is out of sync with the current frontend types. Regenerate the admin contract.');
+    if (fs.readFileSync(filename, 'utf8').replace(/\r\n/g, '\n') !== expected) throw new Error(name + ' is out of sync with the current frontend types. Regenerate the admin contract.');
   } else fs.writeFileSync(filename, expected);
 }
 output('schemas.json', bundle);
