@@ -1,0 +1,536 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Moa Flowise structured reply v1",
+  "description": "모델이 생성할 수 있는 설명과 기능 행동의 전체 스키마. 후보 ID, 현재 DAY와 예약 보호는 서버가 별도로 검증한다. reset/undo/resume/message는 모델 행동에서 제외한다.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["message", "actions"],
+  "properties": {
+    "message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000,
+      "pattern": "\\S",
+      "allOf": [
+        {
+          "not": {
+            "pattern": "<\\/?[a-zA-Z][^>]*>"
+          }
+        },
+        {
+          "not": {
+            "pattern": "[Hh][Tt][Tt][Pp][Ss]?://|[Jj][Aa][Vv][Aa][Ss][Cc][Rr][Ii][Pp][Tt]:|[Dd][Aa][Tt][Aa]:"
+          }
+        }
+      ]
+    },
+    "actions": {
+      "type": "array",
+      "maxItems": 4,
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "place"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "bookmark"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "saved": {
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "food"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "stay"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "stage"],
+            "properties": {
+              "type": {
+                "const": "show"
+              },
+              "stage": {
+                "$ref": "#/$defs/stage"
+              },
+              "kind": {
+                "enum": ["식당", "카페"]
+              },
+              "day": {
+                "$ref": "#/$defs/day"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "region"],
+            "properties": {
+              "type": {
+                "const": "region"
+              },
+              "region": {
+                "enum": ["제주", "서울"]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "value"],
+            "properties": {
+              "type": {
+                "const": "walk"
+              },
+              "value": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 20
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "value"],
+            "properties": {
+              "type": {
+                "const": "cuisine"
+              },
+              "value": {
+                "enum": ["전체", "한식", "양식"]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "value"],
+            "properties": {
+              "type": {
+                "const": "stay-budget"
+              },
+              "value": {
+                "$ref": "#/$defs/money"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "build"
+              },
+              "savedOnly": {
+                "type": "boolean"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "day"],
+            "properties": {
+              "type": {
+                "const": "day"
+              },
+              "day": {
+                "$ref": "#/$defs/day"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "add-selected"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "edit"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "remove"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id", "direction"],
+            "properties": {
+              "type": {
+                "const": "move"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "direction": {
+                "type": "integer",
+                "enum": [-1, 1]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "directions"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "placeId": {
+                "$ref": "#/$defs/id"
+              },
+              "businessId": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "allOf": [
+              {
+                "not": {
+                  "required": ["id", "placeId"]
+                }
+              },
+              {
+                "not": {
+                  "required": ["id", "businessId"]
+                }
+              },
+              {
+                "not": {
+                  "required": ["placeId", "businessId"]
+                }
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id", "status"],
+            "properties": {
+              "type": {
+                "const": "progress"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "status": {
+                "enum": ["done", "skipped", "pending"]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "save"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "open"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "compare"
+              },
+              "ids": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 3,
+                "uniqueItems": true,
+                "items": {
+                  "$ref": "#/$defs/id"
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "budget"
+              },
+              "people": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 20
+              },
+              "rooms": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "check"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "detail"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "library"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "help"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "history"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id", "day"],
+            "properties": {
+              "type": {
+                "const": "transfer"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "day": {
+                "$ref": "#/$defs/day"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "add-entity"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "day": {
+                "$ref": "#/$defs/day"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "select-entity"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "configure"
+              },
+              "days": {
+                "$ref": "#/$defs/day"
+              },
+              "theme": {
+                "enum": ["all", "sea", "green"]
+              },
+              "foodBudget": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/money"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "booked": {
+                "type": "boolean"
+              },
+              "meals": {
+                "type": "boolean"
+              },
+              "cafes": {
+                "type": "boolean"
+              },
+              "lodging": {
+                "type": "boolean"
+              }
+            },
+            "minProperties": 2
+          }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[A-Za-z0-9_-]+$",
+      "description": "서버 context의 알려진 항목/방문/저장 여행 ID. 임의 ID를 생성하지 않는다."
+    },
+    "day": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3
+    },
+    "money": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000000
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "discover",
+        "place",
+        "food",
+        "stay",
+        "plan",
+        "saved",
+        "route",
+        "directions",
+        "progress",
+        "external",
+        "compare",
+        "budget",
+        "check",
+        "detail",
+        "library",
+        "history",
+        "help",
+        "answer"
+      ]
+    }
+  }
+}

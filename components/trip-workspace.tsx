@@ -13,6 +13,8 @@ import {
   ChevronRight,
   Coffee,
   History,
+  MessageCircle,
+  LoaderCircle,
   Info,
   Layers3,
   LockKeyhole,
@@ -36,7 +38,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import {
-  appendTrip,
   createTripSession,
   currentTrip,
   isTripSession,
@@ -70,6 +71,11 @@ import {
   type OpenBusiness,
 } from '@/components/business-detail';
 import './trip-workspace.css';
+import { ChatFeatureUnits } from '@/components/chat-feature-units';
+import {
+  explicitConversationControl,
+  type ChatResponse,
+} from '@/lib/chat-contract';
 
 const STORAGE_KEY = 'moa.spotlog.travel.v1';
 const kindIcon = {
@@ -89,6 +95,14 @@ const stageNames = {
   directions: '길찾기',
   progress: '여행 이어가기',
   external: '실제 주변 검색',
+  compare: '후보 비교',
+  budget: '여행 예산',
+  check: '일정 점검',
+  detail: '상세정보',
+  library: '저장한 여행',
+  history: '대화 이력',
+  help: '대화로 할 수 있는 일',
+  answer: '안내',
 };
 type Act = (action: TripAction) => void;
 
@@ -1067,18 +1081,30 @@ function Units({
   act,
   archived,
   onDetail,
+  session,
+  busy,
+  onFullDetail,
 }: {
   state: TripState;
   act: Act;
   archived: boolean;
   onDetail: OpenBusiness;
+  onFullDetail: OpenBusiness;
+  session: TripSession;
+  busy: boolean;
 }) {
   return (
     <fieldset
-      disabled={archived}
+      disabled={archived || busy}
       className="tr-units"
       aria-label={archived ? '이전 결과' : '현재 조작할 수 있는 결과'}
     >
+      <ChatFeatureUnits
+        state={state}
+        session={session}
+        act={act}
+        onFullDetail={onFullDetail}
+      />
       {state.stage === 'discover' && <PlaceList state={state} act={act} />}
       {state.stage === 'place' && <SelectedPlace state={state} act={act} />}
       {state.stage === 'food' && (
@@ -1114,6 +1140,16 @@ export default function TripWorkspace() {
   );
   const [input, setInput] = useState('');
   const [resetNotice, setResetNotice] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [pendingQuestion, setPendingQuestion] = useState('');
+  const [chatError, setChatError] = useState('');
+  const sessionRef = useRef(session);
+  const chatSessionId = useRef('');
+  const chatRequest = useRef<AbortController | null>(null);
+  const busyRef = useRef(false);
+  const retryAction = useRef<{ action: TripAction; seed?: TripSession } | null>(
+    null,
+  );
   const [panel, updatePanel] = useState<
     'scenarios' | 'library' | 'about' | 'wiring' | 'history' | 'business' | null
   >(null);
@@ -1128,9 +1164,12 @@ export default function TripWorkspace() {
     reference: BusinessRef;
     state: TripState;
   } | null>(null);
-  const onDetail: OpenBusiness = (reference, state) => {
+  const showDetailSheet: OpenBusiness = (reference, state) => {
     setDetail({ reference, state });
     setPanel('business');
+  };
+  const onDetail: OpenBusiness = (reference) => {
+    act({ type: 'detail', id: reference.id });
   };
   const [ready, setReady] = useState(false);
   const [storageError, setStorageError] = useState(false);
@@ -1140,15 +1179,131 @@ export default function TripWorkspace() {
     latestRef = useRef<HTMLElement | null>(null);
   const s = currentTrip(session);
   const started = session.turns.length > 1;
-  const act: Act = (action) => {
+  const persistSession = (next: TripSession) => {
+    if (blockedStorage.current) return;
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ version: 1, session: next }),
+      );
+      setStorageError(false);
+    } catch {
+      setStorageError(true);
+    }
+  };
+  const requestAction = async (action: TripAction, seed?: TripSession) => {
+    if (busyRef.current) return;
+    const resetting =
+      action.type === 'reset' ||
+      (action.type === 'message' &&
+        explicitConversationControl(action.text)?.type === 'reset');
+    const current = seed ?? sessionRef.current;
+    // Reset sends canonical favorites/library, so legacy history cannot block it.
+    const previous = resetting
+      ? createTripSession(currentTrip(current).savedIds, current.library)
+      : current;
+    if (resetting) chatSessionId.current = crypto.randomUUID();
+    chatSessionId.current ||= crypto.randomUUID();
+    const requestId = crypto.randomUUID();
+    const sessionId = chatSessionId.current;
+    const baseRevision = previous.turns.at(-1)!.id;
+    const controller = new AbortController();
+    chatRequest.current = controller;
+    busyRef.current = true;
+    setBusy(true);
+    setPendingQuestion(action.type === 'message' ? action.text : '');
+    setChatError('');
     setResetNotice(false);
-    setSession((previous) => appendTrip(previous, action));
+    retryAction.current = { action, seed };
+    const timeout = setTimeout(() => controller.abort(), 60000);
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          protocolVersion: 1,
+          requestId,
+          sessionId,
+          baseRevision,
+          session: previous,
+          action,
+        }),
+        signal: controller.signal,
+      });
+      const result = (await response.json()) as Partial<ChatResponse> & {
+        error?: { message?: string };
+      };
+      if (
+        chatRequest.current !== controller ||
+        chatSessionId.current !== sessionId
+      )
+        return;
+      if (!response.ok)
+        throw new Error(
+          typeof result.error?.message === 'string'
+            ? result.error.message
+            : '답변을 받지 못했어요. 다시 시도해 주세요.',
+        );
+      if (
+        result.protocolVersion !== 1 ||
+        result.requestId !== requestId ||
+        result.sessionId !== sessionId ||
+        result.baseRevision !== baseRevision ||
+        !isTripSession(result.session) ||
+        result.revision !== result.session.turns.at(-1)?.id
+      )
+        throw new Error('답변 형식을 확인하지 못했어요. 다시 시도해 주세요.');
+      sessionRef.current = result.session;
+      persistSession(result.session);
+      setSession(result.session);
+      if (
+        action.type === 'reset' ||
+        (action.type === 'message' && result.session.turns.length === 1)
+      ) {
+        chatSessionId.current = crypto.randomUUID();
+        retryAction.current = null;
+        setResetNotice(true);
+        setInput('');
+        setDetail(null);
+        setPanel(null);
+      }
+    } catch (error) {
+      if (chatRequest.current !== controller) return;
+      if (resetting) {
+        // Reset stays available offline and for legacy libraries beyond API bounds.
+        // Every saved trip survives; user storage is never truncated to fit.
+        sessionRef.current = previous;
+        persistSession(previous);
+        setSession(previous);
+        chatSessionId.current = crypto.randomUUID();
+        retryAction.current = null;
+        setResetNotice(true);
+        setInput('');
+        setDetail(null);
+        setPanel(null);
+        return;
+      }
+      setChatError(
+        error instanceof Error && error.name !== 'AbortError'
+          ? error.message
+          : '응답이 늦어지고 있어요. 현재 대화를 유지했으니 다시 시도해 주세요.',
+      );
+    } finally {
+      clearTimeout(timeout);
+      if (chatRequest.current === controller) {
+        chatRequest.current = null;
+        busyRef.current = false;
+        setBusy(false);
+        setPendingQuestion('');
+      }
+    }
+  };
+  const act: Act = (action) => {
+    void requestAction(action);
   };
   const say = (text: string) => {
-    if (!text.trim() || text.length > 500) return;
-    if (/내 여행.{0,5}저장|일정.{0,5}저장/.test(text) && s.plan.length)
-      act({ type: 'save' });
-    else act({ type: 'message', text });
+    if (!text.trim() || text.length > 500 || busyRef.current) return;
+    act({ type: 'message', text });
     setInput('');
   };
   const latest = (instant = false) => {
@@ -1164,13 +1319,17 @@ export default function TripWorkspace() {
     });
   };
   useEffect(() => {
+    return () => chatRequest.current?.abort();
+  }, []);
+  useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const value = JSON.parse(raw);
-        if (value?.version === 1 && isTripSession(value.session))
+        if (value?.version === 1 && isTripSession(value.session)) {
+          sessionRef.current = value.session;
           setSession(value.session);
-        else {
+        } else {
           blockedStorage.current = true;
           setStorageError(true);
         }
@@ -1210,7 +1369,7 @@ export default function TripWorkspace() {
       try {
         localStorage.setItem(
           STORAGE_KEY,
-          JSON.stringify({ version: 1, session }),
+          JSON.stringify({ version: 1, session: sessionRef.current }),
         );
         setStorageError(false);
       } catch {
@@ -1229,28 +1388,27 @@ export default function TripWorkspace() {
   const startScenario = (id: string) => {
     const scenario = scenarios.find((x) => x.id === id);
     if (!scenario) return;
-    setResetNotice(false);
+    chatRequest.current?.abort();
+    chatRequest.current = null;
+    busyRef.current = false;
+    chatSessionId.current = crypto.randomUUID();
     const savedIds =
       id === 'saved'
         ? [...new Set([...s.savedIds, 'hyeopjae', 'osulloc'])]
         : s.savedIds;
-    setSession(
-      appendTrip(createTripSession(savedIds, session.library), {
-        type: 'message',
-        text: scenario.prompt,
-      }),
+    void requestAction(
+      { type: 'message', text: scenario.prompt },
+      createTripSession(savedIds, session.library),
     );
     setInput('');
     setPanel(null);
   };
   const blank = () => {
-    setSession((previous) =>
-      createTripSession(currentTrip(previous).savedIds, previous.library),
-    );
-    setInput('');
-    setPanel(null);
-    setDetail(null);
-    setResetNotice(true);
+    chatRequest.current?.abort();
+    chatRequest.current = null;
+    busyRef.current = false;
+    chatSessionId.current = crypto.randomUUID();
+    void requestAction({ type: 'reset' });
   };
   const scenarioCards = (
     <div className="tr-scenarios">
@@ -1310,7 +1468,8 @@ export default function TripWorkspace() {
               variant="ghost"
               size="icon"
               aria-label="찜한 장소와 내 여행"
-              onClick={() => setPanel('library')}
+              disabled={busy || !ready}
+              onClick={() => act({ type: 'library' })}
             >
               <Bookmark size={19} />
             </Button>
@@ -1330,7 +1489,11 @@ export default function TripWorkspace() {
             {started ? '다른 시나리오' : '여행 시나리오'}
           </button>
           <div>
-            <button aria-label="대화 이력" onClick={() => setPanel('history')}>
+            <button
+              aria-label="대화 이력"
+              disabled={busy || !ready}
+              onClick={() => act({ type: 'history' })}
+            >
               <History size={15} />
             </button>
             {started && (
@@ -1372,6 +1535,14 @@ export default function TripWorkspace() {
               <p className="tr-demo-note">
                 제주·서울 체험 데이터 · 실제 AI·예약 연결 전
               </p>
+              <Button
+                variant="outline"
+                className="tr-primary"
+                disabled={busy || !ready}
+                onClick={() => act({ type: 'help' })}
+              >
+                <MessageCircle size={17} /> 대화로 할 수 있는 일 보기
+              </Button>
             </div>
           ) : (
             <div className="tr-transcript">
@@ -1403,7 +1574,9 @@ export default function TripWorkspace() {
                           {active ? stageNames[snap.stage] : '이전 답변'}
                         </span>
                       </div>
-                      <p className="tr-answer">{explanation(snap)}</p>
+                      <p className="tr-answer">
+                        {turn.assistantMessage ?? explanation(snap)}
+                      </p>
                       {snap.notice && (
                         <p className="tr-notice">{snap.notice}</p>
                       )}
@@ -1428,6 +1601,9 @@ export default function TripWorkspace() {
                         act={act}
                         archived={!active}
                         onDetail={onDetail}
+                        onFullDetail={showDetailSheet}
+                        session={session}
+                        busy={busy}
                       />
                       {!active && (
                         <div className="cx-past-actions">
@@ -1449,6 +1625,19 @@ export default function TripWorkspace() {
               </p>
             </div>
           )}
+          {busy && (
+            <div className="tr-pending-turn">
+              {pendingQuestion && (
+                <div className="cx-turn-user">
+                  <span>나</span>
+                  <p>{pendingQuestion}</p>
+                </div>
+              )}
+              <p className="tr-chat-pending" role="status">
+                <LoaderCircle size={16} /> 질문에 맞는 결과를 준비하고 있어요.
+              </p>
+            </div>
+          )}
           <div
             className="sr-only"
             role="status"
@@ -1460,6 +1649,22 @@ export default function TripWorkspace() {
               : '여행 질문을 입력하거나 시나리오를 선택하세요.'}
           </div>
         </main>
+        {chatError && (
+          <div className="tr-chat-error" role="alert">
+            <p>{chatError}</p>
+            <Button
+              variant="outline"
+              size="sm"
+              disabled={busy}
+              onClick={() => {
+                const retry = retryAction.current;
+                if (retry) void requestAction(retry.action, retry.seed);
+              }}
+            >
+              다시 시도
+            </Button>
+          </div>
+        )}
         {started && (
           <button
             className="moa-latest"
@@ -1474,7 +1679,7 @@ export default function TripWorkspace() {
           {started && (
             <div className="moa-quick-replies" aria-label="다음 질문">
               {nextQuestions(s).map((q) => (
-                <button key={q} onClick={() => say(q)}>
+                <button key={q} disabled={busy} onClick={() => say(q)}>
                   {q}
                   <ArrowUpRight size={14} />
                 </button>
@@ -1504,14 +1709,23 @@ export default function TripWorkspace() {
             <Button
               type="submit"
               aria-label="질문 보내기"
-              disabled={!input.trim() || !ready}
+              disabled={!input.trim() || !ready || busy}
             >
               <ArrowUp size={22} />
             </Button>
           </form>
           <div className="dock-caption">
-            <span>질문과 선택이 다음 기능으로 이어져요</span>
-            <button onClick={() => setPanel('about')}>체험 안내</button>
+            <span>
+              {busy
+                ? '모아가 답변을 준비하고 있어요'
+                : '원하는 일을 말하면 필요한 카드가 이어져요'}
+            </span>
+            <button
+              disabled={busy || !ready}
+              onClick={() => act({ type: 'help' })}
+            >
+              질문 예시
+            </button>
           </div>
         </footer>
         <div className="moa-home-indicator" aria-hidden="true">
@@ -1767,7 +1981,7 @@ export default function TripWorkspace() {
                 </p>
                 <p>
                   대화·찜·내 여행은 이 브라우저에 저장됩니다. 실제 Spotlog
-                  계정·서버·실시간 검색·예약·결제와 연결되지 않았어요.
+                  계정·실시간 검색·예약·결제와 연결되지 않았어요.
                 </p>
                 <details>
                   <summary>사진 출처</summary>
