@@ -128,6 +128,77 @@ export function insertNearby(journey: Journey, dayId: string, anchorId: string, 
   blocks.splice(anchorBlock < 0 ? blocks.length : anchorBlock + insertAt - index, 0, { id: id(), type: 'PLACE', placeId: visit.id, visitId: visit.visitId });
   return { ...journey, days: journey.days.map(item => item.dayId === dayId ? { ...item, places, blocks } : item) };
 }
+/** A nearby visit always travels with its base visit; meal visits keep their own IDs. */
+export function planVisitGroups(day: JourneyDay): Place[][] {
+  const byId = new Map(day.places.filter(place => place.visitId).map(place => [place.visitId!, place]));
+  const groups = new Map<Place, Place[]>();
+  for (const place of day.places) {
+    let root = place;
+    const seen = new Set<Place>();
+    while (root.anchorVisitId && byId.has(root.anchorVisitId) && !seen.has(root)) {
+      seen.add(root);
+      root = byId.get(root.anchorVisitId)!;
+    }
+    // An invalid/cyclic relationship stays visible, but cannot be reordered below.
+    if (seen.has(root)) root = place;
+    const group = groups.get(root) ?? [];
+    if (place === root) group.unshift(place); else group.push(place);
+    groups.set(root, group);
+  }
+  return [...groups.values()];
+}
+
+function fixedPlanGroup(group: Place[]): boolean {
+  return group.some(place => place.kind === 'STAY' || place.bookingFixed);
+}
+
+function validPlanGroup(day: JourneyDay, group: Place[]): boolean {
+  if (!group.length || group[0].anchorVisitId) return false;
+  const ids = new Set(day.places.map(place => place.visitId));
+  if (ids.size !== day.places.length || day.places.some(place => !place.visitId)) return false;
+  const start = day.places.indexOf(group[0]);
+  return group.every((place, index) => day.places[start + index] === place);
+}
+
+/** Drag handles are available only for intact non-lodging groups. */
+export function canDragPlanVisit(day: JourneyDay, visitId: string): boolean {
+  const group = planVisitGroups(day).find(items => items.some(place => place.visitId === visitId));
+  return Boolean(group && !fixedPlanGroup(group) && validPlanGroup(day, group));
+}
+
+/** Insert before a visit's whole group; null means the end, before terminal lodging. */
+export function movePlanVisitBefore(journey: Journey, dayId: string, visitId: string, beforeVisitId: string | null): Journey {
+  if (!isPersonalPlan(journey) || journey.visibility !== 'PRIVATE' || journey.trash) throw new Error('내 비공개 여행에서만 순서를 바꿀 수 있어요.');
+  const day = journey.days.find(item => item.dayId === dayId);
+  if (!day) throw new Error('날짜가 바뀌었어요. 다시 선택해 주세요.');
+  const groups = planVisitGroups(day);
+  const sourceIndex = groups.findIndex(group => group.some(place => place.visitId === visitId));
+  if (sourceIndex < 0) throw new Error('방문할 장소가 바뀌었어요. 다시 선택해 주세요.');
+  if (!validPlanGroup(day, groups[sourceIndex])) throw new Error('연결된 장소를 확인한 뒤 순서를 바꿔 주세요.');
+  if (fixedPlanGroup(groups[sourceIndex])) throw new Error('숙소와 고정된 방문은 끌어서 이동할 수 없어요.');
+  let targetIndex = groups.length;
+  if (beforeVisitId !== null) {
+    targetIndex = groups.findIndex(group => group.some(place => place.visitId === beforeVisitId));
+    if (targetIndex < 0) throw new Error('이동할 위치가 바뀌었어요. 다시 선택해 주세요.');
+    if (!validPlanGroup(day, groups[targetIndex])) throw new Error('연결된 장소를 확인한 뒤 순서를 바꿔 주세요.');
+  } else {
+    while (targetIndex > 0 && groups[targetIndex - 1].some(place => place.kind === 'STAY')) targetIndex--;
+  }
+  if (targetIndex === sourceIndex || targetIndex === sourceIndex + 1) return journey;
+  const crossed = sourceIndex < targetIndex ? groups.slice(sourceIndex + 1, targetIndex) : groups.slice(targetIndex, sourceIndex);
+  if (crossed.some(fixedPlanGroup)) throw new Error('숙소와 고정된 방문의 앞뒤를 바꿀 수 없어요.');
+  if (groups.some(group => !validPlanGroup(day, group))) throw new Error('연결된 장소를 확인한 뒤 순서를 바꿔 주세요.');
+  const moved = [...groups];
+  const [source] = moved.splice(sourceIndex, 1);
+  moved.splice(sourceIndex < targetIndex ? targetIndex - 1 : targetIndex, 0, source);
+  const places = moved.flat();
+  const positions = new Map(places.map((place, index) => [place.visitId, index]));
+  const placeBlocks = day.blocks.filter(block => block.type === 'PLACE').sort((a, b) => (positions.get(a.visitId) ?? Infinity) - (positions.get(b.visitId) ?? Infinity));
+  let blockIndex = 0;
+  const updated = reconcilePlanningGaps({ ...day, places, blocks: day.blocks.map(block => block.type === 'PLACE' ? placeBlocks[blockIndex++] : block) });
+  return { ...journey, days: journey.days.map(item => item === day ? updated : item) };
+}
+
 export function reorderPlanVisit(journey: Journey, dayId: string, visitId: string, direction: -1 | 1): Journey {
   if (!isPersonalPlan(journey)) return journey;
   return { ...journey, days: journey.days.map(day => {

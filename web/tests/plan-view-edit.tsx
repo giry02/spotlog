@@ -41,7 +41,7 @@ function seed():Journey{
   }
   return trip;
 }
-type QaWindow=Window & {planViewQa?:{journey:Journey;journal?:Journey;baseline:Journey;storageKey:string;guideCalls:number;backCalls:number};planViewQaFail?:boolean};
+type QaWindow=Window & {planViewQa?:{journey:Journey;journal?:Journey;baseline:Journey;storageKey:string;guideCalls:number;backCalls:number};planViewQaFail?:boolean;planViewQaUpdate?:(next:Journey)=>void};
 const qaWindow=window as QaWindow;
 function Review(){
   const live=usePublicReview().catalog;
@@ -52,6 +52,7 @@ function Review(){
   const [guideCalls,setGuideCalls]=useState(0);
   const [backCalls,setBackCalls]=useState(0);
   qaWindow.planViewQa={journey,journal,baseline,storageKey:key,guideCalls,backCalls};
+  qaWindow.planViewQaUpdate=next=>{localStorage.setItem(key,JSON.stringify(next));setJourney(next);};
   return <main className="app-shell tab-trips detail-open"><section className="content"><PersonalTrip journey={journey} catalog={live} savedPlaces={live} onBack={()=>setBackCalls(value=>value+1)} onSaveBusiness={()=>true} onChange={next=>{if(qaWindow.planViewQaFail)return false;localStorage.setItem(key,JSON.stringify(next));setJourney(next);return true;}} onAddLandmark={()=>{}} onCopy={()=>{}} onGuide={day=>{setGuideCalls(value=>value+1);setGuide(day);}} onJournal={options=>setJournal(makeJournalFromPlan(journey,'기기 여행자',options))} renderMap={(places,_selected,_onSelect,onResolve)=><div className="qa-route-preview" aria-label="일정 경로 확인">{places.map(place=><p key={place.visitId}>{place.name}</p>)}<button onClick={()=>{const target=places.find(place=>place.kind==='FOOD')!,previous=places[Math.max(0,places.indexOf(target)-1)];onResolve?.({id:'qa-time-warning',code:'ESTIMATED_TIME_CONFLICT',visitId:target.visitId!,fromVisitId:previous.visitId,evidence:'estimate',source:'STRAIGHT_LINE',shortfallMinutes:15,actions:['edit-time']});}}>경로 경고 확인</button></div>}/></section>{guide!==undefined&&<BottomSheet title={`DAY ${guide} 여행 안내`} onClose={()=>setGuide(undefined)}><p>현재 일정의 장소 안내</p></BottomSheet>}</main>;
 }
 if(import.meta.env.DEV)createRoot(document.getElementById('root')!).render(<LocaleProvider><PublicReviewProvider baseline={catalog}><Review/></PublicReviewProvider></LocaleProvider>);

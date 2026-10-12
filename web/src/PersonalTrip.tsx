@@ -1,7 +1,7 @@
 import { useUiCopy } from './frontendCopy';
 import { useLocale } from './locale';
 import { useEffect, useState, type ReactNode } from 'react';
-import { ArrowDown, ArrowUp, ArrowLeft, ArrowRight, MapPin, Plus, Trash2, MoreHorizontal, Copy, Undo2, CheckCircle2, SkipForward, RefreshCw, Clock3, Navigation, Map as MapIcon, Utensils, Coffee, BedDouble, Store } from 'lucide-react';
+import { ArrowDown, ArrowUp, ArrowLeft, ArrowRight, MapPin, Plus, Trash2, MoreHorizontal, Copy, Undo2, CheckCircle2, SkipForward, RefreshCw, Clock3, Navigation, Map as MapIcon, Utensils, Coffee, BedDouble, Store, GripVertical } from 'lucide-react';
 import type { Journey, Place, PlanningSlot } from './data';
 import { plannerTimeline, planningSlotLabel, planningGapLabel, plannerVisitContext } from './plannerTimeline';
 import { DayNavigation } from './DayNavigation';
@@ -12,7 +12,8 @@ import { TripPlacePicker } from './TripPlacePicker';
 import { PhotoCredit } from './PublicTourismCredit';
 import { Button, Field } from './ui';
 import { NearbyBusinessSheet,StayForm } from './NearbyBusinessSheet';
-import { addPlanDay, appendPlanPlace, copyPlanDay, distanceBetween, hasLocation, normalizePlan, removePlanDay, removePlanVisit, reorderPlanVisit, replacePlanBusiness, setPlanDates, setPlanStay, transferVisit } from './tripPlan';
+import { addPlanDay, appendPlanPlace, canDragPlanVisit, copyPlanDay, distanceBetween, hasLocation, movePlanVisitBefore, normalizePlan, planVisitGroups, removePlanDay, removePlanVisit, reorderPlanVisit, replacePlanBusiness, setPlanDates, setPlanStay, transferVisit } from './tripPlan';
+import { usePlanDragOrder } from './usePlanDragOrder';
 import { nextPendingInDay, nextPendingDay, rememberTravelPosition, setVisitProgress, tripChangeIdentity, visitProgress } from './tripProgress';
 import { naverDirectionsUrl } from './placeDirections';
 import { parseDurationMinutes } from './routeData';
@@ -54,6 +55,7 @@ export function PersonalTrip({ journey: input, initialDay = 1, catalog, savedPla
   const [warning, setWarning] = useState<RouteWarning | null>(null);
   const [undo, setUndo] = useState<{ previous: Journey; after: string;previousDay:number } | null>(null);
   const day = journey.days.find(day => day.day === selectedDay) ?? journey.days[0];
+  const canReorder = isEditing && journey.isMine && journey.purpose === 'PLAN' && journey.visibility === 'PRIVATE' && !journey.trash;
   const candidateCount = new Set(journey.businessCandidates?.flatMap(group => group.options.map(option => option.place.id))).size;
   const needsReview = journey.planStage === 'DRAFT' || candidateCount > 0;
   const visitedCount = journey.days.reduce((total, item) => total + item.places.filter(place => visitProgress(journey, place.visitId) === 'done').length, 0);
@@ -86,6 +88,23 @@ export function PersonalTrip({ journey: input, initialDay = 1, catalog, savedPla
     return saved;
   };
   const attempt = (operation: () => Journey, close?: () => void, focusDay?: string | number) => { try { let next=operation(); if(focusDay!==undefined){const target=next.days.find(item=>typeof focusDay==='number'?item.day===focusDay:item.dayId===focusDay);if(target)next=rememberTravelPosition(next,target.dayId!,nextPendingInDay(next,target)?.visitId);} if(save(next)){if(focusDay!==undefined)setSelectedVisit(next.travelProgress?.visitId);close?.();} } catch (error) { setError(error instanceof Error ? error.message : copy("변경하지 못했어요.")); } };
+  const changeOrder = (visitId: string, beforeVisitId: string | null) => {
+    if (!day || !isEditing) return;
+    try {
+      const next = movePlanVisitBefore(journey, day.dayId!, visitId, beforeVisitId);
+      if (next !== journey && save(next)) setStatus(en ? 'Visit order saved.' : '방문 순서를 저장했어요.');
+    } catch (problem) { setError(problem instanceof Error ? problem.message : copy("변경하지 못했어요.")); }
+  };
+  const dragOrder = usePlanDragOrder({ day, enabled: canReorder, en,
+    onDrop: changeOrder,
+    onStep: (visitId, direction) => {
+      if (!day) return;
+      const groups = planVisitGroups(day), index = groups.findIndex(group => group.some(place => place.visitId === visitId));
+      const target = groups[index + direction];
+      if (index < 0 || !target || !canDragPlanVisit(day, target[0].visitId!)) return;
+      changeOrder(visitId, direction === -1 ? target[0].visitId! : groups[index + 2]?.[0].visitId ?? null);
+    },
+  });
   if (!day) return <div className="page"><button onClick={onBack}>{copy("내 여행으로")}</button><p>{copy("일정을 확인할 수 없어요.")}</p></div>;
   const remove = (related: boolean) => { if (removing?.visitId) attempt(()=>removePlanVisit(journey,removing.visitId!,related),()=>setRemoving(null)); };
   const previousStay = journey.days.find(item=>item.day===day.day-1)?.places.find(place=>place.kind==='STAY');
@@ -133,19 +152,27 @@ export function PersonalTrip({ journey: input, initialDay = 1, catalog, savedPla
       </div>}
       {!isEditing && mapOpen && <div className="plan-route" id="personal-route">{renderMap(routePlaces,selectedVisit,chooseVisit,setWarning)}</div>}
       {!isEditing && previousStay && <button id={`plan-visit-${previousStay.visitId}`} className="plan-departure" onClick={()=>{setSelectedVisit(previousStay.visitId);setMapOpen(true);}}>1 · {previousStay.name}{copy("에서 출발")}</button>}
-      <div className="plan-stops">{plannerTimeline(day).map(entry=>{
+      {canReorder && day.places.some(place => canDragPlanVisit(day, place.visitId!)) && <p className="plan-drag-hint" aria-hidden="true"><GripVertical size={16}/>{en?'Drag the handle to reorder':'손잡이를 끌어 순서 변경'}</p>}
+      <span id="plan-drag-instructions" className="plan-drag-sr">{en?'Drag to reorder this day. Linked places move together. Use up and down arrow keys on the handle. Escape cancels.':'손잡이를 끌어 이 DAY의 순서를 바꿀 수 있어요. 연결된 장소는 함께 이동해요. 손잡이에서 위아래 방향키로도 변경할 수 있어요. Escape 키로 취소해요.'}</span>
+      <div className={`plan-stops${dragOrder.preview?' plan-sort-active':''}`}>{plannerTimeline(day).map(entry=>{
         if(entry.type==='gap')return <article className="plan-stop plan-timeline-gap" key={entry.gap.id}><small>{planningSlotLabel(entry.gap.slot,en)}</small><strong>{planningGapLabel(entry.gap,en)}</strong><p>{plannerVisitContext(day,entry,en)}</p>{isEditing && <Button size="compact" variant="secondary" className="plan-local-action" onClick={()=>{const target=day.places.find(p=>p.visitId===(entry.gap.afterVisitId??entry.gap.beforeVisitId)&&isCandidateAnchor(p))??day.places.find(isCandidateAnchor);setPlanningSlot(entry.gap.slot);if(target){setAnchorId(target.visitId!);}else setAddingLandmark(true);}}><Plus size={14}/>{en?'Add a place':copy("장소 담기")}</Button>}</article>;
         const {place}=entry,index=day.places.indexOf(place);
         const KindIcon=place.kind==='FOOD'?Utensils:place.kind==='CAFE'?Coffee:place.kind==='STAY'?BedDouble:place.kind==='SHOP'?Store:MapPin;
-        return <article key={place.visitId} id={`plan-visit-${place.visitId}`} className={`plan-stop ${place.anchorVisitId?'plan-stop-related':''} ${selectedVisit===place.visitId?'plan-stop-selected':''}`}>
+        const draggable=canReorder&&canDragPlanVisit(day,place.visitId!);
+        return <article key={place.visitId} id={`plan-visit-${place.visitId}`} data-plan-visit={place.visitId} className={`plan-stop ${place.anchorVisitId?'plan-stop-related':''} ${selectedVisit===place.visitId?'plan-stop-selected':''}${dragOrder.preview?.visitIds.includes(place.visitId!)?' plan-dragging':''}${dragOrder.preview?.valid&&dragOrder.preview.before===place.visitId?' plan-drop-before':''}`}>
+        <div className={`plan-stop-heading${draggable?' plan-stop-heading-draggable':''}`}>
         <button className="plan-stop-main plan-select-stop" onClick={()=>{setEditing(structuredClone(place));setError('');}} aria-label={`${place.name} · ${isEditing?(en?'Edit place':'장소 수정'):(en?'Place information':'장소 정보')}`}><span className="plan-stop-number">{index+1+(!isEditing&&previousStay?1:0)}</span>{place.image?<img src={place.image} alt=""/>:<span className="plan-image-empty"><KindIcon size={22}/></span>}<span className="plan-stop-copy"><small className="ai-planner-kind" data-kind={place.kind}><KindIcon size={13} aria-hidden="true"/>{place.kind==='STAY'?`${copy("숙소")}${place.bookingFixed?copy(" · 예약 고정"):''}`:copy(place.kind==='FOOD'?"음식점":place.kind==='CAFE'?"카페":place.kind==='SHOP'?"로컬숍":"랜드마크")}</small><strong>{place.name}</strong><small>{place.address||copy("주소 확인 필요")}{!hasLocation(place)&&(en?' · Location unverified':' · 위치 미확인')}</small></span></button>
+        {draggable && <button type="button" className="plan-drag-handle" aria-label={`${place.name} · ${en?'Drag to reorder':'끌어서 순서 변경'}`} aria-describedby="plan-drag-instructions" title={en?'Drag to reorder · Linked places move together':'끌어서 순서 변경 · 연결된 장소는 함께 이동'} onPointerDown={event=>dragOrder.start(event,place.visitId!)} onKeyDown={event=>dragOrder.keyboard(event,place.visitId!)} onClick={event=>{event.preventDefault();event.stopPropagation();}}><GripVertical size={20} aria-hidden="true"/></button>}
+        </div>
         <PhotoCredit image={place.image}/>
         {isEditing && isCandidateAnchor(place) && journey.businessCandidates?.some(group=>group.anchorVisitId===place.visitId) && <button className="plan-shortlist-link" onClick={()=>setReviewOpen(true)}><CheckCircle2 size={14}/>담은 후보 {journey.businessCandidates.filter(group=>group.anchorVisitId===place.visitId).reduce((n,group)=>n+group.options.length,0)}곳 · 마지막 확인</button>}
         {visitProgress(journey,place.visitId)!=='pending'&&<p className="plan-help plan-visit-state">{visitProgress(journey,place.visitId)==='done'?<CheckCircle2 size={14}/>:<SkipForward size={14}/>} {en ? visitProgress(journey,place.visitId)==='done'?'Visited':'Skipped' : visitProgress(journey,place.visitId)==='done'?'방문 완료':'건너뜀'}</p>}
         {place.planningSlot&&<p className="plan-help plan-timeline-context">{planningSlotLabel(place.planningSlot,en)}{place.kind!=='LANDMARK'&&plannerVisitContext(day,entry,en)?` · ${plannerVisitContext(day,entry,en)}`:''}</p>}
         {(place.time||place.note) && <p className="plan-help">{place.time && `${place.time} · `}{place.note}</p>}
         {isEditing && <div className="plan-stop-actions">{isCandidateAnchor(place) && <button className="outline" onClick={()=>setAnchorId(place.visitId!)}><Plus size={16}/>{t('nearby')}</button>}<span/><button aria-label={`${place.name} · ${en?'Place menu':'장소 메뉴'}`} onClick={()=>{setEditing(structuredClone(place));setError('');}}><MoreHorizontal size={18}/></button></div>}
-      </article>})}</div>
+      </article>})}{dragOrder.preview?.valid&&dragOrder.preview.before===null&&<div className="plan-drop-end" aria-hidden="true"/>}</div>
+      {dragOrder.preview&&<div className="plan-drag-preview" style={{left:dragOrder.preview.left,top:dragOrder.preview.top,width:dragOrder.preview.width}} aria-hidden="true"><GripVertical size={18}/><span>{dragOrder.preview.label}</span></div>}
+      <span className="plan-drag-sr" role="status" aria-live="polite">{dragOrder.preview?.label||dragOrder.announcement}</span>
       {!day.places.length && <div className="empty"><MapPin size={24}/><strong>{copy("이날 가고 싶은 곳을 담아보세요")}</strong><p>{copy("글을 작성하지 않아도 여행을 만들 수 있어요.")}</p></div>}
       {isEditing && <button className="outline wide" onClick={()=>{setPlanningSlot(undefined);setAddingLandmark(true);}}><Plus size={17}/>{en?'Add places':'장소 추가'}</button>}
       {undo && <button className="plan-undo" onClick={()=>{ if(tripChangeIdentity(journey)!==undo.after){setError(copy("이후 변경된 내용이 있어요. 현재 일정을 유지할게요."));return;} if(onChange(undo.previous)){setSelectedDay(undo.previousDay);setSelectedVisit(undo.previous.travelProgress?.visitId);setUndo(null);setStatus(copy("마지막 변경을 취소했어요."));setError('');}else setError(copy("취소 내용을 저장하지 못했어요.")); }}><Undo2 size={16}/>{copy("마지막 변경 취소")}</button>}
