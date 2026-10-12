@@ -7,6 +7,6 @@ export default defineConfig(({ command,mode }) => {
   return {
   base: command === 'build' ? '/spotlog/' : '/',
   plugins: [react()],
-  build: { outDir: 'dist', emptyOutDir: true, rollupOptions: { input: { customer: fileURLToPath(new URL('./index.html', import.meta.url)), errors: fileURLToPath(new URL('./error.html', import.meta.url)), notFound: fileURLToPath(new URL('./404.html', import.meta.url)) } } },
+  build: { outDir: 'dist', emptyOutDir: true, rollupOptions: { input: { customer: fileURLToPath(new URL('./index.html', import.meta.url)), errors: fileURLToPath(new URL('./error.html', import.meta.url)), notFound: fileURLToPath(new URL('./404.html', import.meta.url)), admin: fileURLToPath(new URL('./admin.html', import.meta.url)) } } },
   server:{proxy:target?{'/api':{target,changeOrigin:true}}:undefined},
 };});

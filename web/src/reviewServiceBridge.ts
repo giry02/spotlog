@@ -179,6 +179,20 @@ export function reviewExposureOrder<T extends { id: string; sourceTripId?: strin
   });
 }
 
+/** Home place slots require an explicit current public place and its approved cover photo. */
+export function homePlacesFromReview(state: ReviewServiceState, now = Date.now()): PublicPlaceProjection[] {
+  const catalog = new Map(overlayPublicPlaces([], state).map(place => [place.id, place]));
+  const selected = new Set<string>();
+  return state.exposures.filter(entry => entry.channel === 'HOME_PLACE' && entry.enabled && entry.title.trim() && (!entry.startsAt || Date.parse(entry.startsAt) <= now) && (!entry.endsAt || Date.parse(entry.endsAt) > now)).sort((a, b) => a.order - b.order).flatMap(entry => {
+    const place = catalog.get(entry.targetId);
+    if (!place || selected.has(place.id) || !place.locationVerified || !Number.isFinite(place.lat) || !Number.isFinite(place.lng) || Math.abs(place.lat) > 90 || Math.abs(place.lng) > 180) return [];
+    const photo = place.photos?.find(value => value.mediaId === entry.coverMediaId && value.image && !state.withdrawnImages.includes(value.image));
+    if (!photo) return [];
+    selected.add(place.id);
+    return [{ ...place, image: photo.image, photos: [photo, ...(place.photos ?? []).filter(value => value.mediaId !== photo.mediaId)], hook: entry.title !== place.name ? entry.title : place.hook, description: entry.introduction || place.description }];
+  });
+}
+
 export function publicTemplatesFromReview(state: ReviewServiceState, catalog: Place[]): HomeTripTemplate[] {
   return state.operatingJournals.filter(j => j.ownerVisibility === 'PUBLIC' && j.moderation === 'VISIBLE' && j.days?.length && j.days.every(day => day.places.length > 0)).flatMap(j => { const places = [...new Map(j.days!.flatMap(day => day.places).map(p => catalog.find(c => c.id === p.id)).filter((p): p is Place => !!p).map(p => [p.id,p])).values()];return places.length ? [{ id: j.sourceTemplateId ?? j.sourceJournalId ?? j.journalId, sourceTripId: j.sourceJournalId, publicJourney: restrictPublicJourneyMedia(publicJournalToJourney(j,catalog),state), region: j.region ?? '국내', eyebrow: '운영 추천 · 공개 자료', title: j.title, summary: j.summary ?? '', duration: j.days!.length === 1 ? '당일 여행' : `${j.days!.length - 1}박 ${j.days!.length}일`, dayCount: j.days!.length, cover: j.cover?.image ?? '', places }] : [];});
 }

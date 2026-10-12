@@ -1,0 +1,551 @@
+{
+  "generatedAt": "2026-10-09T02:09:02.168Z",
+  "base": "http://127.0.0.1:5210",
+  "checks": [
+    {
+      "name": "selected region and two-day prompt create complete local rule draft",
+      "detail": "검수용 바다 전망대 → 검수용 바다 식당 → 검수용 풍경 카페 → 검수용 바다 숙소"
+    },
+    {
+      "name": "DAY edits and order save as private draft, excluded from public bridge"
+    },
+    {
+      "name": "saved private draft survives reload and renders DAY/PLACE/source preview"
+    },
+    {
+      "name": "explicit publication appears on customer home in same isolated review context"
+    },
+    {
+      "name": "customer reading preserves published DAY and operator-edited article content"
+    },
+    {
+      "name": "isolated private sentinel preserved and no browser exceptions"
+    },
+    {
+      "name": "grade stages save incomplete draft through structured fields without JSON input"
+    },
+    {
+      "name": "valid structured grade stages activate as one policy with versioned save"
+    },
+    {
+      "name": "activated grade policy appears only in authenticated local device preview without editing copy counts"
+    }
+  ],
+  "errors": [],
+  "trip": {
+    "curatedTripId": "curated-b1754302-55d1-4f59-b398-cb6915146267",
+    "title": "브라우저 검수 · 부산 2일 운영 추천 여행",
+    "introduction": "대한민국 · 부산의 공개 등록 장소를 엮은 2일 방문 제안입니다. 실제 방문 후기가 아닌 운영 추천 여행기입니다.",
+    "placeIds": [
+      "review-food",
+      "review-landmark",
+      "review-cafe",
+      "review-stay",
+      "review-landmark-2"
+    ],
+    "visibility": "PUBLIC",
+    "sourceKind": "EDITORIAL",
+    "regionId": "kr-busan",
+    "dayCount": 2,
+    "days": [
+      {
+        "dayId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1",
+        "day": 1,
+        "title": "등록 장소 순서를 조정한 첫날",
+        "introduction": "공개 장소 자료를 바탕으로 제안하는 방문 순서입니다.",
+        "visits": [
+          {
+            "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-2",
+            "placeId": "review-food",
+            "slot": "morning",
+            "introduction": "공개 등록 자료를 검토한 운영 여행 제안입니다. 실제 방문 후기가 아닙니다.",
+            "mediaId": "review-food-photo"
+          },
+          {
+            "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-1",
+            "placeId": "review-landmark",
+            "slot": "afternoon",
+            "introduction": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+            "mediaId": "review-landmark-photo"
+          },
+          {
+            "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-3",
+            "placeId": "review-cafe",
+            "slot": "afternoon",
+            "introduction": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+            "mediaId": "review-cafe-photo"
+          },
+          {
+            "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-4",
+            "placeId": "review-stay",
+            "slot": "stay",
+            "introduction": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+            "mediaId": "review-stay-photo"
+          }
+        ]
+      },
+      {
+        "dayId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-2",
+        "day": 2,
+        "title": "검수용 도심 공원 중심",
+        "introduction": "공개 장소 자료를 바탕으로 제안하는 방문 순서입니다.",
+        "visits": [
+          {
+            "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-2:visit-1",
+            "placeId": "review-landmark-2",
+            "slot": "morning",
+            "introduction": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+            "mediaId": "review-landmark-2-photo"
+          }
+        ]
+      }
+    ],
+    "generation": {
+      "method": "LOCAL_RULES",
+      "requestedAt": "2026-10-09T02:08:39.713Z",
+      "notes": [
+        "등록된 공개 장소와 거리 기준으로 구성한 로컬 규칙 초안입니다. 이동 시간·영업시간·예약 가능 여부는 확인하지 않았습니다.",
+        "DAY 2 음식점: 가까운 공개 등록 자료가 없어 배치하지 않았습니다.",
+        "DAY 2 카페: 가까운 공개 등록 자료가 없어 배치하지 않았습니다."
+      ]
+    },
+    "coverMediaId": "review-landmark-photo",
+    "editorialJournal": {
+      "journalId": "editorial:curated-b1754302-55d1-4f59-b398-cb6915146267",
+      "revision": 2,
+      "title": "브라우저 검수 · 부산 2일 운영 추천 여행",
+      "original": "DAY 1은 오전 검수용 바다 식당 → 오후 검수용 바다 전망대 → 오후 검수용 풍경 카페 → 숙박 검수용 바다 숙소 순서로 제안합니다.\n\nDAY 2은 오전 검수용 도심 공원 순서로 제안합니다.",
+      "english": "",
+      "summary": "대한민국 · 부산의 공개 등록 장소를 엮은 2일 방문 제안입니다. 실제 방문 후기가 아닌 운영 추천 여행기입니다.",
+      "authorId": "spotlog-editorial",
+      "authorName": "Spotlog 운영",
+      "sourceKind": "EDITORIAL",
+      "sourceJournalId": "curated-b1754302-55d1-4f59-b398-cb6915146267",
+      "ownerVisibility": "PUBLIC",
+      "moderation": "VISIBLE",
+      "createdAt": "2026-10-09T02:08:39.713Z",
+      "region": "대한민국 · 부산",
+      "tags": [
+        "운영 추천 여행기"
+      ],
+      "cover": {
+        "id": "review-landmark-photo",
+        "image": "/admin-review.svg",
+        "caption": "실제 장소 사진이 아닌 검수용 도형",
+        "sourceCredit": {
+          "provider": "Spotlog 검수 자료",
+          "author": "Spotlog",
+          "sourceUrl": "https://example.org/spotlog-review",
+          "license": "자체 검수용 도형",
+          "licenseUrl": "https://example.org/spotlog-review",
+          "checkedAt": "2026-10-05"
+        }
+      },
+      "days": [
+        {
+          "dayId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1",
+          "day": 1,
+          "date": "",
+          "title": "등록 장소 순서를 조정한 첫날",
+          "story": "공개 장소 자료를 바탕으로 제안하는 방문 순서입니다.",
+          "places": [
+            {
+              "id": "review-food",
+              "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-2",
+              "kind": "FOOD",
+              "name": "검수용 바다 식당",
+              "area": "부산 · 검수 자료",
+              "address": "검수용 바다 식당 가상 검수 주소 — 실제 방문용 아님",
+              "image": "/admin-review.svg",
+              "description": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+              "note": "공개 등록 자료를 검토한 운영 여행 제안입니다. 실제 방문 후기가 아닙니다.",
+              "duration": "1시간",
+              "planningSlot": "morning",
+              "sourceCredit": {
+                "provider": "Spotlog 검수 자료",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              },
+              "photos": [
+                {
+                  "id": "review-food-photo",
+                  "image": "/admin-review.svg",
+                  "caption": "실제 장소 사진이 아닌 검수용 도형",
+                  "sourceCredit": {
+                    "provider": "Spotlog 검수 자료",
+                    "author": "Spotlog",
+                    "sourceUrl": "https://example.org/spotlog-review",
+                    "license": "자체 검수용 도형",
+                    "licenseUrl": "https://example.org/spotlog-review",
+                    "checkedAt": "2026-10-05"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "review-landmark",
+              "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-1",
+              "kind": "LANDMARK",
+              "name": "검수용 바다 전망대",
+              "area": "부산 · 검수 자료",
+              "address": "검수용 바다 전망대 가상 검수 주소 — 실제 방문용 아님",
+              "image": "/admin-review.svg",
+              "description": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+              "note": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+              "duration": "1시간",
+              "planningSlot": "afternoon",
+              "sourceCredit": {
+                "provider": "Spotlog 검수 자료",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              },
+              "photos": [
+                {
+                  "id": "review-landmark-photo",
+                  "image": "/admin-review.svg",
+                  "caption": "실제 장소 사진이 아닌 검수용 도형",
+                  "sourceCredit": {
+                    "provider": "Spotlog 검수 자료",
+                    "author": "Spotlog",
+                    "sourceUrl": "https://example.org/spotlog-review",
+                    "license": "자체 검수용 도형",
+                    "licenseUrl": "https://example.org/spotlog-review",
+                    "checkedAt": "2026-10-05"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "review-cafe",
+              "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-3",
+              "kind": "CAFE",
+              "name": "검수용 풍경 카페",
+              "area": "부산 · 검수 자료",
+              "address": "검수용 풍경 카페 가상 검수 주소 — 실제 방문용 아님",
+              "image": "/admin-review.svg",
+              "description": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+              "note": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+              "duration": "1시간",
+              "planningSlot": "afternoon",
+              "sourceCredit": {
+                "provider": "Spotlog 검수 자료",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              },
+              "photos": [
+                {
+                  "id": "review-cafe-photo",
+                  "image": "/admin-review.svg",
+                  "caption": "실제 장소 사진이 아닌 검수용 도형",
+                  "sourceCredit": {
+                    "provider": "Spotlog 검수 자료",
+                    "author": "Spotlog",
+                    "sourceUrl": "https://example.org/spotlog-review",
+                    "license": "자체 검수용 도형",
+                    "licenseUrl": "https://example.org/spotlog-review",
+                    "checkedAt": "2026-10-05"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "review-stay",
+              "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-4",
+              "kind": "STAY",
+              "name": "검수용 바다 숙소",
+              "area": "부산 · 검수 자료",
+              "address": "검수용 바다 숙소 가상 검수 주소 — 실제 방문용 아님",
+              "image": "/admin-review.svg",
+              "description": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+              "note": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+              "duration": "숙박",
+              "planningSlot": "stay",
+              "sourceCredit": {
+                "provider": "Spotlog 검수 자료",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              },
+              "photos": [
+                {
+                  "id": "review-stay-photo",
+                  "image": "/admin-review.svg",
+                  "caption": "실제 장소 사진이 아닌 검수용 도형",
+                  "sourceCredit": {
+                    "provider": "Spotlog 검수 자료",
+                    "author": "Spotlog",
+                    "sourceUrl": "https://example.org/spotlog-review",
+                    "license": "자체 검수용 도형",
+                    "licenseUrl": "https://example.org/spotlog-review",
+                    "checkedAt": "2026-10-05"
+                  }
+                }
+              ]
+            }
+          ],
+          "blocks": [
+            {
+              "id": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-2",
+              "type": "PLACE",
+              "placeId": "review-food",
+              "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-2"
+            },
+            {
+              "id": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-1",
+              "type": "PLACE",
+              "placeId": "review-landmark",
+              "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-1"
+            },
+            {
+              "id": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-3",
+              "type": "PLACE",
+              "placeId": "review-cafe",
+              "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-3"
+            },
+            {
+              "id": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-4",
+              "type": "PLACE",
+              "placeId": "review-stay",
+              "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-4"
+            }
+          ]
+        },
+        {
+          "dayId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-2",
+          "day": 2,
+          "date": "",
+          "title": "검수용 도심 공원 중심",
+          "story": "공개 장소 자료를 바탕으로 제안하는 방문 순서입니다.",
+          "places": [
+            {
+              "id": "review-landmark-2",
+              "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-2:visit-1",
+              "kind": "LANDMARK",
+              "name": "검수용 도심 공원",
+              "area": "부산 · 검수 자료",
+              "address": "검수용 도심 공원 가상 검수 주소 — 실제 방문용 아님",
+              "image": "/admin-review.svg",
+              "description": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+              "note": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+              "duration": "1시간",
+              "planningSlot": "morning",
+              "sourceCredit": {
+                "provider": "Spotlog 검수 자료",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              },
+              "photos": [
+                {
+                  "id": "review-landmark-2-photo",
+                  "image": "/admin-review.svg",
+                  "caption": "실제 장소 사진이 아닌 검수용 도형",
+                  "sourceCredit": {
+                    "provider": "Spotlog 검수 자료",
+                    "author": "Spotlog",
+                    "sourceUrl": "https://example.org/spotlog-review",
+                    "license": "자체 검수용 도형",
+                    "licenseUrl": "https://example.org/spotlog-review",
+                    "checkedAt": "2026-10-05"
+                  }
+                }
+              ]
+            }
+          ],
+          "blocks": [
+            {
+              "id": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-2:visit-1",
+              "type": "PLACE",
+              "placeId": "review-landmark-2",
+              "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-2:visit-1"
+            }
+          ]
+        }
+      ],
+      "cards": [
+        {
+          "cardId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-2",
+          "placeId": "review-food",
+          "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-2",
+          "day": 1,
+          "name": "검수용 바다 식당",
+          "original": "공개 등록 자료를 검토한 운영 여행 제안입니다. 실제 방문 후기가 아닙니다.",
+          "english": "",
+          "kind": "FOOD",
+          "address": "검수용 바다 식당 가상 검수 주소 — 실제 방문용 아님",
+          "description": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+          "image": "/admin-review.svg",
+          "photos": [
+            {
+              "id": "review-food-photo",
+              "image": "/admin-review.svg",
+              "caption": "실제 장소 사진이 아닌 검수용 도형",
+              "sourceCredit": {
+                "provider": "Spotlog 검수 자료",
+                "author": "Spotlog",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "license": "자체 검수용 도형",
+                "licenseUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              }
+            }
+          ],
+          "sourceCredit": {
+            "provider": "Spotlog 검수 자료",
+            "sourceUrl": "https://example.org/spotlog-review",
+            "checkedAt": "2026-10-05"
+          },
+          "likes": null
+        },
+        {
+          "cardId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-1",
+          "placeId": "review-landmark",
+          "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-1",
+          "day": 1,
+          "name": "검수용 바다 전망대",
+          "original": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+          "english": "",
+          "kind": "LANDMARK",
+          "address": "검수용 바다 전망대 가상 검수 주소 — 실제 방문용 아님",
+          "description": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+          "image": "/admin-review.svg",
+          "photos": [
+            {
+              "id": "review-landmark-photo",
+              "image": "/admin-review.svg",
+              "caption": "실제 장소 사진이 아닌 검수용 도형",
+              "sourceCredit": {
+                "provider": "Spotlog 검수 자료",
+                "author": "Spotlog",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "license": "자체 검수용 도형",
+                "licenseUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              }
+            }
+          ],
+          "sourceCredit": {
+            "provider": "Spotlog 검수 자료",
+            "sourceUrl": "https://example.org/spotlog-review",
+            "checkedAt": "2026-10-05"
+          },
+          "likes": null
+        },
+        {
+          "cardId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-3",
+          "placeId": "review-cafe",
+          "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-3",
+          "day": 1,
+          "name": "검수용 풍경 카페",
+          "original": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+          "english": "",
+          "kind": "CAFE",
+          "address": "검수용 풍경 카페 가상 검수 주소 — 실제 방문용 아님",
+          "description": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+          "image": "/admin-review.svg",
+          "photos": [
+            {
+              "id": "review-cafe-photo",
+              "image": "/admin-review.svg",
+              "caption": "실제 장소 사진이 아닌 검수용 도형",
+              "sourceCredit": {
+                "provider": "Spotlog 검수 자료",
+                "author": "Spotlog",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "license": "자체 검수용 도형",
+                "licenseUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              }
+            }
+          ],
+          "sourceCredit": {
+            "provider": "Spotlog 검수 자료",
+            "sourceUrl": "https://example.org/spotlog-review",
+            "checkedAt": "2026-10-05"
+          },
+          "likes": null
+        },
+        {
+          "cardId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-4",
+          "placeId": "review-stay",
+          "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-1:visit-4",
+          "day": 1,
+          "name": "검수용 바다 숙소",
+          "original": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+          "english": "",
+          "kind": "STAY",
+          "address": "검수용 바다 숙소 가상 검수 주소 — 실제 방문용 아님",
+          "description": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+          "image": "/admin-review.svg",
+          "photos": [
+            {
+              "id": "review-stay-photo",
+              "image": "/admin-review.svg",
+              "caption": "실제 장소 사진이 아닌 검수용 도형",
+              "sourceCredit": {
+                "provider": "Spotlog 검수 자료",
+                "author": "Spotlog",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "license": "자체 검수용 도형",
+                "licenseUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              }
+            }
+          ],
+          "sourceCredit": {
+            "provider": "Spotlog 검수 자료",
+            "sourceUrl": "https://example.org/spotlog-review",
+            "checkedAt": "2026-10-05"
+          },
+          "likes": null
+        },
+        {
+          "cardId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-2:visit-1",
+          "placeId": "review-landmark-2",
+          "visitId": "curated-b1754302-55d1-4f59-b398-cb6915146267:day-2:visit-1",
+          "day": 2,
+          "name": "검수용 도심 공원",
+          "original": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+          "english": "",
+          "kind": "LANDMARK",
+          "address": "검수용 도심 공원 가상 검수 주소 — 실제 방문용 아님",
+          "description": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+          "image": "/admin-review.svg",
+          "photos": [
+            {
+              "id": "review-landmark-2-photo",
+              "image": "/admin-review.svg",
+              "caption": "실제 장소 사진이 아닌 검수용 도형",
+              "sourceCredit": {
+                "provider": "Spotlog 검수 자료",
+                "author": "Spotlog",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "license": "자체 검수용 도형",
+                "licenseUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              }
+            }
+          ],
+          "sourceCredit": {
+            "provider": "Spotlog 검수 자료",
+            "sourceUrl": "https://example.org/spotlog-review",
+            "checkedAt": "2026-10-05"
+          },
+          "likes": null
+        }
+      ],
+      "translation": {
+        "sourceRevision": 2,
+        "status": "REVIEW",
+        "note": "운영 추천 원문 · 영어 번역 미등록"
+      }
+    },
+    "revision": 2
+  },
+  "grade": {
+    "referenceId": "reference-2fcce746-5eb1-44a0-9ff9-8502c8c35bd9",
+    "category": "GRADE",
+    "name": "브라우저 검수 · 단계별 등급 기준",
+    "value": "[{\"min\":0,\"label\":\"여행 노트 시작\",\"shortLabel\":\"노트\",\"icon\":\"SPARKLES\"},{\"min\":20,\"label\":\"동네 가이드\",\"shortLabel\":\"가이드\",\"icon\":\"AWARD\"},{\"min\":100,\"label\":\"여행 큐레이터\",\"shortLabel\":\"큐레이터\",\"icon\":\"STAR\"},{\"min\":1000,\"label\":\"루트 메이커\",\"shortLabel\":\"루트메이커\",\"icon\":\"ROUTE\"},{\"min\":5000,\"label\":\"Spotlog 마스터\",\"shortLabel\":\"마스터\",\"icon\":\"CROWN\"}]",
+    "enabled": true,
+    "revision": 2
+  }
+}

@@ -1,8 +1,10 @@
 # Spotlog 전체 설계 문서 — 14장 목차
 
+**2026-10-05 최신 기준 — 관리자 업무 반영:** 현재 보드 실제 번호는 00~13. 지역·스태프 등록/CSV → 검수·공개 → 운영 추천 여행기 → 고객 노출·신고 처리 연결 추가. [13 관리자 전체 흐름](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=112-1881), [변경·검수 기록](FIGJAM_ADMIN_UPDATE_20261005.md). 로컬 검수 연결과 실제 서버·DB·AI 연결 대기 구분. 아래 09/21·09/29 옛 번호보다 현재 목차를 우선.
+
 **2026-09-29 최신 개정:** 맥미니 소형 LLM의 조건 해석·설명을 기본 경로로 정리. Jev는 선택 비교 후보. 네이버 외부 길찾기 / 지도 SDK / 주소·경로 API / 업체 검색을 분리하고 GitHub 업로드·로컬 구현·실제 연결 전·향후 상태 표시. [변경·검수 기록](FIGJAM_ARCHITECTURE_UPDATE_20260929.md). 09/23 Jev 선행안은 [이전 비교안](JEV_LLM_ARCHITECTURE_20260923.md)으로 보존.
 
-**2026-09-21 최신 추가:** 맥미니 64GB 로컬 AI·RAG 구성을 11~13에 상세화. 먼저 [11 전체 연결](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=77-1293) → [12 고객 요청 처리](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=78-1343) → [13 자료 갱신·협업](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=79-1440) 순서로 확인. [추가 도면 기록](MAC_MINI_FIGJAM_20260921.md). 로컬 모델·검색 DB는 시험 제안이며 아직 설치·연결 전.
+**2026-09-21 추가 기록:** 맥미니 64GB 로컬 AI·RAG 상세화. 현재 번호로 [10 전체 연결](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=77-1293) → [11 고객 요청 처리](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=78-1343) → [12 자료 갱신·협업](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=79-1440) 순서로 확인. [당시 추가 기록](MAC_MINI_FIGJAM_20260921.md). 로컬 모델·검색 DB는 시험 제안이며 아직 설치·연결 전.
 
 2026-09-21 · 기존 4장 명칭 보완 + 추가 7장 · 메모체 · FigJam 설계 자료
 
@@ -36,16 +38,17 @@
 | 07 | [소형 LLM 기본 · 대형 예외 보완](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=35-1364) | 소형 조건 해석 → 검색·일정 계산 → 소형 설명. 정보·자료 부족과 모델 실패 구분 |
 | 08 | [내부·외부 연결과 실패 대응](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=33-1278) | 연결 대상·호출자·주고받는 정보·실패 대응 · API는 호출 방식 |
 | 09 | [권한·공개·삭제 처리도](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=36-1342) | 내 여행·여행기 독립 · 소유권은 우리 서버에서 확인 · 휴지통 6개월 |
-| 10 | [개발·검수·배포·운영 흐름도](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=36-1353) | 코드 백업·고객 검수·공개 배포 분리 · 현재 웹 배포 경로 + 향후 서버·앱 운영 |
-| 11 | [맥미니 AI·RAG 전체 연결](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=77-1293) | 서버와 맥미니 경계 · 언어/임베딩 AI · Flowise/Ollama · DB · 외부 서비스 |
-| 12 | [고객 요청 한 건의 처리](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=78-1343) | 조건 인식·후보·근거·일정·설명·검증·저장 · 대형 예외 · 내부 규격 |
-| 13 | [RAG 자료 갱신·협업](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=79-1440) | 자료 승인·색인·동기화 · 주안반점 ID 예시 · 백엔드/AI 병행 |
+| 10 | [맥미니 AI·RAG 전체 연결](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=77-1293) | 공통 서버와 맥미니 경계 · 언어/임베딩 AI · Flowise/Ollama · 외부 서비스 |
+| 11 | [고객 요청 한 건의 처리](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=78-1343) | 조건 인식·근거·일정·설명·검증·승인 저장 · 고객 AI와 관리자 명령 계약 구분 |
+| 12 | [RAG 자료 준비·갱신과 협업](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=79-1440) | 공개·AI 활용 허가·후보 색인 검증/적용 · 철회 ID 차단 · 백엔드/AI 병행 |
+| 13 | [관리자 업무 흐름과 고객 연결](https://www.figma.com/board/8IageUvocd3SaddRKOoCGi?node-id=112-1881) | 지역·스태프 자료 쌓기 → 검수·공개 → 운영 추천 여행기 → 고객 신고/조치 · 7메뉴·현재/잔여 구분 |
 
 ## 읽는 순서
 
 - 고객 설명: 00 전체 구성 → 01 개념 → 03 고객 여정 → 04 화면 전환
-- 백엔드 협업: 05 데이터 관계 → 06 자료 등록 → 08 연결·실패 → 09 권한 → 10 배포·운영
-- AI 협업: 06 등록·색인 → 07 AI 처리 → 02 요청·응답 상세 → 08 실패 대응
+- 관리자 업무: 13 전체 업무 → 06 자료 등록 → 05 지역·원본·주변 관계 → 03 고객 연결
+- 백엔드 협업: 05 데이터 관계 → 06 자료 등록 → 08 연결·실패 → 09 권한 → 13 관리자 계약/연결
+- AI 협업: 10 맥미니 전체 → 11 요청 처리 → 12 자료 갱신 → 07 예외 보완 → 08 실패 대응
 - 실제 실행 전 합의: 모델·호스팅·인증 제공자, 자료 확보·검수 담당, 운영·백업 정책
 
 ## 공통 표기 기준
@@ -66,7 +69,10 @@
 ## 구현 상태와 설계 범위
 
 - 기존 자산: React 웹·Expo WebView 시제품, 맥미니 Flowise와 외부 모델 연결
-- 신규 구축·연결: 서비스 서버·실제 회원 인증·장소/여행 DB·RAG·관리자·네이버·사진 저장소
+- 현재 로컬: 독립 관리자 7메뉴, 지역·스태프 등록/검수, 운영 추천 자동 초안, 고객 공개 신고·반응·조치 검수 연결. 운영 추천 자동 초안은 LOCAL_RULES이며 LLM 호출 아님
+- 실제 연결 대기: 서비스 서버·회원 인증·장소/여행 DB·RAG·네이버 SDK/API·파일 저장소·전체 번역·알림/정리 작업
+- 고객 장소83개·미디어77개·출처22개는 미승인 초안. 합성 검수 장소6개 별도. 홈 추천7개 비공개 수정 초안, 공개 읽기 여행기12개 별도
+- 공개 검수 투영은 DEV 전용. API/생산 빌드에서 로컬 성공 대체 없음. 개인 일정·예약·메모·AI 요청·대화 원문은 기본 관리자 수집/열람 제외
 - 데이터 관계도: 서버 신규 구축용 핵심 관계 제안. 확정 DDL 아님. 현재 로컬 Journey의 PLAN/JOURNAL 구분과 신규 서버 엔터티 분리는 구분
 - 조회·초안 생성과 확정 저장 분리. 고객 요청에 맞춘 식사·숙박 배치, 예약·고정 장소 보존
 - 내 여행은 비공개 일정. 여행기는 별도 작성·공개·삭제 상태
@@ -76,6 +82,9 @@
 - 앱 스토어 공개·서버 운영·복구 목표는 별도 준비·검증 단계
 
 ## 검수 기록
+
+- 2026-10-05: 기존 00~12 개정＋13 관리자 도면 추가. 현재 14장 이미지 확인, 관리자 연결 설명 겹침 수정, 도형/텍스트 경계 이상0. [이번 검수 기록](FIGJAM_ADMIN_UPDATE_20261005.md)
+- 아래 검수 수치·이미지는 09/21 당시 기록. 실제 서버·AI 연결 완료를 의미하지 않음
 
 - 11장 모두 실제 FigJam 이미지 확인
 - 화면 전환·AI 처리·권한·배포 흐름의 반복 연결을 복귀 설명으로 정리하여 시작부터 결과까지 읽는 순서 유지

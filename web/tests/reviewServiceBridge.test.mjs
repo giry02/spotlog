@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { REVIEW_SERVICE_KEY, assertReviewServiceState, emptyReviewServiceState, overlayPublicPlaces, projectPublicJourney, publicTemplatesFromReview, pullReviewAdminProjection, readReviewServiceState, receiveLocalReviewReport, recordPublicCardReaction, recordPublicCheer, restrictPublicJourneyMedia, reviewedPublicTranslation, reviewExposureOrder, syncReviewPublicProjection, validateReportTarget } from '../src/reviewServiceBridge.ts';
+import { REVIEW_SERVICE_KEY, assertReviewServiceState, emptyReviewServiceState, overlayPublicPlaces, projectPublicJourney, publicTemplatesFromReview, homePlacesFromReview, pullReviewAdminProjection, readReviewServiceState, receiveLocalReviewReport, recordPublicCardReaction, recordPublicCheer, restrictPublicJourneyMedia, reviewedPublicTranslation, reviewExposureOrder, syncReviewPublicProjection, validateReportTarget } from '../src/reviewServiceBridge.ts';
 import { sourceVersion } from '../src/travelGuide.ts';
 import { createReportAdapter } from '../src/reportService.ts';
 import { assertReviewReport } from '../src/reviewServiceBridge.ts';
@@ -15,6 +15,63 @@ const adminPlace = (id = place.id, origin = 'CATALOG') => {
   return { placeId: id, revision: 1, state: 'PUBLISHED', draft: structuredClone(content), published: structuredClone(content), revoked: false };
 };
 const admin = () => ({ places: [adminPlace()], nearbyOverrides: [], ops: { reports: [], references: [], exposures: [], journals: [], comments: [], curatedTrips: [] } });
+
+const homeExposure = (targetId = place.id, extra = {}) => ({ exposureId: `home-place:${targetId}`, revision: 1, channel: 'HOME_PLACE', targetId, title: '운영자가 고른 장소', introduction: '메인에서 살펴볼 공개 소개', coverMediaId: 'photo-one', startsAt: '', endsAt: '', enabled: true, order: 1, ...extra });
+
+test('home places require explicit active publication, preserve shared identity and show the selected photo in administrator order', () => {
+  const storage = memory(), source = admin();
+  const second = adminPlace('second-place');
+  second.published.media[0].mediaId = 'second-photo'; second.published.media[0].url = '/second.jpg';
+  source.places.push(second);
+  syncReviewPublicProjection(source, storage);
+  assert.deepEqual(homePlacesFromReview(readReviewServiceState(storage)), []);
+  source.ops.exposures = [homeExposure(place.id, { order: 2 }), homeExposure('second-place', { coverMediaId: 'second-photo', order: 1 }), homeExposure(place.id, { exposureId: 'duplicate', order: 3 })];
+  syncReviewPublicProjection(source, storage);
+  const state = readReviewServiceState(storage), before = JSON.stringify(state);
+  const result = homePlacesFromReview(state);
+  assert.deepEqual(result.map(value => value.id), ['second-place', place.id]);
+  assert.equal(result[0].image, '/second.jpg');
+  assert.equal(result[0].photos[0].mediaId, 'second-photo');
+  assert.equal(result[0].name, second.published.name);
+  assert.equal(result[0].hook, '운영자가 고른 장소');
+  assert.equal(result[0].description, '메인에서 살펴볼 공개 소개');
+  assert.equal(JSON.stringify(state), before);
+});
+
+test('home place visibility uses exact start/end boundaries and never displays disabled, future, expired or malformed periods', () => {
+  const storage = memory(), source = admin(), now = Date.parse('2026-10-09T10:00:00.000Z');
+  for (const extra of [{ enabled: false }, { startsAt: '2026-10-09T10:00:01.000Z' }, { endsAt: '2026-10-09T10:00:00.000Z' }, { startsAt: 'invalid' }, { endsAt: 'invalid' }]) {
+    source.ops.exposures = [homeExposure(place.id, extra)]; syncReviewPublicProjection(source, storage);
+    assert.deepEqual(homePlacesFromReview(readReviewServiceState(storage), now), []);
+  }
+  source.ops.exposures = [homeExposure(place.id, { startsAt: '2026-10-09T10:00:00.000Z', endsAt: '2026-10-09T10:00:01.000Z' })];
+  syncReviewPublicProjection(source, storage); const state = readReviewServiceState(storage);
+  assert.equal(homePlacesFromReview(state, now).length, 1);
+  assert.deepEqual(homePlacesFromReview(state, now + 1000), []);
+});
+
+test('home places cannot fall back to unpublished, closed, revoked, unchecked or foreign-cover records', () => {
+  for (const mutate of [
+    record => { record.state = 'DRAFT'; delete record.published; },
+    record => { record.state = 'INACTIVE'; },
+    record => { record.revoked = true; },
+    record => { record.published.operation = 'TEMP_CLOSED'; },
+    record => { record.published.rights.store = false; },
+    record => { record.published.location.verified = false; },
+    record => { record.revokedMediaIds = ['photo-one']; },
+    record => { record.published.media[0].withdrawn = true; },
+    record => { record.published.media[0].rights.display = false; },
+  ]) {
+    const storage = memory(), source = admin(); source.ops.exposures = [homeExposure()]; mutate(source.places[0]);
+    syncReviewPublicProjection(source, storage);
+    assert.deepEqual(homePlacesFromReview(readReviewServiceState(storage)), []);
+  }
+  const storage = memory(), source = admin();
+  source.ops.exposures = [homeExposure(place.id, { coverMediaId: 'foreign-photo' })];
+  const second = adminPlace('other'); second.published.media[0].mediaId = 'foreign-photo'; source.places.push(second);
+  syncReviewPublicProjection(source, storage);
+  assert.deepEqual(homePlacesFromReview(readReviewServiceState(storage)), []);
+});
 
 test('explicit report projects only public reading context and never reads private storage', () => {
   const storage = memory(); const { report } = receiveLocalReviewReport(target, 'PRIVACY', '확인해 주세요', 'local-self', storage);

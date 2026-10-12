@@ -1,5 +1,7 @@
 import type { Place } from './data';
 import regionalRecords from './regionalBusinessRecords.json' with { type: 'json' };
+import busanRecords from './busanBusinessRecords.json' with { type: 'json' };
+import busanDescriptions from './busanBusinessDescriptions.json' with { type: 'json' };
 
 export interface PlannerBusinessSource {
   placeId: string;
@@ -7,7 +9,7 @@ export interface PlannerBusinessSource {
   providerRecordId: string;
   sourceUrl: string;
   checkedAt: string;
-  coordinateReference: '공식 관광 상세 지도 대표 지점';
+  coordinateReference: '공식 관광 상세 지도 대표 지점' | '공식 관광 아카이브 대표 지점';
   scope: 'name-address-category-coordinate';
 }
 
@@ -24,8 +26,8 @@ type BusinessRecord = {
   menuCd?: string;
 };
 
-// A small, manually checked local catalog. These are basic place facts, not
-// copied editorial descriptions, reviews, photos, ratings or live availability.
+// Manually checked basic place facts. Original summaries describe the registered
+// category/menu/location; they do not imply live availability or a ranking.
 // The map coordinates are official representative points, not checked entrances.
 const records: BusinessRecord[] = [
   { id: 'catalog-busan-geumsu', kind: 'FOOD', name: '금수복국 해운대본점', area: '부산 해운대', address: '부산 해운대구 중동1로43번길 23', lat: 35.16243, lng: 129.1645, recordId: '146' },
@@ -49,11 +51,20 @@ export const plannerBusinessPlaces: Place[] = records.map(({ recordId: _recordId
   ...record,
   image: '',
   locationVerified: true,
-  description: `${record.area} 일정에서 확인할 ${record.kind === 'STAY' ? '숙소' : record.kind === 'CAFE' ? '카페' : '음식점'} 후보입니다.`,
+  description: busanDescriptions[record.id as keyof typeof busanDescriptions]?.description ?? `${record.area} 일정에서 확인할 ${record.kind === 'STAY' ? '숙소' : record.kind === 'CAFE' ? '카페' : '음식점'} 후보입니다.`,
   note: record.kind === 'STAY' ? '예약 가능 여부·객실 요금·체크인 시간은 숙소에 확인하세요.' : '영업 여부·메뉴·가격·대기 상황은 방문 전에 확인하세요.',
   duration: record.kind === 'STAY' ? '숙박' : '',
-  tags: ['공식 관광정보', record.area.split(' ')[1]],
+  tags: busanDescriptions[record.id as keyof typeof busanDescriptions]?.tags ?? ['공식 관광정보', record.area.split(' ')[1]],
 }));
+
+// Keep branch identities separate, including the three Momos branches and the
+// two Blackup branches. Licensed photos are attached in the UI data composition.
+plannerBusinessPlaces.push(...busanRecords.map(record => ({
+  id: record.id, kind: record.kind as 'FOOD' | 'CAFE', name: record.name, area: record.area,
+  address: record.address, lat: record.lat, lng: record.lng, locationVerified: true, image: '',
+  description: record.description, tags: record.tags,
+  note: '영업 여부·메뉴·가격·대기 상황은 방문 전에 확인하세요.', duration: '',
+})));
 
 /** Basic facts checked against official detail/map pages. No borrowed photos, prose or live rates. */
 plannerBusinessPlaces.push(...regionalRecords.map(record => ({
@@ -68,11 +79,19 @@ export const plannerBusinessSources: PlannerBusinessSource[] = records.map(recor
   placeId: record.id,
   provider: '부산광역시 비짓부산',
   providerRecordId: record.recordId,
-  sourceUrl: `https://www.visitbusan.net/index.busan?menuCd=${record.menuCd ?? (record.kind === 'STAY' ? 'DOM_000000201004001000' : 'DOM_000000201002001000')}&uc_seq=${record.recordId}&lang_cd=ko`,
+  sourceUrl: `https://www.visitbusan.net/index.do?menuCd=${record.menuCd ?? (record.kind === 'STAY' ? 'DOM_000000201004001000' : 'DOM_000000201002001000')}&uc_seq=${record.recordId}&lang_cd=ko`,
   checkedAt: record.checkedAt ?? '2026-09-21',
   coordinateReference: '공식 관광 상세 지도 대표 지점',
   scope: 'name-address-category-coordinate',
 }));
+
+plannerBusinessSources.push(...busanRecords.map(record => ({
+  placeId: record.id, provider: '부산광역시 비짓부산', providerRecordId: record.recordId,
+  sourceUrl: record.sourceUrl ?? `https://www.visitbusan.net/index.do?menuCd=DOM_000000201002001000&uc_seq=${record.recordId}&lang_cd=ko`,
+  checkedAt: '2026-10-12',
+  coordinateReference: record.sourceUrl ? '공식 관광 아카이브 대표 지점' as const : '공식 관광 상세 지도 대표 지점' as const,
+  scope: 'name-address-category-coordinate' as const,
+})));
 
 plannerBusinessSources.push(...regionalRecords.map(record => ({
   placeId: record.id, provider: record.provider, providerRecordId: record.providerRecordId,
@@ -80,3 +99,11 @@ plannerBusinessSources.push(...regionalRecords.map(record => ({
   scope: 'name-address-category-coordinate' as const,
 })));
 export const plannerBusinessSourceById = new Map(plannerBusinessSources.map(source => [source.placeId, source]));
+
+/** Summary verification is separate from the earlier basic-fact collection date. */
+export const plannerBusinessEnrichmentSources = [...records, ...busanRecords].map(record => ({
+  placeId: record.id,
+  sourceUrl: plannerBusinessSourceById.get(record.id)!.sourceUrl,
+  checkedAt: '2026-10-12',
+  scope: 'fact-based-original-description-tags' as const,
+}));

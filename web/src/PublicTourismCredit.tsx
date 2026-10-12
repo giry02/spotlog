@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ImageOff } from 'lucide-react';
+import { Button } from './ui';
 import type { Journey } from './data';
 import { usePublicReview } from './publicReview';
 import type { PublicPlaceProjection, ReviewServiceState } from './reviewServiceBridge';
@@ -65,8 +66,9 @@ export function PhotoCredit({ image, sourceId, plain = false }: { image: string;
 
 /** Existing story-image-block layout, with legacy duplicate text removed only for display. */
 export function StoryPhoto({ image, caption, captionSourceId }: { image: string; caption?: string; captionSourceId?: string }) {
+  const [failedImage, setFailedImage] = useState<string | null>(null);
   const description = photoCaptionWithoutDuplicateCredit(caption, getPhotoSource(image));
-  return <figure className="story-image-block"><img src={image} alt={description || '여행 사진'} />{description && <TranslationText as="figcaption" sourceId={captionSourceId ?? `photo:${image}:caption`} sourceVersion={sourceVersion(description)} text={description} kind="caption" />}<PhotoCredit image={image} /></figure>;
+  return <figure className="story-image-block">{failedImage === image ? <div className="story-image-error" role="status"><ImageOff size={26} aria-hidden="true" /><p>사진을 불러오지 못했어요</p><Button variant="secondary" onClick={() => setFailedImage(null)}>사진 다시 불러오기</Button></div> : <img src={image} alt={description || '여행 사진'} onError={() => setFailedImage(image)} />}{description && <TranslationText as="figcaption" sourceId={captionSourceId ?? `photo:${image}:caption`} sourceVersion={sourceVersion(description)} text={description} kind="caption" />}<PhotoCredit image={image} /></figure>;
 }
 
 export function PublicSourceNotes({ journey }: { journey: Journey }) {

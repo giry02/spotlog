@@ -22,8 +22,22 @@
 
 Git 공개 브랜치 `codex/mobile-foundation`에 반영 후 기존 GitHub Pages 배포로 공개 사이트 갱신. 실제 공개 검수 결과·커밋·배포 작업은 로컬 현재 인수인계에 기록.
 
-## 배포 검수 후 지도 파일 보완
+## 공개 반영 완료
 
-신고 UI 변경 `ee20428` 배포 성공 후 모바일15경로 검수 중 MapLibre6의 기본 지도 작업 파일 `maplibre-gl-worker.mjs`가404로 누락된 것을 확인. 신고 UI와 별개로 기존 지도 패키지가 파일 경로를 추정하던 문제.
+- 커밋: `ee204289a1d90f86b4917961d1cb11a6a7c11dad`.
+- 배포: https://github.com/giry02/spotlog/actions/runs/37399258555 — `completed / success`.
+- 공개 JS `index-DoGNqbZS.js`와 CSS `index-BI8w80Gg.css` 최신 빌드 일치.
+- 공개320/390/460px에서 신고1개·중복0개·대상 선택 후 이유/상세 유지·입력16px·가로 넘침 없음·좋아요와 댓글 유지 확인.
+- 실제 신고 API 미연결 상태에서 성공 접수로 표시하지 않음. 원래 로컬 관리자 포함 TypeScript 검사도 통과.
+- 증거 `artifacts/customer-pages-20261006/report-live/results.json` 및 화면PNG. 사용자 저장소를 건드리지 않은 격리 검수.
 
-`RouteMap.tsx`에서 작업 파일을 Vite의 `?worker&url`로 포함하고 실제 빌드 URL을 MapLibre에 전달. 지도·동선의 화면이나 외부 네이버 길찾기 동작은 변경하지 않음. 고객 빌드에 `maplibre-gl-worker-5lTrTa-q.js` 포함 확인. 격리 브라우저에서 실제 worker 실행·HTTP200,15모바일 경로·좋아요/댓글/답글/새로고침 보존과 에셋404/화면 예외 없음 검수. 관리자 제외 유지.
+## 최종 지도 보완·공개 검수
+
+첫 신고 정리 배포 후15경로 확인 중 기존 MapLibre6 작업 파일404 발견. 지도 모듈에서 Vite `?worker&url`로 작업 파일을 빌드에 포함하고 실제 URL을 전달하도록 보완. 지도/동선 레이아웃과 네이버 길찾기 동작은 유지.
+
+- 최종 공개 커밋: `ca3c3450ce8f7027b3eea75b012b06bbe34cfc81` — 신고 정리 `ee20428` 포함.
+- 배포: https://github.com/giry02/spotlog/actions/runs/37399583897 — `completed / success`.
+- 실제 지도 worker `maplibre-gl-worker-5lTrTa-q.js` 실행 및HTTP200 확인.
+- 최종 공개15모바일 경로와 신고3폭 검사 모두 통과. 좋아요·댓글·답글·새로고침 보존, 이미지, 가로 넘침, JS예외·에셋404 확인.
+- 원래 로컬 관리자 포함 타입 검사도 통과. 관리자 파일 업로드/배포 없음.
+- 증거 `artifacts/customer-pages-20261006/live/results.json`, `report-live/results.json`. 실제 누락 발견 기록은 이전 `live/failure.json`이며 최신 결과는 정상.

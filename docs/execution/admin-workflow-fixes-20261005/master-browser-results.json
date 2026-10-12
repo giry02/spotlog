@@ -1,0 +1,236 @@
+{
+  "base": "http://127.0.0.1:5210",
+  "generatedAt": "2026-10-05T06:18:57.497Z",
+  "checks": [
+    {
+      "name": "83 original draft masters and 22 media sources preserved without public rights",
+      "evidence": {
+        "originals": 83,
+        "media": 77
+      }
+    },
+    {
+      "name": "public bundled journal masters match consumer IDs and runtime DTO",
+      "evidence": {
+        "valid": true,
+        "count": 12,
+        "journals": [
+          {
+            "journalId": "jeju-west-slow",
+            "visibility": "PUBLIC",
+            "days": 3,
+            "cards": 8,
+            "blocks": 29,
+            "hasCover": true
+          },
+          {
+            "journalId": "jeju-west-weekend",
+            "visibility": "PUBLIC",
+            "days": 2,
+            "cards": 4,
+            "blocks": 10,
+            "hasCover": true
+          },
+          {
+            "journalId": "busan-oldtown-to-sea",
+            "visibility": "PUBLIC",
+            "days": 2,
+            "cards": 4,
+            "blocks": 10,
+            "hasCover": true
+          },
+          {
+            "journalId": "gangwon-sea-and-river",
+            "visibility": "PUBLIC",
+            "days": 2,
+            "cards": 2,
+            "blocks": 6,
+            "hasCover": true
+          },
+          {
+            "journalId": "seoul-seongsu-day",
+            "visibility": "PUBLIC",
+            "days": 1,
+            "cards": 3,
+            "blocks": 7,
+            "hasCover": true
+          },
+          {
+            "journalId": "suncheon-yeosu-three-days",
+            "visibility": "PUBLIC",
+            "days": 3,
+            "cards": 4,
+            "blocks": 11,
+            "hasCover": true
+          },
+          {
+            "journalId": "east-coast-four-days",
+            "visibility": "PUBLIC",
+            "days": 4,
+            "cards": 8,
+            "blocks": 20,
+            "hasCover": true
+          },
+          {
+            "journalId": "southern-road-five-days",
+            "visibility": "PUBLIC",
+            "days": 5,
+            "cards": 10,
+            "blocks": 25,
+            "hasCover": true
+          },
+          {
+            "journalId": "public-busan-coast-day",
+            "visibility": "PUBLIC",
+            "days": 1,
+            "cards": 2,
+            "blocks": 7,
+            "hasCover": true
+          },
+          {
+            "journalId": "public-busan-oldtown-2days",
+            "visibility": "PUBLIC",
+            "days": 2,
+            "cards": 4,
+            "blocks": 14,
+            "hasCover": true
+          },
+          {
+            "journalId": "public-busan-slow-3days",
+            "visibility": "PUBLIC",
+            "days": 3,
+            "cards": 7,
+            "blocks": 24,
+            "hasCover": true
+          },
+          {
+            "journalId": "public-gyeongju-2days",
+            "visibility": "PUBLIC",
+            "days": 2,
+            "cards": 4,
+            "blocks": 14,
+            "hasCover": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "overview registration action creates one draft in selected region for chosen staff",
+      "evidence": {
+        "placeId": "review-new-65ec87ba-3b63-4040-b744-5b3143e2209b",
+        "region": "kr-busan-haeundae",
+        "actor": "review-operator"
+      }
+    },
+    {
+      "name": "same staff completes source/location checks, reviews and publishes",
+      "evidence": {
+        "state": "PUBLISHED",
+        "review": "READY",
+        "createdBy": "review-operator",
+        "assignedTo": "review-operator"
+      }
+    },
+    {
+      "name": "published landmark gets coordinate-based nearby business and independent recommendation",
+      "evidence": {
+        "anchor": "review-new-65ec87ba-3b63-4040-b744-5b3143e2209b",
+        "business": "review-food"
+      }
+    },
+    {
+      "name": "editing published place preserves public version and reopens review",
+      "evidence": {
+        "publicDescription": "실제 장소 사실이 아닌 격리된 등록 흐름 검수",
+        "draftDescription": "저장한 QA 새 초안"
+      }
+    },
+    {
+      "name": "CSV row region correction, source record, assignee and batch survive import",
+      "evidence": {
+        "region": "kr-busan-suyeong",
+        "assignee": "operator-admin",
+        "batch": "csv-a173626e-1ab6-4ce9-956e-d1f97a530051"
+      }
+    },
+    {
+      "name": "staff/review filters work and unverified imported source cannot become READY",
+      "evidence": {
+        "listTotal": 1,
+        "review": "NEEDS_CHECK"
+      }
+    },
+    {
+      "name": "hierarchical regional count includes descendant drafts and source usage details are readable",
+      "evidence": {
+        "region": "kr-jeju",
+        "count": 8
+      }
+    },
+    {
+      "name": "overview layout 1440",
+      "evidence": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "master editor layout 1440",
+      "evidence": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189,
+        "inputFont": "16px"
+      }
+    },
+    {
+      "name": "overview layout 800",
+      "evidence": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "master editor layout 800",
+      "evidence": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785,
+        "inputFont": "16px"
+      }
+    },
+    {
+      "name": "overview layout 390",
+      "evidence": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "master editor layout 390",
+      "evidence": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375,
+        "inputFont": "16px"
+      }
+    },
+    {
+      "name": "isolated customer original and browser runtime remain intact",
+      "evidence": {
+        "errors": [],
+        "sentinel": "unchanged"
+      }
+    }
+  ],
+  "errors": []
+}

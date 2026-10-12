@@ -1,7 +1,7 @@
 /** Customer-facing public service contracts. No administrator UI or authentication dependency. */
 export type OpsVisibility = 'PUBLIC' | 'PRIVATE' | 'TRASHED';
 export type ModerationState = 'VISIBLE' | 'HIDDEN' | 'DELETED';
-export type ExposureChannel = 'HOME_TRIP' | 'HOME_JOURNAL' | 'DISCOVERY_PHOTO' | 'DISCOVERY_VIDEO' | 'REGION_GUIDE';
+export type ExposureChannel = 'HOME_TRIP' | 'HOME_JOURNAL' | 'HOME_PLACE' | 'DISCOVERY_PHOTO' | 'DISCOVERY_VIDEO' | 'REGION_GUIDE';
 export interface ExposureEntry {
   exposureId: string; revision: number; channel: ExposureChannel; targetId: string;
   title: string; introduction: string; coverMediaId: string; startsAt: string; endsAt: string;

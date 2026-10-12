@@ -24,3 +24,11 @@
 실제 신고 서버는 연결 전. 공개 사이트의 접수 불가 안내와 제출 비활성 상태 유지. DEV에서는 별도 검수 저장소로 접수 시험하며 실제 고객 서비스 접수로 취급하지 않음. 시험 댓글은 분리된 브라우저 저장소에만 주입.
 
 고객 전용 공개 브랜치 `codex/mobile-foundation`에 반영 후 기존 GitHub Pages 배포 적용.
+## 공개 반영 완료
+
+- 공개 소스: `5c6de85c1adf891c3041f7aa858db8ad65e6dfa9` / `codex/mobile-foundation`.
+- [GitHub Pages 배포 성공](https://github.com/giry02/spotlog/actions/runs/37414723818).
+- [공개 사이트](https://giry02.github.io/spotlog/)에서 320·390·460px 댓글·답글 신고, 대상 연결, 신고 팝업 1개, 입력 초안 보존 재검수 통과.
+- 공개 HTML의 JavaScript `index-CCLYU-JK.js`, CSS `index-CVIATgvY.css`가 검수 빌드와 일치.
+- 실제 접수 서버 미연결 상태·제출 비활성 확인. 공개 시험 댓글은 분리된 브라우저 저장소 자료이며 실서버 전송 없음.
+- 최종 증거: `artifacts/customer-pages-20261006/comment-live/results.json` 및 모바일 화면.

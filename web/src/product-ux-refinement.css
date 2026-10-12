@@ -1,5 +1,15 @@
 /* Approved 2026-10-02 review corrections. Reuse existing type and control roles. */
 .home-topbar span { color: #62625e; font-size: var(--type-caption); }
+.trip-library-footer { margin-top: 30px; padding: 20px 0 10px; border-top: 1px solid #e2e2dc; }
+.trip-library-footer .phase-three-trash-link { margin: 0; min-height: 44px; font-size: var(--type-subhead); }
+.home-resume-trip { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 44px; margin: 4px 0 12px; padding: 14px; border: 1px solid #e7e7e2; border-radius: 17px; background: white; color: #262623; text-align: left; }
+.home-resume-icon { display: grid; place-items: center; flex: none; width: 42px; height: 42px; border-radius: 12px; background: #f1f1ee; }
+.home-resume-copy { display: grid; gap: 4px; min-width: 0; }
+.home-resume-copy > small { font-size: var(--type-caption); color: #62625e; }
+.home-resume-copy > strong { font-size: var(--type-body); overflow-wrap: anywhere; line-height: 1.5; }
+.home-resume-copy > span { font-size: var(--type-subhead); color: #62625e; line-height: 1.5; overflow-wrap: anywhere; }
+.home-resume-copy > b { display: flex; align-items: center; gap: 4px; font-size: var(--type-subhead); line-height: 1.5; }
+.home-resume-copy > b svg { flex: none; }
 .home-find-guides small { color: #a24431; font-size: var(--type-caption); }
 .home-find-guides p { color: #62625e; font-size: var(--type-subhead); line-height: 1.5; }
 .home-guide-author small,
@@ -14,7 +24,7 @@
 
 .place-discover.is-guide .place-discover-header { min-height: 72px; padding-block: 12px; }
 .place-discover.is-guide .place-discover-header > div:first-child span { font-size: var(--type-caption); color: #62625e; }
-.place-discover.is-guide .place-view-toggle button { font-size: var(--type-caption); }
+.place-discover:is(.is-guide,.is-photo,.is-video) .place-view-toggle button { font-size: var(--type-caption); }
 .place-discover.is-guide .place-guide-lead { padding: 10px 2px 16px; }
 .place-discover.is-guide .place-guide-lead p { font-size: var(--type-subhead); line-height: 1.5; color: #62625e; }
 .place-discover.is-guide .place-guide-search { padding: 10px; }
@@ -60,6 +70,9 @@
 .personal-trip .plan-stop-copy small.ai-planner-kind { color: var(--kind-ink); font-weight: 700; }
 .personal-trip .plan-travel-next .plan-next-complete { flex: none; min-height: 36px; padding: 0 8px; font-size: var(--type-caption); gap: 4px; }
 .personal-trip .plan-travel-next .plan-directions-link { padding-inline: 8px; gap: 4px; }
+.personal-trip .plan-journal-link { min-height: 44px; font-size: var(--type-subhead); line-height: 1.5; }
+.plan-form label.plan-journal-option { display: flex; align-items: center; gap: 8px; min-height: 44px; margin: 0; font-size: var(--type-subhead); font-weight: 400; }
+.plan-form .plan-journal-option input[type="checkbox"] { flex: none; width: 18px; height: 18px; min-height: 18px; margin: 0; padding: 0; }
 .day-tabs.day-tabs-compact { padding-block: 10px; }
 .day-tabs-compact .day-tabs-track > button { min-width: 82px; min-height: 44px; padding: 6px 12px; justify-content: center; }
 .day-tabs-compact .day-tabs-track small { font-size: var(--type-caption); }
@@ -125,6 +138,12 @@
 .notification-server-note,
 .profile-feedback-empty p { font-size: var(--type-subhead); line-height: 1.6; }
 .creator-profile-card > div > button { min-height: 36px; padding: 6px 10px; font-size: var(--type-subhead); }
+.creator-profile-card .profile-name-row { flex-wrap: wrap; }
+.creator-profile-card :is(h3,p,button) { word-break: keep-all; overflow-wrap: anywhere; }
+.creator-profile-card > div > button svg { flex-shrink: 0; }
+@media (max-width: 360px) {
+  .creator-profile-card > div > button { padding-inline: 0; }
+}
 .creator-stats span,
 .profile-topbar small,
 .profile-section-heading > span,
@@ -146,7 +165,20 @@
 .notification-options > button,
 .profile-feedback-empty strong { font-size: var(--type-subhead); }
 .notification-options { align-items: center; }
+.notification-options { grid-template-columns: repeat(auto-fit,minmax(min(100%,140px),1fr)); }
+.notification-options label { min-width: 0; }
+.notification-options select { width: 100%; }
+.notification-options > button { min-height: 44px; height: auto; justify-content: center; }
+.creator-notification-card header :is(h2,p) { word-break: keep-all; overflow-wrap: anywhere; }
+@media (max-width: 360px) {
+  .creator-notification-card > header { grid-template-columns: 42px minmax(0,1fr) 42px; }
+  .creator-notification-card header > .notification-feature-icon { grid-column: 1; grid-row: 1; }
+  .creator-notification-card header > .notification-switch { grid-column: 3; grid-row: 1; }
+  .creator-notification-card header > div { grid-column: 1 / -1; grid-row: 2; }
+}
 .notification-permission { gap: 10px; flex-wrap: wrap; }
+.story-image-error { min-height: 220px; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: #62625e; background: #f2f2ee; }
+.story-image-error p { margin: 0; font-size: var(--type-subhead); line-height: 1.5; }
 .profile-feedback-list blockquote { font-size: var(--type-body); line-height: 1.6; }
 .ai-planner-generate { position: sticky; bottom: -24px; z-index: 3; display: grid; gap: 8px; padding: 12px 0 max(24px, env(safe-area-inset-bottom)); margin-bottom: -24px; border-top: 1px solid var(--line); background: #fafaf8; }
 .rolling-dots { padding-top: 6px; min-height: 36px; gap: 0; }

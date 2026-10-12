@@ -15,3 +15,4 @@
 고객 빌드·원래 관리자 통합 TypeScript·신고/저장소/여행 안내 검사42개 통과. 320·390·460px에서 저장된 영어 선호를 넣고 한국어 표시·언어 버튼 제거 확인. 홈 추천을 열어 샘플 댓글2개/신고, 본인 댓글 추가/보존/최신순/신고 제외, 장소 댓글·답글 신고, 팝업1개·입력 보존·재방문 중복 방지 확인. 개인 댓글/입력 검수 자료 보존, 가로 넘침·페이지 예외 없음.
 
 새 데이터는 공개 샘플이며 실제 다른 고객의 게시물이 아님. 실제 신고 접수 서버는 연결 전이고 공개 제출 비활성 유지. 증거 `artifacts/customer-language-comments-20261006/preview/results.json` 및 390px 화면. 고객 전용 GitHub·Pages 반영, 관리자 제외.
+공개 완료: `eea6246db091505de5ddd74cd141dcaffece006a` / `codex/mobile-foundation`. [Pages 배포 성공](https://github.com/giry02/spotlog/actions/runs/37441459675). [추천 일정 댓글 확인](https://giry02.github.io/spotlog/#recommendation-curation-jeju-west). 공개320·390·460px에서 한국어 고정·언어 컨트롤 제거·타인 댓글/답글 신고·본인 댓글 보존/신고 제외/최신순·작성 중 내용/개인 기록 보존·재방문 중복 방지 재검수 통과. JavaScript `index-B2IvHvgW.js`, CSS `index-CfYOT9vQ.css`가 검수 빌드와 일치. 최종 증거 `artifacts/customer-language-comments-20261006/live/results.json`. 데이터는 공개 샘플, 실제 신고 접수 서버 미연결 유지.

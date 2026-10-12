@@ -1,5 +1,7 @@
 import { CARD_SOCIAL_KEY, isCardSocialStore } from './cardSocialState.ts';
 import { PLAN_CREATION_KEY, isPlanCreationDraft } from './planCreationDraft.ts';
+import { SAVED_TRIP_DRAFT_KEY, isSavedTripDraft } from './savedTripDraft.ts';
+import { RECENT_TRIP_KEY, isRecentTripId } from './tripContinuation.ts';
 /** Versioned, local-only storage. Legacy records are never deleted by migration. */
 export interface SavedCollection {
   id: string;
@@ -31,6 +33,8 @@ const knownKeys = new Set([
   CARD_SOCIAL_KEY,
   PLACE_DIRECTORY_KEY,
   PLAN_CREATION_KEY,
+  SAVED_TRIP_DRAFT_KEY,
+  RECENT_TRIP_KEY,
 ]);
 
 type Records = Record<string, string>;
@@ -140,6 +144,8 @@ export function isSavedLibrary(value: unknown): value is SavedLibrary {
 
 function validateValue(key: string, value: unknown): boolean {
   switch (key) {
+    case SAVED_TRIP_DRAFT_KEY: return isSavedTripDraft(value);
+    case RECENT_TRIP_KEY: return isRecentTripId(value);
     case PLAN_CREATION_KEY: return value === null || isPlanCreationDraft(value);
     case 'spotlog.web.saved.v3': return isStringArray(value);
     case 'spotlog.web.journeys.v4': return Array.isArray(value) && value.every(isJourney);

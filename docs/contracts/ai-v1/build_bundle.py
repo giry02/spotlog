@@ -237,4 +237,4 @@ internal['revision']['response']['requestId']='fixture-revision'
 internal['revision']['response']['draft']['baseTripId']='fixture-trip'
 internal['revision']['response']['draft']['baseTripRevision']='fixture-trip-r1'
 write('fixtures.json',{'synthetic':True,'public':fixtures,'internal':internal})
-print('Built schemas, Jev questions, 100 gold cases and synthetic fixtures.')
+print('Built schemas, optional Jev comparison questions, 100 expected cases and synthetic fixtures. No model evaluation run.')

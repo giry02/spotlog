@@ -1,0 +1,91 @@
+{
+  "generatedAt": "2026-10-05T05:08:24.519Z",
+  "base": "http://127.0.0.1:5210",
+  "isolation": "New browser contexts only; no actual user browser/storage access; product source unchanged.",
+  "checks": [
+    {
+      "name": "customer baseline has no global report entry on audited screens",
+      "evidence": [
+        {
+          "hash": "home",
+          "reportButtons": 0,
+          "supportButtons": 0
+        },
+        {
+          "hash": "community",
+          "reportButtons": 0,
+          "supportButtons": 0
+        },
+        {
+          "hash": "journey-jeju-west-slow",
+          "reportButtons": 0,
+          "supportButtons": 0
+        },
+        {
+          "hash": "profile",
+          "reportButtons": 0,
+          "supportButtons": 0
+        }
+      ]
+    },
+    {
+      "name": "visible follow click does not update label or local storage",
+      "evidence": {
+        "labelBefore": "팔로우",
+        "labelAfter": "팔로우",
+        "storageUnchanged": true
+      }
+    },
+    {
+      "name": "administrator overview shows 15 separate connection cards",
+      "evidence": [
+        "지도 SDK",
+        "주소 조회",
+        "경로 계산",
+        "외부 업체 검색",
+        "사진 저장소",
+        "알림 발송",
+        "회원 인증",
+        "팔로우",
+        "받은 알림함",
+        "서비스 DB",
+        "맥미니 RAG",
+        "소형 로컬 LLM",
+        "임베딩 AI",
+        "외부 대형 LLM",
+        "Flowise"
+      ]
+    },
+    {
+      "name": "card comment report conditional: other user only, own comment edit/delete",
+      "evidence": {
+        "syntheticThread": [
+          "jeju-west-slow",
+          "j1d1-place-1"
+        ],
+        "otherUserReportButtons": 1,
+        "ownUserReportButtons": 0
+      }
+    },
+    {
+      "name": "customer report saved locally with no API request and no new administrator report",
+      "evidence": {
+        "reportReason": "욕설·괴롭힘",
+        "apiRequests": [],
+        "adminReportCountBefore": 3,
+        "adminReportCountAfter": 3,
+        "adminReports": [
+          "콘텐츠 신고댓글 내용 검수가 필요하다는 샘플 신고입니다.review-comment-2 · 2026. 10. 4. 15시 0분 0초미처리",
+          "저작권 이의사진 권리 확인을 요청하는 샘플 이의입니다.review-journal-1 · 2026. 10. 4. 16시 0분 0초미처리",
+          "정보 확인공개 프로필 점검 요청 예시review-member-2 · 2026. 10. 4. 17시 0분 0초미처리"
+        ],
+        "adminStorageUnchanged": true
+      }
+    },
+    {
+      "name": "no browser uncaught errors during audit",
+      "evidence": []
+    }
+  ],
+  "browserErrors": []
+}

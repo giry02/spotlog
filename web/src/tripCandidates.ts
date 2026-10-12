@@ -4,6 +4,7 @@ import { insertNearby, isPersonalPlan, normalizePlan, replacePlanBusiness, setPl
 export const KEEP_CURRENT = '__keep__';
 export const SKIP_CANDIDATES = '__skip__';
 export type CandidateContext = { dayId: string; anchorVisitId: string; slot?: PlanningSlot; nights?: number; fixed?: boolean };
+export const isCandidateAnchor = (place: Place) => place.kind === 'LANDMARK' || !place.anchorVisitId && place.kind !== 'STAY';
 
 /** A multi-night shortlist is complete only when every selected night has that option. */
 export function hasStayCandidate(journey: Journey, placeId: string, dayId: string, nights: number, fixed: boolean): boolean {
@@ -13,11 +14,11 @@ export function hasStayCandidate(journey: Journey, placeId: string, dayId: strin
     group.kind === 'STAY' && group.dayId === day.dayId && group.options.some(option => option.place.id === placeId && Boolean(option.fixed) === fixed)));
 }
 
-/** DAY moves follow their landmark. Removed anchors/days cannot leave stale selectable groups. */
+/** DAY moves follow their base visit. Removed anchors/days cannot leave stale selectable groups. */
 export function reconcileTripCandidates(journey: Journey): Journey {
   if (!journey.businessCandidates) return journey;
   const groups = journey.businessCandidates.flatMap(group => {
-    const anchorDay = journey.days.find(day => day.places.some(place => place.visitId === group.anchorVisitId && place.kind === 'LANDMARK'));
+    const anchorDay = journey.days.find(day => day.places.some(place => place.visitId === group.anchorVisitId && isCandidateAnchor(place)));
     if (!anchorDay) return [];
     const dayId = group.kind === 'STAY' ? group.dayId : anchorDay.dayId!;
     const index = journey.days.findIndex(day => day.dayId === dayId);
@@ -49,7 +50,7 @@ export function addTripCandidate(input: Journey, place: Place, context: Candidat
   const journey = normalizePlan(input);
   if (!isPersonalPlan(journey) || journey.visibility !== 'PRIVATE' || journey.trash) throw new Error('내 여행에서만 후보를 담을 수 있어요.');
   if (!['FOOD', 'CAFE', 'STAY'].includes(place.kind)) throw new Error('음식점·카페·숙소 후보를 골라주세요.');
-  const anchorDay = journey.days.find(day => day.places.some(p => p.visitId === context.anchorVisitId && p.kind === 'LANDMARK'));
+  const anchorDay = journey.days.find(day => day.places.some(p => p.visitId === context.anchorVisitId && isCandidateAnchor(p)));
   const start = journey.days.findIndex(day => day.dayId === context.dayId);
   if (!anchorDay || start < 0 || place.kind !== 'STAY' && anchorDay.dayId !== context.dayId) throw new Error('기준 장소와 DAY를 다시 확인해 주세요.');
   const nights = place.kind === 'STAY' ? context.nights ?? 1 : 1;
@@ -101,8 +102,8 @@ export function confirmTripCandidates(input: Journey): Journey {
     if (group.kind === 'STAY') journey = setPlanStay(journey, { ...source, planningSlot: 'stay' }, group.dayId, 1, option.fixed);
     else if (current) journey = replacePlanBusiness(journey, group.dayId, current.visitId!, source);
     else {
-      journey = insertNearby(journey, group.dayId, group.anchorVisitId, source);
-      if (group.slot) journey = { ...journey, days: journey.days.map(day => day.dayId !== group.dayId ? day : { ...day, places: day.places.map(place => place.id === source.id && place.anchorVisitId === group.anchorVisitId ? { ...place, planningSlot: group.slot } : place), planningGaps: day.planningGaps?.filter(gap => !(gap.slot === group.slot && gap.kind === group.kind)) }) };
+      journey = insertNearby(journey, group.dayId, group.anchorVisitId, source, group.slot);
+      if (group.slot) journey = { ...journey, days: journey.days.map(day => day.dayId !== group.dayId ? day : { ...day, planningGaps: day.planningGaps?.filter(gap => !(gap.slot === group.slot && gap.kind === group.kind)) }) };
     }
   }
   return normalizePlan({ ...journey, planStage: 'READY', businessCandidates: [] });

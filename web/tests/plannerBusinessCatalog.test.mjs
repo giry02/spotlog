@@ -10,17 +10,17 @@ const dongbaek = landmark('dongbaek', '동백섬', 35.1523895, 129.1526031);
 const catalog = [haeundae, dongbaek, ...plannerBusinessPlaces];
 
 test('added businesses have unique place IDs and a checked official source for their coordinates', () => {
-  assert.equal(plannerBusinessPlaces.length, 33);
+  assert.equal(plannerBusinessPlaces.length, 65);
   assert.equal(new Set(plannerBusinessPlaces.map(p => p.id)).size, plannerBusinessPlaces.length);
   assert.equal(new Set(plannerBusinessSources.map(s => `${s.provider}:${s.providerRecordId}`)).size, plannerBusinessPlaces.length);
   for (const place of plannerBusinessPlaces) {
     const source = plannerBusinessSources.find(s => s.placeId === place.id);
     assert.ok(source, place.id);
     const host = new URL(source.sourceUrl).hostname;
-    assert.ok(['www.visitbusan.net','search.gyeongju.go.kr','korean.visitseoul.net','english.visitseoul.net','english.visitkorea.or.kr'].includes(host));
-    if (host === 'www.visitbusan.net') assert.equal(new URL(source.sourceUrl).searchParams.get('uc_seq'), source.providerRecordId);
+    assert.ok(['visitbusan.net','www.visitbusan.net','search.gyeongju.go.kr','korean.visitseoul.net','english.visitseoul.net','english.visitkorea.or.kr'].includes(host));
+    if (host.endsWith('visitbusan.net')) assert.equal(new URL(source.sourceUrl).searchParams.get(source.providerRecordId.startsWith('METADATA') ? 'dataSid' : 'uc_seq'), source.providerRecordId);
     assert.equal(source.scope, 'name-address-category-coordinate');
-    assert.equal(source.checkedAt, host==='www.visitbusan.net' ? place.kind==='CAFE'?'2026-09-26':'2026-09-21' : '2026-10-06');
+    assert.ok(['2026-09-21', '2026-09-26', '2026-10-06', '2026-10-12'].includes(source.checkedAt));
     assert.ok(place.lat > 33 && place.lat < 39 && place.lng > 125 && place.lng < 130, place.name);
     assert.equal(place.locationVerified, true);
     assert.equal(place.image, '', 'Unlicensed or unrelated images must not be used as business photos');
@@ -36,9 +36,9 @@ test('Haeundae landmarks have multiple distinct nearby meals and lodging choices
     assert.ok(nearby.filter(p => p.kind === 'STAY').length >= 4);
   }
   const busan = plannerBusinessPlaces.filter(p=>p.area.startsWith('부산'));
-  assert.equal(busan.filter(p => p.kind === 'FOOD').length, 8);
+  assert.equal(busan.filter(p => p.kind === 'FOOD').length, 25);
   assert.equal(busan.filter(p => p.kind === 'STAY').length, 4);
-  assert.equal(busan.filter(p => p.kind === 'CAFE').length, 3);
+  assert.equal(busan.filter(p => p.kind === 'CAFE').length, 18);
 });
 
 test('Seoul, Gangneung and Gyeongju each have two verified alternatives per kind within the expanded radius',()=>{

@@ -1,8 +1,8 @@
-import { createContext, useContext, useMemo, useSyncExternalStore, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from 'react';
 import type { Journey, Place } from './data';
 import type { HomeTripTemplate } from './consumerPublicSeed';
 export { reviewExposureOrder } from './reviewServiceBridge';
-import { emptyReviewServiceState, readReviewServiceState, overlayPublicPlaces, publicJournalToJourney, publicTemplatesFromReview, REVIEW_SERVICE_EVENT, REVIEW_SERVICE_KEY, type ReviewServiceState } from './reviewServiceBridge';
+import { emptyReviewServiceState, readReviewServiceState, overlayPublicPlaces, publicJournalToJourney, publicTemplatesFromReview, homePlacesFromReview, REVIEW_SERVICE_EVENT, REVIEW_SERVICE_KEY, type ReviewServiceState } from './reviewServiceBridge';
 
 const fallback = emptyReviewServiceState();
 let lastRaw: string | null | undefined, lastState = fallback;
@@ -19,13 +19,37 @@ function subscribe(listener: () => void) {
   window.addEventListener('storage', storage); window.addEventListener(REVIEW_SERVICE_EVENT, listener);
   return () => { window.removeEventListener('storage', storage); window.removeEventListener(REVIEW_SERVICE_EVENT, listener); };
 }
-type PublicReviewValue = { state: ReviewServiceState; catalog: Place[]; operatingJourneys: Journey[]; operatingTemplates: HomeTripTemplate[] };
-const PublicReviewContext = createContext<PublicReviewValue>({ state: fallback, catalog: [], operatingJourneys: [], operatingTemplates: [] });
+type PublicReviewValue = { state: ReviewServiceState; now: number; catalog: Place[]; operatingJourneys: Journey[]; operatingTemplates: HomeTripTemplate[] };
+const PublicReviewContext = createContext<PublicReviewValue>({ state: fallback, now: Date.now(), catalog: [], operatingJourneys: [], operatingTemplates: [] });
 export const usePublicReview = () => useContext(PublicReviewContext);
+export function useHomePlaceExposures() {
+  const { state, now } = usePublicReview();
+  return useMemo(() => homePlacesFromReview(state, now), [state, now]);
+}
+/** Publication windows change even with reduced motion and no user interaction. */
+function useExposureClock(state: ReviewServiceState) {
+  const [now, setNow] = useState(Date.now);
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const refresh = () => {
+      if (timer !== undefined) clearTimeout(timer);
+      const time = Date.now(); setNow(time);
+      const next = Math.min(...state.exposures.filter(entry => entry.enabled).flatMap(entry => [entry.startsAt, entry.endsAt].map(value => Date.parse(value)).filter(value => Number.isFinite(value) && value > time)));
+      if (Number.isFinite(next)) timer = setTimeout(refresh, Math.min(next - time + 1, 2147483647));
+    };
+    refresh();
+    window.addEventListener('focus', refresh);
+    document.addEventListener('visibilitychange', refresh);
+    return () => { if (timer !== undefined) clearTimeout(timer); window.removeEventListener('focus', refresh); document.removeEventListener('visibilitychange', refresh); };
+  }, [state]);
+  return now;
+}
 export function PublicReviewProvider({ baseline, children }: { baseline: Place[]; children: ReactNode }) {
   const state = useSyncExternalStore(subscribe, snapshot, () => fallback);
+  const now = useExposureClock(state);
   const value = useMemo(() => { const catalog = overlayPublicPlaces(baseline, state); const operatingTemplates = publicTemplatesFromReview(state, catalog); return { state, catalog, operatingTemplates, operatingJourneys: [...new Map(state.operatingJournals.map(j => [j.journalId, publicJournalToJourney(j, catalog)])).values()] }; }, [baseline, state]);
-  return <PublicReviewContext.Provider value={value}>{children}</PublicReviewContext.Provider>;
+  const timedValue = useMemo(() => ({...value, now}), [value, now]);
+  return <PublicReviewContext.Provider value={timedValue}>{children}</PublicReviewContext.Provider>;
 }
 export function nearbyReviewOrder(candidates: Place[], anchorId: string, state: ReviewServiceState): Place[] {
   const rules = state.nearbyOverrides.filter(o => o.anchorPlaceId === anchorId);

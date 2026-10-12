@@ -45,6 +45,33 @@ test('different landmarks and existing lunch/dinner remain independent',()=>{
   trip=selectTripCandidate(trip,trip.businessCandidates[0].id,'alternative');const result=confirmTripCandidates(trip);
   assert.deepEqual(result.days[0].places.filter(p=>p.kind==='FOOD').map(p=>p.id),['alternative','dinner']);
 });
+test('one restaurant can be chosen for separate meals without dropping or retiming an earlier visit',()=>{
+  let trip=setup();const ctx=context(trip),restaurant=place('same-restaurant','FOOD');
+  trip=addTripCandidate(trip,restaurant,{...ctx,slot:'dinner'});
+  trip=addTripCandidate(trip,restaurant,{...ctx,slot:'lunch'});
+  const result=confirmTripCandidates(trip),meals=result.days[0].places.filter(p=>p.kind==='FOOD');
+  assert.deepEqual(meals.map(p=>p.planningSlot),['lunch','dinner']);
+  assert.deepEqual(meals.map(p=>p.id),[restaurant.id,restaurant.id]);
+  assert.notEqual(meals[0].visitId,meals[1].visitId);
+  assert.deepEqual(result.days[0].blocks.filter(b=>b.type==='PLACE').map(b=>b.visitId),result.days[0].places.map(p=>p.visitId));
+  assert.equal(trip.days[0].places.length,1);
+  const map=new Map(),storage={getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,v),removeItem:k=>map.delete(k),key:i=>[...map.keys()][i],get length(){return map.size;}},repo=createLocalRepository(storage);
+  assert.equal(repo.setItem('spotlog.web.journeys.v4',JSON.stringify([result])),true);
+  assert.equal(JSON.parse(repo.getItem('spotlog.web.journeys.v4'))[0].days[0].places.filter(p=>p.kind==='FOOD').length,2);
+});
+test('replacing dinner with the lunch restaurant keeps both meal visits independent',()=>{
+  let trip=setup();const ctx=context(trip);
+  trip=addTripCandidate(trip,place('lunch-venue','FOOD'),{...ctx,slot:'lunch'});
+  trip=addTripCandidate(trip,place('dinner-venue','FOOD'),{...ctx,slot:'dinner'});
+  trip=confirmTripCandidates(trip);
+  const original=trip.days[0].places.filter(p=>p.kind==='FOOD');
+  trip=addTripCandidate(trip,place('lunch-venue','FOOD'),{...ctx,slot:'dinner'});
+  trip=selectTripCandidate(trip,trip.businessCandidates[0].id,'lunch-venue');
+  const result=confirmTripCandidates(trip),meals=result.days[0].places.filter(p=>p.kind==='FOOD');
+  assert.deepEqual(meals.map(p=>p.id),['lunch-venue','lunch-venue']);
+  assert.deepEqual(meals.map(p=>p.planningSlot),['lunch','dinner']);
+  assert.deepEqual(meals.map(p=>p.visitId),original.map(p=>p.visitId));
+});
 test('booked nights cannot be replaced by review; other nights can still choose alternatives',()=>{
   let trip=setup();const ctx=context(trip);trip=setPlanStay(trip,place('booked','STAY'),ctx.dayId,1,true);
   trip=addTripCandidate(trip,place('s2','STAY'),{...ctx,nights:2});const [locked,next]=trip.businessCandidates;

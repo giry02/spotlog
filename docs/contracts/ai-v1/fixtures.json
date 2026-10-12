@@ -1,0 +1,1942 @@
+{
+  "synthetic": true,
+  "public": [
+    {
+      "name": "ready",
+      "httpStatus": 200,
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "language": "ko",
+        "mode": "region",
+        "prompt": "부산 1박 2일 여행 만들어줘.",
+        "selections": {
+          "regionId": {
+            "value": null,
+            "origin": "default_ui"
+          },
+          "dayCount": {
+            "value": 2,
+            "origin": "default_ui"
+          },
+          "pace": {
+            "value": "balanced",
+            "origin": "default_ui"
+          },
+          "transport": {
+            "value": "undecided",
+            "origin": "default_ui"
+          }
+        },
+        "savedPlaceIds": []
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "mock": true,
+        "status": "ready",
+        "normalization": {
+          "fields": {
+            "regionId": "busan",
+            "dayCount": 2,
+            "pace": "balanced",
+            "transport": "undecided",
+            "food": "include",
+            "cafe": "exclude",
+            "stay": "include",
+            "lunch": true,
+            "dinner": true
+          },
+          "nextAction": "ready",
+          "issues": [],
+          "unresolved": [],
+          "preserveVisitIds": []
+        },
+        "draft": {
+          "draftId": "fixture-draft-1",
+          "draftRevision": "fixture-draft-r1",
+          "baseTripId": null,
+          "baseTripRevision": null,
+          "catalogVersion": "fixture-catalog-v1",
+          "indexVersion": "fixture-index-v1",
+          "title": "가상 부산 1박 2일",
+          "days": [
+            {
+              "dayId": "fixture-day-1",
+              "day": 1,
+              "visits": [
+                {
+                  "visitId": "d1-a",
+                  "placeId": "fixture-place-d1-a",
+                  "kind": "LANDMARK",
+                  "slot": "morning",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-a"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-lunch",
+                  "placeId": "fixture-place-d1-lunch",
+                  "kind": "FOOD",
+                  "slot": "lunch",
+                  "anchorVisitId": "d1-a",
+                  "afterVisitId": "d1-a",
+                  "beforeVisitId": "d1-b",
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-lunch"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-b",
+                  "placeId": "fixture-place-d1-b",
+                  "kind": "LANDMARK",
+                  "slot": "afternoon",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-b"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-dinner",
+                  "placeId": "fixture-place-d1-dinner",
+                  "kind": "FOOD",
+                  "slot": "dinner",
+                  "anchorVisitId": "d1-b",
+                  "afterVisitId": "d1-b",
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-dinner"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-stay",
+                  "placeId": "fixture-place-d1-stay",
+                  "kind": "STAY",
+                  "slot": "stay",
+                  "anchorVisitId": "d1-b",
+                  "afterVisitId": "d1-b",
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [
+                    "fixture-day-1"
+                  ],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-stay"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                }
+              ],
+              "gaps": []
+            },
+            {
+              "dayId": "fixture-day-2",
+              "day": 2,
+              "visits": [
+                {
+                  "visitId": "d2-a",
+                  "placeId": "fixture-place-d2-a",
+                  "kind": "LANDMARK",
+                  "slot": "morning",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-a"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d2-lunch",
+                  "placeId": "fixture-place-d2-lunch",
+                  "kind": "FOOD",
+                  "slot": "lunch",
+                  "anchorVisitId": "d2-a",
+                  "afterVisitId": "d2-a",
+                  "beforeVisitId": "d2-b",
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-lunch"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d2-b",
+                  "placeId": "fixture-place-d2-b",
+                  "kind": "LANDMARK",
+                  "slot": "afternoon",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-b"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d2-dinner",
+                  "placeId": "fixture-place-d2-dinner",
+                  "kind": "FOOD",
+                  "slot": "dinner",
+                  "anchorVisitId": "d2-b",
+                  "afterVisitId": "d2-b",
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-dinner"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                }
+              ],
+              "gaps": []
+            }
+          ],
+          "sources": [
+            {
+              "id": "fixture-evidence-d1-a",
+              "placeId": "fixture-place-d1-a",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-lunch",
+              "placeId": "fixture-place-d1-lunch",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-b",
+              "placeId": "fixture-place-d1-b",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-dinner",
+              "placeId": "fixture-place-d1-dinner",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-stay",
+              "placeId": "fixture-place-d1-stay",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-a",
+              "placeId": "fixture-place-d2-a",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-lunch",
+              "placeId": "fixture-place-d2-lunch",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-b",
+              "placeId": "fixture-place-d2-b",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-dinner",
+              "placeId": "fixture-place-d2-dinner",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            }
+          ],
+          "unplaced": []
+        },
+        "issues": []
+      }
+    },
+    {
+      "name": "partial-meal",
+      "httpStatus": 200,
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "language": "ko",
+        "mode": "region",
+        "prompt": "부산 1박 2일 여행 만들어줘.",
+        "selections": {
+          "regionId": {
+            "value": null,
+            "origin": "default_ui"
+          },
+          "dayCount": {
+            "value": 2,
+            "origin": "default_ui"
+          },
+          "pace": {
+            "value": "balanced",
+            "origin": "default_ui"
+          },
+          "transport": {
+            "value": "undecided",
+            "origin": "default_ui"
+          }
+        },
+        "savedPlaceIds": []
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "mock": true,
+        "status": "partial",
+        "normalization": {
+          "fields": {
+            "regionId": "busan",
+            "dayCount": 2,
+            "pace": "balanced",
+            "transport": "undecided",
+            "food": "include",
+            "cafe": "exclude",
+            "stay": "include",
+            "lunch": true,
+            "dinner": true
+          },
+          "nextAction": "ready",
+          "issues": [],
+          "unresolved": [],
+          "preserveVisitIds": []
+        },
+        "draft": {
+          "draftId": "fixture-draft-1",
+          "draftRevision": "fixture-draft-r1",
+          "baseTripId": null,
+          "baseTripRevision": null,
+          "catalogVersion": "fixture-catalog-v1",
+          "indexVersion": "fixture-index-v1",
+          "title": "가상 부산 1박 2일",
+          "days": [
+            {
+              "dayId": "fixture-day-1",
+              "day": 1,
+              "visits": [
+                {
+                  "visitId": "d1-a",
+                  "placeId": "fixture-place-d1-a",
+                  "kind": "LANDMARK",
+                  "slot": "morning",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-a"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-b",
+                  "placeId": "fixture-place-d1-b",
+                  "kind": "LANDMARK",
+                  "slot": "afternoon",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-b"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-dinner",
+                  "placeId": "fixture-place-d1-dinner",
+                  "kind": "FOOD",
+                  "slot": "dinner",
+                  "anchorVisitId": "d1-b",
+                  "afterVisitId": "d1-b",
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-dinner"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-stay",
+                  "placeId": "fixture-place-d1-stay",
+                  "kind": "STAY",
+                  "slot": "stay",
+                  "anchorVisitId": "d1-b",
+                  "afterVisitId": "d1-b",
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [
+                    "fixture-day-1"
+                  ],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-stay"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                }
+              ],
+              "gaps": [
+                {
+                  "id": "fixture-gap-lunch",
+                  "kind": "FOOD",
+                  "slot": "lunch",
+                  "reason": "missing-data",
+                  "afterVisitId": "d1-a",
+                  "beforeVisitId": "d1-b"
+                }
+              ]
+            },
+            {
+              "dayId": "fixture-day-2",
+              "day": 2,
+              "visits": [
+                {
+                  "visitId": "d2-a",
+                  "placeId": "fixture-place-d2-a",
+                  "kind": "LANDMARK",
+                  "slot": "morning",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-a"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d2-lunch",
+                  "placeId": "fixture-place-d2-lunch",
+                  "kind": "FOOD",
+                  "slot": "lunch",
+                  "anchorVisitId": "d2-a",
+                  "afterVisitId": "d2-a",
+                  "beforeVisitId": "d2-b",
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-lunch"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d2-b",
+                  "placeId": "fixture-place-d2-b",
+                  "kind": "LANDMARK",
+                  "slot": "afternoon",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-b"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d2-dinner",
+                  "placeId": "fixture-place-d2-dinner",
+                  "kind": "FOOD",
+                  "slot": "dinner",
+                  "anchorVisitId": "d2-b",
+                  "afterVisitId": "d2-b",
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-dinner"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                }
+              ],
+              "gaps": []
+            }
+          ],
+          "sources": [
+            {
+              "id": "fixture-evidence-d1-a",
+              "placeId": "fixture-place-d1-a",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-lunch",
+              "placeId": "fixture-place-d1-lunch",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-b",
+              "placeId": "fixture-place-d1-b",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-dinner",
+              "placeId": "fixture-place-d1-dinner",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-stay",
+              "placeId": "fixture-place-d1-stay",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-a",
+              "placeId": "fixture-place-d2-a",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-lunch",
+              "placeId": "fixture-place-d2-lunch",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-b",
+              "placeId": "fixture-place-d2-b",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-dinner",
+              "placeId": "fixture-place-d2-dinner",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            }
+          ],
+          "unplaced": []
+        },
+        "issues": [
+          {
+            "code": "MISSING_BUSINESS",
+            "field": null,
+            "message": "점심 업체는 상세에서 추가할 수 있어요.",
+            "retryable": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing-region",
+      "httpStatus": 200,
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-061",
+        "language": "ko",
+        "mode": "region",
+        "prompt": "이틀 맛집 위주로 여행하고 싶어",
+        "selections": {
+          "regionId": {
+            "value": null,
+            "origin": "default_ui"
+          },
+          "dayCount": {
+            "value": 2,
+            "origin": "default_ui"
+          },
+          "pace": {
+            "value": "balanced",
+            "origin": "default_ui"
+          },
+          "transport": {
+            "value": "undecided",
+            "origin": "default_ui"
+          }
+        },
+        "savedPlaceIds": []
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-061",
+        "mock": true,
+        "status": "needs_input",
+        "normalization": {
+          "fields": {
+            "regionId": null,
+            "dayCount": 2,
+            "pace": "balanced",
+            "transport": "undecided",
+            "food": "include",
+            "cafe": "exclude",
+            "stay": "include",
+            "lunch": true,
+            "dinner": true
+          },
+          "nextAction": "clarify",
+          "issues": [
+            "MISSING_REGION"
+          ],
+          "unresolved": [],
+          "preserveVisitIds": []
+        },
+        "draft": null,
+        "issues": [
+          {
+            "code": "MISSING_REGION",
+            "field": "regionId",
+            "message": "여행 지역만 선택해 주세요.",
+            "retryable": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "no-candidates",
+      "httpStatus": 200,
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "language": "ko",
+        "mode": "region",
+        "prompt": "부산 1박 2일 여행 만들어줘.",
+        "selections": {
+          "regionId": {
+            "value": null,
+            "origin": "default_ui"
+          },
+          "dayCount": {
+            "value": 2,
+            "origin": "default_ui"
+          },
+          "pace": {
+            "value": "balanced",
+            "origin": "default_ui"
+          },
+          "transport": {
+            "value": "undecided",
+            "origin": "default_ui"
+          }
+        },
+        "savedPlaceIds": []
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "mock": true,
+        "status": "insufficient_data",
+        "normalization": {
+          "fields": {
+            "regionId": "busan",
+            "dayCount": 2,
+            "pace": "balanced",
+            "transport": "undecided",
+            "food": "include",
+            "cafe": "exclude",
+            "stay": "include",
+            "lunch": true,
+            "dinner": true
+          },
+          "nextAction": "ready",
+          "issues": [],
+          "unresolved": [],
+          "preserveVisitIds": []
+        },
+        "draft": null,
+        "issues": [
+          {
+            "code": "NO_CANDIDATES",
+            "field": null,
+            "message": "이 지역의 등록 자료가 아직 부족해요.",
+            "retryable": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "timeout",
+      "httpStatus": 504,
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "language": "ko",
+        "mode": "region",
+        "prompt": "부산 1박 2일 여행 만들어줘.",
+        "selections": {
+          "regionId": {
+            "value": null,
+            "origin": "default_ui"
+          },
+          "dayCount": {
+            "value": 2,
+            "origin": "default_ui"
+          },
+          "pace": {
+            "value": "balanced",
+            "origin": "default_ui"
+          },
+          "transport": {
+            "value": "undecided",
+            "origin": "default_ui"
+          }
+        },
+        "savedPlaceIds": []
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "mock": true,
+        "status": "failed",
+        "normalization": null,
+        "draft": null,
+        "issues": [
+          {
+            "code": "TIMEOUT",
+            "field": null,
+            "message": "입력은 유지했어요. 다시 시도해 주세요.",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "dependency-unavailable",
+      "httpStatus": 503,
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "language": "ko",
+        "mode": "region",
+        "prompt": "부산 1박 2일 여행 만들어줘.",
+        "selections": {
+          "regionId": {
+            "value": null,
+            "origin": "default_ui"
+          },
+          "dayCount": {
+            "value": 2,
+            "origin": "default_ui"
+          },
+          "pace": {
+            "value": "balanced",
+            "origin": "default_ui"
+          },
+          "transport": {
+            "value": "undecided",
+            "origin": "default_ui"
+          }
+        },
+        "savedPlaceIds": []
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "mock": true,
+        "status": "failed",
+        "normalization": null,
+        "draft": null,
+        "issues": [
+          {
+            "code": "DEPENDENCY_UNAVAILABLE",
+            "field": null,
+            "message": "잠시 뒤 다시 시도해 주세요.",
+            "retryable": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "stale",
+      "httpStatus": 409,
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "language": "ko",
+        "mode": "region",
+        "prompt": "부산 1박 2일 여행 만들어줘.",
+        "selections": {
+          "regionId": {
+            "value": null,
+            "origin": "default_ui"
+          },
+          "dayCount": {
+            "value": 2,
+            "origin": "default_ui"
+          },
+          "pace": {
+            "value": "balanced",
+            "origin": "default_ui"
+          },
+          "transport": {
+            "value": "undecided",
+            "origin": "default_ui"
+          }
+        },
+        "savedPlaceIds": []
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "mock": true,
+        "status": "failed",
+        "normalization": null,
+        "draft": null,
+        "issues": [
+          {
+            "code": "STALE_REVISION",
+            "field": null,
+            "message": "자료가 바뀌었어요. 최신 내용으로 다시 확인해 주세요.",
+            "retryable": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid-model",
+      "httpStatus": 502,
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "language": "ko",
+        "mode": "region",
+        "prompt": "부산 1박 2일 여행 만들어줘.",
+        "selections": {
+          "regionId": {
+            "value": null,
+            "origin": "default_ui"
+          },
+          "dayCount": {
+            "value": 2,
+            "origin": "default_ui"
+          },
+          "pace": {
+            "value": "balanced",
+            "origin": "default_ui"
+          },
+          "transport": {
+            "value": "undecided",
+            "origin": "default_ui"
+          }
+        },
+        "savedPlaceIds": []
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "mock": true,
+        "status": "failed",
+        "normalization": null,
+        "draft": null,
+        "issues": [
+          {
+            "code": "INVALID_MODEL_OUTPUT",
+            "field": null,
+            "message": "추천 결과를 확인하지 못했어요.",
+            "retryable": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "unauthorized",
+      "httpStatus": 401,
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "language": "ko",
+        "mode": "region",
+        "prompt": "부산 1박 2일 여행 만들어줘.",
+        "selections": {
+          "regionId": {
+            "value": null,
+            "origin": "default_ui"
+          },
+          "dayCount": {
+            "value": 2,
+            "origin": "default_ui"
+          },
+          "pace": {
+            "value": "balanced",
+            "origin": "default_ui"
+          },
+          "transport": {
+            "value": "undecided",
+            "origin": "default_ui"
+          }
+        },
+        "savedPlaceIds": []
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "mock": true,
+        "status": "failed",
+        "normalization": null,
+        "draft": null,
+        "issues": [
+          {
+            "code": "UNAUTHORIZED",
+            "field": null,
+            "message": "로그인이 필요해요.",
+            "retryable": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "forbidden",
+      "httpStatus": 403,
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "language": "ko",
+        "mode": "region",
+        "prompt": "부산 1박 2일 여행 만들어줘.",
+        "selections": {
+          "regionId": {
+            "value": null,
+            "origin": "default_ui"
+          },
+          "dayCount": {
+            "value": 2,
+            "origin": "default_ui"
+          },
+          "pace": {
+            "value": "balanced",
+            "origin": "default_ui"
+          },
+          "transport": {
+            "value": "undecided",
+            "origin": "default_ui"
+          }
+        },
+        "savedPlaceIds": []
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "mock": true,
+        "status": "failed",
+        "normalization": null,
+        "draft": null,
+        "issues": [
+          {
+            "code": "FORBIDDEN",
+            "field": null,
+            "message": "이 일정에 접근할 수 없어요.",
+            "retryable": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "rate-limited",
+      "httpStatus": 429,
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "language": "ko",
+        "mode": "region",
+        "prompt": "부산 1박 2일 여행 만들어줘.",
+        "selections": {
+          "regionId": {
+            "value": null,
+            "origin": "default_ui"
+          },
+          "dayCount": {
+            "value": 2,
+            "origin": "default_ui"
+          },
+          "pace": {
+            "value": "balanced",
+            "origin": "default_ui"
+          },
+          "transport": {
+            "value": "undecided",
+            "origin": "default_ui"
+          }
+        },
+        "savedPlaceIds": []
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-request-001",
+        "mock": true,
+        "status": "failed",
+        "normalization": null,
+        "draft": null,
+        "issues": [
+          {
+            "code": "RATE_LIMITED",
+            "field": null,
+            "message": "잠시 후 다시 시도해 주세요.",
+            "retryable": true
+          }
+        ]
+      }
+    }
+  ],
+  "internal": {
+    "rag": {
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-rag",
+        "query": "바다 산책",
+        "allowedPlaceIds": [
+          "fixture-place-d1-a",
+          "fixture-place-d1-lunch",
+          "fixture-place-d1-b",
+          "fixture-place-d1-dinner",
+          "fixture-place-d1-stay",
+          "fixture-place-d2-a",
+          "fixture-place-d2-lunch",
+          "fixture-place-d2-b",
+          "fixture-place-d2-dinner"
+        ],
+        "indexVersion": "fixture-index-v1",
+        "topK": 10
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-rag",
+        "indexVersion": "fixture-index-v1",
+        "chunks": [
+          {
+            "chunkId": "fixture-evidence-d1-a",
+            "placeId": "fixture-place-d1-a",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d1-lunch",
+            "placeId": "fixture-place-d1-lunch",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d1-b",
+            "placeId": "fixture-place-d1-b",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d1-dinner",
+            "placeId": "fixture-place-d1-dinner",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d1-stay",
+            "placeId": "fixture-place-d1-stay",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d2-a",
+            "placeId": "fixture-place-d2-a",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d2-lunch",
+            "placeId": "fixture-place-d2-lunch",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d2-b",
+            "placeId": "fixture-place-d2-b",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d2-dinner",
+            "placeId": "fixture-place-d2-dinner",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          }
+        ]
+      }
+    },
+    "interpret": {
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-interpret",
+        "prompt": "부산 2일 첫날 저녁은 빼줘",
+        "accepted": {
+          "regionId": "busan",
+          "dayCount": 2,
+          "pace": "balanced",
+          "transport": "undecided",
+          "food": "include",
+          "cafe": "exclude",
+          "stay": "include",
+          "lunch": true,
+          "dinner": true
+        },
+        "unresolved": [
+          {
+            "text": "첫날 저녁은 빼줘",
+            "reason": "day_specific"
+          }
+        ],
+        "allowedPatchFields": []
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-interpret",
+        "patch": {},
+        "constraints": [
+          {
+            "text": "첫날 저녁은 빼줘",
+            "reason": "day_specific"
+          }
+        ],
+        "remaining": [],
+        "evidenceText": [
+          "첫날 저녁은 빼줘"
+        ]
+      }
+    },
+    "explain": {
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-explain",
+        "prompt": "부산 1박 2일 여행 만들어줘.",
+        "draft": {
+          "draftId": "fixture-draft-1",
+          "draftRevision": "fixture-draft-r1",
+          "baseTripId": null,
+          "baseTripRevision": null,
+          "catalogVersion": "fixture-catalog-v1",
+          "indexVersion": "fixture-index-v1",
+          "title": "가상 부산 1박 2일",
+          "days": [
+            {
+              "dayId": "fixture-day-1",
+              "day": 1,
+              "visits": [
+                {
+                  "visitId": "d1-a",
+                  "placeId": "fixture-place-d1-a",
+                  "kind": "LANDMARK",
+                  "slot": "morning",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-a"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-lunch",
+                  "placeId": "fixture-place-d1-lunch",
+                  "kind": "FOOD",
+                  "slot": "lunch",
+                  "anchorVisitId": "d1-a",
+                  "afterVisitId": "d1-a",
+                  "beforeVisitId": "d1-b",
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-lunch"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-b",
+                  "placeId": "fixture-place-d1-b",
+                  "kind": "LANDMARK",
+                  "slot": "afternoon",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-b"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-dinner",
+                  "placeId": "fixture-place-d1-dinner",
+                  "kind": "FOOD",
+                  "slot": "dinner",
+                  "anchorVisitId": "d1-b",
+                  "afterVisitId": "d1-b",
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-dinner"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-stay",
+                  "placeId": "fixture-place-d1-stay",
+                  "kind": "STAY",
+                  "slot": "stay",
+                  "anchorVisitId": "d1-b",
+                  "afterVisitId": "d1-b",
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [
+                    "fixture-day-1"
+                  ],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-stay"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                }
+              ],
+              "gaps": []
+            },
+            {
+              "dayId": "fixture-day-2",
+              "day": 2,
+              "visits": [
+                {
+                  "visitId": "d2-a",
+                  "placeId": "fixture-place-d2-a",
+                  "kind": "LANDMARK",
+                  "slot": "morning",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-a"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d2-lunch",
+                  "placeId": "fixture-place-d2-lunch",
+                  "kind": "FOOD",
+                  "slot": "lunch",
+                  "anchorVisitId": "d2-a",
+                  "afterVisitId": "d2-a",
+                  "beforeVisitId": "d2-b",
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-lunch"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d2-b",
+                  "placeId": "fixture-place-d2-b",
+                  "kind": "LANDMARK",
+                  "slot": "afternoon",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-b"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d2-dinner",
+                  "placeId": "fixture-place-d2-dinner",
+                  "kind": "FOOD",
+                  "slot": "dinner",
+                  "anchorVisitId": "d2-b",
+                  "afterVisitId": "d2-b",
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-dinner"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                }
+              ],
+              "gaps": []
+            }
+          ],
+          "sources": [
+            {
+              "id": "fixture-evidence-d1-a",
+              "placeId": "fixture-place-d1-a",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-lunch",
+              "placeId": "fixture-place-d1-lunch",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-b",
+              "placeId": "fixture-place-d1-b",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-dinner",
+              "placeId": "fixture-place-d1-dinner",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-stay",
+              "placeId": "fixture-place-d1-stay",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-a",
+              "placeId": "fixture-place-d2-a",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-lunch",
+              "placeId": "fixture-place-d2-lunch",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-b",
+              "placeId": "fixture-place-d2-b",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-dinner",
+              "placeId": "fixture-place-d2-dinner",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            }
+          ],
+          "unplaced": []
+        },
+        "evidence": [
+          {
+            "chunkId": "fixture-evidence-d1-a",
+            "placeId": "fixture-place-d1-a",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d1-lunch",
+            "placeId": "fixture-place-d1-lunch",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d1-b",
+            "placeId": "fixture-place-d1-b",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d1-dinner",
+            "placeId": "fixture-place-d1-dinner",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d1-stay",
+            "placeId": "fixture-place-d1-stay",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d2-a",
+            "placeId": "fixture-place-d2-a",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d2-lunch",
+            "placeId": "fixture-place-d2-lunch",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d2-b",
+            "placeId": "fixture-place-d2-b",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          },
+          {
+            "chunkId": "fixture-evidence-d2-dinner",
+            "placeId": "fixture-place-d2-dinner",
+            "documentVersion": "fixture-doc-v1",
+            "text": "가상 장소의 검증용 설명. 실제 영업 정보 아님.",
+            "checkedAt": null
+          }
+        ]
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-explain",
+        "explanations": [
+          {
+            "visitId": "d1-a",
+            "text": "가상 등록 자료를 사용한 연결 시험용 방문",
+            "evidenceIds": [
+              "fixture-evidence-d1-a"
+            ]
+          },
+          {
+            "visitId": "d1-lunch",
+            "text": "가상 등록 자료를 사용한 연결 시험용 방문",
+            "evidenceIds": [
+              "fixture-evidence-d1-lunch"
+            ]
+          },
+          {
+            "visitId": "d1-b",
+            "text": "가상 등록 자료를 사용한 연결 시험용 방문",
+            "evidenceIds": [
+              "fixture-evidence-d1-b"
+            ]
+          },
+          {
+            "visitId": "d1-dinner",
+            "text": "가상 등록 자료를 사용한 연결 시험용 방문",
+            "evidenceIds": [
+              "fixture-evidence-d1-dinner"
+            ]
+          },
+          {
+            "visitId": "d1-stay",
+            "text": "가상 등록 자료를 사용한 연결 시험용 방문",
+            "evidenceIds": [
+              "fixture-evidence-d1-stay"
+            ]
+          },
+          {
+            "visitId": "d2-a",
+            "text": "가상 등록 자료를 사용한 연결 시험용 방문",
+            "evidenceIds": [
+              "fixture-evidence-d2-a"
+            ]
+          },
+          {
+            "visitId": "d2-lunch",
+            "text": "가상 등록 자료를 사용한 연결 시험용 방문",
+            "evidenceIds": [
+              "fixture-evidence-d2-lunch"
+            ]
+          },
+          {
+            "visitId": "d2-b",
+            "text": "가상 등록 자료를 사용한 연결 시험용 방문",
+            "evidenceIds": [
+              "fixture-evidence-d2-b"
+            ]
+          },
+          {
+            "visitId": "d2-dinner",
+            "text": "가상 등록 자료를 사용한 연결 시험용 방문",
+            "evidenceIds": [
+              "fixture-evidence-d2-dinner"
+            ]
+          }
+        ]
+      }
+    },
+    "revision": {
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-revision",
+        "tripId": "fixture-trip",
+        "baseRevision": "fixture-trip-r1",
+        "dayId": "fixture-day-2",
+        "scope": "afternoon",
+        "fromVisitId": null,
+        "excludedVisitIds": [],
+        "lessWalking": true,
+        "prompt": "둘째 날 오후는 덜 걷게"
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-revision",
+        "mock": true,
+        "status": "ready",
+        "normalization": {
+          "fields": {
+            "regionId": "busan",
+            "dayCount": 2,
+            "pace": "balanced",
+            "transport": "undecided",
+            "food": "include",
+            "cafe": "exclude",
+            "stay": "include",
+            "lunch": true,
+            "dinner": true
+          },
+          "nextAction": "ready",
+          "issues": [],
+          "unresolved": [],
+          "preserveVisitIds": []
+        },
+        "draft": {
+          "draftId": "fixture-draft-1",
+          "draftRevision": "fixture-draft-r1",
+          "baseTripId": "fixture-trip",
+          "baseTripRevision": "fixture-trip-r1",
+          "catalogVersion": "fixture-catalog-v1",
+          "indexVersion": "fixture-index-v1",
+          "title": "가상 부산 1박 2일",
+          "days": [
+            {
+              "dayId": "fixture-day-1",
+              "day": 1,
+              "visits": [
+                {
+                  "visitId": "d1-a",
+                  "placeId": "fixture-place-d1-a",
+                  "kind": "LANDMARK",
+                  "slot": "morning",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-a"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-lunch",
+                  "placeId": "fixture-place-d1-lunch",
+                  "kind": "FOOD",
+                  "slot": "lunch",
+                  "anchorVisitId": "d1-a",
+                  "afterVisitId": "d1-a",
+                  "beforeVisitId": "d1-b",
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-lunch"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-b",
+                  "placeId": "fixture-place-d1-b",
+                  "kind": "LANDMARK",
+                  "slot": "afternoon",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-b"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-dinner",
+                  "placeId": "fixture-place-d1-dinner",
+                  "kind": "FOOD",
+                  "slot": "dinner",
+                  "anchorVisitId": "d1-b",
+                  "afterVisitId": "d1-b",
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-dinner"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d1-stay",
+                  "placeId": "fixture-place-d1-stay",
+                  "kind": "STAY",
+                  "slot": "stay",
+                  "anchorVisitId": "d1-b",
+                  "afterVisitId": "d1-b",
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [
+                    "fixture-day-1"
+                  ],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d1-stay"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                }
+              ],
+              "gaps": []
+            },
+            {
+              "dayId": "fixture-day-2",
+              "day": 2,
+              "visits": [
+                {
+                  "visitId": "d2-a",
+                  "placeId": "fixture-place-d2-a",
+                  "kind": "LANDMARK",
+                  "slot": "morning",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-a"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d2-lunch",
+                  "placeId": "fixture-place-d2-lunch",
+                  "kind": "FOOD",
+                  "slot": "lunch",
+                  "anchorVisitId": "d2-a",
+                  "afterVisitId": "d2-a",
+                  "beforeVisitId": "d2-b",
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-lunch"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d2-b",
+                  "placeId": "fixture-place-d2-b",
+                  "kind": "LANDMARK",
+                  "slot": "afternoon",
+                  "anchorVisitId": null,
+                  "afterVisitId": null,
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-b"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                },
+                {
+                  "visitId": "d2-dinner",
+                  "placeId": "fixture-place-d2-dinner",
+                  "kind": "FOOD",
+                  "slot": "dinner",
+                  "anchorVisitId": "d2-b",
+                  "afterVisitId": "d2-b",
+                  "beforeVisitId": null,
+                  "bookingFixed": false,
+                  "stayDayIds": [],
+                  "time": null,
+                  "travelMinutes": null,
+                  "routeStatus": "unverified",
+                  "evidenceIds": [
+                    "fixture-evidence-d2-dinner"
+                  ],
+                  "explanation": "가상 등록 자료를 사용한 연결 시험용 방문"
+                }
+              ],
+              "gaps": []
+            }
+          ],
+          "sources": [
+            {
+              "id": "fixture-evidence-d1-a",
+              "placeId": "fixture-place-d1-a",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-lunch",
+              "placeId": "fixture-place-d1-lunch",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-b",
+              "placeId": "fixture-place-d1-b",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-dinner",
+              "placeId": "fixture-place-d1-dinner",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d1-stay",
+              "placeId": "fixture-place-d1-stay",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-a",
+              "placeId": "fixture-place-d2-a",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-lunch",
+              "placeId": "fixture-place-d2-lunch",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-b",
+              "placeId": "fixture-place-d2-b",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            },
+            {
+              "id": "fixture-evidence-d2-dinner",
+              "placeId": "fixture-place-d2-dinner",
+              "documentVersion": "fixture-doc-v1",
+              "label": "가상 검증 자료",
+              "url": null,
+              "checkedAt": null
+            }
+          ],
+          "unplaced": []
+        },
+        "issues": []
+      }
+    },
+    "apply": {
+      "request": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-apply",
+        "draftRevision": "fixture-draft-r1",
+        "baseTripRevision": null
+      },
+      "response": {
+        "apiVersion": "1.0",
+        "requestId": "fixture-apply",
+        "tripId": "fixture-trip",
+        "revision": "fixture-trip-r1",
+        "purpose": "PLAN",
+        "visibility": "PRIVATE"
+      }
+    }
+  }
+}

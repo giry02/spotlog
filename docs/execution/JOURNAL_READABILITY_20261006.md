@@ -27,3 +27,6 @@
 - 실제 Android 실기기 재현은 사용자 확인 대상이며 뷰포트 검수와 구분.
 
 증거: `artifacts/customer-font-20261006/before`, `after/results.json` 및 모바일 캡처. 고객 전용 공개 브랜치와 기존 Pages 배포 사용.
+## 공개 반영 완료
+
+공개 커밋 `f875a38f1b3b95cf2113f1c4bfa313ab8989199a` / `codex/mobile-foundation`. [Pages 배포 성공](https://github.com/giry02/spotlog/actions/runs/37438595313). [공개 사이트](https://giry02.github.io/spotlog/)에서 320·390·460px 실측·빈 목록·댓글 등록·응원 선택·영문·글자125%·제주 여유 시간 문구 재검수 통과. JavaScript `index-CgW_IZsX.js`, CSS `index-CfYOT9vQ.css`가 검수 빌드와 일치. 문서 가로 넘침·페이지 예외 없음. `artifacts/customer-font-20261006/live/results.json` 및 모바일 캡처에 기록. 실제 서버 접수 완료를 의미하지 않음. 관리자 제외 유지.

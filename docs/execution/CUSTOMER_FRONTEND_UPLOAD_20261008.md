@@ -26,3 +26,13 @@
 - 배포 형식 정적 서버에서 오류 페이지 10상태 통과. 실제 HTTP404, 중첩 주소의 홈 복귀, 개발 목록 제외, 스크립트·에셋 오류 없음.
 
 업로드 커밋·배포 작업과 공개 사이트 최종 확인 결과는 로컬 현재 인수인계에 기록. 기존 MapLibre 번들 크기 경고는 유지하며 빌드 오류는 없음.
+
+## 완료 기록
+
+- 공개 커밋: `9503c501c9921cadab2c9ab2ddf4b190a2c2144d`, `codex/mobile-foundation`에 정상 push. 원격 HEAD 일치 확인.
+- Pages 작업: https://github.com/giry02/spotlog/actions/runs/37738544710 — `completed / success`.
+- 공개 HTML의 `customer-DGlaUId6.js`, `theme-k2RiB1Kc.js` 및 CSS가 독립 로컬 빌드와 일치.
+- 공개 사이트 29상태 확인:320/390/460px×홈·여행기 목록·장소 사진·내 여행·저장·비로그인 프로필, 각 화면의 로그인/소셜 입력 유지, 오류7종 및 실제404→홈 복귀. 가로 넘침·깨진 완료 이미지·JS예외·에셋HTTP오류 없음.
+- 프로필은 비로그인 상태이며 운영 빌드에 검수 자동 입력 없음. Google/Apple 미연결 클릭 후 가입으로 이동하지 않고 이메일 입력 유지. 실제 인증 서버 미연결 상태 표시 유지.
+- 증거: `artifacts/customer-upload-20261008/release.json`, `live-results.json`, `public-login-320.png` 등, 독립 빌드/검사 로그와 production 오류 검수 기록.
+- 검수 스크립트 초기 실행은 프로필에도 하단 메뉴가 있다고 가정해 대기 실패. 기존 프로필 설계는 하단 메뉴 대신 계정 화면을 표시하므로 화면 제목 기준으로 수정한 최종 29상태 통과. 제품 코드 수정 사항 아님.

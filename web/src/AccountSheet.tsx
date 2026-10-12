@@ -34,7 +34,7 @@ export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 
   const connected = adapter.configured;
   const member = session.state === 'SIGNED_IN' ? session.user : null;
   const clearVerification = () => { setVerificationEmail(''); setCode(''); };
-  useEffect(() => { if ((view === 'signup-details' && verificationEmail) || view === 'verify') codeInput.current?.focus(); }, [view, verificationEmail]);
+  useEffect(() => { if (!busy && ((view === 'signup-details' && verificationEmail) || view === 'verify')) codeInput.current?.focus(); }, [view, verificationEmail, busy]);
   useEffect(() => { if (account?.adapter === adapter) { setSession(account.session); if (account.session.state === 'GUEST') setView(current => current === 'delete' ? 'login' : current); } }, [account?.session, adapter]);
   const updateSession = (next: SocialSession) => { setSession(next); if (account?.adapter === adapter) account.updateSession(next); };
   const signedIn = (user: SocialAccountUser) => { updateSession({ state: 'SIGNED_IN', user }); setPassword(''); setConfirmation(''); clearVerification(); setView('login'); setNotice(reviewAccount ? '검수 계정으로 로그인했어요. 하던 화면을 확인해 보세요.' : '로그인했어요. 하던 작업으로 돌아가서 이어가세요.'); onSignedIn?.(user); if (reviewAccount) onClose(); };
@@ -168,7 +168,7 @@ export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 
         <p><strong>{email}</strong>로 받은 6자리 인증번호를 입력하세요.</p>
         <Field label="이메일 인증번호"><input ref={codeInput} inputMode="numeric" autoComplete="one-time-code" value={code} pattern="[0-9]{6}" maxLength={6} onChange={e => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))} disabled={busy} required /></Field>
         <Button type="submit" disabled={!connected || !validEmail(email) || !/^\d{6}$/.test(code)} loading={busy}>인증하고 시작하기</Button>
-        <Button variant="secondary" disabled={!connected || busy} onClick={() => void run(async signal => { await adapter.resendVerification(email, signal); if (!signal.aborted) setNotice('인증번호를 다시 보냈어요. 최신 번호를 확인하세요.'); })}>인증번호 다시 받기</Button>
+        <Button variant="secondary" disabled={!connected || busy} onClick={() => void run(async signal => { await adapter.resendVerification(email, signal); if (!signal.aborted) { setCode(''); setNotice('인증번호를 다시 보냈어요. 최신 번호를 확인하세요.'); codeInput.current?.focus(); } })}>인증번호 다시 받기</Button>
         <Button variant="ghost" size="compact" disabled={busy} onClick={() => changeView('signup')}>이메일 변경 · 가입 정보 다시 입력</Button>
       </form>}
       {view === 'reset' && <form className="account-email-form" onSubmit={submitEmail}>

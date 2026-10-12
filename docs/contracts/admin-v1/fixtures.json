@@ -1,0 +1,4202 @@
+{
+  "synthetic": true,
+  "source": "Operator-written contract fixtures; not production data or model measurements.",
+  "dtoFixtures": [
+    {
+      "name": "query-shape",
+      "schema": "AdminQuery",
+      "body": {
+        "resource": "places",
+        "query": "검수",
+        "page": 1,
+        "pageSize": 20,
+        "filters": {
+          "kind": "FOOD",
+          "state": "PUBLISHED"
+        }
+      }
+    },
+    {
+      "name": "server-popularity-shape-synthetic-not-measured",
+      "schema": "OpsPopularitySnapshot",
+      "body": {
+        "basis": "SAVES",
+        "source": "SERVER",
+        "observedAt": "2026-10-09T00:00:00.000Z",
+        "items": [
+          {
+            "targetType": "PLACE",
+            "targetId": "review-landmark",
+            "saveCount": 128
+          },
+          {
+            "targetType": "JOURNAL",
+            "targetId": "review-journal-1",
+            "saveCount": 42
+          }
+        ]
+      }
+    },
+    {
+      "name": "request-summary-shape",
+      "schema": "AiRequestSummary",
+      "body": {
+        "requestId": "fixture-request",
+        "channel": "SIMPLE",
+        "state": "FAILED",
+        "stage": "SEARCH",
+        "modelProfile": "small-local-unconnected",
+        "policyId": "policy-local-1",
+        "indexId": "idx-local-empty",
+        "errorCode": "DATA_MISSING",
+        "sourcePlaceIds": [],
+        "latencyMs": null,
+        "externalCostKrw": null,
+        "fallbackReason": "자료 부족은 외부 모델 보완 대상이 아님",
+        "createdAt": "2026-10-05T00:00:00.000Z",
+        "localSimulation": true
+      }
+    },
+    {
+      "name": "api-test-result-shape-synthetic-not-measured",
+      "schema": "AiTestResult",
+      "body": {
+        "resultId": "fixture-result",
+        "fixtureId": "fixture-simple",
+        "fixtureRevision": 1,
+        "policyId": "policy-local-1",
+        "indexId": "idx-local-empty",
+        "createdAt": "2026-10-05T00:00:00.000Z",
+        "outcome": "PASS",
+        "errorCode": "NONE",
+        "checks": [],
+        "sources": [],
+        "visits": [],
+        "originalVisits": [],
+        "guideEvidence": [],
+        "messages": [],
+        "proposedRevision": 1,
+        "expectedRevision": 1,
+        "externalCalls": 1,
+        "externalEligibility": false,
+        "externalReason": "fixture-externalReason",
+        "localSimulation": false,
+        "saved": false
+      }
+    }
+  ],
+  "responses": [
+    {
+      "name": "session",
+      "operationId": "adminSession",
+      "status": 200,
+      "schema": "AdminSession",
+      "body": {
+        "operatorId": "review-admin",
+        "name": "검수 최고관리자",
+        "role": "ADMIN"
+      }
+    },
+    {
+      "name": "snapshot",
+      "operationId": "adminLoad",
+      "status": 200,
+      "schema": "AdminState",
+      "body": {
+        "schemaVersion": 1,
+        "revision": 1,
+        "places": [
+          {
+            "placeId": "review-landmark",
+            "revision": 1,
+            "state": "PUBLISHED",
+            "draft": {
+              "kind": "LANDMARK",
+              "name": "가상 검수 장소",
+              "companyId": "",
+              "area": "부산 · 검수 자료",
+              "address": "가상 검수 주소 — 실제 방문용 아님",
+              "description": "DTO 형식 검사용 가상 자료입니다.",
+              "tags": [
+                "검수"
+              ],
+              "operation": "OPEN",
+              "location": {
+                "lat": 35.16,
+                "lng": 129.16,
+                "verified": true,
+                "reference": "검수용 가상 좌표",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              },
+              "rights": {
+                "display": true,
+                "store": true,
+                "modify": true,
+                "ai": true
+              },
+              "provider": "Spotlog 검수 자료",
+              "sourceUrl": "https://example.org/spotlog-review",
+              "checkedAt": "2026-10-05",
+              "media": [
+                {
+                  "mediaId": "review-media",
+                  "type": "PHOTO",
+                  "url": "/admin-review.svg",
+                  "caption": "검수용 도형",
+                  "alt": "가상 검수 장소 도형",
+                  "cover": true,
+                  "provider": "Spotlog 검수 자료",
+                  "author": "Spotlog",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "license": "자체 검수용 도형",
+                  "licenseUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05",
+                  "rights": {
+                    "display": true,
+                    "store": true,
+                    "modify": true,
+                    "ai": true
+                  },
+                  "withdrawn": false
+                }
+              ],
+              "guide": {
+                "hours": "",
+                "bestTime": "",
+                "facilities": "",
+                "menu": "",
+                "lodging": "",
+                "access": "",
+                "english": "Synthetic place for contract review.",
+                "englishStatus": "REVIEWED",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05",
+                "sourceRevision": 1
+              },
+              "ai": {
+                "text": "DTO 형식 검사용 가상 자료입니다.",
+                "tags": [
+                  "검수"
+                ],
+                "sourceUrl": "https://example.org/spotlog-review",
+                "provider": "Spotlog 검수 자료",
+                "checkedAt": "2026-10-05",
+                "allowed": true,
+                "version": 1
+              },
+              "regionId": "kr-busan"
+            },
+            "published": {
+              "kind": "LANDMARK",
+              "name": "가상 검수 장소",
+              "companyId": "",
+              "area": "부산 · 검수 자료",
+              "address": "가상 검수 주소 — 실제 방문용 아님",
+              "description": "DTO 형식 검사용 가상 자료입니다.",
+              "tags": [
+                "검수"
+              ],
+              "operation": "OPEN",
+              "location": {
+                "lat": 35.16,
+                "lng": 129.16,
+                "verified": true,
+                "reference": "검수용 가상 좌표",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              },
+              "rights": {
+                "display": true,
+                "store": true,
+                "modify": true,
+                "ai": true
+              },
+              "provider": "Spotlog 검수 자료",
+              "sourceUrl": "https://example.org/spotlog-review",
+              "checkedAt": "2026-10-05",
+              "media": [
+                {
+                  "mediaId": "review-media",
+                  "type": "PHOTO",
+                  "url": "/admin-review.svg",
+                  "caption": "검수용 도형",
+                  "alt": "가상 검수 장소 도형",
+                  "cover": true,
+                  "provider": "Spotlog 검수 자료",
+                  "author": "Spotlog",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "license": "자체 검수용 도형",
+                  "licenseUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05",
+                  "rights": {
+                    "display": true,
+                    "store": true,
+                    "modify": true,
+                    "ai": true
+                  },
+                  "withdrawn": false
+                }
+              ],
+              "guide": {
+                "hours": "",
+                "bestTime": "",
+                "facilities": "",
+                "menu": "",
+                "lodging": "",
+                "access": "",
+                "english": "Synthetic place for contract review.",
+                "englishStatus": "REVIEWED",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05",
+                "sourceRevision": 1
+              },
+              "ai": {
+                "text": "DTO 형식 검사용 가상 자료입니다.",
+                "tags": [
+                  "검수"
+                ],
+                "sourceUrl": "https://example.org/spotlog-review",
+                "provider": "Spotlog 검수 자료",
+                "checkedAt": "2026-10-05",
+                "allowed": true,
+                "version": 1
+              },
+              "regionId": "kr-busan"
+            },
+            "revoked": false,
+            "updatedAt": "2026-10-05T00:00:00.000Z",
+            "meta": {
+              "createdById": "review-admin",
+              "assignedToId": "review-operator",
+              "reviewStatus": "READY",
+              "sourceBatchId": "fixture-import"
+            }
+          }
+        ],
+        "nearbyOverrides": [],
+        "ai": {
+          "activeIndexId": "idx-local-empty",
+          "activePolicyId": "policy-local-1",
+          "paused": false,
+          "indices": [
+            {
+              "indexId": "idx-local-empty",
+              "label": "검수용 초기 색인 · 자료 0건",
+              "embeddingProfile": "local-embedding-review",
+              "state": "ACTIVE",
+              "documents": [],
+              "createdAt": "2026-10-05T00:00:00.000Z",
+              "verifiedAt": "2026-10-05T00:00:00.000Z",
+              "appliedAt": "2026-10-05T00:00:00.000Z",
+              "localSimulation": true,
+              "validationErrors": []
+            }
+          ],
+          "jobs": [],
+          "policies": [
+            {
+              "policyId": "policy-local-1",
+              "label": "소형 로컬 우선 · 검수용",
+              "version": 1,
+              "state": "ACTIVE",
+              "smallLocalProfile": "mac-mini-small-review",
+              "embeddingProfile": "local-embedding-review",
+              "externalProfile": "external-fallback-unconnected",
+              "flowiseProfile": "flowise-unconnected",
+              "promptVersion": "spotlog-small-v1",
+              "regions": [
+                "서울",
+                "부산",
+                "제주",
+                "강릉",
+                "경주"
+              ],
+              "channels": [
+                "SIMPLE",
+                "SAVED",
+                "REVISION",
+                "GUIDE"
+              ],
+              "externalEnabled": false,
+              "externalMaxCalls": 1,
+              "timeoutMs": 30000,
+              "externalBudgetKrw": 100,
+              "createdAt": "2026-10-05T00:00:00.000Z",
+              "testedAt": "2026-10-05T00:00:00.000Z",
+              "validationErrors": []
+            }
+          ],
+          "fixtures": [
+            {
+              "fixtureId": "fixture-simple",
+              "title": "간단 생성 · 식사 순서",
+              "prompt": "[운영자 작성 예시] 서울 당일 여행, 점심을 포함한 일정 초안을 확인한다.",
+              "channel": "SIMPLE",
+              "region": "서울",
+              "dayCount": 1,
+              "includeFood": true,
+              "includeStay": false,
+              "expectedPlaceIds": [],
+              "scenario": "NORMAL",
+              "source": "OPERATOR_SYNTHETIC",
+              "revision": 1
+            },
+            {
+              "fixtureId": "fixture-saved",
+              "title": "저장 장소 추천 · 공개 자료만",
+              "prompt": "[운영자 작성 예시] 공개된 저장 장소 후보에서 서울 일정을 구성한다.",
+              "channel": "SAVED",
+              "region": "서울",
+              "dayCount": 1,
+              "includeFood": false,
+              "includeStay": false,
+              "expectedPlaceIds": [],
+              "scenario": "NORMAL",
+              "source": "OPERATOR_SYNTHETIC",
+              "revision": 1
+            },
+            {
+              "fixtureId": "fixture-revision",
+              "title": "부분 수정 · 예약 고정 보호",
+              "prompt": "[운영자 작성 예시] DAY 1 방문을 조정하면서 고정 숙소와 DAY 2를 유지한다.",
+              "channel": "REVISION",
+              "region": "서울",
+              "dayCount": 2,
+              "includeFood": true,
+              "includeStay": true,
+              "expectedPlaceIds": [],
+              "scenario": "NORMAL",
+              "source": "OPERATOR_SYNTHETIC",
+              "revision": 1
+            },
+            {
+              "fixtureId": "fixture-guide",
+              "title": "관광 안내 · 공개 근거",
+              "prompt": "[운영자 작성 예시] 공개 자료의 방문 안내와 출처를 확인한다.",
+              "channel": "GUIDE",
+              "region": "서울",
+              "dayCount": 1,
+              "includeFood": false,
+              "includeStay": false,
+              "expectedPlaceIds": [],
+              "scenario": "NORMAL",
+              "source": "OPERATOR_SYNTHETIC",
+              "revision": 1
+            },
+            {
+              "fixtureId": "fixture-chatbot",
+              "title": "챗봇 후속 · 다중 대화 계약",
+              "prompt": "[운영자 작성 예시] 장소 추천 → 일정 초안 → 특정 DAY 수정. 고객의 적용 전까지 저장하지 않는다.",
+              "channel": "CHATBOT",
+              "region": "서울",
+              "dayCount": 2,
+              "includeFood": true,
+              "includeStay": false,
+              "expectedPlaceIds": [],
+              "scenario": "NORMAL",
+              "source": "OPERATOR_SYNTHETIC",
+              "revision": 1
+            }
+          ],
+          "results": [],
+          "requests": [],
+          "feedback": []
+        },
+        "ops": {
+          "popularity": {
+            "basis": "SAVES",
+            "source": "SAMPLE",
+            "observedAt": "2026-10-09T00:00:00.000Z",
+            "items": [
+              {
+                "targetType": "PLACE",
+                "targetId": "jeju-hyeopjae",
+                "saveCount": 384
+              },
+              {
+                "targetType": "PLACE",
+                "targetId": "gangneung-anmok",
+                "saveCount": 321
+              },
+              {
+                "targetType": "PLACE",
+                "targetId": "seoul-seoulforest",
+                "saveCount": 242
+              },
+              {
+                "targetType": "PLACE",
+                "targetId": "busan-gamcheon",
+                "saveCount": 216
+              },
+              {
+                "targetType": "PLACE",
+                "targetId": "review-landmark",
+                "saveCount": 128
+              },
+              {
+                "targetType": "PLACE",
+                "targetId": "review-landmark-2",
+                "saveCount": 96
+              },
+              {
+                "targetType": "PLACE",
+                "targetId": "review-food",
+                "saveCount": 74
+              },
+              {
+                "targetType": "PLACE",
+                "targetId": "review-cafe",
+                "saveCount": 61
+              },
+              {
+                "targetType": "JOURNAL",
+                "targetId": "review-journal-1",
+                "saveCount": 42
+              }
+            ]
+          },
+          "exposures": [],
+          "curatedTrips": [
+            {
+              "curatedTripId": "review-curated-1",
+              "revision": 1,
+              "title": "운영 일정 검수 예시",
+              "introduction": "공개 운영 콘텐츠를 고르는 예시입니다.",
+              "placeIds": [],
+              "visibility": "PRIVATE"
+            }
+          ],
+          "journals": [
+            {
+              "journalId": "review-journal-1",
+              "revision": 1,
+              "title": "샘플 여행기 · 바다 산책",
+              "original": "사진을 보며 천천히 걸었던 날입니다. 실제 회원의 기록이 아닌 운영 검수용 글입니다.",
+              "english": "A slow walk by the sea. This is a synthetic review journal.",
+              "authorId": "review-member-1",
+              "ownerVisibility": "PUBLIC",
+              "moderation": "VISIBLE",
+              "createdAt": "2026-10-04T04:00:00.000Z",
+              "cards": [
+                {
+                  "cardId": "review-card-1",
+                  "placeId": "review-landmark",
+                  "name": "샘플 장소 카드 A",
+                  "original": "조용히 둘러본 장소입니다.",
+                  "english": "A place for a quiet walk.",
+                  "image": "/admin-review.svg",
+                  "likes": 1,
+                  "description": "합성 검수 샘플 장소 사진과 본문입니다.",
+                  "sourceCredit": {
+                    "provider": "Spotlog 로컬 검수 도안",
+                    "sourceUrl": "",
+                    "license": "검수용 합성 자료"
+                  }
+                },
+                {
+                  "cardId": "review-card-2",
+                  "placeId": "review-landmark",
+                  "name": "샘플 장소 카드 B · 같은 장소",
+                  "original": "같은 장소라도 카드의 대화는 따로 보존합니다.",
+                  "english": "Conversations remain separate for each card.",
+                  "image": "/admin-review.svg",
+                  "likes": 2,
+                  "description": "합성 검수 샘플 장소 사진과 본문입니다.",
+                  "sourceCredit": {
+                    "provider": "Spotlog 로컬 검수 도안",
+                    "sourceUrl": "",
+                    "license": "검수용 합성 자료"
+                  }
+                }
+              ],
+              "translation": {
+                "sourceRevision": 1,
+                "status": "SAMPLE",
+                "note": "검수용 영어 예시"
+              },
+              "sourceKind": "SYNTHETIC",
+              "authorName": "가상 공개 여행자",
+              "metrics": {
+                "cheers": null,
+                "copies": null,
+                "views": null,
+                "source": "SAMPLE"
+              },
+              "summary": "합성 공개 소개",
+              "tags": [
+                "검수"
+              ],
+              "cover": {
+                "id": "review-cover",
+                "image": "/admin-review.svg",
+                "caption": "가상 표지",
+                "sourceCredit": {
+                  "provider": "Spotlog",
+                  "sourceUrl": "https://example.org/review",
+                  "license": "자체 검수 도형"
+                }
+              },
+              "days": [
+                {
+                  "dayId": "fixture-public-day",
+                  "day": 1,
+                  "date": "",
+                  "title": "가상 DAY 1",
+                  "story": "합성 하루 글",
+                  "places": [
+                    {
+                      "id": "review-landmark",
+                      "kind": "LANDMARK",
+                      "name": "가상 검수 장소",
+                      "area": "부산",
+                      "address": "가상 주소",
+                      "image": "/admin-review.svg",
+                      "description": "가상 장소",
+                      "note": "",
+                      "duration": "1시간"
+                    }
+                  ],
+                  "blocks": [
+                    {
+                      "id": "fixture-text",
+                      "type": "TEXT",
+                      "heading": "공개 단락",
+                      "body": "공개 본문"
+                    },
+                    {
+                      "id": "review-card-1",
+                      "type": "PLACE",
+                      "placeId": "review-landmark"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "journalId": "review-journal-2",
+              "revision": 1,
+              "title": "샘플 여행기 · 작성자가 비공개 전환",
+              "original": "",
+              "english": "",
+              "authorId": "review-member-2",
+              "ownerVisibility": "PRIVATE",
+              "moderation": "HIDDEN",
+              "createdAt": "2026-10-03T04:00:00.000Z",
+              "cards": [],
+              "translation": {
+                "sourceRevision": 1,
+                "status": "REVIEW",
+                "note": "비공개 원문은 관리자 기본 조회에서 제외"
+              },
+              "sourceKind": "SYNTHETIC",
+              "authorName": "검수 회원 B"
+            }
+          ],
+          "comments": [
+            {
+              "commentId": "review-comment-1",
+              "revision": 1,
+              "journalId": "review-journal-1",
+              "authorId": "review-member-2",
+              "original": "전체 여행기에 남기는 샘플 댓글입니다.",
+              "english": "A sample comment on the whole journal.",
+              "createdAt": "2026-10-04T05:00:00.000Z",
+              "moderation": "VISIBLE",
+              "sourceKind": "SYNTHETIC"
+            },
+            {
+              "commentId": "review-comment-2",
+              "revision": 1,
+              "journalId": "review-journal-1",
+              "cardId": "review-card-1",
+              "authorId": "review-member-2",
+              "original": "첫 번째 카드에 남기는 샘플 댓글입니다.",
+              "english": "A sample comment on the first card.",
+              "createdAt": "2026-10-04T05:05:00.000Z",
+              "moderation": "VISIBLE",
+              "sourceKind": "SYNTHETIC"
+            },
+            {
+              "commentId": "review-comment-3",
+              "revision": 1,
+              "journalId": "review-journal-1",
+              "cardId": "review-card-1",
+              "parentId": "review-comment-2",
+              "authorId": "review-member-1",
+              "original": "첫 번째 카드 댓글의 샘플 답글입니다.",
+              "english": "A sample reply to the first card comment.",
+              "createdAt": "2026-10-04T05:10:00.000Z",
+              "moderation": "VISIBLE",
+              "sourceKind": "SYNTHETIC"
+            },
+            {
+              "commentId": "review-comment-4",
+              "revision": 1,
+              "journalId": "review-journal-1",
+              "cardId": "review-card-2",
+              "authorId": "review-member-2",
+              "original": "두 번째 카드만의 댓글입니다.",
+              "english": "A separate comment on the second card.",
+              "createdAt": "2026-10-04T05:07:00.000Z",
+              "moderation": "VISIBLE",
+              "sourceKind": "SYNTHETIC"
+            }
+          ],
+          "reports": [
+            {
+              "reportId": "review-report-1",
+              "revision": 1,
+              "targetType": "COMMENT",
+              "targetId": "review-comment-2",
+              "journalId": "review-journal-1",
+              "cardId": "review-card-1",
+              "category": "CONTENT",
+              "original": "댓글 내용 검수가 필요하다는 샘플 신고입니다.",
+              "status": "OPEN",
+              "createdAt": "2026-10-04T06:00:00.000Z",
+              "decision": ""
+            },
+            {
+              "reportId": "review-report-2",
+              "revision": 1,
+              "targetType": "JOURNAL",
+              "targetId": "review-journal-1",
+              "journalId": "review-journal-1",
+              "category": "COPYRIGHT",
+              "original": "사진 권리 확인을 요청하는 샘플 이의입니다.",
+              "status": "OPEN",
+              "createdAt": "2026-10-04T07:00:00.000Z",
+              "decision": ""
+            },
+            {
+              "reportId": "review-report-3",
+              "revision": 1,
+              "targetType": "PROFILE",
+              "targetId": "review-member-2",
+              "category": "INFORMATION",
+              "original": "공개 프로필 점검 요청 예시",
+              "status": "OPEN",
+              "createdAt": "2026-10-04T08:00:00.000Z",
+              "decision": ""
+            }
+          ],
+          "members": [
+            {
+              "memberId": "review-member-1",
+              "revision": 1,
+              "name": "검수 회원 A",
+              "publicIntroduction": "바다와 산책을 좋아하는 샘플 공개 프로필",
+              "icon": "A",
+              "state": "ACTIVE",
+              "warnings": [],
+              "publicActivity": {
+                "journals": null,
+                "followers": null,
+                "copies": null,
+                "views": null,
+                "source": "SAMPLE"
+              },
+              "notificationOptOut": false,
+              "avatarUrl": "/admin-review.svg",
+              "grade": null,
+              "sourceKind": "SYNTHETIC"
+            },
+            {
+              "memberId": "review-member-2",
+              "revision": 1,
+              "name": "검수 회원 B",
+              "publicIntroduction": "실제 개인 일정과 메모는 포함하지 않습니다.",
+              "icon": "B",
+              "state": "ACTIVE",
+              "warnings": [],
+              "publicActivity": {
+                "journals": null,
+                "followers": null,
+                "copies": null,
+                "views": null,
+                "source": "SAMPLE"
+              },
+              "notificationOptOut": true,
+              "deletionRequest": {
+                "requestedAt": "2026-10-04T08:00:00.000Z",
+                "status": "RECEIVED"
+              },
+              "avatarUrl": "/admin-review.svg",
+              "grade": null,
+              "sourceKind": "SYNTHETIC"
+            }
+          ],
+          "inquiries": [
+            {
+              "inquiryId": "review-inquiry-1",
+              "revision": 1,
+              "subject": "샘플 문의 · 사진 사용 조건",
+              "original": "장소 사진의 출처를 어디에서 확인할 수 있나요?",
+              "memberId": "review-member-1",
+              "status": "OPEN",
+              "assigneeId": "review-operator",
+              "replyRecords": []
+            }
+          ],
+          "operators": [
+            {
+              "operatorId": "operator-admin",
+              "revision": 1,
+              "name": "내부 관리자",
+              "role": "ADMIN",
+              "active": true,
+              "sessions": [
+                {
+                  "sessionId": "review-session-admin",
+                  "status": "ACTIVE"
+                }
+              ]
+            },
+            {
+              "operatorId": "review-operator",
+              "revision": 1,
+              "name": "검수 운영자",
+              "role": "OPERATOR",
+              "active": true,
+              "sessions": [
+                {
+                  "sessionId": "review-session-operator",
+                  "status": "ACTIVE"
+                }
+              ]
+            }
+          ],
+          "references": [
+            {
+              "referenceId": "review-region-1",
+              "revision": 1,
+              "category": "REGION",
+              "name": "부산",
+              "value": "BUSAN",
+              "enabled": true
+            },
+            {
+              "referenceId": "review-category-1",
+              "revision": 1,
+              "category": "CATEGORY",
+              "name": "랜드마크",
+              "value": "LANDMARK",
+              "enabled": true
+            },
+            {
+              "referenceId": "review-tag-1",
+              "revision": 1,
+              "category": "TAG",
+              "name": "산책",
+              "value": "walk",
+              "enabled": true
+            },
+            {
+              "referenceId": "review-glossary-1",
+              "revision": 1,
+              "category": "GLOSSARY",
+              "name": "여행기",
+              "value": "Travel journal",
+              "enabled": true
+            },
+            {
+              "referenceId": "review-grade-1",
+              "revision": 1,
+              "category": "GRADE",
+              "name": "등급 기준 검수 초안",
+              "value": "실제 집계 연결 후 적용할 기준을 작성하세요.",
+              "enabled": false
+            },
+            {
+              "referenceId": "review-announcement-1",
+              "revision": 1,
+              "category": "ANNOUNCEMENT",
+              "name": "서비스 안내 예시",
+              "value": "현재 관리자 화면은 독립된 로컬 검수본입니다.",
+              "enabled": true
+            }
+          ],
+          "templates": [
+            {
+              "templateId": "review-template-1",
+              "revision": 1,
+              "title": "문의 처리 안내",
+              "body": "접수하신 문의의 처리 상태가 변경되었습니다.",
+              "enabled": true
+            }
+          ],
+          "notifications": [
+            {
+              "notificationId": "review-notification-1",
+              "revision": 1,
+              "memberId": "review-member-1",
+              "templateId": "review-template-1",
+              "dedupeKey": "review-inquiry-1",
+              "status": "FAILED",
+              "attempts": 1,
+              "error": "샘플 발송 실패 · 실제 알림 서버 미연결"
+            },
+            {
+              "notificationId": "review-notification-2",
+              "revision": 1,
+              "memberId": "review-member-2",
+              "templateId": "review-template-1",
+              "dedupeKey": "review-opt-out",
+              "status": "OPTED_OUT",
+              "attempts": 0,
+              "error": "수신 거부"
+            },
+            {
+              "notificationId": "review-notification-3",
+              "revision": 1,
+              "memberId": "review-member-1",
+              "templateId": "review-template-1",
+              "dedupeKey": "review-inquiry-1",
+              "status": "DUPLICATE",
+              "attempts": 0,
+              "error": "중복 요청"
+            }
+          ],
+          "connections": [
+            {
+              "connectionId": "review-connection-0",
+              "name": "지도 SDK",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            },
+            {
+              "connectionId": "review-connection-1",
+              "name": "주소 조회",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            },
+            {
+              "connectionId": "review-connection-2",
+              "name": "경로 계산",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            },
+            {
+              "connectionId": "review-connection-3",
+              "name": "외부 업체 검색",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            },
+            {
+              "connectionId": "review-connection-4",
+              "name": "사진 저장소",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            },
+            {
+              "connectionId": "review-connection-5",
+              "name": "알림 발송",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            },
+            {
+              "connectionId": "review-connection-6",
+              "name": "회원 인증",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            },
+            {
+              "connectionId": "review-connection-7",
+              "name": "팔로우",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "FOLLOW_UP",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "후속 문의 기능 범위 · 실제 서비스 상태는 미연결"
+            },
+            {
+              "connectionId": "review-connection-8",
+              "name": "받은 알림함",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "FOLLOW_UP",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "후속 문의 기능 범위 · 실제 서비스 상태는 미연결"
+            },
+            {
+              "connectionId": "review-connection-9",
+              "name": "서비스 DB",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            },
+            {
+              "connectionId": "review-connection-10",
+              "name": "맥미니 RAG",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            },
+            {
+              "connectionId": "review-connection-11",
+              "name": "소형 로컬 LLM",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            },
+            {
+              "connectionId": "review-connection-12",
+              "name": "임베딩 AI",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            },
+            {
+              "connectionId": "review-connection-13",
+              "name": "외부 대형 LLM",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            },
+            {
+              "connectionId": "review-connection-14",
+              "name": "Flowise",
+              "configured": false,
+              "status": "UNCONNECTED",
+              "scope": "CURRENT",
+              "limit": null,
+              "unit": "월 요청",
+              "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+            }
+          ],
+          "supplyJobs": [
+            {
+              "jobId": "review-supply-1",
+              "source": "권리 검수 샘플 자료",
+              "status": "FAILED",
+              "error": "확인일 누락 · 자동 수급 미연결",
+              "retryReviews": 0
+            }
+          ],
+          "trash": [
+            {
+              "trashId": "review-trash-trip",
+              "revision": 1,
+              "kind": "TRIP",
+              "ownerId": "review-member-1",
+              "deletedAt": "2026-09-30T15:00:00.000Z",
+              "status": "TRASHED",
+              "mediaIds": [
+                "review-shared-media"
+              ]
+            },
+            {
+              "trashId": "review-trash-journal",
+              "revision": 1,
+              "kind": "JOURNAL",
+              "ownerId": "review-member-1",
+              "deletedAt": "2026-09-30T15:00:00.000Z",
+              "status": "TRASHED",
+              "mediaIds": [
+                "review-shared-media"
+              ]
+            },
+            {
+              "trashId": "review-trash-expired",
+              "revision": 1,
+              "kind": "TRIP",
+              "ownerId": "review-member-2",
+              "deletedAt": "2025-08-31T14:00:00.000Z",
+              "status": "EXPIRED",
+              "mediaIds": []
+            }
+          ],
+          "mediaCleanup": [
+            {
+              "mediaId": "review-shared-media",
+              "revision": 1,
+              "references": [
+                {
+                  "targetId": "review-trash-trip",
+                  "kind": "TRIP"
+                },
+                {
+                  "targetId": "review-trash-journal",
+                  "kind": "JOURNAL"
+                }
+              ],
+              "status": "WAITING",
+              "note": "다른 기록에서 사용하는 샘플 사진"
+            },
+            {
+              "mediaId": "review-orphan-media",
+              "revision": 1,
+              "references": [],
+              "status": "WAITING",
+              "note": "참조 없는 샘플 파일 · 실제 파일 삭제 기능 미연결"
+            }
+          ]
+        },
+        "audit": [],
+        "processedCommands": [],
+        "regions": [
+          {
+            "regionId": "kr",
+            "name": "대한민국",
+            "level": "COUNTRY",
+            "enabled": true,
+            "revision": 1
+          },
+          {
+            "regionId": "kr-busan",
+            "name": "부산",
+            "parentId": "kr",
+            "level": "PROVINCE",
+            "enabled": true,
+            "revision": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "places-page",
+      "operationId": "adminQuery",
+      "status": 200,
+      "schema": "AdminPageResult",
+      "body": {
+        "items": [
+          {
+            "placeId": "review-landmark",
+            "revision": 1,
+            "state": "PUBLISHED",
+            "draft": {
+              "kind": "LANDMARK",
+              "name": "가상 검수 장소",
+              "companyId": "",
+              "area": "부산 · 검수 자료",
+              "address": "가상 검수 주소 — 실제 방문용 아님",
+              "description": "DTO 형식 검사용 가상 자료입니다.",
+              "tags": [
+                "검수"
+              ],
+              "operation": "OPEN",
+              "location": {
+                "lat": 35.16,
+                "lng": 129.16,
+                "verified": true,
+                "reference": "검수용 가상 좌표",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              },
+              "rights": {
+                "display": true,
+                "store": true,
+                "modify": true,
+                "ai": true
+              },
+              "provider": "Spotlog 검수 자료",
+              "sourceUrl": "https://example.org/spotlog-review",
+              "checkedAt": "2026-10-05",
+              "media": [
+                {
+                  "mediaId": "review-media",
+                  "type": "PHOTO",
+                  "url": "/admin-review.svg",
+                  "caption": "검수용 도형",
+                  "alt": "가상 검수 장소 도형",
+                  "cover": true,
+                  "provider": "Spotlog 검수 자료",
+                  "author": "Spotlog",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "license": "자체 검수용 도형",
+                  "licenseUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05",
+                  "rights": {
+                    "display": true,
+                    "store": true,
+                    "modify": true,
+                    "ai": true
+                  },
+                  "withdrawn": false
+                }
+              ],
+              "guide": {
+                "hours": "",
+                "bestTime": "",
+                "facilities": "",
+                "menu": "",
+                "lodging": "",
+                "access": "",
+                "english": "Synthetic place for contract review.",
+                "englishStatus": "REVIEWED",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05",
+                "sourceRevision": 1
+              },
+              "ai": {
+                "text": "DTO 형식 검사용 가상 자료입니다.",
+                "tags": [
+                  "검수"
+                ],
+                "sourceUrl": "https://example.org/spotlog-review",
+                "provider": "Spotlog 검수 자료",
+                "checkedAt": "2026-10-05",
+                "allowed": true,
+                "version": 1
+              },
+              "regionId": "kr-busan"
+            },
+            "published": {
+              "kind": "LANDMARK",
+              "name": "가상 검수 장소",
+              "companyId": "",
+              "area": "부산 · 검수 자료",
+              "address": "가상 검수 주소 — 실제 방문용 아님",
+              "description": "DTO 형식 검사용 가상 자료입니다.",
+              "tags": [
+                "검수"
+              ],
+              "operation": "OPEN",
+              "location": {
+                "lat": 35.16,
+                "lng": 129.16,
+                "verified": true,
+                "reference": "검수용 가상 좌표",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              },
+              "rights": {
+                "display": true,
+                "store": true,
+                "modify": true,
+                "ai": true
+              },
+              "provider": "Spotlog 검수 자료",
+              "sourceUrl": "https://example.org/spotlog-review",
+              "checkedAt": "2026-10-05",
+              "media": [
+                {
+                  "mediaId": "review-media",
+                  "type": "PHOTO",
+                  "url": "/admin-review.svg",
+                  "caption": "검수용 도형",
+                  "alt": "가상 검수 장소 도형",
+                  "cover": true,
+                  "provider": "Spotlog 검수 자료",
+                  "author": "Spotlog",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "license": "자체 검수용 도형",
+                  "licenseUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05",
+                  "rights": {
+                    "display": true,
+                    "store": true,
+                    "modify": true,
+                    "ai": true
+                  },
+                  "withdrawn": false
+                }
+              ],
+              "guide": {
+                "hours": "",
+                "bestTime": "",
+                "facilities": "",
+                "menu": "",
+                "lodging": "",
+                "access": "",
+                "english": "Synthetic place for contract review.",
+                "englishStatus": "REVIEWED",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05",
+                "sourceRevision": 1
+              },
+              "ai": {
+                "text": "DTO 형식 검사용 가상 자료입니다.",
+                "tags": [
+                  "검수"
+                ],
+                "sourceUrl": "https://example.org/spotlog-review",
+                "provider": "Spotlog 검수 자료",
+                "checkedAt": "2026-10-05",
+                "allowed": true,
+                "version": 1
+              },
+              "regionId": "kr-busan"
+            },
+            "revoked": false,
+            "updatedAt": "2026-10-05T00:00:00.000Z",
+            "meta": {
+              "createdById": "review-admin",
+              "assignedToId": "review-operator",
+              "reviewStatus": "READY",
+              "sourceBatchId": "fixture-import"
+            }
+          }
+        ],
+        "total": 1,
+        "page": 1,
+        "pageSize": 20,
+        "revision": 1
+      }
+    },
+    {
+      "name": "empty-page",
+      "operationId": "adminQuery",
+      "status": 200,
+      "schema": "AdminPageResult",
+      "body": {
+        "items": [],
+        "total": 0,
+        "page": 1,
+        "pageSize": 20,
+        "revision": 1
+      }
+    },
+    {
+      "name": "command-success",
+      "operationId": "adminExecute",
+      "status": 200,
+      "schema": "AdminCommandResult",
+      "body": {
+        "state": {
+          "schemaVersion": 1,
+          "revision": 1,
+          "places": [
+            {
+              "placeId": "review-landmark",
+              "revision": 1,
+              "state": "PUBLISHED",
+              "draft": {
+                "kind": "LANDMARK",
+                "name": "가상 검수 장소",
+                "companyId": "",
+                "area": "부산 · 검수 자료",
+                "address": "가상 검수 주소 — 실제 방문용 아님",
+                "description": "DTO 형식 검사용 가상 자료입니다.",
+                "tags": [
+                  "검수"
+                ],
+                "operation": "OPEN",
+                "location": {
+                  "lat": 35.16,
+                  "lng": 129.16,
+                  "verified": true,
+                  "reference": "검수용 가상 좌표",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05"
+                },
+                "rights": {
+                  "display": true,
+                  "store": true,
+                  "modify": true,
+                  "ai": true
+                },
+                "provider": "Spotlog 검수 자료",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05",
+                "media": [
+                  {
+                    "mediaId": "review-media",
+                    "type": "PHOTO",
+                    "url": "/admin-review.svg",
+                    "caption": "검수용 도형",
+                    "alt": "가상 검수 장소 도형",
+                    "cover": true,
+                    "provider": "Spotlog 검수 자료",
+                    "author": "Spotlog",
+                    "sourceUrl": "https://example.org/spotlog-review",
+                    "license": "자체 검수용 도형",
+                    "licenseUrl": "https://example.org/spotlog-review",
+                    "checkedAt": "2026-10-05",
+                    "rights": {
+                      "display": true,
+                      "store": true,
+                      "modify": true,
+                      "ai": true
+                    },
+                    "withdrawn": false
+                  }
+                ],
+                "guide": {
+                  "hours": "",
+                  "bestTime": "",
+                  "facilities": "",
+                  "menu": "",
+                  "lodging": "",
+                  "access": "",
+                  "english": "Synthetic place for contract review.",
+                  "englishStatus": "REVIEWED",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05",
+                  "sourceRevision": 1
+                },
+                "ai": {
+                  "text": "DTO 형식 검사용 가상 자료입니다.",
+                  "tags": [
+                    "검수"
+                  ],
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "provider": "Spotlog 검수 자료",
+                  "checkedAt": "2026-10-05",
+                  "allowed": true,
+                  "version": 1
+                },
+                "regionId": "kr-busan"
+              },
+              "published": {
+                "kind": "LANDMARK",
+                "name": "가상 검수 장소",
+                "companyId": "",
+                "area": "부산 · 검수 자료",
+                "address": "가상 검수 주소 — 실제 방문용 아님",
+                "description": "DTO 형식 검사용 가상 자료입니다.",
+                "tags": [
+                  "검수"
+                ],
+                "operation": "OPEN",
+                "location": {
+                  "lat": 35.16,
+                  "lng": 129.16,
+                  "verified": true,
+                  "reference": "검수용 가상 좌표",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05"
+                },
+                "rights": {
+                  "display": true,
+                  "store": true,
+                  "modify": true,
+                  "ai": true
+                },
+                "provider": "Spotlog 검수 자료",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05",
+                "media": [
+                  {
+                    "mediaId": "review-media",
+                    "type": "PHOTO",
+                    "url": "/admin-review.svg",
+                    "caption": "검수용 도형",
+                    "alt": "가상 검수 장소 도형",
+                    "cover": true,
+                    "provider": "Spotlog 검수 자료",
+                    "author": "Spotlog",
+                    "sourceUrl": "https://example.org/spotlog-review",
+                    "license": "자체 검수용 도형",
+                    "licenseUrl": "https://example.org/spotlog-review",
+                    "checkedAt": "2026-10-05",
+                    "rights": {
+                      "display": true,
+                      "store": true,
+                      "modify": true,
+                      "ai": true
+                    },
+                    "withdrawn": false
+                  }
+                ],
+                "guide": {
+                  "hours": "",
+                  "bestTime": "",
+                  "facilities": "",
+                  "menu": "",
+                  "lodging": "",
+                  "access": "",
+                  "english": "Synthetic place for contract review.",
+                  "englishStatus": "REVIEWED",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05",
+                  "sourceRevision": 1
+                },
+                "ai": {
+                  "text": "DTO 형식 검사용 가상 자료입니다.",
+                  "tags": [
+                    "검수"
+                  ],
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "provider": "Spotlog 검수 자료",
+                  "checkedAt": "2026-10-05",
+                  "allowed": true,
+                  "version": 1
+                },
+                "regionId": "kr-busan"
+              },
+              "revoked": false,
+              "updatedAt": "2026-10-05T00:00:00.000Z",
+              "meta": {
+                "createdById": "review-admin",
+                "assignedToId": "review-operator",
+                "reviewStatus": "READY",
+                "sourceBatchId": "fixture-import"
+              }
+            }
+          ],
+          "nearbyOverrides": [],
+          "ai": {
+            "activeIndexId": "idx-local-empty",
+            "activePolicyId": "policy-local-1",
+            "paused": false,
+            "indices": [
+              {
+                "indexId": "idx-local-empty",
+                "label": "검수용 초기 색인 · 자료 0건",
+                "embeddingProfile": "local-embedding-review",
+                "state": "ACTIVE",
+                "documents": [],
+                "createdAt": "2026-10-05T00:00:00.000Z",
+                "verifiedAt": "2026-10-05T00:00:00.000Z",
+                "appliedAt": "2026-10-05T00:00:00.000Z",
+                "localSimulation": true,
+                "validationErrors": []
+              }
+            ],
+            "jobs": [],
+            "policies": [
+              {
+                "policyId": "policy-local-1",
+                "label": "소형 로컬 우선 · 검수용",
+                "version": 1,
+                "state": "ACTIVE",
+                "smallLocalProfile": "mac-mini-small-review",
+                "embeddingProfile": "local-embedding-review",
+                "externalProfile": "external-fallback-unconnected",
+                "flowiseProfile": "flowise-unconnected",
+                "promptVersion": "spotlog-small-v1",
+                "regions": [
+                  "서울",
+                  "부산",
+                  "제주",
+                  "강릉",
+                  "경주"
+                ],
+                "channels": [
+                  "SIMPLE",
+                  "SAVED",
+                  "REVISION",
+                  "GUIDE"
+                ],
+                "externalEnabled": false,
+                "externalMaxCalls": 1,
+                "timeoutMs": 30000,
+                "externalBudgetKrw": 100,
+                "createdAt": "2026-10-05T00:00:00.000Z",
+                "testedAt": "2026-10-05T00:00:00.000Z",
+                "validationErrors": []
+              }
+            ],
+            "fixtures": [
+              {
+                "fixtureId": "fixture-simple",
+                "title": "간단 생성 · 식사 순서",
+                "prompt": "[운영자 작성 예시] 서울 당일 여행, 점심을 포함한 일정 초안을 확인한다.",
+                "channel": "SIMPLE",
+                "region": "서울",
+                "dayCount": 1,
+                "includeFood": true,
+                "includeStay": false,
+                "expectedPlaceIds": [],
+                "scenario": "NORMAL",
+                "source": "OPERATOR_SYNTHETIC",
+                "revision": 1
+              },
+              {
+                "fixtureId": "fixture-saved",
+                "title": "저장 장소 추천 · 공개 자료만",
+                "prompt": "[운영자 작성 예시] 공개된 저장 장소 후보에서 서울 일정을 구성한다.",
+                "channel": "SAVED",
+                "region": "서울",
+                "dayCount": 1,
+                "includeFood": false,
+                "includeStay": false,
+                "expectedPlaceIds": [],
+                "scenario": "NORMAL",
+                "source": "OPERATOR_SYNTHETIC",
+                "revision": 1
+              },
+              {
+                "fixtureId": "fixture-revision",
+                "title": "부분 수정 · 예약 고정 보호",
+                "prompt": "[운영자 작성 예시] DAY 1 방문을 조정하면서 고정 숙소와 DAY 2를 유지한다.",
+                "channel": "REVISION",
+                "region": "서울",
+                "dayCount": 2,
+                "includeFood": true,
+                "includeStay": true,
+                "expectedPlaceIds": [],
+                "scenario": "NORMAL",
+                "source": "OPERATOR_SYNTHETIC",
+                "revision": 1
+              },
+              {
+                "fixtureId": "fixture-guide",
+                "title": "관광 안내 · 공개 근거",
+                "prompt": "[운영자 작성 예시] 공개 자료의 방문 안내와 출처를 확인한다.",
+                "channel": "GUIDE",
+                "region": "서울",
+                "dayCount": 1,
+                "includeFood": false,
+                "includeStay": false,
+                "expectedPlaceIds": [],
+                "scenario": "NORMAL",
+                "source": "OPERATOR_SYNTHETIC",
+                "revision": 1
+              },
+              {
+                "fixtureId": "fixture-chatbot",
+                "title": "챗봇 후속 · 다중 대화 계약",
+                "prompt": "[운영자 작성 예시] 장소 추천 → 일정 초안 → 특정 DAY 수정. 고객의 적용 전까지 저장하지 않는다.",
+                "channel": "CHATBOT",
+                "region": "서울",
+                "dayCount": 2,
+                "includeFood": true,
+                "includeStay": false,
+                "expectedPlaceIds": [],
+                "scenario": "NORMAL",
+                "source": "OPERATOR_SYNTHETIC",
+                "revision": 1
+              }
+            ],
+            "results": [],
+            "requests": [],
+            "feedback": []
+          },
+          "ops": {
+            "popularity": {
+              "basis": "SAVES",
+              "source": "SAMPLE",
+              "observedAt": "2026-10-09T00:00:00.000Z",
+              "items": [
+                {
+                  "targetType": "PLACE",
+                  "targetId": "jeju-hyeopjae",
+                  "saveCount": 384
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "gangneung-anmok",
+                  "saveCount": 321
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "seoul-seoulforest",
+                  "saveCount": 242
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "busan-gamcheon",
+                  "saveCount": 216
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "review-landmark",
+                  "saveCount": 128
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "review-landmark-2",
+                  "saveCount": 96
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "review-food",
+                  "saveCount": 74
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "review-cafe",
+                  "saveCount": 61
+                },
+                {
+                  "targetType": "JOURNAL",
+                  "targetId": "review-journal-1",
+                  "saveCount": 42
+                }
+              ]
+            },
+            "exposures": [],
+            "curatedTrips": [
+              {
+                "curatedTripId": "review-curated-1",
+                "revision": 1,
+                "title": "운영 일정 검수 예시",
+                "introduction": "공개 운영 콘텐츠를 고르는 예시입니다.",
+                "placeIds": [],
+                "visibility": "PRIVATE"
+              }
+            ],
+            "journals": [
+              {
+                "journalId": "review-journal-1",
+                "revision": 1,
+                "title": "샘플 여행기 · 바다 산책",
+                "original": "사진을 보며 천천히 걸었던 날입니다. 실제 회원의 기록이 아닌 운영 검수용 글입니다.",
+                "english": "A slow walk by the sea. This is a synthetic review journal.",
+                "authorId": "review-member-1",
+                "ownerVisibility": "PUBLIC",
+                "moderation": "VISIBLE",
+                "createdAt": "2026-10-04T04:00:00.000Z",
+                "cards": [
+                  {
+                    "cardId": "review-card-1",
+                    "placeId": "review-landmark",
+                    "name": "샘플 장소 카드 A",
+                    "original": "조용히 둘러본 장소입니다.",
+                    "english": "A place for a quiet walk.",
+                    "image": "/admin-review.svg",
+                    "likes": 1,
+                    "description": "합성 검수 샘플 장소 사진과 본문입니다.",
+                    "sourceCredit": {
+                      "provider": "Spotlog 로컬 검수 도안",
+                      "sourceUrl": "",
+                      "license": "검수용 합성 자료"
+                    }
+                  },
+                  {
+                    "cardId": "review-card-2",
+                    "placeId": "review-landmark",
+                    "name": "샘플 장소 카드 B · 같은 장소",
+                    "original": "같은 장소라도 카드의 대화는 따로 보존합니다.",
+                    "english": "Conversations remain separate for each card.",
+                    "image": "/admin-review.svg",
+                    "likes": 2,
+                    "description": "합성 검수 샘플 장소 사진과 본문입니다.",
+                    "sourceCredit": {
+                      "provider": "Spotlog 로컬 검수 도안",
+                      "sourceUrl": "",
+                      "license": "검수용 합성 자료"
+                    }
+                  }
+                ],
+                "translation": {
+                  "sourceRevision": 1,
+                  "status": "SAMPLE",
+                  "note": "검수용 영어 예시"
+                },
+                "sourceKind": "SYNTHETIC",
+                "authorName": "가상 공개 여행자",
+                "metrics": {
+                  "cheers": null,
+                  "copies": null,
+                  "views": null,
+                  "source": "SAMPLE"
+                },
+                "summary": "합성 공개 소개",
+                "tags": [
+                  "검수"
+                ],
+                "cover": {
+                  "id": "review-cover",
+                  "image": "/admin-review.svg",
+                  "caption": "가상 표지",
+                  "sourceCredit": {
+                    "provider": "Spotlog",
+                    "sourceUrl": "https://example.org/review",
+                    "license": "자체 검수 도형"
+                  }
+                },
+                "days": [
+                  {
+                    "dayId": "fixture-public-day",
+                    "day": 1,
+                    "date": "",
+                    "title": "가상 DAY 1",
+                    "story": "합성 하루 글",
+                    "places": [
+                      {
+                        "id": "review-landmark",
+                        "kind": "LANDMARK",
+                        "name": "가상 검수 장소",
+                        "area": "부산",
+                        "address": "가상 주소",
+                        "image": "/admin-review.svg",
+                        "description": "가상 장소",
+                        "note": "",
+                        "duration": "1시간"
+                      }
+                    ],
+                    "blocks": [
+                      {
+                        "id": "fixture-text",
+                        "type": "TEXT",
+                        "heading": "공개 단락",
+                        "body": "공개 본문"
+                      },
+                      {
+                        "id": "review-card-1",
+                        "type": "PLACE",
+                        "placeId": "review-landmark"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "journalId": "review-journal-2",
+                "revision": 1,
+                "title": "샘플 여행기 · 작성자가 비공개 전환",
+                "original": "",
+                "english": "",
+                "authorId": "review-member-2",
+                "ownerVisibility": "PRIVATE",
+                "moderation": "HIDDEN",
+                "createdAt": "2026-10-03T04:00:00.000Z",
+                "cards": [],
+                "translation": {
+                  "sourceRevision": 1,
+                  "status": "REVIEW",
+                  "note": "비공개 원문은 관리자 기본 조회에서 제외"
+                },
+                "sourceKind": "SYNTHETIC",
+                "authorName": "검수 회원 B"
+              }
+            ],
+            "comments": [
+              {
+                "commentId": "review-comment-1",
+                "revision": 1,
+                "journalId": "review-journal-1",
+                "authorId": "review-member-2",
+                "original": "전체 여행기에 남기는 샘플 댓글입니다.",
+                "english": "A sample comment on the whole journal.",
+                "createdAt": "2026-10-04T05:00:00.000Z",
+                "moderation": "VISIBLE",
+                "sourceKind": "SYNTHETIC"
+              },
+              {
+                "commentId": "review-comment-2",
+                "revision": 1,
+                "journalId": "review-journal-1",
+                "cardId": "review-card-1",
+                "authorId": "review-member-2",
+                "original": "첫 번째 카드에 남기는 샘플 댓글입니다.",
+                "english": "A sample comment on the first card.",
+                "createdAt": "2026-10-04T05:05:00.000Z",
+                "moderation": "VISIBLE",
+                "sourceKind": "SYNTHETIC"
+              },
+              {
+                "commentId": "review-comment-3",
+                "revision": 1,
+                "journalId": "review-journal-1",
+                "cardId": "review-card-1",
+                "parentId": "review-comment-2",
+                "authorId": "review-member-1",
+                "original": "첫 번째 카드 댓글의 샘플 답글입니다.",
+                "english": "A sample reply to the first card comment.",
+                "createdAt": "2026-10-04T05:10:00.000Z",
+                "moderation": "VISIBLE",
+                "sourceKind": "SYNTHETIC"
+              },
+              {
+                "commentId": "review-comment-4",
+                "revision": 1,
+                "journalId": "review-journal-1",
+                "cardId": "review-card-2",
+                "authorId": "review-member-2",
+                "original": "두 번째 카드만의 댓글입니다.",
+                "english": "A separate comment on the second card.",
+                "createdAt": "2026-10-04T05:07:00.000Z",
+                "moderation": "VISIBLE",
+                "sourceKind": "SYNTHETIC"
+              }
+            ],
+            "reports": [
+              {
+                "reportId": "review-report-1",
+                "revision": 1,
+                "targetType": "COMMENT",
+                "targetId": "review-comment-2",
+                "journalId": "review-journal-1",
+                "cardId": "review-card-1",
+                "category": "CONTENT",
+                "original": "댓글 내용 검수가 필요하다는 샘플 신고입니다.",
+                "status": "OPEN",
+                "createdAt": "2026-10-04T06:00:00.000Z",
+                "decision": ""
+              },
+              {
+                "reportId": "review-report-2",
+                "revision": 1,
+                "targetType": "JOURNAL",
+                "targetId": "review-journal-1",
+                "journalId": "review-journal-1",
+                "category": "COPYRIGHT",
+                "original": "사진 권리 확인을 요청하는 샘플 이의입니다.",
+                "status": "OPEN",
+                "createdAt": "2026-10-04T07:00:00.000Z",
+                "decision": ""
+              },
+              {
+                "reportId": "review-report-3",
+                "revision": 1,
+                "targetType": "PROFILE",
+                "targetId": "review-member-2",
+                "category": "INFORMATION",
+                "original": "공개 프로필 점검 요청 예시",
+                "status": "OPEN",
+                "createdAt": "2026-10-04T08:00:00.000Z",
+                "decision": ""
+              }
+            ],
+            "members": [
+              {
+                "memberId": "review-member-1",
+                "revision": 1,
+                "name": "검수 회원 A",
+                "publicIntroduction": "바다와 산책을 좋아하는 샘플 공개 프로필",
+                "icon": "A",
+                "state": "ACTIVE",
+                "warnings": [],
+                "publicActivity": {
+                  "journals": null,
+                  "followers": null,
+                  "copies": null,
+                  "views": null,
+                  "source": "SAMPLE"
+                },
+                "notificationOptOut": false,
+                "avatarUrl": "/admin-review.svg",
+                "grade": null,
+                "sourceKind": "SYNTHETIC"
+              },
+              {
+                "memberId": "review-member-2",
+                "revision": 1,
+                "name": "검수 회원 B",
+                "publicIntroduction": "실제 개인 일정과 메모는 포함하지 않습니다.",
+                "icon": "B",
+                "state": "ACTIVE",
+                "warnings": [],
+                "publicActivity": {
+                  "journals": null,
+                  "followers": null,
+                  "copies": null,
+                  "views": null,
+                  "source": "SAMPLE"
+                },
+                "notificationOptOut": true,
+                "deletionRequest": {
+                  "requestedAt": "2026-10-04T08:00:00.000Z",
+                  "status": "RECEIVED"
+                },
+                "avatarUrl": "/admin-review.svg",
+                "grade": null,
+                "sourceKind": "SYNTHETIC"
+              }
+            ],
+            "inquiries": [
+              {
+                "inquiryId": "review-inquiry-1",
+                "revision": 1,
+                "subject": "샘플 문의 · 사진 사용 조건",
+                "original": "장소 사진의 출처를 어디에서 확인할 수 있나요?",
+                "memberId": "review-member-1",
+                "status": "OPEN",
+                "assigneeId": "review-operator",
+                "replyRecords": []
+              }
+            ],
+            "operators": [
+              {
+                "operatorId": "operator-admin",
+                "revision": 1,
+                "name": "내부 관리자",
+                "role": "ADMIN",
+                "active": true,
+                "sessions": [
+                  {
+                    "sessionId": "review-session-admin",
+                    "status": "ACTIVE"
+                  }
+                ]
+              },
+              {
+                "operatorId": "review-operator",
+                "revision": 1,
+                "name": "검수 운영자",
+                "role": "OPERATOR",
+                "active": true,
+                "sessions": [
+                  {
+                    "sessionId": "review-session-operator",
+                    "status": "ACTIVE"
+                  }
+                ]
+              }
+            ],
+            "references": [
+              {
+                "referenceId": "review-region-1",
+                "revision": 1,
+                "category": "REGION",
+                "name": "부산",
+                "value": "BUSAN",
+                "enabled": true
+              },
+              {
+                "referenceId": "review-category-1",
+                "revision": 1,
+                "category": "CATEGORY",
+                "name": "랜드마크",
+                "value": "LANDMARK",
+                "enabled": true
+              },
+              {
+                "referenceId": "review-tag-1",
+                "revision": 1,
+                "category": "TAG",
+                "name": "산책",
+                "value": "walk",
+                "enabled": true
+              },
+              {
+                "referenceId": "review-glossary-1",
+                "revision": 1,
+                "category": "GLOSSARY",
+                "name": "여행기",
+                "value": "Travel journal",
+                "enabled": true
+              },
+              {
+                "referenceId": "review-grade-1",
+                "revision": 1,
+                "category": "GRADE",
+                "name": "등급 기준 검수 초안",
+                "value": "실제 집계 연결 후 적용할 기준을 작성하세요.",
+                "enabled": false
+              },
+              {
+                "referenceId": "review-announcement-1",
+                "revision": 1,
+                "category": "ANNOUNCEMENT",
+                "name": "서비스 안내 예시",
+                "value": "현재 관리자 화면은 독립된 로컬 검수본입니다.",
+                "enabled": true
+              }
+            ],
+            "templates": [
+              {
+                "templateId": "review-template-1",
+                "revision": 1,
+                "title": "문의 처리 안내",
+                "body": "접수하신 문의의 처리 상태가 변경되었습니다.",
+                "enabled": true
+              }
+            ],
+            "notifications": [
+              {
+                "notificationId": "review-notification-1",
+                "revision": 1,
+                "memberId": "review-member-1",
+                "templateId": "review-template-1",
+                "dedupeKey": "review-inquiry-1",
+                "status": "FAILED",
+                "attempts": 1,
+                "error": "샘플 발송 실패 · 실제 알림 서버 미연결"
+              },
+              {
+                "notificationId": "review-notification-2",
+                "revision": 1,
+                "memberId": "review-member-2",
+                "templateId": "review-template-1",
+                "dedupeKey": "review-opt-out",
+                "status": "OPTED_OUT",
+                "attempts": 0,
+                "error": "수신 거부"
+              },
+              {
+                "notificationId": "review-notification-3",
+                "revision": 1,
+                "memberId": "review-member-1",
+                "templateId": "review-template-1",
+                "dedupeKey": "review-inquiry-1",
+                "status": "DUPLICATE",
+                "attempts": 0,
+                "error": "중복 요청"
+              }
+            ],
+            "connections": [
+              {
+                "connectionId": "review-connection-0",
+                "name": "지도 SDK",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-1",
+                "name": "주소 조회",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-2",
+                "name": "경로 계산",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-3",
+                "name": "외부 업체 검색",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-4",
+                "name": "사진 저장소",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-5",
+                "name": "알림 발송",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-6",
+                "name": "회원 인증",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-7",
+                "name": "팔로우",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "FOLLOW_UP",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "후속 문의 기능 범위 · 실제 서비스 상태는 미연결"
+              },
+              {
+                "connectionId": "review-connection-8",
+                "name": "받은 알림함",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "FOLLOW_UP",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "후속 문의 기능 범위 · 실제 서비스 상태는 미연결"
+              },
+              {
+                "connectionId": "review-connection-9",
+                "name": "서비스 DB",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-10",
+                "name": "맥미니 RAG",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-11",
+                "name": "소형 로컬 LLM",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-12",
+                "name": "임베딩 AI",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-13",
+                "name": "외부 대형 LLM",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-14",
+                "name": "Flowise",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              }
+            ],
+            "supplyJobs": [
+              {
+                "jobId": "review-supply-1",
+                "source": "권리 검수 샘플 자료",
+                "status": "FAILED",
+                "error": "확인일 누락 · 자동 수급 미연결",
+                "retryReviews": 0
+              }
+            ],
+            "trash": [
+              {
+                "trashId": "review-trash-trip",
+                "revision": 1,
+                "kind": "TRIP",
+                "ownerId": "review-member-1",
+                "deletedAt": "2026-09-30T15:00:00.000Z",
+                "status": "TRASHED",
+                "mediaIds": [
+                  "review-shared-media"
+                ]
+              },
+              {
+                "trashId": "review-trash-journal",
+                "revision": 1,
+                "kind": "JOURNAL",
+                "ownerId": "review-member-1",
+                "deletedAt": "2026-09-30T15:00:00.000Z",
+                "status": "TRASHED",
+                "mediaIds": [
+                  "review-shared-media"
+                ]
+              },
+              {
+                "trashId": "review-trash-expired",
+                "revision": 1,
+                "kind": "TRIP",
+                "ownerId": "review-member-2",
+                "deletedAt": "2025-08-31T14:00:00.000Z",
+                "status": "EXPIRED",
+                "mediaIds": []
+              }
+            ],
+            "mediaCleanup": [
+              {
+                "mediaId": "review-shared-media",
+                "revision": 1,
+                "references": [
+                  {
+                    "targetId": "review-trash-trip",
+                    "kind": "TRIP"
+                  },
+                  {
+                    "targetId": "review-trash-journal",
+                    "kind": "JOURNAL"
+                  }
+                ],
+                "status": "WAITING",
+                "note": "다른 기록에서 사용하는 샘플 사진"
+              },
+              {
+                "mediaId": "review-orphan-media",
+                "revision": 1,
+                "references": [],
+                "status": "WAITING",
+                "note": "참조 없는 샘플 파일 · 실제 파일 삭제 기능 미연결"
+              }
+            ]
+          },
+          "audit": [],
+          "processedCommands": [],
+          "regions": [
+            {
+              "regionId": "kr",
+              "name": "대한민국",
+              "level": "COUNTRY",
+              "enabled": true,
+              "revision": 1
+            },
+            {
+              "regionId": "kr-busan",
+              "name": "부산",
+              "parentId": "kr",
+              "level": "PROVINCE",
+              "enabled": true,
+              "revision": 1
+            }
+          ]
+        },
+        "message": "합성 응답 형식 예시입니다."
+      }
+    },
+    {
+      "name": "idempotent-replay",
+      "operationId": "adminExecute",
+      "status": 200,
+      "schema": "AdminCommandResult",
+      "body": {
+        "state": {
+          "schemaVersion": 1,
+          "revision": 1,
+          "places": [
+            {
+              "placeId": "review-landmark",
+              "revision": 1,
+              "state": "PUBLISHED",
+              "draft": {
+                "kind": "LANDMARK",
+                "name": "가상 검수 장소",
+                "companyId": "",
+                "area": "부산 · 검수 자료",
+                "address": "가상 검수 주소 — 실제 방문용 아님",
+                "description": "DTO 형식 검사용 가상 자료입니다.",
+                "tags": [
+                  "검수"
+                ],
+                "operation": "OPEN",
+                "location": {
+                  "lat": 35.16,
+                  "lng": 129.16,
+                  "verified": true,
+                  "reference": "검수용 가상 좌표",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05"
+                },
+                "rights": {
+                  "display": true,
+                  "store": true,
+                  "modify": true,
+                  "ai": true
+                },
+                "provider": "Spotlog 검수 자료",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05",
+                "media": [
+                  {
+                    "mediaId": "review-media",
+                    "type": "PHOTO",
+                    "url": "/admin-review.svg",
+                    "caption": "검수용 도형",
+                    "alt": "가상 검수 장소 도형",
+                    "cover": true,
+                    "provider": "Spotlog 검수 자료",
+                    "author": "Spotlog",
+                    "sourceUrl": "https://example.org/spotlog-review",
+                    "license": "자체 검수용 도형",
+                    "licenseUrl": "https://example.org/spotlog-review",
+                    "checkedAt": "2026-10-05",
+                    "rights": {
+                      "display": true,
+                      "store": true,
+                      "modify": true,
+                      "ai": true
+                    },
+                    "withdrawn": false
+                  }
+                ],
+                "guide": {
+                  "hours": "",
+                  "bestTime": "",
+                  "facilities": "",
+                  "menu": "",
+                  "lodging": "",
+                  "access": "",
+                  "english": "Synthetic place for contract review.",
+                  "englishStatus": "REVIEWED",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05",
+                  "sourceRevision": 1
+                },
+                "ai": {
+                  "text": "DTO 형식 검사용 가상 자료입니다.",
+                  "tags": [
+                    "검수"
+                  ],
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "provider": "Spotlog 검수 자료",
+                  "checkedAt": "2026-10-05",
+                  "allowed": true,
+                  "version": 1
+                },
+                "regionId": "kr-busan"
+              },
+              "published": {
+                "kind": "LANDMARK",
+                "name": "가상 검수 장소",
+                "companyId": "",
+                "area": "부산 · 검수 자료",
+                "address": "가상 검수 주소 — 실제 방문용 아님",
+                "description": "DTO 형식 검사용 가상 자료입니다.",
+                "tags": [
+                  "검수"
+                ],
+                "operation": "OPEN",
+                "location": {
+                  "lat": 35.16,
+                  "lng": 129.16,
+                  "verified": true,
+                  "reference": "검수용 가상 좌표",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05"
+                },
+                "rights": {
+                  "display": true,
+                  "store": true,
+                  "modify": true,
+                  "ai": true
+                },
+                "provider": "Spotlog 검수 자료",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05",
+                "media": [
+                  {
+                    "mediaId": "review-media",
+                    "type": "PHOTO",
+                    "url": "/admin-review.svg",
+                    "caption": "검수용 도형",
+                    "alt": "가상 검수 장소 도형",
+                    "cover": true,
+                    "provider": "Spotlog 검수 자료",
+                    "author": "Spotlog",
+                    "sourceUrl": "https://example.org/spotlog-review",
+                    "license": "자체 검수용 도형",
+                    "licenseUrl": "https://example.org/spotlog-review",
+                    "checkedAt": "2026-10-05",
+                    "rights": {
+                      "display": true,
+                      "store": true,
+                      "modify": true,
+                      "ai": true
+                    },
+                    "withdrawn": false
+                  }
+                ],
+                "guide": {
+                  "hours": "",
+                  "bestTime": "",
+                  "facilities": "",
+                  "menu": "",
+                  "lodging": "",
+                  "access": "",
+                  "english": "Synthetic place for contract review.",
+                  "englishStatus": "REVIEWED",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05",
+                  "sourceRevision": 1
+                },
+                "ai": {
+                  "text": "DTO 형식 검사용 가상 자료입니다.",
+                  "tags": [
+                    "검수"
+                  ],
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "provider": "Spotlog 검수 자료",
+                  "checkedAt": "2026-10-05",
+                  "allowed": true,
+                  "version": 1
+                },
+                "regionId": "kr-busan"
+              },
+              "revoked": false,
+              "updatedAt": "2026-10-05T00:00:00.000Z",
+              "meta": {
+                "createdById": "review-admin",
+                "assignedToId": "review-operator",
+                "reviewStatus": "READY",
+                "sourceBatchId": "fixture-import"
+              }
+            }
+          ],
+          "nearbyOverrides": [],
+          "ai": {
+            "activeIndexId": "idx-local-empty",
+            "activePolicyId": "policy-local-1",
+            "paused": false,
+            "indices": [
+              {
+                "indexId": "idx-local-empty",
+                "label": "검수용 초기 색인 · 자료 0건",
+                "embeddingProfile": "local-embedding-review",
+                "state": "ACTIVE",
+                "documents": [],
+                "createdAt": "2026-10-05T00:00:00.000Z",
+                "verifiedAt": "2026-10-05T00:00:00.000Z",
+                "appliedAt": "2026-10-05T00:00:00.000Z",
+                "localSimulation": true,
+                "validationErrors": []
+              }
+            ],
+            "jobs": [],
+            "policies": [
+              {
+                "policyId": "policy-local-1",
+                "label": "소형 로컬 우선 · 검수용",
+                "version": 1,
+                "state": "ACTIVE",
+                "smallLocalProfile": "mac-mini-small-review",
+                "embeddingProfile": "local-embedding-review",
+                "externalProfile": "external-fallback-unconnected",
+                "flowiseProfile": "flowise-unconnected",
+                "promptVersion": "spotlog-small-v1",
+                "regions": [
+                  "서울",
+                  "부산",
+                  "제주",
+                  "강릉",
+                  "경주"
+                ],
+                "channels": [
+                  "SIMPLE",
+                  "SAVED",
+                  "REVISION",
+                  "GUIDE"
+                ],
+                "externalEnabled": false,
+                "externalMaxCalls": 1,
+                "timeoutMs": 30000,
+                "externalBudgetKrw": 100,
+                "createdAt": "2026-10-05T00:00:00.000Z",
+                "testedAt": "2026-10-05T00:00:00.000Z",
+                "validationErrors": []
+              }
+            ],
+            "fixtures": [
+              {
+                "fixtureId": "fixture-simple",
+                "title": "간단 생성 · 식사 순서",
+                "prompt": "[운영자 작성 예시] 서울 당일 여행, 점심을 포함한 일정 초안을 확인한다.",
+                "channel": "SIMPLE",
+                "region": "서울",
+                "dayCount": 1,
+                "includeFood": true,
+                "includeStay": false,
+                "expectedPlaceIds": [],
+                "scenario": "NORMAL",
+                "source": "OPERATOR_SYNTHETIC",
+                "revision": 1
+              },
+              {
+                "fixtureId": "fixture-saved",
+                "title": "저장 장소 추천 · 공개 자료만",
+                "prompt": "[운영자 작성 예시] 공개된 저장 장소 후보에서 서울 일정을 구성한다.",
+                "channel": "SAVED",
+                "region": "서울",
+                "dayCount": 1,
+                "includeFood": false,
+                "includeStay": false,
+                "expectedPlaceIds": [],
+                "scenario": "NORMAL",
+                "source": "OPERATOR_SYNTHETIC",
+                "revision": 1
+              },
+              {
+                "fixtureId": "fixture-revision",
+                "title": "부분 수정 · 예약 고정 보호",
+                "prompt": "[운영자 작성 예시] DAY 1 방문을 조정하면서 고정 숙소와 DAY 2를 유지한다.",
+                "channel": "REVISION",
+                "region": "서울",
+                "dayCount": 2,
+                "includeFood": true,
+                "includeStay": true,
+                "expectedPlaceIds": [],
+                "scenario": "NORMAL",
+                "source": "OPERATOR_SYNTHETIC",
+                "revision": 1
+              },
+              {
+                "fixtureId": "fixture-guide",
+                "title": "관광 안내 · 공개 근거",
+                "prompt": "[운영자 작성 예시] 공개 자료의 방문 안내와 출처를 확인한다.",
+                "channel": "GUIDE",
+                "region": "서울",
+                "dayCount": 1,
+                "includeFood": false,
+                "includeStay": false,
+                "expectedPlaceIds": [],
+                "scenario": "NORMAL",
+                "source": "OPERATOR_SYNTHETIC",
+                "revision": 1
+              },
+              {
+                "fixtureId": "fixture-chatbot",
+                "title": "챗봇 후속 · 다중 대화 계약",
+                "prompt": "[운영자 작성 예시] 장소 추천 → 일정 초안 → 특정 DAY 수정. 고객의 적용 전까지 저장하지 않는다.",
+                "channel": "CHATBOT",
+                "region": "서울",
+                "dayCount": 2,
+                "includeFood": true,
+                "includeStay": false,
+                "expectedPlaceIds": [],
+                "scenario": "NORMAL",
+                "source": "OPERATOR_SYNTHETIC",
+                "revision": 1
+              }
+            ],
+            "results": [],
+            "requests": [],
+            "feedback": []
+          },
+          "ops": {
+            "popularity": {
+              "basis": "SAVES",
+              "source": "SAMPLE",
+              "observedAt": "2026-10-09T00:00:00.000Z",
+              "items": [
+                {
+                  "targetType": "PLACE",
+                  "targetId": "jeju-hyeopjae",
+                  "saveCount": 384
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "gangneung-anmok",
+                  "saveCount": 321
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "seoul-seoulforest",
+                  "saveCount": 242
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "busan-gamcheon",
+                  "saveCount": 216
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "review-landmark",
+                  "saveCount": 128
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "review-landmark-2",
+                  "saveCount": 96
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "review-food",
+                  "saveCount": 74
+                },
+                {
+                  "targetType": "PLACE",
+                  "targetId": "review-cafe",
+                  "saveCount": 61
+                },
+                {
+                  "targetType": "JOURNAL",
+                  "targetId": "review-journal-1",
+                  "saveCount": 42
+                }
+              ]
+            },
+            "exposures": [],
+            "curatedTrips": [
+              {
+                "curatedTripId": "review-curated-1",
+                "revision": 1,
+                "title": "운영 일정 검수 예시",
+                "introduction": "공개 운영 콘텐츠를 고르는 예시입니다.",
+                "placeIds": [],
+                "visibility": "PRIVATE"
+              }
+            ],
+            "journals": [
+              {
+                "journalId": "review-journal-1",
+                "revision": 1,
+                "title": "샘플 여행기 · 바다 산책",
+                "original": "사진을 보며 천천히 걸었던 날입니다. 실제 회원의 기록이 아닌 운영 검수용 글입니다.",
+                "english": "A slow walk by the sea. This is a synthetic review journal.",
+                "authorId": "review-member-1",
+                "ownerVisibility": "PUBLIC",
+                "moderation": "VISIBLE",
+                "createdAt": "2026-10-04T04:00:00.000Z",
+                "cards": [
+                  {
+                    "cardId": "review-card-1",
+                    "placeId": "review-landmark",
+                    "name": "샘플 장소 카드 A",
+                    "original": "조용히 둘러본 장소입니다.",
+                    "english": "A place for a quiet walk.",
+                    "image": "/admin-review.svg",
+                    "likes": 1,
+                    "description": "합성 검수 샘플 장소 사진과 본문입니다.",
+                    "sourceCredit": {
+                      "provider": "Spotlog 로컬 검수 도안",
+                      "sourceUrl": "",
+                      "license": "검수용 합성 자료"
+                    }
+                  },
+                  {
+                    "cardId": "review-card-2",
+                    "placeId": "review-landmark",
+                    "name": "샘플 장소 카드 B · 같은 장소",
+                    "original": "같은 장소라도 카드의 대화는 따로 보존합니다.",
+                    "english": "Conversations remain separate for each card.",
+                    "image": "/admin-review.svg",
+                    "likes": 2,
+                    "description": "합성 검수 샘플 장소 사진과 본문입니다.",
+                    "sourceCredit": {
+                      "provider": "Spotlog 로컬 검수 도안",
+                      "sourceUrl": "",
+                      "license": "검수용 합성 자료"
+                    }
+                  }
+                ],
+                "translation": {
+                  "sourceRevision": 1,
+                  "status": "SAMPLE",
+                  "note": "검수용 영어 예시"
+                },
+                "sourceKind": "SYNTHETIC",
+                "authorName": "가상 공개 여행자",
+                "metrics": {
+                  "cheers": null,
+                  "copies": null,
+                  "views": null,
+                  "source": "SAMPLE"
+                },
+                "summary": "합성 공개 소개",
+                "tags": [
+                  "검수"
+                ],
+                "cover": {
+                  "id": "review-cover",
+                  "image": "/admin-review.svg",
+                  "caption": "가상 표지",
+                  "sourceCredit": {
+                    "provider": "Spotlog",
+                    "sourceUrl": "https://example.org/review",
+                    "license": "자체 검수 도형"
+                  }
+                },
+                "days": [
+                  {
+                    "dayId": "fixture-public-day",
+                    "day": 1,
+                    "date": "",
+                    "title": "가상 DAY 1",
+                    "story": "합성 하루 글",
+                    "places": [
+                      {
+                        "id": "review-landmark",
+                        "kind": "LANDMARK",
+                        "name": "가상 검수 장소",
+                        "area": "부산",
+                        "address": "가상 주소",
+                        "image": "/admin-review.svg",
+                        "description": "가상 장소",
+                        "note": "",
+                        "duration": "1시간"
+                      }
+                    ],
+                    "blocks": [
+                      {
+                        "id": "fixture-text",
+                        "type": "TEXT",
+                        "heading": "공개 단락",
+                        "body": "공개 본문"
+                      },
+                      {
+                        "id": "review-card-1",
+                        "type": "PLACE",
+                        "placeId": "review-landmark"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "journalId": "review-journal-2",
+                "revision": 1,
+                "title": "샘플 여행기 · 작성자가 비공개 전환",
+                "original": "",
+                "english": "",
+                "authorId": "review-member-2",
+                "ownerVisibility": "PRIVATE",
+                "moderation": "HIDDEN",
+                "createdAt": "2026-10-03T04:00:00.000Z",
+                "cards": [],
+                "translation": {
+                  "sourceRevision": 1,
+                  "status": "REVIEW",
+                  "note": "비공개 원문은 관리자 기본 조회에서 제외"
+                },
+                "sourceKind": "SYNTHETIC",
+                "authorName": "검수 회원 B"
+              }
+            ],
+            "comments": [
+              {
+                "commentId": "review-comment-1",
+                "revision": 1,
+                "journalId": "review-journal-1",
+                "authorId": "review-member-2",
+                "original": "전체 여행기에 남기는 샘플 댓글입니다.",
+                "english": "A sample comment on the whole journal.",
+                "createdAt": "2026-10-04T05:00:00.000Z",
+                "moderation": "VISIBLE",
+                "sourceKind": "SYNTHETIC"
+              },
+              {
+                "commentId": "review-comment-2",
+                "revision": 1,
+                "journalId": "review-journal-1",
+                "cardId": "review-card-1",
+                "authorId": "review-member-2",
+                "original": "첫 번째 카드에 남기는 샘플 댓글입니다.",
+                "english": "A sample comment on the first card.",
+                "createdAt": "2026-10-04T05:05:00.000Z",
+                "moderation": "VISIBLE",
+                "sourceKind": "SYNTHETIC"
+              },
+              {
+                "commentId": "review-comment-3",
+                "revision": 1,
+                "journalId": "review-journal-1",
+                "cardId": "review-card-1",
+                "parentId": "review-comment-2",
+                "authorId": "review-member-1",
+                "original": "첫 번째 카드 댓글의 샘플 답글입니다.",
+                "english": "A sample reply to the first card comment.",
+                "createdAt": "2026-10-04T05:10:00.000Z",
+                "moderation": "VISIBLE",
+                "sourceKind": "SYNTHETIC"
+              },
+              {
+                "commentId": "review-comment-4",
+                "revision": 1,
+                "journalId": "review-journal-1",
+                "cardId": "review-card-2",
+                "authorId": "review-member-2",
+                "original": "두 번째 카드만의 댓글입니다.",
+                "english": "A separate comment on the second card.",
+                "createdAt": "2026-10-04T05:07:00.000Z",
+                "moderation": "VISIBLE",
+                "sourceKind": "SYNTHETIC"
+              }
+            ],
+            "reports": [
+              {
+                "reportId": "review-report-1",
+                "revision": 1,
+                "targetType": "COMMENT",
+                "targetId": "review-comment-2",
+                "journalId": "review-journal-1",
+                "cardId": "review-card-1",
+                "category": "CONTENT",
+                "original": "댓글 내용 검수가 필요하다는 샘플 신고입니다.",
+                "status": "OPEN",
+                "createdAt": "2026-10-04T06:00:00.000Z",
+                "decision": ""
+              },
+              {
+                "reportId": "review-report-2",
+                "revision": 1,
+                "targetType": "JOURNAL",
+                "targetId": "review-journal-1",
+                "journalId": "review-journal-1",
+                "category": "COPYRIGHT",
+                "original": "사진 권리 확인을 요청하는 샘플 이의입니다.",
+                "status": "OPEN",
+                "createdAt": "2026-10-04T07:00:00.000Z",
+                "decision": ""
+              },
+              {
+                "reportId": "review-report-3",
+                "revision": 1,
+                "targetType": "PROFILE",
+                "targetId": "review-member-2",
+                "category": "INFORMATION",
+                "original": "공개 프로필 점검 요청 예시",
+                "status": "OPEN",
+                "createdAt": "2026-10-04T08:00:00.000Z",
+                "decision": ""
+              }
+            ],
+            "members": [
+              {
+                "memberId": "review-member-1",
+                "revision": 1,
+                "name": "검수 회원 A",
+                "publicIntroduction": "바다와 산책을 좋아하는 샘플 공개 프로필",
+                "icon": "A",
+                "state": "ACTIVE",
+                "warnings": [],
+                "publicActivity": {
+                  "journals": null,
+                  "followers": null,
+                  "copies": null,
+                  "views": null,
+                  "source": "SAMPLE"
+                },
+                "notificationOptOut": false,
+                "avatarUrl": "/admin-review.svg",
+                "grade": null,
+                "sourceKind": "SYNTHETIC"
+              },
+              {
+                "memberId": "review-member-2",
+                "revision": 1,
+                "name": "검수 회원 B",
+                "publicIntroduction": "실제 개인 일정과 메모는 포함하지 않습니다.",
+                "icon": "B",
+                "state": "ACTIVE",
+                "warnings": [],
+                "publicActivity": {
+                  "journals": null,
+                  "followers": null,
+                  "copies": null,
+                  "views": null,
+                  "source": "SAMPLE"
+                },
+                "notificationOptOut": true,
+                "deletionRequest": {
+                  "requestedAt": "2026-10-04T08:00:00.000Z",
+                  "status": "RECEIVED"
+                },
+                "avatarUrl": "/admin-review.svg",
+                "grade": null,
+                "sourceKind": "SYNTHETIC"
+              }
+            ],
+            "inquiries": [
+              {
+                "inquiryId": "review-inquiry-1",
+                "revision": 1,
+                "subject": "샘플 문의 · 사진 사용 조건",
+                "original": "장소 사진의 출처를 어디에서 확인할 수 있나요?",
+                "memberId": "review-member-1",
+                "status": "OPEN",
+                "assigneeId": "review-operator",
+                "replyRecords": []
+              }
+            ],
+            "operators": [
+              {
+                "operatorId": "operator-admin",
+                "revision": 1,
+                "name": "내부 관리자",
+                "role": "ADMIN",
+                "active": true,
+                "sessions": [
+                  {
+                    "sessionId": "review-session-admin",
+                    "status": "ACTIVE"
+                  }
+                ]
+              },
+              {
+                "operatorId": "review-operator",
+                "revision": 1,
+                "name": "검수 운영자",
+                "role": "OPERATOR",
+                "active": true,
+                "sessions": [
+                  {
+                    "sessionId": "review-session-operator",
+                    "status": "ACTIVE"
+                  }
+                ]
+              }
+            ],
+            "references": [
+              {
+                "referenceId": "review-region-1",
+                "revision": 1,
+                "category": "REGION",
+                "name": "부산",
+                "value": "BUSAN",
+                "enabled": true
+              },
+              {
+                "referenceId": "review-category-1",
+                "revision": 1,
+                "category": "CATEGORY",
+                "name": "랜드마크",
+                "value": "LANDMARK",
+                "enabled": true
+              },
+              {
+                "referenceId": "review-tag-1",
+                "revision": 1,
+                "category": "TAG",
+                "name": "산책",
+                "value": "walk",
+                "enabled": true
+              },
+              {
+                "referenceId": "review-glossary-1",
+                "revision": 1,
+                "category": "GLOSSARY",
+                "name": "여행기",
+                "value": "Travel journal",
+                "enabled": true
+              },
+              {
+                "referenceId": "review-grade-1",
+                "revision": 1,
+                "category": "GRADE",
+                "name": "등급 기준 검수 초안",
+                "value": "실제 집계 연결 후 적용할 기준을 작성하세요.",
+                "enabled": false
+              },
+              {
+                "referenceId": "review-announcement-1",
+                "revision": 1,
+                "category": "ANNOUNCEMENT",
+                "name": "서비스 안내 예시",
+                "value": "현재 관리자 화면은 독립된 로컬 검수본입니다.",
+                "enabled": true
+              }
+            ],
+            "templates": [
+              {
+                "templateId": "review-template-1",
+                "revision": 1,
+                "title": "문의 처리 안내",
+                "body": "접수하신 문의의 처리 상태가 변경되었습니다.",
+                "enabled": true
+              }
+            ],
+            "notifications": [
+              {
+                "notificationId": "review-notification-1",
+                "revision": 1,
+                "memberId": "review-member-1",
+                "templateId": "review-template-1",
+                "dedupeKey": "review-inquiry-1",
+                "status": "FAILED",
+                "attempts": 1,
+                "error": "샘플 발송 실패 · 실제 알림 서버 미연결"
+              },
+              {
+                "notificationId": "review-notification-2",
+                "revision": 1,
+                "memberId": "review-member-2",
+                "templateId": "review-template-1",
+                "dedupeKey": "review-opt-out",
+                "status": "OPTED_OUT",
+                "attempts": 0,
+                "error": "수신 거부"
+              },
+              {
+                "notificationId": "review-notification-3",
+                "revision": 1,
+                "memberId": "review-member-1",
+                "templateId": "review-template-1",
+                "dedupeKey": "review-inquiry-1",
+                "status": "DUPLICATE",
+                "attempts": 0,
+                "error": "중복 요청"
+              }
+            ],
+            "connections": [
+              {
+                "connectionId": "review-connection-0",
+                "name": "지도 SDK",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-1",
+                "name": "주소 조회",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-2",
+                "name": "경로 계산",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-3",
+                "name": "외부 업체 검색",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-4",
+                "name": "사진 저장소",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-5",
+                "name": "알림 발송",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-6",
+                "name": "회원 인증",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-7",
+                "name": "팔로우",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "FOLLOW_UP",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "후속 문의 기능 범위 · 실제 서비스 상태는 미연결"
+              },
+              {
+                "connectionId": "review-connection-8",
+                "name": "받은 알림함",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "FOLLOW_UP",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "후속 문의 기능 범위 · 실제 서비스 상태는 미연결"
+              },
+              {
+                "connectionId": "review-connection-9",
+                "name": "서비스 DB",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-10",
+                "name": "맥미니 RAG",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-11",
+                "name": "소형 로컬 LLM",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-12",
+                "name": "임베딩 AI",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-13",
+                "name": "외부 대형 LLM",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              },
+              {
+                "connectionId": "review-connection-14",
+                "name": "Flowise",
+                "configured": false,
+                "status": "UNCONNECTED",
+                "scope": "CURRENT",
+                "limit": null,
+                "unit": "월 요청",
+                "detail": "로컬 검수 환경 · 실제 서비스 연결 없음"
+              }
+            ],
+            "supplyJobs": [
+              {
+                "jobId": "review-supply-1",
+                "source": "권리 검수 샘플 자료",
+                "status": "FAILED",
+                "error": "확인일 누락 · 자동 수급 미연결",
+                "retryReviews": 0
+              }
+            ],
+            "trash": [
+              {
+                "trashId": "review-trash-trip",
+                "revision": 1,
+                "kind": "TRIP",
+                "ownerId": "review-member-1",
+                "deletedAt": "2026-09-30T15:00:00.000Z",
+                "status": "TRASHED",
+                "mediaIds": [
+                  "review-shared-media"
+                ]
+              },
+              {
+                "trashId": "review-trash-journal",
+                "revision": 1,
+                "kind": "JOURNAL",
+                "ownerId": "review-member-1",
+                "deletedAt": "2026-09-30T15:00:00.000Z",
+                "status": "TRASHED",
+                "mediaIds": [
+                  "review-shared-media"
+                ]
+              },
+              {
+                "trashId": "review-trash-expired",
+                "revision": 1,
+                "kind": "TRIP",
+                "ownerId": "review-member-2",
+                "deletedAt": "2025-08-31T14:00:00.000Z",
+                "status": "EXPIRED",
+                "mediaIds": []
+              }
+            ],
+            "mediaCleanup": [
+              {
+                "mediaId": "review-shared-media",
+                "revision": 1,
+                "references": [
+                  {
+                    "targetId": "review-trash-trip",
+                    "kind": "TRIP"
+                  },
+                  {
+                    "targetId": "review-trash-journal",
+                    "kind": "JOURNAL"
+                  }
+                ],
+                "status": "WAITING",
+                "note": "다른 기록에서 사용하는 샘플 사진"
+              },
+              {
+                "mediaId": "review-orphan-media",
+                "revision": 1,
+                "references": [],
+                "status": "WAITING",
+                "note": "참조 없는 샘플 파일 · 실제 파일 삭제 기능 미연결"
+              }
+            ]
+          },
+          "audit": [],
+          "processedCommands": [],
+          "regions": [
+            {
+              "regionId": "kr",
+              "name": "대한민국",
+              "level": "COUNTRY",
+              "enabled": true,
+              "revision": 1
+            },
+            {
+              "regionId": "kr-busan",
+              "name": "부산",
+              "parentId": "kr",
+              "level": "PROVINCE",
+              "enabled": true,
+              "revision": 1
+            }
+          ]
+        },
+        "message": "합성 중복 응답 예시입니다.",
+        "replayed": true
+      }
+    },
+    {
+      "name": "unauthenticated",
+      "operationId": "adminExecute",
+      "status": 401,
+      "schema": "AdminErrorEnvelope",
+      "body": {
+        "error": {
+          "code": "UNAUTHENTICATED",
+          "message": "관리자 서버 로그인이 필요해요."
+        }
+      }
+    },
+    {
+      "name": "forbidden",
+      "operationId": "adminExecute",
+      "status": 403,
+      "schema": "AdminErrorEnvelope",
+      "body": {
+        "error": {
+          "code": "FORBIDDEN",
+          "message": "이 작업의 관리자 권한이 없어요."
+        }
+      }
+    },
+    {
+      "name": "conflict",
+      "operationId": "adminExecute",
+      "status": 409,
+      "schema": "AdminErrorEnvelope",
+      "body": {
+        "error": {
+          "code": "CONFLICT",
+          "message": "자료가 변경됐어요. 새 자료를 확인해 주세요."
+        }
+      }
+    },
+    {
+      "name": "idempotency_conflict",
+      "operationId": "adminExecute",
+      "status": 409,
+      "schema": "AdminErrorEnvelope",
+      "body": {
+        "error": {
+          "code": "IDEMPOTENCY_CONFLICT",
+          "message": "같은 키로 다른 요청을 처리할 수 없어요."
+        }
+      }
+    },
+    {
+      "name": "validation",
+      "operationId": "adminExecute",
+      "status": 422,
+      "schema": "AdminErrorEnvelope",
+      "body": {
+        "error": {
+          "code": "VALIDATION",
+          "message": "입력과 자료 상태를 확인해 주세요."
+        }
+      }
+    },
+    {
+      "name": "dependency_unavailable",
+      "operationId": "adminExecute",
+      "status": 503,
+      "schema": "AdminErrorEnvelope",
+      "body": {
+        "error": {
+          "code": "DEPENDENCY_UNAVAILABLE",
+          "message": "실제 서비스 연결이 준비되지 않았어요."
+        }
+      }
+    },
+    {
+      "name": "timeout",
+      "operationId": "adminExecute",
+      "status": 504,
+      "schema": "AdminErrorEnvelope",
+      "body": {
+        "error": {
+          "code": "TIMEOUT",
+          "message": "입력을 유지했어요. 잠시 후 다시 시도해 주세요."
+        }
+      }
+    }
+  ],
+  "commands": [
+    {
+      "name": "region.save",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "region.save",
+        "payload": {
+          "regionId": "fixture-regionId",
+          "name": "운영자 검수 예시",
+          "level": "COUNTRY",
+          "enabled": false
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-region.save"
+      }
+    },
+    {
+      "name": "place.workflow",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "place.workflow",
+        "payload": {
+          "placeId": "review-landmark",
+          "assignedToId": "fixture-assignedToId",
+          "reviewStatus": "DRAFT"
+        },
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-place.workflow"
+      }
+    },
+    {
+      "name": "place.media.revoke",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "place.media.revoke",
+        "payload": {
+          "placeId": "review-landmark",
+          "mediaId": "review-media",
+          "reason": "운영자 합성 검수 사유"
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-place.media.revoke"
+      }
+    },
+    {
+      "name": "place.create",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "place.create",
+        "payload": {
+          "placeId": "review-landmark",
+          "content": {
+            "kind": "LANDMARK",
+            "name": "가상 검수 장소",
+            "companyId": "",
+            "area": "부산 · 검수 자료",
+            "address": "가상 검수 주소 — 실제 방문용 아님",
+            "description": "DTO 형식 검사용 가상 자료입니다.",
+            "tags": [
+              "검수"
+            ],
+            "operation": "OPEN",
+            "location": {
+              "lat": 35.16,
+              "lng": 129.16,
+              "verified": true,
+              "reference": "검수용 가상 좌표",
+              "sourceUrl": "https://example.org/spotlog-review",
+              "checkedAt": "2026-10-05"
+            },
+            "rights": {
+              "display": true,
+              "store": true,
+              "modify": true,
+              "ai": true
+            },
+            "provider": "Spotlog 검수 자료",
+            "sourceUrl": "https://example.org/spotlog-review",
+            "checkedAt": "2026-10-05",
+            "media": [
+              {
+                "mediaId": "review-media",
+                "type": "PHOTO",
+                "url": "/admin-review.svg",
+                "caption": "검수용 도형",
+                "alt": "가상 검수 장소 도형",
+                "cover": true,
+                "provider": "Spotlog 검수 자료",
+                "author": "Spotlog",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "license": "자체 검수용 도형",
+                "licenseUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05",
+                "rights": {
+                  "display": true,
+                  "store": true,
+                  "modify": true,
+                  "ai": true
+                },
+                "withdrawn": false
+              }
+            ],
+            "guide": {
+              "hours": "",
+              "bestTime": "",
+              "facilities": "",
+              "menu": "",
+              "lodging": "",
+              "access": "",
+              "english": "Synthetic place for contract review.",
+              "englishStatus": "REVIEWED",
+              "sourceUrl": "https://example.org/spotlog-review",
+              "checkedAt": "2026-10-05",
+              "sourceRevision": 1
+            },
+            "ai": {
+              "text": "DTO 형식 검사용 가상 자료입니다.",
+              "tags": [
+                "검수"
+              ],
+              "sourceUrl": "https://example.org/spotlog-review",
+              "provider": "Spotlog 검수 자료",
+              "checkedAt": "2026-10-05",
+              "allowed": true,
+              "version": 1
+            },
+            "regionId": "kr-busan"
+          }
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-place.create"
+      }
+    },
+    {
+      "name": "place.save",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "place.save",
+        "payload": {
+          "placeId": "review-landmark",
+          "content": {
+            "kind": "LANDMARK",
+            "name": "가상 검수 장소",
+            "companyId": "",
+            "area": "부산 · 검수 자료",
+            "address": "가상 검수 주소 — 실제 방문용 아님",
+            "description": "DTO 형식 검사용 가상 자료입니다.",
+            "tags": [
+              "검수"
+            ],
+            "operation": "OPEN",
+            "location": {
+              "lat": 35.16,
+              "lng": 129.16,
+              "verified": true,
+              "reference": "검수용 가상 좌표",
+              "sourceUrl": "https://example.org/spotlog-review",
+              "checkedAt": "2026-10-05"
+            },
+            "rights": {
+              "display": true,
+              "store": true,
+              "modify": true,
+              "ai": true
+            },
+            "provider": "Spotlog 검수 자료",
+            "sourceUrl": "https://example.org/spotlog-review",
+            "checkedAt": "2026-10-05",
+            "media": [
+              {
+                "mediaId": "review-media",
+                "type": "PHOTO",
+                "url": "/admin-review.svg",
+                "caption": "검수용 도형",
+                "alt": "가상 검수 장소 도형",
+                "cover": true,
+                "provider": "Spotlog 검수 자료",
+                "author": "Spotlog",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "license": "자체 검수용 도형",
+                "licenseUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05",
+                "rights": {
+                  "display": true,
+                  "store": true,
+                  "modify": true,
+                  "ai": true
+                },
+                "withdrawn": false
+              }
+            ],
+            "guide": {
+              "hours": "",
+              "bestTime": "",
+              "facilities": "",
+              "menu": "",
+              "lodging": "",
+              "access": "",
+              "english": "Synthetic place for contract review.",
+              "englishStatus": "REVIEWED",
+              "sourceUrl": "https://example.org/spotlog-review",
+              "checkedAt": "2026-10-05",
+              "sourceRevision": 1
+            },
+            "ai": {
+              "text": "DTO 형식 검사용 가상 자료입니다.",
+              "tags": [
+                "검수"
+              ],
+              "sourceUrl": "https://example.org/spotlog-review",
+              "provider": "Spotlog 검수 자료",
+              "checkedAt": "2026-10-05",
+              "allowed": true,
+              "version": 1
+            },
+            "regionId": "kr-busan"
+          }
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-place.save"
+      }
+    },
+    {
+      "name": "place.publish",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "place.publish",
+        "payload": {
+          "placeId": "review-landmark"
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-place.publish"
+      }
+    },
+    {
+      "name": "place.inactivate",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "place.inactivate",
+        "payload": {
+          "placeId": "review-landmark",
+          "reason": "운영자 합성 검수 사유"
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-place.inactivate"
+      }
+    },
+    {
+      "name": "place.revoke",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "place.revoke",
+        "payload": {
+          "placeId": "review-landmark",
+          "reason": "운영자 합성 검수 사유"
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-place.revoke"
+      }
+    },
+    {
+      "name": "place.delete",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "place.delete",
+        "payload": {
+          "placeId": "review-landmark",
+          "reason": "운영자 합성 검수 사유"
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-place.delete"
+      }
+    },
+    {
+      "name": "place.nearby",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "place.nearby",
+        "payload": {
+          "anchorPlaceId": "review-landmark",
+          "businessPlaceId": "review-food",
+          "mode": "FEATURED"
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-place.nearby"
+      }
+    },
+    {
+      "name": "place.import",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "place.import",
+        "payload": {
+          "rows": [
+            {
+              "kind": "LANDMARK",
+              "name": "가상 검수 장소",
+              "companyId": "",
+              "area": "부산 · 검수 자료",
+              "address": "가상 검수 주소 — 실제 방문용 아님",
+              "description": "DTO 형식 검사용 가상 자료입니다.",
+              "tags": [
+                "검수"
+              ],
+              "operation": "OPEN",
+              "location": {
+                "lat": 35.16,
+                "lng": 129.16,
+                "verified": true,
+                "reference": "검수용 가상 좌표",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05"
+              },
+              "rights": {
+                "display": true,
+                "store": true,
+                "modify": true,
+                "ai": true
+              },
+              "provider": "Spotlog 검수 자료",
+              "sourceUrl": "https://example.org/spotlog-review",
+              "checkedAt": "2026-10-05",
+              "media": [
+                {
+                  "mediaId": "review-media",
+                  "type": "PHOTO",
+                  "url": "/admin-review.svg",
+                  "caption": "검수용 도형",
+                  "alt": "가상 검수 장소 도형",
+                  "cover": true,
+                  "provider": "Spotlog 검수 자료",
+                  "author": "Spotlog",
+                  "sourceUrl": "https://example.org/spotlog-review",
+                  "license": "자체 검수용 도형",
+                  "licenseUrl": "https://example.org/spotlog-review",
+                  "checkedAt": "2026-10-05",
+                  "rights": {
+                    "display": true,
+                    "store": true,
+                    "modify": true,
+                    "ai": true
+                  },
+                  "withdrawn": false
+                }
+              ],
+              "guide": {
+                "hours": "",
+                "bestTime": "",
+                "facilities": "",
+                "menu": "",
+                "lodging": "",
+                "access": "",
+                "english": "Synthetic place for contract review.",
+                "englishStatus": "REVIEWED",
+                "sourceUrl": "https://example.org/spotlog-review",
+                "checkedAt": "2026-10-05",
+                "sourceRevision": 1
+              },
+              "ai": {
+                "text": "DTO 형식 검사용 가상 자료입니다.",
+                "tags": [
+                  "검수"
+                ],
+                "sourceUrl": "https://example.org/spotlog-review",
+                "provider": "Spotlog 검수 자료",
+                "checkedAt": "2026-10-05",
+                "allowed": true,
+                "version": 1
+              },
+              "regionId": "kr-busan"
+            }
+          ]
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-place.import"
+      }
+    },
+    {
+      "name": "ai.index.queue",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.index.queue",
+        "mode": "FULL",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.index.queue"
+      }
+    },
+    {
+      "name": "ai.index.run",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.index.run",
+        "jobId": "fixture-job",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.index.run"
+      }
+    },
+    {
+      "name": "ai.index.retry",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.index.retry",
+        "jobId": "fixture-job",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.index.retry"
+      }
+    },
+    {
+      "name": "ai.index.verify",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.index.verify",
+        "indexId": "idx-local-empty",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.index.verify"
+      }
+    },
+    {
+      "name": "ai.index.activate",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.index.activate",
+        "indexId": "idx-local-empty",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.index.activate"
+      }
+    },
+    {
+      "name": "ai.index.rollback",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.index.rollback",
+        "indexId": "idx-local-empty",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.index.rollback"
+      }
+    },
+    {
+      "name": "ai.fixture.save",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.fixture.save",
+        "fixture": {
+          "title": "운영자 검수 예시",
+          "prompt": "fixture-prompt",
+          "channel": "SIMPLE",
+          "region": "fixture-region",
+          "dayCount": 1,
+          "includeFood": false,
+          "includeStay": false,
+          "expectedPlaceIds": [],
+          "scenario": "MODEL_FORMAT"
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.fixture.save"
+      }
+    },
+    {
+      "name": "ai.fixture.run",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.fixture.run",
+        "fixtureId": "fixture-simple",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.fixture.run"
+      }
+    },
+    {
+      "name": "ai.feedback.add",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.feedback.add",
+        "resultId": "fixture-result",
+        "category": "REVISION",
+        "note": "운영자 합성 검수 메모",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.feedback.add"
+      }
+    },
+    {
+      "name": "ai.feedback.resolve",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.feedback.resolve",
+        "feedbackId": "fixture-feedback",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.feedback.resolve"
+      }
+    },
+    {
+      "name": "ai.policy.save",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.policy.save",
+        "policy": {
+          "label": "fixture-label",
+          "smallLocalProfile": "fixture-smallLocalProfile",
+          "embeddingProfile": "fixture-embeddingProfile",
+          "externalProfile": "fixture-externalProfile",
+          "flowiseProfile": "fixture-flowiseProfile",
+          "promptVersion": "fixture-promptVersion",
+          "regions": [],
+          "channels": [],
+          "externalEnabled": false,
+          "externalMaxCalls": 1,
+          "timeoutMs": null,
+          "externalBudgetKrw": null
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.policy.save"
+      }
+    },
+    {
+      "name": "ai.policy.test",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.policy.test",
+        "policyId": "policy-local-1",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.policy.test"
+      }
+    },
+    {
+      "name": "ai.policy.activate",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.policy.activate",
+        "policyId": "policy-local-1",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.policy.activate"
+      }
+    },
+    {
+      "name": "ai.policy.rollback",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.policy.rollback",
+        "policyId": "policy-local-1",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.policy.rollback"
+      }
+    },
+    {
+      "name": "ai.pause",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ai.pause",
+        "paused": false,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ai.pause"
+      }
+    },
+    {
+      "name": "ops.curated.save",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.curated.save",
+        "payload": {
+          "title": "운영자 검수 예시",
+          "curatedTripId": "fixture-curatedTripId",
+          "introduction": "fixture-introduction",
+          "placeIds": [],
+          "visibility": "PUBLIC"
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.curated.save"
+      }
+    },
+    {
+      "name": "ops.exposure.save",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.exposure.save",
+        "payload": {
+          "title": "운영자 검수 예시",
+          "channel": "HOME_TRIP",
+          "enabled": false,
+          "introduction": "fixture-introduction",
+          "coverMediaId": "fixture-coverMediaId",
+          "exposureId": "fixture-exposureId",
+          "targetId": "fixture-targetId",
+          "startsAt": "2026-10-05T00:00:00.000Z",
+          "endsAt": "2026-11-05T00:00:00.000Z",
+          "order": 1
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.exposure.save"
+      }
+    },
+    {
+      "name": "ops.exposure.move",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.exposure.move",
+        "exposureId": "fixture-exposureId",
+        "direction": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.exposure.move"
+      }
+    },
+    {
+      "name": "ops.content.moderate",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.content.moderate",
+        "targetType": "JOURNAL",
+        "targetId": "fixture-targetId",
+        "action": "HIDE",
+        "reason": "운영자 합성 검수 사유",
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.content.moderate"
+      }
+    },
+    {
+      "name": "ops.report.resolve",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.report.resolve",
+        "reportId": "review-report-1",
+        "status": "RESOLVED",
+        "reason": "운영자 합성 검수 사유",
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.report.resolve"
+      }
+    },
+    {
+      "name": "ops.translation.review",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.translation.review",
+        "journalId": "review-journal-1",
+        "english": "Synthetic translation",
+        "note": "운영자 합성 검수 메모",
+        "status": "REVIEW",
+        "sourceRevision": 1,
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.translation.review"
+      }
+    },
+    {
+      "name": "ops.member.action",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.member.action",
+        "memberId": "review-member-1",
+        "action": "WARN",
+        "reason": "운영자 합성 검수 사유",
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.member.action"
+      }
+    },
+    {
+      "name": "ops.member.deletion",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.member.deletion",
+        "memberId": "review-member-1",
+        "status": "READY",
+        "reason": "운영자 합성 검수 사유",
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.member.deletion"
+      }
+    },
+    {
+      "name": "ops.inquiry.save",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.inquiry.save",
+        "inquiryId": "review-inquiry-1",
+        "status": "OPEN",
+        "assigneeId": "fixture-assigneeId",
+        "reply": "합성 답변 기록입니다.",
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.inquiry.save"
+      }
+    },
+    {
+      "name": "ops.operator.role",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.operator.role",
+        "operatorId": "review-operator",
+        "role": "OPERATOR",
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.operator.role"
+      }
+    },
+    {
+      "name": "ops.operator.create",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.operator.create",
+        "payload": {
+          "operatorId": "review-operator",
+          "name": "운영자 검수 예시",
+          "role": "OPERATOR"
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.operator.create"
+      }
+    },
+    {
+      "name": "ops.operator.session",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.operator.session",
+        "operatorId": "review-operator",
+        "sessionId": "review-session-operator",
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.operator.session"
+      }
+    },
+    {
+      "name": "ops.reference.save",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.reference.save",
+        "payload": {
+          "name": "운영자 검수 예시",
+          "enabled": false,
+          "category": "REGION",
+          "referenceId": "fixture-referenceId",
+          "value": "fixture-value"
+        },
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.reference.save"
+      }
+    },
+    {
+      "name": "ops.template.save",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.template.save",
+        "payload": {
+          "title": "운영자 검수 예시",
+          "enabled": false,
+          "templateId": "fixture-templateId",
+          "body": "fixture-body"
+        },
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.template.save"
+      }
+    },
+    {
+      "name": "ops.notification.retry",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.notification.retry",
+        "notificationId": "review-notification-1",
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.notification.retry"
+      }
+    },
+    {
+      "name": "ops.connection.limit",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.connection.limit",
+        "connectionId": "review-map",
+        "limit": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.connection.limit"
+      }
+    },
+    {
+      "name": "ops.supply.retry",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.supply.retry",
+        "jobId": "fixture-job",
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.supply.retry"
+      }
+    },
+    {
+      "name": "ops.trash.restore",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.trash.restore",
+        "trashId": "review-trash-1",
+        "reason": "운영자 합성 검수 사유",
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.trash.restore"
+      }
+    },
+    {
+      "name": "ops.cleanup.review",
+      "schema": "AdminCommand",
+      "command": {
+        "kind": "ops.cleanup.review",
+        "mediaId": "review-media",
+        "reason": "운영자 합성 검수 사유",
+        "entityRevision": 1,
+        "expectedRevision": 1,
+        "idempotencyKey": "fixture-ops.cleanup.review"
+      }
+    }
+  ]
+}

@@ -12,3 +12,14 @@
 - 서버·AI·회원·신고 접수 연결 완료로 취급하지 않음. 반응·댓글은 기존 기기 저장 방식. 실제 신고 API 미설정 운영 빌드는 연결 전 상태 유지.
 
 배포 전 독립 고객 빌드 확인. 배포 후 실제 공개 페이지의 모바일 화면, 장소 카드 반응·댓글·답글·재접속 보존, 이미지와 스크립트 오류를 격리 브라우저에서 확인. 배포 결과·실제 커밋·검수 기록은 로컬 현재 인수인계에 기록.
+
+## 완료 결과
+
+- 공개 커밋: `f6bd6c083f850442feb167e2bff7dfe884bf69c6`.
+- 배포 작업: https://github.com/giry02/spotlog/actions/runs/37390221641 — `completed / success`.
+- 공개 HTML의 새 JavaScript `index-Dg8p5KZX.js`, CSS `index-DA_WMW9e.css`가 독립 로컬 빌드와 일치.
+- `web/`, `shared/`, `.github/` 파일은 고객 백업 `bebcf29`와 동일. 관리자 소스 및 빌드 결과 없음.
+- 격리 Edge:320/390/460px×홈·여행기·장소 사진·내 여행·저장15화면. 가로 넘침·완료 이미지 깨짐·JS예외·에셋HTTP오류 없음.
+- 공개 여행기 장소 카드 좋아요→댓글 작성→답글 작성→새로고침 후 유지 확인. 테스트 내용은 격리 브라우저 저장소에만 저장.
+- 증거: `artifacts/customer-pages-20261006/live/results.json`, `journal-place-social.png`, `place-comment-reply.png` 및15경로 화면.
+- 원래 로컬 관리자 작업본과 기존 고객 백업 브랜치 유지. 실제 서버·AI·회원·신고 연결 상태를 변경하지 않음.
