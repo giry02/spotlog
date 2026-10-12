@@ -12,11 +12,8 @@ import {
   ChevronDown,
   ChevronRight,
   Coffee,
-  History,
-  Home,
   MessageCircle,
   LoaderCircle,
-  Layers3,
   LockKeyhole,
   MapPin,
   MoreHorizontal,
@@ -1462,7 +1459,7 @@ export default function TripWorkspace() {
               disabled={!ready}
               onClick={blank}
             >
-              <Home size={15} /> 처음으로
+              처음으로
             </Button>
             <Button
               variant="outline"
@@ -1470,7 +1467,7 @@ export default function TripWorkspace() {
               disabled={busy || !ready}
               onClick={() => act({ type: 'history' })}
             >
-              <History size={15} /> 대화 이력
+              대화 이력
             </Button>
             <Button
               variant="outline"
@@ -1478,24 +1475,18 @@ export default function TripWorkspace() {
               disabled={busy || !ready}
               onClick={() => act({ type: 'library' })}
             >
-              <Bookmark size={15} /> 저장한 여행
+              저장한 여행
+            </Button>
+            <Button
+              variant="outline"
+              aria-label="여행 시나리오"
+              className="tr-scenario-nav"
+              onClick={() => setPanel('scenarios')}
+            >
+              여행 시나리오
             </Button>
           </nav>
         </header>
-        <div className="tr-chat-toolbar">
-          <button onClick={() => setPanel('scenarios')}>
-            <Sparkles size={14} />
-            여행 시나리오
-          </button>
-          <div>
-            {started && (
-              <button onClick={() => setPanel('wiring')}>
-                <Layers3 size={14} />
-                {stageNames[s.stage]}
-              </button>
-            )}
-          </div>
-        </div>
         {resetNotice && (
           <p className="tr-reset-notice" role="status">
             대화를 초기화했어요. 찜한 장소와 저장한 여행은 유지돼요.
@@ -1563,7 +1554,18 @@ export default function TripWorkspace() {
                         </span>
                         <strong>모아</strong>
                         <span>
-                          {active ? stageNames[snap.stage] : '이전 답변'}
+                          {active ? (
+                            <button
+                              className="tr-unit-info"
+                              disabled={busy}
+                              aria-label="이번 답변에 연결된 기능"
+                              onClick={() => setPanel('wiring')}
+                            >
+                              {stageNames[snap.stage]}
+                            </button>
+                          ) : (
+                            '이전 답변'
+                          )}
                         </span>
                       </div>
                       <p className="tr-answer">
