@@ -76,6 +76,7 @@ import {
   explicitConversationControl,
   type ChatResponse,
 } from '@/lib/chat-contract';
+import { chatEntityDetail } from '@/lib/trip-chat-features';
 
 const STORAGE_KEY = 'moa.spotlog.travel.v1';
 const kindIcon = {
@@ -1084,12 +1085,14 @@ function Units({
   session,
   busy,
   onFullDetail,
+  onEntityDetail,
 }: {
   state: TripState;
   act: Act;
   archived: boolean;
   onDetail: OpenBusiness;
   onFullDetail: OpenBusiness;
+  onEntityDetail: (id: string, state: TripState) => void;
   session: TripSession;
   busy: boolean;
 }) {
@@ -1104,6 +1107,7 @@ function Units({
         session={session}
         act={act}
         onFullDetail={onFullDetail}
+        onEntityDetail={onEntityDetail}
       />
       {state.stage === 'discover' && <PlaceList state={state} act={act} />}
       {state.stage === 'place' && <SelectedPlace state={state} act={act} />}
@@ -1161,15 +1165,19 @@ export default function TripWorkspace() {
     } else setPanelOpen(false);
   };
   const [detail, setDetail] = useState<{
-    reference: BusinessRef;
+    reference: BusinessRef | { kind: 'place'; id: string };
     state: TripState;
   } | null>(null);
   const showDetailSheet: OpenBusiness = (reference, state) => {
     setDetail({ reference, state });
     setPanel('business');
   };
-  const onDetail: OpenBusiness = (reference) => {
-    act({ type: 'detail', id: reference.id });
+  const onDetail = showDetailSheet;
+  const showEntityDetail = (id: string, state: TripState) => {
+    if (findPlace(id)) {
+      setDetail({ reference: { kind: 'place', id }, state });
+      setPanel('business');
+    } else showDetailSheet({ kind: findFood(id) ? 'food' : 'stay', id }, state);
   };
   const [ready, setReady] = useState(false);
   const [storageError, setStorageError] = useState(false);
@@ -1179,6 +1187,9 @@ export default function TripWorkspace() {
     latestRef = useRef<HTMLElement | null>(null);
   const s = currentTrip(session);
   const started = session.turns.length > 1;
+  const modalEntity = detail
+    ? chatEntityDetail({ ...detail.state, detailId: detail.reference.id })
+    : undefined;
   const persistSession = (next: TripSession) => {
     if (blockedStorage.current) return;
     try {
@@ -1602,6 +1613,7 @@ export default function TripWorkspace() {
                         archived={!active}
                         onDetail={onDetail}
                         onFullDetail={showDetailSheet}
+                        onEntityDetail={showEntityDetail}
                         session={session}
                         busy={busy}
                       />
@@ -1752,7 +1764,7 @@ export default function TripWorkspace() {
             <div className="sheet-title-row">
               <DialogTitle>
                 {panel === 'business' && detail
-                  ? businessDetails(detail.reference)?.name
+                  ? modalEntity?.name
                   : panel === 'scenarios'
                     ? '어떤 여행을 해볼까요?'
                     : panel === 'library'
@@ -1774,7 +1786,7 @@ export default function TripWorkspace() {
             </div>
             <DialogDescription>
               {panel === 'business'
-                ? '가상 업체 상세정보 · 방문을 결정하는 흐름을 체험해 보세요.'
+                ? '상세정보를 확인해 보세요. 선택하면 대화가 이어져요.'
                 : panel === 'scenarios'
                   ? '새 대화로 시작합니다. 찜과 저장한 여행은 유지돼요.'
                   : panel === 'library'
@@ -1787,12 +1799,59 @@ export default function TripWorkspace() {
             </DialogDescription>
           </DialogHeader>
           <div className="sheet-body">
-            {panel === 'business' && detail && (
-              <BusinessDetailBody
-                reference={detail.reference}
-                state={detail.state}
-              />
-            )}
+            {panel === 'business' &&
+              detail &&
+              detail.reference.kind !== 'place' && (
+                <BusinessDetailBody
+                  reference={detail.reference}
+                  state={detail.state}
+                />
+              )}
+            {panel === 'business' &&
+              detail?.reference.kind === 'place' &&
+              modalEntity && (
+                <div className="tr-business-detail">
+                  <figure className="tr-detail-photo">
+                    <img
+                      src={modalEntity.image}
+                      alt={modalEntity.imageAlt}
+                      width={600}
+                      height={300}
+                    />
+                  </figure>
+                  <section className="tr-detail-intro">
+                    <span className="tr-detail-category">장소 정보</span>
+                    <h3>{modalEntity.headline}</h3>
+                    <p>{modalEntity.description}</p>
+                    <div className="tr-business-tags">
+                      {modalEntity.features.map((feature) => (
+                        <span key={feature}>{feature}</span>
+                      ))}
+                    </div>
+                  </section>
+                  <section className="tr-detail-section">
+                    <h3>방문 정보</h3>
+                    <dl className="tr-detail-facts">
+                      <div>
+                        <dt>지역</dt>
+                        <dd>{modalEntity.location}</dd>
+                      </div>
+                      <div>
+                        <dt>운영시간</dt>
+                        <dd>{modalEntity.hours}</dd>
+                      </div>
+                      <div>
+                        <dt>입장료</dt>
+                        <dd>{modalEntity.price}</dd>
+                      </div>
+                    </dl>
+                  </section>
+                  <section className="tr-detail-check">
+                    <h3>방문 전에 확인해 주세요</h3>
+                    <p>{modalEntity.check}</p>
+                  </section>
+                </div>
+              )}
             {panel === 'scenarios' && (
               <>
                 {scenarioCards}
@@ -2004,23 +2063,40 @@ export default function TripWorkspace() {
               </div>
             )}
           </div>
-          {panel === 'business' && detail && (
-            <BusinessDetailAction
-              reference={detail.reference}
-              state={detail.state}
-              onChoose={() => {
-                const ref = detail.reference;
-                if (ref.visitId) act({ type: 'edit', id: ref.visitId });
-                else if (
-                  ref.kind === 'stay'
-                    ? detail.state.stayId !== ref.id
-                    : detail.state.foodId !== ref.id &&
-                      detail.state.cafeId !== ref.id
-                )
-                  act({ type: ref.kind, id: ref.id });
-                setPanel(null);
-              }}
-            />
+          {panel === 'business' &&
+            detail &&
+            detail.reference.kind !== 'place' && (
+              <BusinessDetailAction
+                reference={detail.reference}
+                state={detail.state}
+                onChoose={() => {
+                  const ref = detail.reference;
+                  if (ref.kind === 'place') return;
+                  if (ref.visitId) act({ type: 'edit', id: ref.visitId });
+                  else if (
+                    ref.kind === 'stay'
+                      ? detail.state.stayId !== ref.id
+                      : detail.state.foodId !== ref.id &&
+                        detail.state.cafeId !== ref.id
+                  )
+                    act({ type: 'select-entity', id: ref.id });
+                  setPanel(null);
+                }}
+              />
+            )}
+          {panel === 'business' && detail?.reference.kind === 'place' && (
+            <div className="tr-detail-action">
+              <span>장소 정보</span>
+              <Button
+                disabled={busy}
+                onClick={() => {
+                  act({ type: 'select-entity', id: detail.reference.id });
+                  setPanel(null);
+                }}
+              >
+                이 장소 선택
+              </Button>
+            </div>
           )}
         </DialogContent>
       </Dialog>

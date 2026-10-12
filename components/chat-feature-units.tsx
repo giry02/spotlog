@@ -27,6 +27,7 @@ type Props = {
   session: TripSession;
   act: (action: TripAction) => void;
   onFullDetail: OpenBusiness;
+  onEntityDetail: (id: string, state: TripState) => void;
 };
 function Title({
   icon: Icon,
@@ -49,7 +50,13 @@ function Title({
     </div>
   );
 }
-export function ChatFeatureUnits({ state, session, act, onFullDetail }: Props) {
+export function ChatFeatureUnits({
+  state,
+  session,
+  act,
+  onFullDetail,
+  onEntityDetail,
+}: Props) {
   if (state.stage === 'compare') {
     const rows = comparisonRows(state);
     return (
@@ -107,7 +114,7 @@ export function ChatFeatureUnits({ state, session, act, onFullDetail }: Props) {
                   <th scope="row">더 알아보기</th>
                   {rows.map((r) => (
                     <td key={r.id}>
-                      <button onClick={() => act({ type: 'detail', id: r.id })}>
+                      <button onClick={() => onEntityDetail(r.id, state)}>
                         {r.name} 상세
                       </button>
                       <button
