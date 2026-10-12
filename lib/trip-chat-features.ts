@@ -340,9 +340,8 @@ export function chatEntityDetail(s: TripState) {
       image: p.image,
       imageAlt: p.name,
       headline: p.description,
-      description:
-        '장소 사진은 실제 장소를 나타냅니다. 분위기 태그와 추천 순위는 체험용 설정입니다.',
-      location: p.region,
+      description: `장소 사진은 실제 장소를 나타냅니다. 분위기 태그와 추천 순위는 체험용 설정입니다.${p.durationMinutes ? ` 체류 약 ${p.durationMinutes}분은 체험용 가정이며 실제 소요시간을 조회한 값이 아닙니다.` : ''}`,
+      location: `${p.region}${p.district ? ` · ${p.district}` : ''}`,
       features: [...p.tags],
       hours: '실제 운영시간 미조회',
       price: '확인 필요',
@@ -352,12 +351,22 @@ export function chatEntityDetail(s: TripState) {
       room: null,
       walk: null,
       check:
+        p.visitNote ??
         '방문 전 최신 영업·입장 정보를 지도나 공식 채널에서 확인해 주세요.',
     };
   if (!id) return undefined;
   return businessDetails({ kind: findFood(id) ? 'food' : 'stay', id });
 }
 export const chatHelpGroups = [
+  {
+    title: '다른 여행자의 공개 코스',
+    examples: [
+      '다른 여행자가 만든 제주 여행 보여줘',
+      '다른 사람의 바다 코스 보여줘',
+      '첫 번째 코스를 내 여행으로 가져와',
+      '일정 저장해줘',
+    ],
+  },
   {
     title: '장소와 주변 후보',
     examples: [

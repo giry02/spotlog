@@ -1,6 +1,7 @@
 import {
   appendTrip,
   currentTrip,
+  communityResults,
   explanation,
   foodResults,
   nextQuestions,
@@ -15,6 +16,7 @@ import {
   type Visit,
 } from './trip-engine';
 import { findFood, findPlace, findStay } from './trip-data';
+import { communityTrips } from './community-trips';
 
 export const CHAT_PROTOCOL_VERSION = 1 as const;
 export const MAX_CHAT_REQUEST_BYTES = 1_048_576;
@@ -74,6 +76,7 @@ const stages: Stage[] = [
   'help',
   'answer',
   'collection',
+  'community',
 ];
 const fail = (message = '요청 내용을 확인해 주세요.'): never => {
   throw new ChatContractError('INVALID_REQUEST', message);
@@ -141,6 +144,12 @@ function place(value: unknown): string {
   if (!findPlace(result)) fail('존재하지 않는 장소예요.');
   return result;
 }
+function communityCourse(value: unknown): string {
+  const result = id(value);
+  if (!communityTrips.some((course) => course.id === result))
+    fail('공개 코스 예시를 찾을 수 없어요.');
+  return result;
+}
 const nullable = (value: unknown, parse: (value: unknown) => unknown) => {
   if (value !== null) parse(value);
 };
@@ -195,12 +204,22 @@ function validateVisits(
 function validateLibrary(value: unknown): SavedPlan[] {
   const plans = array(value, 50).map((item) => {
     const p = object(item);
-    keys(p, ['id', 'title', 'region', 'days', 'visits', 'booked']);
+    keys(p, [
+      'id',
+      'title',
+      'region',
+      'days',
+      'visits',
+      'booked',
+      'communitySourceId',
+    ]);
     id(p.id);
     string(p.title, 200, true);
     oneOf(p.region, ['제주', '서울']);
     integer(p.days, 1, 3);
     boolean(p.booked);
+    if (p.communitySourceId !== undefined)
+      nullable(p.communitySourceId, communityCourse);
     validateVisits(p.visits, p.days as number, p.region);
     return p as unknown as SavedPlan;
   });
@@ -246,6 +265,9 @@ function validateState(value: unknown): TripState {
     'undoOfTurnId',
     'librarySnapshot',
     'historySnapshot',
+    'communitySourceId',
+    'communityRegion',
+    'communityTheme',
   ]);
   oneOf(s.stage, stages);
   string(s.question, 2000);
@@ -304,6 +326,12 @@ function validateState(value: unknown): TripState {
     unique(ids);
   }
   if (s.detailId !== undefined) nullable(s.detailId, entity);
+  if (s.communitySourceId !== undefined)
+    nullable(s.communitySourceId, communityCourse);
+  if (s.communityRegion !== undefined)
+    nullable(s.communityRegion, (value) => oneOf(value, ['제주', '서울']));
+  if (s.communityTheme !== undefined)
+    oneOf(s.communityTheme, ['all', 'sea', 'green']);
   if (s.budgetPeople !== undefined) integer(s.budgetPeople, 1, 20);
   if (s.budgetRooms !== undefined) integer(s.budgetRooms, 1, 10);
   if (s.undoOfTurnId !== undefined) integer(s.undoOfTurnId, 1, 1_000_000);
@@ -458,6 +486,17 @@ export function parseTripAction(value: unknown): TripAction {
       keys(a, ['type', 'id']);
       entity(a.id);
       break;
+    case 'copy-community':
+      keys(a, ['type', 'id']);
+      communityCourse(a.id);
+      break;
+    case 'community-filter':
+      keys(a, ['type', 'region', 'theme']);
+      if (Object.keys(a).length === 1) fail();
+      if (a.region !== undefined)
+        nullable(a.region, (value) => oneOf(value, ['제주', '서울']));
+      if (a.theme !== undefined) oneOf(a.theme, ['all', 'sea', 'green']);
+      break;
     case 'add-entity':
       keys(a, ['type', 'id', 'day']);
       entity(a.id);
@@ -566,6 +605,8 @@ const modelActionTypes = new Set([
   'configure',
   'collect-entity',
   'uncollect-entity',
+  'copy-community',
+  'community-filter',
 ]);
 export function parseModelReply(value: unknown): ModelReply {
   try {
@@ -612,6 +653,14 @@ export function validateActionContext(
 ) {
   const s = currentTrip(session);
   const actionFields = action as unknown as Record<string, unknown>;
+  if (
+    model &&
+    action.type === 'region' &&
+    s.stage !== 'community' &&
+    action.region !== s.region &&
+    (s.booked || s.plan.some((visit) => visit.locked))
+  )
+    fail('예약한 숙소가 있는 여행의 지역은 챗봇이 자동으로 바꾸지 않아요.');
   const day = actionFields.day;
   if (typeof day === 'number' && day > s.days)
     fail('현재 일정에 없는 날짜예요.');
@@ -679,6 +728,12 @@ export function validateActionContext(
     !(s.collectedIds ?? []).includes(action.id)
   )
     fail('현재 담은 항목에서 찾을 수 없어요.');
+  if (action.type === 'copy-community') {
+    if (model && (s.booked || s.plan.some((visit) => visit.locked)))
+      fail('예약한 숙소가 있는 여행은 공개 코스로 덮어쓰지 않아요.');
+    if (!communityResults(s).some((course) => course.id === action.id))
+      fail('현재 지역·취향 조건의 공개 코스 예시를 골라 주세요.');
+  }
   if (model) {
     if (!modelActionTypes.has(action.type)) fail();
     const available = currentEntityIds(s);

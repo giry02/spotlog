@@ -9,6 +9,7 @@ import {
   type Region,
 } from './trip-data';
 import { directionsTarget } from './travel-links';
+import { communityTrips, findCommunityTrip } from './community-trips';
 
 export type Stage =
   | 'discover'
@@ -29,7 +30,8 @@ export type Stage =
   | 'history'
   | 'help'
   | 'answer'
-  | 'collection';
+  | 'collection'
+  | 'community';
 export const MAX_COLLECTED_ENTITIES = 30;
 export type Visit = {
   id: string;
@@ -78,6 +80,9 @@ export type TripState = {
   undoOfTurnId?: number;
   librarySnapshot?: SavedPlan[];
   historySnapshot?: { id: number; question: string }[];
+  communitySourceId?: string | null;
+  communityRegion?: Region | null;
+  communityTheme?: 'all' | 'sea' | 'green';
 };
 export type TripTurn = {
   id: number;
@@ -93,6 +98,7 @@ export type SavedPlan = {
   days: number;
   visits: Visit[];
   booked: boolean;
+  communitySourceId?: string | null;
 };
 export type TripSession = {
   turns: TripTurn[];
@@ -130,6 +136,12 @@ export type TripAction =
   | { type: 'select-entity'; id: string }
   | { type: 'collect-entity'; id: string }
   | { type: 'uncollect-entity'; id: string }
+  | { type: 'copy-community'; id: string }
+  | {
+      type: 'community-filter';
+      region?: Region | null;
+      theme?: 'all' | 'sea' | 'green';
+    }
   | {
       type: 'configure';
       days?: number;
@@ -239,6 +251,7 @@ export function isTripSession(value: unknown): value is TripSession {
           'help',
           'answer',
           'collection',
+          'community',
         ].includes(s.stage) &&
         typeof s.question === 'string' &&
         typeof s.notice === 'string' &&
@@ -272,6 +285,13 @@ export function isTripSession(value: unknown): value is TripSession {
         (t.assistantMessage === undefined ||
           typeof t.assistantMessage === 'string') &&
         (t.source === undefined || ['demo', 'flowise'].includes(t.source)) &&
+        (s.communitySourceId === undefined ||
+          s.communitySourceId === null ||
+          Boolean(findCommunityTrip(s.communitySourceId))) &&
+        (s.communityRegion === undefined ||
+          [null, '제주', '서울'].includes(s.communityRegion)) &&
+        (s.communityTheme === undefined ||
+          ['all', 'sea', 'green'].includes(s.communityTheme)) &&
         validVisits(s.plan)
       );
     }) &&
@@ -285,6 +305,9 @@ export function isTripSession(value: unknown): value is TripSession {
         Number.isInteger(p.days) &&
         p.days >= 1 &&
         p.days <= 3 &&
+        (p.communitySourceId === undefined ||
+          p.communitySourceId === null ||
+          Boolean(findCommunityTrip(p.communitySourceId))) &&
         validVisits(p.visits),
     )
   );
@@ -315,8 +338,9 @@ export function placeResults(s: TripState) {
       (p) =>
         (!s.region || p.region === s.region) &&
         p.id !== s.similarTo &&
-        (s.theme !== 'sea' || p.id === 'hyeopjae') &&
-        (s.theme !== 'green' || p.id !== 'hyeopjae'),
+        (s.theme !== 'sea' ||
+          /바다|해변|해안/.test(p.tags.join(' ') + p.name)) &&
+        (s.theme !== 'green' || p.mood[0] >= 4),
     )
     .sort((a, b) =>
       reference
@@ -324,6 +348,15 @@ export function placeResults(s: TripState) {
           b.mood.reduce((n, v, i) => n + Math.abs(v - reference.mood[i]), 0)
         : 0,
     );
+}
+export function communityResults(s: TripState) {
+  const region = s.communityRegion ?? null,
+    theme = s.communityTheme ?? 'all';
+  return communityTrips.filter(
+    (course) =>
+      (!region || course.region === region) &&
+      (theme === 'all' || course.theme === theme),
+  );
 }
 export function foodResults(s: TripState) {
   return restaurants
@@ -510,7 +543,18 @@ function makeCollectedPlan(before: TripState): TripState {
   );
   for (let day = 1; day <= s.days; day++) {
     for (const anchor of anchors.filter((id) => anchorDays.get(id) === day)) {
-      if (ids.includes(anchor)) add(day, 'place', anchor, anchor, '방문');
+      if (ids.includes(anchor)) {
+        const index = plan.filter(
+          (v) => v.day === day && v.kind === 'place',
+        ).length;
+        add(
+          day,
+          'place',
+          anchor,
+          anchor,
+          index === 0 ? '오전 방문' : index === 1 ? '오후 방문' : '추가 방문',
+        );
+      }
       for (const id of ids) {
         const food = findFood(id);
         if (food?.placeId === anchor) {
@@ -579,7 +623,11 @@ function makeCollectedPlan(before: TripState): TripState {
     s.notice += ' 당일 여행의 숙소 후보는 일정에 넣지 않았어요.';
   return s;
 }
-export function makePlan(s: TripState, savedOnly = false): TripState {
+export function makePlan(
+  s: TripState,
+  savedOnly = false,
+  onlyArea?: (typeof places)[number]['area'],
+): TripState {
   if (
     !savedOnly &&
     ((s.collectedIds?.length ?? 0) > 0 || s.stage === 'collection')
@@ -609,13 +657,58 @@ export function makePlan(s: TripState, savedOnly = false): TripState {
         '이 지역에 찜한 장소가 없어요. 장소를 찜한 다음 다시 만들어 보세요.',
     };
   const firstId = s.anchorId ?? (s.theme === 'sea' ? 'hyeopjae' : null);
+  const primaryArea = findPlace(firstId)?.area ?? candidates[0].area;
+  const areaOrder = onlyArea
+    ? [onlyArea]
+    : primaryArea === 'east'
+      ? ['east', 'south', 'west']
+      : primaryArea === 'south'
+        ? ['south', 'west', 'east']
+        : primaryArea === 'seoul'
+          ? ['seoul']
+          : ['west', 'south', 'east'];
+  const themeScore = (p: (typeof places)[number]) =>
+    s.theme === 'sea'
+      ? Number(/바다|해변|해안/.test(p.tags.join(' ') + p.name))
+      : s.theme === 'green'
+        ? Number(p.mood[0] >= 4)
+        : 0;
   candidates.sort(
-    (a, b) => Number(b.id === firstId) - Number(a.id === firstId),
+    (a, b) =>
+      Number(b.id === firstId) - Number(a.id === firstId) ||
+      themeScore(b) - themeScore(a),
   );
-  if (!savedOnly && s.days === 1)
-    candidates = candidates.slice(0, s.anchorId ? 1 : 2);
+  const dayPools: (typeof candidates)[] = [];
+  if (!savedOnly) {
+    const remaining = new Map(
+      areaOrder.map((area) => [
+        area,
+        candidates.filter((p) => p.area === area),
+      ]),
+    );
+    for (let day = 1; day <= s.days; day++) {
+      const area =
+        areaOrder.find((area) => (remaining.get(area)?.length ?? 0) >= 2) ??
+        areaOrder.find((area) => (remaining.get(area)?.length ?? 0) > 0);
+      dayPools.push(area ? remaining.get(area)!.splice(0, 2) : []);
+    }
+    candidates = dayPools.flat();
+  }
+  const existingLocked = s.plan.filter((v) => v.kind === 'stay' && v.locked);
+  if (existingLocked.some((v) => v.day >= s.days))
+    return {
+      ...copy(s),
+      days: Math.max(
+        s.days,
+        ...s.plan.map((v) => v.day),
+        ...existingLocked.map((v) => v.day + 1),
+      ),
+      notice:
+        '예약 숙소가 있는 숙박 날짜는 유지해요. 더 짧은 일정으로 바꾸지 않았어요.',
+    };
   n.plan = [];
   let serial = 1;
+  const reservedIds = new Set(existingLocked.map((v) => v.id));
   const add = (
     day: number,
     kind: Visit['kind'],
@@ -623,7 +716,8 @@ export function makePlan(s: TripState, savedOnly = false): TripState {
     anchorId: string,
     label: string,
     locked = false,
-  ) =>
+  ) => {
+    while (reservedIds.has(`visit-${serial}`)) serial++;
     n.plan.push({
       id: `visit-${serial++}`,
       day,
@@ -633,10 +727,14 @@ export function makePlan(s: TripState, savedOnly = false): TripState {
       label,
       locked,
     });
+  };
   for (let day = 1; day <= s.days; day++) {
     const batchSize = Math.ceil(candidates.length / s.days);
-    const dayPlaces = candidates.slice((day - 1) * batchSize, day * batchSize);
-    const anchor = dayPlaces[0]?.id ?? candidates[candidates.length - 1].id;
+    const dayPlaces = savedOnly
+      ? candidates.slice((day - 1) * batchSize, day * batchSize)
+      : dayPools[day - 1];
+    const anchor = dayPlaces[0]?.id ?? candidates.at(-1)?.id ?? s.anchorId;
+    if (!anchor) continue;
     if (dayPlaces[0]) add(day, 'place', anchor, anchor, '오전 방문');
     if (s.meals && dayPlaces.length) {
       const selected = findFood(s.foodId);
@@ -650,7 +748,9 @@ export function makePlan(s: TripState, savedOnly = false): TripState {
     }
     dayPlaces
       .slice(1)
-      .forEach((p) => add(day, 'place', p.id, p.id, '오후 방문'));
+      .forEach((p, i) =>
+        add(day, 'place', p.id, p.id, i === 0 ? '오후 방문' : '추가 방문'),
+      );
     const lastAnchor = dayPlaces.at(-1)?.id ?? anchor;
     if (s.cafes && dayPlaces.length) {
       const selectedCafe = findFood(s.cafeId);
@@ -682,6 +782,11 @@ export function makePlan(s: TripState, savedOnly = false): TripState {
       );
     }
     if (day < s.days && (s.lodging || s.booked)) {
+      const locked = existingLocked.filter((v) => v.day === day);
+      if (locked.length) {
+        n.plan.push(...locked.map((v) => ({ ...v })));
+        continue;
+      }
       const selected = findStay(s.stayId);
       const hotel =
         selected?.region === n.region
@@ -714,9 +819,13 @@ export function makePlan(s: TripState, savedOnly = false): TripState {
   n.activeDay = 1;
   n.editingId = null;
   n.savedPlanId = null;
+  n.communitySourceId = null;
   n.notice = savedOnly
     ? '찜한 장소만 방문지로 배치했어요. 식당·숙소는 같은 지역의 체험 후보로 연결했어요.'
-    : '방문 → 식사 → 숙박 순서의 초안이에요. 원하는 부분만 바꿀 수 있어요.';
+    : '하루에 오전·오후 방문을 나누고, 같은 권역의 장소를 묶은 초안이에요. 실제 이동시간·영업시간은 조회하지 않았어요. 원하는 부분만 바꿀 수 있어요.';
+  if (!savedOnly && onlyArea && candidates.length < s.days * 2)
+    n.notice +=
+      ' 요청한 권역의 샘플 장소가 부족한 날짜는 다른 권역으로 채우지 않았어요. 원하는 방문을 더 담아 보세요.';
   return n;
 }
 
@@ -737,19 +846,41 @@ function chatEntity(id: string | null | undefined) {
         ? { id, name: h.name, kind: 'stay' as const }
         : undefined;
 }
+const placeAliases: Record<string, string> = {
+  osulloc: '오설록',
+  hyeopjae: '협재',
+  saebyeol: '새별',
+  seongsan: '성산',
+  seopjikoji: '섭지코지',
+  hamdeok: '함덕',
+  bijarim: '비자림',
+  cheonjiyeon: '천지연',
+  jeongbang: '정방',
+  jusangjeolli: '주상절리',
+  songaksan: '송악산',
+  geumneung: '금능',
+};
 function mentionsEntity(q: string, id: string, name: string) {
   const compact = q.replace(/\s/g, '');
   return (
     compact.includes(name.replace(/\s/g, '')) ||
-    (id === 'osulloc' && /오설록/.test(q)) ||
-    (id === 'hyeopjae' && /협재/.test(q)) ||
-    (id === 'saebyeol' && /새별/.test(q))
+    Boolean(placeAliases[id] && compact.includes(placeAliases[id]))
   );
 }
 function namedEntities(q: string) {
-  return [...places, ...restaurants, ...stays]
-    .filter((p) => mentionsEntity(q, p.id, p.name))
-    .map((p) => chatEntity(p.id)!);
+  const businesses = [...restaurants, ...stays].filter((p) =>
+    q.replace(/\s/g, '').includes(p.name.replace(/\s/g, '')),
+  );
+  let placeQuestion = q.replace(/\s/g, '');
+  for (const business of businesses)
+    placeQuestion = placeQuestion.replaceAll(
+      business.name.replace(/\s/g, ''),
+      '',
+    );
+  return [
+    ...places.filter((p) => mentionsEntity(placeQuestion, p.id, p.name)),
+    ...businesses,
+  ].map((p) => chatEntity(p.id)!);
 }
 function chatCandidates(s: TripState) {
   const ids =
@@ -972,6 +1103,11 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
     }
   };
   const setRegion = (region: Region) => {
+    if (region !== s.region && (s.booked || s.plan.some((v) => v.locked))) {
+      s.notice =
+        '예약한 숙소를 보호하기 위해 여행 지역을 바꾸지 않았어요. 다른 지역의 새 여행은 대화를 초기화한 뒤 시작해 주세요.';
+      return;
+    }
     if (
       s.collectedIds?.length &&
       region !== collectionRegion(s.collectedIds[0])
@@ -989,6 +1125,7 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
       s.theme = 'all';
       s.plan = [];
       s.savedPlanId = null;
+      s.communitySourceId = null;
       s.editingId = null;
     }
     s.region = region;
@@ -1033,6 +1170,13 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
     s.notice = `${p.name}${desired ? '을 찜했어요. 찜한 장소로 일정도 만들 수 있어요.' : '을 찜에서 뺐어요.'}`;
   }
   if (action.type === 'region') {
+    if (before.stage === 'community')
+      return {
+        ...s,
+        stage: 'community',
+        communityRegion: action.region,
+        question: `${action.region} 공개 여행 코스 보여줘`,
+      };
     setRegion(action.region);
     s.stage = before.stage === 'saved' ? 'saved' : 'discover';
     s.question = `${action.region}에서 찾아줘`;
@@ -1061,6 +1205,19 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
     s.question = `숙소는 1박 ${action.value / 10000}만원 이하로`;
   }
   if (action.type === 'show') {
+    if (action.stage === 'community')
+      return {
+        ...s,
+        stage: 'community',
+        communityRegion:
+          before.communityRegion === undefined
+            ? before.region
+            : before.communityRegion,
+        communityTheme: before.communityTheme ?? 'all',
+        question: '다른 여행자의 공개 여행 코스 보여줘',
+        notice:
+          '제작한 공개 코스 예시예요. 실제 회원 게시물은 아직 연결하지 않았어요.',
+      };
     s.editingId = null;
     if (action.day && action.day >= 1 && action.day <= s.days)
       s.activeDay = action.day;
@@ -1364,6 +1521,62 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
         '이 후보만 담은 곳에서 뺐어요. 다른 후보·찜·저장한 여행은 그대로예요.';
     }
   }
+  if (action.type === 'community-filter') {
+    s.stage = 'community';
+    if (action.region !== undefined) s.communityRegion = action.region;
+    else if (s.communityRegion === undefined) s.communityRegion = before.region;
+    if (action.theme !== undefined) s.communityTheme = action.theme;
+    else if (s.communityTheme === undefined) s.communityTheme = 'all';
+    s.question = `${s.communityRegion ?? '전체 지역'} ${s.communityTheme === 'sea' ? '바다' : s.communityTheme === 'green' ? '초록 풍경' : '전체'} 공개 코스 보여줘`;
+    s.notice =
+      '공개 코스 목록의 조건만 바꿨어요. 만들던 여행과 담은 곳은 그대로예요.';
+  }
+  if (action.type === 'copy-community') {
+    const course = findCommunityTrip(action.id);
+    if (!course)
+      return {
+        ...s,
+        stage: 'community',
+        question: '공개 코스를 내 여행으로 가져와',
+        notice: '목록에 있는 공개 코스 하나를 골라주세요.',
+      };
+    if (before.booked || before.plan.some((v) => v.locked))
+      return {
+        ...s,
+        stage: 'community',
+        question: `${course.title} 내 여행으로 가져와`,
+        notice:
+          '현재 예약한 숙소를 보호하기 위해 여행을 교체하지 않았어요. 새 여행으로 시작하려면 대화를 초기화한 뒤 코스를 가져와 주세요. 저장한 여행과 찜은 유지돼요.',
+      };
+    s = {
+      ...initialTrip(before.savedIds),
+      stage: 'plan',
+      region: course.region,
+      days: course.days,
+      theme: course.theme,
+      communityRegion: before.communityRegion,
+      communityTheme: before.communityTheme,
+      communitySourceId: course.id,
+      plan: course.visits.map((v, i) => ({
+        ...v,
+        id: `visit-${i + 1}`,
+        locked: false,
+      })),
+      collectedIds: [...new Set(course.visits.map((v) => v.entityId))],
+      anchorId:
+        course.visits.find((v) => v.kind === 'place')?.entityId ??
+        course.visits[0]?.anchorId ??
+        null,
+      foodId: course.visits.find((v) => v.kind === 'food')?.entityId ?? null,
+      cafeId: course.visits.find((v) => v.kind === 'cafe')?.entityId ?? null,
+      stayId: course.visits.find((v) => v.kind === 'stay')?.entityId ?? null,
+      meals: course.visits.some((v) => v.kind === 'food'),
+      cafes: course.visits.some((v) => v.kind === 'cafe'),
+      lodging: course.visits.some((v) => v.kind === 'stay'),
+      question: `${course.title} 내 여행으로 가져와`,
+      notice: `${course.author}의 제작 예시 코스를 내 여행에 복사했어요. 출처는 남기고, 이 일정만 자유롭게 수정할 수 있어요. 원본과 이전 대화·찜·저장한 여행은 그대로예요. 실제 예약·회원 게시물은 연결하지 않았어요.`,
+    };
+  }
   if (action.type === 'detail') {
     const selected =
       action.id ??
@@ -1526,6 +1739,140 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
     });
     const entities = namedEntities(q),
       ordinal = ordinalNumber(q);
+    const compactQuestion = q.replace(/\s/g, '');
+    const courseNames = communityTrips.filter(
+      (course) =>
+        compactQuestion.includes(course.title.replace(/\s/g, '')) ||
+        compactQuestion.includes(course.id),
+    );
+    const publicIntent =
+      /여행자(?:가|들이)?\s*만든|공개\s*(?:여행|코스|일정)|커뮤니티|남이\s*(?:만든|짠)|다른\s*(?:사람|여행자).*(?:만든|짠)/.test(
+        q,
+      );
+    const companionIntent = /다른\s*(?:사람|여행자)(?:이랑|과|랑|와|하고)/.test(
+      q,
+    );
+    const communityRequest =
+      publicIntent ||
+      (!companionIntent &&
+        /다른\s*(?:사람|여행자)/.test(q) &&
+        /코스|여행|일정|구경|공개/.test(q) &&
+        !/(?:일정|여행).*(?:짜줘|만들어줘)/.test(q));
+    const courseCopy =
+      /가져와|가져오|가져줘|복사해|복사할|내\s*여행.*(?:담아|옮겨)/.test(q);
+    const communityContext =
+      communityRequest ||
+      courseNames.length > 0 ||
+      (before.stage === 'community' &&
+        (courseCopy || /코스|제주|서울|바다|초록|전체\s*지역/.test(q)) &&
+        !/(?:일정|여행).*(?:짜줘|만들어줘)/.test(q));
+    if (communityContext) {
+      const browse = {
+        ...s,
+        stage: 'community' as const,
+        communityRegion:
+          before.communityRegion === undefined
+            ? before.region
+            : before.communityRegion,
+        communityTheme: before.communityTheme ?? 'all',
+      };
+      if (/전체\s*지역/.test(q)) browse.communityRegion = null;
+      else if (/제주/.test(q)) browse.communityRegion = '제주';
+      else if (/서울/.test(q)) browse.communityRegion = '서울';
+      if (/전체\s*(?:코스|분위기)|모든\s*코스/.test(q))
+        browse.communityTheme = 'all';
+      else if (/바다|해변/.test(q)) browse.communityTheme = 'sea';
+      else if (/초록|숲|차밭/.test(q) && !courseCopy)
+        browse.communityTheme = 'green';
+      if (
+        courseCopy &&
+        !/방법|어떻게|뜻|설명|가져오지|복사하지|(?:가져|복사).*(?:주지\s*마|하지\s*마|말아|아니)/.test(
+          q,
+        )
+      ) {
+        const pool = communityResults(browse),
+          course =
+            courseNames.length === 1
+              ? courseNames[0]
+              : ordinal && before.stage === 'community'
+                ? pool[ordinal === -1 ? pool.length - 1 : ordinal - 1]
+                : undefined;
+        if (course)
+          return {
+            ...reduceTrip(browse, { type: 'copy-community', id: course.id }),
+            question: q,
+          };
+        return {
+          ...browse,
+          notice:
+            '가져올 공개 코스 이름 하나나 목록에 표시된 번호를 말해 주세요. 먼저 코스를 살펴봐도 좋아요.',
+        };
+      }
+      return {
+        ...browse,
+        notice:
+          '다른 여행자의 공개 코스를 둘러보는 제작 예시예요. 실제 회원 게시물은 아직 연결하지 않았어요. 만들던 여행과 담은 곳은 그대로예요.',
+      };
+    }
+    const desiredRegion = /제주/.test(q)
+      ? '제주'
+      : /서울|성수/.test(q)
+        ? '서울'
+        : null;
+    if (
+      desiredRegion &&
+      before.region &&
+      desiredRegion !== before.region &&
+      (before.collectedIds?.length ||
+        before.booked ||
+        before.plan.some((v) => v.locked))
+    )
+      return {
+        ...copy(before),
+        question: q,
+        notice:
+          '담은 곳과 예약 숙소를 보호하기 위해 다른 지역 일정으로 바꾸지 않았어요. 다른 지역의 새 여행은 대화를 초기화한 뒤 시작해 주세요. 찜과 저장한 여행은 유지돼요.',
+      };
+    const areas = [
+      /동쪽|동부/.test(q) ? 'east' : null,
+      /서쪽|서부/.test(q) ? 'west' : null,
+      /남쪽|남부|서귀포/.test(q) ? 'south' : null,
+    ].filter((area): area is 'east' | 'west' | 'south' => Boolean(area));
+    const requestedArea = areas.length === 1 ? areas[0] : undefined;
+    const areaPlanRequest =
+      /(일정|여행|코스).*(짜|만들|구성|추천)/.test(q) ||
+      /\d\s*박\s*\d\s*일/.test(q);
+    if (areas.length > 1 && areaPlanRequest)
+      return {
+        ...copy(before),
+        question: q,
+        notice:
+          '먼저 시작할 권역 하나를 말해 주세요. 예: “제주 동쪽 1박 2일 일정 짜줘”. 여러 권역의 장소를 직접 담아 함께 구성할 수도 있어요.',
+      };
+    if (
+      requestedArea &&
+      areaPlanRequest &&
+      (desiredRegion === '서울' || (s.region === '서울' && !desiredRegion))
+    )
+      return {
+        ...copy(before),
+        question: q,
+        notice:
+          '동쪽·서쪽·남쪽 구분은 이번 제주 샘플에만 있어요. 제주 여행인지 먼저 말해 주세요.',
+      };
+    if (
+      requestedArea &&
+      areaPlanRequest &&
+      before.collectedIds?.some(
+        (id) => findPlace(collectionAnchor(id))?.area !== requestedArea,
+      )
+    )
+      return {
+        ...copy(before),
+        question: q,
+        notice:
+          '담은 곳에는 요청한 권역 밖의 후보가 있어요. 담은 후보와 만들던 여행은 그대로 두었어요. 해당 권역만 구성하려면 담은 곳을 변경하거나 새 대화로 시작해 주세요.',
+      };
     if (/담/.test(q) && /방법|어떻게|무슨\s*뜻|설명해/.test(q))
       return finish({ type: 'help' });
     if (
@@ -1601,13 +1948,7 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
           return literal >= 0
             ? literal
             : compact.indexOf(
-                id === 'hyeopjae'
-                  ? '협재'
-                  : id === 'osulloc'
-                    ? '오설록'
-                    : id === 'saebyeol'
-                      ? '새별'
-                      : entity.name,
+                id === 'hyeopjae' ? '협재' : (placeAliases[id] ?? entity.name),
               );
         };
         ids = ids.sort((a, b) => position(a) - position(b));
@@ -1911,10 +2252,7 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
     }
     // Resolve functional requests before generic place/business selection, so map and
     // progress questions cannot silently replace chosen businesses or rebuild a plan.
-    const mentions = (id: string, name: string) =>
-      q.replace(/\s/g, '').includes(name.replace(/\s/g, '')) ||
-      (id === 'osulloc' && /오설록/.test(q)) ||
-      (id === 'hyeopjae' && /협재/.test(q));
+    const mentions = (id: string, name: string) => mentionsEntity(q, id, name);
     const namedVisit = before.plan.filter(
       (v) =>
         v.entityId &&
@@ -1932,12 +2270,7 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
           '같은 장소가 여러 DAY에 있어요. 아래 날짜별 방문에서 해당 항목을 골라주세요.',
       };
     if (/길\s?찾|가는 길|어떻게 가|찾아가는/.test(q)) {
-      const namedPlace = places.find(
-        (p) =>
-          q.includes(p.name) ||
-          (p.id === 'osulloc' && /오설록/.test(q)) ||
-          (p.id === 'hyeopjae' && /협재/.test(q)),
-      );
+      const namedPlace = places.find((p) => mentionsEntity(q, p.id, p.name));
       const visit =
         namedVisit[0] ??
         (/다음/.test(q) || before.stage === 'progress'
@@ -2092,12 +2425,23 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
       s.theme = 'green';
       recognized = true;
     }
-    const named = places.find(
-      (p) =>
-        q.includes(p.name) ||
-        (p.id === 'osulloc' && /오설록/.test(q)) ||
-        (p.id === 'hyeopjae' && /협재/.test(q)),
-    );
+    const named = places.find((p) => mentionsEntity(q, p.id, p.name));
+    if (requestedArea && areaPlanRequest && !named && !s.collectedIds?.length) {
+      const first = places
+        .filter((p) => p.region === '제주' && p.area === requestedArea)
+        .sort((a, b) =>
+          s.theme === 'sea'
+            ? Number(/바다|해변|해안/.test(b.tags.join(' ') + b.name)) -
+              Number(/바다|해변|해안/.test(a.tags.join(' ') + a.name))
+            : s.theme === 'green'
+              ? b.mood[0] - a.mood[0]
+              : 0,
+        )[0];
+      if (first) {
+        choosePlace(first.id);
+        recognized = true;
+      }
+    }
     if (named) {
       if (/비슷|처럼|닮/.test(q)) {
         s.similarTo = named.id;
@@ -2189,9 +2533,14 @@ function reduceTrip(before: TripState, action: TripAction): TripState {
     }
     const build =
       /(일정|여행).{0,12}(짜|만들|추천|구성)|일정으로/.test(q) ||
-      Boolean(duration && /가고|여행|코스|일정/.test(q));
+      Boolean(duration && /가고|여행|코스|일정/.test(q)) ||
+      Boolean(
+        duration &&
+        /오전|오후/.test(q) &&
+        /장소.{0,12}(?:넣어줘|배치해줘)/.test(q),
+      );
     if (build) {
-      s = makePlan(s, /찜|저장한 장소/.test(q));
+      s = makePlan(s, /찜|저장한 장소/.test(q), requestedArea);
       s.question = q;
       return s;
     }
@@ -2423,6 +2772,7 @@ export function appendTrip(
         }
         state.region = prior.region;
         state.days = prior.days;
+        state.communitySourceId = prior.communitySourceId ?? null;
         state.activeDay = prior.activeDay;
         state.editingId = null;
         state.undoOfTurnId = session.turns[changedIndex].id;
@@ -2458,6 +2808,7 @@ export function appendTrip(
       region: state.region,
       days: state.days,
       booked: state.booked,
+      communitySourceId: state.communitySourceId ?? null,
       visits: state.plan.map((v) => ({ ...v })),
     };
     library = [...library.filter((p) => p.id !== id), saved];
@@ -2477,6 +2828,7 @@ export function appendTrip(
       plan: saved.visits.map((v) => ({ ...v })),
       booked: saved.booked,
       savedPlanId: saved.id,
+      communitySourceId: saved.communitySourceId ?? null,
       question: `${saved.title} 다시 열어줘`,
       anchorId: saved.visits.find((v) => v.kind === 'place')?.entityId ?? null,
     };
@@ -2510,13 +2862,15 @@ export function appendTrip(
 }
 export function explanation(s: TripState) {
   if (s.stage === 'answer') return '다음 질문으로 여행 대화를 이어가세요.';
+  if (s.stage === 'community')
+    return `공개 여행 코스 ${communityResults(s).length}개를 둘러볼 수 있어요. 다른 여행자의 코스를 보고 내 여행으로 가져오는 흐름을 위한 제작 예시예요. 실제 회원 게시물은 연결 전이고, 만들던 여행과 담은 곳은 그대로 유지돼요.`;
   const place = findPlace(s.anchorId);
   if (s.stage === 'discover')
     return s.similarTo
       ? `${findPlace(s.similarTo)?.name}의 분위기에서 출발해 ${s.region ?? '다른 지역'}의 후보를 찾았어요. 마음에 드는 곳을 고르면 그 주변으로 이어갈게요.`
       : `${s.region ?? '제주·서울'}에서 ${s.theme === 'sea' ? '바다 풍경을 즐길' : s.theme === 'green' ? '초록 풍경을 만날' : '여행을 시작할'} 장소예요. 먼저 가고 싶은 곳을 골라보세요.`;
   if (s.stage === 'place')
-    return `${place?.name ?? '선택한 장소'}를 살펴보고 있어요. 여행에 담은 뒤 다른 장소와 주변 식당·카페를 계속 고를 수 있어요. 숙소는 원할 때 나중에 골라도 돼요.`;
+    return `${place?.name ?? '선택한 장소'} 정보를 살펴보고 있어요. 여행에 담은 뒤 다른 장소와 주변 식당·카페를 계속 고를 수 있어요. 숙소는 원할 때 나중에 골라도 돼요.`;
   if (s.stage === 'collection')
     return (s.collectedIds?.length ?? 0)
       ? `지금 여행에 ${(s.collectedIds ?? []).length}곳을 담았어요. ${place?.name ?? s.region} 주변을 더 찾거나 다른 장소를 계속 담을 수 있어요. 숙박은 선택사항이고, 준비되면 담은 곳만 일정으로 만들어요.`
@@ -2579,6 +2933,19 @@ export function nextQuestions(s: TripState): string[] {
     ? `DAY ${editable.day} ${editable.entityId ? visitName(editable) : editable.label} 바꿔줘`
     : '담은 곳 보여줘';
   switch (s.stage) {
+    case 'community':
+      return communityResults(s).length
+        ? [
+            '첫 번째 코스를 내 여행으로 가져와',
+            '다른 여행자가 만든 제주 바다 코스 보여줘',
+            '다른 여행자가 만든 서울 여행 보여줘',
+            '일정 다시 보여줘',
+          ]
+        : [
+            '전체 지역 공개 여행 코스 보여줘',
+            '다른 여행자가 만든 제주 여행 보여줘',
+            '일정 다시 보여줘',
+          ];
     case 'collection':
       return s.collectedIds?.length
         ? [
@@ -2633,7 +3000,11 @@ export function nextQuestions(s: TripState): string[] {
         '할 수 있는 기능 알려줘',
       ];
     case 'discover':
-      return ['제주에서 바다 볼 만한 곳 찾아줘', '서울숲에서 반나절 일정 짜줘'];
+      return [
+        '제주에서 바다 볼 만한 곳 찾아줘',
+        '서울숲에서 반나절 일정 짜줘',
+        '다른 여행자가 만든 제주 여행 보여줘',
+      ];
     case 'place':
       return [
         '이 장소를 여행에 담아줘',

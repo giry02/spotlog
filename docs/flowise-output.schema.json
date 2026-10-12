@@ -512,6 +512,36 @@
                 "$ref": "#/$defs/id"
               }
             }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "const": "copy-community"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "minProperties": 2,
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "const": "community-filter"
+              },
+              "region": {
+                "enum": ["제주", "서울", null]
+              },
+              "theme": {
+                "enum": ["all", "sea", "green"]
+              }
+            }
           }
         ]
       }
@@ -556,7 +586,8 @@
         "history",
         "help",
         "answer",
-        "collection"
+        "collection",
+        "community"
       ]
     }
   }

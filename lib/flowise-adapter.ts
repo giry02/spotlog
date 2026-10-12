@@ -8,6 +8,7 @@ import {
 } from './chat-contract';
 import {
   currentTrip,
+  communityResults,
   explanation,
   foodResults,
   placeResults,
@@ -79,7 +80,7 @@ export function modelContext(request: ChatRequest) {
   return {
     dataMode: 'authored-demo-data',
     warning:
-      '식당·카페·숙소는 가상 업체/예시 가격. 실제 영업·좌표·예약·결제 정보 없음.',
+      '식당·카페·숙소는 가상 업체/예시 가격. 공개 코스와 작성자 프로필도 데모 예시이며 실제 회원 게시물 아님. 실제 영업·좌표·예약·결제 정보 없음.',
     state: {
       stage: s.stage,
       region: s.region,
@@ -106,6 +107,9 @@ export function modelContext(request: ChatRequest) {
       plan: s.plan,
       comparisonIds: s.comparisonIds ?? [],
       detailId: s.detailId ?? null,
+      communitySourceId: s.communitySourceId ?? null,
+      communityRegion: s.communityRegion ?? null,
+      communityTheme: s.communityTheme ?? 'all',
     },
     candidates: {
       places: placeResults(s),
@@ -115,6 +119,14 @@ export function modelContext(request: ChatRequest) {
     // This bounded authored catalog enables selecting new search parameters before
     // selecting a candidate in the same batch; execution still checks live filters.
     catalog: { places, food: restaurants, stays },
+    // Course IDs use a separate namespace from place/business IDs.
+    // Only the filtered visible courses may be copied, with their source preserved.
+    publicCourses: {
+      sourceKind: 'demo',
+      notice:
+        '공개 여행 화면을 위한 데모 작성자·코스 예시. 실제 Spotlog 회원 기록을 조회한 결과가 아님.',
+      candidates: communityResults(s),
+    },
     savedTrips: request.session.library,
     allowedToolTypes: [
       'configure',
@@ -149,6 +161,8 @@ export function modelContext(request: ChatRequest) {
       'library',
       'history',
       'help',
+      'copy-community',
+      'community-filter',
     ],
     conversationControls:
       'reset/undo/resume는 명시적 사용자 문구를 서버에서 별도 처리하므로 모델 actions에 넣지 말 것.',

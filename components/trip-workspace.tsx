@@ -22,6 +22,7 @@ import {
   Sparkles,
   Trash2,
   Utensils,
+  Users,
   Wifi,
   X,
 } from 'lucide-react';
@@ -74,6 +75,8 @@ import {
   type ChatResponse,
 } from '@/lib/chat-contract';
 import { chatEntityDetail } from '@/lib/trip-chat-features';
+import { CommunityUnit, CommunityTripBody } from '@/components/community-trips';
+import { findCommunityTrip, type CommunityTrip } from '@/lib/community-trips';
 
 const STORAGE_KEY = 'moa.spotlog.travel.v1';
 const kindIcon = {
@@ -83,6 +86,7 @@ const kindIcon = {
   stay: BedDouble,
 };
 const stageNames = {
+  community: '다른 여행자 코스',
   collection: '이번 여행에 담은 곳',
   discover: '장소 찾기',
   place: '장소 선택',
@@ -211,10 +215,16 @@ function PlaceList({
               />
               <span>
                 <small>
-                  {String(index + 1).padStart(2, '0')} · {place.region}
+                  {String(index + 1).padStart(2, '0')} ·{' '}
+                  {place.district ?? place.region}
                 </small>
                 <strong>{place.name}</strong>
-                <span>{place.tags.slice(0, 2).join(' · ')}</span>
+                <span>
+                  {place.tags.slice(0, 2).join(' · ')}
+                  {place.durationMinutes
+                    ? ` · ${place.durationMinutes}분 체류 예시`
+                    : ''}
+                </span>
               </span>
               <ChevronRight size={16} />
             </button>
@@ -261,6 +271,16 @@ function PlaceList({
           이 장소로 {period(state.days)} 만들기
           <ArrowRight size={16} />
         </Button>
+      )}
+      {!saved && (
+        <button
+          className="tr-text-link"
+          onClick={() => act({ type: 'show', stage: 'community' })}
+        >
+          <Users size={15} />
+          다른 여행자 코스 둘러보기
+          <ArrowRight size={14} />
+        </button>
       )}
     </section>
   );
@@ -688,6 +708,7 @@ function PlanUnit({
   onDetail: OpenBusiness;
 }) {
   const day = state.activeDay;
+  const sourceTrip = findCommunityTrip(state.communitySourceId ?? '');
   const [menu, setMenu] = useState<string | null>(null);
   const rows = state.plan.filter((v) => v.day === day);
   if (!state.plan.length)
@@ -710,6 +731,15 @@ function PlanUnit({
         title={`${state.region} ${period(state.days)} 여행`}
         count={`${state.plan.filter((v) => v.kind === 'place').length}곳 방문`}
       />
+      {sourceTrip && (
+        <p className="tr-community-source">
+          <Users size={13} />
+          <span>
+            {sourceTrip.author.replace(' · 데모 프로필', '')}의 ‘
+            {sourceTrip.title}’에서 가져온 내 일정 · 공개 코스 예시
+          </span>
+        </p>
+      )}
       <div className="tr-days" role="group" aria-label="일정 날짜">
         {Array.from({ length: state.days }, (_, i) => (
           <button
@@ -847,7 +877,7 @@ function PlanUnit({
             </Button>
           ) : (
             <>
-              {(state.collectedIds?.length ?? 0) > 0 && (
+              {state.plan.length > 0 && (
                 <Button
                   variant="outline"
                   onClick={() => act({ type: 'show', stage: 'discover' })}
@@ -888,6 +918,14 @@ function PlanUnit({
                 <Route size={15} />
                 방문 순서로 보기
                 <ArrowRight size={15} />
+              </button>
+              <button
+                className="tr-text-link"
+                onClick={() => act({ type: 'show', stage: 'community' })}
+              >
+                <Users size={15} />
+                다른 여행자 코스 둘러보기
+                <ArrowRight size={14} />
               </button>
             </>
           )}
@@ -1368,6 +1406,7 @@ function Units({
   busy,
   onFullDetail,
   onEntityDetail,
+  onCommunityPreview,
 }: {
   state: TripState;
   act: Act;
@@ -1377,6 +1416,7 @@ function Units({
   onEntityDetail: (id: string, state: TripState) => void;
   session: TripSession;
   busy: boolean;
+  onCommunityPreview: (trip: CommunityTrip) => void;
 }) {
   return (
     <fieldset
@@ -1391,12 +1431,38 @@ function Units({
         onFullDetail={onFullDetail}
         onEntityDetail={onEntityDetail}
       />
+      {state.stage === 'library' && (
+        <button
+          className="tr-community-entry"
+          onClick={() => act({ type: 'show', stage: 'community' })}
+        >
+          <Users size={21} />
+          <span>
+            <strong>다른 여행자 코스 둘러보기</strong>
+            <small>마음에 드는 코스를 내 여행으로 가져오기</small>
+          </span>
+          <ChevronRight size={18} />
+        </button>
+      )}
+      {state.stage === 'community' && (
+        <CommunityUnit state={state} act={act} onPreview={onCommunityPreview} />
+      )}
       {state.stage === 'collection' && (
         <CollectionUnit
           state={state}
           act={act}
           onEntityDetail={onEntityDetail}
         />
+      )}
+      {state.stage === 'collection' && (
+        <button
+          className="tr-text-link"
+          onClick={() => act({ type: 'show', stage: 'community' })}
+        >
+          <Users size={15} />
+          다른 여행자 코스 둘러보기
+          <ArrowRight size={14} />
+        </button>
       )}
       {state.stage === 'discover' && <PlaceList state={state} act={act} />}
       {state.stage === 'place' && <SelectedPlace state={state} act={act} />}
@@ -1463,7 +1529,14 @@ export default function TripWorkspace() {
     null,
   );
   const [panel, updatePanel] = useState<
-    'scenarios' | 'library' | 'about' | 'wiring' | 'history' | 'business' | null
+    | 'scenarios'
+    | 'library'
+    | 'about'
+    | 'wiring'
+    | 'history'
+    | 'business'
+    | 'community'
+    | null
   >(null);
   const [panelOpen, setPanelOpen] = useState(false);
   const setPanel = (next: typeof panel) => {
@@ -1476,6 +1549,12 @@ export default function TripWorkspace() {
     reference: BusinessRef | { kind: 'place'; id: string };
     state: TripState;
   } | null>(null);
+  const [communityPreview, setCommunityPreview] =
+    useState<CommunityTrip | null>(null);
+  const showCommunityPreview = (trip: CommunityTrip) => {
+    setCommunityPreview(trip);
+    setPanel('community');
+  };
   const showDetailSheet: OpenBusiness = (reference, state) => {
     setDetail({ reference, state });
     setPanel('business');
@@ -1498,6 +1577,10 @@ export default function TripWorkspace() {
   const modalEntity = detail
     ? chatEntityDetail({ ...detail.state, detailId: detail.reference.id })
     : undefined;
+  const modalPlace =
+    detail?.reference.kind === 'place'
+      ? findPlace(detail.reference.id)
+      : undefined;
   const persistSession = (next: TripSession) => {
     if (blockedStorage.current) return;
     try {
@@ -1822,13 +1905,26 @@ export default function TripWorkspace() {
               </span>
               <h1>어디로 떠나볼까요?</h1>
               <p>
-                장소부터 찾아도,
+                가고 싶은 곳을 담거나,
                 <br />
-                여행 일정부터 만들어도 좋아요.
+                다른 여행자 코스에서 시작해 보세요.
               </p>
+              <button
+                className="tr-community-entry"
+                disabled={busy || !ready}
+                onClick={() => act({ type: 'show', stage: 'community' })}
+              >
+                <Users size={21} />
+                <span>
+                  <strong>다른 여행자 코스 둘러보기</strong>
+                  <small>오전·오후 코스를 내 여행으로 가져오기</small>
+                </span>
+                <ChevronRight size={18} />
+              </button>
               {scenarioCards}
               <p className="tr-demo-note">
-                제주·서울 체험 데이터 · 실제 AI·예약 연결 전
+                제주 {places.filter((place) => place.region === '제주').length}
+                곳 · 서울 체험 데이터 · 실제 AI·예약 연결 전
               </p>
               <Button
                 variant="outline"
@@ -1887,15 +1983,24 @@ export default function TripWorkspace() {
                         <p className="tr-notice">{snap.notice}</p>
                       )}
                       <div className="tr-context">
-                        {snap.region && <span>{snap.region}</span>}
-                        <span>{period(snap.days)}</span>
-                        {snap.anchorId && (
+                        {snap.stage === 'community' ? (
+                          <>
+                            <span>{snap.communityRegion ?? '전체 지역'}</span>
+                            <span>공개 코스 예시</span>
+                          </>
+                        ) : (
+                          <>
+                            {snap.region && <span>{snap.region}</span>}
+                            <span>{period(snap.days)}</span>
+                          </>
+                        )}
+                        {snap.stage !== 'community' && snap.anchorId && (
                           <span>
                             <MapPin size={12} />
                             {findPlace(snap.anchorId)?.name}
                           </span>
                         )}
-                        {snap.booked && (
+                        {snap.stage !== 'community' && snap.booked && (
                           <span>
                             <LockKeyhole size={12} />
                             예약 숙소 유지
@@ -1909,6 +2014,7 @@ export default function TripWorkspace() {
                         onDetail={onDetail}
                         onFullDetail={showDetailSheet}
                         onEntityDetail={showEntityDetail}
+                        onCommunityPreview={showCommunityPreview}
                         session={session}
                         busy={busy}
                       />
@@ -2050,7 +2156,10 @@ export default function TripWorkspace() {
           presentation="bottom-sheet"
           portalContainer={deviceRef}
           className={
-            'tr-sheet' + (panel === 'business' ? ' tr-detail-sheet' : '')
+            'tr-sheet' +
+            (panel === 'business' || panel === 'community'
+              ? ' tr-detail-sheet'
+              : '')
           }
           showCloseButton={false}
         >
@@ -2058,17 +2167,19 @@ export default function TripWorkspace() {
           <DialogHeader>
             <div className="sheet-title-row">
               <DialogTitle>
-                {panel === 'business' && detail
-                  ? modalEntity?.name
-                  : panel === 'scenarios'
-                    ? '어떤 여행을 해볼까요?'
-                    : panel === 'library'
-                      ? '찜한 장소와 내 여행'
-                      : panel === 'wiring'
-                        ? '이번 답변에 연결된 기능'
-                        : panel === 'history'
-                          ? '이어온 대화'
-                          : 'Spotlog 여행 체험'}
+                {panel === 'community' && communityPreview
+                  ? communityPreview.title
+                  : panel === 'business' && detail
+                    ? modalEntity?.name
+                    : panel === 'scenarios'
+                      ? '어떤 여행을 해볼까요?'
+                      : panel === 'library'
+                        ? '찜한 장소와 내 여행'
+                        : panel === 'wiring'
+                          ? '이번 답변에 연결된 기능'
+                          : panel === 'history'
+                            ? '이어온 대화'
+                            : 'Spotlog 여행 체험'}
               </DialogTitle>
               <Button
                 variant="ghost"
@@ -2080,20 +2191,25 @@ export default function TripWorkspace() {
               </Button>
             </div>
             <DialogDescription>
-              {panel === 'business'
-                ? '상세정보를 확인해 보세요. 선택하면 대화가 이어져요.'
-                : panel === 'scenarios'
-                  ? '새 대화로 시작합니다. 찜과 저장한 여행은 유지돼요.'
-                  : panel === 'library'
-                    ? '이 브라우저에 저장한 체험 데이터입니다.'
-                    : panel === 'wiring'
-                      ? '선택한 장소·DAY·조건을 다음 카드가 함께 사용해요.'
-                      : panel === 'history'
-                        ? '이전 결과의 조건으로 다시 이어갈 수 있어요.'
-                        : 'Spotlog의 여행 기능을 대화 속에서 연결하는 체험판입니다.'}
+              {panel === 'community'
+                ? '공개 코스 예시 · 내 여행으로 가져온 뒤 자유롭게 수정하세요.'
+                : panel === 'business'
+                  ? '상세정보를 확인해 보세요. 선택하면 대화가 이어져요.'
+                  : panel === 'scenarios'
+                    ? '새 대화로 시작합니다. 찜과 저장한 여행은 유지돼요.'
+                    : panel === 'library'
+                      ? '이 브라우저에 저장한 체험 데이터입니다.'
+                      : panel === 'wiring'
+                        ? '선택한 장소·DAY·조건을 다음 카드가 함께 사용해요.'
+                        : panel === 'history'
+                          ? '이전 결과의 조건으로 다시 이어갈 수 있어요.'
+                          : 'Spotlog의 여행 기능을 대화 속에서 연결하는 체험판입니다.'}
             </DialogDescription>
           </DialogHeader>
           <div className="sheet-body">
+            {panel === 'community' && communityPreview && (
+              <CommunityTripBody trip={communityPreview} />
+            )}
             {panel === 'business' &&
               detail &&
               detail.reference.kind !== 'place' && (
@@ -2129,8 +2245,17 @@ export default function TripWorkspace() {
                     <dl className="tr-detail-facts">
                       <div>
                         <dt>지역</dt>
-                        <dd>{modalEntity.location}</dd>
+                        <dd>{modalPlace?.district ?? modalEntity.location}</dd>
                       </div>
+                      {modalPlace?.durationMinutes && (
+                        <div>
+                          <dt>체류 시간 예시</dt>
+                          <dd>
+                            약 {modalPlace.durationMinutes}분 · 개인별 차이가
+                            있어요
+                          </dd>
+                        </div>
+                      )}
                       <div>
                         <dt>운영시간</dt>
                         <dd>{modalEntity.hours}</dd>
@@ -2144,11 +2269,38 @@ export default function TripWorkspace() {
                   <section className="tr-detail-check">
                     <h3>방문 전에 확인해 주세요</h3>
                     <p>{modalEntity.check}</p>
+                    {modalPlace?.visitNote && <p>{modalPlace.visitNote}</p>}
+                    {modalPlace?.sourceUrl && (
+                      <a
+                        className="tr-text-link"
+                        href={modalPlace.sourceUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        공식 장소 정보 보기
+                        <ArrowUpRight size={14} />
+                      </a>
+                    )}
                   </section>
                 </div>
               )}
             {panel === 'scenarios' && (
               <>
+                <button
+                  className="tr-community-entry"
+                  disabled={busy || !ready}
+                  onClick={() => {
+                    act({ type: 'show', stage: 'community' });
+                    setPanel(null);
+                  }}
+                >
+                  <Users size={21} />
+                  <span>
+                    <strong>다른 여행자 코스 둘러보기</strong>
+                    <small>제주 오전·오후 코스와 여행기 예시</small>
+                  </span>
+                  <ChevronRight size={18} />
+                </button>
                 {scenarioCards}
                 <Button
                   variant="outline"
@@ -2251,30 +2403,37 @@ export default function TripWorkspace() {
                   {period(s.days)}
                 </div>
                 <ol className="tr-wiring">
-                  {(s.stage === 'collection'
+                  {(s.stage === 'community'
                     ? [
-                        '여러 장소·식당·카페 선택 → 이번 여행의 담은 목록',
-                        '기준 장소 변경 → 앞서 담은 곳은 그대로 유지',
-                        '담은 목록·기간 → DAY별 일정, 숙소는 선택',
+                        '공개 여행기 ID·작성자·지역 → 공개 코스 목록',
+                        'DAY별 방문 장소 ID·순서 → 코스 미리보기',
+                        '공개 코스 원본 → 독립된 내 여행 복사본',
+                        '현재는 제작 예시, 실제 연동 시 공개 범위·사용 가능 여부 확인',
                       ]
-                    : s.stage === 'food'
+                    : s.stage === 'collection'
                       ? [
-                          '선택한 장소 ID → 같은 장소의 식당·카페 검색',
-                          `도보 ${s.walk}분·${s.cuisine}·예산 → 후보 필터`,
-                          '선택한 업체 ID → 메뉴·도보 정보 → 일정의 식사 자리',
+                          '여러 장소·식당·카페 선택 → 이번 여행의 담은 목록',
+                          '기준 장소 변경 → 앞서 담은 곳은 그대로 유지',
+                          '담은 목록·기간 → DAY별 일정, 숙소는 선택',
                         ]
-                      : s.stage === 'stay'
+                      : s.stage === 'food'
                         ? [
-                            '여행 지역·기준 장소 → 주변 숙소 후보',
-                            `1박 ${money(s.stayBudget)} → 비교 결과`,
-                            '선택 숙소 ID → 숙박 DAY에 연결',
+                            '선택한 장소 ID → 같은 장소의 식당·카페 검색',
+                            `도보 ${s.walk}분·${s.cuisine}·예산 → 후보 필터`,
+                            '선택한 업체 ID → 메뉴·도보 정보 → 일정의 식사 자리',
                           ]
-                        : [
-                            '장소 검색·찜 목록 → 방문 장소 ID',
-                            '지역·기간·식사·예약 조건 → DAY별 초안',
-                            '방문 ID를 지정한 수정 → 해당 자리만 교체',
-                            '같은 방문 목록 → 일정·방문 순서·내 여행 저장',
-                          ]
+                        : s.stage === 'stay'
+                          ? [
+                              '여행 지역·기준 장소 → 주변 숙소 후보',
+                              `1박 ${money(s.stayBudget)} → 비교 결과`,
+                              '선택 숙소 ID → 숙박 DAY에 연결',
+                            ]
+                          : [
+                              '장소 검색·찜 목록 → 방문 장소 ID',
+                              '지역·기간·식사·예약 조건 → DAY별 초안',
+                              '방문 ID를 지정한 수정 → 해당 자리만 교체',
+                              '같은 방문 목록 → 일정·방문 순서·내 여행 저장',
+                            ]
                   ).map((text, i) => (
                     <li key={text}>
                       <span>0{i + 1}</span>
@@ -2370,6 +2529,23 @@ export default function TripWorkspace() {
               </div>
             )}
           </div>
+          {panel === 'community' && communityPreview && (
+            <div className="tr-detail-action">
+              <span>
+                <strong>{period(communityPreview.days)}</strong>
+                <small>공개 코스 예시</small>
+              </span>
+              <Button
+                disabled={busy}
+                onClick={() => {
+                  act({ type: 'copy-community', id: communityPreview.id });
+                  setPanel(null);
+                }}
+              >
+                <Bookmark size={15} />내 여행에 담기
+              </Button>
+            </div>
+          )}
           {panel === 'business' &&
             detail &&
             detail.reference.kind !== 'place' && (

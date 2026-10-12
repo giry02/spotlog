@@ -38,6 +38,7 @@ const {
 } = await import('../lib/chat-contract.ts');
 const { createTripSession, currentTrip, appendTrip } =
   await import('../lib/trip-engine.ts');
+const { communityTrips } = await import('../lib/community-trips.ts');
 const { predictFlowise, readFlowiseConfig, modelContext } =
   await import('../lib/flowise-adapter.ts');
 const { POST } = await import('../app/api/chat/route.ts');
@@ -312,6 +313,249 @@ test('collection rebuild preserves booked visit identity so the model guard rema
   );
 });
 
+test('community attribution and filters are optional for old sessions and validate known source IDs', () => {
+  const session = createTripSession();
+  const s = currentTrip(session);
+  delete s.communitySourceId;
+  delete s.communityRegion;
+  delete s.communityTheme;
+  assert.ok(parseTripSession(session));
+  s.communitySourceId = 'community-jeju-west-green';
+  s.communityRegion = null;
+  s.communityTheme = 'all';
+  session.library = [
+    {
+      id: 'trip_demo',
+      title: '출처를 보존한 내 여행',
+      region: '제주',
+      days: 1,
+      visits: [],
+      booked: false,
+      communitySourceId: s.communitySourceId,
+    },
+  ];
+  assert.ok(parseTripSession(session));
+  for (const mutate of [
+    (value) => {
+      currentTrip(value).communitySourceId = 'unknown-course';
+    },
+    (value) => {
+      value.library[0].communitySourceId = 'hyeopjae';
+    },
+    (value) => {
+      currentTrip(value).communityRegion = '부산';
+    },
+    (value) => {
+      currentTrip(value).communityTheme = 'shopping';
+    },
+  ]) {
+    const invalid = structuredClone(session);
+    mutate(invalid);
+    assert.throws(
+      () => parseTripSession(invalid),
+      errorCode('INVALID_REQUEST'),
+    );
+  }
+  s.communitySourceId = null;
+  session.library[0].communitySourceId = null;
+  assert.ok(parseTripSession(session));
+});
+
+test('community IDs and filter fields are closed and distinct from place IDs', () => {
+  for (const action of [
+    { type: 'copy-community', id: 'hyeopjae' },
+    { type: 'copy-community', id: 'unknown-course' },
+    { type: 'place', id: 'community-jeju-west-green' },
+    { type: 'community-filter' },
+    { type: 'community-filter', region: '부산' },
+    { type: 'community-filter', theme: 'shopping' },
+    { type: 'community-filter', region: null, plan: [] },
+  ])
+    assert.throws(
+      () =>
+        parseModelReply({
+          message: '공개 코스를 찾아볼게요.',
+          actions: [action],
+        }),
+      errorCode('MODEL_OUTPUT_INVALID'),
+    );
+  assert.ok(
+    parseModelReply({
+      message: '전체 지역의 초록 코스를 보여드릴게요.',
+      actions: [{ type: 'community-filter', region: null, theme: 'green' }],
+    }),
+  );
+});
+
+test('public course browsing filters preserve private itinerary, selections, collection and booking', () => {
+  let session = appendTrip(createTripSession(), {
+    type: 'message',
+    text: '제주 1박 2일 일정 짜줘. 숙소는 이미 예약했어',
+  });
+  session = appendTrip(session, { type: 'collect-entity', id: 'hyeopjae' });
+  const before = structuredClone(currentTrip(session));
+  const result = applyModelReply(
+    request(session, {
+      type: 'message',
+      text: '전체 지역의 초록 공개 코스 보여줘',
+    }),
+    parseModelReply({
+      message: '데모 작성자의 초록 코스 예시예요.',
+      actions: [
+        { type: 'show', stage: 'community' },
+        { type: 'community-filter', region: null, theme: 'green' },
+      ],
+    }),
+  );
+  for (const key of [
+    'region',
+    'theme',
+    'days',
+    'anchorId',
+    'foodId',
+    'cafeId',
+    'stayId',
+    'plan',
+    'collectedIds',
+    'savedPlanId',
+    'booked',
+  ])
+    assert.deepEqual(currentTrip(result)[key], before[key]);
+  assert.equal(currentTrip(result).stage, 'community');
+  const context = modelContext(request(result));
+  assert.equal(context.publicCourses.sourceKind, 'demo');
+  assert.ok(context.publicCourses.candidates.length > 0);
+  assert.ok(
+    context.publicCourses.candidates.every(
+      (course) =>
+        course.theme === 'green' &&
+        course.sourceKind === 'demo' &&
+        course.author.includes('데모'),
+    ),
+  );
+  assert.ok(context.allowedToolTypes.includes('copy-community'));
+});
+
+test('copy-community accepts only currently filtered public candidates', () => {
+  const session = createTripSession();
+  Object.assign(currentTrip(session), {
+    communityRegion: '제주',
+    communityTheme: 'green',
+  });
+  assert.ok(
+    parseChatRequest(
+      request(session, {
+        type: 'copy-community',
+        id: 'community-jeju-west-green',
+      }),
+    ),
+  );
+  assert.throws(
+    () =>
+      parseChatRequest(
+        request(session, {
+          type: 'copy-community',
+          id: 'community-jeju-west-sea',
+        }),
+      ),
+    errorCode('INVALID_REQUEST'),
+  );
+  assert.throws(
+    () =>
+      parseChatRequest(
+        request(session, {
+          type: 'copy-community',
+          id: 'community-seoul-halfday',
+        }),
+      ),
+    errorCode('INVALID_REQUEST'),
+  );
+});
+
+test('copied public course is a private editable snapshot with attribution preserved through save and open', () => {
+  const originalCourses = JSON.stringify(communityTrips);
+  const source = communityTrips.find(
+    (course) => course.id === 'community-jeju-west-green',
+  );
+  const session = createTripSession(['hyeopjae']);
+  const copied = applyModelReply(
+    request(session, {
+      type: 'message',
+      text: '이 공개 코스를 내 여행으로 가져와줘',
+    }),
+    parseModelReply({
+      message: '공개 코스 예시를 내 여행 초안으로 복사했어요.',
+      actions: [{ type: 'copy-community', id: source.id }],
+    }),
+  );
+  assert.equal(currentTrip(copied).communitySourceId, source.id);
+  assert.equal(currentTrip(copied).days, source.days);
+  assert.deepEqual(
+    currentTrip(copied).plan.map((v) => v.entityId),
+    source.visits.map((v) => v.entityId),
+  );
+  assert.deepEqual(currentTrip(copied).savedIds, ['hyeopjae']);
+  const edited = appendTrip(copied, {
+    type: 'remove',
+    id: currentTrip(copied).plan[0].id,
+  });
+  const saved = appendTrip(edited, { type: 'save' });
+  assert.equal(saved.library.at(-1).communitySourceId, source.id);
+  const opened = appendTrip(createTripSession([], saved.library), {
+    type: 'open',
+    id: saved.library.at(-1).id,
+  });
+  assert.equal(currentTrip(opened).communitySourceId, source.id);
+  assert.ok(parseTripSession(opened));
+  assert.equal(JSON.stringify(communityTrips), originalCourses);
+});
+
+test('model public-course copy cannot overwrite booking while direct action gets engine refusal', () => {
+  const session = appendTrip(createTripSession(), {
+    type: 'message',
+    text: '제주 1박 2일 일정 짜줘. 숙소는 이미 예약했어',
+  });
+  const before = JSON.stringify(session);
+  const reply = parseModelReply({
+    message: '공개 코스로 바꿨어요.',
+    actions: [
+      { type: 'bookmark', id: 'hyeopjae', saved: true },
+      { type: 'copy-community', id: 'community-jeju-west-green' },
+    ],
+  });
+  assert.throws(
+    () => applyModelReply(request(session), reply),
+    errorCode('MODEL_ACTION_INVALID'),
+  );
+  assert.equal(JSON.stringify(session), before);
+  const direct = parseChatRequest(
+    request(session, {
+      type: 'copy-community',
+      id: 'community-jeju-west-green',
+    }),
+  );
+  const refused = appendTrip(session, direct.action);
+  assert.deepEqual(currentTrip(refused).plan, currentTrip(session).plan);
+  assert.ok(currentTrip(refused).notice.includes('예약'));
+});
+
+test('later invalid model action cannot leave a partial copied public plan', () => {
+  const session = createTripSession();
+  const before = JSON.stringify(session);
+  const reply = parseModelReply({
+    message: '복사하고 식당을 골랐어요.',
+    actions: [
+      { type: 'copy-community', id: 'community-jeju-west-green' },
+      { type: 'food', id: 'sf-rice' },
+    ],
+  });
+  assert.throws(
+    () => applyModelReply(request(session), reply),
+    errorCode('MODEL_ACTION_INVALID'),
+  );
+  assert.equal(JSON.stringify(session), before);
+});
+
 test('invalid current candidate and locked itinerary mutation are rejected', () => {
   let session = appendTrip(createTripSession(), {
     type: 'place',
@@ -446,6 +690,28 @@ test('changing region through model cannot discard a booked stay', () => {
     errorCode('MODEL_ACTION_INVALID'),
   );
   assert.ok(currentTrip(session).plan.some((v) => v.locked));
+});
+
+test('community region action remains a read-only filter for a booked private trip', () => {
+  const session = appendTrip(
+    appendTrip(createTripSession(), {
+      type: 'message',
+      text: '제주 1박 2일 일정 짜줘. 숙소는 이미 예약했어',
+    }),
+    { type: 'show', stage: 'community' },
+  );
+  const before = structuredClone(currentTrip(session));
+  const result = applyModelReply(
+    request(session, { type: 'message', text: '서울 공개 코스 보여줘' }),
+    parseModelReply({
+      message: '서울의 공개 코스 데모 예시예요.',
+      actions: [{ type: 'region', region: '서울' }],
+    }),
+  );
+  assert.equal(currentTrip(result).communityRegion, '서울');
+  assert.equal(currentTrip(result).region, before.region);
+  assert.deepEqual(currentTrip(result).plan, before.plan);
+  assert.deepEqual(currentTrip(result).collectedIds, before.collectedIds);
 });
 
 test('explicit conversation controls are grounded in exact human phrases', () => {

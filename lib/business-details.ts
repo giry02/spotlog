@@ -1,4 +1,6 @@
 import { findFood, findPlace, findStay, money } from './trip-data';
+import type { Stay } from './trip-data';
+import type { Restaurant } from './connected-data';
 import type { TripState } from './trip-engine';
 
 export type BusinessRef = {
@@ -176,6 +178,57 @@ const foodProfiles: Record<string, Profile> = {
   },
 };
 
+const sampleFoodHeadlines: Record<string, string> = {
+  'geumneung-rice': '모래사장 산책 뒤 담백한 두부 한 상',
+  'geumneung-cafe': '해변을 걷고 나서 차와 토스트로 잠깐 쉬기',
+  'songaksan-rice': '둘레길을 다녀온 뒤 따뜻한 보리밥',
+  'songaksan-cafe': '바람을 맞으며 걷고 난 뒤 커피 한 잔',
+  'seongsan-rice': '일출봉을 둘러보고 먹는 든든한 생선구이',
+  'seongsan-cafe': '성산 산책 뒤 유자차와 작은 디저트',
+  'seopjikoji-rice': '초원과 바닷길 산책 뒤 가벼운 비빔밥',
+  'seopjikoji-cafe': '등대길을 걷고 나서 토스트와 커피',
+  'hamdeok-rice': '해변 나들이에 이어지는 따뜻한 전복죽',
+  'hamdeok-cafe': '바다 산책 뒤 차와 케이크로 쉬어가기',
+  'bijarim-rice': '비자나무 숲 산책 뒤 버섯 보리밥',
+  'bijarim-cafe': '오래 걸은 뒤 조용히 마시는 허브차',
+  'cheonjiyeon-rice': '물소리를 듣고 난 뒤 따뜻한 버섯 정식',
+  'cheonjiyeon-cafe': '폭포 산책과 다음 방문 사이 가벼운 간식',
+  'jeongbang-rice': '해안 폭포를 둘러본 뒤 든든한 국수 한 그릇',
+  'jeongbang-cafe': '폭포를 다녀온 오후의 차와 감귤 케이크',
+  'jusangjeolli-rice': '현무암 절벽을 감상하고 먹는 생선구이',
+  'jusangjeolli-cafe': '파도 구경 뒤 잠시 앉아 커피와 토스트',
+};
+
+// Every catalog business is fictional. A valid future catalog ID still receives
+// an explicit sample profile rather than an empty detail sheet.
+function sampleFoodProfile(item: Restaurant): Profile {
+  const place = findPlace(item.placeId)?.name ?? '선택한 장소';
+  const cafe = item.cuisine === '카페';
+  return {
+    headline:
+      sampleFoodHeadlines[item.id] ??
+      `${place} 산책 뒤 ${cafe ? '잠깐 쉬어가기' : '편하게 한 끼'}`,
+    description: `${place} 인근 여행권의 ${cafe ? '작은 카페' : '작은 식당'}로 만든 가상 프로필이에요. ${item.menu}를 대표 메뉴로 정하고, ${item.quiet ? '조용히 앉아 쉬거나 대화하는' : '여행 동행과 편하게 식사하는'} 분위기로 구성했어요. 실제 업체나 현장 메뉴 정보는 아닙니다.`,
+    features: cafe
+      ? ['창가 좌석 예시', '차와 커피', '가벼운 간식']
+      : ['한식 메뉴 예시', '작은 테이블', '산책 뒤 식사'],
+    hours: cafe
+      ? '10:00–19:00 · 매일 운영 · 주문 마감 18:30 (가상 예시)'
+      : '11:00–20:00 · 쉬는 시간 15:00–17:00 (가상 예시)',
+    check:
+      '메뉴·운영시간·도보 시간은 체험용 설정입니다. 실제 주변 업체는 지도 검색에서 따로 확인할 수 있어요.',
+    extras: cafe
+      ? [
+          { name: '아메리카노', price: 5000, note: '커피 단품 예시' },
+          { name: '버터 스콘', price: 4500, note: '간식 단품 예시' },
+        ]
+      : [
+          { name: '계란말이', price: 7000, note: '곁들임 메뉴 예시' },
+          { name: '유자차', price: 4500, note: '식사 뒤 음료 예시' },
+        ],
+  };
+}
+
 const stayProfiles: Record<string, Omit<Profile, 'extras'> & { room: string }> =
   {
     'stay-coast': {
@@ -208,6 +261,26 @@ const stayProfiles: Record<string, Omit<Profile, 'extras'> & { room: string }> =
       check:
         '표시 가격은 4인 객실 한 개의 1박 예시예요. 인당 가격이나 실제 추가 인원 요금은 아니에요.',
     },
+    'stay-east': {
+      headline: '동부의 바다와 숲 여행을 이어가는 작은 객실',
+      description:
+        '성산·조천·구좌를 둘러보는 제주 동부 여행권의 가상 숙소예요. 두 사람이 쉬는 객실과 기본 시설을 갖춘 예시이며, 특정 명소와의 실제 거리나 이동시간을 의미하지 않아요.',
+      features: ['더블베드', '개별 욕실', '주차 공간 예시', 'Wi-Fi'],
+      hours: '체크인 15:00 · 체크아웃 11:00 (가상 예시)',
+      room: '2인 객실 · 더블베드 1개 · 조식 미포함',
+      check:
+        '동부는 넓은 여행권이에요. 실제 숙소를 고를 때에는 다음 날 방문 장소와 이동 경로를 함께 확인해야 해요.',
+    },
+    'stay-south': {
+      headline: '서귀포의 폭포와 해안을 둘러본 뒤 쉬는 밤',
+      description:
+        '서귀포 시내와 중문을 둘러보는 여행을 위한 가상 숙소예요. 작은 정원과 두 사람의 객실을 설정한 예시이며, 실제 예약 가능한 업체가 아닙니다.',
+      features: ['더블베드', '개별 욕실', '작은 정원 예시', 'Wi-Fi'],
+      hours: '체크인 15:00 · 체크아웃 11:00 (가상 예시)',
+      room: '2인 객실 · 더블베드 1개 · 조식 미포함',
+      check:
+        '서귀포 시내와 중문 사이 실제 이동시간은 제공하지 않아요. 숙박 예산과 객실 구성을 비교하는 용도로 사용해 보세요.',
+    },
     'stay-forest': {
       headline: '서울숲 나들이를 하루 더 이어가는 객실',
       description:
@@ -230,10 +303,25 @@ const stayProfiles: Record<string, Omit<Profile, 'extras'> & { room: string }> =
     },
   };
 
+function sampleStayProfile(
+  item: Stay,
+): Omit<Profile, 'extras'> & { room: string } {
+  return {
+    headline: `${item.region} 여행 뒤 편하게 쉬는 객실 예시`,
+    description: `${item.name}은 여행의 숙박 선택을 체험하기 위해 만든 가상 숙소입니다. 객실·시설·운영시간은 실제 업체 정보가 아닙니다.`,
+    features: ['더블베드 예시', '개별 욕실 예시', 'Wi-Fi 예시'],
+    hours: '체크인 15:00 · 체크아웃 11:00 (가상 예시)',
+    room: '2인 객실 · 더블베드 1개 · 조식 미포함 (가상 예시)',
+    check:
+      '실제 이동시간·예약 가능 여부는 제공하지 않아요. 필요한 인원과 예산을 비교하는 상황을 체험해 보세요.',
+  };
+}
+
 export function businessDetails(ref: BusinessRef) {
   if (ref.kind === 'food') {
     const item = findFood(ref.id),
-      profile = foodProfiles[ref.id];
+      profile =
+        foodProfiles[ref.id] ?? (item ? sampleFoodProfile(item) : undefined);
     if (!item || !profile) return;
     const cafe = item.cuisine === '카페';
     return {
@@ -258,7 +346,8 @@ export function businessDetails(ref: BusinessRef) {
     };
   }
   const item = findStay(ref.id),
-    profile = stayProfiles[ref.id];
+    profile =
+      stayProfiles[ref.id] ?? (item ? sampleStayProfile(item) : undefined);
   if (!item || !profile) return;
   return {
     ...profile,
@@ -279,7 +368,6 @@ export function businessDetails(ref: BusinessRef) {
 export function businessReasons(ref: BusinessRef, state: TripState): string[] {
   const details = businessDetails(ref);
   if (!details) return [];
-  const place = findPlace(state.anchorId)?.name ?? state.region;
   const visit = state.plan.find((v) => v.id === ref.visitId);
   const context = visit
     ? `DAY ${visit.day}의 ${visit.label}`
@@ -290,6 +378,7 @@ export function businessReasons(ref: BusinessRef, state: TripState): string[] {
         : '지금 선택한 여행';
   if (ref.kind === 'food') {
     const item = findFood(ref.id)!;
+    const place = findPlace(item.placeId)?.name ?? '기준 장소';
     return [
       `${place}에서 도보 ${item.walk}분인 예시라 산책 뒤 ${details.kind === '카페' ? '쉬어가는 코스를' : '식사를'} 연결할 수 있어요.`,
       item.quiet
@@ -298,8 +387,13 @@ export function businessReasons(ref: BusinessRef, state: TripState): string[] {
       `${details.primary} ${details.price} 기준으로 ${context}에 필요한 메뉴 예산을 비교할 수 있어요.`,
     ];
   }
+  const item = findStay(ref.id)!;
+  const place =
+    findPlace(
+      item.near.includes(state.anchorId ?? '') ? state.anchorId : item.near[0],
+    )?.name ?? item.region;
   return [
-    `${place} 중심의 ${state.region} 여행에서 비교할 숙소 후보예요. 실제 이동시간은 조회하지 않았어요.`,
+    `${place} 중심의 ${item.region} 여행에서 비교할 숙소 후보예요. 실제 이동시간은 조회하지 않았어요.`,
     `${details.room}. 필요한 인원과 객실 구성을 비교할 수 있어요.`,
     `${details.priceLabel} ${details.price}. ${context}의 숙박 후보로 연결돼요.`,
   ];

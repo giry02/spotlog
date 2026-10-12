@@ -6,6 +6,8 @@
 
 여행을 준비할 때는 장소를 하나 고른 즉시 숙소로 넘어가지 않습니다. 여러 장소를 먼저 담고 각 장소 주변의 식당·카페를 계속 담은 뒤, 원할 때만 숙소를 추가하고 모아 둔 항목 전체로 일정을 만듭니다. `collectedIds`는 이번 여행의 담은 항목이고 `savedIds`는 장기 찜입니다. 담은 항목은 같은 지역의 알려진 ID 최대 30개이며 중복되지 않습니다. 숙소를 담거나 명시적으로 선택하지 않았으면 일정을 만들 때 가상 숙소를 자동으로 넣지 않습니다. 이미 예약한 숙소는 유지합니다.
 
+제주 장소 후보를 동부·서부·남부로 넓히고 DAY별 오전·오후 방문을 표시하는 흐름을 준비했습니다. 오전·오후 표시는 초안의 방문 순서이며 실제 이동 시간·영업 시간을 계산했다는 의미가 아닙니다. 공개 코스 화면에는 데모 작성자 프로필과 코스 예시가 들어갑니다. 실제 Spotlog 회원의 게시물·후기를 가져온 화면은 아닙니다. 코스를 구경할 때는 개인 일정과 담은 항목을 유지하고, 사용자가 내 여행으로 가져오기를 선택할 때만 원본을 복제한 편집 가능한 초안을 만듭니다.
+
 ## 실제 연결 경로
 
 ```text
@@ -66,7 +68,7 @@ URL은 서버가 고정합니다. 클라이언트와 모델에서 endpoint·API 
 
 Flowise의 Configuration Override는 기본적으로 제한됩니다. 해당 배포의 설정에서 세션 전달을 확인하고 필요한 항목만 허용하세요. 현재 어댑터는 임의 노드 설정이나 `$vars`를 바꾸지 않습니다. context를 `question`에 포함하므로 별도의 변수 override를 넓게 열 필요가 없습니다.
 
-바로 옮길 파일을 함께 제공합니다. [시스템 지침](flowise-system-prompt.txt)은 LLM의 System 메시지에 그대로 붙입니다. [닫힌 전체 출력 스키마](flowise-output.schema.json)는 32개 허용 행동의 필수/선택 필드, enum, 정수 범위, ID 형식과 추가 필드 금지를 모두 포함합니다. `reset/undo/resume/message`는 모델 행동에서 제외했습니다.
+바로 옮길 파일을 함께 제공합니다. [시스템 지침](flowise-system-prompt.txt)은 LLM의 System 메시지에 그대로 붙입니다. [닫힌 전체 출력 스키마](flowise-output.schema.json)는 34개 허용 행동의 필수/선택 필드, enum, 정수 범위, ID 형식과 추가 필드 금지를 모두 포함합니다. `reset/undo/resume/message`는 모델 행동에서 제외했습니다.
 
 Flowise Agentflow V2 기본 LLM의 JSON Structured Output은 Key/Type 행을 구성하는 방식입니다. 이 편집기의 JSON Array 항목은 property-map을 받아 변환하므로, 전체 JSON Schema 파일의 `oneOf`와 `$defs`를 그대로 붙여 넣는 방식과 다릅니다. 이 차이는 [공식 노드 정의](https://github.com/FlowiseAI/Flowise/blob/main/packages/components/nodes/agentflow/LLM/LLM.ts)와 [출력 변환 코드](https://github.com/FlowiseAI/Flowise/blob/main/packages/components/src/utils.ts)로 확인했습니다.
 
@@ -84,6 +86,8 @@ actions는 최대 4개이고 순서대로 실행된다. 질문에 필요한 기�
 알려진 후보와 현재 일정·저장한 여행의 ID를 사용한다. 모르는 ID를 만들지 않는다.
 여러 장소·식당·카페는 collect-entity로 쌓고 기존 담은 항목을 유지한다.
 숙소는 요청할 때만 찾고 담는다. 선택하지 않은 숙소를 build에서 자동으로 넣지 않는다.
+공개 코스는 show:community/community-filter로 조회하고 개인 여행 조건은 바꾸지 않는다.
+copy-community는 현재 공개 코스 후보를 내 비공개 초안으로 복제한다. 데모 작성자를 실제 회원으로 설명하지 않는다.
 카페와 식당 선택을 구분하고 현재 도보·음식·가격·지역 조건을 유지한다.
 현재에 없는 DAY를 지정하지 않는다. days를 먼저 configure 한 뒤 필요한 DAY를 사용한다.
 예약한 숙소의 방문을 교체·삭제·다른 DAY 이동·새 지역으로 재작성하지 않는다.
@@ -126,27 +130,31 @@ reset/undo/resume은 서버가 명시적인 사용자 제어 문구로 처리하
 
 ## 기능과 도구의 대응
 
-| 사용자 요청/화면 기능                  | TripAction                                                        | 실제 서비스 연결 시 역할                                          |
-| -------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
-| 지역·기간·여행 조건 설정               | `region`, `configure`                                             | 지원 지역/기간과 사용자 여행 조건 저장                            |
-| 장소·식당·카페·숙소 후보               | `show`, `place`, `food`, `stay`, `select-entity`                  | Spotlog DB/검색 결과 ID를 검증해 선택                             |
-| 분위기가 비슷한 곳                     | 현재 체험의 질문 해석/후보 정렬                                   | 실제 유사도 검색 결과를 받아 현재 후보로 등록 후 선택             |
-| 도보·메뉴·숙박비 조건                  | `walk`, `cuisine`, `stay-budget`, `configure.foodBudget`          | 검색 조건 변경과 재조회                                           |
-| 가게·장소 상세                         | `detail {id?}`                                                    | 사진·메뉴·시설·주소·운영 출처 조회                                |
-| 후보 2–3개 비교                        | `compare {ids?}`                                                  | 같은 종류의 항목 비교 데이터                                      |
-| 여러 장소·식당·카페를 이번 여행에 담기 | `collect-entity {id}`, `uncollect-entity {id}`, `show:collection` | 장기 찜과 별도로 같은 지역 항목을 모으고 전체 목록 확인           |
-| 선택한 곳으로 일정                     | `build {savedOnly?}`                                              | 담은 항목 전체로 여행 초안 생성, 예약 숙소 유지                   |
-| DAY 변경·방문 추가                     | `day`, `add-selected`, `add-entity {id,day?}`                     | 특정 여행 날짜에 장소 ID 추가                                     |
-| 한 방문 교체·삭제·순서 변경·날짜 이동  | `edit`, `remove`, `move {id,direction}`, `transfer {id,day}`      | 해당 방문만 수정; 잠긴 숙소 변경 금지                             |
-| 찜·저장한 여행                         | `bookmark {id,saved?}`, `save`, `open`, `library`                 | 인증된 사용자의 찜/여행 DB 읽기·쓰기                              |
-| 방문 완료·건너뜀·다음 장소             | `progress {id,status}`, `show:progress`                           | 사용자별 여행 진행 상태                                           |
-| 길찾기·실제 업체 찾기                  | `directions`, `show:external`                                     | 검증된 좌표/업체 링크로 지도 앱 연결                              |
-| 여행 예산                              | `budget {people?,rooms?}`                                         | 인원/객실/박수별 알려진 비용과 미포함 비용 계산                   |
-| 일정 점검                              | `check`                                                           | 날짜·중복·미정 항목 점검; 실제 시간 검사는 영업시간/경로 API 필요 |
-| 도움말·대화 기록                       | `help`, `history`                                                 | 기능 안내와 기존 결과의 위치 표시                                 |
-| 초기화·실행 취소·이전 결과 이어가기    | 명시적 사용자 문구 → `reset`, `undo`, `resume`                    | 모델이 임의로 제어하지 않는 대화 상태 전환                        |
+| 사용자 요청/화면 기능                  | TripAction                                                        | 실제 서비스 연결 시 역할                                                             |
+| -------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| 지역·기간·여행 조건 설정               | `region`, `configure`                                             | 지원 지역/기간과 사용자 여행 조건 저장                                               |
+| 장소·식당·카페·숙소 후보               | `show`, `place`, `food`, `stay`, `select-entity`                  | Spotlog DB/검색 결과 ID를 검증해 선택                                                |
+| 분위기가 비슷한 곳                     | 현재 체험의 질문 해석/후보 정렬                                   | 실제 유사도 검색 결과를 받아 현재 후보로 등록 후 선택                                |
+| 도보·메뉴·숙박비 조건                  | `walk`, `cuisine`, `stay-budget`, `configure.foodBudget`          | 검색 조건 변경과 재조회                                                              |
+| 가게·장소 상세                         | `detail {id?}`                                                    | 사진·메뉴·시설·주소·운영 출처 조회                                                   |
+| 후보 2–3개 비교                        | `compare {ids?}`                                                  | 같은 종류의 항목 비교 데이터                                                         |
+| 여러 장소·식당·카페를 이번 여행에 담기 | `collect-entity {id}`, `uncollect-entity {id}`, `show:collection` | 장기 찜과 별도로 같은 지역 항목을 모으고 전체 목록 확인                              |
+| 다른 사람의 공개 코스 구경             | `show:community`, `community-filter {region?,theme?}`             | 공개 여행기/코스 조회. 현재 체험판은 데모 작성자·코스 예시이며 개인 여행 조건은 유지 |
+| 공개 코스를 내 여행으로 가져오기       | `copy-community {id}`                                             | 현재 공개 후보를 비공개 초안으로 복제, 출처 보존, 원본 수정·게시 안 함               |
+| 선택한 곳으로 일정                     | `build {savedOnly?}`                                              | 담은 항목 전체로 여행 초안 생성, 예약 숙소 유지                                      |
+| DAY 변경·방문 추가                     | `day`, `add-selected`, `add-entity {id,day?}`                     | 특정 여행 날짜에 장소 ID 추가                                                        |
+| 한 방문 교체·삭제·순서 변경·날짜 이동  | `edit`, `remove`, `move {id,direction}`, `transfer {id,day}`      | 해당 방문만 수정; 잠긴 숙소 변경 금지                                                |
+| 찜·저장한 여행                         | `bookmark {id,saved?}`, `save`, `open`, `library`                 | 인증된 사용자의 찜/여행 DB 읽기·쓰기                                                 |
+| 방문 완료·건너뜀·다음 장소             | `progress {id,status}`, `show:progress`                           | 사용자별 여행 진행 상태                                                              |
+| 길찾기·실제 업체 찾기                  | `directions`, `show:external`                                     | 검증된 좌표/업체 링크로 지도 앱 연결                                                 |
+| 여행 예산                              | `budget {people?,rooms?}`                                         | 인원/객실/박수별 알려진 비용과 미포함 비용 계산                                      |
+| 일정 점검                              | `check`                                                           | 날짜·중복·미정 항목 점검; 실제 시간 검사는 영업시간/경로 API 필요                    |
+| 도움말·대화 기록                       | `help`, `history`                                                 | 기능 안내와 기존 결과의 위치 표시                                                    |
+| 초기화·실행 취소·이전 결과 이어가기    | 명시적 사용자 문구 → `reset`, `undo`, `resume`                    | 모델이 임의로 제어하지 않는 대화 상태 전환                                           |
 
 `configure`의 허용 필드는 `days:1–3`, `theme:all|sea|green`, `foodBudget:1–1000000|null`, `booked/meals/cafes/lodging:boolean`뿐입니다. `budget`은 `people:1–20`, `rooms:1–10`, `walk`는 `1–20분`, `stay-budget`은 `1–1000000원`입니다. `compare.ids`는 알려진 ID 2–3개입니다. `directions`는 현재 방문 `id`, 장소 `placeId`, 업체 `businessId` 중 하나만 받습니다. 입력 텍스트와 모델의 결과로 직접 URL을 실행하지 않습니다.
+
+`community-filter`는 `region:제주|서울|null` 또는 `theme:all|sea|green` 중 하나 이상을 받습니다. 탐색 조건은 `communityRegion/communityTheme`에만 저장해 개인 여행의 `region/theme`, 장소 선택, 담은 항목과 일정을 바꾸지 않습니다. `copy-community.id`는 `context.publicCourses.candidates`의 코스 ID입니다. 장소·업체 ID와 다른 목록으로 검증하며, 현재 탐색 조건에 없는 코스나 예약한 숙소를 덮어쓰는 복사는 거절합니다. `communitySourceId`는 원본 예시 ID를 뜻하며 저장한 여행과 다시 열기에도 이어집니다. 세 필드가 없는 기존 대화·저장 여행도 사용할 수 있습니다.
 
 Flowise의 Custom Tool을 붙일 때도 이 서버의 action 이름과 의미를 유지하면 화면 코드를 다시 만들 필요가 줄어듭니다. 실제 쓰기 도구에는 사용자 인증, 여행 소유자 확인, 최신 revision 확인이 있어야 합니다. 예약·결제·공개 여행기 게시와 같은 별도의 기능은 이 체험 엔진에서 수행하지 않습니다.
 
@@ -227,6 +235,10 @@ curl http://localhost:3000/api/chat \
 4. 찜·여행 변경마다 계정/여행 소유자와 잠긴 숙박 조건을 서버에서 확인합니다. 모델과 RAG 문서가 권한 범위를 확대할 수 없게 합니다.
 5. 사용자·IP별 요청 제한, 모델 비용 한도, timeout/중단 처리, 관측 지표를 추가합니다. 연결된 모델의 프롬프트/도구 스키마와 Flowise export를 버전 관리하며 검증 시나리오를 돌립니다.
 6. 실제 경로·현재 영업·빈 객실·예약/결제·여행기 게시 등 새로운 외부 행동은 별도 도구와 필요한 확인 흐름으로 추가합니다. 알 수 없는 항목은 확인 전이라고 표시합니다.
+
+공개 여행 기능은 개인 여행 계획과 공개 여행기를 분리해서 연결합니다. Spotlog 프로토타입의 `PersonalTrip`도 개인 일정을 편집하는 기능과 다녀온 장소로 여행기를 만드는 `onJournal` 동작을 분리합니다. 현재 데모의 `community-trips.ts`는 공개 코스 조회 어댑터를 대신하는 제작용 데이터입니다. 실제 연결에서는 공개 상태의 여행기/코스만 서버가 조회하고, 접근 권한·삭제 여부·원본 버전·작성자 출처를 확인한 다음 `publicCourses` 후보로 전달해야 합니다. 비공개 개인 일정을 공개 검색이나 RAG 색인에 넣지 않습니다.
+
+내 여행으로 복사할 때는 사용자 소유의 새 개인 계획을 만들고 원본 공개 코스 ID·버전·출처를 저장합니다. 원본 회원의 게시물은 수정하지 않습니다. 내 초안을 저장해도 공개 여행기를 게시한 것이 아니며, 공개 게시를 원하면 별도의 여행기 작성·게시 기능으로 진행해야 합니다. RAG는 공개 기록을 찾고 설명하는 데 사용할 수 있지만 조회 권한과 복사·저장 권한을 대신하지 않습니다. 현재 공개 체험판은 실제 회원 DB·공개 여행기 API·RAG에 연결하지 않았습니다.
 
 이 작업이 끝나면 같은 Moa 모바일 UI와 카드 구조를 실제 챗봇에서 사용할 수 있습니다. 현재 공개 체험판에 실제 LLM이 연결됐거나 실제 사용자 DB 저장이 완료됐다는 의미는 아닙니다.
 

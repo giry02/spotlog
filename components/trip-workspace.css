@@ -479,6 +479,230 @@
   flex-shrink: 0;
   font-size: 11px;
 }
+.tr-community-entry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 76px;
+  padding: 16px 13px;
+  margin: 18px 0;
+  border: 1px solid #e8dfd2;
+  border-radius: 13px;
+  background: #f3f0e8;
+  color: #626757;
+  text-align: left;
+}
+.tr-community-entry > span {
+  flex: 1;
+  min-width: 0;
+}
+.tr-community-entry svg {
+  flex-shrink: 0;
+}
+.tr-community-entry strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #34382f;
+}
+.tr-community-entry small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #858677;
+}
+.tr-community-entry:disabled {
+  opacity: 0.5;
+}
+.tr-community-intro {
+  color: #787a6d;
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 18px;
+}
+.tr-community .tr-pills + .tr-pills {
+  margin-top: 10px;
+}
+.tr-community-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 16px;
+}
+.tr-community-card {
+  border: 1px solid #e7e8e0;
+  border-radius: 13px;
+  overflow: hidden;
+  background: #fff;
+}
+.tr-community-preview {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  text-align: left;
+}
+.tr-community-preview > img {
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+  display: block;
+}
+.tr-community-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 15px 13px;
+}
+.tr-community-card-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+  color: #8a8b7b;
+}
+.tr-community-copy > strong {
+  font-size: 17px;
+  line-height: 1.55;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.tr-community-author {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #7d8172;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.tr-community-description {
+  color: #828474;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.tr-community-route {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  font-size: 11px;
+  line-height: 1.8;
+  color: #717b63;
+}
+.tr-community-route > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.tr-community-actions {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  border-top: 1px solid #ecece6;
+}
+.tr-community-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 48px;
+  padding: 10px 7px;
+  border: 0;
+  background: #fff;
+  color: #777b6d;
+  font-size: 12px;
+  line-height: 1.5;
+  white-space: normal;
+  word-break: keep-all;
+}
+.tr-community-actions button:last-child {
+  border-left: 1px solid #ecece6;
+  background: #f3f5ee;
+  color: #59694c;
+  font-weight: 600;
+}
+.tr-community-actions svg {
+  flex-shrink: 0;
+}
+.tr-community-source {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  background: #f2f4ec;
+  border-radius: 9px;
+  padding: 11px;
+  margin: 0 0 16px;
+  color: #78836b;
+  font-size: 11px;
+  line-height: 1.8;
+}
+.tr-community-source svg {
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.tr-community-detail-intro {
+  padding: 18px 0;
+}
+.tr-community-detail-intro > p {
+  font-size: 14px;
+  line-height: 1.9;
+  margin: 12px 0;
+  color: #727666;
+}
+.tr-community-day {
+  margin-top: 12px;
+}
+.tr-community-day h3 {
+  font-size: 15px;
+  margin: 0 0 12px;
+  color: #505b42;
+}
+.tr-community-day ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.tr-community-day li {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 10px;
+  padding: 13px 0;
+  border-top: 1px solid #edede6;
+  align-items: center;
+}
+.tr-community-time {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #8a8b7c;
+}
+.tr-community-day li > span:last-child {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  min-width: 0;
+}
+.tr-community-day img {
+  flex-shrink: 0;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.tr-community-day li strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.7;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.tr-community-day li small {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 10px;
+  line-height: 1.8;
+  color: #9a9b8c;
+  margin-top: 3px;
+}
 .tr-empty {
   display: flex;
   flex-direction: column;
@@ -1635,6 +1859,7 @@
   font-size: 14px;
   min-height: 48px;
   white-space: normal;
+  word-break: keep-all;
   line-height: 1.5;
   padding: 10px 14px;
 }

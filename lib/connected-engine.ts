@@ -1,4 +1,4 @@
-import {places,monitors,restaurants,getPlace,getMonitor,getRestaurant,won,type Domain} from './connected-data';
+import {legacyPlaces as places,monitors,restaurants,getPlace,getMonitor,getRestaurant,won,type Domain} from './connected-data';
 
 export type UnitId='similarity'|'mood'|'nearby'|'map'|'route'|'products'|'comparison'|'price';
 export type SharedState={domain:Domain;revision:number;anchorId:string;selectedPlaceId:string|null;selectedRestaurantId:string|null;selectedMonitorId:string|null;compareIds:string[];placeRegion:'all'|'제주'|'서울';walkMinutes:number;cuisine:'전체'|'한식'|'양식'|'카페';foodBudget:number|null;quiet:boolean;maxPrice:number;gaming:boolean;eyeComfort:boolean;nearby:boolean;showMap:boolean;showComparison:boolean;question:string;notice:string;lastAction:string;focus:UnitId|null;};
