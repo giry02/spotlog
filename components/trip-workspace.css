@@ -1,13 +1,31 @@
-.tr-device .tr-brand {
-  border: 0;
-  background: none;
-  padding: 0;
-  color: inherit;
+.tr-device header.tr-topbar {
+  display: block;
+  padding: 12px 16px 10px;
+}
+.tr-header-navigation {
+  display: grid;
+  grid-template-columns: 0.95fr 0.95fr 1.15fr;
+  gap: 8px;
+}
+.tr-device .tr-header-navigation button[data-slot='button'] {
+  min-width: 0;
+  width: 100%;
+  min-height: 44px;
+  height: auto;
+  padding: 10px 6px;
+  gap: 5px;
+  border-radius: 12px;
+  border-color: #e3e3da;
+  background: #fff;
+  font-size: 12px;
+  line-height: 1.5;
   white-space: nowrap;
 }
-.tr-device .tr-brand > svg {
-  margin-left: 2px;
-  color: #77776f;
+.tr-device .tr-header-navigation button:first-child {
+  background: #f0f0ea;
+}
+.tr-header-navigation svg {
+  flex-shrink: 0;
 }
 .tr-chat-toolbar {
   display: flex;
@@ -722,7 +740,18 @@
 }
 .tr-plan-actions {
   margin-top: 18px;
+  padding-top: 18px;
   border-top: 1px solid #eceee7;
+  display: grid;
+  gap: 12px;
+}
+.tr-plan-actions > button {
+  width: 100%;
+  min-height: 44px;
+}
+.tr-plan-actions > .tr-primary[data-slot='button'],
+.tr-plan-actions > .tr-text-link {
+  margin: 0;
 }
 .tr-plan .tr-primary {
   background: #272923;
@@ -1471,6 +1500,9 @@
   max-width: 62%;
   font-size: 14px;
   min-height: 48px;
+  white-space: normal;
+  line-height: 1.5;
+  padding: 10px 14px;
 }
 .tr-sheet-heading {
   font-size: 16px;
@@ -1627,14 +1659,9 @@
   color: #8e8d7e;
 }
 @media (max-width: 360px) {
-  .tr-device .topbar {
-    gap: 4px;
-  }
-  .tr-device .tr-brand {
-    font-size: 25px;
-  }
-  .tr-device .tr-brand > span {
-    font-size: 11px;
+  .tr-device header.tr-topbar {
+    padding-left: 12px;
+    padding-right: 12px;
   }
   .moa-device .tr-chat {
     padding: 18px 12px 24px;

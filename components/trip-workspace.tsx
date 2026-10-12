@@ -13,15 +13,14 @@ import {
   ChevronRight,
   Coffee,
   History,
+  Home,
   MessageCircle,
   LoaderCircle,
-  Info,
   Layers3,
   LockKeyhole,
   MapPin,
   MoreHorizontal,
   Route,
-  RotateCcw,
   Signal,
   Sparkles,
   Trash2,
@@ -1455,58 +1454,40 @@ export default function TripWorkspace() {
             <BatteryFull size={21} />
           </div>
         </div>
-        <header className="topbar">
-          <button
-            className="brand tr-brand"
-            onClick={() => setPanel('scenarios')}
-            aria-label="다른 여행 시나리오"
-          >
-            moa<span>Spotlog 챗봇</span>
-            <ChevronDown size={13} />
-          </button>
-          <div className="top-actions">
+        <header className="topbar tr-topbar">
+          <nav className="tr-header-navigation" aria-label="상단 메뉴">
             <Button
-              variant="ghost"
-              size="icon"
-              aria-label="대화 초기화"
-              title="대화 초기화"
-              disabled={!ready || (!started && !input)}
+              variant="outline"
+              aria-label="처음으로"
+              disabled={!ready}
               onClick={blank}
             >
-              <RotateCcw size={18} />
+              <Home size={15} /> 처음으로
             </Button>
             <Button
-              variant="ghost"
-              size="icon"
-              aria-label="찜한 장소와 내 여행"
-              disabled={busy || !ready}
-              onClick={() => act({ type: 'library' })}
-            >
-              <Bookmark size={19} />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="체험 안내"
-              onClick={() => setPanel('about')}
-            >
-              <Info size={19} />
-            </Button>
-          </div>
-        </header>
-        <div className="tr-chat-toolbar">
-          <button onClick={() => setPanel('scenarios')}>
-            <Sparkles size={14} />
-            {started ? '다른 시나리오' : '여행 시나리오'}
-          </button>
-          <div>
-            <button
+              variant="outline"
               aria-label="대화 이력"
               disabled={busy || !ready}
               onClick={() => act({ type: 'history' })}
             >
-              <History size={15} />
-            </button>
+              <History size={15} /> 대화 이력
+            </Button>
+            <Button
+              variant="outline"
+              aria-label="저장한 여행"
+              disabled={busy || !ready}
+              onClick={() => act({ type: 'library' })}
+            >
+              <Bookmark size={15} /> 저장한 여행
+            </Button>
+          </nav>
+        </header>
+        <div className="tr-chat-toolbar">
+          <button onClick={() => setPanel('scenarios')}>
+            <Sparkles size={14} />
+            여행 시나리오
+          </button>
+          <div>
             {started && (
               <button onClick={() => setPanel('wiring')}>
                 <Layers3 size={14} />
@@ -1862,6 +1843,12 @@ export default function TripWorkspace() {
                 >
                   직접 질문하며 새로 시작
                 </Button>
+                <button
+                  className="tr-text-link"
+                  onClick={() => setPanel('about')}
+                >
+                  체험 안내·사진 출처
+                </button>
               </>
             )}
             {panel === 'library' && (
