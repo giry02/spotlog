@@ -27,7 +27,7 @@ test('Apple private email and missing email are supported without merging identi
  assert.equal(validateSocialUser(a).email,null);
  assert.equal(validateSocialUser({...a,email:'private@privaterelay.appleid.com'}).provider,'APPLE');
  assert.equal(validateSocialSession({state:'PENDING_SIGNUP',provider:'GOOGLE'}).state,'PENDING_SIGNUP');
- for(const bad of [{state:'SIGNED_IN',user:{...a,id:''}},{state:'PENDING_SIGNUP',provider:'NAVER'},a])assert.throws(()=>validateSocialSession(bad));
+ for(const bad of [{state:'SIGNED_IN',user:{...a,id:''}},{state:'PENDING_SIGNUP',provider:'EMAIL'},a])assert.throws(()=>validateSocialSession(bad));
 });
 test('OAuth redirects are HTTPS and exactly the selected provider; return route cannot leave app',()=>{
  assert.equal(validateAuthorizeUrl('https://accounts.google.com/o/oauth2/v2/auth','GOOGLE'),'https://accounts.google.com/o/oauth2/v2/auth');
@@ -49,7 +49,7 @@ test('social signup uses server session plus versions; no browser user ID, GPS o
  const adapter=createSocialAccountAdapter('/api/account'),signal=new AbortController().signal;
  await adapter.beginSignIn('APPLE','/spotlog/#profile',signal);
  assert.equal((await adapter.completeSignup(published(),required,signal)).id,'server-member');
- assert.deepEqual(JSON.parse(calls[0].options.body),{returnTo:'/spotlog/#profile'});
+ assert.deepEqual(JSON.parse(calls[0].options.body),{returnTo:'/spotlog/#profile',intent:'login'});
  assert.equal(calls[1].options.credentials,'same-origin');assert.equal(calls[1].options.method,'POST');
  assert.deepEqual(Object.keys(JSON.parse(calls[1].options.body)).sort(),['accepted','marketing','versions']);
 });

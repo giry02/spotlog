@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 import type { SocialAccountAdapter, SocialSession } from './socialAccountService';
 import type { ErrorKind } from './errorStates';
 
-export type AccountView = 'login' | 'signup';
+export type AccountView = 'login' | 'signup' | 'manage';
 export interface AccountContextValue {
   adapter: SocialAccountAdapter;
   session: SocialSession;

@@ -1,4 +1,5 @@
 import { naverDirectionsUrl } from './placeDirections';
+import { accountProviderName } from './accountMethods';
 import { useUiCopy } from './frontendCopy';
 import { Settings } from 'lucide-react';
 import {
@@ -1720,8 +1721,8 @@ function Profile({ native, journeys, comments, cheers, profile, notificationPref
       <p>공개 장소와 여행기는 바로 둘러볼 수 있어요.<br />{account.adapter.reviewAccount ? '검수 계정으로 로그인해 댓글·응원·여행 화면을 확인할 수 있어요.' : '로그인하면 댓글·응원을 남기고 내 여행을 계정에 보관할 수 있어요.'}</p>
       {account.status === 'ERROR' && <ErrorPage inline kind={account.failureKind ?? 500} onRetry={account.refresh} onHome={onBack} />}
       <Button disabled={account.status === 'CHECKING'} onClick={() => account.openAccount('login')}>로그인</Button>
-      <Button variant="secondary" disabled={account.status === 'CHECKING'} onClick={() => account.openAccount('signup')}>이메일 회원가입</Button>
-      <p className="guest-signin-options">{account.adapter.reviewAccount ? '이메일 검수 로그인 가능 · Google·Apple은 연결 준비 중' : 'Google·Apple 로그인도 사용할 수 있어요.'}</p>
+      <Button variant="secondary" disabled={account.status === 'CHECKING'} onClick={() => account.openAccount('signup')}>회원가입</Button>
+      <p className="guest-signin-options">카카오 · 네이버 · Google · Apple · 이메일</p>
     </section>
     <section className="guest-device-card"><h2>이 기기에 보관한 여행</h2><p>기존 장소·여행·작성 중인 내용을 그대로 이어볼 수 있어요. 아직 계정에 연결한 기록은 아니에요.</p><Button variant="secondary" onClick={onDeviceTrips}>기기 기록 보기</Button></section>
     <button className="phase-three-profile-settings" onClick={() => setPrivacyOpen(true)}><ShieldCheck size={16} />약관 · 개인정보</button>
@@ -1729,7 +1730,7 @@ function Profile({ native, journeys, comments, cheers, profile, notificationPref
   </div>;
 
   return <div className="page profile-page"><header className="profile-topbar"><button onClick={onBack} aria-label={copy("홈으로 돌아가기")}><ArrowLeft size={21} /></button><div><small>{account.adapter.reviewAccount ? '검수 계정 로그인됨' : '로그인됨'}</small><h1>내 계정</h1></div></header>
-    <section className="member-account-card"><CircleUserRound size={36} aria-hidden="true" /><div><h2>{member.displayName}</h2><p>{member.provider === 'EMAIL' ? '이메일' : member.provider === 'GOOGLE' ? 'Google' : 'Apple'} 계정 · {member.email ?? '이메일 미제공'}</p>{account.adapter.reviewAccount && <p>로컬 화면 검수용 · 실제 서비스 회원 아님</p>}</div><Button variant="secondary" onClick={() => account.openAccount()}>계정 관리 · 로그아웃</Button></section>
+    <section className="member-account-card"><CircleUserRound size={36} aria-hidden="true" /><div><h2>{member.displayName}</h2><p>{accountProviderName(member.provider)} 계정 · {member.email ?? '이메일 미제공'}</p>{account.adapter.reviewAccount && <p>로컬 화면 검수용 · 실제 서비스 회원 아님</p>}</div><Button variant="secondary" onClick={() => account.openAccount('manage')}>계정 관리 · 로그아웃</Button></section>
     <section className="guest-device-card"><h2>이 기기에 보관한 여행</h2><p>기기 기록은 그대로 유지돼요. 계정 동기화·실제 활동 통계는 서버 연결 후 제공해요.</p><Button variant="secondary" onClick={onDeviceTrips}>기기 기록 보기</Button></section>
     <details className="device-profile-preview"><summary>기기 프로필 · 활동 미리보기</summary><p className="device-record-note">아래 이름·아이콘·등급·통계·알림은 기기 검수 자료예요. 로그인 계정의 프로필이나 실제 서버 집계와 연결되지 않았어요.</p>
     <div className="profile-card creator-profile-card"><label className="profile-avatar-upload"><CreatorAvatar name={profile.displayName} image={profile.avatar} size="large" /><span className="profile-avatar-edit"><Upload size={13} /></span><input type="file" accept="image/*" onChange={(event) => void handleAvatar(event)} aria-label={copy("내 프로필 아이콘 업로드")} /></label><div><div className="profile-name-row"><CreatorBadge copyCount={copyCount} /><h3>{profile.displayName}</h3></div><p>{profile.bio}</p><button onClick={() => document.querySelector<HTMLInputElement>('.profile-avatar-upload input')?.click()}><ImagePlus size={13} />{copy("내 아이콘 바꾸기")}</button></div></div>

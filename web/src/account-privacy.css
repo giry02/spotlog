@@ -4,6 +4,14 @@
 .account-welcome>strong{font-size:var(--type-headline);}
 .account-welcome p,.account-form .signup-short-note{font-size:var(--type-subhead);}
 .social-login-buttons{display:grid;gap:12px;}
+.account-method-buttons{display:grid;gap:12px;}
+.phase-sheet .account-method-buttons>.ui-button{display:grid;grid-template-columns:24px minmax(0,1fr) 18px;align-items:center;gap:12px;width:100%;min-height:52px;padding:12px 16px;border-radius:12px;font-size:var(--type-subhead);text-align:left;}
+.account-method-symbol{display:grid;place-items:center;font-size:18px;font-weight:800;line-height:1;width:24px;height:24px;}
+.phase-sheet .account-method-kakao{background:#fee500;color:#191919;border-color:#e1cd00;}
+.phase-sheet .account-method-naver{background:#117743;color:white;border-color:#117743;}
+.phase-sheet .account-method-apple{background:#171716;color:white;border-color:#171716;}
+.account-method-switch{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;font-size:var(--type-subhead);}
+.account-method-switch>span{color:var(--muted);}
 .account-form .account-social-notice{font-size:var(--type-subhead);line-height:var(--leading-body);padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);}
 .account-review-notice{display:grid;gap:6px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--paper);}
 .account-review-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}

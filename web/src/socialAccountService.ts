@@ -1,8 +1,10 @@
 import { isRecord, requestJson, servicePath, ServiceError } from './serviceRequest.ts';
 import { type PolicyBundle, type PolicyId, type SignupChoices, signupConsentPayload } from './accountPolicies.ts';
 
-export type LoginProvider = 'GOOGLE' | 'APPLE';
+export type LoginProvider = 'KAKAO' | 'NAVER' | 'GOOGLE' | 'APPLE';
 export type AccountProvider = 'EMAIL' | LoginProvider;
+/** UI intent; identity and existing/new membership are decided by the server. */
+export type AccountIntent = 'login' | 'signup';
 export interface SocialAccountUser { id: string; displayName: string; email: string | null; provider: AccountProvider }
 export interface EmailSignup { email: string; password: string; displayName: string }
 export type SocialSession = { state: 'GUEST' } | { state: 'PENDING_SIGNUP'; provider: LoginProvider } | { state: 'SIGNED_IN'; user: SocialAccountUser };
@@ -12,8 +14,8 @@ export interface SocialAccountAdapter {
   reviewAccount?: { email: string; password: string };
   session(signal: AbortSignal): Promise<SocialSession>;
   policies(signal: AbortSignal): Promise<PolicyBundle>;
-  beginSignIn(provider: LoginProvider, returnTo: string, signal: AbortSignal): Promise<string>;
-  completeSignup(bundle: PolicyBundle, choices: SignupChoices, signal: AbortSignal): Promise<SocialAccountUser>;
+  beginSignIn(provider: LoginProvider, returnTo: string, signal: AbortSignal, intent?: AccountIntent): Promise<string>;
+  completeSignup(bundle: PolicyBundle, choices: SignupChoices, signal: AbortSignal, expectedProvider?: LoginProvider): Promise<SocialAccountUser>;
   signInEmail(email: string, password: string, signal: AbortSignal): Promise<SocialAccountUser>;
   signUpEmail(input: EmailSignup, bundle: PolicyBundle, choices: SignupChoices, signal: AbortSignal): Promise<{ state: 'VERIFICATION_REQUIRED'; email: string }>;
   verifyEmail(email: string, code: string, signal: AbortSignal): Promise<SocialAccountUser>;
@@ -22,10 +24,10 @@ export interface SocialAccountAdapter {
   signOut(signal: AbortSignal): Promise<void>;
   removeAccount(signal: AbortSignal): Promise<void>;
 }
-const provider = (v: unknown): v is LoginProvider => v === 'GOOGLE' || v === 'APPLE';
+export const isLoginProvider = (v: unknown): v is LoginProvider => v === 'KAKAO' || v === 'NAVER' || v === 'GOOGLE' || v === 'APPLE';
 const text = (v: unknown): v is string => typeof v === 'string' && Boolean(v.trim());
 export function validateSocialUser(value: unknown): SocialAccountUser {
-  if (!isRecord(value) || !text(value.id) || !text(value.displayName) || !(provider(value.provider) || value.provider === 'EMAIL') || !(value.email === null || text(value.email)) || (value.provider === 'EMAIL' && !validEmail(value.email ?? ''))) throw new ServiceError(502, 'invalid-user');
+  if (!isRecord(value) || !text(value.id) || !text(value.displayName) || !(isLoginProvider(value.provider) || value.provider === 'EMAIL') || !(value.email === null || text(value.email)) || (value.provider === 'EMAIL' && !validEmail(value.email ?? ''))) throw new ServiceError(502, 'invalid-user');
   return { id: value.id, displayName: value.displayName, email: value.email as string | null, provider: value.provider };
 }
 export const validEmail = (value: string): boolean => value.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
@@ -37,7 +39,7 @@ function emailInput(email: string, password?: string): string {
 export function validateSocialSession(value: unknown): SocialSession {
   if (!isRecord(value)) throw new ServiceError(502, 'invalid-session');
   if (value.state === 'GUEST') return { state: 'GUEST' };
-  if (value.state === 'PENDING_SIGNUP' && provider(value.provider)) return { state: 'PENDING_SIGNUP', provider: value.provider };
+  if (value.state === 'PENDING_SIGNUP' && isLoginProvider(value.provider)) return { state: 'PENDING_SIGNUP', provider: value.provider };
   if (value.state === 'SIGNED_IN') return { state: 'SIGNED_IN', user: validateSocialUser(value.user) };
   throw new ServiceError(502, 'invalid-session');
 }
@@ -57,8 +59,9 @@ export function validateAuthorizeUrl(value: unknown, selected: LoginProvider): s
   if (!text(value)) throw new ServiceError(502, 'invalid-authorize-url');
   let url: URL;
   try { url = new URL(value); } catch { throw new ServiceError(502, 'invalid-authorize-url'); }
-  const allowed = selected === 'GOOGLE' ? 'accounts.google.com' : 'appleid.apple.com';
-  if (url.protocol !== 'https:' || url.hostname !== allowed || url.port || url.username || url.password) throw new ServiceError(502, 'invalid-authorize-url');
+  if (!isLoginProvider(selected)) throw new ServiceError(0, 'invalid-provider');
+  const allowed: Record<LoginProvider, string> = { KAKAO: 'kauth.kakao.com', NAVER: 'nid.naver.com', GOOGLE: 'accounts.google.com', APPLE: 'appleid.apple.com' };
+  if (url.protocol !== 'https:' || url.hostname !== allowed[selected] || url.port || url.username || url.password) throw new ServiceError(502, 'invalid-authorize-url');
   return url.href;
 }
 export function validateReturnTo(value: string): string {
@@ -76,14 +79,24 @@ export function createSocialAccountAdapter(endpoint: string): SocialAccountAdapt
   return { configured: Boolean(path),
     async session(signal) { if (!path) return { state: 'GUEST' }; try { return validateSocialSession(await call('/social/session', signal)); } catch (e) { if (e instanceof ServiceError && e.status === 401) return { state: 'GUEST' }; throw e; } },
     async policies(signal) { return validatePolicies(await call('/policies', signal)); },
-    async beginSignIn(selected, returnTo, signal) {
-      if (!provider(selected)) throw new ServiceError(0, 'invalid-provider');
-      const result = await call(`/oauth/${selected.toLowerCase()}/start`, signal, { returnTo: validateReturnTo(returnTo) });
+    async beginSignIn(selected, returnTo, signal, intent = 'login') {
+      if (!isLoginProvider(selected)) throw new ServiceError(0, 'invalid-provider');
+      if (intent !== 'login' && intent !== 'signup') throw new ServiceError(0, 'invalid-intent');
+      const result = await call(`/oauth/${selected.toLowerCase()}/start`, signal, { returnTo: validateReturnTo(returnTo), intent });
       if (!isRecord(result)) throw new ServiceError(502, 'invalid-start');
       return validateAuthorizeUrl(result.authorizeUrl, selected);
     },
-    async completeSignup(bundle, choices, signal) { return validateSocialUser(await call('/social/signup', signal, signupConsentPayload(validatePolicies(bundle), choices))); },
-    async signInEmail(email, password, signal) { return validateSocialUser(await call('/email/sign-in', signal, { email: emailInput(email, password), password })); },
+    async completeSignup(bundle, choices, signal, expectedProvider) {
+      if (expectedProvider !== undefined && !isLoginProvider(expectedProvider)) throw new ServiceError(0, 'invalid-provider');
+      const user = validateSocialUser(await call('/social/signup', signal, signupConsentPayload(validatePolicies(bundle), choices)));
+      if (!isLoginProvider(user.provider) || (expectedProvider !== undefined && user.provider !== expectedProvider)) throw new ServiceError(502, 'unexpected-provider');
+      return user;
+    },
+    async signInEmail(email, password, signal) {
+      const user = validateSocialUser(await call('/email/sign-in', signal, { email: emailInput(email, password), password }));
+      if (user.provider !== 'EMAIL') throw new ServiceError(502, 'unexpected-provider');
+      return user;
+    },
     async signUpEmail(input, bundle, choices, signal) {
       const email = emailInput(input.email, input.password);
       if (!validSignupPassword(input.password) || !input.displayName.trim() || input.displayName.trim().length > 40) throw new ServiceError(0, 'invalid-signup-input');
@@ -93,7 +106,9 @@ export function createSocialAccountAdapter(endpoint: string): SocialAccountAdapt
     },
     async verifyEmail(email, code, signal) {
       if (!/^\d{6}$/.test(code)) throw new ServiceError(0, 'invalid-verification-code');
-      return validateSocialUser(await call('/email/verify', signal, { email: emailInput(email), code }));
+      const user = validateSocialUser(await call('/email/verify', signal, { email: emailInput(email), code }));
+      if (user.provider !== 'EMAIL') throw new ServiceError(502, 'unexpected-provider');
+      return user;
     },
     async resendVerification(email, signal) { await call('/email/verification/resend', signal, { email: emailInput(email) }); },
     async resetPassword(email, signal) { await call('/email/password-reset', signal, { email: emailInput(email) }); },

@@ -6,6 +6,18 @@
   "emailUnverified": { "status": 409, "code": "EMAIL_VERIFICATION_REQUIRED" },
   "verificationExpired": { "status": 410, "code": "VERIFICATION_EXPIRED" },
   "pendingSignup": { "state": "PENDING_SIGNUP", "provider": "GOOGLE" },
+  "kakaoPendingSignup": { "state": "PENDING_SIGNUP", "provider": "KAKAO" },
+  "naverPendingSignup": { "state": "PENDING_SIGNUP", "provider": "NAVER" },
+  "kakaoExistingMember": { "state": "SIGNED_IN", "user": { "id": "sample-kakao-member", "displayName": "카카오 샘플 여행자", "provider": "KAKAO", "email": null } },
+  "naverExistingMember": { "state": "SIGNED_IN", "user": { "id": "sample-naver-member", "displayName": "네이버 샘플 여행자", "provider": "NAVER", "email": "sample@example.invalid" } },
+  "signupIntentForExistingMember": { "request": { "provider": "naver", "returnTo": "/spotlog/#profile", "intent": "signup" }, "sessionAfterCallback": { "state": "SIGNED_IN", "user": { "id": "sample-existing-naver", "displayName": "기존 여행자", "provider": "NAVER", "email": null } }, "expected": "가입 화면 없이 기존 계정으로 로그인" },
+  "loginIntentForNewMember": { "request": { "provider": "kakao", "returnTo": "/spotlog/#profile", "intent": "login" }, "sessionAfterCallback": { "state": "PENDING_SIGNUP", "provider": "KAKAO" }, "expected": "약관 동의 후 서버 가입 확정" },
+  "oauthStartRequests": [
+    { "path": "/api/account/oauth/kakao/start", "body": { "returnTo": "/spotlog/#profile", "intent": "signup" }, "response": { "authorizeUrl": "https://kauth.kakao.com/oauth/authorize?state=SERVER_ONE_TIME_STATE" } },
+    { "path": "/api/account/oauth/naver/start", "body": { "returnTo": "/spotlog/#profile", "intent": "login" }, "response": { "authorizeUrl": "https://nid.naver.com/oauth2.0/authorize?state=SERVER_ONE_TIME_STATE" } },
+    { "path": "/api/account/oauth/google/start", "body": { "returnTo": "/spotlog/#profile", "intent": "signup" }, "response": { "authorizeUrl": "https://accounts.google.com/o/oauth2/v2/auth?state=SERVER_ONE_TIME_STATE" } },
+    { "path": "/api/account/oauth/apple/start", "body": { "returnTo": "/spotlog/#profile", "intent": "login" }, "response": { "authorizeUrl": "https://appleid.apple.com/auth/authorize?state=SERVER_ONE_TIME_STATE" } }
+  ],
   "applePrivateEmailMember": { "state": "SIGNED_IN", "user": { "id": "sample-member-1", "displayName": "샘플 여행자", "provider": "APPLE", "email": "sample@privaterelay.appleid.com" } },
   "missingEmailMember": { "state": "SIGNED_IN", "user": { "id": "sample-member-2", "displayName": "샘플 여행자", "provider": "GOOGLE", "email": null } },
   "signupRequiredOnly": { "versions": { "terms": "sample-version-1", "collection": "sample-version-1" }, "accepted": { "terms": true, "collection": true, "age": true, "minimumAge": 14 }, "marketing": { "accepted": false, "version": "sample-version-1" } },

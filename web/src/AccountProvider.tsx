@@ -11,7 +11,8 @@ const defaultAdapter = import.meta.env.DEV && !endpoint ? createReviewAccountAda
 export function AccountProvider({ children, adapter = defaultAdapter }: { children: ReactNode; adapter?: SocialAccountAdapter }) {
   const [session, setSession] = useState<SocialSession>({ state: 'GUEST' });
   const [status, setStatus] = useState<'CHECKING' | 'READY' | 'ERROR'>(adapter.configured ? 'CHECKING' : 'READY');
-  const [sheet, setSheet] = useState<{ view: AccountView; reason?: string } | null>(null);
+  const [sheet, setSheet] = useState<{ view: AccountView; reason?: string; instance: number } | null>(null);
+  const sheetInstance = useRef(0);
   const [generation, setGeneration] = useState(0);
   const [failureKind, setFailureKind] = useState<ErrorKind | null>(null);
   const request = useRef<AbortController | null>(null);
@@ -21,7 +22,7 @@ export function AccountProvider({ children, adapter = defaultAdapter }: { childr
     const controller = new AbortController(); request.current?.abort(); request.current = controller;
     if (!adapter.configured) { setSession({ state: 'GUEST' }); setStatus('READY'); setFailureKind(null); return () => controller.abort(); }
     setStatus('CHECKING'); setFailureKind(null);
-    void adapter.session(controller.signal).then(next => { if (!controller.signal.aborted) { setSession(next); setStatus('READY'); if (next.state === 'PENDING_SIGNUP') setSheet({ view: 'signup' }); } }).catch(error => { if (!controller.signal.aborted) { setSession({ state: 'GUEST' }); setFailureKind(errorKindForFailure(error)); setStatus('ERROR'); } });
+    void adapter.session(controller.signal).then(next => { if (!controller.signal.aborted) { setSession(next); setStatus('READY'); if (next.state === 'PENDING_SIGNUP') setSheet(current => current ?? { view: 'signup', instance: ++sheetInstance.current }); else if (next.state === 'SIGNED_IN') setSheet(current => current?.view === 'manage' ? current : null); } }).catch(error => { if (!controller.signal.aborted) { setSession({ state: 'GUEST' }); setFailureKind(errorKindForFailure(error)); setStatus('ERROR'); } });
     return () => controller.abort();
   }, [adapter, generation]);
   useEffect(() => {
@@ -31,9 +32,10 @@ export function AccountProvider({ children, adapter = defaultAdapter }: { childr
     window.addEventListener('focus', recheck); document.addEventListener('visibilitychange', recheck);
     return () => { window.removeEventListener('focus', recheck); document.removeEventListener('visibilitychange', recheck); };
   }, [adapter]);
-  const openAccount = (view: AccountView = 'login', reason?: string) => setSheet({ view, reason });
+  const openAccount = (view: AccountView = session.state === 'SIGNED_IN' ? 'manage' : 'login', reason?: string) => setSheet({ view, reason, instance: ++sheetInstance.current });
+  const sessionIdentity = session.state === 'SIGNED_IN' ? 'member:' + session.user.id : session.state === 'PENDING_SIGNUP' ? 'signup:' + session.provider : 'guest';
   return <AccountContext.Provider value={{ adapter, session, status, failureKind, updateSession, refresh: () => setGeneration(g => g + 1), openAccount, requireMember: reason => {
     if (status === 'READY' && session.state === 'SIGNED_IN') return true;
     openAccount('login', reason); return false;
-  } }}>{children}{sheet && <AccountSheet adapter={adapter} initialView={sheet.view} reason={sheet.reason} onClose={() => setSheet(null)} />}</AccountContext.Provider>;
+  } }}>{children}{sheet && <AccountSheet key={sheet.instance + ':' + sessionIdentity} adapter={adapter} initialView={sheet.view} reason={sheet.reason} onClose={() => setSheet(null)} />}</AccountContext.Provider>;
 }
