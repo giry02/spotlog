@@ -125,10 +125,15 @@ async function adminFetch<T>(path: string, init?: RequestInit, onAccessDenied?: 
       onAccessDenied?.();
       throw new AdminError(String(response.status), response.status === 401 ? '관리자 인증이 만료됐어요. 다시 연결해 주세요. 입력은 유지했어요.' : '관리자 접근 권한을 확인해 주세요. 입력은 유지했어요.');
     }
-    const text = await response.text(); let body: unknown;
-    try { body = text ? JSON.parse(text) : null; } catch { throw new AdminError('INVALID_RESPONSE', '관리자 API 응답이 JSON 형식이 아니에요. 서버 연결을 확인해 주세요.'); }
-    if (!response.ok) { const error = (body as { error?: { code?: string; message?: string } })?.error; throw new AdminError(error?.code ?? String(response.status), error?.message ?? (response.status === 401 ? '관리자 서버 로그인이 필요해요.' : response.status === 403 ? '이 작업의 관리자 권한이 없어요.' : response.status === 409 ? '자료가 변경됐어요. 새 자료를 확인해 주세요.' : '관리자 API 연결을 확인해 주세요.')); }
-    return body as T;
+    const text = await response.text();
+    if (!response.ok) {
+      let body: unknown = null;
+      try { body = text ? JSON.parse(text) : null; } catch { /* Hosts and proxies can return HTML for an HTTP failure. */ }
+      const error = (body as { error?: { code?: unknown; message?: unknown } } | null)?.error;
+      const fallback = response.status === 404 ? '관리자 서버 연결 주소를 찾지 못했어요. 서버 주소와 연결 설정을 확인해 주세요.' : response.status >= 500 ? '관리자 서버가 일시적으로 응답하지 못하고 있어요. 잠시 후 다시 시도해 주세요. 입력은 유지했어요.' : response.status === 409 ? '자료가 변경됐어요. 새 자료를 확인해 주세요.' : '관리자 요청을 처리하지 못했어요. 연결 상태와 입력을 확인해 주세요.';
+      throw new AdminError(typeof error?.code === 'string' && error.code.trim() ? error.code : String(response.status), typeof error?.message === 'string' && error.message.trim() ? error.message : fallback);
+    }
+    try { return (text ? JSON.parse(text) : null) as T; } catch { throw new AdminError('INVALID_RESPONSE', '관리자 자료를 읽지 못했어요. 서버 연결 주소와 응답을 확인해 주세요. 입력은 유지했어요.'); }
   } catch (error) { if (error instanceof DOMException && error.name === 'AbortError') throw new AdminError('TIMEOUT', '관리자 서버 응답이 지연돼요. 입력을 유지했어요.'); if (error instanceof TypeError) throw new AdminError('NETWORK', '관리자 서버에 연결하지 못했어요. 네트워크를 확인한 뒤 다시 시도해 주세요. 입력은 유지했어요.'); throw error; }
   finally { window.clearTimeout(timer); }
 }
