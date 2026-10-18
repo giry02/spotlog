@@ -1,4 +1,5 @@
 import type { AdminPlace, PlaceContent } from './types';
+import { getPreviewDraftStorage } from './previewDraftStorage.ts';
 
 export interface PlaceEditorEntry { baseRevision: number; content: PlaceContent }
 export type PlaceEditorEntries = Record<string, PlaceEditorEntry>;
@@ -24,7 +25,7 @@ export function isPlaceEditorContent(value: unknown): value is PlaceContent {
 }
 
 export function placeEditorKey(operatorId: string): string { return 'spotlog.admin.place-editor.v2.LOCAL.' + encodeURIComponent(operatorId); }
-function browserStorage(): PlaceEditorStorage | null { try { return typeof window === 'undefined' ? null : window.localStorage; } catch { return null; } }
+function browserStorage(): PlaceEditorStorage | null { const preview = getPreviewDraftStorage(); if (preview) return preview; try { return typeof window === 'undefined' ? null : window.localStorage; } catch { return null; } }
 export function readPlaceEditor(mode: 'LOCAL' | 'API', operatorId: string, suppliedStorage?: PlaceEditorStorage | null): { entries: PlaceEditorEntries; error: string } {
   if (mode !== 'LOCAL') return { entries: {}, error: '' };
   const storage = suppliedStorage === undefined ? browserStorage() : suppliedStorage;

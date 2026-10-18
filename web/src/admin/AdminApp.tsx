@@ -1,6 +1,7 @@
 import { Component, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { LayoutDashboard, MapPin, PanelsTopLeft, MessageSquare, Users, Sparkles, Settings, Menu, X, ChevronRight, ExternalLink, Plus, Upload, ClipboardCheck, ArrowRight } from 'lucide-react';
-import type { AdminCommandInput, AdminMenu, AdminPageProps, AdminSession, AdminState } from './types';
+import type { AdminAdapter, AdminCommandInput, AdminMenu, AdminPageProps, AdminSession, AdminState } from './types';
+import './admin-preview.css';
 import { ADMIN_STORAGE_KEY, createApiAdminAdapter, createLocalAdminAdapter } from './repository';
 import { makeAdminSeed } from './seed';
 import { REVIEW_SERVICE_EVENT, REVIEW_SERVICE_KEY } from '../reviewServiceBridge';
@@ -28,11 +29,11 @@ class ScreenBoundary extends Component<{ children: ReactNode }, { failed: boolea
   render() { return this.state.failed ? <Notice tone="danger">화면 자료를 읽지 못했어요. 입력을 지우지 않고 중단했습니다. 새로고침 후 다시 확인해 주세요.</Notice> : this.props.children; }
 }
 
-export default function AdminApp() {
+export default function AdminApp({ previewAdapter }: { previewAdapter?: AdminAdapter } = {}) {
   const [accessReady, setAccessReady] = useState(false), accessRef = useRef(false);
   const [error, setError] = useState(''), [success, setSuccess] = useState('');
   const setAccess = useCallback((ready: boolean) => { accessRef.current = ready; setAccessReady(ready); }, []);
-  const adapter = useMemo(() => import.meta.env.DEV && new URLSearchParams(location.search).get('mode') !== 'api' ? createLocalAdminAdapter(localStorage, makeAdminSeed) : createApiAdminAdapter(() => { setAccess(false); setSuccess(''); setError('관리자 인증과 접근 권한을 다시 확인해 주세요. 입력은 유지했어요.'); }), [setAccess]);
+  const adapter = useMemo(() => previewAdapter ?? (import.meta.env.DEV && new URLSearchParams(location.search).get('mode') !== 'api' ? createLocalAdminAdapter(localStorage, makeAdminSeed) : createApiAdminAdapter(() => { setAccess(false); setSuccess(''); setError('관리자 인증과 접근 권한을 다시 확인해 주세요. 입력은 유지했어요.'); })), [setAccess, previewAdapter]);
   const [session, setSession] = useState<AdminSession | null>(null), [state, setState] = useState<AdminState | null>(null);
   const [loading, setLoading] = useState(true), [busy, setBusy] = useState(false);
   const [menu, setMenu] = useState<AdminMenu>('overview'), [entityId, setEntityId] = useState<string | undefined>(), [sidebar, setSidebar] = useState(false);
@@ -66,12 +67,12 @@ export default function AdminApp() {
     return () => { document.removeEventListener('keydown', keyboard); if (menuOpener.current?.getClientRects().length) menuOpener.current.focus(); };
   }, [compact, sidebar]);
   useEffect(() => {
-    if (adapter.mode !== 'LOCAL') return;
+    if (adapter.mode !== 'LOCAL' || previewAdapter) return;
     const refresh = () => { void adapter.load().then(acceptState).catch(failure => setError((failure as Error).message)); };
     const sync = (event: StorageEvent) => { if (event.key === ADMIN_STORAGE_KEY || event.key === REVIEW_SERVICE_KEY) refresh(); };
     window.addEventListener('storage', sync); window.addEventListener(REVIEW_SERVICE_EVENT, refresh);
     return () => { window.removeEventListener('storage', sync); window.removeEventListener(REVIEW_SERVICE_EVENT, refresh); };
-  }, [adapter, acceptState]);
+  }, [adapter, acceptState, previewAdapter]);
   useEffect(() => { if (!success) return; const timer = setTimeout(() => setSuccess(''), 6000); return () => clearTimeout(timer); }, [success]);
   const navigate = (next: AdminMenu, target?: string, requestedAction?: AdminPageProps['entryAction']) => {
     scrollPositions.current[currentMenu.current] = main.current?.scrollTop ?? 0;
@@ -101,7 +102,7 @@ export default function AdminApp() {
       <div className="admin-brand"><strong>spotlog<span>관리자</span></strong><button className="admin-icon-button admin-mobile-only" aria-label="메뉴 닫기" onClick={() => setSidebar(false)}><X size={20}/></button></div>
       <p className="admin-sidebar-caption">자료 등록부터 운영까지</p>
       <nav aria-label="관리자 메뉴">{menus.map(item => <button key={item.id} aria-current={menu === item.id ? 'page' : undefined} onClick={() => navigate(item.id)}><item.icon size={19}/><span>{item.label}</span>{menu === item.id && <ChevronRight size={15}/>}</button>)}</nav>
-      <div className="admin-sidebar-footer"><Badge tone={adapter.mode === 'LOCAL' ? 'warning' : 'info'}>{adapter.mode === 'LOCAL' ? '로컬' : '서비스'}</Badge><a href={import.meta.env.BASE_URL} target="_blank" rel="noreferrer">고객 화면 열기 <ExternalLink size={14}/></a></div>
+      <div className="admin-sidebar-footer"><Badge tone={adapter.mode === 'LOCAL' ? 'warning' : 'info'}>{previewAdapter ? '미리보기' : adapter.mode === 'LOCAL' ? '로컬' : '서비스'}</Badge><a href={import.meta.env.BASE_URL} target="_blank" rel="noreferrer">고객 화면 열기 <ExternalLink size={14}/></a></div>
     </aside>
     <div className="admin-workspace" inert={compact && sidebar}>
       <header className="admin-topbar">
@@ -116,6 +117,8 @@ export default function AdminApp() {
       </header>
       <main id="admin-main" ref={main} className="admin-main" tabIndex={-1}>
         <div className="admin-page-heading"><p>SPOTLOG OPERATIONS</p><h1>{menus.find(item => item.id === menu)?.label}</h1><span>{pageDescriptions[menu]}</span></div>
+        {previewAdapter && <section className="admin-preview-status" role="note"><div><strong>관리자 화면 미리보기</strong><p>예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.</p></div><a href={import.meta.env.BASE_URL + 'admin.html'}>서비스 관리자</a></section>}
+        {!previewAdapter && !loading && !accessReady && <section className="admin-preview-entry"><div><h2>관리자 화면을 미리 확인해 보세요</h2><p>서버 연결 없이 예시 자료로 장소 등록, 추천 여행, 신고 처리 등 관리자 기능을 둘러볼 수 있어요.</p></div><div className="admin-preview-entry-actions"><a className="admin-preview-open" href={import.meta.env.BASE_URL + 'admin-preview.html'}>관리자 미리보기 열기 <ExternalLink size={16}/></a><a href={import.meta.env.BASE_URL + 'manual/admin/'}>사용 설명서</a></div></section>}
         {error && <div role="alert" className="admin-feedback"><Notice tone="danger">{error}</Notice></div>}
         {success && <div role="status" className="admin-feedback"><Notice tone="success">{success}</Notice></div>}
         {loading && <p role="status" className="admin-loading">관리자 자료를 불러오는 중…</p>}

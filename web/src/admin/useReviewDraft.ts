@@ -1,11 +1,12 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from 'react';
+import { getPreviewDraftStorage } from './previewDraftStorage.ts';
 
 type DraftMode = 'LOCAL' | 'API' | undefined;
 type DraftStorage = Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
 export function reviewDraftKey(operatorId: string, editor: string, targetId: string): string {
   return ['spotlog:admin:review-draft:v1', operatorId, editor, targetId].map(encodeURIComponent).join(':');
 }
-function browserStorage(): DraftStorage | undefined { try { return typeof window === 'undefined' ? undefined : window.localStorage; } catch { return undefined; } }
+function browserStorage(): DraftStorage | undefined { const preview = getPreviewDraftStorage(); if (preview) return preview; try { return typeof window === 'undefined' ? undefined : window.localStorage; } catch { return undefined; } }
 function compatible(value: unknown, fallback: unknown): boolean {
   if (Array.isArray(fallback)) return Array.isArray(value);
   if (fallback !== null && typeof fallback === 'object') return !!value && typeof value === 'object' && !Array.isArray(value) && Object.entries(fallback).every(([key, part]) => compatible((value as Record<string, unknown>)[key], part));
