@@ -1,0 +1,1920 @@
+{
+  "evaluatedAt": "2026-10-15T02:07:47.485Z",
+  "stage": "chat-case",
+  "execution": "actual-local-http-rag-and-native-flowise",
+  "catalogDocuments": 75,
+  "allowedPlaces": 30,
+  "metadata": {
+    "dataMode": "curated-travel-data",
+    "status": "ready",
+    "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+    "embeddingModel": "qwen3-embedding:0.6b",
+    "dimensions": 1024,
+    "embeddingDigest": "ac6da0dfba84a81fdbfbaf330198c33cd77c4cdfc53e8bc50eb581914a15621d",
+    "pipelineVersion": "authored-place-description-qwen-query-v2",
+    "embeddingOptions": {
+      "num_ctx": 4096,
+      "num_batch": 64,
+      "num_gpu": 0
+    },
+    "documents": 75
+  },
+  "retrieval": {
+    "evaluatedAt": "2026-10-15T02:02:17.992Z",
+    "plannedCases": 16,
+    "passed": true,
+    "results": [
+      {
+        "id": "west-beach-comparison",
+        "query": "제주 협재해수욕장과 금능해수욕장의 차이, 비양도와 모래 해변 특징을 비교해줘",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:ad87b4a9282b263cd48a8acb",
+            "placeId": "geumneung",
+            "documentId": "moa-knowledge:jeju-geumneung-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "금능해수욕장 | 협재와 이어진 서쪽 바다",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500079",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:dcd6618e2f3f991c44e20aad",
+            "placeId": "geumneung",
+            "documentId": "moa-place:geumneung",
+            "sourceKind": "authored-demo-data"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:5dc0e1a2a5ebb1f418260edf",
+            "placeId": "hyeopjae",
+            "documentId": "moa-knowledge:jeju-hyeopjae-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "협재해수욕장 | 비양도와 서부 해변 풍경",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500697",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b466d0fa39886db04b26d840",
+            "placeId": "geumneung",
+            "documentId": "moa-knowledge:jeju-geumneung-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "금능해수욕장 | 조석과 가족 방문",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500079",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:5eda5cc45ae5bc70796e6023",
+            "placeId": "hyeopjae",
+            "documentId": "moa-place:hyeopjae",
+            "sourceKind": "authored-demo-data"
+          }
+        ],
+        "latencyMs": 439
+      },
+      {
+        "id": "bijarim-forest",
+        "query": "제주 비자림의 비자나무 숲길과 천천히 걷기 좋은 탐방로 특징",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:5e8aaa1511b7d8f27f9ad3e5",
+            "placeId": "bijarim",
+            "documentId": "moa-place:bijarim",
+            "sourceKind": "authored-demo-data"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:44100c4bc1330dcf6f5e4cd8",
+            "placeId": "bijarim",
+            "documentId": "moa-knowledge:jeju-bijarim-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "비자림 | 오래된 비자나무와 그늘",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500270",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:ecc00b061145c095748a545f",
+            "placeId": "saryeoni",
+            "documentId": "moa-knowledge:jeju-saryeoni-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "사려니숲길 | 삼나무와 숲 그늘",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500281",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:5c9254bab33c6a2a0f3877c8",
+            "placeId": "bijarim",
+            "documentId": "moa-knowledge:jeju-bijarim-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "비자림 | 조용한 걷기와 자연 보호",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500270",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b0284543039d2b98f3d1f4b1",
+            "placeId": "gotjawal",
+            "documentId": "moa-knowledge:jeju-gotjawal-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "제주곶자왈도립공원 | 탐방 코스 선택",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000021111",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 330
+      },
+      {
+        "id": "songaksan-access",
+        "query": "제주 송악산 정상부 자연휴식년 출입통제와 해안 둘레길 방문시 주의할 점",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:dc52cb1a3763b59bb5b9d859",
+            "placeId": "songaksan",
+            "documentId": "moa-knowledge:jeju-songaksan-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "송악산 | 강풍과 정상부 출입 제한",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500378",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:a0d322658b41e8305863b9ba",
+            "placeId": "songaksan",
+            "documentId": "moa-knowledge:jeju-songaksan-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "송악산 | 둘레길의 해안과 역사",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500378",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:f31fc85ac2ae038b3bd82e5c",
+            "placeId": "sanbangsan",
+            "documentId": "moa-knowledge:jeju-sanbangsan-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "산방산 | 허용 산책로와 정상 제한",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500285",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b9a0bef75941c71ef21013a2",
+            "placeId": "songaksan",
+            "documentId": "moa-place:songaksan",
+            "sourceKind": "authored-demo-data"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b0345f05d83baeafda13b31a",
+            "placeId": "jeolmul",
+            "documentId": "moa-knowledge:jeju-jeolmul-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "절물자연휴양림 | 숲 해설과 숙박 구별",
+            "sourceUrl": "https://jeolmul.foresttrip.go.kr/",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 353
+      },
+      {
+        "id": "east-coast-stairs",
+        "query": "성산일출봉 정상 등반 계단과 섭지코지 해안 산책의 차이",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:c27b3d679b772a9dc4000bc1",
+            "placeId": "seongsan",
+            "documentId": "moa-knowledge:jeju-seongsan-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "성산일출봉 | 계단과 부모님 동반",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500349",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:e06d1a44bfbce79958494770",
+            "placeId": "seongsan",
+            "documentId": "moa-knowledge:jeju-seongsan-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "성산일출봉 | 화산 분화구와 동부 해안",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500349",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:0287822a3751e593ba7b428b",
+            "placeId": "seongsan",
+            "documentId": "moa-place:seongsan",
+            "sourceKind": "authored-demo-data"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:2f4296a371d0c4ccc7986db2",
+            "placeId": "seopjikoji",
+            "documentId": "moa-knowledge:jeju-seopjikoji-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "섭지코지 | 오르내림과 해안 산책",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500343",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:3b97f5228d20aa4b7eed8882",
+            "placeId": "seopjikoji",
+            "documentId": "moa-knowledge:jeju-seopjikoji-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "섭지코지 | 초원과 해안 화산지형",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500343",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 295
+      },
+      {
+        "id": "waterfall-comparison",
+        "query": "제주 정방폭포와 천지연폭포 차이, 바다로 떨어지는 폭포와 산책로 계단",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:97e4bedf895093ae517b5fcb",
+            "placeId": "jeongbang",
+            "documentId": "moa-knowledge:jeju-jeongbang-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "정방폭포 | 바다로 떨어지는 해안 폭포",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500531",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:13018638d8f377c17b23e1cf",
+            "placeId": "jeongbang",
+            "documentId": "moa-knowledge:jeju-jeongbang-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "정방폭포 | 내려가는 계단과 해안 노면",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500531",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:4535d77b5d6f0bff9c969cf7",
+            "placeId": "cheonjiyeon",
+            "documentId": "moa-knowledge:jeju-cheonjiyeon-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "천지연폭포 | 난대림과 계곡 산책",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500618",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:1ee35a409243d309c3c950fe",
+            "placeId": "cheonjiyeon",
+            "documentId": "moa-place:cheonjiyeon",
+            "sourceKind": "authored-demo-data"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:38368fc3656eb76ef8fe5640",
+            "placeId": "cheonjiyeon",
+            "documentId": "moa-knowledge:jeju-cheonjiyeon-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "천지연폭포 | 야간 관람과 보행 확인",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000011154",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 367
+      },
+      {
+        "id": "jusangjeolli-geology",
+        "query": "제주 중문 대포 주상절리대 돌기둥이 생긴 이유와 해안 지형 특징",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:e41613577e3643031932de23",
+            "placeId": "jusangjeolli",
+            "documentId": "moa-knowledge:jeju-jusangjeolli-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "중문대포해안 주상절리대 | 기둥 모양 바위",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000020476",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:ac9f2304171b7de04b9e49f4",
+            "placeId": "jusangjeolli",
+            "documentId": "moa-place:jusangjeolli",
+            "sourceKind": "authored-demo-data"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:0fbbefb21aa31f55c664cb71",
+            "placeId": "jusangjeolli",
+            "documentId": "moa-knowledge:jeju-jusangjeolli-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "중문대포해안 주상절리대 | 날씨와 중문 일정",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000020476",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:422884d88f9ccf34fb6c7de9",
+            "placeId": "jeju-general",
+            "documentId": "moa-knowledge:jeju-planning-south",
+            "sourceKind": "curated-official-summary",
+            "title": "제주 남부 일정 | 중문과 서귀포 도심",
+            "sourceUrl": "https://www.visitjeju.net/map/JEJU_MAP_KOREAN.pdf",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:97e4bedf895093ae517b5fcb",
+            "placeId": "jeongbang",
+            "documentId": "moa-knowledge:jeju-jeongbang-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "정방폭포 | 바다로 떨어지는 해안 폭포",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500531",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 301
+      },
+      {
+        "id": "hallasan-course",
+        "query": "제주 한라산 백록담 정상에 가는 성판악 관음사 코스, 어리목 영실과 탐방예약 확인",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:60c74b54fd44cc7651783df7",
+            "placeId": "hallasan",
+            "documentId": "moa-knowledge:jeju-hallasan-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "한라산국립공원 | 백록담 코스와 영실·어리목 차이",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500685",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:1b70d31925d2118e06f2bb76",
+            "placeId": "hallasan",
+            "documentId": "moa-knowledge:jeju-hallasan-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "한라산국립공원 | 예약 관리 구간과 코스 출발점",
+            "sourceUrl": "https://visithalla.jeju.go.kr/board/boardView.do?bbsId=notice&seq=1284",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:f890c1a62a9a4afc1d61b364",
+            "placeId": "sanbangsan",
+            "documentId": "moa-knowledge:jeju-sanbangsan-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "산방산 | 사계리의 산과 산방굴사",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500285",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:dbab33e10b5679e5e38d3b85",
+            "placeId": "jeju-general",
+            "documentId": "moa-knowledge:jeju-planning-west",
+            "sourceKind": "curated-official-summary",
+            "title": "제주 서부 일정 | 한림 해변과 안덕 구분",
+            "sourceUrl": "https://www.visitjeju.net/map/JEJU_MAP_KOREAN.pdf",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:c27b3d679b772a9dc4000bc1",
+            "placeId": "seongsan",
+            "documentId": "moa-knowledge:jeju-seongsan-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "성산일출봉 | 계단과 부모님 동반",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500349",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 365
+      },
+      {
+        "id": "udo-transport",
+        "query": "제주 우도 배편과 차량 반입 제한, 당일 기상에 따른 운항 여부를 어디서 확인해?",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:5ed16733b4f83ca2c274264e",
+            "placeId": "udo",
+            "documentId": "moa-knowledge:jeju-udo-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "우도 | 배편·귀항과 차량 반입 확인 경로",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500477",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:cc4ea6a436810190718bbcfa",
+            "placeId": "udo",
+            "documentId": "moa-knowledge:jeju-udo-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "우도 | 부속섬 경관과 도항선 이동",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500477",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:cb54d488cb831041370f66e7",
+            "placeId": "jeju-general",
+            "documentId": "moa-knowledge:jeju-planning-east",
+            "sourceKind": "curated-official-summary",
+            "title": "제주 동부 일정 | 함덕·구좌·성산과 우도",
+            "sourceUrl": "https://www.visitjeju.net/map/JEJU_MAP_KOREAN.pdf",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:719e10ac4b64a79f3af13403",
+            "placeId": "yongmeori",
+            "documentId": "moa-knowledge:jeju-yongmeori-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "용머리해안 | 물때·파도·당일 통제",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500471",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:f4d0e1852eb515f58d541b35",
+            "placeId": "jeju-general",
+            "documentId": "moa-knowledge:jeju-planning-bus",
+            "sourceKind": "curated-official-summary",
+            "title": "제주 버스 여행 | 노선·정류소·막차 확인",
+            "sourceUrl": "https://bus.jeju.go.kr/search/route",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 355
+      },
+      {
+        "id": "rain-indoor",
+        "query": "비오는 제주에서 아이와 갈 실내 전시 장소, 아쿠아플라넷과 국립제주박물관",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b135e324058e05b1416686c7",
+            "placeId": "aquaplanet",
+            "documentId": "moa-knowledge:jeju-aquaplanet-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "아쿠아플라넷 제주 | 실내 해양 전시",
+            "sourceUrl": "https://www.aquaplanet.co.kr/jeju/aquaplanet/planet.do",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:3985db928389c15fd188eb89",
+            "placeId": "aquaplanet",
+            "documentId": "moa-knowledge:jeju-aquaplanet-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "아쿠아플라넷 제주 | 비 오는 날과 프로그램",
+            "sourceUrl": "https://www.aquaplanet.co.kr/jeju/information/use_price.do",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:cc81c4e61e4f38a51a9d7450",
+            "placeId": "jeju-general",
+            "documentId": "moa-knowledge:jeju-planning-rain",
+            "sourceKind": "curated-official-summary",
+            "title": "제주 비 오는 날 | 실내 관람 후보와 이동",
+            "sourceUrl": "https://jeju.museum.go.kr/html/kr/index.html",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:3dde7117636d3dfb95983574",
+            "placeId": "jejumuseum",
+            "documentId": "moa-knowledge:jeju-jejumuseum-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "국립제주박물관 | 제주 역사와 상설전시",
+            "sourceUrl": "https://jeju.museum.go.kr/html/kr/index.html",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:e075ad1b083a6f7825e004d1",
+            "placeId": "jejumuseum",
+            "documentId": "moa-knowledge:jeju-jejumuseum-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "국립제주박물관 | 어린이와 예약 확인",
+            "sourceUrl": "https://jeju.museum.go.kr/html/kr/index.html",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 338
+      },
+      {
+        "id": "west-east-route",
+        "query": "제주 동부 성산과 서부 협재를 하루에 오가기보다 권역을 나눠 여행하는 동선 계획",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:cb54d488cb831041370f66e7",
+            "placeId": "jeju-general",
+            "documentId": "moa-knowledge:jeju-planning-east",
+            "sourceKind": "curated-official-summary",
+            "title": "제주 동부 일정 | 함덕·구좌·성산과 우도",
+            "sourceUrl": "https://www.visitjeju.net/map/JEJU_MAP_KOREAN.pdf",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:dbab33e10b5679e5e38d3b85",
+            "placeId": "jeju-general",
+            "documentId": "moa-knowledge:jeju-planning-west",
+            "sourceKind": "curated-official-summary",
+            "title": "제주 서부 일정 | 한림 해변과 안덕 구분",
+            "sourceUrl": "https://www.visitjeju.net/map/JEJU_MAP_KOREAN.pdf",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:0287822a3751e593ba7b428b",
+            "placeId": "seongsan",
+            "documentId": "moa-place:seongsan",
+            "sourceKind": "authored-demo-data"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:2f4296a371d0c4ccc7986db2",
+            "placeId": "seopjikoji",
+            "documentId": "moa-knowledge:jeju-seopjikoji-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "섭지코지 | 오르내림과 해안 산책",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500343",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:422884d88f9ccf34fb6c7de9",
+            "placeId": "jeju-general",
+            "documentId": "moa-knowledge:jeju-planning-south",
+            "sourceKind": "curated-official-summary",
+            "title": "제주 남부 일정 | 중문과 서귀포 도심",
+            "sourceUrl": "https://www.visitjeju.net/map/JEJU_MAP_KOREAN.pdf",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 349
+      },
+      {
+        "id": "family-stairs",
+        "query": "제주 아이 동반 유모차로 계단이 많은 정방폭포와 성산일출봉을 갈 때 주의사항",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:c27b3d679b772a9dc4000bc1",
+            "placeId": "seongsan",
+            "documentId": "moa-knowledge:jeju-seongsan-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "성산일출봉 | 계단과 부모님 동반",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500349",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:13018638d8f377c17b23e1cf",
+            "placeId": "jeongbang",
+            "documentId": "moa-knowledge:jeju-jeongbang-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "정방폭포 | 내려가는 계단과 해안 노면",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500531",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:0287822a3751e593ba7b428b",
+            "placeId": "seongsan",
+            "documentId": "moa-place:seongsan",
+            "sourceKind": "authored-demo-data"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:e06d1a44bfbce79958494770",
+            "placeId": "seongsan",
+            "documentId": "moa-knowledge:jeju-seongsan-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "성산일출봉 | 화산 분화구와 동부 해안",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500349",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:97e4bedf895093ae517b5fcb",
+            "placeId": "jeongbang",
+            "documentId": "moa-knowledge:jeju-jeongbang-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "정방폭포 | 바다로 떨어지는 해안 폭포",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500531",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 327
+      },
+      {
+        "id": "saryeoni-forest",
+        "query": "제주 사려니숲길의 삼나무 숲과 숲길 탐방 구간 선택",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:ecc00b061145c095748a545f",
+            "placeId": "saryeoni",
+            "documentId": "moa-knowledge:jeju-saryeoni-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "사려니숲길 | 삼나무와 숲 그늘",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500281",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:a7932db084c87f1a0bdae5ce",
+            "placeId": "jeolmul",
+            "documentId": "moa-knowledge:jeju-jeolmul-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "절물자연휴양림 | 삼나무 숲과 산책",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500570",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:163fc27aa2c4b269bdf5e13d",
+            "placeId": "saryeoni",
+            "documentId": "moa-knowledge:jeju-saryeoni-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "사려니숲길 | 입구·주차·반환점 선택",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500281",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:44100c4bc1330dcf6f5e4cd8",
+            "placeId": "bijarim",
+            "documentId": "moa-knowledge:jeju-bijarim-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "비자림 | 오래된 비자나무와 그늘",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500270",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:1b70d31925d2118e06f2bb76",
+            "placeId": "hallasan",
+            "documentId": "moa-knowledge:jeju-hallasan-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "한라산국립공원 | 예약 관리 구간과 코스 출발점",
+            "sourceUrl": "https://visithalla.jeju.go.kr/board/boardView.do?bbsId=notice&seq=1284",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 322
+      },
+      {
+        "id": "gotjawal-forest",
+        "query": "제주 곶자왈도립공원 용암 지형 숲의 생태와 탐방길",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:5f6250ed6215c011b208612e",
+            "placeId": "gotjawal",
+            "documentId": "moa-knowledge:jeju-gotjawal-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "제주곶자왈도립공원 | 암석과 숲 생태",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000021111",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b0284543039d2b98f3d1f4b1",
+            "placeId": "gotjawal",
+            "documentId": "moa-knowledge:jeju-gotjawal-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "제주곶자왈도립공원 | 탐방 코스 선택",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000021111",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:a7932db084c87f1a0bdae5ce",
+            "placeId": "jeolmul",
+            "documentId": "moa-knowledge:jeju-jeolmul-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "절물자연휴양림 | 삼나무 숲과 산책",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500570",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:9a95e7a962a087b0d3c4e079",
+            "placeId": "manjanggul",
+            "documentId": "moa-knowledge:jeju-manjanggul-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "만장굴 | 거문오름 용암동굴계",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500182",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:ac9f2304171b7de04b9e49f4",
+            "placeId": "jusangjeolli",
+            "documentId": "moa-place:jusangjeolli",
+            "sourceKind": "authored-demo-data"
+          }
+        ],
+        "latencyMs": 319
+      },
+      {
+        "id": "manjanggul-closure",
+        "query": "제주 만장굴 용암동굴 관람과 휴관, 재개방 운영 여부 확인",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:11f5e40d6be093140e2116cc",
+            "placeId": "manjanggul",
+            "documentId": "moa-knowledge:jeju-manjanggul-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "만장굴 | 어두운 동굴과 관람 가능 확인",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000020940",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:9a95e7a962a087b0d3c4e079",
+            "placeId": "manjanggul",
+            "documentId": "moa-knowledge:jeju-manjanggul-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "만장굴 | 거문오름 용암동굴계",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500182",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b466d0fa39886db04b26d840",
+            "placeId": "geumneung",
+            "documentId": "moa-knowledge:jeju-geumneung-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "금능해수욕장 | 조석과 가족 방문",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500079",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b0345f05d83baeafda13b31a",
+            "placeId": "jeolmul",
+            "documentId": "moa-knowledge:jeju-jeolmul-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "절물자연휴양림 | 숲 해설과 숙박 구별",
+            "sourceUrl": "https://jeolmul.foresttrip.go.kr/",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:e075ad1b083a6f7825e004d1",
+            "placeId": "jejumuseum",
+            "documentId": "moa-knowledge:jeju-jejumuseum-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "국립제주박물관 | 어린이와 예약 확인",
+            "sourceUrl": "https://jeju.museum.go.kr/html/kr/index.html",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 303
+      },
+      {
+        "id": "yongmeori-weather",
+        "query": "제주 용머리해안 파도와 만조에 따른 출입 통제, 당일 개방 여부 확인",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:719e10ac4b64a79f3af13403",
+            "placeId": "yongmeori",
+            "documentId": "moa-knowledge:jeju-yongmeori-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "용머리해안 | 물때·파도·당일 통제",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500471",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:dc9ec7001b5fe35cea06b321",
+            "placeId": "sehwa",
+            "documentId": "moa-knowledge:jeju-sehwa-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "세화해변 | 만조와 지정 해수욕장 여부",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500361",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:99ae12cac090680d77be829d",
+            "placeId": "hyeopjae",
+            "documentId": "moa-knowledge:jeju-hyeopjae-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "협재해수욕장 | 아이 동반과 물놀이 확인",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500697",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:4241bf82638fd8a1bffc7266",
+            "placeId": "jeju-general",
+            "documentId": "moa-knowledge:jeju-planning-sea-safety",
+            "sourceKind": "curated-official-summary",
+            "title": "제주 바다 안전 | 강풍·너울과 아이 동반",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_300000000014629",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:ad74c5cbba39ec2ff9aa75b1",
+            "placeId": "hamdeok",
+            "documentId": "moa-knowledge:jeju-hamdeok-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "함덕해수욕장 | 해변 산책과 입수 구별",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500693",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 333
+      },
+      {
+        "id": "geomunoreum-reservation",
+        "query": "제주 거문오름 탐방은 사전 예약과 해설사 동행이 필요한가?",
+        "passed": true,
+        "status": 200,
+        "checks": [
+          {
+            "id": "expected-recall",
+            "passed": true
+          },
+          {
+            "id": "candidate-isolation",
+            "passed": true
+          },
+          {
+            "id": "source-evidence-valid",
+            "passed": true
+          },
+          {
+            "id": "retrieved-official-source",
+            "passed": true
+          }
+        ],
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:8e18a8b46ff36a2b49487718",
+            "placeId": "geomunoreum",
+            "documentId": "moa-knowledge:jeju-geomunoreum-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "거문오름 | 사전 예약과 탐방 조건",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500034",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:2a7d03ceb3db5ef90370416e",
+            "placeId": "geomunoreum",
+            "documentId": "moa-knowledge:jeju-geomunoreum-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "거문오름 | 용암동굴계를 만든 화산",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500034",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b8d30c2f51a9d67b193b0ced",
+            "placeId": "osulloc",
+            "documentId": "moa-knowledge:jeju-osulloc-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "오설록 티뮤지엄 | 비 오는 날과 체험 구분",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500457",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:2f4296a371d0c4ccc7986db2",
+            "placeId": "seopjikoji",
+            "documentId": "moa-knowledge:jeju-seopjikoji-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "섭지코지 | 오르내림과 해안 산책",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500343",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:64564dd3dba9d49d237a48ba",
+            "placeId": "saebyeol",
+            "documentId": "moa-knowledge:jeju-saebyeol-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "새별오름 | 경사와 짧은 산책 선택",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500309",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 318
+      }
+    ]
+  },
+  "chat": {
+    "evaluatedAt": "2026-10-15T02:07:47.485Z",
+    "plannedCases": 6,
+    "passed": true,
+    "results": [
+      {
+        "id": "beach-comparison",
+        "query": "제주 협재해수욕장과 금능해수욕장은 어떤 차이가 있어? 비양도와 해변 특징을 검색 자료를 근거로 비교해줘. 일정은 만들지 말고 설명만 해줘.",
+        "passed": true,
+        "status": 200,
+        "mode": "flowise",
+        "checks": [
+          {
+            "id": "actual-flowise-provider",
+            "passed": true
+          },
+          {
+            "id": "correlation-and-revision",
+            "passed": true
+          },
+          {
+            "id": "has-retrieved-evidence",
+            "passed": true
+          },
+          {
+            "id": "has-real-evidence-citations",
+            "passed": true
+          },
+          {
+            "id": "no-inline-model-references",
+            "passed": true
+          },
+          {
+            "id": "expected-places-cited",
+            "passed": true
+          },
+          {
+            "id": "cited-official-source",
+            "passed": true
+          },
+          {
+            "id": "cited-source-provenance",
+            "passed": true
+          },
+          {
+            "id": "mentions-hyeopjae",
+            "passed": true
+          },
+          {
+            "id": "mentions-geumneung",
+            "passed": true
+          },
+          {
+            "id": "explains-beach-features",
+            "passed": true
+          }
+        ],
+        "responseText": "협재해수욕장과 금능해수욕장은 모두 제주 서부 해안의 해변으로, 비양도를 배경으로 산책이나 사진 촬영이 가능합니다. 협재해수욕장은 흰 모래사장과 비양도 풍경을 함께 즐길 수 있는 곳으로, 해변 산책과 사진 촬영에 적합합니다. 반면, 금능해수욕장은 협재와 이어지는 해변으로, 모래사장 너머로 비양도를 바라보는 풍경이 특징입니다. 또한, 금능해수욕장은 조석에 따라 모래사장과 물웅덩이가 드러나는 특징이 있으며, 가족 방문 시 물때에 따라 걷는 범위가 달라질 수 있습니다. 공식 자료에 따르면, 협재해수욕장은 해안 둘레길과 연결되어 있으며, 금능해수욕장은 협재와 함께 비교해볼 수 있는 서부 해안 일정에 포함됩니다.",
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:ad87b4a9282b263cd48a8acb",
+            "placeId": "geumneung",
+            "documentId": "moa-knowledge:jeju-geumneung-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "금능해수욕장 | 협재와 이어진 서쪽 바다",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500079",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:dcd6618e2f3f991c44e20aad",
+            "placeId": "geumneung",
+            "documentId": "moa-place:geumneung",
+            "sourceKind": "authored-demo-data"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:5dc0e1a2a5ebb1f418260edf",
+            "placeId": "hyeopjae",
+            "documentId": "moa-knowledge:jeju-hyeopjae-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "협재해수욕장 | 비양도와 서부 해변 풍경",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500697",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b466d0fa39886db04b26d840",
+            "placeId": "geumneung",
+            "documentId": "moa-knowledge:jeju-geumneung-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "금능해수욕장 | 조석과 가족 방문",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500079",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:5eda5cc45ae5bc70796e6023",
+            "placeId": "hyeopjae",
+            "documentId": "moa-place:hyeopjae",
+            "sourceKind": "authored-demo-data"
+          }
+        ],
+        "cited": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:ad87b4a9282b263cd48a8acb",
+            "placeId": "geumneung",
+            "documentId": "moa-knowledge:jeju-geumneung-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "금능해수욕장 | 협재와 이어진 서쪽 바다",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500079",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:dcd6618e2f3f991c44e20aad",
+            "placeId": "geumneung",
+            "documentId": "moa-place:geumneung",
+            "sourceKind": "authored-demo-data"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:5dc0e1a2a5ebb1f418260edf",
+            "placeId": "hyeopjae",
+            "documentId": "moa-knowledge:jeju-hyeopjae-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "협재해수욕장 | 비양도와 서부 해변 풍경",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500697",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b466d0fa39886db04b26d840",
+            "placeId": "geumneung",
+            "documentId": "moa-knowledge:jeju-geumneung-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "금능해수욕장 | 조석과 가족 방문",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500079",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 15405
+      },
+      {
+        "id": "waterfall-comparison",
+        "query": "제주 정방폭포와 천지연폭포는 어떻게 달라? 바다로 떨어지는 곳과 걷는 길, 계단을 검색 자료 근거로 비교해줘. 일정은 만들지 말고 설명만 해줘.",
+        "passed": true,
+        "status": 200,
+        "mode": "flowise",
+        "checks": [
+          {
+            "id": "actual-flowise-provider",
+            "passed": true
+          },
+          {
+            "id": "correlation-and-revision",
+            "passed": true
+          },
+          {
+            "id": "has-retrieved-evidence",
+            "passed": true
+          },
+          {
+            "id": "has-real-evidence-citations",
+            "passed": true
+          },
+          {
+            "id": "no-inline-model-references",
+            "passed": true
+          },
+          {
+            "id": "expected-places-cited",
+            "passed": true
+          },
+          {
+            "id": "cited-official-source",
+            "passed": true
+          },
+          {
+            "id": "cited-source-provenance",
+            "passed": true
+          },
+          {
+            "id": "mentions-both-waterfalls",
+            "passed": true
+          },
+          {
+            "id": "explains-coast",
+            "passed": true
+          },
+          {
+            "id": "explains-walking-access",
+            "passed": true
+          }
+        ],
+        "responseText": "정방폭포는 해안 절벽에서 바다로 떨어지는 물줄기를 볼 수 있는 곳으로, 계단을 따라 내려가 관람합니다. 천지연폭포는 계곡 끝에 위치해 난대림과 연못을 감상할 수 있으며, 산책로를 따라 걷는 형태입니다. 정방폭포는 해안 노면과 계단이 있어 보행에 주의가 필요하고, 천지연폭포는 산책로가 중심입니다. 이 두 장소는 각각 다른 자연 경관과 접근 방식을 가지고 있습니다.",
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:97e4bedf895093ae517b5fcb",
+            "placeId": "jeongbang",
+            "documentId": "moa-knowledge:jeju-jeongbang-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "정방폭포 | 바다로 떨어지는 해안 폭포",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500531",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:13018638d8f377c17b23e1cf",
+            "placeId": "jeongbang",
+            "documentId": "moa-knowledge:jeju-jeongbang-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "정방폭포 | 내려가는 계단과 해안 노면",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500531",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:4535d77b5d6f0bff9c969cf7",
+            "placeId": "cheonjiyeon",
+            "documentId": "moa-knowledge:jeju-cheonjiyeon-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "천지연폭포 | 난대림과 계곡 산책",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500618",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:38368fc3656eb76ef8fe5640",
+            "placeId": "cheonjiyeon",
+            "documentId": "moa-knowledge:jeju-cheonjiyeon-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "천지연폭포 | 야간 관람과 보행 확인",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000011154",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:1ee35a409243d309c3c950fe",
+            "placeId": "cheonjiyeon",
+            "documentId": "moa-place:cheonjiyeon",
+            "sourceKind": "authored-demo-data"
+          }
+        ],
+        "cited": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:97e4bedf895093ae517b5fcb",
+            "placeId": "jeongbang",
+            "documentId": "moa-knowledge:jeju-jeongbang-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "정방폭포 | 바다로 떨어지는 해안 폭포",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500531",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:13018638d8f377c17b23e1cf",
+            "placeId": "jeongbang",
+            "documentId": "moa-knowledge:jeju-jeongbang-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "정방폭포 | 내려가는 계단과 해안 노면",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500531",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:4535d77b5d6f0bff9c969cf7",
+            "placeId": "cheonjiyeon",
+            "documentId": "moa-knowledge:jeju-cheonjiyeon-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "천지연폭포 | 난대림과 계곡 산책",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500618",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:38368fc3656eb76ef8fe5640",
+            "placeId": "cheonjiyeon",
+            "documentId": "moa-knowledge:jeju-cheonjiyeon-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "천지연폭포 | 야간 관람과 보행 확인",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000011154",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 9676
+      },
+      {
+        "id": "songaksan-access",
+        "query": "제주 송악산은 지금 정상까지 올라가도 돼? 정상부와 해안 둘레길을 구분해서 검색 자료 근거로 알려줘. 일정은 만들지 말고 설명만 해줘.",
+        "passed": true,
+        "status": 200,
+        "mode": "flowise",
+        "checks": [
+          {
+            "id": "actual-flowise-provider",
+            "passed": true
+          },
+          {
+            "id": "correlation-and-revision",
+            "passed": true
+          },
+          {
+            "id": "has-retrieved-evidence",
+            "passed": true
+          },
+          {
+            "id": "has-real-evidence-citations",
+            "passed": true
+          },
+          {
+            "id": "no-inline-model-references",
+            "passed": true
+          },
+          {
+            "id": "expected-places-cited",
+            "passed": true
+          },
+          {
+            "id": "cited-official-source",
+            "passed": true
+          },
+          {
+            "id": "cited-source-provenance",
+            "passed": true
+          },
+          {
+            "id": "mentions-access-restriction",
+            "passed": true
+          },
+          {
+            "id": "distinguishes-coastal-walk",
+            "passed": true
+          },
+          {
+            "id": "no-unfounded-summit-permission",
+            "passed": true
+          }
+        ],
+        "responseText": "송악산 정상까지 올라가는 일정은 현재 제한되어 있어요. 공식 자료에 따르면 정상부와 정상탐방로는 2027년 7월 31일까지 출입이 제한되고 있어요. 해안 둘레길은 제주올레 10코스와 이어지는 곳으로, 바다를 감상하는 산책로로 이용할 수 있어요. 정상부는 강풍이 자주 불고, 식생 복원을 위한 조치로 접근이 제한되어 있어요. 일정을 만들지 않고 단순히 설명해드릴게요.",
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:a0d322658b41e8305863b9ba",
+            "placeId": "songaksan",
+            "documentId": "moa-knowledge:jeju-songaksan-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "송악산 | 둘레길의 해안과 역사",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500378",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:dc52cb1a3763b59bb5b9d859",
+            "placeId": "songaksan",
+            "documentId": "moa-knowledge:jeju-songaksan-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "송악산 | 강풍과 정상부 출입 제한",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500378",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b9a0bef75941c71ef21013a2",
+            "placeId": "songaksan",
+            "documentId": "moa-place:songaksan",
+            "sourceKind": "authored-demo-data"
+          }
+        ],
+        "cited": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:a0d322658b41e8305863b9ba",
+            "placeId": "songaksan",
+            "documentId": "moa-knowledge:jeju-songaksan-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "송악산 | 둘레길의 해안과 역사",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500378",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:dc52cb1a3763b59bb5b9d859",
+            "placeId": "songaksan",
+            "documentId": "moa-knowledge:jeju-songaksan-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "송악산 | 강풍과 정상부 출입 제한",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500378",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 9342
+      },
+      {
+        "id": "hallasan-course",
+        "query": "제주 한라산 백록담 정상은 영실이나 어리목으로 갈 수 있어? 성판악과 관음사 코스, 예약 확인까지 검색 자료로 설명해줘. 일정은 만들지 말고 설명만 해줘.",
+        "passed": true,
+        "status": 200,
+        "mode": "flowise",
+        "checks": [
+          {
+            "id": "actual-flowise-provider",
+            "passed": true
+          },
+          {
+            "id": "correlation-and-revision",
+            "passed": true
+          },
+          {
+            "id": "has-retrieved-evidence",
+            "passed": true
+          },
+          {
+            "id": "has-real-evidence-citations",
+            "passed": true
+          },
+          {
+            "id": "no-inline-model-references",
+            "passed": true
+          },
+          {
+            "id": "expected-places-cited",
+            "passed": true
+          },
+          {
+            "id": "cited-official-source",
+            "passed": true
+          },
+          {
+            "id": "cited-source-provenance",
+            "passed": true
+          },
+          {
+            "id": "mentions-summit-courses",
+            "passed": true
+          },
+          {
+            "id": "mentions-other-courses",
+            "passed": true
+          },
+          {
+            "id": "mentions-required-current-check",
+            "passed": true
+          },
+          {
+            "id": "no-direct-yeongsil-summit-claim",
+            "passed": true
+          },
+          {
+            "id": "no-reservation-segment-as-trailhead",
+            "passed": true
+          }
+        ],
+        "responseText": "한라산국립공원의 백록담 정상은 영실 코스나 어리목 코스로 직접 가는 것이 어렵습니다. 공식 안내에 따르면, 백록담 정상은 성판악 코스와 관음사 코스를 통해만 도달할 수 있으며, 영실·어리목 코스는 백록담 정상까지 직접 연결되지 않습니다. 성판악 코스는 성판악 입구에서 출발해 진달래밭을 지나 백록담 정상까지 가며, 관음사 코스는 관음사 탐방로 입구에서 출발해 삼각봉을 지나 백록담 정상까지 가는 코스입니다. 두 코스 모두 사전 예약이 필요하며, 진달래밭과 삼각봉은 각 코스의 예약 관리 구간 경계점입니다. 영실·어리목 코스는 백록담 정상까지 직접 연결되지 않으며, 해당 코스는 성판악·관음사 코스와 별도로 운영됩니다. 예약 관리 구간 이전의 탐방과 영실·어리목 코스는 별도로 구분됩니다. 예약 가능 여부와 기상 통제, 입출입 시간은 한라산국립공원의 공식 예약 시스템과 공지에서 확인해야 합니다.",
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:60c74b54fd44cc7651783df7",
+            "placeId": "hallasan",
+            "documentId": "moa-knowledge:jeju-hallasan-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "한라산국립공원 | 백록담 코스와 영실·어리목 차이",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500685",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:1b70d31925d2118e06f2bb76",
+            "placeId": "hallasan",
+            "documentId": "moa-knowledge:jeju-hallasan-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "한라산국립공원 | 예약 관리 구간과 코스 출발점",
+            "sourceUrl": "https://visithalla.jeju.go.kr/board/boardView.do?bbsId=notice&seq=1284",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "cited": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:60c74b54fd44cc7651783df7",
+            "placeId": "hallasan",
+            "documentId": "moa-knowledge:jeju-hallasan-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "한라산국립공원 | 백록담 코스와 영실·어리목 차이",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500685",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:1b70d31925d2118e06f2bb76",
+            "placeId": "hallasan",
+            "documentId": "moa-knowledge:jeju-hallasan-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "한라산국립공원 | 예약 관리 구간과 코스 출발점",
+            "sourceUrl": "https://visithalla.jeju.go.kr/board/boardView.do?bbsId=notice&seq=1284",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 18192
+      },
+      {
+        "id": "rain-indoor",
+        "query": "비가 오는 제주에서 아이와 갈 실내 장소로 아쿠아플라넷과 국립제주박물관을 비교해줘. 검색 자료 근거를 설명해줘. 일정은 만들지 말고 설명만 해줘.",
+        "evaluatedAt": "2026-10-15T02:07:47.486Z",
+        "passed": true,
+        "status": 200,
+        "mode": "flowise",
+        "checks": [
+          {
+            "id": "actual-flowise-provider",
+            "passed": true
+          },
+          {
+            "id": "correlation-and-revision",
+            "passed": true
+          },
+          {
+            "id": "has-retrieved-evidence",
+            "passed": true
+          },
+          {
+            "id": "has-real-evidence-citations",
+            "passed": true
+          },
+          {
+            "id": "no-inline-model-references",
+            "passed": true
+          },
+          {
+            "id": "expected-places-cited",
+            "passed": true
+          },
+          {
+            "id": "cited-official-source",
+            "passed": true
+          },
+          {
+            "id": "cited-source-provenance",
+            "passed": true
+          },
+          {
+            "id": "mentions-both-venues",
+            "passed": true
+          },
+          {
+            "id": "explains-indoor-use",
+            "passed": true
+          },
+          {
+            "id": "keeps-added-knowledge-out-of-plan",
+            "passed": true
+          }
+        ],
+        "responseText": "아쿠아플라넷 제주는 실내 해양 전시 시설로, 비 오는 날에도 방문할 수 있는 대안입니다. 제주 동부 성산읍 섭지코지 인근에 위치해 있으며, 제주 앞바다를 재현한 메인 수조와 해양과학 체험·해양 공연 공간 등이 있습니다. 다만, 비 오는 날 방문 시 주차장부터 모든 동선에서 비를 피할 수 있다는 보장은 없으며, 관람·공연·별도 체험의 포함 범위는 티켓과 프로그램마다 다를 수 있습니다. 공식 시간표·매표와 입장 마감·요금·할인은 방문 전에 확인해야 합니다. 참고로, 아쿠아플라넷 제주에 대한 자세한 정보는 아래 검색 자료를 확인할 수 있습니다.\n\n국립제주박물관은 제주 섬의 역사와 문화를 살펴볼 수 있는 국립 박물관입니다. 상설전시는 선사시대·탐라국·고려·조선과 제주섬 사람들의 생활 등을 주제로 구성되어 있으며, 어린이박물관과 실감영상실도 운영되고 있습니다. 다만, 어린이박물관·행사·교육은 각각 대상 연령과 예약 조건이 다를 수 있으므로, 현장에 가면 모두 참여할 수 있다고 약속하지 않습니다. 2026년 10월 15일 확인한 공식 홈페이지에는 월요일과 일부 명절 휴관이 안내되어 있습니다. 비 오는 날 방문이라도 방문일 관람·예약 공지를 먼저 확인해야 합니다. 국립제주박물관에 대한 자세한 정보는 아래 검색 자료를 확인할 수 있습니다.",
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b135e324058e05b1416686c7",
+            "placeId": "aquaplanet",
+            "documentId": "moa-knowledge:jeju-aquaplanet-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "아쿠아플라넷 제주 | 실내 해양 전시",
+            "sourceUrl": "https://www.aquaplanet.co.kr/jeju/aquaplanet/planet.do",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:3985db928389c15fd188eb89",
+            "placeId": "aquaplanet",
+            "documentId": "moa-knowledge:jeju-aquaplanet-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "아쿠아플라넷 제주 | 비 오는 날과 프로그램",
+            "sourceUrl": "https://www.aquaplanet.co.kr/jeju/information/use_price.do",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:3dde7117636d3dfb95983574",
+            "placeId": "jejumuseum",
+            "documentId": "moa-knowledge:jeju-jejumuseum-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "국립제주박물관 | 제주 역사와 상설전시",
+            "sourceUrl": "https://jeju.museum.go.kr/html/kr/index.html",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:e075ad1b083a6f7825e004d1",
+            "placeId": "jejumuseum",
+            "documentId": "moa-knowledge:jeju-jejumuseum-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "국립제주박물관 | 어린이와 예약 확인",
+            "sourceUrl": "https://jeju.museum.go.kr/html/kr/index.html",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "cited": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:b135e324058e05b1416686c7",
+            "placeId": "aquaplanet",
+            "documentId": "moa-knowledge:jeju-aquaplanet-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "아쿠아플라넷 제주 | 실내 해양 전시",
+            "sourceUrl": "https://www.aquaplanet.co.kr/jeju/aquaplanet/planet.do",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:3985db928389c15fd188eb89",
+            "placeId": "aquaplanet",
+            "documentId": "moa-knowledge:jeju-aquaplanet-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "아쿠아플라넷 제주 | 비 오는 날과 프로그램",
+            "sourceUrl": "https://www.aquaplanet.co.kr/jeju/information/use_price.do",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:3dde7117636d3dfb95983574",
+            "placeId": "jejumuseum",
+            "documentId": "moa-knowledge:jeju-jejumuseum-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "국립제주박물관 | 제주 역사와 상설전시",
+            "sourceUrl": "https://jeju.museum.go.kr/html/kr/index.html",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:e075ad1b083a6f7825e004d1",
+            "placeId": "jejumuseum",
+            "documentId": "moa-knowledge:jeju-jejumuseum-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "국립제주박물관 | 어린이와 예약 확인",
+            "sourceUrl": "https://jeju.museum.go.kr/html/kr/index.html",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 24649
+      },
+      {
+        "id": "udo-transport",
+        "query": "제주 우도 배는 오늘 무조건 탈 수 있어? 렌터카 반입과 배편을 검색 자료로 설명하고 실시간으로 확인해야 하는 것도 알려줘. 일정은 만들지 말고 설명만 해줘.",
+        "passed": true,
+        "status": 200,
+        "mode": "flowise",
+        "checks": [
+          {
+            "id": "actual-flowise-provider",
+            "passed": true
+          },
+          {
+            "id": "correlation-and-revision",
+            "passed": true
+          },
+          {
+            "id": "has-retrieved-evidence",
+            "passed": true
+          },
+          {
+            "id": "has-real-evidence-citations",
+            "passed": true
+          },
+          {
+            "id": "no-inline-model-references",
+            "passed": true
+          },
+          {
+            "id": "expected-places-cited",
+            "passed": true
+          },
+          {
+            "id": "cited-official-source",
+            "passed": true
+          },
+          {
+            "id": "cited-source-provenance",
+            "passed": true
+          },
+          {
+            "id": "mentions-ferry",
+            "passed": true
+          },
+          {
+            "id": "mentions-vehicle-limits",
+            "passed": true
+          },
+          {
+            "id": "requires-current-weather-check",
+            "passed": true
+          },
+          {
+            "id": "no-transport-guarantee",
+            "passed": true
+          },
+          {
+            "id": "no-ferry-status-from-bus-service",
+            "passed": true
+          }
+        ],
+        "responseText": "우도 배는 오늘 무조건 탈 수 있는 것은 아니에요. 배편 운항 여부는 기상·해상 상태에 따라 달라져요. 실시간으로 확인하려면 우도면 공식 차량 운행 제한 안내 및 도항선 운영사에 문의해야 해요. 렌터카나 전기 이동수단 반입 여부도 조건에 따라 달라져요. 차종·동행자·숙박 등 실제 조건에 따라 허용 여부가 결정되므로, 반드시 우도면 공식 안내를 확인해 주세요.",
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+        "retrieved": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:5ed16733b4f83ca2c274264e",
+            "placeId": "udo",
+            "documentId": "moa-knowledge:jeju-udo-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "우도 | 배편·귀항과 차량 반입 확인 경로",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500477",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:cc4ea6a436810190718bbcfa",
+            "placeId": "udo",
+            "documentId": "moa-knowledge:jeju-udo-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "우도 | 부속섬 경관과 도항선 이동",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500477",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "cited": [
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:5ed16733b4f83ca2c274264e",
+            "placeId": "udo",
+            "documentId": "moa-knowledge:jeju-udo-visit",
+            "sourceKind": "curated-official-summary",
+            "title": "우도 | 배편·귀항과 차량 반입 확인 경로",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500477",
+            "checkedAt": "2026-10-15"
+          },
+          {
+            "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:cc4ea6a436810190718bbcfa",
+            "placeId": "udo",
+            "documentId": "moa-knowledge:jeju-udo-overview",
+            "sourceKind": "curated-official-summary",
+            "title": "우도 | 부속섬 경관과 도항선 이동",
+            "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500477",
+            "checkedAt": "2026-10-15"
+          }
+        ],
+        "latencyMs": 8841
+      }
+    ],
+    "caseEvaluatedAt": {
+      "beach-comparison": "2026-10-15T02:02:23.405Z",
+      "waterfall-comparison": "2026-10-15T02:02:23.405Z",
+      "songaksan-access": "2026-10-15T02:02:23.405Z",
+      "hallasan-course": "2026-10-15T02:02:23.405Z",
+      "rain-indoor": "2026-10-15T02:07:47.486Z",
+      "udo-transport": "2026-10-15T02:02:23.405Z"
+    },
+    "caseTimestampSources": {
+      "beach-comparison": "original-stage-start",
+      "waterfall-comparison": "original-stage-start",
+      "songaksan-access": "original-stage-start",
+      "hallasan-course": "original-stage-start",
+      "rain-indoor": "individual-case-start",
+      "udo-transport": "original-stage-start"
+    },
+    "executedCaseIds": [
+      "rain-indoor"
+    ],
+    "retainedCaseHashes": {
+      "beach-comparison": "064a95903c35beca5cd73fd5c20c442cc00fcc729ac0062901284dca213dbf11",
+      "waterfall-comparison": "d30106d6cb268364e655b73693914b5a4c00958d5288d34e6c87c193d56be451",
+      "songaksan-access": "d6b719d62f960541656c990005f0d3745261170a8391f1c7c3ce223c1b05e669",
+      "hallasan-course": "fb571b19d335fd30c9457909da184f73240914a808f01e080aa7b9b6d746519d",
+      "udo-transport": "ef2c2e20fec66ae3bb8a7dd2892e568d9ffa99eab11b747c998222532664ba34"
+    }
+  },
+  "sameIndexForAllCases": true,
+  "passed": true,
+  "limitations": [
+    "Acceptance checks cover authored sample questions only; no general Korean accuracy claim.",
+    "Current operating hours, reservations, ferry status and weather are not live data.",
+    "Additional knowledge places are explanatory sources; this evaluation does not add itinerary cards."
+  ]
+}

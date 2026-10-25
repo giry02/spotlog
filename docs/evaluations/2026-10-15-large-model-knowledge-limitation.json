@@ -1,0 +1,39 @@
+{
+  "evaluatedAt": "2026-10-15T03:13:37.236Z",
+  "execution": "actual-local-qwen3-14b-general-knowledge",
+  "routingPassed": true,
+  "factualQualityPassed": false,
+  "limitation": "The ungrounded answer incorrectly described Gamcheon Culture Village as traditional hanok. This is retained as a model knowledge limitation; routing/schema success does not prove factual accuracy.",
+  "result": {
+    "id": "missing-rag-goes-to-local-14b",
+    "query": "부산 여행에서 해운대와 감천문화마을은 분위기가 어떻게 달라? 두 문장으로만 알려줘. 일정 카드는 만들지 말고 설명만 해줘.",
+    "evaluatedAt": "2026-10-15T03:09:14.507Z",
+    "passed": true,
+    "status": 200,
+    "checks": {
+      "correlation": true,
+      "actualModel": true,
+      "largeTier": true,
+      "reason": true,
+      "noFakedEvidence": true,
+      "noUnexpectedMutation": true,
+      "answer": true
+    },
+    "mode": "large-model",
+    "answerContext": {
+      "retrievalStatus": "empty",
+      "modelRouting": {
+        "tier": "large",
+        "reason": "rag-insufficient",
+        "status": "ready",
+        "provider": "ollama",
+        "model": "qwen3:14b"
+      }
+    },
+    "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+    "retrievedPlaces": [],
+    "visits": [],
+    "responseText": "해운대는 해변과 함께 활기찬 관광지로, 밤에는 번화한 분위기를 자랑합니다. 감천문화마을은 전통 한옥과 예술 작품이 어우러진 조용하고 문화적인 공간입니다.",
+    "milliseconds": 16955
+  }
+}

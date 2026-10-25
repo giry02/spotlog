@@ -48,9 +48,10 @@ export default defineConfig(async () => {
     css: { postcss: { plugins: [tailwindcss()] } },
     server: {
       host: process.env.MOA_DEV_HOST || 'localhost',
-      ...(isCodexSeatbeltSandbox
-        ? { watch: { useFsEvents: false, usePolling: true } }
-        : {}),
+      watch: {
+        ignored: ['**/.sites-runtime/**'],
+        ...(isCodexSeatbeltSandbox ? { useFsEvents: false, usePolling: true } : {}),
+      },
     },
     plugins: [
       vinext(),

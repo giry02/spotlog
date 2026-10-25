@@ -1,0 +1,138 @@
+{
+  "evaluatedAt": "2026-10-16T09:01:06.048Z",
+  "status": "passed-within-observed-stages",
+  "observation": {
+    "method": "Windows Computer Use skill @oai/sky list_windows actual window inventory",
+    "scope": "Staged cold startup, model loading/generation, full stack health reuse, browser itinerary/weather/map interactions",
+    "limitation": "Sampled observations cover the recorded stages, not all future activity or arbitrary unrelated applications."
+  },
+  "reproduction": {
+    "service": "ollama",
+    "windowCaptured": true,
+    "windowSamples": 245,
+    "report": "../../work/handoff/CONSOLE_CHECKED_RESTART_20261016.json"
+  },
+  "fix": {
+    "files": [
+      "scripts/launch-windows-ollama.mjs",
+      "scripts/start-windows-ollama.ps1",
+      "scripts/start-local-stack.mjs"
+    ],
+    "mode": "windows-hidden-attached-console-v1",
+    "explanation": "A detached Node bridge retains a hidden non-detached PowerShell supervisor. Ollama receives an attached hidden console so native descendants inherit it."
+  },
+  "checks": {
+    "health": [
+      {
+        "name": "ollama",
+        "httpStatus": 200,
+        "version": "0.40.4"
+      },
+      {
+        "name": "flowise",
+        "httpStatus": 200,
+        "version": "3.1.4"
+      },
+      {
+        "name": "rag",
+        "httpStatus": 200,
+        "documents": 75,
+        "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d"
+      },
+      {
+        "name": "moa",
+        "httpStatus": 200,
+        "html": true,
+        "moaPage": true
+      }
+    ],
+    "visibleConsolesAtFinalCheck": [],
+    "ollamaColdStart": {
+      "samples": 437,
+      "seconds": 18.738,
+      "visibleConsoleWindows": 0
+    },
+    "ragColdStart": {
+      "samples": 344,
+      "seconds": 15.437,
+      "visibleConsoleWindows": 0
+    },
+    "flowiseStartupObservation": {
+      "samples": 9068,
+      "seconds": 315.377,
+      "visibleConsoleWindows": 0,
+      "note": "Initial readiness check rejected the version object; shared version predicate corrected and final health verified ready."
+    },
+    "moaColdStart": {
+      "samples": 577,
+      "seconds": 24.089,
+      "visibleConsoleWindows": 0
+    },
+    "localModel": {
+      "httpStatus": 200,
+      "model": "moa-qwen3-8b:20261015",
+      "done": true,
+      "generatedCharacters": 3,
+      "samples": 303,
+      "visibleConsoleWindows": 0
+    },
+    "browser": {
+      "turnsAfter": 5,
+      "itinerary": {
+        "request": "제주도 2박 3일 일정 다시 짜줘. 바다와 숲 위주로 부탁해.",
+        "completed": true,
+        "route": "large local fallback",
+        "places": 5,
+        "retrievedSources": 9,
+        "anchorPendingPx": 15.53125,
+        "anchorCompletedPx": 15.53125,
+        "serverDurationSeconds": 133.8
+      },
+      "weather": {
+        "request": "제주도 오늘부터 3일 날씨도 알려줘. 방금 만든 일정은 그대로 유지해줘.",
+        "completed": true,
+        "provider": "Open-Meteo",
+        "retrievedAtKst": "2026-10-16 17:58:25",
+        "forecastDates": [
+          "2026-10-16",
+          "2026-10-17",
+          "2026-10-18"
+        ],
+        "itineraryRetained": true,
+        "anchorPendingPx": 16.234375,
+        "anchorCompletedPx": 16.234375
+      },
+      "map": {
+        "wholeTripPins": 5,
+        "day2Pins": 2,
+        "loadedTileImages": 10,
+        "wholeTripRoadReferenceKm": 53.8,
+        "day2RoadReferenceKm": 3.6,
+        "selectedPlace": "에코랜드",
+        "selectedDetail": "DAY 3",
+        "cardScrollVerified": true,
+        "mapReturnVerified": true,
+        "recentQuestionAnchorPx": 16.234375
+      },
+      "consoleWarningsAndErrors": []
+    },
+    "automated": {
+      "tests": {
+        "passed": 482,
+        "failed": 0,
+        "skipped": 0,
+        "files": 42
+      },
+      "typecheck": "passed",
+      "build": "passed",
+      "diffWhitespace": "passed",
+      "report": "../../work/handoff/FINAL_HIDDEN_2026-10-16T08-56-21-218Z_fa181a-summary.json"
+    }
+  },
+  "evidence": {
+    "windowObservations": "../../work/handoff/CONSOLE_CHECKED_RESTART_20261016.json",
+    "weatherAnchorScreenshot": "../../work/handoff/JEJU_RETEST_WEATHER_ANCHOR_20261016.png",
+    "mapScreenshot": "../../work/handoff/JEJU_RETEST_MAP_FINAL_20261016.png"
+  },
+  "url": "http://localhost:3001/"
+}

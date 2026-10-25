@@ -2,23 +2,20 @@ import {
   ChatContractError,
   MAX_MODEL_RESPONSE_BYTES,
   explicitConversationControl,
+  namedNearbyFoodAnchor,
   parseModelReply,
   type ChatRequest,
   type ModelReply,
 } from './chat-contract';
-import {
-  currentTrip,
-  communityResults,
-  explanation,
-  foodResults,
-  placeResults,
-  stayResults,
-} from './trip-engine';
-import { places, restaurants, stays } from './trip-data';
+import { explanation } from './trip-engine';
+export { modelContext } from './model-context';
+import { buildModelInput, resolveModelEvidenceIds, usesItineraryPlanner } from './model-input';
+import { parseProviderReply } from './model-output';
 
 export type FlowiseConfig = {
   baseUrl: string;
   chatflowId: string;
+  plannerChatflowId?: string;
   apiKey?: string;
   timeoutMs: number;
 };
@@ -34,6 +31,7 @@ export function readFlowiseConfig(
   const base = value('FLOWISE_BASE_URL');
   const chatflowId = value('FLOWISE_CHATFLOW_ID');
   const apiKey = value('FLOWISE_API_KEY');
+  const plannerChatflowId = value('FLOWISE_PLANNER_CHATFLOW_ID');
   if (!base && !chatflowId && !apiKey) return null;
   const invalid = () => {
     throw new ChatContractError(
@@ -44,6 +42,7 @@ export function readFlowiseConfig(
   };
   if (!base || !chatflowId || !/^[A-Za-z0-9_-]{1,160}$/.test(chatflowId))
     invalid();
+  if (plannerChatflowId && !/^[A-Za-z0-9_-]{1,160}$/.test(plannerChatflowId)) invalid();
   let url: URL;
   try {
     url = new URL(base);
@@ -69,107 +68,13 @@ export function readFlowiseConfig(
   return {
     baseUrl: url.toString().replace(/\/$/, ''),
     chatflowId,
+    ...(plannerChatflowId ? { plannerChatflowId } : {}),
     ...(apiKey ? { apiKey } : {}),
     timeoutMs,
   };
 }
 
-/** A server-owned snapshot of canonical IDs and fields; no client-supplied endpoint is forwarded. */
-export function modelContext(request: ChatRequest) {
-  const s = currentTrip(request.session);
-  return {
-    dataMode: 'authored-demo-data',
-    warning:
-      '식당·카페·숙소는 가상 업체/예시 가격. 공개 코스와 작성자 프로필도 데모 예시이며 실제 회원 게시물 아님. 실제 영업·좌표·예약·결제 정보 없음.',
-    state: {
-      stage: s.stage,
-      region: s.region,
-      days: s.days,
-      activeDay: s.activeDay,
-      theme: s.theme,
-      similarTo: s.similarTo,
-      anchorId: s.anchorId,
-      foodId: s.foodId,
-      cafeId: s.cafeId,
-      stayId: s.stayId,
-      foodKind: s.foodKind,
-      cuisine: s.cuisine,
-      walk: s.walk,
-      foodBudget: s.foodBudget,
-      stayBudget: s.stayBudget,
-      booked: s.booked,
-      meals: s.meals,
-      cafes: s.cafes,
-      lodging: s.lodging,
-      editingId: s.editingId,
-      savedIds: s.savedIds,
-      collectedIds: s.collectedIds ?? [],
-      plan: s.plan,
-      comparisonIds: s.comparisonIds ?? [],
-      detailId: s.detailId ?? null,
-      communitySourceId: s.communitySourceId ?? null,
-      communityRegion: s.communityRegion ?? null,
-      communityTheme: s.communityTheme ?? 'all',
-    },
-    candidates: {
-      places: placeResults(s),
-      food: foodResults(s),
-      stays: s.booked ? [] : stayResults(s),
-    },
-    // This bounded authored catalog enables selecting new search parameters before
-    // selecting a candidate in the same batch; execution still checks live filters.
-    catalog: { places, food: restaurants, stays },
-    // Course IDs use a separate namespace from place/business IDs.
-    // Only the filtered visible courses may be copied, with their source preserved.
-    publicCourses: {
-      sourceKind: 'demo',
-      notice:
-        '공개 여행 화면을 위한 데모 작성자·코스 예시. 실제 Spotlog 회원 기록을 조회한 결과가 아님.',
-      candidates: communityResults(s),
-    },
-    savedTrips: request.session.library,
-    allowedToolTypes: [
-      'configure',
-      'region',
-      'show',
-      'place',
-      'food',
-      'stay',
-      'select-entity',
-      'collect-entity',
-      'uncollect-entity',
-      'bookmark',
-      'walk',
-      'cuisine',
-      'stay-budget',
-      'compare',
-      'detail',
-      'budget',
-      'check',
-      'build',
-      'day',
-      'add-selected',
-      'add-entity',
-      'edit',
-      'remove',
-      'move',
-      'transfer',
-      'directions',
-      'progress',
-      'save',
-      'open',
-      'library',
-      'history',
-      'help',
-      'copy-community',
-      'community-filter',
-    ],
-    conversationControls:
-      'reset/undo/resume는 명시적 사용자 문구를 서버에서 별도 처리하므로 모델 actions에 넣지 말 것.',
-  };
-}
-
-async function boundedResponse(
+export async function boundedResponse(
   response: Response,
   maxBytes: number,
 ): Promise<string> {
@@ -220,7 +125,7 @@ function predictionReply(value: unknown): ModelReply {
     );
   const body = value as Record<string, unknown>;
   if (body.json !== undefined && body.json !== null)
-    return parseModelReply(body.json);
+    return parseProviderReply(body.json);
   if (typeof body.text !== 'string' || !body.text.trim())
     throw new ChatContractError(
       'FLOWISE_RESPONSE_INVALID',
@@ -232,7 +137,7 @@ function predictionReply(value: unknown): ModelReply {
   if (text.startsWith('{') || text.startsWith('[') || text.startsWith('```')) {
     const raw = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '');
     try {
-      return parseModelReply(JSON.parse(raw));
+      return parseProviderReply(JSON.parse(raw));
     } catch {
       throw new ChatContractError(
         'MODEL_OUTPUT_INVALID',
@@ -247,7 +152,8 @@ function predictionReply(value: unknown): ModelReply {
 export async function predictFlowise(
   request: ChatRequest,
   config: FlowiseConfig,
-  fetcher: typeof fetch = fetch,
+  fetcher: typeof fetch = (input, init) => fetch(input, init),
+  evidence?: unknown,
 ): Promise<ModelReply> {
   if (
     request.action.type !== 'message' ||
@@ -261,7 +167,7 @@ export async function predictFlowise(
   }
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), config.timeoutMs);
-  const history = request.session.turns.slice(-12).flatMap((turn) =>
+  const history = namedNearbyFoodAnchor(request) ? [] : request.session.turns.slice(-12).flatMap((turn) =>
     turn.state.question
       ? [
           { role: 'userMessage', content: turn.state.question },
@@ -274,7 +180,7 @@ export async function predictFlowise(
   );
   try {
     const response = await fetcher(
-      `${config.baseUrl}/api/v1/prediction/${encodeURIComponent(config.chatflowId)}`,
+      `${config.baseUrl}/api/v1/prediction/${encodeURIComponent(usesItineraryPlanner(request) && config.plannerChatflowId ? config.plannerChatflowId : config.chatflowId)}`,
       {
         method: 'POST',
         headers: {
@@ -285,16 +191,16 @@ export async function predictFlowise(
         },
         // Keep context in question so no generic node-config override must be enabled.
         body: JSON.stringify({
-          question: JSON.stringify({
-            userMessage: request.action.text,
-            context: modelContext(request),
-          }),
+          question: JSON.stringify(buildModelInput(request, evidence).question),
           streaming: false,
-          overrideConfig: { sessionId: request.sessionId },
+          // The demo session ID is client controlled, not an authenticated memory
+          // namespace. Use isolated provider memory; bounded history above carries
+          // conversation context until a server-owned session store is connected.
+          overrideConfig: { sessionId: `moa_${crypto.randomUUID()}` },
           history,
         }),
         signal: controller.signal,
-        redirect: 'error',
+        redirect: 'manual',
       },
     );
     if (!response.ok)
@@ -316,7 +222,7 @@ export async function predictFlowise(
         502,
       );
     }
-    return predictionReply(body);
+    return parseModelReply(resolveModelEvidenceIds(predictionReply(body), evidence));
   } catch (error) {
     if (error instanceof ChatContractError) throw error;
     if (controller.signal.aborted)

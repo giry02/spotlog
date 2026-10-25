@@ -21,6 +21,11 @@ import {
 import { findFood, findPlace, money, period, scenarios } from '@/lib/trip-data';
 import type { TripAction, TripSession, TripState } from '@/lib/trip-engine';
 import type { OpenBusiness } from '@/components/business-detail';
+import { PlanEditControls, TripLibraryManager } from './trip-edit-controls';
+import { RegisteredPhotoGallery } from './registered-photo-gallery';
+import { EntityShareControls } from './trip-share-controls';
+import { EntityPhotoSourceButton } from './photo-source-modal';
+import { SavedPlaceReferences, RecentTripEntry, type OpenSavedTripDay } from './trip-local-features';
 
 type Props = {
   state: TripState;
@@ -28,6 +33,7 @@ type Props = {
   act: (action: TripAction) => void;
   onFullDetail: OpenBusiness;
   onEntityDetail: (id: string, state: TripState) => void;
+  onOpenSavedDay: OpenSavedTripDay;
 };
 function Title({
   icon: Icon,
@@ -56,6 +62,7 @@ export function ChatFeatureUnits({
   act,
   onFullDetail,
   onEntityDetail,
+  onOpenSavedDay,
 }: Props) {
   if (state.stage === 'compare') {
     const rows = comparisonRows(state);
@@ -136,14 +143,16 @@ export function ChatFeatureUnits({
           </p>
         )}
         <p className="tr-feature-note">
-          업체 가격·분위기·도보 시간은 체험 예시예요. 실제 영업·예약 가능 여부는
-          조회하지 않았어요.
+          등록 업체는 주소와 대표 좌표의 직선거리를 비교하며 현재 가격·영업·이동시간은 미확인입니다. 체험 업체의 가격·분위기·도보 시간은 예시예요.
         </p>
       </section>
     );
   }
   if (state.stage === 'budget') {
     const b = budgetSummary(state);
+    const partLabel = (kind: 'food' | 'cafe' | 'stay', total: number) =>
+      b.lines.some(line => line.category === kind) ? money(total)
+        : state.plan.some(visit => visit.kind === kind && visit.status !== 'skipped') ? '가격 미확인' : '항목 없음';
     return (
       <section className="tr-unit">
         <Title icon={Wallet} label="알려진 가격만 합산">
@@ -153,17 +162,17 @@ export function ChatFeatureUnits({
           <small>
             {b.people}명 · {b.rooms}객실 기준 예시 합계
           </small>
-          <strong>{money(b.total)}</strong>
+          <strong>{b.totalLabel}</strong>
         </div>
         <div className="tr-cost-parts">
           <span>
-            식사 <b>{money(b.foodTotal)}</b>
+            식사 <b>{partLabel('food', b.foodTotal)}</b>
           </span>
           <span>
-            카페 <b>{money(b.cafeTotal)}</b>
+            카페 <b>{partLabel('cafe', b.cafeTotal)}</b>
           </span>
           <span>
-            숙박 <b>{money(b.stayTotal)}</b>
+            숙박 <b>{partLabel('stay', b.stayTotal)}</b>
           </span>
         </div>
         <div className="tr-feature-options">
@@ -200,8 +209,7 @@ export function ChatFeatureUnits({
           </ul>
         ) : (
           <p className="tr-empty-copy">
-            먼저 식당·카페·숙소가 담긴 일정을 만들어 주세요. 알려진 비용이 없어
-            0원으로 표시했어요.
+            {b.hasUnpricedItems?'등록 업체의 현재 가격이 미확인이어서 전체 여행 예산을 계산할 수 없어요. 무료라는 의미가 아닙니다.':'계산할 가격이 확인된 식사·숙박 항목이 없어요.'}
           </p>
         )}
         {b.excluded.length > 0 && (
@@ -250,8 +258,9 @@ export function ChatFeatureUnits({
                 <strong>{c.title}</strong>
               </div>
               <p>{c.description}</p>
+              {c.visitId && c.focus==='time' && <PlanEditControls state={state} act={act} disabled={false} focusVisitId={c.visitId} compact/>}
               {c.visitId &&
-                !state.plan.find((v) => v.id === c.visitId)?.locked && (
+                c.focus!=='time' && !state.plan.find((v) => v.id === c.visitId)?.locked && (
                   <button onClick={() => act({ type: 'edit', id: c.visitId! })}>
                     이 항목의 후보 보기 <ArrowRight size={13} />
                   </button>
@@ -290,7 +299,8 @@ export function ChatFeatureUnits({
     const place = findPlace(d.id);
     return (
       <section className="tr-unit tr-chat-detail">
-        <img className="tr-chat-detail-photo" src={d.image} alt={d.imageAlt} />
+        {d.registered ? <RegisteredPhotoGallery key={d.id} photos={d.photos} name={d.name}/>
+          : <><img className="tr-chat-detail-photo" src={d.image} alt={d.imageAlt} /><EntityPhotoSourceButton entityId={d.id} image={d.image} name={d.name}/></>}
         <Title icon={Info} label={`${d.kind} 상세정보`}>
           {d.name}
         </Title>
@@ -334,8 +344,9 @@ export function ChatFeatureUnits({
           </ul>
         )}
         <p className="tr-feature-note">
-          {place ? d.check : '업체 사진·메뉴·운영정보·가격은 가상 예시예요.'}
+          {place ? d.check : d.registered ? '등록 정보의 확인일 기준입니다. 현재 메뉴·영업시간·요금은 업체에서 확인해 주세요.' : '업체 사진·메뉴·운영정보·가격은 가상 예시예요.'}
         </p>
+        <EntityShareControls id={d.id}/>
         {!place && (
           <Button
             variant="outline"
@@ -368,64 +379,21 @@ export function ChatFeatureUnits({
       </section>
     );
   }
+  if (state.stage === 'trash') return <section className="tr-unit"><Title icon={History} label="삭제한 내 여행">여행 휴지통</Title><TripLibraryManager session={session} state={state} act={act} trash/></section>;
   if (state.stage === 'library') {
-    const library = state.librarySnapshot ?? session.library;
+    const library = (state.librarySnapshot ?? session.library).filter(p=>!p.deletedAt);
     return (
       <section className="tr-unit">
         <Title icon={History} label="이 브라우저에 보관">
           찜한 장소와 내 여행
         </Title>
-        <h3 className="tr-sheet-heading">
-          찜한 장소 <span>{state.savedIds.length}</span>
-        </h3>
-        {state.savedIds.length ? (
-          <>
-            <div className="tr-feature-options">
-              {state.savedIds.map((id) => (
-                <button key={id} onClick={() => act({ type: 'place', id })}>
-                  {findPlace(id)?.name}
-                </button>
-              ))}
-            </div>
-            <Button
-              variant="outline"
-              className="tr-primary"
-              onClick={() => act({ type: 'show', stage: 'saved' })}
-            >
-              찜한 장소로 일정 만들기
-            </Button>
-          </>
-        ) : (
-          <p className="tr-empty-copy">
-            “협재 찜해줘”처럼 장소를 보관해보세요.
-          </p>
-        )}
+        <RecentTripEntry session={session} act={act}/>
+        <SavedPlaceReferences session={session} state={state} act={act} onEntityDetail={onEntityDetail} onOpenDay={onOpenSavedDay}/>
         <h3 className="tr-sheet-heading">
           저장한 여행 <span>{library.length}</span>
         </h3>
-        {library.length ? (
-          library.map((p, i) => (
-            <button
-              key={p.id}
-              className="tr-library-plan"
-              onClick={() => act({ type: 'open', id: p.id })}
-            >
-              <span>{String(i + 1).padStart(2, '0')}</span>
-              <div>
-                <strong>{p.title}</strong>
-                <small>
-                  {period(p.days)} · {p.visits.length}개 항목
-                </small>
-              </div>
-              <ArrowRight size={17} />
-            </button>
-          ))
-        ) : (
-          <p className="tr-empty-copy">
-            아직 저장한 여행이 없어요. 일정을 만든 뒤 “일정 저장해줘”라고
-            말해보세요.
-          </p>
-        )}
+        <TripLibraryManager session={session} state={state} act={act}/>
+        <Button variant="outline" className="tr-primary" onClick={()=>act({type:'offline-library'})}>오프라인 여행 사본 보기</Button>
         <p className="tr-feature-note">
           실제 Spotlog 계정과 동기화하기 전인 기기별 체험 저장본입니다.
         </p>
@@ -471,6 +439,19 @@ export function ChatFeatureUnits({
         <p className="tr-feature-description">
           예시를 눌러 바로 질문하거나, 장소 이름과 DAY를 바꿔서 말해보세요.
         </p>
+        <div className="tr-help-group">
+          <h3>둘러보고 이어서 하기</h3>
+          <button onClick={() => act({ type: 'community-filter', contentType: 'all', query: '', days: null, authorId: null })}>공개 코스 · 작성자 · 여행기<ArrowRight size={14} /></button>
+          <button onClick={() => act({ type: 'media', mode: 'photos' })}>장소 사진 둘러보기<ArrowRight size={14} /></button>
+          <button onClick={() => act({ type: 'saved-filter', region: null })}>찜과 담긴 여행 보기<ArrowRight size={14} /></button>
+          <button onClick={() => act({ type: 'continue-trip' })}>최근 저장 여행 이어가기<ArrowRight size={14} /></button>
+          <button onClick={() => act({ type: 'offline-library' })}>오프라인 사본<ArrowRight size={14} /></button>
+          <button onClick={() => act({ type: 'open_spotlog', target: 'community', entry: 'place-reaction' })}>장소 카드 좋아요 창<ArrowRight size={14} /></button>
+          <button onClick={() => act({ type: 'open_spotlog', target: 'community', entry: 'journey-comment' })}>여행기 전체 댓글<ArrowRight size={14} /></button>
+          <button onClick={() => act({ type: 'open_spotlog', target: 'community', entry: 'journey-cheer' })}>여행기 응원 창<ArrowRight size={14} /></button>
+          <button onClick={() => act({ type: 'open_spotlog', target: 'profile', entry: 'profile-summary' })}>내 프로필·등급<ArrowRight size={14} /></button>
+          <button onClick={() => act({ type: 'open_spotlog', target: 'profile', entry: 'profile-activity' })}>내 기기 활동<ArrowRight size={14} /></button>
+        </div>
         {chatHelpGroups.map((g) => (
           <div className="tr-help-group" key={g.title}>
             <h3>{g.title}</h3>
@@ -495,8 +476,7 @@ export function ChatFeatureUnits({
           ))}
         </div>
         <p className="tr-feature-note">
-          현재는 제주·서울 샘플과 지원 표현으로 체험합니다. 실제 AI와
-          예약·실시간 데이터는 연결 전이에요.
+          제주·서울·부산·경주·강릉의 등록 자료와 체험 예시를 구분합니다. 실제 AI가 질문을 해석하며 예약·결제·실시간 영업 정보는 연결 전이에요.
         </p>
       </section>
     );

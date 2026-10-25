@@ -1,0 +1,137 @@
+{
+  "evaluatedAt": "2026-10-15T01:04:02.019Z",
+  "execution": "real-local-ollama-embedding",
+  "dataMode": "authored-demo-data",
+  "metadata": {
+    "dataMode": "authored-demo-data",
+    "status": "ready",
+    "indexVersion": "idx:2b860ed7d71f3e949b98db3df99008e1",
+    "embeddingModel": "qwen3-embedding:0.6b",
+    "dimensions": 1024,
+    "embeddingDigest": "ac6da0dfba84a81fdbfbaf330198c33cd77c4cdfc53e8bc50eb581914a15621d",
+    "pipelineVersion": "authored-place-description-qwen-query-v2",
+    "embeddingOptions": {
+      "num_ctx": 4096,
+      "num_batch": 64,
+      "num_gpu": 0
+    },
+    "documents": 13
+  },
+  "scenarios": [
+    {
+      "id": "green-forest",
+      "query": "나무 그늘에서 천천히 숲길을 걸으며 쉬고 싶어",
+      "passed": true,
+      "milliseconds": 194,
+      "returnedIds": [
+        "seoulforest",
+        "bijarim"
+      ],
+      "evidenceIds": [
+        "idx:2b860ed7d71f3e949b98db3df99008e1:4bbb53dae0c24c73c4f9af69",
+        "idx:2b860ed7d71f3e949b98db3df99008e1:5e8aaa1511b7d8f27f9ad3e5"
+      ]
+    },
+    {
+      "id": "tea-culture",
+      "query": "차 문화 전시와 초록 차밭을 함께 둘러보고 싶어",
+      "passed": true,
+      "milliseconds": 185,
+      "returnedIds": [
+        "osulloc"
+      ],
+      "evidenceIds": [
+        "idx:2b860ed7d71f3e949b98db3df99008e1:d567aa1aaee37ba3247a1b79"
+      ]
+    },
+    {
+      "id": "west-white-beach",
+      "query": "비양도가 보이는 흰 모래 해변을 걷고 싶어",
+      "passed": true,
+      "milliseconds": 194,
+      "returnedIds": [
+        "geumneung",
+        "hyeopjae"
+      ],
+      "evidenceIds": [
+        "idx:2b860ed7d71f3e949b98db3df99008e1:dcd6618e2f3f991c44e20aad",
+        "idx:2b860ed7d71f3e949b98db3df99008e1:5eda5cc45ae5bc70796e6023"
+      ]
+    },
+    {
+      "id": "waterfall",
+      "query": "폭포와 물이 흐르는 풍경을 보고 싶어",
+      "passed": true,
+      "milliseconds": 170,
+      "returnedIds": [
+        "jeongbang",
+        "cheonjiyeon"
+      ],
+      "evidenceIds": [
+        "idx:2b860ed7d71f3e949b98db3df99008e1:04972fcde473f11a8ca5a965",
+        "idx:2b860ed7d71f3e949b98db3df99008e1:1ee35a409243d309c3c950fe"
+      ]
+    },
+    {
+      "id": "volcanic-shore",
+      "query": "해안의 주상절리와 바위 절벽을 감상하고 싶어",
+      "passed": true,
+      "milliseconds": 184,
+      "returnedIds": [
+        "jusangjeolli",
+        "jeongbang"
+      ],
+      "evidenceIds": [
+        "idx:2b860ed7d71f3e949b98db3df99008e1:ac9f2304171b7de04b9e49f4",
+        "idx:2b860ed7d71f3e949b98db3df99008e1:04972fcde473f11a8ca5a965"
+      ]
+    },
+    {
+      "id": "candidate-isolation",
+      "query": "바다와 해변",
+      "passed": true,
+      "milliseconds": 113,
+      "returnedIds": [
+        "bijarim",
+        "seoulforest"
+      ],
+      "evidenceIds": [
+        "idx:2b860ed7d71f3e949b98db3df99008e1:5e8aaa1511b7d8f27f9ad3e5",
+        "idx:2b860ed7d71f3e949b98db3df99008e1:4bbb53dae0c24c73c4f9af69"
+      ]
+    },
+    {
+      "id": "no-candidates",
+      "query": "바다를 보여줘",
+      "passed": true,
+      "milliseconds": 10,
+      "returnedIds": [],
+      "evidenceIds": []
+    }
+  ],
+  "revocation": {
+    "disposableDatabase": true,
+    "staleRejected": true,
+    "afterCount": 0,
+    "passed": true
+  },
+  "loadedEmbeddingModel": [
+    {
+      "name": "qwen3-embedding:0.6b",
+      "size": 1144237588,
+      "size_vram": 0,
+      "context_length": 4096,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "595.78M",
+        "quantization_level": "Q8_0"
+      }
+    }
+  ],
+  "passed": true
+}

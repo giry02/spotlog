@@ -1,5 +1,5 @@
 export type Domain = 'places' | 'monitors';
-export type PlaceArea = 'west' | 'east' | 'south' | 'seoul';
+export type PlaceArea = 'west' | 'east' | 'south' | 'north' | 'central' | 'seoul';
 export type Place = {
   id: string;
   name: string;
@@ -15,6 +15,20 @@ export type Place = {
   sourceUrl?: string;
   sourceVerifiedAt?: string;
   visitNote?: string;
+  imageKind?: 'photograph' | 'illustration';
+  knowledgeSource?: 'curated-official-summary';
+  knowledgeDocumentIds?: string[];
+  planningNote?: string;
+  registered?: boolean;
+  address?: string;
+  latitude?: number;
+  longitude?: number;
+  photos?: import('./registered-catalog').RegisteredPhoto[];
+  sourceProvider?: string;
+  planning?: {
+    dayScope: 'full-day' | 'half-day' | 'flexible';
+    conditions: string[];
+  };
 };
 // Photos depict the named landmarks. Descriptions and districts are checked against official tourism sources.
 // Areas, durationMinutes, mood values and recommendation rankings are authored itinerary examples, not live route data.
@@ -238,12 +252,25 @@ export type Restaurant = {
   id: string;
   placeId: string;
   name: string;
-  cuisine: '한식' | '양식' | '카페';
+  cuisine: '한식' | '양식' | '카페' | '상점' | '음식점';
   menu: string;
   price: number;
   walk: number;
   angle: number;
   quiet: boolean;
+  registered?: boolean;
+  kind?: 'FOOD' | 'CAFE' | 'SHOP';
+  region?: string;
+  address?: string;
+  latitude?: number;
+  longitude?: number;
+  sourceUrl?: string;
+  sourceProvider?: string;
+  sourceVerifiedAt?: string;
+  photos?: import('./registered-catalog').RegisteredPhoto[];
+  priceVerified?: boolean;
+  priceStatus?: 'unknown';
+  walkVerified?: boolean;
 };
 // All business names, menus, prices, walk times and map angles are fictional demo settings.
 export const restaurants: Restaurant[] = [

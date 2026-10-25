@@ -7,7 +7,7 @@ import { createHash } from 'node:crypto';
 registerHooks({
   resolve(specifier, context, next) {
     if (
-      /\/(trip-data|business-details|travel-links)\.ts$/.test(
+      /\/lib\/[^/]+\.ts$/.test(
         context.parentURL ?? '',
       ) &&
       specifier.startsWith('./') &&
@@ -121,7 +121,7 @@ test('every catalog business has a valid explicit sample detail sheet and landma
       item.id + ' own place context',
     );
   }
-  for (const item of stays) {
+  for (const item of stays.filter((item) => !item.registered)) {
     assert.ok(item.near.length > 0, item.id + ' coverage');
     assert.ok(
       item.near.every((id) =>

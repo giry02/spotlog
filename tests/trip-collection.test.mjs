@@ -30,11 +30,11 @@ const uncollect = (session, id) =>
 const gathering = () =>
   ['hyeopjae', 'hj-rice', 'osulloc', 'of-rice', 'of-cafe'].reduce(
     collect,
-    createTripSession(),
+    createDemoSession(),
   );
 
 test('collecting preserves all picked IDs and favorite IDs while moving the nearby-search focus', () => {
-  let session = appendTrip(createTripSession(['saebyeol']), {
+  let session = appendTrip(createDemoSession(['saebyeol']), {
     type: 'place',
     id: 'hyeopjae',
   });
@@ -52,7 +52,7 @@ test('collecting preserves all picked IDs and favorite IDs while moving the near
   assert.equal(JSON.stringify(session.turns.slice(0, -2)), originalTurns);
 });
 test('choosing a focus alone does not add it to the travel collection', () => {
-  const session = appendTrip(createTripSession(), {
+  const session = appendTrip(createDemoSession(), {
     type: 'place',
     id: 'hyeopjae',
   });
@@ -91,7 +91,7 @@ test('cross-region collection and browsing changes are refused without erasing g
   }
 });
 test('multiple named collection follows utterance order and uses an atomic same-region decision', () => {
-  let session = say(createTripSession(), '협재랑 오설록을 여행에 담아줘');
+  let session = say(createDemoSession(), '협재랑 오설록을 여행에 담아줘');
   assert.deepEqual(currentTrip(session).collectedIds, ['hyeopjae', 'osulloc']);
   assert.equal(currentTrip(session).anchorId, 'osulloc');
   const original = currentTrip(session).collectedIds;
@@ -100,11 +100,11 @@ test('multiple named collection follows utterance order and uses an atomic same-
   assert.match(currentTrip(session).notice, /다른 지역/);
 });
 test('selected and ordinal candidates can be collected through chat before an itinerary exists', () => {
-  let session = say(createTripSession(), '협재 찾아줘');
+  let session = say(createDemoSession(), '협재 찾아줘');
   session = say(session, '이 장소를 여행에 담아줘');
   session = say(session, '여기 근처 식당 찾아줘');
   session = say(session, '첫 번째 식당을 여행에 담아줘');
-  assert.deepEqual(currentTrip(session).collectedIds, ['hyeopjae', 'hj-rice']);
+  assert.deepEqual(currentTrip(session).collectedIds, ['hyeopjae', 'catalog-jeju-hyeopjae-sin-guksu']);
   assert.equal(currentTrip(session).plan.length, 0);
   assert.equal(currentTrip(session).stage, 'collection');
   assert.ok(!nextQuestions(currentTrip(session)).some((q) => /숙소/.test(q)));
@@ -145,7 +145,7 @@ test('two places and two foods from different anchors are all used without an au
   );
 });
 test('food-only collection produces only collected foods and does not invent its anchor place as a visit', () => {
-  let session = collect(createTripSession(), 'hj-rice');
+  let session = collect(createDemoSession(), 'hj-rice');
   session = collect(session, 'of-cafe');
   session = say(session, '담은 곳으로 당일 일정 짜줘');
   assert.deepEqual(
@@ -200,7 +200,7 @@ test('multiple stay choices must fit the number of nights before collection buil
 });
 test('booked overnight records survive rebuilding a collection exactly, including identity and visit status', () => {
   let session = say(
-    createTripSession(),
+    createDemoSession(),
     '제주 1박 2일 일정 짜줘. 숙소는 이미 예약했어',
   );
   const locked = currentTrip(session).plan.find((v) => v.locked);
@@ -299,7 +299,7 @@ test('reset clears the active collection but keeps favorites and saved itinerari
   assert.equal(session.turns.length, 1);
 });
 test('legacy sessions without collectedIds retain automatic itinerary and favorites-only behavior', () => {
-  let session = createTripSession(['hyeopjae']);
+  let session = createDemoSession(['hyeopjae']);
   delete session.turns[0].state.collectedIds;
   assert.ok(isTripSession(session));
   assert.doesNotThrow(() => parseTripSession(session));
@@ -331,3 +331,6 @@ test('collection explanations or negative requests cannot add or remove candidat
     );
   }
 });
+
+// This regression fixture intentionally uses the authored legacy businesses.
+function createDemoSession(savedIds = [], library = []) { return createTripSession(savedIds, library, "demo"); }

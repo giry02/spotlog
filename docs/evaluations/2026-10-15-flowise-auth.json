@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-10-15T01:09:23.141Z",
+  "cases": [
+    {
+      "name": "missing-prediction-key",
+      "status": 500,
+      "deniedBeforeModel": true,
+      "upstreamUnauthorizedStatusBug": true
+    },
+    {
+      "name": "invalid-prediction-key",
+      "status": 500,
+      "deniedBeforeModel": true,
+      "upstreamUnauthorizedStatusBug": true
+    },
+    {
+      "name": "unauthenticated-management",
+      "status": 401,
+      "denied": true
+    },
+    {
+      "name": "valid-read-only-key",
+      "status": 200,
+      "accepted": true
+    }
+  ]
+}

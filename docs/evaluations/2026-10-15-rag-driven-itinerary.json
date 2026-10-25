@@ -1,0 +1,388 @@
+{
+  "evaluatedAt": "2026-10-15T03:13:38.337Z",
+  "execution": "actual-local-moa-flowise-rag-and-ollama-14b",
+  "cases": [
+    {
+      "id": "new-rag-forest-itinerary",
+      "query": "제주 당일 일정으로 사려니숲길과 절물자연휴양림만 오전 오후에 넣어줘. 식당 카페 숙소는 빼줘.",
+      "evaluatedAt": "2026-10-15T03:04:26.869Z",
+      "passed": true,
+      "status": 200,
+      "checks": {
+        "correlation": true,
+        "actualModel": true,
+        "days": true,
+        "requestedPlaces": true,
+        "noRandomFill": true,
+        "freshRag": true,
+        "sourceOnEveryVisit": true,
+        "fullDayIsolated": true,
+        "noFakeBusinesses": true
+      },
+      "mode": "flowise",
+      "answerContext": {
+        "retrievalStatus": "available",
+        "modelRouting": {
+          "tier": "local",
+          "reason": "primary",
+          "status": "ready",
+          "provider": "flowise",
+          "model": "qwen3:8b"
+        }
+      },
+      "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+      "retrievedPlaces": [
+        "jeolmul",
+        "saryeoni",
+        "aquaplanet",
+        "hallimpark",
+        "bijarim",
+        "yeomiji",
+        "cheonjiyeon",
+        "hallasan"
+      ],
+      "visits": [
+        {
+          "id": "visit-1",
+          "day": 1,
+          "kind": "place",
+          "entityId": "saryeoni",
+          "anchorId": "saryeoni",
+          "label": "오전 방문",
+          "locked": false,
+          "knowledge": {
+            "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+            "evidenceIds": [
+              "idx:7fd1c882b94b27b178ddc17b1191c44d:163fc27aa2c4b269bdf5e13d"
+            ],
+            "documentIds": [
+              "moa-knowledge:jeju-saryeoni-visit"
+            ]
+          }
+        },
+        {
+          "id": "visit-2",
+          "day": 1,
+          "kind": "place",
+          "entityId": "jeolmul",
+          "anchorId": "jeolmul",
+          "label": "오후 방문",
+          "locked": false,
+          "knowledge": {
+            "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+            "evidenceIds": [
+              "idx:7fd1c882b94b27b178ddc17b1191c44d:b0345f05d83baeafda13b31a"
+            ],
+            "documentIds": [
+              "moa-knowledge:jeju-jeolmul-visit"
+            ]
+          }
+        }
+      ],
+      "responseText": "제주 당일 일정을 오전 사려니숲길, 오후 절물자연휴양림으로 구성했습니다.",
+      "milliseconds": 7877
+    },
+    {
+      "id": "rag-three-days-with-full-day-destinations",
+      "query": "제주 2박 3일 관광지 일정 만들어줘. 1일차 한라산, 2일차 우도, 3일차 사려니숲길과 절물자연휴양림을 넣어줘. 식당 카페 숙소는 빼줘. 개방과 예약 확인이 필요한 초안으로 만들어줘.",
+      "evaluatedAt": "2026-10-15T03:04:34.748Z",
+      "passed": true,
+      "status": 200,
+      "checks": {
+        "correlation": true,
+        "actualModel": true,
+        "days": true,
+        "requestedPlaces": true,
+        "noRandomFill": true,
+        "freshRag": true,
+        "sourceOnEveryVisit": true,
+        "fullDayIsolated": true,
+        "noFakeBusinesses": true
+      },
+      "mode": "flowise",
+      "answerContext": {
+        "retrievalStatus": "available",
+        "modelRouting": {
+          "tier": "local",
+          "reason": "primary",
+          "status": "ready",
+          "provider": "flowise",
+          "model": "qwen3:8b"
+        }
+      },
+      "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+      "retrievedPlaces": [
+        "hallasan",
+        "udo",
+        "jeolmul",
+        "saryeoni",
+        "aquaplanet",
+        "geomunoreum",
+        "hallimpark",
+        "cheonjiyeon"
+      ],
+      "visits": [
+        {
+          "id": "visit-1",
+          "day": 1,
+          "kind": "place",
+          "entityId": "hallasan",
+          "anchorId": "hallasan",
+          "label": "하루 방문",
+          "locked": false,
+          "knowledge": {
+            "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+            "evidenceIds": [
+              "idx:7fd1c882b94b27b178ddc17b1191c44d:1b70d31925d2118e06f2bb76"
+            ],
+            "documentIds": [
+              "moa-knowledge:jeju-hallasan-visit"
+            ]
+          }
+        },
+        {
+          "id": "visit-2",
+          "day": 2,
+          "kind": "place",
+          "entityId": "udo",
+          "anchorId": "udo",
+          "label": "하루 방문",
+          "locked": false,
+          "knowledge": {
+            "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+            "evidenceIds": [
+              "idx:7fd1c882b94b27b178ddc17b1191c44d:5ed16733b4f83ca2c274264e"
+            ],
+            "documentIds": [
+              "moa-knowledge:jeju-udo-visit"
+            ]
+          }
+        },
+        {
+          "id": "visit-3",
+          "day": 3,
+          "kind": "place",
+          "entityId": "saryeoni",
+          "anchorId": "saryeoni",
+          "label": "오전 방문",
+          "locked": false,
+          "knowledge": {
+            "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+            "evidenceIds": [
+              "idx:7fd1c882b94b27b178ddc17b1191c44d:163fc27aa2c4b269bdf5e13d"
+            ],
+            "documentIds": [
+              "moa-knowledge:jeju-saryeoni-visit"
+            ]
+          }
+        },
+        {
+          "id": "visit-4",
+          "day": 3,
+          "kind": "place",
+          "entityId": "jeolmul",
+          "anchorId": "jeolmul",
+          "label": "오후 방문",
+          "locked": false,
+          "knowledge": {
+            "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+            "evidenceIds": [
+              "idx:7fd1c882b94b27b178ddc17b1191c44d:b0345f05d83baeafda13b31a"
+            ],
+            "documentIds": [
+              "moa-knowledge:jeju-jeolmul-visit"
+            ]
+          }
+        }
+      ],
+      "responseText": "제주 2박 3일 여행 일정을 생성했습니다. 한라산(1일차), 우도(2일차), 사려니숲길과 절물자연휴양림(3일차)을 포함하며, 식당·카페·숙소는 제외합니다.",
+      "milliseconds": 11176
+    },
+    {
+      "id": "broad-jeju-three-day",
+      "query": "제주 2박 3일 여행 일정 만들어줘. 바다와 숲을 보고 싶어. 하루 오전 오후 위주로 배치하고 식당 카페 숙소는 빼줘.",
+      "evaluatedAt": "2026-10-15T03:13:38.341Z",
+      "passed": true,
+      "status": 200,
+      "checks": {
+        "correlation": true,
+        "actualModel": true,
+        "days": true,
+        "requestedPlaces": true,
+        "noRandomFill": true,
+        "freshRag": true,
+        "allDaysCovered": true,
+        "sourceOnEveryVisit": true,
+        "fullDayIsolated": true,
+        "noFakeBusinesses": true
+      },
+      "mode": "flowise",
+      "answerContext": {
+        "retrievalStatus": "available",
+        "modelRouting": {
+          "tier": "local",
+          "reason": "primary",
+          "status": "ready",
+          "provider": "flowise",
+          "model": "qwen3:8b"
+        }
+      },
+      "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+      "retrievedPlaces": [
+        "aquaplanet",
+        "osulloc",
+        "yeomiji",
+        "geomunoreum",
+        "jeolmul",
+        "cheonjiyeon",
+        "gotjawal",
+        "jeongbang"
+      ],
+      "visits": [
+        {
+          "id": "visit-1",
+          "day": 1,
+          "kind": "place",
+          "entityId": "cheonjiyeon",
+          "anchorId": "cheonjiyeon",
+          "label": "오전 방문",
+          "locked": false,
+          "knowledge": {
+            "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+            "evidenceIds": [
+              "idx:7fd1c882b94b27b178ddc17b1191c44d:38368fc3656eb76ef8fe5640"
+            ],
+            "documentIds": [
+              "moa-knowledge:jeju-cheonjiyeon-visit"
+            ]
+          }
+        },
+        {
+          "id": "visit-2",
+          "day": 1,
+          "kind": "place",
+          "entityId": "jeongbang",
+          "anchorId": "jeongbang",
+          "label": "오후 방문",
+          "locked": false,
+          "knowledge": {
+            "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+            "evidenceIds": [
+              "idx:7fd1c882b94b27b178ddc17b1191c44d:13018638d8f377c17b23e1cf"
+            ],
+            "documentIds": [
+              "moa-knowledge:jeju-jeongbang-visit"
+            ]
+          }
+        },
+        {
+          "id": "visit-3",
+          "day": 2,
+          "kind": "place",
+          "entityId": "geomunoreum",
+          "anchorId": "geomunoreum",
+          "label": "오전 방문",
+          "locked": false,
+          "knowledge": {
+            "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+            "evidenceIds": [
+              "idx:7fd1c882b94b27b178ddc17b1191c44d:8e18a8b46ff36a2b49487718"
+            ],
+            "documentIds": [
+              "moa-knowledge:jeju-geomunoreum-visit"
+            ]
+          }
+        },
+        {
+          "id": "visit-4",
+          "day": 2,
+          "kind": "place",
+          "entityId": "osulloc",
+          "anchorId": "osulloc",
+          "label": "오후 방문",
+          "locked": false,
+          "knowledge": {
+            "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+            "evidenceIds": [
+              "idx:7fd1c882b94b27b178ddc17b1191c44d:b8d30c2f51a9d67b193b0ced"
+            ],
+            "documentIds": [
+              "moa-knowledge:jeju-osulloc-visit"
+            ]
+          }
+        },
+        {
+          "id": "visit-5",
+          "day": 3,
+          "kind": "place",
+          "entityId": "gotjawal",
+          "anchorId": "gotjawal",
+          "label": "오전 방문",
+          "locked": false,
+          "knowledge": {
+            "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+            "evidenceIds": [
+              "idx:7fd1c882b94b27b178ddc17b1191c44d:b0284543039d2b98f3d1f4b1"
+            ],
+            "documentIds": [
+              "moa-knowledge:jeju-gotjawal-visit"
+            ]
+          }
+        },
+        {
+          "id": "visit-6",
+          "day": 3,
+          "kind": "place",
+          "entityId": "yeomiji",
+          "anchorId": "yeomiji",
+          "label": "오후 방문",
+          "locked": false,
+          "knowledge": {
+            "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+            "evidenceIds": [
+              "idx:7fd1c882b94b27b178ddc17b1191c44d:bf069f757a301aebb633ac5a"
+            ],
+            "documentIds": [
+              "moa-knowledge:jeju-yeomiji-visit"
+            ]
+          }
+        }
+      ],
+      "responseText": "제주 2박 3일 여행 일정을 생성했습니다. 바다와 숲을 중심으로 하루 오전·오후에 방문할 장소를 배치했습니다.",
+      "milliseconds": 10667
+    },
+    {
+      "id": "missing-rag-goes-to-local-14b",
+      "query": "부산 2박 3일 여행의 짐을 가볍게 싸려면 어떻게 해야 해? 검색 자료 없이도 설명할 수 있는 일반적인 준비 원칙 세 가지만 짧게 알려줘. 일정 카드는 만들지 말고 설명만 해줘.",
+      "evaluatedAt": "2026-10-15T03:13:49.011Z",
+      "passed": true,
+      "status": 200,
+      "checks": {
+        "correlation": true,
+        "actualModel": true,
+        "largeTier": true,
+        "reason": true,
+        "noFakedEvidence": true,
+        "noUnexpectedMutation": true,
+        "answer": true
+      },
+      "mode": "large-model",
+      "answerContext": {
+        "retrievalStatus": "empty",
+        "modelRouting": {
+          "tier": "large",
+          "reason": "rag-insufficient",
+          "status": "ready",
+          "provider": "ollama",
+          "model": "qwen3:14b"
+        }
+      },
+      "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+      "retrievedPlaces": [],
+      "visits": [],
+      "responseText": "짐을 가볍게 싸려면 1) 필수품만 챙기고, 2) 다용도 물품(예: 티셔츠, 면바지 등)으로 대체해보세요. 3) 가방은 경량 소재를 선택하고, 짐을 분할하여 운반하세요.",
+      "milliseconds": 20516
+    }
+  ],
+  "passed": true
+}

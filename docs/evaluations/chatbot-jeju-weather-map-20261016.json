@@ -1,0 +1,88 @@
+{
+  "checkedAt": "2026-10-16",
+  "timezone": "Asia/Seoul",
+  "application": "http://localhost:3001/",
+  "qaOrigin": "http://[::1]:3001/",
+  "method": "Actual Chrome UI messages against the running local application; authored mocks used separately for failure and invariant regressions",
+  "status": "passed-after-fixes",
+  "liveCases": [
+    {
+      "request": "제주도 2박 3일 여행 일정 짜줘. 바다랑 숲을 보고 싶고, 하루에 오전 오후 한 곳씩 넣어줘. 식당 카페 숙소는 빼줘.",
+      "days": 3,
+      "visits": 6,
+      "retrievedDocuments": 8,
+      "primaryInvalidSelectionEscalation": "Actual external large-model completion corrected the incomplete primary selection",
+      "result": "passed"
+    },
+    {
+      "request": "제주 2박 3일 일정 짜고 오늘부터 3일 날씨도 알려줘. 바다랑 숲을 보고 싶고 하루에 오전 오후 한 곳씩 넣어줘. 식당 카페 숙소는 빼줘. 가까운 장소끼리 같은 날 묶어줘.",
+      "modelSourceShown": "AI 응답 (Flowise primary)",
+      "retrievedDocuments": 8,
+      "selectedPlaces": [
+        { "day": 1, "places": ["용머리해안", "제주곶자왈도립공원"] },
+        { "day": 2, "places": ["절물자연휴양림", "대포해안주상절리대"] },
+        { "day": 3, "places": ["섭지코지", "거문오름"] }
+      ],
+      "nearbyGroupingNoticeVisible": true,
+      "newPlacesAddedByGrouping": 0,
+      "weatherRetrievedAtKst": "2026-10-16 14:14:03",
+      "forecastDates": ["2026-10-16", "2026-10-17", "2026-10-18"],
+      "weatherUnits": ["°C", "mm", "m/s", "%"],
+      "currentWeatherIsModelBased": true,
+      "result": "passed"
+    },
+    {
+      "request": "오늘부터 3일간 제주 날씨 알려줘. 기온, 강수확률, 바람을 알려주고 기존 일정은 그대로 유지해.",
+      "sourceShown": "날씨 조회",
+      "latestFollowupRetrievedAtKst": "2026-10-16 14:18:02",
+      "forecastDates": ["2026-10-16", "2026-10-17", "2026-10-18"],
+      "selectedDayPreserved": true,
+      "itineraryAndInteractiveMapPreserved": true,
+      "latestSelectedDay": 3,
+      "latestDayMapPins": 2,
+      "result": "passed"
+    }
+  ],
+  "mapChecks": {
+    "day2AndDay3Switch": "passed, three-day duration and six selected visits retained",
+    "allDays": "six numbered markers with day-specific colors and all six place labels",
+    "loadedTiles": 8,
+    "tileCount": 8,
+    "zoom": "scale changed from 10 km to 5 km",
+    "keyboardPan": "visible map transform changed",
+    "fitPlaces": "all selected markers restored to view",
+    "markerPopup": "correct destination, official source and directions links",
+    "attribution": "OpenStreetMap contributors visible",
+    "lineSemantics": "visit order only; actual road route and travel times are not claimed"
+  },
+  "questionAnchor": {
+    "pendingOffsetPx": 16,
+    "completedOffsetPx": 16
+  },
+  "fixes": [
+    "Enforce requested morning and afternoon visit counts instead of accepting five stops for three days",
+    "Balance sea/coast and forest evidence queries over the real RAG index",
+    "Render standalone and combined weather from validated measurements, preserving units, dates, source and retrieval time",
+    "Recognize explicit multi-day forecast ranges and the 알려주고 connector",
+    "Keep the existing plan, selected day and map available after a weather answer",
+    "Respect an explicit nearby grouping request using the same selected RAG places and official representative coordinates",
+    "Preserve full-day exceptions and proximity notices in combined weather captions",
+    "Keep standalone weather independent from invalid model configuration",
+    "Prevent business-category exclusions from deleting a named destination in an earlier clause",
+    "Display weather line breaks for readability"
+  ],
+  "validation": {
+    "automatedTests": { "passed": 417, "failed": 0 },
+    "typescript": "passed",
+    "productionBuild": "passed",
+    "backendAndNewRegressionLint": "passed",
+    "existingWorkspaceUiLint": "Existing image, effect-state and semantic-role diagnostics remain outside this focused change",
+    "consoleWarningsAndErrorsDuringMapCheck": 0
+  },
+  "screenshots": {
+    "combinedAnswer": "work/handoff/CHATBOT_JEJU_WEATHER_FINAL_20261016.png",
+    "allDaysMap": "work/handoff/CHATBOT_JEJU_MAP_FINAL_20261016.png",
+    "standaloneWeather": "work/handoff/CHATBOT_JEJU_WEATHER_FOLLOWUP_20261016.png",
+    "day3MapAfterWeather": "work/handoff/CHATBOT_JEJU_DAY3_AFTER_WEATHER_20261016.png"
+  }
+}

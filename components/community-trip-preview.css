@@ -1,0 +1,109 @@
+.tr-community-route-preview {
+  min-width: 0;
+  margin: 0 0 22px;
+}
+
+.tr-community-route-preview > h3 {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 6px;
+  color: #343830;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.tr-community-route-preview > h3 > svg {
+  color: #ff4f35;
+}
+
+.tr-community-route-preview > p {
+  margin: 0 0 12px;
+  color: #818177;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.tr-community-detail .tr-community-day li.is-preview-map-selected {
+  padding: 12px 8px;
+  border: 1px solid #ff4f35;
+  border-radius: 12px;
+  background: #fff7f3;
+  box-shadow: 0 0 0 2px #ff4f3517;
+}
+
+.tr-community-detail .tr-community-day li {
+  scroll-margin-block: 20px;
+}
+
+.tr-community-detail .tr-community-day > ol > .tr-course-visit-row {
+  display: block;
+  padding: 0;
+}
+
+.tr-course-visit > summary {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) 17px;
+  gap: 10px;
+  align-items: center;
+  min-height: 76px;
+  padding: 13px 0;
+  cursor: pointer;
+  list-style: none;
+  border-radius: 10px;
+}
+
+.tr-course-visit > summary::-webkit-details-marker { display: none; }
+.tr-course-visit > summary:focus-visible { outline: 2px solid #ff4f35; outline-offset: 3px; }
+.tr-course-visit-identity { display: flex; gap: 10px; align-items: center; min-width: 0; }
+.tr-course-visit-identity > img { width: 42px; height: 42px; }
+.tr-course-visit-name { min-width: 0; }
+.tr-community-detail .tr-course-visit-name > small { align-items: flex-start; overflow-wrap: anywhere; }
+.tr-course-visit-name > small > svg { flex-shrink: 0; margin-top: 3px; }
+.tr-course-visit-toggle { display: block; margin-top: 4px; font-size: 11px; line-height: 1.6; color: #a34832; }
+.tr-course-visit-chevron { color: #8a8b7c; }
+.tr-course-visit-hide, .tr-course-visit[open] .tr-course-visit-show { display: none; }
+.tr-course-visit[open] .tr-course-visit-hide { display: inline; }
+.tr-course-visit[open] > summary .tr-course-visit-chevron { transform: rotate(180deg); }
+.tr-course-visit-body { margin: 0 0 16px; padding: 16px; border: 1px solid #e8e8df; border-radius: 14px; background: #f7f7f2; overflow-wrap: anywhere; }
+.tr-course-visit-kind { display: inline-block; color: #7a654d; font-size: 11px; line-height: 1.7; }
+.tr-course-visit-description { margin: 9px 0 12px; font-size: 13px; line-height: 1.9; color: #50564a; }
+.tr-course-visit-body .tr-business-tags { display: flex; gap: 6px; margin: 0 0 16px; }
+.tr-course-visit-photo { margin: 16px 0; }
+.tr-community-detail .tr-course-visit-photo > img { display: block; width: 100%; height: 150px; border-radius: 10px; }
+.tr-course-visit-photo > figcaption { margin-top: 6px; font-size: 10px; line-height: 1.7; color: #7a7e70; }
+.tr-course-visit-section { margin: 16px 0; }
+.tr-course-visit-section h4 { font-size: 13px; margin: 0 0 10px; }
+.tr-course-visit-section p { font-size: 13px; line-height: 1.8; }
+.tr-course-visit-menu > div { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 10px 0; border-top: 1px solid #e6e6dd; font-size: 12px; line-height: 1.7; }
+.tr-course-visit-menu b { flex-shrink: 0; font-size: 12px; }
+.tr-course-visit-menu-note { display: block; font-size: 10px; color: #7a7e70; }
+.tr-course-visit-price { font-weight: 700; }
+.tr-course-visit-price > span { display: block; font-size: 11px; color: #7a7e70; font-weight: 400; }
+.tr-course-visit-facts { margin: 16px 0; font-size: 12px; line-height: 1.8; }
+.tr-course-visit-facts > div { display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 8px; padding: 7px 0; }
+.tr-course-visit-facts dt { color: #7a7e70; }
+.tr-course-visit-facts dd { margin: 0; color: #444a40; }
+.tr-course-visit-body .tr-course-visit-note { margin: 10px 0 0; color: #7a7e70; font-size: 11px; line-height: 1.8; }
+.tr-course-visit-source { display: flex; gap: 8px 16px; flex-wrap: wrap; align-items: center; padding-top: 12px; margin-top: 12px; border-top: 1px solid #e6e6dd; font-size: 11px; line-height: 1.8; }
+.tr-course-visit-source > a { color: #a34832; text-decoration: underline; text-underline-offset: 3px; }
+.tr-course-visit-source > span { color: #7a7e70; }
+.tr-community-detail .tr-community-day > ol > .tr-course-visit-row.is-preview-map-selected { margin: 4px 0; padding: 0 8px; }
+
+@media (max-width: 420px) {
+  .tr-course-visit > summary { grid-template-columns: 54px minmax(0, 1fr) 17px; gap: 8px; }
+  .tr-course-visit-identity { gap: 8px; }
+  .tr-course-visit-body { padding: 13px; }
+}
+
+@media (max-width: 360px) {
+  .tr-community-route-preview .trip-map-label {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .tr-community-route-preview .trip-map-label > strong {
+    margin-left: auto;
+    font-size: 11px;
+  }
+}

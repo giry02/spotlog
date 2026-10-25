@@ -1,5 +1,6 @@
 import { findPlace, findFood, findStay } from './trip-data';
 import type { TripState } from './trip-engine';
+import { getRegisteredEntity } from './registered-catalog';
 
 // Names/addresses identify the landmarks. We do not invent coordinates or entrances.
 const landmarkQueries: Record<string, string> = {
@@ -18,8 +19,9 @@ const landmarkQueries: Record<string, string> = {
   jusangjeolli: '대포해안주상절리대 제주 서귀포시 이어도로 36-24',
 };
 export function mapLinks(placeId: string) {
-  const place = findPlace(placeId);
-  const query = landmarkQueries[placeId];
+  const registered = getRegisteredEntity(placeId);
+  const place = registered ?? findPlace(placeId);
+  const query = registered ? `${registered.name} ${registered.address}` : landmarkQueries[placeId] ?? (place ? `${place.name} ${place.region}` : null);
   if (!place || !query) return null;
   const params = new URLSearchParams({ api: '1', destination: query });
   return {
@@ -30,9 +32,11 @@ export function mapLinks(placeId: string) {
 }
 export function nearbyMapSearch(
   placeId: string,
-  kind: '식당' | '카페' | '숙소',
+  kind: '식당' | '카페' | '숙소' | '상점',
 ) {
-  const query = landmarkQueries[placeId];
+  const registered = getRegisteredEntity(placeId);
+  const place = registered ?? findPlace(placeId);
+  const query = registered ? `${registered.name} ${registered.address}` : landmarkQueries[placeId] ?? (place ? `${place.name} ${place.region}` : null);
   if (!query) return null;
   return `https://map.kakao.com/link/search/${encodeURIComponent(`${query} ${kind}`)}`;
 }
@@ -57,14 +61,15 @@ export function directionsTarget(s: TripState) {
         : visit.anchorId
       : (businessAnchor ?? s.directionsPlaceId ?? s.anchorId),
   );
-  // Every business in this demo is fictional; never create a directions URL for it.
+  const registered = getRegisteredEntity(businessId);
+  // Authored sample businesses still have no invented routing destination.
   const unavailable =
-    !!business || (!!visit && (visit.kind !== 'place' || !visit.entityId));
+    (!!business && !registered) || (!!visit && (!visit.entityId || (visit.kind !== 'place' && !registered)));
   return {
     place,
     visit,
     business,
     unavailable,
-    links: !unavailable && place ? mapLinks(place.id) : null,
+    links: !unavailable ? registered ? mapLinks(registered.id) : place ? mapLinks(place.id) : null : null,
   };
 }

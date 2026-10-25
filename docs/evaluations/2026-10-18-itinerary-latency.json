@@ -1,0 +1,638 @@
+{
+  "evaluatedAt": "2026-10-18T02:10:57.774Z",
+  "timezone": "Asia/Seoul",
+  "status": "passed",
+  "summary": {
+    "geminiFreePriority": true,
+    "freeEligibilityChecksPreserved": true,
+    "localQuotaFallback": true,
+    "fastPlannerModel": "qwen3:4b-instruct-2507-q4_K_M",
+    "fastPlannerTimeoutMs": 75000,
+    "ordinaryLocalTimeoutMs": 45000,
+    "largerLocalFallback": "qwen3:14b",
+    "serverUrl": "http://localhost:3001/"
+  },
+  "method": {
+    "normal": "Actual POST /api/chat using current app free-only Gemini verification and configuration.",
+    "quota": "Inject Gemini quota denial only at provider boundary; actual RAG, installed local weights, generation, source revalidation, action application and map coordinate validation. No remote network requests in these cases.",
+    "cold": "Local model weights not resident; includes model loading, prompt processing, generation and RAG verification. This is not a universal cold-PC latency guarantee.",
+    "warm": "Installed local planner already resident. Both repeated three-day and different named-forest requests were evaluated.",
+    "notes": [
+      "These are local measurements, not latency guarantees for every model, question or machine.",
+      "Large 14B escalation remains available for insufficient RAG or failed small-model answers and can still take longer.",
+      "Raw RAG text, unique conversation answers, current state and locked bookings are retained. Only exact duplicate answers use an explicit back-reference."
+    ]
+  },
+  "measurements": [
+    {
+      "evidence": "../../work/handoff/SPEED_BENCH_20261018_local-direct_2026-10-18T01-52-36-638Z.json",
+      "mode": "local-direct",
+      "status": "passed",
+      "timing": {
+        "gatherResourcesMs": 1806.038,
+        "modelRoutingMs": 156091.45,
+        "sourceRevalidationAndApplyMs": 17.531,
+        "totalMs": 157922.154
+      },
+      "providers": [
+        {
+          "provider": "gemini",
+          "injected": true,
+          "promptBytes": 18013,
+          "status": "failed",
+          "code": "LARGE_MODEL_QUOTA_EXCEEDED",
+          "durationMs": 2.875
+        },
+        {
+          "provider": "ollama",
+          "injected": false,
+          "promptBytes": 17559,
+          "status": "failed",
+          "code": "OLLAMA_TIMEOUT",
+          "durationMs": 45004.723
+        },
+        {
+          "provider": "ollama",
+          "injected": false,
+          "promptBytes": 18042,
+          "status": "ready",
+          "durationMs": 111065.79
+        }
+      ],
+      "counts": {
+        "outboundRemoteRequests": 0,
+        "blockedRemoteRequests": 0,
+        "localHttpRequests": 9,
+        "injectedGeminiQuotaDenials": 1,
+        "retrievedSources": 8,
+        "citedSources": 6,
+        "visits": 6,
+        "coordinates": 6
+      },
+      "responseMode": "large-model",
+      "provider": "ollama",
+      "routingReason": "primary-failed",
+      "routingStatus": "ready",
+      "visits": [
+        {
+          "day": 1,
+          "visitId": "visit-1",
+          "placeId": "jusangjeolli"
+        },
+        {
+          "day": 1,
+          "visitId": "visit-2",
+          "placeId": "gotjawal"
+        },
+        {
+          "day": 2,
+          "visitId": "visit-3",
+          "placeId": "seopjikoji"
+        },
+        {
+          "day": 2,
+          "visitId": "visit-4",
+          "placeId": "saryeoni"
+        },
+        {
+          "day": 3,
+          "visitId": "visit-5",
+          "placeId": "geomunoreum"
+        },
+        {
+          "day": 3,
+          "visitId": "visit-6",
+          "placeId": "jeolmul"
+        }
+      ],
+      "checks": {
+        "validSession": true,
+        "threeDaysMorningAfternoon": true,
+        "excludedBusinesses": true,
+        "currentSourceContent": true,
+        "groundedVisitIds": true,
+        "sourceCoordinates": true,
+        "modelResponse": true,
+        "liveSourceRevalidation": true,
+        "injectedQuotaOnly": true,
+        "remoteRequestsSent": 0
+      }
+    },
+    {
+      "evidence": "../../work/handoff/SPEED_BENCH_20261018_local-fast_2026-10-18T01-56-07-916Z.json",
+      "mode": "local-fast",
+      "status": "passed",
+      "timing": {
+        "gatherResourcesMs": 2994.014,
+        "modelRoutingMs": 154229.217,
+        "sourceRevalidationAndApplyMs": 17.156,
+        "totalMs": 157249.33
+      },
+      "providers": [
+        {
+          "provider": "gemini",
+          "injected": true,
+          "promptBytes": 18013,
+          "status": "failed",
+          "code": "LARGE_MODEL_QUOTA_EXCEEDED",
+          "durationMs": 3.015
+        },
+        {
+          "provider": "ollama",
+          "injected": false,
+          "promptBytes": 17580,
+          "status": "failed",
+          "code": "OLLAMA_TIMEOUT",
+          "durationMs": 45005.766
+        },
+        {
+          "provider": "ollama",
+          "injected": false,
+          "promptBytes": 18042,
+          "status": "ready",
+          "durationMs": 109203.722
+        }
+      ],
+      "counts": {
+        "outboundRemoteRequests": 0,
+        "blockedRemoteRequests": 0,
+        "localHttpRequests": 9,
+        "injectedGeminiQuotaDenials": 1,
+        "retrievedSources": 8,
+        "citedSources": 6,
+        "visits": 6,
+        "coordinates": 6
+      },
+      "responseMode": "large-model",
+      "provider": "ollama",
+      "routingReason": "primary-failed",
+      "routingStatus": "ready",
+      "visits": [
+        {
+          "day": 1,
+          "visitId": "visit-1",
+          "placeId": "jusangjeolli"
+        },
+        {
+          "day": 1,
+          "visitId": "visit-2",
+          "placeId": "gotjawal"
+        },
+        {
+          "day": 2,
+          "visitId": "visit-3",
+          "placeId": "seopjikoji"
+        },
+        {
+          "day": 2,
+          "visitId": "visit-4",
+          "placeId": "saryeoni"
+        },
+        {
+          "day": 3,
+          "visitId": "visit-5",
+          "placeId": "geomunoreum"
+        },
+        {
+          "day": 3,
+          "visitId": "visit-6",
+          "placeId": "jeolmul"
+        }
+      ],
+      "checks": {
+        "validSession": true,
+        "threeDaysMorningAfternoon": true,
+        "excludedBusinesses": true,
+        "currentSourceContent": true,
+        "groundedVisitIds": true,
+        "sourceCoordinates": true,
+        "modelResponse": true,
+        "liveSourceRevalidation": true,
+        "injectedQuotaOnly": true,
+        "remoteRequestsSent": 0
+      }
+    },
+    {
+      "evidence": "../../work/handoff/SPEED_BENCH_20261018_local-fast_2026-10-18T02-01-18-807Z.json",
+      "mode": "local-fast",
+      "status": "passed",
+      "timing": {
+        "gatherResourcesMs": 2380.687,
+        "modelRoutingMs": 50213.876,
+        "sourceRevalidationAndApplyMs": 6.247,
+        "totalMs": 52612.958
+      },
+      "providers": [
+        {
+          "provider": "gemini",
+          "injected": true,
+          "promptBytes": 18013,
+          "status": "failed",
+          "code": "LARGE_MODEL_QUOTA_EXCEEDED",
+          "durationMs": 2.874
+        },
+        {
+          "provider": "ollama",
+          "injected": false,
+          "promptBytes": 17580,
+          "status": "ready",
+          "durationMs": 50204.887
+        }
+      ],
+      "counts": {
+        "outboundRemoteRequests": 0,
+        "blockedRemoteRequests": 0,
+        "localHttpRequests": 7,
+        "injectedGeminiQuotaDenials": 1,
+        "retrievedSources": 8,
+        "citedSources": 8,
+        "visits": 6,
+        "coordinates": 6
+      },
+      "responseMode": "ollama",
+      "provider": "ollama",
+      "routingReason": "primary",
+      "routingStatus": "unavailable",
+      "visits": [
+        {
+          "day": 1,
+          "visitId": "visit-1",
+          "placeId": "yongmeori"
+        },
+        {
+          "day": 1,
+          "visitId": "visit-2",
+          "placeId": "gotjawal"
+        },
+        {
+          "day": 2,
+          "visitId": "visit-3",
+          "placeId": "seopjikoji"
+        },
+        {
+          "day": 2,
+          "visitId": "visit-4",
+          "placeId": "jeolmul"
+        },
+        {
+          "day": 3,
+          "visitId": "visit-5",
+          "placeId": "saryeoni"
+        },
+        {
+          "day": 3,
+          "visitId": "visit-6",
+          "placeId": "ecoland"
+        }
+      ],
+      "checks": {
+        "validSession": true,
+        "threeDaysMorningAfternoon": true,
+        "excludedBusinesses": true,
+        "currentSourceContent": true,
+        "groundedVisitIds": true,
+        "sourceCoordinates": true,
+        "modelResponse": true,
+        "liveSourceRevalidation": true,
+        "injectedQuotaOnly": true,
+        "remoteRequestsSent": 0
+      }
+    },
+    {
+      "evidence": "../../work/handoff/SPEED_BENCH_20261018_local-quota_2026-10-18T02-05-41-039Z.json",
+      "mode": "local-quota",
+      "status": "passed",
+      "timing": {
+        "gatherResourcesMs": 1048.413,
+        "modelRoutingMs": 4285.39,
+        "sourceRevalidationAndApplyMs": 5.186,
+        "totalMs": 5344.373
+      },
+      "providers": [
+        {
+          "provider": "gemini",
+          "injected": true,
+          "promptBytes": 18013,
+          "status": "failed",
+          "code": "LARGE_MODEL_QUOTA_EXCEEDED",
+          "durationMs": 2.52
+        },
+        {
+          "provider": "ollama",
+          "injected": false,
+          "promptBytes": 17580,
+          "status": "ready",
+          "durationMs": 4277.571
+        }
+      ],
+      "counts": {
+        "outboundRemoteRequests": 0,
+        "blockedRemoteRequests": 0,
+        "localHttpRequests": 7,
+        "injectedGeminiQuotaDenials": 1,
+        "retrievedSources": 8,
+        "citedSources": 8,
+        "visits": 6,
+        "coordinates": 6
+      },
+      "responseMode": "ollama",
+      "provider": "ollama",
+      "routingReason": "primary",
+      "routingStatus": "unavailable",
+      "visits": [
+        {
+          "day": 1,
+          "visitId": "visit-1",
+          "placeId": "yongmeori"
+        },
+        {
+          "day": 1,
+          "visitId": "visit-2",
+          "placeId": "gotjawal"
+        },
+        {
+          "day": 2,
+          "visitId": "visit-3",
+          "placeId": "seopjikoji"
+        },
+        {
+          "day": 2,
+          "visitId": "visit-4",
+          "placeId": "jeolmul"
+        },
+        {
+          "day": 3,
+          "visitId": "visit-5",
+          "placeId": "saryeoni"
+        },
+        {
+          "day": 3,
+          "visitId": "visit-6",
+          "placeId": "ecoland"
+        }
+      ],
+      "checks": {
+        "validSession": true,
+        "threeDaysMorningAfternoon": true,
+        "excludedBusinesses": true,
+        "currentSourceContent": true,
+        "groundedVisitIds": true,
+        "sourceCoordinates": true,
+        "modelResponse": true,
+        "liveSourceRevalidation": true,
+        "injectedQuotaOnly": true,
+        "remoteRequestsSent": 0
+      }
+    },
+    {
+      "evidence": "../../work/handoff/SPEED_BENCH_20261018_local-quota_forest-day_2026-10-18T02-08-27-077Z.json",
+      "mode": "local-quota",
+      "case": "forest-day",
+      "status": "passed",
+      "timing": {
+        "gatherResourcesMs": 1026.035,
+        "modelRoutingMs": 4980.119,
+        "sourceRevalidationAndApplyMs": 6.49,
+        "totalMs": 6018.174
+      },
+      "providers": [
+        {
+          "provider": "gemini",
+          "injected": true,
+          "promptBytes": 19505,
+          "status": "failed",
+          "code": "LARGE_MODEL_QUOTA_EXCEEDED",
+          "durationMs": 3.008
+        },
+        {
+          "provider": "ollama",
+          "injected": false,
+          "promptBytes": 19072,
+          "status": "ready",
+          "durationMs": 4971.949
+        }
+      ],
+      "counts": {
+        "outboundRemoteRequests": 0,
+        "blockedRemoteRequests": 0,
+        "localHttpRequests": 7,
+        "injectedGeminiQuotaDenials": 1,
+        "retrievedSources": 10,
+        "citedSources": 4,
+        "visits": 2,
+        "coordinates": 2
+      },
+      "responseMode": "ollama",
+      "provider": "ollama",
+      "routingReason": "primary",
+      "routingStatus": "unavailable",
+      "visits": [
+        {
+          "day": 1,
+          "visitId": "visit-1",
+          "placeId": "saryeoni"
+        },
+        {
+          "day": 1,
+          "visitId": "visit-2",
+          "placeId": "jeolmul"
+        }
+      ],
+      "checks": {
+        "validSession": true,
+        "requestedDaysMorningAfternoon": true,
+        "namedForestPlacesOnly": true,
+        "excludedBusinesses": true,
+        "currentSourceContent": true,
+        "groundedVisitIds": true,
+        "sourceCoordinates": true,
+        "modelResponse": true,
+        "liveSourceRevalidation": true,
+        "injectedQuotaOnly": true,
+        "remoteRequestsSent": 0
+      }
+    },
+    {
+      "evidence": "../../work/handoff/SPEED_BENCH_20261018_normal_2026-10-18T01-52-02-468Z.json",
+      "mode": "normal",
+      "status": "passed",
+      "timing": {
+        "applicationMs": 16013.351,
+        "totalMs": 16020.038
+      },
+      "providers": [],
+      "counts": {
+        "outboundRemoteRequests": null,
+        "blockedRemoteRequests": 0,
+        "localHttpRequests": 0,
+        "injectedGeminiQuotaDenials": 0,
+        "retrievedSources": 8,
+        "citedSources": 6,
+        "visits": 6,
+        "coordinates": 6
+      },
+      "httpStatus": 200,
+      "responseMode": "large-model",
+      "provider": "gemini",
+      "routingReason": "primary",
+      "routingStatus": "ready",
+      "visits": [
+        {
+          "day": 1,
+          "visitId": "visit-1",
+          "placeId": "gotjawal"
+        },
+        {
+          "day": 1,
+          "visitId": "visit-2",
+          "placeId": "yongmeori"
+        },
+        {
+          "day": 2,
+          "visitId": "visit-3",
+          "placeId": "jusangjeolli"
+        },
+        {
+          "day": 2,
+          "visitId": "visit-4",
+          "placeId": "seopjikoji"
+        },
+        {
+          "day": 3,
+          "visitId": "visit-5",
+          "placeId": "jeolmul"
+        },
+        {
+          "day": 3,
+          "visitId": "visit-6",
+          "placeId": "saryeoni"
+        }
+      ],
+      "checks": {
+        "validSession": true,
+        "threeDaysMorningAfternoon": true,
+        "excludedBusinesses": true,
+        "currentSourceContent": true,
+        "groundedVisitIds": true,
+        "sourceCoordinates": true,
+        "modelResponse": true
+      },
+      "remoteGeneration": "application-free-policy-controlled"
+    },
+    {
+      "evidence": "../../work/handoff/SPEED_BENCH_20261018_normal_2026-10-18T02-06-30-587Z.json",
+      "mode": "normal",
+      "status": "passed",
+      "timing": {
+        "applicationMs": 10301.759,
+        "totalMs": 10305.925
+      },
+      "providers": [],
+      "counts": {
+        "outboundRemoteRequests": null,
+        "blockedRemoteRequests": 0,
+        "localHttpRequests": 0,
+        "injectedGeminiQuotaDenials": 0,
+        "retrievedSources": 8,
+        "citedSources": 6,
+        "visits": 6,
+        "coordinates": 6
+      },
+      "httpStatus": 200,
+      "responseMode": "large-model",
+      "provider": "gemini",
+      "routingReason": "primary",
+      "routingStatus": "ready",
+      "visits": [
+        {
+          "day": 1,
+          "visitId": "visit-1",
+          "placeId": "gotjawal"
+        },
+        {
+          "day": 1,
+          "visitId": "visit-2",
+          "placeId": "yongmeori"
+        },
+        {
+          "day": 2,
+          "visitId": "visit-3",
+          "placeId": "jusangjeolli"
+        },
+        {
+          "day": 2,
+          "visitId": "visit-4",
+          "placeId": "jeolmul"
+        },
+        {
+          "day": 3,
+          "visitId": "visit-5",
+          "placeId": "saryeoni"
+        },
+        {
+          "day": 3,
+          "visitId": "visit-6",
+          "placeId": "seopjikoji"
+        }
+      ],
+      "checks": {
+        "validSession": true,
+        "threeDaysMorningAfternoon": true,
+        "excludedBusinesses": true,
+        "currentSourceContent": true,
+        "groundedVisitIds": true,
+        "sourceCoordinates": true,
+        "modelResponse": true
+      },
+      "remoteGeneration": "application-free-policy-controlled"
+    }
+  ],
+  "automatedValidation": {
+    "kind": "final-production-after-fast-planner",
+    "startedAt": "2026-10-18T02:07:28.879Z",
+    "tests": {
+      "status": "passed",
+      "ms": 2611,
+      "summary": [
+        "ℹ tests 508",
+        "ℹ pass 508",
+        "ℹ fail 0",
+        "ℹ duration_ms 2521.7386"
+      ]
+    },
+    "typecheck": {
+      "status": "passed",
+      "ms": 4100,
+      "summary": []
+    },
+    "build": {
+      "status": "passed",
+      "ms": 7513
+    },
+    "diffCheck": {
+      "status": "passed"
+    },
+    "finishedAt": "2026-10-18T02:07:58.574Z"
+  },
+  "sourceHashes": {
+    "app/api/chat/route.ts": "c9aca2a42a7b31ec04c3450b49b4afffa4ba9168a398575daa4a6c8101789080",
+    "lib/model-routing.ts": "4b15d9bea956ac7f6a9cc27ae75b64723a00d6a4640f536f544d12f5ef7da3b5",
+    "lib/model-input.ts": "1e76a7d554aafdec03516cd5f8d8d962489ae96cc4d192f1368f882e70f668e4",
+    "lib/flowise-adapter.ts": "16a6c123fa0e18930d2460863d1bdf99a2acbf525942ba5b833c75f2cef6c2e8",
+    "lib/large-model-adapter.ts": "0bb96d44087c67c11f6dd020bbea161d431d314111e8eb5a9b7441c4dd8e95d2",
+    "lib/ollama-adapter.ts": "c6ce0b7c3bdbdf81c4967317cf9082bbacd092d284d2ce591144d6d09798979d"
+  },
+  "consoleObservation": {
+    "method": "Windows Computer Use @oai/sky actual window inventory sampling",
+    "newConsoleWindows": 0,
+    "reports": "../../work/handoff/SPEED_NATIVE_WINDOWS_20261018.json",
+    "scope": "Recorded startup, restart, model and request stages only"
+  },
+  "finalServices": {
+    "ollama": "ready",
+    "flowise": "ready",
+    "rag": "ready",
+    "moa": "ready",
+    "reused": true
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "checkedAt": "2026-10-16T07:30:34.0693803Z",
+  "scope": "Project-owned Windows console children during local startup, development, production builds, and tests",
+  "changes": [
+    "npm test/dev/build/start preload local-hidden-children.cjs",
+    "Native Windows child_process methods force windowsHide",
+    "Absolute inherited NODE_OPTIONS retains existing flags and avoids duplicates",
+    "Only this preload relative execArgv path normalized for fork across working directories"
+  ],
+  "verification": [
+    {
+      "step": "tests",
+      "exitCode": 0,
+      "seconds": 2.49,
+      "createNoWindow": true,
+      "summary": [
+        "ℹ tests 469",
+        "ℹ pass 469",
+        "ℹ fail 0",
+        "ℹ cancelled 0",
+        "ℹ skipped 0",
+        "ℹ todo 0",
+        "ℹ duration_ms 2403.6821"
+      ]
+    },
+    {
+      "step": "types",
+      "exitCode": 0,
+      "seconds": 4.78,
+      "createNoWindow": true
+    },
+    {
+      "step": "build",
+      "exitCode": 0,
+      "seconds": 5.55,
+      "createNoWindow": true
+    }
+  ],
+  "fullSuite": {
+    "fail": 0,
+    "tests": 469,
+    "pass": 469,
+    "skipped": 0
+  },
+  "observedBuildWindows": {
+    "report": "work/handoff/HIDDEN_BUILD_20261016.json",
+    "visibleMainWindowCount": 0,
+    "note": "Sampled owned process tree; not a global desktop window inventory"
+  },
+  "serviceHealth": [
+    "Moa 3001 HTTP 200",
+    "Flowise 3002 HTTP 200",
+    "RAG 8765 HTTP 200",
+    "Ollama 11434 HTTP 200"
+  ],
+  "hiddenLauncher": "Spotlog 시작.vbs",
+  "modelRequests": 0,
+  "servicesRestarted": 0,
+  "status": "superseded-by-live-window-reproduction",
+  "followup": "work/handoff/CONSOLE_CHECKED_RESTART_20261016.json",
+  "limitation": "Earlier process MainWindowHandle observation did not establish absence of visible console windows. A later native window inventory reproduced an Ollama-owned window during cold startup."
+}

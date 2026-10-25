@@ -4,10 +4,10 @@ import { registerHooks } from 'node:module';
 registerHooks({
   resolve(specifier, context, next) {
     if (
-      /\/(trip-engine|trip-data|travel-links)\.ts$/.test(
+      /\/lib\/[^/]+\.ts$/.test(
         context.parentURL ?? '',
       ) &&
-      specifier.startsWith('./')
+      specifier.startsWith('./') && !/\.[a-z]+$/.test(specifier)
     )
       return next(specifier + '.ts', context);
     return next(specifier, context);
@@ -17,7 +17,7 @@ const { createTripSession, currentTrip, appendTrip, foodResults, stayResults } =
   await import('../lib/trip-engine.ts');
 const { scenarios } = await import('../lib/trip-data.ts');
 const message = (s, text) => appendTrip(s, { type: 'message', text });
-const plan = (text) => message(createTripSession(), text);
+const plan = (text) => message(createDemoSession(), text);
 
 test('a request to find lodging without an existing reservation is not marked as booked', () => {
   const s = currentTrip(
@@ -77,7 +77,7 @@ test('one meal replacement leaves every other visit and booked accommodation int
 });
 
 test('booked lodging announced after browsing stays does not keep suggesting hotels', () => {
-  let s = message(createTripSession(), '협재해변 근처 숙소 찾아줘');
+  let s = message(createDemoSession(), '협재해변 근처 숙소 찾아줘');
   s = message(s, '숙소는 이미 예약했어');
   assert.notEqual(currentTrip(s).stage, 'stay');
   s = appendTrip(s, { type: 'build' });
@@ -112,7 +112,7 @@ test('restaurant and cafe choices remain separate when creating a day plan', () 
 });
 
 test('saved places must stay in one region and use only saved landmarks', () => {
-  let s = createTripSession(['hyeopjae', 'osulloc', 'seoulforest']);
+  let s = createDemoSession(['hyeopjae', 'osulloc', 'seoulforest']);
   s = message(s, '찜한 장소로 일정 짜줘');
   assert.equal(currentTrip(s).plan.length, 0);
   s = message(s, '찜한 제주 장소로 1박 2일 일정 짜줘');
@@ -133,13 +133,19 @@ test('meal/cafe/lodging exclusions are honored for a direct itinerary', () => {
   assert.ok(s.plan.every((v) => v.kind === 'place'));
 });
 
-test('empty restaurant or hotel results stay empty until conditions are widened', () => {
+test('walk filters leave real candidates with unverified walk data and explicit price budgets remain strict', () => {
   let s = plan('협재해변 근처 식당 찾아줘');
   s = message(s, '도보 1분 안에서');
-  assert.equal(foodResults(currentTrip(s)).length, 0);
+  assert.deepEqual(foodResults(currentTrip(s)).map(item => item.id), ['catalog-jeju-hyeopjae-sin-guksu']);
+  assert.equal(foodResults(currentTrip(s))[0].walkVerified, false);
   s = message(s, '도보 20분, 전체 음식, 10만원 이하로');
   assert.ok(foodResults(currentTrip(s)).length > 0);
+  assert.equal(currentTrip(s).foodBudget, 100000);
+  assert.ok(foodResults(currentTrip(s)).every(item => item.priceVerified !== false));
+  assert.ok(stayResults(currentTrip(s)).some(item => item.id === 'catalog-jeju-landing-shinhwa'));
   s = message(s, '숙소 1만원 이하로');
+  assert.equal(currentTrip(s).stayBudget, 10000);
+  assert.equal(currentTrip(s).stayBudgetExplicit, true);
   assert.equal(stayResults(currentTrip(s)).length, 0);
 });
 
@@ -246,7 +252,7 @@ test('fictional and booked lodging cannot silently route to an anchor as if it w
     assert.equal(directionsTarget(mapped).links, null);
     assert.equal(directionsTarget(mapped).unavailable, true);
   }
-  session = appendTrip(createTripSession(), { type: 'place', id: 'hyeopjae' });
+  session = appendTrip(createDemoSession(), { type: 'place', id: 'hyeopjae' });
   session = appendTrip(session, { type: 'show', stage: 'food' });
   session = appendTrip(session, { type: 'food', id: 'hj-rice' });
   assert.equal(
@@ -375,3 +381,6 @@ test('named progress uses aliases and repeated names require an explicit visit',
     'done',
   );
 });
+
+// These fixtures intentionally exercise the authored legacy catalog. New sessions use registered data.
+function createDemoSession(savedIds = [], library = []) { return createTripSession(savedIds, library, "demo"); }

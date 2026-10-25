@@ -42,6 +42,7 @@ const { communityTrips } = await import('../lib/community-trips.ts');
 const { predictFlowise, readFlowiseConfig, modelContext } =
   await import('../lib/flowise-adapter.ts');
 const { POST } = await import('../app/api/chat/route.ts');
+const { missingRegionPreflight } = await import('../lib/chat-preflight.ts');
 const { env } = await import('cloudflare:workers');
 Object.assign(env, {
   FLOWISE_BASE_URL: '',
@@ -49,8 +50,50 @@ Object.assign(env, {
   FLOWISE_API_KEY: '',
 });
 
+test('bare start asks region without inference and preserves device saved trips and bookmarks', async (t) => {
+  let session = createDemoSession(['hyeopjae']);
+  for (const action of [
+    { type: 'region', region: '제주' },
+    { type: 'build' },
+    { type: 'save' },
+    { type: 'reset' },
+  ])
+    session = appendTrip(session, action);
+  let calls = 0;
+  t.mock.method(globalThis, 'fetch', async () => {
+    calls++;
+    throw new Error('must not call external services');
+  });
+  try {
+    const response = await POST(
+      post(request(session, { type: 'message', text: '여행 일정 만들어줘' })),
+    );
+    const result = await response.json();
+    assert.equal(response.status, 200);
+    assert.equal(result.mode, 'clarify');
+    assert.equal(result.session.turns.at(-1).source, 'clarify');
+    assert.equal(result.session.turns.length, session.turns.length + 1);
+    assert.deepEqual(result.session.library, session.library);
+    assert.deepEqual(currentTrip(result.session).savedIds, ['hyeopjae']);
+    assert.equal(calls, 0);
+    assert.ok(parseTripSession(result.session));
+    for (const text of [
+      '서울숲 일정 짜줘',
+      '여기 일정 짜줘',
+      '찜한 곳으로 일정 만들어줘',
+      '1박 2일 일정 만들어줘',
+    ])
+      assert.equal(
+        missingRegionPreflight(request(session, { type: 'message', text })),
+        false,
+      );
+  } finally {
+    t.mock.restoreAll();
+  }
+});
+
 const request = (
-  session = createTripSession(),
+  session = createDemoSession(),
   action = { type: 'message', text: '제주에서 장소 찾아줘' },
 ) => ({
   protocolVersion: 1,
@@ -68,6 +111,31 @@ const config = {
   apiKey: 'server-only-test-key',
   timeoutMs: 1000,
 };
+
+test('existing DAY display is an honest local action and does not call any unavailable model or search service', async (t) => {
+  let session = createDemoSession();
+  for (const action of [{ type: 'region', region: '제주' }, { type: 'configure', days: 2, booked: true }, { type: 'build' }]) session = appendTrip(session, action);
+  const original = JSON.parse(JSON.stringify(session));
+  let calls = 0;
+  t.mock.method(globalThis, 'fetch', async () => { calls++; throw new Error('must not call models or search'); });
+  try {
+    const response = await POST(post(request(session, { type: 'message', text: 'DAY 2 일정만 보여줘' })));
+    const body = await response.json();
+    const turn = body.session.turns.at(-1);
+    assert.equal(response.status, 200);
+    assert.equal(body.mode, 'local-action');
+    assert.equal(turn.source, 'local-action');
+    assert.equal(turn.state.stage, 'plan');
+    assert.equal(turn.state.activeDay, 2);
+    assert.equal(turn.state.days, 2);
+    assert.deepEqual(turn.state.plan, currentTrip(original).plan);
+    assert.deepEqual(body.session.turns.slice(0, -1), original.turns);
+    assert.equal(turn.answerContext.retrievalStatus, 'not-needed');
+    assert.equal(turn.answerContext.modelRouting, undefined);
+    assert.equal(calls, 0);
+    assert.ok(parseTripSession(body.session));
+  } finally { t.mock.restoreAll(); }
+});
 const post = (body, extra = {}) =>
   new Request('https://moa.example/api/chat', {
     method: 'POST',
@@ -115,7 +183,7 @@ test('session enum, scalar bounds, unknown fields and fake IDs are rejected', ()
       s.turns.push({ ...s.turns[0] });
     },
   ]) {
-    const session = structuredClone(createTripSession());
+    const session = structuredClone(createDemoSession());
     mutate(session);
     assert.throws(
       () => parseChatRequest(request(session)),
@@ -132,7 +200,7 @@ test('mismatched base revision cannot replace a newer session', () => {
 });
 
 test('older sessions without collection fields remain compatible', () => {
-  const session = createTripSession();
+  const session = createDemoSession();
   for (const turn of session.turns) delete turn.state.collectedIds;
   assert.ok(parseTripSession(session));
   assert.ok(parseChatRequest(request(session)));
@@ -140,7 +208,7 @@ test('older sessions without collection fields remain compatible', () => {
 });
 
 test('collected IDs must be bounded, canonical, unique and in the same region', () => {
-  const valid = createTripSession();
+  const valid = createDemoSession();
   Object.assign(currentTrip(valid), {
     region: '제주',
     collectedIds: ['hyeopjae', 'hj-rice', 'hj-cafe'],
@@ -163,7 +231,7 @@ test('collected IDs must be bounded, canonical, unique and in the same region', 
 });
 
 test('collection actions parse closed fields and respect current region and collection IDs', () => {
-  const session = createTripSession();
+  const session = createDemoSession();
   Object.assign(currentTrip(session), {
     region: '제주',
     collectedIds: ['hyeopjae'],
@@ -208,7 +276,7 @@ test('collection actions parse closed fields and respect current region and coll
 });
 
 test('model collection batches preserve prior picks, deduplicate, and use current candidates', () => {
-  const session = appendTrip(createTripSession(['saebyeol']), {
+  const session = appendTrip(createDemoSession(['saebyeol']), {
     type: 'place',
     id: 'hyeopjae',
   });
@@ -246,7 +314,7 @@ test('model collection batches preserve prior picks, deduplicate, and use curren
 });
 
 test('uncollect removes only the trip collection while long-term favorites stay intact', () => {
-  const session = createTripSession(['hyeopjae']);
+  const session = createDemoSession(['hyeopjae']);
   Object.assign(currentTrip(session), {
     region: '제주',
     collectedIds: ['hyeopjae', 'osulloc'],
@@ -263,7 +331,7 @@ test('uncollect removes only the trip collection while long-term favorites stay 
 });
 
 test('collection to itinerary uses every collected entity without unsolicited lodging', () => {
-  const session = createTripSession();
+  const session = createDemoSession();
   Object.assign(currentTrip(session), {
     region: '제주',
     days: 2,
@@ -283,7 +351,7 @@ test('collection to itinerary uses every collected entity without unsolicited lo
 });
 
 test('collection rebuild preserves booked visit identity so the model guard remains strict', () => {
-  let session = appendTrip(createTripSession(), {
+  let session = appendTrip(createDemoSession(), {
     type: 'message',
     text: '제주 1박 2일 일정 짜줘. 숙소는 이미 예약했어',
   });
@@ -314,7 +382,7 @@ test('collection rebuild preserves booked visit identity so the model guard rema
 });
 
 test('community attribution and filters are optional for old sessions and validate known source IDs', () => {
-  const session = createTripSession();
+  const session = createDemoSession();
   const s = currentTrip(session);
   delete s.communitySourceId;
   delete s.communityRegion;
@@ -343,7 +411,7 @@ test('community attribution and filters are optional for old sessions and valida
       value.library[0].communitySourceId = 'hyeopjae';
     },
     (value) => {
-      currentTrip(value).communityRegion = '부산';
+      currentTrip(value).communityRegion = '대전';
     },
     (value) => {
       currentTrip(value).communityTheme = 'shopping';
@@ -367,7 +435,7 @@ test('community IDs and filter fields are closed and distinct from place IDs', (
     { type: 'copy-community', id: 'unknown-course' },
     { type: 'place', id: 'community-jeju-west-green' },
     { type: 'community-filter' },
-    { type: 'community-filter', region: '부산' },
+    { type: 'community-filter', region: '대전' },
     { type: 'community-filter', theme: 'shopping' },
     { type: 'community-filter', region: null, plan: [] },
   ])
@@ -388,7 +456,7 @@ test('community IDs and filter fields are closed and distinct from place IDs', (
 });
 
 test('public course browsing filters preserve private itinerary, selections, collection and booking', () => {
-  let session = appendTrip(createTripSession(), {
+  let session = appendTrip(createDemoSession(), {
     type: 'message',
     text: '제주 1박 2일 일정 짜줘. 숙소는 이미 예약했어',
   });
@@ -430,14 +498,15 @@ test('public course browsing filters preserve private itinerary, selections, col
       (course) =>
         course.theme === 'green' &&
         course.sourceKind === 'demo' &&
-        course.author.includes('데모'),
+        Boolean(course.author.trim()) &&
+        ['traveler','ai'].includes(course.contentType),
     ),
   );
   assert.ok(context.allowedToolTypes.includes('copy-community'));
 });
 
 test('copy-community accepts only currently filtered public candidates', () => {
-  const session = createTripSession();
+  const session = createDemoSession();
   Object.assign(currentTrip(session), {
     communityRegion: '제주',
     communityTheme: 'green',
@@ -477,11 +546,11 @@ test('copied public course is a private editable snapshot with attribution prese
   const source = communityTrips.find(
     (course) => course.id === 'community-jeju-west-green',
   );
-  const session = createTripSession(['hyeopjae']);
+  const session = createDemoSession(['hyeopjae']);
   const copied = applyModelReply(
     request(session, {
       type: 'message',
-      text: '이 공개 코스를 내 여행으로 가져와줘',
+      text: `${source.title} 공개 코스를 내 여행으로 가져와줘`,
     }),
     parseModelReply({
       message: '공개 코스 예시를 내 여행 초안으로 복사했어요.',
@@ -501,7 +570,7 @@ test('copied public course is a private editable snapshot with attribution prese
   });
   const saved = appendTrip(edited, { type: 'save' });
   assert.equal(saved.library.at(-1).communitySourceId, source.id);
-  const opened = appendTrip(createTripSession([], saved.library), {
+  const opened = appendTrip(createDemoSession([], saved.library), {
     type: 'open',
     id: saved.library.at(-1).id,
   });
@@ -511,7 +580,7 @@ test('copied public course is a private editable snapshot with attribution prese
 });
 
 test('model public-course copy cannot overwrite booking while direct action gets engine refusal', () => {
-  const session = appendTrip(createTripSession(), {
+  const session = appendTrip(createDemoSession(), {
     type: 'message',
     text: '제주 1박 2일 일정 짜줘. 숙소는 이미 예약했어',
   });
@@ -540,7 +609,7 @@ test('model public-course copy cannot overwrite booking while direct action gets
 });
 
 test('later invalid model action cannot leave a partial copied public plan', () => {
-  const session = createTripSession();
+  const session = createDemoSession();
   const before = JSON.stringify(session);
   const reply = parseModelReply({
     message: '복사하고 식당을 골랐어요.',
@@ -557,7 +626,7 @@ test('later invalid model action cannot leave a partial copied public plan', () 
 });
 
 test('invalid current candidate and locked itinerary mutation are rejected', () => {
-  let session = appendTrip(createTripSession(), {
+  let session = appendTrip(createDemoSession(), {
     type: 'place',
     id: 'hyeopjae',
   });
@@ -608,7 +677,7 @@ test('model cannot emit HTML, arbitrary state, URLs or conversation reset tools'
 
 test('an invalid action in a model batch leaves original turns and saved IDs untouched', () => {
   const input = request(
-    appendTrip(createTripSession(), { type: 'place', id: 'hyeopjae' }),
+    appendTrip(createDemoSession(), { type: 'place', id: 'hyeopjae' }),
   );
   const before = JSON.stringify(input.session);
   const output = parseModelReply({
@@ -643,14 +712,14 @@ test('all validated model tools produce one immutable conversational reply', () 
   assert.equal(currentTrip(result).days, 2);
   assert.ok(currentTrip(result).plan.length);
   assert.equal(currentTrip(result).question, input.action.text);
-  assert.equal(result.turns.at(-1).assistantMessage, output.message);
+  assert.match(result.turns.at(-1).assistantMessage, /제주 1박 2일 일정 초안/);
   assert.equal(result.turns.at(-1).source, 'flowise');
-  assert.equal(chatResponse(input, result, 'flowise').message, output.message);
+  assert.equal(chatResponse(input, result, 'flowise').message, result.turns.at(-1).assistantMessage);
   assert.ok(parseTripSession(result));
 });
 
 test('text-only model reply preserves itinerary and choices without fabricated actions', () => {
-  const session = appendTrip(createTripSession(), {
+  const session = appendTrip(createDemoSession(), {
     type: 'message',
     text: '서울숲에서 반나절 일정 짜줘',
   });
@@ -676,7 +745,7 @@ test('text-only model reply preserves itinerary and choices without fabricated a
 });
 
 test('changing region through model cannot discard a booked stay', () => {
-  const session = appendTrip(createTripSession(), {
+  const session = appendTrip(createDemoSession(), {
     type: 'message',
     text: '제주 1박 2일 일정 짜줘. 숙소는 이미 예약했어',
   });
@@ -694,7 +763,7 @@ test('changing region through model cannot discard a booked stay', () => {
 
 test('community region action remains a read-only filter for a booked private trip', () => {
   const session = appendTrip(
-    appendTrip(createTripSession(), {
+    appendTrip(createDemoSession(), {
       type: 'message',
       text: '제주 1박 2일 일정 짜줘. 숙소는 이미 예약했어',
     }),
@@ -778,10 +847,11 @@ test('Flowise request uses official prediction path, server auth and JSON contex
   const reply = await predictFlowise(input, config, async (url, init) => {
     assert.equal(url, 'https://flowise.example/api/v1/prediction/flow_123');
     assert.equal(init.headers.Authorization, 'Bearer server-only-test-key');
-    assert.equal(init.redirect, 'error');
+    assert.equal(init.redirect, 'manual');
     const body = JSON.parse(init.body);
     assert.equal(body.streaming, false);
-    assert.equal(body.overrideConfig.sessionId, input.sessionId);
+    assert.match(body.overrideConfig.sessionId, /^moa_[0-9a-f-]{36}$/);
+    assert.notEqual(body.overrideConfig.sessionId, input.sessionId);
     assert.equal(JSON.parse(body.question).userMessage, input.action.text);
     assert.equal(
       JSON.parse(body.question).context.dataMode,
@@ -813,6 +883,55 @@ test('Flowise text-only and text-encoded JSON responses are supported', async ()
     }),
   );
   assert.equal(structured.actions[0].type, 'compare');
+});
+
+test('client-controlled session IDs cannot reuse Flowise memory, while explicit history survives', async () => {
+  const input = request(
+    appendTrip(createDemoSession(), { type: 'message', text: '제주 여행' }),
+  );
+  const ids = [];
+  const fetcher = async (_url, init) => {
+    const body = JSON.parse(init.body);
+    ids.push(body.overrideConfig.sessionId);
+    assert.ok(
+      body.history.some(
+        (h) => h.role === 'userMessage' && h.content === '제주 여행',
+      ),
+    );
+    return Response.json({ json: { message: '확인했어요', actions: [] } });
+  };
+  await predictFlowise(input, config, fetcher);
+  await predictFlowise(input, config, fetcher);
+  assert.notEqual(ids[0], ids[1]);
+  assert.ok(ids.every((id) => id !== input.sessionId));
+});
+
+test('only an explicit current-plan nearby food browse omits separate Flowise history', async () => {
+  let session = appendTrip(createTripSession(), { type: 'community-filter', region: '제주', days: 2 });
+  session = appendTrip(session, { type: 'copy-community', id: 'community-jeju-west-sea' });
+  session = appendTrip(session, { type: 'add-entity', id: 'saebyeol', day: 2 });
+  session.turns.at(-1).assistantMessage = 'PRIOR_CROSS_REGION_ANSWER 부산 식당 추천';
+  const before = structuredClone(session);
+  const text = '새별오름 주변 식당 후보를 보여줘. 지금 만든 일정은 바꾸지 마.';
+  const actions = [{ type: 'place', id: 'saebyeol' }, { type: 'show', stage: 'food', kind: '식당' }];
+  await predictFlowise(request(session, { type: 'message', text }), config, async (_url, init) => {
+    const body = JSON.parse(init.body), question = JSON.parse(body.question);
+    assert.deepEqual(body.history, []);
+    assert.equal(question.context.task, 'named-nearby-food-browse');
+    assert.equal(question.context.nearbyAnchorRequest.id, 'saebyeol');
+    assert.deepEqual(question.context.foodCandidates, [{ id: 'catalog-jeju-bongseong', name: '봉성식당', region: '제주', registered: true, fictional: false, price: null }]);
+    assert.ok(!JSON.stringify(body).includes('PRIOR_CROSS_REGION_ANSWER'));
+    assert.ok(!JSON.stringify(body).includes('부산'));
+    return Response.json({ json: { message: '새별오름 주변 등록 식당 후보는 1곳이에요. 현재 영업과 가격은 미확인이에요.', actions } });
+  });
+  for (const text of ['제주 여행 준비물을 알려줘.', '여기 주변 식당 후보를 보여줘.']) {
+    await predictFlowise(request(session, { type: 'message', text }), config, async (_url, init) => {
+      const body = JSON.parse(init.body);
+      assert.ok(body.history.some(turn => turn.role === 'apiMessage' && turn.content === 'PRIOR_CROSS_REGION_ANSWER 부산 식당 추천'));
+      return Response.json({ json: { message: '확인했어요.', actions: [] } });
+    });
+  }
+  assert.deepEqual(session, before);
 });
 
 test('malformed model JSON and upstream failure never silently become demo success', async () => {
@@ -912,10 +1031,10 @@ test('partial model configuration does not block direct cards or explicit human 
   });
   try {
     const card = await POST(
-      post(request(createTripSession(), { type: 'help' })),
+      post(request(createDemoSession(), { type: 'help' })),
     );
     assert.equal(card.status, 200);
-    const session = appendTrip(createTripSession(['hyeopjae']), {
+    const session = appendTrip(createDemoSession(['hyeopjae']), {
       type: 'message',
       text: '제주 1박 2일 일정 짜줘',
     });
@@ -969,3 +1088,123 @@ test('configured HTTP prediction returns the structured model turn without expos
     });
   }
 });
+
+test('HTTP search outage still calls the configured primary once when local escalation weights are unavailable', async (t) => {
+  Object.assign(env, {
+    FLOWISE_BASE_URL: 'https://flowise.example', FLOWISE_CHATFLOW_ID: 'flow_123', FLOWISE_API_KEY: 'test-only-flowise-key',
+    RAG_ENABLED: 'true', RAG_BASE_URL: 'http://127.0.0.1:8765', RAG_API_KEY: 'test-only-rag-authorization-32chars',
+  });
+  let models = 0;
+  let searches = 0;
+  let localInspections = 0;
+  let localGenerations = 0;
+  t.mock.method(globalThis, 'fetch', async (url, init) => {
+    if (url.endsWith('/internal/rag/search')) { searches++; throw new TypeError('service offline'); }
+    if (url === 'http://127.0.0.1:11434/api/show') {
+      localInspections++;
+      assert.deepEqual(JSON.parse(init.body), { model: 'qwen3:14b' });
+      return new Response(null, { status: 404 });
+    }
+    if (url.endsWith('/api/chat')) { localGenerations++; throw new Error('Unverified local weights must not generate.'); }
+    assert.equal(url, 'https://flowise.example/api/v1/prediction/flow_123');
+    models++;
+    const context = JSON.parse(JSON.parse(init.body).question).context;
+    assert.equal(context.retrievalStatus, 'unavailable');
+    assert.equal(context.retrieval, undefined);
+    return Response.json({ json: { message: '장소 자료 검색은 연결되지 않았지만 일반적인 여행 준비는 도와드릴 수 있어요.', actions: [] } });
+  });
+  try {
+    const response = await POST(post(request(createDemoSession(), { type: 'message', text: '제주 여행 준비물은 무엇이야?' })));
+    const result = await response.json();
+    assert.equal(response.status, 200);
+    assert.equal(result.mode, 'flowise');
+    assert.equal(result.session.turns.at(-1).retrieval, undefined);
+    assert.equal(models, 1);
+    assert.equal(searches, 1);
+    assert.equal(localInspections, 1);
+    assert.equal(localGenerations, 0);
+  } finally {
+    t.mock.restoreAll();
+    Object.assign(env, { FLOWISE_BASE_URL: '', FLOWISE_CHATFLOW_ID: '', FLOWISE_API_KEY: '', RAG_ENABLED: '', RAG_BASE_URL: '', RAG_API_KEY: '' });
+  }
+});
+
+test('source withdrawn while the model runs blocks the whole HTTP turn after preflight validation', async (t) => {
+  const { places } = await import('../lib/trip-data.ts');
+  const { authoredPlaceText } = await import('../lib/rag-source.ts');
+  const text = authoredPlaceText(places.find((p) => p.id === 'hyeopjae'));
+  const hash = Array.from(
+    new Uint8Array(
+      await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)),
+    ),
+    (b) => b.toString(16).padStart(2, '0'),
+  ).join('');
+  const retrieval = {
+    dataMode: 'authored-demo-data',
+    indexVersion: 'idx:test',
+    embeddingModel: 'embedding:test',
+    results: [
+      {
+        evidenceId: 'evidence:test',
+        placeId: 'hyeopjae',
+        documentId: 'moa-place:hyeopjae',
+        chunkId: 'moa-place:hyeopjae:description',
+        sourceVersion: `sha256:${hash}`,
+        sourceKind: 'authored-demo-data',
+        text,
+      },
+    ],
+  };
+  Object.assign(env, {
+    FLOWISE_BASE_URL: 'https://flowise.example',
+    FLOWISE_CHATFLOW_ID: 'flow_123',
+    FLOWISE_API_KEY: 'test-only-flowise-key',
+    RAG_ENABLED: 'true',
+    RAG_BASE_URL: 'http://127.0.0.1:8765',
+    RAG_API_KEY: 'test-only-rag-authorization-32chars',
+  });
+  let validations = 0;
+  let models = 0;
+  t.mock.method(globalThis, 'fetch', async (url) => {
+    if (url.endsWith('/internal/rag/search')) return Response.json(retrieval);
+    if (url.endsWith('/internal/rag/validate')) {
+      validations++;
+      return validations === 1
+        ? Response.json({ valid: true })
+        : Response.json({ error: 'revoked' }, { status: 409 });
+    }
+    models++;
+    return Response.json({
+      json: {
+        message: '해변 설명을 참고했어요',
+        actions: [{ type: 'region', region: '제주' }],
+        evidenceIds: ['evidence:test'],
+      },
+    });
+  });
+  const input = request();
+  const original = structuredClone(input.session);
+  try {
+    const response = await POST(post(input));
+    const result = await response.json();
+    assert.equal(response.status, 409);
+    assert.equal(result.error.code, 'RAG_STALE_EVIDENCE');
+    assert.equal(result.session, undefined);
+    assert.equal(validations, 2);
+    assert.equal(models, 1);
+    assert.deepEqual(input.session, original);
+  } finally {
+    t.mock.restoreAll();
+    Object.assign(env, {
+      FLOWISE_BASE_URL: '',
+      FLOWISE_CHATFLOW_ID: '',
+      FLOWISE_API_KEY: '',
+      RAG_ENABLED: '',
+      RAG_BASE_URL: '',
+      RAG_API_KEY: '',
+    });
+  }
+});
+
+// These fixtures intentionally exercise the authored legacy catalog. New sessions use registered data.
+function createDemoSession(savedIds = [], library = []) { return createTripSession(savedIds, library, "demo"); }

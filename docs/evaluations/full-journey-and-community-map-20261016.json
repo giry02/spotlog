@@ -1,0 +1,169 @@
+{
+  "date": "2026-10-16",
+  "timezone": "Asia/Seoul",
+  "status": "passed with stated data limitation",
+  "application": "http://localhost:3001/",
+  "qaOrigin": "http://[::1]:3001/",
+  "userConversationPreserved": true,
+  "actualUi": {
+    "namedPlaces": [
+      "협재해변",
+      "금능해수욕장",
+      "오설록 티뮤지엄",
+      "송악산 둘레길"
+    ],
+    "namedRestaurants": [
+      "바다 앞 한상",
+      "차밭 옆 밥상"
+    ],
+    "namedStay": "바다곁 스테이",
+    "firstRealModelCollection": {
+      "sourceShown": "AI 응답",
+      "collectedPlaces": 4,
+      "serverSeconds": 19.4
+    },
+    "observedFailure": {
+      "request": "바다 앞 한상과 차밭 옆 밥상 두 식당, 바다곁 스테이 숙소도 여행 후보에 담아줘. 아직 일정은 만들지 마.",
+      "httpStatus": 502,
+      "serverSeconds": 70.7,
+      "visibleMessage": "챗봇의 기능 응답 형식이 올바르지 않아 화면을 유지했어요.",
+      "statePreserved": true,
+      "rawModelReplyCaptured": false
+    },
+    "sameRequestRetest": {
+      "sourceShown": "AI 응답",
+      "serverSeconds": 16.8,
+      "collectedTotal": 7,
+      "allThreeBusinessesAddedTogether": true
+    },
+    "realModelBuild": {
+      "sourceShown": "AI 응답",
+      "serverSeconds": 21.1,
+      "retrievedDocuments": 12,
+      "days": 2,
+      "allFourPlacesRetained": true,
+      "bothRestaurantsAndStayRetained": true,
+      "day1": [
+        "협재해변",
+        "바다 앞 한상",
+        "오설록 티뮤지엄",
+        "차밭 옆 밥상",
+        "바다곁 스테이"
+      ],
+      "day2": [
+        "금능해수욕장",
+        "식당 미정",
+        "송악산 둘레길"
+      ]
+    },
+    "map": {
+      "defaultScope": "whole trip",
+      "pins": 4,
+      "legs": 3,
+      "crossDayLegs": 1,
+      "observedRoadReferenceKm": 50.5,
+      "unlocatedEntriesExcluded": 4,
+      "referenceNumbersAtQaTimeOnly": true,
+      "pinToDayAndSameVisitRow": "passed",
+      "turnsBeforeAndAfterMapViews": [
+        19,
+        19
+      ]
+    },
+    "proof": [
+      "E:/AI_Project/etc/work/handoff/FULL_JOURNEY_LLM_MAP_20261016.png",
+      "E:/AI_Project/etc/work/handoff/FULL_JOURNEY_LLM_BUSINESSES_20261016.png"
+    ]
+  },
+  "fixes": {
+    "collectedBusinesses": "Retain collected restaurant/cafe selections beside each chosen anchor in grounded LLM build; retain selected stay without inventing locations",
+    "firstHotel": "Allow adding a first hotel to an existing RAG itinerary without requiring collectedIds; preserve other visits/bookings",
+    "namedBusinessBatch": "Exactly named current-request businesses can be collected across their own validated anchors without place transitions; filters/region/reservation/limits remain enforced; max actions remains four",
+    "modelInput": "Narrow context for explicit named-business collection; still executes an actual model reply"
+  },
+  "publicCoursePopup": {
+    "source": {
+      "project_id": "appgprj_6ab3b3683bb48191b973052ec0ada2ea",
+      "checkout_path": "E:\\AI_Project\\etc\\work\\prototype-map-source-20261016",
+      "commit_sha": "771333a314658b9f3ac90693f8abf4fa6d7769d7",
+      "archive": "E:/AI_Project/etc/work/moa-community-route-20261016.tar.gz"
+    },
+    "version": {
+      "id": "appgprj_6ab3b3683bb48191b973052ec0ada2ea~appgver_ec656418d9348191b6bae22ad1672cb6",
+      "project_id": "appgprj_6ab3b3683bb48191b973052ec0ada2ea",
+      "version_number": 22,
+      "source": {
+        "commit_sha": "771333a314658b9f3ac90693f8abf4fa6d7769d7"
+      },
+      "archive_storage": {
+        "archive_format": "tar",
+        "sediment_file_id": "file_000000009d2082068c5ccbd42c08825b",
+        "content_hash": "sha256:25d6130f9dcbb1a4d0f10f3b5ced216535d2cc87a78bb39fd512a36f80864354",
+        "size_bytes": 8273920,
+        "file_count": 94
+      },
+      "screenshot_url": null,
+      "deployment_id": null
+    },
+    "deployment": {
+      "id": "appgdep_6ad1cdb6af6c8191b0efa608b15dee26",
+      "project_id": "appgprj_6ab3b3683bb48191b973052ec0ada2ea",
+      "title": "모아 — 대화에 맞춰 바뀌는 모바일웹",
+      "version_id": "appgprj_6ab3b3683bb48191b973052ec0ada2ea~appgver_ec656418d9348191b6bae22ad1672cb6",
+      "type": "publish",
+      "status": "succeeded",
+      "url": "https://moa-adaptive-mobile-demo.companydasom.chatgpt.site",
+      "has_mcp": false,
+      "screenshot_asset_pointer": null,
+      "provider_deployment_id": "site---6ab3b3683bb48191b973052ec0ada2ea",
+      "failure_message": null,
+      "env_set_revision": 0,
+      "updated_at": "2026-10-16T07:10:00.231875+00:00"
+    },
+    "actualRootMerged": true,
+    "fullTripDefault": true,
+    "eastPins": 2,
+    "westPins": 4,
+    "westDay2Pins": 2,
+    "pinRowSelection": "passed",
+    "turnsBeforeAndAfter": [
+      13,
+      13
+    ],
+    "collectedCountBeforeAndAfter": [
+      7,
+      7
+    ],
+    "mobileWidths": [
+      320,
+      390
+    ],
+    "noHorizontalOverflow": true,
+    "proof": "E:/AI_Project/etc/work/handoff/COMMUNITY_ROUTE_LLM_MOBILE_20261016.png"
+  },
+  "validation": {
+    "allTestsPassed": 466,
+    "typecheck": "passed",
+    "finalProductionBuild": "passed",
+    "buildLog": "work/handoff/FULL_JOURNEY_BUILD_20261016.log",
+    "additionalExplicitCommunityMappingTests": 3,
+    "publicPrototypeRelatedTests": 34,
+    "runtimeLauncherTests": 11
+  },
+  "limitation": "Restaurants, cafes and hotels are explicitly fictional examples without verified business coordinates. The map shows verified landmark-to-landmark routes only, and excludes these businesses/unselected entries; this is not the complete journey distance or routing via actual businesses.",
+  "modelAuthenticationEnvironmentAndDataPreserved": true,
+  "quietRuntime": {
+    "entrypoint": "E:/AI_Project/etc/Spotlog 시작.vbs",
+    "cause": "Miniflare grandchild workerd.exe opened a console",
+    "fix": "Project-only hidden child-process preload and no-console VBS/PowerShell bootstrap",
+    "actualRestart": "Moa on 3001 only; Flowise/RAG/Ollama reused",
+    "servicesReady": 4,
+    "visibleConsoleWindowsAfterRestart": 0,
+    "launcherStatus": "ready, exit 0",
+    "launcherTestsPassed": 11,
+    "restoredQaTurnsAfterReload": 19,
+    "restoredNamedRestaurantsAndStay": true,
+    "evidence": "E:/AI_Project/etc/work/handoff/QUIET_STACK_LIVE_20261016.json"
+  },
+  "handoffSentToActualLlmThread": "01a13cf1-8dba-7e82-b293-ccf27cf71288"
+}

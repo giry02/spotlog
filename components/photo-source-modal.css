@@ -1,0 +1,13 @@
+.tr-photo-source { margin: 8px 0 14px; }
+.tr-photo-source-trigger { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 6px 0; color: #66685f; font-size: 12px; line-height: 1.5; text-align: left; }
+.tr-photo-source-trigger:hover { color: #b94c36; }
+.tr-photo-source-trigger:focus-visible { outline: 2px solid #b94c36; outline-offset: 4px; border-radius: 4px; }
+.tr-photo-source-sheet { overflow: hidden; }
+.tr-photo-source-body { display: grid; gap: 16px; }
+.tr-photo-source-identity { color: #8a8c80; font-size: 11px; overflow-wrap: anywhere; }
+.tr-photo-source-facts { margin: 0; display: grid; gap: 0; }
+.tr-photo-source-facts > div { display: grid; grid-template-columns: minmax(78px, 28%) minmax(0, 1fr); gap: 12px; padding: 12px 0; border-bottom: 1px solid #eaeae4; }
+.tr-photo-source-facts dt { color: #797d70; font-size: 12px; line-height: 1.7; }
+.tr-photo-source-facts dd { margin: 0; color: #33372c; font-size: 13px; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+.tr-photo-source-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.tr-photo-source-links a { display: inline-flex; gap: 7px; align-items: center; min-height: 40px; padding: 8px 12px; border: 1px solid #e1e2d9; border-radius: 12px; color: #48533e; font-size: 12px; }

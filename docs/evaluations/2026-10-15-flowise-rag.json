@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-15",
+  "timezone": "Asia/Seoul",
+  "runtime": "Flowise3.1.4 / Ollama0.40.4 / SQLite",
+  "model": "moa-qwen3-8b:20261015",
+  "modelDigest": "0eaf59f7c0caef381d6b4c23b1c35f13498176ef659905487c8ce033a0142bfe",
+  "modelRequests": 6,
+  "serverClarifications": 1,
+  "promptSha256": "60fca835de94b27bfe25cafcdea7c1e4c2e8860cc41aa62fc6a44c2a739048bf",
+  "regressionTests": 206,
+  "execution": "real-flowise-local-llm-and-rag",
+  "dataMode": "authored-demo-data",
+  "modelIdentity": "not-verified-by-api",
+  "passed": true,
+  "plannedCases": 7,
+  "results": [
+    {
+      "id": "generate",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 4655
+    },
+    {
+      "id": "follow-up",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 4100
+    },
+    {
+      "id": "booking",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 3915
+    },
+    {
+      "id": "partial-edit",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 3938
+    },
+    {
+      "id": "community",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 2855
+    },
+    {
+      "id": "missing-input",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 11
+    },
+    {
+      "id": "rag-explanation",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 9851
+    }
+  ]
+}

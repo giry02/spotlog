@@ -12,8 +12,11 @@ registerHooks({
     return next(specifier, context);
   },
 });
-const { createTripSession, appendTrip, currentTrip, isTripSession } =
+const { createTripSession: createActualTripSession, appendTrip, currentTrip, isTripSession } =
   await import('../lib/trip-engine.ts');
+// These established scenarios explicitly exercise the retained authored demo.
+// Real registered data, unknown prices and SHOP are covered independently.
+const createTripSession = () => createActualTripSession([], [], 'demo');
 const { parseTripSession } = await import('../lib/chat-contract.ts');
 const {
   comparisonRows,
@@ -76,7 +79,7 @@ test('named menu question opens detail without selecting or changing itinerary',
 test('ordinal menu query refers to current candidates, not selection', () => {
   const before = say(createTripSession(), '협재 근처 식당 찾아줘');
   const result = say(before, '두 번째 식당 메뉴 보여줘');
-  assert.equal(currentTrip(result).detailId, 'hj-pasta');
+  assert.equal(currentTrip(result).detailId, 'hj-rice');
   assert.equal(currentTrip(result).foodId, null);
   assert.equal(currentTrip(before).stage, 'food');
 });

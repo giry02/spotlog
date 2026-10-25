@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-15",
+  "timezone": "Asia/Seoul",
+  "path": "local Moa /api/chat -> Ollama /api/chat -> server validation -> existing cards",
+  "runtime": "Ollama 0.40.4",
+  "model": "qwen3:8b",
+  "modelDigest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "promptSha256": "1a3c572127d5ac15c1324a8a86cebd08bdea028681a87e828559892afd462d55",
+  "measurementScope": "six authored smoke scenarios; not a 100-case accuracy evaluation or RAG integration",
+  "previousFailures": [
+    "4B instruction omissions",
+    "full JSON Schema grammar produced invalid output",
+    "booking and partial-edit semantic omissions in earlier iterations"
+  ],
+  "regressionTests": 186,
+  "typecheck": "pass",
+  "build": "pass",
+  "dataMode": "authored-demo-data",
+  "modelIdentity": "not-verified-by-api",
+  "passed": true,
+  "plannedCases": 6,
+  "results": [
+    {
+      "id": "generate",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 9278
+    },
+    {
+      "id": "follow-up",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 8288
+    },
+    {
+      "id": "booking",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 7220
+    },
+    {
+      "id": "partial-edit",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 7352
+    },
+    {
+      "id": "community",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 7481
+    },
+    {
+      "id": "missing-input",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 2263
+    }
+  ]
+}

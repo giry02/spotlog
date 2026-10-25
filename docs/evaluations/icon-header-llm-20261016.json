@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-10-16",
+  "timezone": "Asia/Seoul",
+  "status": "passed",
+  "application": "http://localhost:3001/",
+  "scope": "Local actual LLM chatbot header only",
+  "source": "work/prototype-map-source-20261016/components/trip-header-navigation.tsx and .css",
+  "sourceFilesCopiedExactly": true,
+  "changes": [
+    "Added TripHeaderNavigation component and its owned CSS",
+    "Replaced only the existing workspace header nav with the same ready/busy callbacks",
+    "Removed only superseded header/nav CSS and conflicting 601px/360px header rules"
+  ],
+  "modelAuthenticationRagMapAndAnchorChanges": false,
+  "additionalModelQueries": 0,
+  "layout": {
+    "icons": ["Home", "History", "Bookmark", "Compass"],
+    "iconSizePx": 20,
+    "iconBackgroundPx": 32,
+    "labelSizePx": 11,
+    "buttonHeightPx": 58,
+    "desktop": { "viewportWidth": 1878, "navWidth": 360, "buttonWidth": 87, "horizontalOverflow": false },
+    "mobile390": { "viewportWidth": 390, "navWidth": 358, "buttonWidth": 86.5, "horizontalOverflow": false },
+    "mobile320": { "viewportWidth": 320, "navWidth": 296, "buttonWidth": 71, "longestLabelWidth": 61.65625, "horizontalOverflow": false }
+  },
+  "interactions": {
+    "keyboardTab": "Home to History; focus-visible 2px coral outline",
+    "home": "Returned to 어디로 떠나볼까요?",
+    "history": "Opened 이어온 대화",
+    "library": "Opened 찜한 장소와 내 여행",
+    "scenarios": "Opened 어떤 여행을 해볼까요?",
+    "initialDisabledAndBusyRules": "Preserved and statically reviewed",
+    "viewportRestored": true
+  },
+  "validation": {
+    "typescript": "passed",
+    "productionBuild": "passed",
+    "consoleErrorsAndWarnings": [],
+    "mapAndModelRetesting": "Not repeated for this isolated UI patch"
+  },
+  "screenshots": {
+    "desktop": "work/handoff/ICON_HEADER_LLM_DESKTOP_20261016.png",
+    "mobile390": "work/handoff/ICON_HEADER_LLM_390_20261016.png",
+    "mobile320": "work/handoff/ICON_HEADER_LLM_320_20261016.png"
+  }
+}

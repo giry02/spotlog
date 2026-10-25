@@ -1,0 +1,53 @@
+{
+  "evaluatedAt": "2026-10-15T02:09:18.111Z",
+  "execution": "real-native-flowise-local-llm-with-curated-rag",
+  "dataMode": "authored-demo-data",
+  "modelIdentity": "not-verified-by-api",
+  "passed": true,
+  "plannedCases": 7,
+  "results": [
+    {
+      "id": "generate",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 4882
+    },
+    {
+      "id": "follow-up",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 8201
+    },
+    {
+      "id": "booking",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 8240
+    },
+    {
+      "id": "partial-edit",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 8238
+    },
+    {
+      "id": "community",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 7729
+    },
+    {
+      "id": "missing-input",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 26
+    },
+    {
+      "id": "three-day-draft",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 4872
+    }
+  ],
+  "retestedAt": "2026-10-15T02:16:12.597Z"
+}

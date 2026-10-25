@@ -81,7 +81,11 @@ test('budget and checks use every collected visit without adding an unselected s
     ['바다 앞 한상', '작은 찻집'],
   );
   assert.equal(budget.excluded.length, 2);
-  assert.ok(!itineraryChecks(planned).some(({ level }) => level === 'warning'));
+  // Authored businesses still have example prices, but no verified coordinates.
+  // The new location warning must remain visible rather than silently routing to an anchor.
+  const warnings = itineraryChecks(planned).filter(({ level }) => level === 'warning');
+  assert.ok(warnings.length > 0);
+  assert.ok(warnings.every(({ id }) => id.startsWith('location-unknown-')));
   assert.equal(JSON.stringify(state), before);
 });
 

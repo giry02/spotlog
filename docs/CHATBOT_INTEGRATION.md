@@ -1,5 +1,9 @@
 # Spotlog 안의 Moa 챗봇 연결 준비
 
+2026-10-15 최신 로컬 개발본은 **native Flowise + 로컬 Qwen + 실제 임베딩 RAG**로 연결됐다. 현재 PC의 `.dev.vars`는 이 경로를 사용한다. 공개 체험판 배포와 운영 DB 상태는 별도다. [최신 연결·실행·평가 기록](FLOWISE_RAG_LOCAL_20261015.md)을 먼저 참조한다.
+
+2026-10-15 로컬 개발본에는 Windows PC의 Ollama 직접 연결을 추가했습니다. `CHAT_PROVIDER=ollama`, `OLLAMA_BASE_URL`, `OLLAMA_MODEL`, `OLLAMA_TIMEOUT_MS`는 서버 전용 설정입니다. 성공 응답은 `mode:ollama`, 해당 turn은 `source:ollama`이며 화면에 로컬 AI 응답으로 표시합니다. 현재 개발용 무인증 Ollama 연결은 루프백 주소로 제한됩니다. 공개 체험판 배포는 변경하지 않았습니다. 설치·검증 범위와 남은 항목은 [Windows 구현 기록](CHATBOT_IMPLEMENTATION_20261015.md)을 참조하세요.
+
 현재 공개 체험판은 **실제 LLM·Flowise·Jev·Spotlog 계정 DB에 연결되지 않은 데모**입니다. 이제 질문과 카드 버튼은 같은 서버 `/api/chat`를 거치며, 서버에 Flowise 설정을 넣으면 자연어 질문을 실제 Prediction API로 전달할 수 있습니다. 설정 없이도 모든 체험 기능은 기존 데이터와 결정 규칙으로 작동합니다.
 
 화면은 Spotlog 스타일의 모바일 대화와 기능 카드로 유지합니다. Flowise는 질문을 해석하고 도구를 선택하며 답변을 만듭니다. 모델이 HTML을 생성하지 않습니다. 서버가 검증한 기능 결과에 따라 비교·상세·예산·일정 등 준비된 카드가 나타납니다. 기존 화면을 다른 챗봇 위젯으로 교체할 필요가 없습니다.
@@ -7,6 +11,18 @@
 여행을 준비할 때는 장소를 하나 고른 즉시 숙소로 넘어가지 않습니다. 여러 장소를 먼저 담고 각 장소 주변의 식당·카페를 계속 담은 뒤, 원할 때만 숙소를 추가하고 모아 둔 항목 전체로 일정을 만듭니다. `collectedIds`는 이번 여행의 담은 항목이고 `savedIds`는 장기 찜입니다. 담은 항목은 같은 지역의 알려진 ID 최대 30개이며 중복되지 않습니다. 숙소를 담거나 명시적으로 선택하지 않았으면 일정을 만들 때 가상 숙소를 자동으로 넣지 않습니다. 이미 예약한 숙소는 유지합니다.
 
 제주 장소 후보를 동부·서부·남부로 넓히고 DAY별 오전·오후 방문을 표시하는 흐름을 준비했습니다. 오전·오후 표시는 초안의 방문 순서이며 실제 이동 시간·영업 시간을 계산했다는 의미가 아닙니다. 공개 코스 화면에는 데모 작성자 프로필과 코스 예시가 들어갑니다. 실제 Spotlog 회원의 게시물·후기를 가져온 화면은 아닙니다. 코스를 구경할 때는 개인 일정과 담은 항목을 유지하고, 사용자가 내 여행으로 가져오기를 선택할 때만 원본을 복제한 편집 가능한 초안을 만듭니다.
+
+## 2026-10-22 로컬 공통 화면 반영
+
+작성자 배치와 공개 코스 일정의 상세 열기·닫기는 데모와 실제 LLM 응답에서 같은 컴포넌트를 사용한다. 진입 경로는 `app/page.tsx` → `TripWorkspace` → `CommunityUnit` / `CommunityTripBody`다. 응답의 모델 종류에 따라 별도 화면으로 분기하지 않는다.
+
+- `components/community-trips.tsx`의 `CommunityAuthorLink`는 카드 제목 아래 작성자 이름과 ‘소개’를 한 행으로 표시한다. 하단에는 ‘코스 자세히’와 ‘내 여행으로 가져오기’ 두 버튼만 배치한다. 코스 상세도 같은 작성자 행을 쓴다. 배치는 `components/community-trips.css`가 담당한다.
+- `components/community-visit-accordion.tsx`는 공개 코스의 장소·식당·카페·상점·숙소를 각 행 안에서 펼치고 접는다. 여러 행을 동시에 열 수 있으며, `visit.id`별 DOM이 독립적이다. `components/community-trip-preview.css`를 함께 사용한다. 메뉴·가격·운영시간·객실·위치·출처는 기존 자료에서 읽고, 가상 업체 및 미확인 정보 표시를 유지한다.
+- 작성자 소개와 상세 열기·닫기는 화면 안의 조회 동작이다. `/api/chat` 요청이나 LLM 재호출, 대화 추가, 여행 가져오기·저장을 실행하지 않는다. 기존 지도 선택과 일정 행 이동도 유지한다. Flowise 프롬프트나 action 스키마에 새 행동을 추가할 필요가 없다.
+
+위 변경은 로컬 작업공간에만 반영했다. 재개발·이관 시 위 컴포넌트와 CSS를 함께 가져가며, 별도 챗봇 위젯으로 바꾸지 않는다. 검수 화면은 `work/qa-course-details-20261022/author-layout-mobile.png`, `restaurant-mobile.png`, 상세 검수 기록은 같은 폴더의 `results.json`에 있다.
+
+같은 날 실제 브라우저에서 자연어 질문 1회로 제주 1박 2일 공개 코스 2개를 받았으며 새 답변의 ‘큰 모델 응답’ 표시를 확인했다. 이 응답에서 작성자 소개(목록·코스 상세), 협재해변·바다 앞 한상·바다곁 스테이 상세의 열기·닫기, 키보드 조작, 세 항목 동시 펼침, 390px 정렬, 대화 추가 없음 등 15개 검사를 통과했다. 검수용 루프백 origin을 사용해 기존 사용자 대화는 건드리지 않았다. 코스와 업체 내용은 기존 데모 자료이며, 실제 회원 게시물·실시간 업체 조회 검증과 구분한다. 보고서와 6개 화면 증거는 `work/qa-live-community-20261022/`에 있다.
 
 ## 실제 연결 경로
 
@@ -253,3 +269,62 @@ npm run build
 계약 테스트는 잘못된 enum/ID/범위, 현재 후보 밖의 선택, 예약 숙소 변경, 모델 HTML/URL/state 삽입, 중간에 실패한 도구 묶음, 텍스트 답변, 외부 오류/timeout/응답 크기 제한, origin/revision 검사를 포함합니다. 외부 Flowise 연결은 가짜 fetch로 검증하므로 테스트 중 유료 모델을 호출하지 않습니다. 실제 설치 후에는 해당 Flowise 버전에서 구조화 JSON, 세션 전달, RAG 결과와 도구 동작을 별도로 확인해야 합니다.
 
 공식 참고: [Prediction 사용법](https://docs.flowiseai.com/using-flowise/prediction), [Prediction API](https://docs.flowiseai.com/api-reference/prediction), [Flow 인증](https://docs.flowiseai.com/configuration/authorization/chatflow-level), [Agentflow V2](https://docs.flowiseai.com/using-flowise/agentflowv2), [Custom Tool](https://docs.flowiseai.com/integrations/langchain/tools/custom-tool). API 경로, 인증과 출력 형식은 2026-10-12에 이 문서들로 확인했습니다.
+## 2026-10-22 · 제주 실제 업체 6곳과 11곳 전체 동선 (로컬)
+
+`lib/jeju-registered-businesses.json`은 앱에서 가져온 기존 등록 자료와 별도로 관리하는 공식 기본정보 보강본입니다. `scripts/sync-jeju-registered-catalog.mjs`로 검증 후 동일한 TS를 생성하며, 앱 자료를 다시 가져와도 이 보강본을 덮어쓰지 않습니다. `registered-catalog.ts`의 공통 registry를 통해 상세정보, 모델 후보, 지도, RAG 원문에 같은 ID·주소·좌표·출처가 전달됩니다. 현재 가격·영업시간·빈방·예약 가능 여부·업체 사진은 연결하지 않았습니다.
+
+제주관광공사 VisitJeju의 업체별 공식 대표 좌표를 2026-10-22 확인했습니다. 관광지 위치를 업체 좌표로 대신 쓰지 않습니다.
+
+| ID | 실제 업체 | 공식 자료 |
+| --- | --- | --- |
+| `catalog-jeju-hyeopjae-sin-guksu` | 협재신국수 | [VisitJeju](https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000013016) |
+| `catalog-jeju-myeongri-main` | 명리동식당 본점 | [VisitJeju](https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000018465) |
+| `catalog-jeju-bongseong` | 봉성식당 | [VisitJeju](https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000014723) |
+| `catalog-jeju-paratodos` | 파라토도스 | [VisitJeju](https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000012635) |
+| `catalog-jeju-coffee-sketch` | 커피스케치 | [VisitJeju](https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000012676) |
+| `catalog-jeju-landing-shinhwa` | 랜딩관 제주신화월드 호텔앤리조트 | [VisitJeju](https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000022770) |
+
+`community-jeju-west-real-11` / **제주 서쪽 실제 장소 11곳**은 이 업체들과 협재·금능·오설록·송악산·새별오름을 연결한 별도 제작 예시입니다. 기존 가상 업체와 공개 원본, 이미 저장한 여행을 자동 변경하지 않습니다. 실제 회원 여행기·방문 후기·최적화 코스라는 뜻도 아닙니다. 커피스케치는 사계리 용머리해안 인근, 숙소는 제주신화월드에 있으며 각자의 실제 위치로 이동합니다.
+
+등록 업체의 정식 이름은 RAG 조회에서 관광지 별칭보다 먼저 매칭합니다. ‘협재신국수 주소와 소개 알려줘’는 협재해변 문서로 좁히지 않고 해당 업체 문서를 조회하며, ‘봉성식당 설명해줘’처럼 일반 여행 단어가 없는 질문도 조회합니다. 업체 이름과 별도로 적힌 관광지는 유지합니다. 짧은 이름이나 미등록 분점을 정식 업체로 확장하지 않습니다. 업체 주소를 ‘찾아줘’라는 질문도 불필요하게 전체 지역 자료로 넓히지 않습니다.
+
+정식 업체 기본정보 조회에는 `registered-business-grounding.ts`의 프롬프트 힌트와 검증을 함께 적용합니다. 자료에 없는 인기·인기 순위·평점의 긍정 단정은 `MODEL_FACTS_UNGROUNDED`로 거절하고 기존 허용 모델의 다음 시도로 넘깁니다. 모든 시도가 같은 검증에서 실패하면 성공 답변이나 변경된 여행으로 저장하지 않습니다. 정상 주소·소개·미확인 표현은 유지하며, 모델 문장을 임의로 삭제하거나 재작성하지 않습니다. 이 검사는 해당 조회의 일부 미확인 평판 주장에 한정되며 모든 자연어 사실의 진위를 판별하는 검증기는 아닙니다.
+
+공통 회귀 검사는 명시적 가져오기 → 저장 → 다시 열기 후 11개 좌표 / 미확인 위치 0개 / 인접 10구간 / DAY 2 전날 숙소 출발을 확인합니다. 도로 조회가 성공하면 차량 참고 경로를 표시하고, 실패하면 같은 11개 위치의 방문 순서를 직선으로 표시합니다. 실시간 교통·입구·주차장·현재 영업 여부는 별도 확인 대상입니다. 실제 LLM 브라우저 검수 기록은 `work/qa-jeju-real-route-20261022`에 별도로 남깁니다. 로컬 구현과 로컬 RAG 색인만 갱신하며 공개 사이트·GitHub에는 배포하지 않습니다.
+
+## 2026-10-24 · 챗봇 안의 평가·스레드·담김
+
+이전 `open_spotlog`는 앱의 댓글/응원 화면으로 이동하는 기능이었습니다. 이제 장소·업체 상세, 공개 코스 목록과 상세, 코스 안의 방문 카드에 공통 `SocialSummary`를 표시하고 바텀시트에서 평가와 스레드를 직접 사용합니다. LLM이 `social` 도구를 선택하면 같은 패널이 대화의 새 결과로 표시됩니다.
+
+- 앱 기준 반응: 장소/업체 카드의 `LIKE`와 코스의 `LOVE`(너무 좋아요), `BEST`(최고예요), `HELPFUL`(동선이 유용해요). 앱에 없는 평균 별점은 만들지 않습니다.
+- `entity`는 업체/장소 전체 의견, `course`는 공개 코스 전체, `course-place`는 공개 코스 ID+방문 인덱스의 카드 스레드입니다. 같은 업체라도 각 코스 카드의 문맥은 섞지 않습니다. 업체 전체 의견은 기존 앱의 카드별 스레드와 별도로 추가한 범위입니다.
+- 댓글·1단계 답글·수정·삭제·복원, 평가 변경/취소를 지원합니다. 부모 글 삭제 뒤에도 답글은 보존됩니다. 코스 글은 180자, 장소·업체/카드 글은 1,000자입니다.
+- `spotlog-social-local-v1`은 여행 대화 저장소와 별개입니다. 새로고침·대화 초기화 뒤에도 유지되고 다른 탭의 반응 변경이 갱신됩니다. 저장 실패·잘못된 자료는 기존 값을 덮어쓰지 않고 읽기 전용 오류로 표시합니다.
+- 담김의 로컬 값은 휴지통을 제외한 `session.library`의 `communitySourceId`별 저장 사본 수입니다. 실제 회원 수나 복사 버튼 클릭 횟수가 아닙니다. 전체 회원 담김·평가·스레드는 미연결 `null`/`—`이며 0으로 둔갑시키지 않습니다. 예시 대화는 별도 표시하고 실제 집계·모델 입력·저장소에 포함하지 않습니다.
+
+도구 계약은 `{type:'social',target:{kind:'entity'|'course',id},view:'overview'|'threads'|'reactions'}` 또는 `{kind:'course-place',id,visitIndex}`입니다. `visitIndex`는 원본 공개 코스의 0부터 시작하는 인덱스입니다. 정식 대상 후보와 조회 범위만 모델에 주며 로컬 댓글 본문·반응·개인 메모는 전달하지 않습니다. 모델 도구는 읽기/폼 열기 전용이며 등록·반응·댓글 전송·일정 편집 필드는 거절합니다. 실제 글과 반응은 사용자가 패널에서 직접 등록합니다.
+
+실행 중 Flowise의 일반 flow는 저장된 system prompt를 사용하므로 소스 문서 갱신만으로는 새 도구가 반영되지 않습니다. `scripts/flowise/sync-system-prompt.mjs --dry-run`으로 확인 후 `--apply`를 실행해 일반 flow의 `systemMessagePrompt` 한 필드만 동기화합니다. 모델 노드·그 외 graph·API 메타데이터·설정/자격증명 파일 해시 불변과 후속 GET을 검증하며 실패하면 원본 flowData만 복원합니다. bootstrap 전체 재실행이나 서비스 재설정은 필요하지 않습니다.
+
+향후 실제 회원 데이터는 Spotlog의 공개 `journalId`, 실제 `cardId/blockId`, 회원 인증·권한·moderation과 연결해야 합니다. 앱의 `PublicJournal.metrics`처럼 `source:SERVER|SAMPLE`와 미제공 `null`을 보존하고, 로컬 기록/샘플을 서버 집계에 합산하지 않습니다. 현재 구현은 회원 소셜 API나 다른 회원의 실제 게시물 서버가 연결됐다는 뜻이 아닙니다. 로컬 검수 기록은 `work/qa-social-20261024`입니다.
+
+## 2026-10-25 · 샘플 커뮤니티를 실제 서비스처럼 체험
+
+사용자 요청으로 다른 여행자의 스레드·평가·담김을 **기본으로 보이는 샘플 커뮤니티**로 추가했습니다. 위 10월 24일의 빈 전체 집계/선택형 일반 대화 예시 화면은 이 구성으로 대체됩니다. 실제 서버 집계가 미연결이라는 경계는 유지합니다.
+
+- `lib/social-samples.ts`: 모든 유효한 장소·업체/공개 코스/코스 방문 카드에 가상 작성자 4명의 원글 2개와 답글 2개를 제공합니다. 제주 실제 11곳은 각 장소·식당·카페·숙소와 일정 흐름에 맞춘 계획 대화입니다. 확인되지 않은 실제 방문 후기·가격·영업시간·예약 가능 여부를 만들지 않습니다.
+- 샘플 작성자·글·집계는 `source:'SAMPLE'`인 불변 자료입니다. `spotlog-social-local-v1`에는 내가 쓴 글·반응만 저장합니다. 기존 데이터 형식과 `comment-UUID` 식별자는 그대로 읽습니다. 샘플 글을 내 글로 seed하거나 기존 기록을 덮어쓰지 않습니다.
+- 샘플 원글에도 내 답글을 달 수 있습니다. `parentId`는 같은 대상의 샘플 원글 또는 내 원글만 허용하고, 다른 대상/샘플 답글/샘플을 사칭한 로컬 ID는 거절합니다. 타인의 샘플에는 수정·삭제 버튼이 없으며 내 글만 수정·삭제·복원합니다.
+- 코스/업체 카드와 바텀시트, LLM 대화 패널은 같은 UI를 공유합니다. 샘플 수와 내 반응/활성 글을 합친 **체험 합계**를 보여주고, 상세에서 각각의 수를 분리해 설명합니다. 평가 변경/취소는 내 기여 1개만 바꾸며 샘플 기준 수는 보존합니다.
+- `community-jeju-west-real-11`의 샘플 기준은 담김 **236회**, 평가 **너무 좋아요 82 / 최고예요 63 / 동선이 유용해요 114**, 원글·답글 **4개**입니다. 저장한 활성 사본만 담김 횟수에 더하고 휴지통 사본은 제외합니다. 사람 수나 실제 회원 통계로 표시하지 않습니다.
+- `lib/social-model-samples.ts`: 모델에는 최대 8개 정확한 대상의 샘플 숫자만 `publicSamples/source:SAMPLE`로 전달합니다. 실제 집계는 기존 `publicMetrics/source:UNCONNECTED`와 `null`을 유지합니다. 가상 작성자·샘플 본문·내 댓글·내 반응·저장 여행 본문을 모델에 보내지 않습니다. `social` 도구는 화면 열기 전용입니다.
+
+이번 구현은 로컬에만 적용하며 공개 사이트·GitHub에는 올리지 않습니다. 실행 중 일반 Flowise의 system prompt만 안전 동기화했고 모델·그 외 graph·설정·자격증명은 보존했습니다. 검수와 인계 증거는 `work/qa-social-samples-20261025/VERIFICATION.json`에서 확인합니다.
+
+## 2026-10-26 · 전체 점검·클릭 편의성·GitHub 소스 반영
+
+사용자가 전체 점검 후 GitHub 업로드를 요청하여 챗봇 전용 `codex/moa-demo` 브랜치에 현재 소스를 반영합니다. 이전의 로컬 작업 기록과 별개인 이번 업로드는 공개 Sites 배포나 Spotlog 본체 브랜치 변경을 포함하지 않습니다. 현재 동작과 검수 범위는 `RELEASE_CHECK_20261026.md`와 최신 README를 기준으로 확인합니다.
+
+브라우저 ID 생성은 `lib/client-id.ts`를 사용해 일반 와이파이 HTTP에서도 같은 UUIDv4를 만듭니다. 기존 저장 형식·nonce·요청 ID 검증을 유지합니다. 기존 여러 박 숙박이 포함된 DAY를 복사할 때 체크아웃을 넘기면 reducer와 모델 계약 양쪽에서 전체 변경을 거절합니다. 다른 DAY의 업체 추가는 해당 DAY의 기준 장소를 사용합니다.
+
+일정에서 식당·카페·상점을 버튼으로 추가하고, 탐색 화면에서 후보를 고르지 않아도 일정으로 돌아올 수 있습니다. 저장본 확인 버튼은 저장한 여행 목록을 엽니다. 스레드는 글 쓰기·내 글 확인·등록/수정한 글 보기 버튼으로 입력과 확인을 연결합니다. 이런 소셜 조회·등록은 대화 turn을 추가하지 않습니다. 실제 LLM도 동일한 UI를 사용하며 댓글 자동 전송을 허용하지 않습니다.

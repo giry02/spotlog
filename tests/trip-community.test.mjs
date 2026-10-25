@@ -19,13 +19,18 @@ const {
   communityResults,
   isTripSession,
   placeResults,
+  foodResults,
   nextQuestions,
 } = await import('../lib/trip-engine.ts');
 const { communityTrips, findCommunityTrip } =
   await import('../lib/community-trips.ts');
 const { places, restaurants, findPlace, findFood, findStay } =
   await import('../lib/trip-data.ts');
+const { getRegisteredEntity } = await import('../lib/registered-catalog.ts');
 const { parseTripSession } = await import('../lib/chat-contract.ts');
+const { createCommunityTripPreview } = await import('../lib/community-trip-preview.ts');
+const { getTripMapData } = await import('../lib/trip-map-data.ts');
+const { makeTripMapOrderRoutes } = await import('../lib/trip-map-route.ts');
 const say = (session, text) => appendTrip(session, { type: 'message', text });
 const show = (session) =>
   appendTrip(session, { type: 'show', stage: 'community' });
@@ -38,6 +43,7 @@ const privateState = (s) => {
     notice,
     communityRegion,
     communityTheme,
+    communityQuery,communityType,communityDays,communityAuthorId,
     ...privateFields
   } = s;
   return JSON.parse(JSON.stringify(privateFields));
@@ -48,17 +54,100 @@ const privateTrip = () =>
     '서울숲에서 반나절 일정 짜줘. 점심과 카페를 넣어줘',
   );
 
-test('all six courses are openly identified as authored demos with valid canonical visits', () => {
-  assert.equal(communityTrips.length, 6);
-  assert.equal(new Set(communityTrips.map((t) => t.id)).size, 6);
+test('verified Jeju course stays fully located through explicit copy, saving and reopening', () => {
+  const source = findCommunityTrip('community-jeju-west-real-11');
+  const before = JSON.stringify(source);
+  const preview = createCommunityTripPreview(source);
+  const expectedIds = source.visits.map(visit => visit.entityId);
+  assert.equal(expectedIds.length, 11);
+  assert.equal(source.visits.filter(visit => visit.kind === 'food').length, 3);
+  assert.equal(source.visits.filter(visit => visit.kind === 'cafe').length, 2);
+  assert.equal(source.visits.filter(visit => visit.kind === 'stay').length, 1);
+  let session = appendTrip(createTripSession(), { type: 'copy-community', id: source.id });
+  const copiedVisits = structuredClone(currentTrip(session).plan);
+  session = appendTrip(session, { type: 'save' });
+  const saved = session.library[0];
+  session = appendTrip(session, { type: 'reset' });
+  session = appendTrip(session, { type: 'open', id: saved.id });
+  assert.doesNotThrow(() => parseTripSession(session));
+  assert.deepEqual(currentTrip(session).plan, copiedVisits);
+  assert.equal(currentTrip(session).communitySourceId, source.id);
+  for (const state of [preview, currentTrip(session)]) {
+    const map = getTripMapData(state, { allDays: true });
+    assert.equal(map.totalCount, 11); assert.equal(map.points.length, 11); assert.equal(map.unlocatedCount, 0);
+    assert.deepEqual(map.points.map(point => point.placeId), expectedIds);
+    const [route] = makeTripMapOrderRoutes(map.points, { scope: 'trip' });
+    assert.equal(route.legs.length, 10); assert.equal(route.omittedPointCount, 0);
+    assert.deepEqual(route.legs.map(leg => [leg.from.placeId, leg.to.placeId]), expectedIds.slice(1).map((id, i) => [expectedIds[i], id]));
+    const day2 = getTripMapData({ ...state, activeDay: 2 });
+    assert.equal(day2.points.length, 7); assert.equal(day2.unlocatedCount, 0);
+    assert.equal(day2.points[0].placeId, 'catalog-jeju-landing-shinhwa');
+  }
+  assert.equal(JSON.stringify(source), before);
+  assert.equal(findCommunityTrip('community-jeju-west-sea').visits.length, 9);
+});
+
+test('business add entry for a different displayed DAY uses that DAY and preserves the imported course', () => {
+  let session = copy(createTripSession(), 'community-jeju-west-real-11');
+  session = appendTrip(session, { type: 'configure', nearbyExpanded: true });
+  const before = structuredClone(currentTrip(session)), original = structuredClone(session);
+  assert.equal(before.activeDay, 1);
+  assert.equal(before.anchorId, 'hyeopjae');
+  session = appendTrip(session, { type: 'show', stage: 'food', kind: '카페', day: 2 });
+  const searching = currentTrip(session);
+  assert.equal(searching.activeDay, 2);
+  assert.equal(searching.anchorId, 'osulloc');
+  assert.equal(searching.foodKind, '카페');
+  assert.deepEqual(searching.plan, before.plan);
+  const options = foodResults(searching);
+  assert.ok(options.length > 0);
+  const selected = options.find(item => !searching.plan.some(visit => visit.day === 2 && visit.entityId === item.id));
+  assert.ok(selected);
+  session = appendTrip(session, { type: 'food', id: selected.id });
+  session = appendTrip(session, { type: 'add-selected' });
+  const after = currentTrip(session);
+  assert.equal(after.stage, 'plan');
+  assert.equal(after.activeDay, 2);
+  assert.equal(after.plan.length, before.plan.length + 1);
+  assert.equal(after.plan.find(visit => !before.plan.some(row => row.id === visit.id)).entityId, selected.id);
+  assert.equal(after.plan.find(visit => !before.plan.some(row => row.id === visit.id)).day, 2);
+  assert.deepEqual(after.plan.filter(visit => visit.day === 1), before.plan.filter(visit => visit.day === 1));
+  assert.deepEqual(after.plan.filter(visit => visit.kind === 'stay'), before.plan.filter(visit => visit.kind === 'stay'));
+  assert.equal(after.communitySourceId, before.communitySourceId);
+  assert.deepEqual(original.turns, session.turns.slice(0, original.turns.length));
+  assert.ok(parseTripSession(session));
+});
+
+test('business add entry retains an explicit anchor on the same DAY and falls back to a visit anchor on another DAY', () => {
+  let session = copy(createTripSession(), 'community-jeju-west-real-11');
+  session = appendTrip(session, { type: 'place', id: 'geumneung' });
+  const before = structuredClone(currentTrip(session));
+  for (const action of [{ type: 'show', stage: 'food', kind: '식당', day: 1 }, { type: 'show', stage: 'food', kind: '상점', day: 1 }, { type: 'show', stage: 'stay', day: 1 }]) {
+    const next = currentTrip(appendTrip(session, action));
+    assert.equal(next.anchorId, 'geumneung');
+    assert.deepEqual(next.plan, before.plan);
+  }
+  for (const visit of before.plan.filter(visit => visit.day === 2 && visit.kind === 'place')) session = appendTrip(session, { type: 'remove', id: visit.id });
+  const withoutLandmarks = structuredClone(currentTrip(session));
+  const next = currentTrip(appendTrip(session, { type: 'show', stage: 'stay', day: 2 }));
+  assert.equal(next.activeDay, 2);
+  assert.equal(next.anchorId, 'osulloc');
+  assert.deepEqual(next.plan, withoutLandmarks.plan);
+  assert.equal(next.communitySourceId, withoutLandmarks.communitySourceId);
+});
+
+test('legacy demos, editorial samples and verified Jeju example preserve honest provenance and canonical visits', () => {
+  assert.equal(communityTrips.length, 11);
+  assert.equal(communityTrips.filter(t=>!t.sourceAppId).length,7);
+  assert.equal(new Set(communityTrips.map((t) => t.id)).size, 11);
   for (const course of communityTrips) {
     assert.equal(course.sourceKind, 'demo');
-    assert.match(course.author, /데모 프로필/);
+    assert.match(course.author, /데모 프로필|기획 샘플/);
     assert.ok(findPlace(course.coverPlaceId));
     assert.ok(course.notes.some((n) => /실제 회원 게시물.*아닙니다/.test(n)));
     for (const visit of course.visits) {
       assert.ok(visit.day >= 1 && visit.day <= course.days);
-      assert.ok(findPlace(visit.anchorId));
+      assert.ok(findPlace(visit.anchorId)||getRegisteredEntity(visit.anchorId));
       assert.ok(
         visit.kind === 'place'
           ? findPlace(visit.entityId)
@@ -79,7 +168,7 @@ test('public courses filter region and theme without implicitly filtering privat
     communityTheme: 'all',
   };
   const allJeju = communityResults(s);
-  assert.equal(allJeju.length, 5);
+  assert.equal(allJeju.length, 6);
   assert.ok(allJeju.some((t) => t.days === 2));
   assert.ok(allJeju.some((t) => t.days === 1));
   assert.ok(
@@ -90,7 +179,7 @@ test('public courses filter region and theme without implicitly filtering privat
   assert.equal(
     communityResults({ ...s, communityRegion: null, communityTheme: 'all' })
       .length,
-    6,
+    11,
   );
 });
 test('opening and filtering public courses preserves private itinerary, picks and travel collection', () => {
@@ -125,8 +214,7 @@ test('a public-course question with duration does not regenerate or resize the p
     privateState(currentTrip(result)),
     privateState(currentTrip(before)),
   );
-  assert.ok(communityResults(currentTrip(result)).some((t) => t.days === 1));
-  assert.ok(communityResults(currentTrip(result)).some((t) => t.days === 2));
+  assert.ok(communityResults(currentTrip(result)).every((t) => t.days === 2));
 });
 test('community context recognizes simple region/theme messages without changing private data', () => {
   const before = show(privateTrip());

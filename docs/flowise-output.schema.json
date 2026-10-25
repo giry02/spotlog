@@ -4,8 +4,21 @@
   "description": "모델이 생성할 수 있는 설명과 기능 행동의 전체 스키마. 후보 ID, 현재 DAY와 예약 보호는 서버가 별도로 검증한다. reset/undo/resume/message는 모델 행동에서 제외한다.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["message", "actions"],
+  "required": [
+    "message",
+    "actions"
+  ],
   "properties": {
+    "evidenceIds": {
+      "type": "array",
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.:-]{1,160}$"
+      },
+      "description": "Only evidence IDs from server context.retrieval, when used."
+    },
     "message": {
       "type": "string",
       "minLength": 1,
@@ -32,7 +45,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id"],
+            "required": [
+              "type",
+              "id"
+            ],
             "properties": {
               "type": {
                 "const": "place"
@@ -45,7 +61,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id"],
+            "required": [
+              "type",
+              "id"
+            ],
             "properties": {
               "type": {
                 "const": "bookmark"
@@ -61,7 +80,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id"],
+            "required": [
+              "type",
+              "id"
+            ],
             "properties": {
               "type": {
                 "const": "food"
@@ -74,7 +96,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id"],
+            "required": [
+              "type",
+              "id"
+            ],
             "properties": {
               "type": {
                 "const": "stay"
@@ -87,7 +112,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "stage"],
+            "required": [
+              "type",
+              "stage"
+            ],
             "properties": {
               "type": {
                 "const": "show"
@@ -96,7 +124,11 @@
                 "$ref": "#/$defs/stage"
               },
               "kind": {
-                "enum": ["식당", "카페"]
+                "enum": [
+                  "식당",
+                  "카페",
+                  "상점"
+                ]
               },
               "day": {
                 "$ref": "#/$defs/day"
@@ -106,20 +138,32 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "region"],
+            "required": [
+              "type",
+              "region"
+            ],
             "properties": {
               "type": {
                 "const": "region"
               },
               "region": {
-                "enum": ["제주", "서울"]
+                "enum": [
+                  "제주",
+                  "서울",
+                  "부산",
+                  "경주",
+                  "강릉"
+                ]
               }
             }
           },
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "value"],
+            "required": [
+              "type",
+              "value"
+            ],
             "properties": {
               "type": {
                 "const": "walk"
@@ -134,20 +178,30 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "value"],
+            "required": [
+              "type",
+              "value"
+            ],
             "properties": {
               "type": {
                 "const": "cuisine"
               },
               "value": {
-                "enum": ["전체", "한식", "양식"]
+                "enum": [
+                  "전체",
+                  "한식",
+                  "양식"
+                ]
               }
             }
           },
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "value"],
+            "required": [
+              "type",
+              "value"
+            ],
             "properties": {
               "type": {
                 "const": "stay-budget"
@@ -160,20 +214,48 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "build"
               },
               "savedOnly": {
                 "type": "boolean"
+              },
+              "visits": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 14,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "day",
+                    "placeId"
+                  ],
+                  "properties": {
+                    "day": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 7
+                    },
+                    "placeId": {
+                      "$ref": "#/$defs/id"
+                    }
+                  }
+                }
               }
             }
           },
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "day"],
+            "required": [
+              "type",
+              "day"
+            ],
             "properties": {
               "type": {
                 "const": "day"
@@ -186,7 +268,9 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "add-selected"
@@ -196,7 +280,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id"],
+            "required": [
+              "type",
+              "id"
+            ],
             "properties": {
               "type": {
                 "const": "edit"
@@ -209,7 +296,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id"],
+            "required": [
+              "type",
+              "id"
+            ],
             "properties": {
               "type": {
                 "const": "remove"
@@ -222,7 +312,11 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id", "direction"],
+            "required": [
+              "type",
+              "id",
+              "direction"
+            ],
             "properties": {
               "type": {
                 "const": "move"
@@ -232,14 +326,19 @@
               },
               "direction": {
                 "type": "integer",
-                "enum": [-1, 1]
+                "enum": [
+                  -1,
+                  1
+                ]
               }
             }
           },
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "directions"
@@ -257,17 +356,26 @@
             "allOf": [
               {
                 "not": {
-                  "required": ["id", "placeId"]
+                  "required": [
+                    "id",
+                    "placeId"
+                  ]
                 }
               },
               {
                 "not": {
-                  "required": ["id", "businessId"]
+                  "required": [
+                    "id",
+                    "businessId"
+                  ]
                 }
               },
               {
                 "not": {
-                  "required": ["placeId", "businessId"]
+                  "required": [
+                    "placeId",
+                    "businessId"
+                  ]
                 }
               }
             ]
@@ -275,7 +383,11 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id", "status"],
+            "required": [
+              "type",
+              "id",
+              "status"
+            ],
             "properties": {
               "type": {
                 "const": "progress"
@@ -284,14 +396,20 @@
                 "$ref": "#/$defs/id"
               },
               "status": {
-                "enum": ["done", "skipped", "pending"]
+                "enum": [
+                  "done",
+                  "skipped",
+                  "pending"
+                ]
               }
             }
           },
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "save"
@@ -301,7 +419,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id"],
+            "required": [
+              "type",
+              "id"
+            ],
             "properties": {
               "type": {
                 "const": "open"
@@ -314,7 +435,9 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "compare"
@@ -333,7 +456,9 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "budget"
@@ -353,7 +478,9 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "check"
@@ -363,7 +490,9 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "detail"
@@ -376,7 +505,9 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "library"
@@ -386,7 +517,9 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "help"
@@ -396,7 +529,9 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "history"
@@ -406,7 +541,11 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id", "day"],
+            "required": [
+              "type",
+              "id",
+              "day"
+            ],
             "properties": {
               "type": {
                 "const": "transfer"
@@ -422,7 +561,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id"],
+            "required": [
+              "type",
+              "id"
+            ],
             "properties": {
               "type": {
                 "const": "add-entity"
@@ -438,7 +580,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id"],
+            "required": [
+              "type",
+              "id"
+            ],
             "properties": {
               "type": {
                 "const": "select-entity"
@@ -451,16 +596,24 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "configure"
               },
               "days": {
-                "$ref": "#/$defs/day"
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 7
               },
               "theme": {
-                "enum": ["all", "sea", "green"]
+                "enum": [
+                  "all",
+                  "sea",
+                  "green"
+                ]
               },
               "foodBudget": {
                 "anyOf": [
@@ -483,6 +636,15 @@
               },
               "lodging": {
                 "type": "boolean"
+              },
+              "businessMode": {
+                "enum": [
+                  "registered",
+                  "demo"
+                ]
+              },
+              "nearbyExpanded": {
+                "type": "boolean"
               }
             },
             "minProperties": 2
@@ -490,7 +652,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id"],
+            "required": [
+              "type",
+              "id"
+            ],
             "properties": {
               "type": {
                 "const": "collect-entity"
@@ -503,7 +668,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id"],
+            "required": [
+              "type",
+              "id"
+            ],
             "properties": {
               "type": {
                 "const": "uncollect-entity"
@@ -516,7 +684,10 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "required": ["type", "id"],
+            "required": [
+              "type",
+              "id"
+            ],
             "properties": {
               "type": {
                 "const": "copy-community"
@@ -529,22 +700,1024 @@
           {
             "type": "object",
             "additionalProperties": false,
-            "minProperties": 2,
-            "required": ["type"],
+            "required": [
+              "type"
+            ],
             "properties": {
               "type": {
                 "const": "community-filter"
               },
               "region": {
-                "enum": ["제주", "서울", null]
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "제주",
+                  "서울",
+                  "부산",
+                  "경주",
+                  "강릉",
+                  null
+                ]
               },
               "theme": {
-                "enum": ["all", "sea", "green"]
+                "type": "string",
+                "enum": [
+                  "all",
+                  "sea",
+                  "green"
+                ]
+              },
+              "query": {
+                "type": "string",
+                "maxLength": 100
+              },
+              "contentType": {
+                "type": "string",
+                "enum": [
+                  "all",
+                  "traveler",
+                  "ai"
+                ]
+              },
+              "days": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 1,
+                "maximum": 7
+              },
+              "authorId": {
+                "anyOf": [
+                  {
+                    "$ref": "#/$defs/id"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "minProperties": 2
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "trip-meta"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              },
+              "startDate": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "minProperties": 2
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "id"
+            ],
+            "properties": {
+              "type": {
+                "const": "visit-details"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "note": {
+                "type": "string",
+                "maxLength": 1000
+              },
+              "time": {
+                "type": "string",
+                "pattern": "^(?:|(?:[01][0-9]|2[0-3]):[0-5][0-9])$"
+              },
+              "durationMinutes": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1440
+              }
+            },
+            "minProperties": 3
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "stayId",
+              "startDay",
+              "nights"
+            ],
+            "properties": {
+              "type": {
+                "const": "stay-placement"
+              },
+              "stayId": {
+                "$ref": "#/$defs/id"
+              },
+              "startDay": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 29
+              },
+              "nights": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 29
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "day-add"
+              },
+              "afterDay": {
+                "$ref": "#/$defs/day"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "day"
+            ],
+            "properties": {
+              "type": {
+                "const": "day-copy"
+              },
+              "day": {
+                "$ref": "#/$defs/day"
+              },
+              "toDay": {
+                "$ref": "#/$defs/day"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "day"
+            ],
+            "properties": {
+              "type": {
+                "const": "day-delete"
+              },
+              "day": {
+                "$ref": "#/$defs/day"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "id"
+            ],
+            "properties": {
+              "type": {
+                "const": "visit-copy"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "day": {
+                "$ref": "#/$defs/day"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "ids"
+            ],
+            "properties": {
+              "type": {
+                "const": "candidate-propose"
+              },
+              "ids": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 6,
+                "uniqueItems": true,
+                "items": {
+                  "$ref": "#/$defs/id"
+                }
+              },
+              "day": {
+                "$ref": "#/$defs/day"
+              },
+              "anchorId": {
+                "$ref": "#/$defs/id"
+              },
+              "slot": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "groupId",
+              "id"
+            ],
+            "properties": {
+              "type": {
+                "const": "candidate-select"
+              },
+              "groupId": {
+                "$ref": "#/$defs/id"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "candidate-apply"
+              },
+              "selections": {
+                "type": "array",
+                "maxItems": 30,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "groupId",
+                    "id"
+                  ],
+                  "properties": {
+                    "groupId": {
+                      "$ref": "#/$defs/id"
+                    },
+                    "id": {
+                      "$ref": "#/$defs/id"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "candidate-reject"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "trash-list"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "id"
+            ],
+            "properties": {
+              "type": {
+                "const": "trash"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "id"
+            ],
+            "properties": {
+              "type": {
+                "const": "restore"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "target"
+            ],
+            "properties": {
+              "type": {
+                "const": "open_spotlog"
+              },
+              "target": {
+                "type": "string",
+                "enum": [
+                  "discover",
+                  "community",
+                  "saved",
+                  "trips",
+                  "journal",
+                  "photos",
+                  "videos",
+                  "profile",
+                  "account",
+                  "privacy",
+                  "report",
+                  "share_source",
+                  "notifications"
+                ]
+              },
+              "entry": {
+                "type": "string",
+                "enum": [
+                  "journal-text",
+                  "journal-photos",
+                  "journal-draft",
+                  "journal-preview",
+                  "journal-visibility",
+                  "place-comment",
+                  "personal-place",
+                  "account-email",
+                  "account-reset",
+                  "account-logout",
+                  "account-delete",
+                  "place-reaction",
+                  "journey-comment",
+                  "journey-cheer",
+                  "profile-summary",
+                  "profile-activity"
+                ]
+              },
+              "journeyId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[\\p{L}\\p{N}_:-]+$"
+              },
+              "day": {
+                "$ref": "#/$defs/day"
+              },
+              "placeId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[\\p{L}\\p{N}_:-]+$"
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "journal-text"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "journal"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "journal-photos"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "journal"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "journal-draft"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "journal"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "journal-preview"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "journal"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "journal-visibility"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "journal"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "place-comment"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "community"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "personal-place"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "trips"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "account-email"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "account"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "account-reset"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "account"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "account-logout"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "account"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "account-delete"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "account"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "place-reaction"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "community"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "journey-comment"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "community"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "journey-cheer"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "community"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "profile-summary"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "profile"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "entry": {
+                      "const": "profile-activity"
+                    }
+                  },
+                  "required": [
+                    "entry"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "target": {
+                      "const": "profile"
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "required": [
+                    "placeId"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "entry"
+                  ],
+                  "properties": {
+                    "entry": {
+                      "enum": [
+                        "place-comment",
+                        "place-reaction"
+                      ]
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "region"
+            ],
+            "properties": {
+              "type": {
+                "const": "saved-filter"
+              },
+              "region": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "제주",
+                  "서울",
+                  "부산",
+                  "경주",
+                  "강릉",
+                  null
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "status"
+            ],
+            "properties": {
+              "type": {
+                "const": "plan-status"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "DRAFT",
+                  "READY"
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "continue-trip"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "offline-save"
+              },
+              "id": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "id"
+            ],
+            "properties": {
+              "type": {
+                "const": "offline-open"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 180,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "id"
+            ],
+            "properties": {
+              "type": {
+                "const": "offline-remove"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 180,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type"
+            ],
+            "properties": {
+              "type": {
+                "const": "offline-library"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "mode"
+            ],
+            "properties": {
+              "type": {
+                "const": "media"
+              },
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "photos",
+                  "motion"
+                ]
+              },
+              "region": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "제주",
+                  "서울",
+                  "부산",
+                  "경주",
+                  "강릉",
+                  null
+                ]
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "all",
+                  "LANDMARK",
+                  "FOOD",
+                  "CAFE",
+                  "SHOP",
+                  "STAY"
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "day",
+              "ids"
+            ],
+            "properties": {
+              "day": {
+                "$ref": "#/$defs/day"
+              },
+              "ids": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/id"
+                },
+                "minItems": 1,
+                "maxItems": 180,
+                "uniqueItems": true
+              },
+              "type": {
+                "const": "reorder-visits"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "target"
+            ],
+            "properties": {
+              "type": {
+                "const": "social"
+              },
+              "target": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind",
+                      "id"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "enum": [
+                          "entity",
+                          "course"
+                        ]
+                      },
+                      "id": {
+                        "$ref": "#/$defs/id"
+                      }
+                    }
+                  },
+                  {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind",
+                      "id",
+                      "visitIndex"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "const": "course-place"
+                      },
+                      "id": {
+                        "$ref": "#/$defs/id"
+                      },
+                      "visitIndex": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 179
+                      }
+                    }
+                  }
+                ]
+              },
+              "view": {
+                "enum": [
+                  "overview",
+                  "threads",
+                  "reactions"
+                ]
               }
             }
           }
         ]
       }
+    },
+    "needsMoreContext": {
+      "type": "boolean",
+      "description": "Set true with actions:[] when retrieved material cannot support the request; server routes to a larger model."
     }
   },
   "$defs": {
@@ -558,7 +1731,7 @@
     "day": {
       "type": "integer",
       "minimum": 1,
-      "maximum": 3
+      "maximum": 30
     },
     "money": {
       "type": "integer",
@@ -587,7 +1760,10 @@
         "help",
         "answer",
         "collection",
-        "community"
+        "community",
+        "trash",
+        "offline",
+        "media"
       ]
     }
   }

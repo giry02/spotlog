@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" role="img" aria-labelledby="title desc">
+  <title id="title">제주 장소 안내 일러스트</title>
+  <desc id="desc">실제 장소 사진이 없는 공식 자료 기반 후보에 공통으로 사용하는 섬과 산의 추상 그림입니다.</desc>
+  <rect width="600" height="400" fill="#edf3ed"/>
+  <circle cx="460" cy="95" r="35" fill="#d6b679"/>
+  <path d="M0 305Q120 265 235 302T600 300V400H0Z" fill="#c0d6d2"/>
+  <path d="M70 290Q190 270 254 205L303 146 359 220Q417 275 530 292Q325 345 70 290Z" fill="#708975"/>
+  <path d="M254 205 303 146 359 220 312 199 291 209Z" fill="#a0b39d"/>
+  <path d="M0 345Q140 325 280 350T600 344" stroke="#f7fbf7" stroke-width="5" fill="none"/>
+  <text x="300" y="375" text-anchor="middle" fill="#3c594d" font-family="sans-serif" font-size="20">JEJU · 장소 안내 일러스트</text>
+</svg>

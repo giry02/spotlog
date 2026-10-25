@@ -1,0 +1,188 @@
+{
+  "purpose": "Windows local demo evaluation; AI runtime can later move to macOS",
+  "ollamaVersion": "0.40.4",
+  "windowsArchive": "https://github.com/ollama/ollama/releases/download/v0.40.4/ollama-windows-amd64.zip",
+  "host": "127.0.0.1:11434",
+  "modelsDirectory": ".sites-runtime/ai/models",
+  "selectedModel": "qwen3:8b",
+  "options": {
+    "temperature": 0,
+    "num_ctx": 12288,
+    "num_predict": 1200,
+    "think": false
+  },
+  "outputMode": "json with server-side closed action validation",
+  "models": [
+    {
+      "tag": "qwen3:8b",
+      "digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+      "quantization": "Q4_K_M"
+    },
+    {
+      "tag": "qwen3:4b",
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "quantization": "Q4_K_M"
+    },
+    {
+      "tag": "qwen3:4b-instruct-2507-q4_K_M",
+      "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "quantization": "Q4_K_M"
+    },
+    {
+      "tag": "qwen3:14b",
+      "digest": "bdbd181c33f2ed1b31c972991882db3cf4d192569092138a7d29e973cd9debe8",
+      "quantization": "Q4_K_M",
+      "parameterSize": "14.8B",
+      "downloadBytes": 9276198565
+    }
+  ],
+  "flowiseAttempt": {
+    "version": "3.1.4",
+    "node": "24.22.0",
+    "status": "running-native",
+    "flowExportValidated": true,
+    "resolvedWith": {
+      "better-sqlite3": "13.0.0",
+      "connect-sqlite3": "0.9.16",
+      "sqlite3": "rebuilt-NAPI"
+    },
+    "nativeNodes": [
+      "chatOllama",
+      "chatPromptTemplate",
+      "llmChain"
+    ],
+    "nativeModelOptions": {
+      "temperature": 0,
+      "numCtx": 12288,
+      "think": false,
+      "jsonMode": true,
+      "repeatPenalty": 1.1,
+      "repeatLastN": 128
+    },
+    "baseUrl": "http://127.0.0.1:3002",
+    "unauthenticatedPredictionDenied": true,
+    "upstreamInvalidKeyStatus": 500,
+    "initialFailureReason": "better-sqlite3 native build: Windows SDK missing",
+    "plannerChatflowId": "c2bcb74b-7896-44d0-8e68-4dfaf59f167d"
+  },
+  "dataMode": "authored-demo-data",
+  "ragConnected": true,
+  "memberDatabaseConnected": false,
+  "publicDeploymentChanged": false,
+  "selectedFlowiseModel": "moa-qwen3-8b:20261015",
+  "boundedModelDigest": "0eaf59f7c0caef381d6b4c23b1c35f13498176ef659905487c8ce033a0142bfe",
+  "rag": {
+    "engine": "Node SQLite persisted vectors + cosine",
+    "documents": 75,
+    "dataMode": "curated-travel-data",
+    "embeddingModel": "qwen3-embedding:0.6b",
+    "digest": "ac6da0dfba84a81fdbfbaf330198c33cd77c4cdfc53e8bc50eb581914a15621d",
+    "dimensions": 1024,
+    "options": {
+      "num_ctx": 4096,
+      "num_batch": 64,
+      "num_gpu": 0
+    },
+    "baseUrl": "http://127.0.0.1:8765",
+    "officialSummaryDocuments": 62,
+    "officialSourceUrls": 37,
+    "jejuDestinations": 28,
+    "checkedAt": "2026-10-15",
+    "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d"
+  },
+  "modelRouting": {
+    "primary": "native Flowise local Qwen3 8B",
+    "externalLargeModelConnected": true,
+    "missingRetrieval": "Free-only Gemini if server verifies the key's project has no billing; otherwise local Qwen3 14B. No verified evidence means a read-only general-knowledge answer.",
+    "postGenerationSourceRevocation": "reject entire turn",
+    "localLargeModelConnected": true,
+    "largeModel": "gemini-3.6-flash",
+    "largeProvider": "gemini",
+    "largeBaseUrl": "https://generativelanguage.googleapis.com/v1beta",
+    "apiKeyRequired": true,
+    "freeOnlyPolicy": {
+      "checkedAt": "2026-10-16",
+      "generationRequires": "Fresh Google API Keys lookup and Cloud Billing verification that the actual key's project has billing disabled and no attached billing account",
+      "verificationCredentialAvailable": true,
+      "verificationAuthentication": "Refreshable Google authorized_user OAuth credentials in ignored, access-restricted local server configuration",
+      "verificationQuotaProjectConfigured": true,
+      "currentRemoteGeneration": "enabled only after fresh key-project and billing-disabled verification",
+      "liveGeminiValidation": "2026-10-16: application /api/chat returned Gemini 3.6 Flash, HTTP 200, 5288ms",
+      "currentFallback": "installed loopback-only Qwen3 14B when free eligibility, quota or provider is unavailable",
+      "onQuotaOrVerificationFailure": "try local Qwen3 14B",
+      "maxAppRequestsPerMinute": 5,
+      "maxAppRequestsPerDay": 20,
+      "appCountersAreBillingProof": false,
+      "paidCompatibleApis": "blocked",
+      "localCloudModels": "blocked by name and installed GGUF metadata validation"
+    },
+    "largeTriggers": [
+      "insufficient-retrieval",
+      "primary-needs-more-context",
+      "invalid-primary-response"
+    ],
+    "largeOptions": {
+      "thinkingLevel": "LOW",
+      "maxOutputTokens": 4096,
+      "responseMimeType": "application/json",
+      "timeoutMs": 60000
+    },
+    "localAlternative": {
+      "model": "qwen3:14b",
+      "provider": "ollama",
+      "baseUrl": "http://127.0.0.1:11434",
+      "installedAndGenerationValidated": true,
+      "enabled": true,
+      "selectionCommand": "node scripts/configure-large-model.mjs --provider=ollama --model=qwen3:14b"
+    }
+  },
+  "map": {
+    "renderer": "Leaflet 1.9.4",
+    "tiles": "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+    "paidApiOrKeyRequired": false,
+    "coordinateSources": "VisitJeju, Korea Tourism Organization, Seongdong District",
+    "checkedAt": "2026-10-16",
+    "verifiedPlaces": 29,
+    "jejuPlaces": 28,
+    "seoulPlaces": 1,
+    "unverifiedBusinessCoordinates": "never invented",
+    "lines": "Validated OSRM car-road geometry when available; otherwise visit order with straight-line distance and no travel minutes",
+    "modes": ["whole trip, expanded by default", "optional day filter"],
+    "crossDayLegs": "The last located stop of each DAY connects to the next DAY's first located stop, with an explicit date-transition label",
+    "viewInteractions": "Local state only: map filters, collapse, pin selection and detailed DAY changes do not add messages or save itinerary edits",
+    "style": "Spotlog coral road lines and numbered pins, 245px map and a non-GPS direction guide",
+    "routing": {
+      "provider": "OSRM public driving route",
+      "paidApiOrKeyRequired": false,
+      "timeoutMs": 8000,
+      "successCacheMinutes": 10,
+      "successCacheLimit": 30,
+      "validation": "Canonical landmark coordinates, waypoint and geometry order, leg count, distance and duration consistency, and snapped-coordinate straight-line lower bounds",
+      "unlocatedStops": "Never invent coordinates; totals and legs explicitly exclude intermediate unlocated visits and do not claim the complete actual journey"
+    }
+  },
+  "weather": {
+    "provider": "Open-Meteo",
+    "purpose": "development live model-based current weather and 7-day forecast",
+    "source": "https://open-meteo.com/en/docs",
+    "fullConversationForwarded": false,
+    "standaloneAnswer": "Validated tool measurements rendered directly without an LLM rewrite; existing itinerary, selected day and map remain available",
+    "requestedRanges": "Explicit one-to-seven-day ranges in Korea time; unsupported ranges are never silently reduced to today",
+    "combinedItinerary": "Model-selected grounded visits plus independently rendered verified weather measurements",
+    "timeoutMs": 12000
+  },
+  "itinerary": {
+    "mode": "model-selected-fresh-rag-visits",
+    "jejuPlaces": 28,
+    "maxVisits": 6,
+    "maxDays": 3,
+    "maxEvidence": 12,
+    "unverifiedPlaceCardsAllowed": false,
+    "explicitMorningAfternoon": "Require two fresh grounded visits per day; a directly named full-day place retains a disclosed single-place exception",
+    "nearbyGrouping": "Only an explicit unconstrained new-build request may regroup the same retrieved places by official representative-coordinate straight-line distance; fixed days, ordering and reservations are protected",
+    "fullDayPlaces": [
+      "hallasan",
+      "udo"
+    ]
+  }
+}

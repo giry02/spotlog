@@ -1,0 +1,76 @@
+{
+  "evaluatedOn": "2026-10-16",
+  "scope": "Local Windows implementation; no deployment or billing settings changed",
+  "runtimeUrl": "http://localhost:3001/",
+  "freeOnly": {
+    "configuredProvider": "gemini",
+    "configuredModel": "gemini-3.6-flash",
+    "currentRemoteGeneration": "blocked: server billing-verification credential is absent",
+    "fallback": "local Ollama qwen3:14b",
+    "requiredBeforeRemoteGeneration": [
+      "Look up the API key's actual Google project through API Keys API",
+      "Verify that project has billingEnabled=false and no attached billing account through Cloud Billing API",
+      "Use only allowlisted free-capable Flash text models",
+      "Reserve conservative process-local traffic allowance; this is not billing proof"
+    ],
+    "fallbackTriggers": ["unverified free eligibility", "billing attached", "local app cap", "provider quota 429", "provider failure"],
+    "localRuntimeChecks": ["loopback endpoint", "no cloud or remote model name", "installed GGUF weights with no remote metadata"],
+    "paidCompatibleProviders": "blocked",
+    "liveLocalFallback": {
+      "passed": true,
+      "httpStatus": 200,
+      "milliseconds": 22173,
+      "provider": "ollama",
+      "model": "qwen3:14b",
+      "reason": "rag-insufficient",
+      "unverifiedCardsCreated": 0,
+      "evidenceIds": [],
+      "report": "work/handoff/FREE_ONLY_FALLBACK_20261016.json"
+    },
+    "liveGeminiGenerationTested": false,
+    "verificationAnd429FallbackTests": "injected transport tests; no actual remote generation"
+  },
+  "map": {
+    "renderer": "Leaflet 1.9.4",
+    "baseMap": "OpenStreetMap standard browser tiles with visible attribution",
+    "paidApiRequired": false,
+    "verifiedCoordinateCount": 29,
+    "coordinateSources": ["VisitJeju", "Korea Tourism Organization", "Seongdong District"],
+    "liveAuthoredItinerary": {
+      "days": 3,
+      "places": ["saryeoni", "jeolmul", "bijarim", "sehwa", "jejumuseum", "dolculturepark"],
+      "model": "native Flowise local Qwen3 8B",
+      "ragSources": 12,
+      "businessesExcluded": true
+    },
+    "browserChecksPassed": [
+      "real base-map tiles loaded",
+      "six numbered markers and per-day visit-order lines",
+      "all-days and current-day switching",
+      "DAY 3 shows museum and stone park while preserving three-day itinerary",
+      "marker selection and official-source links",
+      "zoom, keyboard pan and fit all places",
+      "attribution visible at bottom left",
+      "reload preserves the authored conversation",
+      "no captured browser error or warning logs"
+    ],
+    "linesMean": "visit order, not an actual driving route",
+    "missingCoordinates": "not invented; list remains usable",
+    "tileFailureHandling": "failed tiles tracked individually until loaded or unloaded",
+    "screenshot": "work/handoff/TRIP_MAP_20261016_FINAL.png"
+  },
+  "validation": {
+    "unitAndContractTests": { "passed": 363, "failed": 0 },
+    "typescript": "passed",
+    "productionBuild": "passed",
+    "mapLint": "passed",
+    "gitDiffCheck": "passed"
+  },
+  "references": [
+    "https://ai.google.dev/gemini-api/docs/billing",
+    "https://ai.google.dev/gemini-api/docs/pricing",
+    "https://docs.cloud.google.com/api-keys/docs/reference/rest/v2/keys/lookupKey",
+    "https://docs.cloud.google.com/billing/docs/reference/rest/v1/projects/getBillingInfo",
+    "https://operations.osmfoundation.org/policies/tiles/"
+  ]
+}

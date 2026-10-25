@@ -2,6 +2,7 @@ import { findFood, findPlace, findStay, money } from './trip-data';
 import type { Stay } from './trip-data';
 import type { Restaurant } from './connected-data';
 import type { TripState } from './trip-engine';
+import { getRegisteredEntity } from './registered-catalog';
 
 export type BusinessRef = {
   kind: 'food' | 'stay';
@@ -318,6 +319,25 @@ function sampleStayProfile(
 }
 
 export function businessDetails(ref: BusinessRef) {
+  const registered = getRegisteredEntity(ref.id);
+  if (registered && registered.kind !== 'LANDMARK') {
+    if ((ref.kind === 'stay') !== (registered.kind === 'STAY')) return;
+    const kind = registered.kind === 'STAY' ? '숙소' : registered.kind === 'CAFE' ? '카페' : registered.kind === 'SHOP' ? '상점' : '식당';
+    return {
+      registered: true, sourceUrl: registered.source.sourceUrl,
+      sourceProvider: registered.source.provider, sourceVerifiedAt: registered.source.checkedAt,
+      photos: registered.photos,
+      headline: registered.name, description: registered.description,
+      features: registered.tags, hours: registered.kind === 'STAY' ? '체크인·체크아웃 시간 미확인' : '현재 영업시간 미확인',
+      check: registered.note || '운영·가격·좌석·객실 가능 여부는 원문 또는 업체에 확인해 주세요.',
+      extras: [] as MenuItem[], id: registered.id, name: registered.name, kind,
+      image: registered.photos[0]?.image ?? '/images/registered-spotlog/no-photo.svg',
+      imageAlt: registered.photos[0]?.title ?? `${registered.name} 등록 사진 없음`,
+      location: registered.address, price: '가격 미확인', priceLabel: registered.kind === 'STAY' ? '객실 요금 미확인' : registered.kind === 'SHOP' ? '상품 가격 미확인' : '메뉴 가격 미확인',
+      primary: registered.kind === 'STAY' ? '객실 구성·빈방 미확인' : registered.kind === 'SHOP' ? '상품·재고 미확인' : '현재 메뉴·가격 미확인',
+      menu: [] as MenuItem[], walk: null, room: null,
+    };
+  }
   if (ref.kind === 'food') {
     const item = findFood(ref.id),
       profile =
@@ -326,6 +346,7 @@ export function businessDetails(ref: BusinessRef) {
     const cafe = item.cuisine === '카페';
     return {
       ...profile,
+      registered: false, sourceUrl: undefined, sourceProvider: undefined, sourceVerifiedAt: undefined, photos: [],
       id: item.id,
       name: item.name,
       kind: cafe ? '카페' : '식당',
@@ -351,6 +372,7 @@ export function businessDetails(ref: BusinessRef) {
   if (!item || !profile) return;
   return {
     ...profile,
+    registered: false, sourceUrl: undefined, sourceProvider: undefined, sourceVerifiedAt: undefined, photos: [],
     id: item.id,
     name: item.name,
     kind: '숙소',
@@ -368,6 +390,12 @@ export function businessDetails(ref: BusinessRef) {
 export function businessReasons(ref: BusinessRef, state: TripState): string[] {
   const details = businessDetails(ref);
   if (!details) return [];
+  const registered = getRegisteredEntity(ref.id);
+  if (registered) return [
+    `${registered.region} ${registered.area}에 등록된 ${details.kind} 후보예요. 실제 영업 여부를 확인한 결과는 아닙니다.`,
+    `이름·주소·대표 좌표는 ${registered.source.provider} 자료를 기준으로 등록했어요. 확인일 ${registered.source.checkedAt}.`,
+    '현재 가격과 이용 가능 여부는 미확인이라 예산 충족이나 예약 가능을 보장하지 않아요.',
+  ];
   const visit = state.plan.find((v) => v.id === ref.visitId);
   const context = visit
     ? `DAY ${visit.day}의 ${visit.label}`

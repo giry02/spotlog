@@ -1,0 +1,162 @@
+{
+  "evaluatedAt": "2026-10-15T02:23:58.000Z",
+  "execution": "actual-native-flowise-after-repeat-guard",
+  "model": "moa-qwen3-8b:20261015",
+  "nativeModelOptions": {
+    "temperature": 0,
+    "numCtx": 12288,
+    "think": false,
+    "jsonMode": true,
+    "repeatPenalty": 1.1,
+    "repeatLastN": 128
+  },
+  "indexVersion": "idx:7fd1c882b94b27b178ddc17b1191c44d",
+  "cases": [
+    {
+      "id": "three-day-draft",
+      "status": 200,
+      "outcome": "PASS",
+      "latencyMs": 6472,
+      "passed": true
+    },
+    {
+      "id": "songaksan-access",
+      "status": 200,
+      "passed": true,
+      "checks": [
+        {
+          "id": "has-retrieved-evidence",
+          "passed": true
+        },
+        {
+          "id": "has-real-evidence-citations",
+          "passed": true
+        },
+        {
+          "id": "no-inline-model-references",
+          "passed": true
+        },
+        {
+          "id": "expected-places-cited",
+          "passed": true
+        },
+        {
+          "id": "cited-official-source",
+          "passed": true
+        },
+        {
+          "id": "cited-source-provenance",
+          "passed": true
+        },
+        {
+          "id": "mentions-access-restriction",
+          "passed": true
+        },
+        {
+          "id": "distinguishes-coastal-walk",
+          "passed": true
+        },
+        {
+          "id": "no-unfounded-summit-permission",
+          "passed": true
+        }
+      ],
+      "milliseconds": 8117,
+      "responseText": "송악산 정상부와 해안 둘레길은 다른 곳으로, 현재 정상까지 오를 수 없습니다. 공식 안내에 따르면 2027년 7월 31일까지 정상부와 정상탐방로는 출입이 제한되어 있습니다. 이는 식생 복원을 위한 조치이며, 해안 둘레길은 여전히 산책이 가능합니다. 강풍일에는 아이들과 함께 걷기 일정을 줄이는 것이 좋습니다.",
+      "cited": [
+        {
+          "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:a0d322658b41e8305863b9ba",
+          "placeId": "songaksan",
+          "documentId": "moa-knowledge:jeju-songaksan-overview",
+          "sourceKind": "curated-official-summary",
+          "title": "송악산 | 둘레길의 해안과 역사",
+          "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500378",
+          "checkedAt": "2026-10-15"
+        },
+        {
+          "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:dc52cb1a3763b59bb5b9d859",
+          "placeId": "songaksan",
+          "documentId": "moa-knowledge:jeju-songaksan-visit",
+          "sourceKind": "curated-official-summary",
+          "title": "송악산 | 강풍과 정상부 출입 제한",
+          "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500378",
+          "checkedAt": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "id": "hallasan-course",
+      "status": 200,
+      "passed": true,
+      "checks": [
+        {
+          "id": "has-retrieved-evidence",
+          "passed": true
+        },
+        {
+          "id": "has-real-evidence-citations",
+          "passed": true
+        },
+        {
+          "id": "no-inline-model-references",
+          "passed": true
+        },
+        {
+          "id": "expected-places-cited",
+          "passed": true
+        },
+        {
+          "id": "cited-official-source",
+          "passed": true
+        },
+        {
+          "id": "cited-source-provenance",
+          "passed": true
+        },
+        {
+          "id": "mentions-summit-courses",
+          "passed": true
+        },
+        {
+          "id": "mentions-other-courses",
+          "passed": true
+        },
+        {
+          "id": "mentions-required-current-check",
+          "passed": true
+        },
+        {
+          "id": "no-direct-yeongsil-summit-claim",
+          "passed": true
+        },
+        {
+          "id": "no-reservation-segment-as-trailhead",
+          "passed": true
+        }
+      ],
+      "milliseconds": 12953,
+      "responseText": "백록담 정상은 영실·어리목 코스로 직접 연결할 수 없어요. 성판악 코스는 성판악 입구에서 출발해 진달래밭을 지나 백록담 정상에 도착하고, 관음사 코스는 관음사 탐방로 입구에서 삼각봉을 지나 백록담 정상으로 가요. 영실·어리목 코스는 별도의 탐방로이며, 백록담 정상까지 직접 이어지지 않아요. 사전 예약이 필요한 구간은 성판악 코스의 진달래밭~백록담과 관음사 코스의 삼각봉~백록담입니다. 예약 관리 구간 전후의 탐방은 별도로 분류되며, 영실·어리목 코스는 해당 구간에서 제외돼요.",
+      "cited": [
+        {
+          "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:60c74b54fd44cc7651783df7",
+          "placeId": "hallasan",
+          "documentId": "moa-knowledge:jeju-hallasan-overview",
+          "sourceKind": "curated-official-summary",
+          "title": "한라산국립공원 | 백록담 코스와 영실·어리목 차이",
+          "sourceUrl": "https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500685",
+          "checkedAt": "2026-10-15"
+        },
+        {
+          "evidenceId": "idx:7fd1c882b94b27b178ddc17b1191c44d:1b70d31925d2118e06f2bb76",
+          "placeId": "hallasan",
+          "documentId": "moa-knowledge:jeju-hallasan-visit",
+          "sourceKind": "curated-official-summary",
+          "title": "한라산국립공원 | 예약 관리 구간과 코스 출발점",
+          "sourceUrl": "https://visithalla.jeju.go.kr/board/boardView.do?bbsId=notice&seq=1284",
+          "checkedAt": "2026-10-15"
+        }
+      ]
+    }
+  ],
+  "passed": true
+}

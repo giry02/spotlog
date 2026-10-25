@@ -8,6 +8,9 @@ import {
 } from '@/lib/business-details';
 import { money } from '@/lib/trip-data';
 import type { TripState } from '@/lib/trip-engine';
+import { RegisteredPhotoGallery } from './registered-photo-gallery';
+import { EntityShareControls } from './trip-share-controls';
+import { SocialSummary } from './spotlog-social';
 
 export type OpenBusiness = (ref: BusinessRef, state: TripState) => void;
 
@@ -24,6 +27,12 @@ export function BusinessPreview({
 }) {
   const d = businessDetails(reference);
   if (!d) return null;
+  if(d.registered)return <article className="tr-business-card">
+    <button className="tr-business-preview" onClick={onOpen} aria-label={`${d.name} 상세보기`}><div className="tr-business-image"><img src={d.image} alt={d.imageAlt} width={300} height={130} loading="lazy"/><small>Spotlog 등록 정보</small></div><div className="tr-business-copy"><div><span>{d.kind} · {d.sourceProvider}</span></div><strong>{d.name}</strong><p>{d.location}</p><div className="tr-business-tags">{d.features.slice(0,2).map(f=><span key={f}>{f}</span>)}</div></div></button>
+    <SocialSummary target={{kind:'entity',id:d.id}} compact />
+    <div className="tr-business-card-footer"><span><strong>가격 미확인</strong><small>현재 영업 여부는 방문 전 확인</small></span><button onClick={onSelect} aria-label={`${d.name} ${selectLabel}`}>{selectLabel}</button></div>
+    <button className="tr-business-detail-link" onClick={onOpen}>주소·사진·등록 출처 상세보기</button>
+  </article>;
   return (
     <article className="tr-business-card">
       <button
@@ -86,6 +95,14 @@ export function BusinessDetailBody({
 }) {
   const d = businessDetails(reference);
   if (!d) return null;
+  if(d.registered)return <div className="tr-business-detail">
+    <RegisteredPhotoGallery photos={d.photos} name={d.name}/>
+    <SocialSummary target={{kind:'entity',id:d.id}} />
+    <section className="tr-detail-intro"><span className="tr-detail-category">{d.kind} · Spotlog 등록</span><h3>{d.name}</h3><p>{d.description}</p><div className="tr-business-tags">{d.features.map(f=><span key={f}>{f}</span>)}</div></section>
+    <section className="tr-detail-section"><h3>방문 정보</h3><dl className="tr-detail-facts"><div><dt>주소</dt><dd>{d.location}</dd></div><div><dt>현재 운영시간</dt><dd>{d.hours}</dd></div><div><dt>현재 가격·이용 가능 여부</dt><dd>미확인 · 업체에 확인해 주세요</dd></div><div><dt>등록 자료</dt><dd>{d.sourceProvider} · 확인 {d.sourceVerifiedAt}</dd></div></dl><a className="tr-text-link" href={d.sourceUrl} target="_blank" rel="noreferrer">등록 정보 원문 보기</a></section>
+    <section className="tr-detail-check"><h3>방문 전에 확인해 주세요</h3><p>{d.check}</p><p>주소·대표 좌표 등 기본 정보가 등록된 후보입니다. 현재 메뉴·가격·좌석·객실·재고·예약 가능 여부를 확인한 결과는 아닙니다.</p></section>
+    <EntityShareControls id={d.id}/>
+  </div>;
   return (
     <div className="tr-business-detail">
       <figure className="tr-detail-photo">
@@ -98,6 +115,7 @@ export function BusinessDetailBody({
         <span className="tr-detail-category">{d.kind} · 가상 업체</span>
         <h3>{d.headline}</h3>
         <p>{d.description}</p>
+        <SocialSummary target={{kind:'entity',id:d.id}} />
         <div className="tr-business-tags">
           {d.features.map((f) => (
             <span key={f}>{f}</span>
@@ -174,6 +192,7 @@ export function BusinessDetailBody({
         업체·메뉴·시설·시간·이동 정보는 체험을 위한 가상 설정입니다. 실제
         영업·좌석·객실·예약 가능 여부는 제공하지 않습니다.
       </p>
+      <EntityShareControls id={d.id}/>
     </div>
   );
 }

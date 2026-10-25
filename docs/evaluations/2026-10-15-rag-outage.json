@@ -1,0 +1,13 @@
+{
+  "evaluatedAt": "2026-10-15T02:22:04.603Z",
+  "execution": "actual-native-flowise-with-local-rag-stopped",
+  "passed": true,
+  "status": 200,
+  "mode": "flowise",
+  "milliseconds": 9249,
+  "answerContext": {
+    "retrievalStatus": "unavailable"
+  },
+  "responseText": "제주 여행을 준비하시면 아래 물품들을 추천드려요: 선크림과 모자로 태양 보호, 가벼운 옷과 겉옷으로 날씨 변화 대비, 산책용 신발, 물병, 쓰레기봉투, 개인 위생용품, 간단한 식사 도구(식탁이 없을 수 있으므로), 카메라 또는 스마트폰으로 사진 찍는 것. 바다나 산책 길에서는 편안한 옷차림이 좋습니다.",
+  "errorCode": null
+}

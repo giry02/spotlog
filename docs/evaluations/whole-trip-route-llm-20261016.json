@@ -1,0 +1,91 @@
+{
+  "checkedAt": "2026-10-16",
+  "timezone": "Asia/Seoul",
+  "status": "passed",
+  "scope": "local actual LLM chatbot; no public deployment or model/authentication configuration changes",
+  "application": "http://localhost:3001/",
+  "qaOrigin": "http://[::1]:3001/",
+  "reference": {
+    "source": "work/prototype-map-source-20261016",
+    "commit": "fa81be353648a71abaec0a8cf351a5934eb0e852",
+    "prototypeVersion": 20,
+    "merged": "Map components, routing and data helpers, map tests, and only the map-related PlanUnit/Units/CSS portions of the workspace"
+  },
+  "preserved": [
+    "Existing 29-place coordinate registry and actual chatbot catalog",
+    "Flowise and local model runtime",
+    "Gemini free-only policy and local fallback",
+    "Real RAG selection and source revalidation",
+    "Weather formatter and itinerary/map retention",
+    "Question anchor, request transport, retry and conversation history",
+    "Existing unrelated uncommitted changes"
+  ],
+  "liveLlmCase": {
+    "request": "제주 2박 3일 일정 짜고 오늘부터 3일 날씨도 알려줘. 바다랑 숲을 보고 싶고 하루에 오전 오후 한 곳씩 넣어줘. 식당 카페 숙소는 빼줘. 가까운 장소끼리 같은 날 묶어줘.",
+    "sourceShown": "AI 응답, Flowise primary",
+    "retrievedDocuments": 8,
+    "days": 3,
+    "selectedPlaces": [
+      { "day": 1, "places": ["용머리해안", "제주곶자왈도립공원"] },
+      { "day": 2, "places": ["절물자연휴양림", "대포해안주상절리대"] },
+      { "day": 3, "places": ["섭지코지", "거문오름"] }
+    ],
+    "weatherRetrievedAtKst": "2026-10-16 14:32:26",
+    "forecastDates": ["2026-10-16", "2026-10-17", "2026-10-18"],
+    "questionAnchorPendingPx": 16,
+    "questionAnchorCompletedPx": 16
+  },
+  "route": {
+    "expandedByDefault": true,
+    "scopeByDefault": "whole trip",
+    "numberedPins": 6,
+    "legs": 5,
+    "crossDayLegs": ["DAY 1 → DAY 2", "DAY 2 → DAY 3"],
+    "sourceShown": "차량 경로 참고",
+    "distanceKmShown": 183.8,
+    "distanceAndMinutesAreReferenceValuesAtQaTime": true,
+    "realTimeTrafficIncluded": false,
+    "style": "Coral road geometry with white outline, numbered DAY pins, 245px canvas and non-GPS direction animation",
+    "day2Filter": { "pins": 2, "legs": 1 },
+    "allTilesLoaded": true,
+    "loadedTiles": 8,
+    "tileCount": 8
+  },
+  "viewInteractions": {
+    "crossDayPin": "Selecting DAY 3 섭지코지 retained all six pins and whole-trip scope, while showing DAY 3 and highlighting matching visit-5",
+    "cardToMap": "Matching visitId selected and map scrolled into view",
+    "collapseAndExpand": "Passed",
+    "turnsBeforeMapViews": 1,
+    "turnsAfterMapViews": 1,
+    "viewedDayForwardedToExplicitAction": "After locally selecting DAY 2, the explicit 방문 순서로 보기 action opened DAY 2 details with whole-trip scope",
+    "archivedMap": "DAY 2 filter usable with two pins",
+    "archivedEditEnabled": false,
+    "archivedViewTurnsBefore": 2,
+    "archivedViewTurnsAfter": 2
+  },
+  "weatherFollowup": {
+    "sourceShown": "날씨 조회",
+    "retrievedAtKst": "2026-10-16 14:34:21",
+    "sameSixPlacesRetained": true,
+    "wholeTripMapRetained": true,
+    "legs": 5
+  },
+  "additionalFixes": [
+    "Unknown intermediate meals/lodging explicitly excluded from route totals and legs; no invented coordinates or complete-journey claim",
+    "Reject ROAD responses shorter than snapped-waypoint straight-line bounds or with nonzero travel distance and zero duration",
+    "Align nearby-grouping and visit-order explanation text with separately queried map routes"
+  ],
+  "validation": {
+    "automatedTests": { "passed": 444, "failed": 0 },
+    "mapTests": 32,
+    "typescript": "passed",
+    "productionBuild": "passed",
+    "consoleErrorsAndWarnings": [],
+    "desktopBrowserQa": "passed"
+  },
+  "screenshots": {
+    "newLlmAnswer": "work/handoff/WHOLE_TRIP_LLM_ANSWER_20261016.png",
+    "wholeTripRoadRoute": "work/handoff/WHOLE_TRIP_LLM_ROUTE_20261016.png",
+    "afterWeatherFollowup": "work/handoff/WHOLE_TRIP_LLM_AFTER_WEATHER_20261016.png"
+  }
+}

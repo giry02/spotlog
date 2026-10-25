@@ -1,0 +1,64 @@
+{
+  "evaluatedOn": "2026-10-16",
+  "runtimeUrl": "http://localhost:3001/",
+  "provider": "gemini",
+  "model": "gemini-3.6-flash",
+  "connected": true,
+  "authentication": {
+    "existingGeminiApiKeyPreserved": true,
+    "googleSdkVersion": "589.0.0",
+    "officialSdkArchiveSha256Verified": true,
+    "credentialStore": "project-local ignored directory; owner and SYSTEM access only",
+    "refreshableAuthorization": true,
+    "officialSdkConsentScope": "cloud-platform (management-capable); runtime uses fixed read APIs only",
+    "globalAdcOverwritten": false,
+    "sdkUsageReporting": false,
+    "sdkCredentialFileLogging": false,
+    "envBindingRegression": "JSON credentials round-trip through the actual dotenv parser using single-quoted JSON"
+  },
+  "freeOnlyVerification": {
+    "apiKeyMappedToActualProject": true,
+    "projectBillingEnabled": false,
+    "attachedBillingAccount": false,
+    "everyGenerationRechecksBilling": true,
+    "metadataServicesEnabled": ["apikeys.googleapis.com", "cloudbilling.googleapis.com"],
+    "billingAccountChanged": false,
+    "paidTierEnabled": false,
+    "paymentDetailsEntered": false,
+    "verificationQuotaProjectConfigured": true,
+    "quotaProjectIsNotBillingProof": true,
+    "applicationRequestsPerMinuteCap": 5,
+    "applicationRequestsPerDayCap": 20,
+    "applicationCapsAreNotGoogleQuotaOrBillingProof": true,
+    "onQuotaOrVerificationOrProviderFailure": "local Ollama qwen3:14b"
+  },
+  "liveApplicationCheck": {
+    "passed": true,
+    "httpStatus": 200,
+    "milliseconds": 5288,
+    "mode": "large-model",
+    "provider": "gemini",
+    "model": "gemini-3.6-flash",
+    "reason": "rag-insufficient",
+    "unverifiedItineraryCardsCreated": 0,
+    "report": "work/handoff/GEMINI_FREE_CONNECTED_FINAL_20261016.json"
+  },
+  "validation": {
+    "unitAndContractTests": { "passed": 381, "failed": 0 },
+    "typescript": "passed",
+    "productionBuild": "passed",
+    "authHelperLint": "passed"
+  },
+  "prototypeMapHandoff": {
+    "sentAtUserRequest": true,
+    "destinationTitle": "챗봇 프로토타입",
+    "destinationThreadId": "01a0cde0-effd-7e61-a60e-ca57483e71aa",
+    "instructions": "Reuse TripMap and verified coordinates; preserve no phone frame requirement; do not modify authentication or model settings"
+  },
+  "references": [
+    "https://ai.google.dev/gemini-api/docs/billing",
+    "https://cloud.google.com/api-keys/pricing",
+    "https://cloud.google.com/billing/v1/pricing",
+    "https://docs.cloud.google.com/sdk/gcloud/reference/auth/application-default/login"
+  ]
+}
