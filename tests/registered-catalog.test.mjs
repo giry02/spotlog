@@ -27,7 +27,13 @@ test('registered facts retain source dates and every copied individual photo mat
     assert.ok(item.longitude > 125 && item.longitude < 130);
     assert.equal(item.price,null); assert.equal(item.openingHours,null); assert.equal(item.availability,null);
     for (const photo of item.photos) {
-      assert.match(photo.license,/^(공공누리 제1유형|CC BY-SA [34]\.0)$/);
+      if (photo.id === 'jeju-landing-shinhwa-terrace-2021') {
+        assert.equal(photo.license, 'CC BY 2.0');
+        assert.equal(photo.licenseUrl, 'https://creativecommons.org/licenses/by/2.0/');
+        assert.equal(photo.author, 'Sharon Hahn Darlin');
+        assert.equal(photo.sourceUrl, 'https://commons.wikimedia.org/wiki/File:Landing_Jeju_Shinhwa_World,_Seogwipo,_Jeju_Island,_South_Korea.jpg');
+        assert.equal(photo.sha256, 'bac45698a2cd4afd77dad61180f6e157b354ce042210dfdc084346f019cec7c6');
+      } else assert.match(photo.license,/^(공공누리 제1유형|CC BY-SA [34]\.0)$/);
       assert.ok(photo.owner && photo.author && photo.sourceUrl && photo.licenseUrl);
       const bytes=fs.readFileSync(new URL('../public'+photo.image,import.meta.url));
       assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'), photo.sha256, photo.id);
@@ -50,7 +56,7 @@ test('a real record with unknown prices stays unknown and does not acquire a fab
     const details=businessDetails({kind:stays.includes(item)?'stay':'food',id:item.id});
     assert.equal(details.registered,true); assert.equal(details.price,'가격 미확인');
     assert.deepEqual(details.menu,[]); assert.equal(details.walk,null);
-    assert.match(details.hours,/미확인/);
+    assert.equal(details.hours, details.content?.checkIn ?? details.content?.hours ?? (details.kind === '숙소' ? '체크인·체크아웃 시간 미확인' : '현재 영업시간 미확인'));
   }
 });
 test('a hotel without a registered landmark can anchor itself at its verified coordinate',()=>{

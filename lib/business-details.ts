@@ -3,6 +3,7 @@ import type { Stay } from './trip-data';
 import type { Restaurant } from './connected-data';
 import type { TripState } from './trip-engine';
 import { getRegisteredEntity } from './registered-catalog';
+import { getBusinessContent, getBusinessIllustration } from './business-content';
 
 export type BusinessRef = {
   kind: 'food' | 'stay';
@@ -323,18 +324,21 @@ export function businessDetails(ref: BusinessRef) {
   if (registered && registered.kind !== 'LANDMARK') {
     if ((ref.kind === 'stay') !== (registered.kind === 'STAY')) return;
     const kind = registered.kind === 'STAY' ? '숙소' : registered.kind === 'CAFE' ? '카페' : registered.kind === 'SHOP' ? '상점' : '식당';
+    const content = getBusinessContent(registered.id);
+    const illustration = getBusinessIllustration(registered.id, registered.kind);
     return {
+      content, imageIsExample: registered.photos.length === 0,
       registered: true, sourceUrl: registered.source.sourceUrl,
       sourceProvider: registered.source.provider, sourceVerifiedAt: registered.source.checkedAt,
       photos: registered.photos,
       headline: registered.name, description: registered.description,
-      features: registered.tags, hours: registered.kind === 'STAY' ? '체크인·체크아웃 시간 미확인' : '현재 영업시간 미확인',
+      features: registered.tags, hours: content?.checkIn ?? content?.hours ?? (registered.kind === 'STAY' ? '체크인·체크아웃 시간 미확인' : '현재 영업시간 미확인'),
       check: registered.note || '운영·가격·좌석·객실 가능 여부는 원문 또는 업체에 확인해 주세요.',
       extras: [] as MenuItem[], id: registered.id, name: registered.name, kind,
-      image: registered.photos[0]?.image ?? '/images/registered-spotlog/no-photo.svg',
-      imageAlt: registered.photos[0]?.title ?? `${registered.name} 등록 사진 없음`,
+      image: registered.photos[0]?.image ?? illustration.image,
+      imageAlt: registered.photos[0]?.title ?? illustration.alt,
       location: registered.address, price: '가격 미확인', priceLabel: registered.kind === 'STAY' ? '객실 요금 미확인' : registered.kind === 'SHOP' ? '상품 가격 미확인' : '메뉴 가격 미확인',
-      primary: registered.kind === 'STAY' ? '객실 구성·빈방 미확인' : registered.kind === 'SHOP' ? '상품·재고 미확인' : '현재 메뉴·가격 미확인',
+      primary: content?.menus.length ? content.menus.slice(0, 3).map(item => item.name).join(' · ') : content?.rooms?.length ? content.rooms.slice(0, 2).map(item => item.name).join(' · ') : registered.kind === 'STAY' ? '객실 구성·빈방 미확인' : registered.kind === 'SHOP' ? '상품·재고 미확인' : '현재 메뉴·가격 미확인',
       menu: [] as MenuItem[], walk: null, room: null,
     };
   }
@@ -346,6 +350,7 @@ export function businessDetails(ref: BusinessRef) {
     const cafe = item.cuisine === '카페';
     return {
       ...profile,
+      content: null, imageIsExample: true,
       registered: false, sourceUrl: undefined, sourceProvider: undefined, sourceVerifiedAt: undefined, photos: [],
       id: item.id,
       name: item.name,
@@ -372,6 +377,7 @@ export function businessDetails(ref: BusinessRef) {
   if (!item || !profile) return;
   return {
     ...profile,
+    content: null, imageIsExample: true,
     registered: false, sourceUrl: undefined, sourceProvider: undefined, sourceVerifiedAt: undefined, photos: [],
     id: item.id,
     name: item.name,

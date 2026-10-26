@@ -1,14 +1,17 @@
 'use client';
 import { Clock3, MapPin, Sparkles } from 'lucide-react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import {
   businessDetails,
   businessReasons,
   type BusinessRef,
 } from '@/lib/business-details';
-import { money } from '@/lib/trip-data';
 import type { TripState } from '@/lib/trip-engine';
-import { RegisteredPhotoGallery } from './registered-photo-gallery';
+import {
+  BusinessContentSection,
+  BusinessPhotoSection,
+} from './business-content';
 import { EntityShareControls } from './trip-share-controls';
 import { SocialSummary } from './spotlog-social';
 
@@ -27,12 +30,79 @@ export function BusinessPreview({
 }) {
   const d = businessDetails(reference);
   if (!d) return null;
-  if(d.registered)return <article className="tr-business-card">
-    <button className="tr-business-preview" onClick={onOpen} aria-label={`${d.name} 상세보기`}><div className="tr-business-image"><img src={d.image} alt={d.imageAlt} width={300} height={130} loading="lazy"/><small>Spotlog 등록 정보</small></div><div className="tr-business-copy"><div><span>{d.kind} · {d.sourceProvider}</span></div><strong>{d.name}</strong><p>{d.location}</p><div className="tr-business-tags">{d.features.slice(0,2).map(f=><span key={f}>{f}</span>)}</div></div></button>
-    <SocialSummary target={{kind:'entity',id:d.id}} compact />
-    <div className="tr-business-card-footer"><span><strong>가격 미확인</strong><small>현재 영업 여부는 방문 전 확인</small></span><button onClick={onSelect} aria-label={`${d.name} ${selectLabel}`}>{selectLabel}</button></div>
-    <button className="tr-business-detail-link" onClick={onOpen}>주소·사진·등록 출처 상세보기</button>
-  </article>;
+  if (d.registered)
+    return (
+      <article className="tr-business-card">
+        <button
+          className="tr-business-preview"
+          onClick={onOpen}
+          aria-label={`${d.name} 상세보기`}
+        >
+          <div className="tr-business-image">
+            <Image
+              src={d.image}
+              alt={d.imageAlt}
+              width={300}
+              height={130}
+              loading="lazy"
+              unoptimized
+            />
+            <small>
+              {d.imageIsExample ? '유형별 예시 이미지' : 'Spotlog 등록 사진'}
+            </small>
+          </div>
+          <div className="tr-business-copy">
+            <div>
+              <span>
+                {d.kind} · {d.sourceProvider}
+              </span>
+            </div>
+            <strong>{d.name}</strong>
+            <p>
+              {d.content?.menus
+                .slice(0, 2)
+                .map((menu) => menu.name)
+                .join(' · ') ||
+                d.content?.rooms
+                  ?.slice(0, 2)
+                  .map((room) => room.name)
+                  .join(' · ') ||
+                d.location}
+            </p>
+            <div className="tr-business-tags">
+              {d.features.slice(0, 2).map((f) => (
+                <span key={f}>{f}</span>
+              ))}
+            </div>
+          </div>
+        </button>
+        <SocialSummary target={{ kind: 'entity', id: d.id }} compact />
+        <div className="tr-business-card-footer">
+          <span>
+            <strong>
+              {d.content
+                ? d.kind === '숙소'
+                  ? '객실·시설 안내'
+                  : '대표 메뉴 안내'
+                : d.price}
+            </strong>
+            <small>
+              {d.content
+                ? '사진과 상세정보를 살펴보세요'
+                : '현재 영업 여부는 방문 전 확인'}
+            </small>
+          </span>
+          <button onClick={onSelect} aria-label={`${d.name} ${selectLabel}`}>
+            {selectLabel}
+          </button>
+        </div>
+        <button className="tr-business-detail-link" onClick={onOpen}>
+          {d.kind === '숙소'
+            ? '객실·시설·사진 상세보기'
+            : '메뉴·시설·사진 상세보기'}
+        </button>
+      </article>
+    );
   return (
     <article className="tr-business-card">
       <button
@@ -41,12 +111,13 @@ export function BusinessPreview({
         aria-label={`${d.name} 상세보기`}
       >
         <div className="tr-business-image">
-          <img
+          <Image
             src={d.image}
             alt={d.imageAlt}
             width={300}
             height={130}
             loading="lazy"
+            unoptimized
           />
           <small>AI 유형 예시</small>
         </div>
@@ -95,27 +166,69 @@ export function BusinessDetailBody({
 }) {
   const d = businessDetails(reference);
   if (!d) return null;
-  if(d.registered)return <div className="tr-business-detail">
-    <RegisteredPhotoGallery photos={d.photos} name={d.name}/>
-    <SocialSummary target={{kind:'entity',id:d.id}} />
-    <section className="tr-detail-intro"><span className="tr-detail-category">{d.kind} · Spotlog 등록</span><h3>{d.name}</h3><p>{d.description}</p><div className="tr-business-tags">{d.features.map(f=><span key={f}>{f}</span>)}</div></section>
-    <section className="tr-detail-section"><h3>방문 정보</h3><dl className="tr-detail-facts"><div><dt>주소</dt><dd>{d.location}</dd></div><div><dt>현재 운영시간</dt><dd>{d.hours}</dd></div><div><dt>현재 가격·이용 가능 여부</dt><dd>미확인 · 업체에 확인해 주세요</dd></div><div><dt>등록 자료</dt><dd>{d.sourceProvider} · 확인 {d.sourceVerifiedAt}</dd></div></dl><a className="tr-text-link" href={d.sourceUrl} target="_blank" rel="noreferrer">등록 정보 원문 보기</a></section>
-    <section className="tr-detail-check"><h3>방문 전에 확인해 주세요</h3><p>{d.check}</p><p>주소·대표 좌표 등 기본 정보가 등록된 후보입니다. 현재 메뉴·가격·좌석·객실·재고·예약 가능 여부를 확인한 결과는 아닙니다.</p></section>
-    <EntityShareControls id={d.id}/>
-  </div>;
+  if (d.registered)
+    return (
+      <div className="tr-business-detail">
+        <BusinessPhotoSection details={d} />
+        <SocialSummary target={{ kind: 'entity', id: d.id }} />
+        <section className="tr-detail-intro">
+          <span className="tr-detail-category">{d.kind} · Spotlog 등록</span>
+          <h3>{d.name}</h3>
+          <p>{d.description}</p>
+          <div className="tr-business-tags">
+            {d.features.map((f) => (
+              <span key={f}>{f}</span>
+            ))}
+          </div>
+        </section>
+        <BusinessContentSection details={d} />
+        <section className="tr-detail-section">
+          <h3>방문 정보</h3>
+          <dl className="tr-detail-facts">
+            <div>
+              <dt>주소</dt>
+              <dd>{d.location}</dd>
+            </div>
+            <div>
+              <dt>{d.kind === '숙소' ? '체크인·체크아웃' : '운영시간 안내'}</dt>
+              <dd>{d.content?.checkIn ?? d.content?.hours ?? d.hours}</dd>
+            </div>
+            <div>
+              <dt>등록 자료</dt>
+              <dd>
+                {d.sourceProvider} · 확인 {d.sourceVerifiedAt}
+              </dd>
+            </div>
+          </dl>
+          <a
+            className="tr-text-link"
+            href={d.sourceUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            등록 정보 원문 보기
+          </a>
+        </section>
+        <section className="tr-detail-check">
+          <h3>방문 전에 확인해 주세요</h3>
+          <p>{d.check}</p>
+          <p>
+            {d.content
+              ? '공개된 메뉴·객실·시설 안내는 변경될 수 있어요. 당일 영업·좌석·빈방과 예약 가능 여부는 업체에서 확인해 주세요.'
+              : '주소·대표 좌표 등 기본 정보가 등록된 후보입니다. 현재 메뉴·가격·좌석·객실·재고·예약 가능 여부를 확인한 결과는 아닙니다.'}
+          </p>
+        </section>
+        <EntityShareControls id={d.id} />
+      </div>
+    );
   return (
     <div className="tr-business-detail">
-      <figure className="tr-detail-photo">
-        <img src={d.image} alt={d.imageAlt} width={600} height={300} />
-        <figcaption>
-          AI 생성 유형별 예시 사진 · 실제 업체 사진이 아닙니다
-        </figcaption>
-      </figure>
+      <BusinessPhotoSection details={d} />
       <section className="tr-detail-intro">
         <span className="tr-detail-category">{d.kind} · 가상 업체</span>
         <h3>{d.headline}</h3>
         <p>{d.description}</p>
-        <SocialSummary target={{kind:'entity',id:d.id}} />
+        <SocialSummary target={{ kind: 'entity', id: d.id }} />
         <div className="tr-business-tags">
           {d.features.map((f) => (
             <span key={f}>{f}</span>
@@ -133,33 +246,7 @@ export function BusinessDetailBody({
           ))}
         </ul>
       </section>
-      <section className="tr-detail-section">
-        <h3>{reference.kind === 'stay' ? '객실과 가격' : '메뉴와 가격'}</h3>
-        {d.room ? (
-          <div className="tr-detail-room">
-            <p>{d.room}</p>
-            <strong>{d.price}</strong>
-            <span>{d.priceLabel}</span>
-          </div>
-        ) : (
-          <ul className="tr-detail-menu">
-            {d.menu.map((m) => (
-              <li key={m.name}>
-                <span>
-                  <strong>{m.name}</strong>
-                  <small>{m.note}</small>
-                </span>
-                <b>{money(m.price)}</b>
-              </li>
-            ))}
-          </ul>
-        )}
-        <p className="tr-detail-caption">
-          {d.room
-            ? '객실 구성과 요금은 체험용 예시입니다.'
-            : '메뉴 구성과 가격은 체험용 예시입니다.'}
-        </p>
-      </section>
+      <BusinessContentSection details={d} />
       <section className="tr-detail-section">
         <h3>방문 정보</h3>
         <dl className="tr-detail-facts">
@@ -192,7 +279,7 @@ export function BusinessDetailBody({
         업체·메뉴·시설·시간·이동 정보는 체험을 위한 가상 설정입니다. 실제
         영업·좌석·객실·예약 가능 여부는 제공하지 않습니다.
       </p>
-      <EntityShareControls id={d.id}/>
+      <EntityShareControls id={d.id} />
     </div>
   );
 }
@@ -212,8 +299,18 @@ export function BusinessDetailAction({
   return (
     <div className="tr-detail-action">
       <span>
-        <strong>{d.price}</strong>
-        <small>{d.priceLabel}</small>
+        <strong>
+          {d.registered && d.content
+            ? d.kind === '숙소'
+              ? '객실·시설 안내'
+              : '대표 메뉴 안내'
+            : d.price}
+        </strong>
+        <small>
+          {d.registered && d.content
+            ? '위치·일정에 맞춰 담아보세요'
+            : d.priceLabel}
+        </small>
       </span>
       <Button onClick={onChoose}>
         {reference.visitId

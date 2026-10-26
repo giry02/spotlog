@@ -1,0 +1,111 @@
+{
+  "checkedAt": "2026-10-26",
+  "scope": "대표메뉴·게시 가격·객실·편의시설을 출처 기준으로 정리한 표시용 정보입니다. 실시간 판매 메뉴·영업 상태·예약 가능 여부나 예산 계산용 확정 가격이 아닙니다.",
+  "entries": [
+    {
+      "id": "catalog-jeju-hyeopjae-sin-guksu",
+      "menus": [
+        { "name": "고기국수", "price": 10000, "note": "제주 돼지고기 육수에 고기를 곁들인 국수" },
+        { "name": "불비(불고기+비빔국수)", "price": 13000, "note": "불고기를 함께 올린 매콤새콤한 비빔국수" },
+        { "name": "제주 돔베고기(소)", "price": 19000, "note": "국수와 함께 나눠 먹기 좋은 돔베고기" },
+        { "name": "어린이 불고기덮밥", "price": 8000, "note": "어린이와 함께 방문할 때 고를 수 있는 밥 메뉴" }
+      ],
+      "priceNote": "다이닝코드에 게시된 가격 기준입니다. 주문 시점에 메뉴와 가격이 달라질 수 있습니다.",
+      "facilities": ["매장 앞 주차", "유아 의자"],
+      "hours": "월~목 09:00~18:00(라스트오더 17:30) · 금~일 09:00~19:00(라스트오더 18:30)",
+      "sources": [
+        { "url": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000013016", "title": "제주관광공사 VisitJeju · 협재신국수", "scope": "고기국수·불비·어린이 불고기덮밥의 메뉴 구성, 안내 영업시간" },
+        { "url": "https://www.diningcode.com/profile.php?rid=XE6nqXFAEIOT", "title": "다이닝코드 · 협재신국수", "scope": "4개 메뉴의 게시 가격, 돔베고기 메뉴, 주차·유아 의자 안내. 업체 공식 가격표가 아닌 제3자 서비스 게시 정보" }
+      ]
+    },
+    {
+      "id": "catalog-jeju-myeongri-main",
+      "menus": [
+        { "name": "제주 흑돼지 자투리고기 200g", "price": 15000, "note": "여러 부위를 함께 구워 먹는 대표 메뉴" },
+        { "name": "제주 흑돼지 삼겹살 200g", "price": 22000, "note": "삼겹살 구이" },
+        { "name": "제주 흑돼지 목살 200g", "price": 22000, "note": "목살 구이" },
+        { "name": "김치전골(뚝배기) 1인", "price": 7000, "note": "고기와 곁들일 수 있는 1인 전골" }
+      ],
+      "priceNote": "다이닝코드에 게시된 본점 가격 기준입니다. 지점·주문 시점에 메뉴와 가격이 달라질 수 있습니다.",
+      "facilities": ["전용 주차장"],
+      "hours": "브레이크타임 15:00~16:00 · 라스트오더 20:30 · 월요일 정기휴무",
+      "sources": [
+        { "url": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_000000000018465", "title": "제주관광공사 VisitJeju · 명리동식당 본점", "scope": "본점 위치와 자투리고기 메뉴, 브레이크타임·라스트오더·휴무 안내" },
+        { "url": "https://www.diningcode.com/profile.php?rid=WfPQyCtRiy0j", "title": "다이닝코드 · 명리동식당", "scope": "주소가 녹차분재로 498인 본점의 4개 메뉴와 게시 가격. 업체 공식 가격표가 아닌 제3자 서비스 게시 정보" },
+        { "url": "https://www.menupan.com/Restaurant/Onepage.asp?acode=H602055", "title": "메뉴판닷컴 · 명리동식당", "scope": "녹차분재로 498 본점의 전용 주차장 안내. 제3자 서비스 게시 정보" }
+      ]
+    },
+    {
+      "id": "catalog-jeju-bongseong",
+      "menus": [
+        { "name": "제주산 흑돼지 목살·오겹살 600g", "price": 65000, "note": "2인 기준으로 안내된 흑돼지 구이" },
+        { "name": "제주산 백돼지 목살·오겹살 600g", "price": 50000, "note": "2인 기준으로 안내된 백돼지 구이" },
+        { "name": "김치찌개(소)", "price": 8000, "note": "구이와 함께 곁들일 수 있는 찌개" },
+        { "name": "열무국수", "price": 7000, "note": "식사 마무리로 고를 수 있는 국수" }
+      ],
+      "priceNote": "다이닝코드에 게시된 가격 기준입니다. 주문 시점에 메뉴와 가격이 달라질 수 있습니다.",
+      "facilities": ["주차 가능"],
+      "hours": "브레이크타임 15:00~16:30 · 일요일 정기휴무",
+      "sources": [
+        { "url": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000014723", "title": "제주관광공사 VisitJeju · 봉성식당", "scope": "흑돼지·백돼지 구이와 고사리·묵은지 구성, 브레이크타임·휴무 안내" },
+        { "url": "https://www.diningcode.com/profile.php?rid=senWaN8c80Iz", "title": "다이닝코드 · 봉성식당(애월)", "scope": "봉성로 66 업체의 4개 메뉴, 600g·2인 기준과 게시 가격. 업체 공식 가격표가 아닌 제3자 서비스 게시 정보" },
+        { "url": "https://www.ktriptips.com/kor/food/2852023", "title": "K-TRIP TIPS · 봉성식당", "scope": "열무국수·김치찌개 메뉴와 주차 안내. 제3자 관광정보 서비스 게시 정보" }
+      ]
+    },
+    {
+      "id": "catalog-jeju-paratodos",
+      "menus": [
+        { "name": "3단 트레이 브런치", "price": null, "note": "파스타·퀘사디아·샐러드 등을 함께 즐기는 대표 브런치" },
+        { "name": "감바스 파스타", "price": null, "note": "공식 관광정보에 소개된 파스타 메뉴" },
+        { "name": "문어 페스츄리 피자", "price": null, "note": "공식 관광정보에 소개된 피자 메뉴" },
+        { "name": "학센", "price": null, "note": "브런치 외 식사로 고를 수 있는 메뉴" }
+      ],
+      "priceNote": "대표 메뉴를 먼저 살펴보세요. 현재 판매 가격과 메뉴 구성은 매장 안내에서 확인할 수 있습니다.",
+      "facilities": ["무료 Wi-Fi", "공용 주차장", "화장실", "루프탑"],
+      "hours": "공식 관광정보 안내 09:00~18:00 · 방문 전 매장 운영시간 확인",
+      "sources": [
+        { "url": "https://m.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000012635", "title": "제주관광공사 VisitJeju · 파라토도스", "scope": "대표메뉴 상세 3단트레이·감바스파스타·문어페스츄리피자·학센, 무료 Wi-Fi·공용 주차장·화장실, 안내 영업시간. 메뉴 가격은 제공되지 않음" },
+        { "url": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000012635", "title": "제주관광공사 VisitJeju · 파라토도스 상세 소개", "scope": "3단 트레이 브런치 구성과 루프탑 공간" }
+      ]
+    },
+    {
+      "id": "catalog-jeju-coffee-sketch",
+      "menus": [
+        { "name": "스케치브라운", "price": 8000, "note": "크림을 올린 시그니처 커피" },
+        { "name": "항포가토", "price": 8500, "note": "항아리 형태의 그릇에 내는 아포가토" },
+        { "name": "제주 청귤에이드", "price": 8000, "note": "제주 청귤을 활용한 과일 음료" },
+        { "name": "바스크 치즈케이크(오리지널)", "price": 8000, "note": "커피와 함께 즐길 수 있는 디저트" }
+      ],
+      "priceNote": "다이닝코드에 게시된 가격 기준입니다. 주문 시점에 메뉴와 가격이 달라질 수 있습니다.",
+      "facilities": ["야외 테라스", "용머리해안 공영주차장 이용"],
+      "hours": "공식 관광정보 안내 라스트오더 17:00 · 연중무휴",
+      "sources": [
+        { "url": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_200000000012676", "title": "제주관광공사 VisitJeju · 커피스케치", "scope": "아포가토·제주 청귤 음료 메뉴, 야외 테라스, 라스트오더·휴무 안내" },
+        { "url": "https://www.diningcode.com/profile.php?rid=qpcODSCowPGe", "title": "다이닝코드 · 커피스케치", "scope": "스케치브라운·항포카토·제주청귤에이드·바스크(오리지날)의 게시 메뉴와 가격. 업체 공식 가격표가 아닌 제3자 서비스 게시 정보" },
+        { "url": "https://www.ktriptips.com/kor/food/2852520", "title": "K-TRIP TIPS · 커피스케치", "scope": "항아리 아포가토·바스크 치즈케이크 소개와 용머리해안 공영주차장 이용 안내. 제3자 관광정보 서비스 게시 정보" }
+      ]
+    },
+    {
+      "id": "catalog-jeju-landing-shinhwa",
+      "menus": [],
+      "rooms": [
+        { "name": "슈페리어 킹", "note": "킹 베드 1개 · 스마트 조명·온도 조절 · 성인 2인+12세 이하 어린이 1인 기준 안내" },
+        { "name": "슈페리어 트윈", "note": "싱글 베드 2개 · 일행과 침대를 나눠 쓰는 스탠다드 객실" },
+        { "name": "디럭스 킹", "note": "킹 베드 1개 · 욕조와 분리형 샤워실을 갖춘 객실" },
+        { "name": "디럭스 패밀리 트윈", "note": "퀸 베드 1개+싱글 베드 1개 · 성인 3인+12세 이하 어린이 1인 기준 안내" },
+        { "name": "커넥팅룸", "note": "객실 2개를 실내 문으로 연결 · 성인 4인+12세 이하 어린이 1인 기준 안내" }
+      ],
+      "priceNote": "객실 요금은 투숙일·인원·예약 상품에 따라 달라집니다. 객실 선택 후 공식 예약 페이지에서 확인할 수 있습니다.",
+      "facilities": ["무료 Wi-Fi", "미니 냉장고", "객실 금고", "전기 주전자", "욕실 어메니티", "랜딩관 자체 수영장 없음"],
+      "checkIn": "체크인 15:00 · 체크아웃 11:00",
+      "sources": [
+        { "url": "https://www.shinhwaworld.com/roomld.jhtml?lang=kr", "title": "제주신화월드 공식 · 랜딩관 객실", "scope": "슈페리어 킹·슈페리어 트윈·디럭스 패밀리 트윈·커넥팅룸 타입과 침대 구성" },
+        { "url": "https://www.shinhwaworld.com/roomld/36890.jhtml", "title": "제주신화월드 공식 · 랜딩관 슈페리어 킹", "scope": "객실 인원 기준과 무료 Wi-Fi·미니 냉장고·금고·전기 주전자·욕실 어메니티" },
+        { "url": "https://www.shinhwaworld.com/roomld/37778.jhtml", "title": "제주신화월드 공식 · 랜딩관 디럭스 킹", "scope": "디럭스 킹 타입과 욕조·분리형 샤워실" },
+        { "url": "https://web.shinhwaworld.com/roomld/37779.jhtml", "title": "제주신화월드 공식 · 랜딩관 디럭스 패밀리 트윈", "scope": "퀸 베드+싱글 베드와 객실 인원 기준" },
+        { "url": "https://reservation.shinhwaworld.com/Booking/Reservation.aspx?aq=1&cin=2026.10.25&cout=2026.10.28&cq=0&hid=15&lang=ko-KR&pid=1&rq=1", "title": "제주신화월드 공식 예약 · 랜딩관 이용 안내", "scope": "랜딩관 체크인 15:00·체크아웃 11:00, 커넥팅룸 인원 기준. 날짜별 객실 요금·잔여 객실은 수집하지 않음" },
+        { "url": "https://web.shinhwaworld.com/notification/41014.jhtml", "title": "제주신화월드 공식 · 호텔 & 리조트 수영장 이용 안내", "scope": "랜딩관은 별도 부대 수영장이 없다는 안내. 신화관·메리어트관·서머셋의 수영장 혜택과 구분" }
+      ]
+    }
+  ]
+}

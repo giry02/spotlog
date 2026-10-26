@@ -9,12 +9,15 @@ registerHooks({ resolve(specifier, context, next) {
   return next(specifier, context);
 } });
 const { default: supplement } = await import('../lib/jeju-registered-businesses.ts');
+const { default: displayContent } = await import('../lib/jeju-business-content.ts');
+const { default: photoSupplement } = await import('../lib/jeju-business-photos.ts');
 const { default: appSnapshot } = await import('../lib/registered-spotlog-snapshot.ts');
 const { registeredEntities, getRegisteredEntity, getNearbyRegisteredBusinesses, getLegacyAnchorCoordinate, getKnownEntityPrice } = await import('../lib/registered-catalog.ts');
 const { findFood, findStay, restaurants, stays } = await import('../lib/trip-data.ts');
 const { placeMapCoordinates, getTripMapData } = await import('../lib/trip-map-data.ts');
 const { makeTripMapOrderRoutes } = await import('../lib/trip-map-route.ts');
 const { businessDetails } = await import('../lib/business-details.ts');
+const { getBusinessContent } = await import('../lib/business-content.ts');
 const { ragCatalog } = await import('../lib/rag-catalog.ts');
 const { authoredDemoDocuments } = await import('../scripts/rag/catalog.mjs');
 const { findCommunityTrip } = await import('../lib/community-trips.ts');
@@ -46,11 +49,76 @@ test('six real Jeju records use independent checked business coordinates and ret
     assert.equal(entity.source.sourceUrl, `https://www.visitjeju.net/kr/detail/view?contentsid=${entity.source.providerRecordId}`);
     assert.notDeepEqual([latitude, longitude], [placeMapCoordinates[anchor].latitude, placeMapCoordinates[anchor].longitude]);
     assert.equal(placeMapCoordinates[id].latitude, latitude); assert.equal(placeMapCoordinates[id].longitude, longitude);
-    assert.deepEqual(entity.photos, []); assert.equal(entity.price, null); assert.equal(entity.openingHours, null); assert.equal(entity.availability, null);
+    assert.deepEqual(entity.photos, photoSupplement.entries.find(item => item.id === id)?.photos ?? []);
+    assert.equal(entity.price, null); assert.equal(entity.openingHours, null); assert.equal(entity.availability, null);
     const candidate = kind === 'STAY' ? findStay(id) : findFood(id);
     assert.equal(candidate.registered, true); assert.equal(getKnownEntityPrice(candidate), null);
     const detail = businessDetails({ kind: kind === 'STAY' ? 'stay' : 'food', id });
-    assert.equal(detail.registered, true); assert.equal(detail.price, '가격 미확인'); assert.match(detail.hours, /미확인/); assert.deepEqual(detail.menu, []);
+    const content = getBusinessContent(id);
+    assert.equal(detail.registered, true); assert.equal(detail.price, '가격 미확인'); assert.deepEqual(detail.menu, []);
+    assert.deepEqual(detail.content, content);
+    assert.equal(detail.hours, content.checkIn ?? content.hours);
+  }
+});
+
+test('Jeju display snapshots retain menu, room and source provenance independently of the basic catalog', async () => {
+  const json = JSON.parse(await readFile(new URL('../lib/jeju-business-content.json', import.meta.url), 'utf8'));
+  assert.deepEqual(displayContent, json);
+  assert.equal(json.checkedAt, '2026-10-26');
+  assert.deepEqual(new Set(json.entries.map(entry => entry.id)), ids);
+  assert.equal(json.entries.flatMap(entry => entry.menus).length, 20);
+  assert.equal(json.entries.flatMap(entry => entry.rooms ?? []).length, 5);
+  for (const entry of json.entries) {
+    assert.ok(entry.priceNote.length > 0, entry.id);
+    assert.ok(entry.sources.length > 0, entry.id);
+    assert.ok(entry.facilities.length > 0, entry.id);
+    for (const source of entry.sources) {
+      assert.equal(new URL(source.url).protocol, 'https:');
+      assert.ok(source.title.length > 0); assert.ok(source.scope.length > 0);
+    }
+    for (const menu of entry.menus) {
+      assert.ok(menu.name.length > 0); assert.ok(menu.note.length > 0);
+      assert.ok(menu.price === null || Number.isFinite(menu.price) && menu.price > 0);
+    }
+    assert.equal(getBusinessContent(entry.id).checkedAt, json.checkedAt);
+  }
+  assert.equal(getBusinessContent('unknown-business-id'), null);
+});
+
+test('business details attach menu and room templates while distinguishing licensed photos from illustrations', () => {
+  for (const [id, kind] of facts) {
+    const detail = businessDetails({ kind: kind === 'STAY' ? 'stay' : 'food', id });
+    const content = displayContent.entries.find(entry => entry.id === id);
+    assert.deepEqual(detail.content.menus, content.menus);
+    assert.deepEqual(detail.content.rooms, content.rooms);
+    assert.deepEqual(detail.content.facilities, content.facilities);
+    assert.deepEqual(detail.content.sources, content.sources);
+    const names = kind === 'STAY' ? content.rooms : content.menus;
+    for (const item of names.slice(0, kind === 'STAY' ? 2 : 3)) assert.ok(detail.primary.includes(item.name));
+    assert.equal(detail.imageIsExample, detail.photos.length === 0);
+    if (detail.imageIsExample) {
+      assert.match(detail.imageAlt, /예시 이미지.*실제 업체.*아님/);
+    } else {
+      assert.equal(detail.image, detail.photos[0].image);
+      assert.ok(detail.photos[0].license); assert.ok(detail.photos[0].sourceUrl);
+    }
+  }
+  const hotel = businessDetails({ kind: 'stay', id: facts[5][0] });
+  assert.match(hotel.hours, /체크인 15:00.*체크아웃 11:00/);
+  assert.ok(hotel.content.facilities.includes('랜딩관 자체 수영장 없음'));
+});
+
+test('published display prices do not become verified budget prices or live availability', () => {
+  assert.equal(displayContent.entries.flatMap(entry => entry.menus).filter(menu => menu.price !== null).length, 16);
+  for (const [id, kind] of facts) {
+    const candidate = kind === 'STAY' ? findStay(id) : findFood(id);
+    const entity = getRegisteredEntity(id);
+    assert.equal(getKnownEntityPrice(candidate), null, id);
+    assert.equal(candidate.priceVerified, false, id);
+    assert.equal(candidate.priceStatus, 'unknown', id);
+    assert.equal(entity.price, null); assert.equal(entity.openingHours, null); assert.equal(entity.availability, null);
+    const raw = supplement.entries.find(entry => entry.id === id);
+    assert.deepEqual(raw.photos, []); assert.equal(raw.price, null); assert.equal(raw.openingHours, null); assert.equal(raw.availability, null);
   }
 });
 

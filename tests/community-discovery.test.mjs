@@ -54,7 +54,7 @@ test('AI editorial preview and explicit copy retain source and SHOP visits witho
   currentTrip(session).plan[0].label='local edit';assert.equal(JSON.stringify(trip),before);
 });
 test('media feed exposes only matching real photo sets with source rights and content hashes, and does not invent videos',()=>{
-  const summary=mediaCatalogSummary();assert.equal(summary.photos,80);assert.equal(summary.videos,0);assert.ok(summary.places>13);
+  const summary=mediaCatalogSummary();assert.equal(summary.photos,81);assert.equal(summary.videos,0);assert.ok(summary.places>13);
   const all=discoveryMediaResults();assert.equal(new Set(all.map(item=>item.id)).size,all.length);
   for(const entity of all)for(const photo of entity.photos){const bytes=readFileSync(new URL('../public'+photo.image,import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),photo.sha256);assert.equal(photo.placeId,entity.id);assert.ok(photo.author&&photo.license&&photo.sourceUrl&&photo.licenseUrl);}
   assert.ok(discoveryMediaResults({mediaRegion:'제주'}).length>0);assert.ok(discoveryMediaResults({mediaRegion:'서울'}).length>0);

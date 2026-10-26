@@ -1,0 +1,13 @@
+{
+  "createdAt": "2026-10-26",
+  "tool": "Built-in image_gen (no CLI/API key)",
+  "displayPolicy": "유형별 예시 이미지 · 실제 업체 사진 아님",
+  "export": "1200px JPEG, quality85. Composition unchanged from generated original.",
+  "assets": [
+    {"file": "public/images/business-templates/coastal-brunch.jpg", "prompt": "Single landscape 3:2 photorealistic editorial food illustration. Sourdough brunch with scrambled eggs, fresh greens and tomato, iced latte and small espresso cup on a pale wood cafe table. Morning coastal light, soft sea blur, natural food texture. Mobile-friendly. No text, logos, people, watermark or real business identity."},
+    {"file": "public/images/business-templates/noodle-menu.jpg", "prompt": "Single landscape 3:2 generic editorial food photo illustration. Steaming ceramic bowl of Korean gogi guksu, pale pork broth, wheat noodles, pork slices and scallion, kimchi and spoon on warm wood. Natural side light and realistic food texture. No named restaurant, signs, text, logos, people, watermark or collage."},
+    {"file": "public/images/business-templates/pork-grill.jpg", "prompt": "Single landscape 3:2 generic food photo illustration. Pork belly and shoulder grilling with small dishes of fernbrake, aged kimchi, lettuce and rice on a stone and wood restaurant table. Soft window light, warm natural tones and accurate textures. No named restaurant, logos, signage, text, people or collage."},
+    {"file": "public/images/business-templates/coffee-dessert.jpg", "prompt": "Single landscape 3:2 generic cafe food illustration. Cream-topped iced coffee, ceramic bowl of affogato, Basque cheesecake and tiny espresso cup resting on a light stone table, blurred coastal water background. Warm daylight and natural textures. All objects rest physically on the table; no pouring or suspended objects. No named business, people, text, logos or collage."}
+  ],
+  "realPhoto": {"file": "public/images/jeju-businesses/landing-jeju-shinhwa-terrace.jpg", "rightsMetadata": "lib/jeju-business-photos.json", "author": "Sharon Hahn Darlin", "license": "CC BY 2.0", "photoYear": "2021"}
+}

@@ -1,15 +1,17 @@
 import snapshot from './registered-spotlog-snapshot';
 import jejuSnapshot from './jeju-registered-businesses';
+import jejuPhotos from './jeju-business-photos';
 
 export const REGISTERED_CATALOG_IMPORTED_AT = snapshot.importedAt;
 export const REGIONS = ['제주', '서울', '부산', '경주', '강릉'] as const;
 export type RegisteredRegion = (typeof REGIONS)[number];
 export type RegisteredKind = 'LANDMARK' | 'FOOD' | 'CAFE' | 'STAY' | 'SHOP';
-export type RegisteredPhoto = (typeof snapshot.entries)[number]['photos'][number];
+export type RegisteredPhoto = (typeof snapshot.entries)[number]['photos'][number] | (typeof jejuPhotos.entries)[number]['photos'][number];
 type RegisteredEntry = (typeof snapshot.entries)[number] | (typeof jejuSnapshot.entries)[number];
-export type RegisteredEntity = Omit<RegisteredEntry, 'kind'> & {
+export type RegisteredEntity = Omit<RegisteredEntry, 'kind' | 'photos'> & {
   kind: RegisteredKind;
   region: RegisteredRegion;
+  photos: RegisteredPhoto[];
 };
 export function registeredRegion(area: string): RegisteredRegion {
   const region = REGIONS.find((region) => area.includes(region));
@@ -22,6 +24,7 @@ export function registeredRegion(area: string): RegisteredRegion {
 // independent. Adding real records never changes a fictional demo's identity.
 export const registeredEntities: readonly RegisteredEntity[] = [...snapshot.entries, ...jejuSnapshot.entries].map((entry) => ({
   ...entry,
+  photos: [...(jejuPhotos.entries.find(item => item.id === entry.id)?.photos ?? entry.photos)],
   kind: ['public-busan-gukje', 'public-busan-jagalchi'].includes(entry.id) ? 'SHOP' : entry.kind as RegisteredKind,
   region: registeredRegion(entry.area),
 }));

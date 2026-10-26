@@ -1,5 +1,6 @@
 import snapshot from './registered-spotlog-snapshot';
 import legacyPhotos from './discovery-legacy-photos';
+import jejuPhotos from './jeju-business-photos';
 
 /** Existing, individually checked metadata only. Missing values are never inferred. */
 export type PhotoSource = {
@@ -23,6 +24,7 @@ export type PhotoSource = {
 const sources: readonly PhotoSource[] = [
   ...snapshot.entries.flatMap(entry => entry.photos),
   ...legacyPhotos,
+  ...jejuPhotos.entries.flatMap(entry => entry.photos),
 ];
 
 /** Match both the place and the exact displayed asset; never borrow another photo's rights. */

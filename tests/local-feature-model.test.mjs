@@ -151,7 +151,7 @@ test('feature context exposes offline metadata, never cached note bodies or coor
 });
 test('public course and photo catalogs are compact metadata, not original stories or media payloads',()=>{
  const context=modelContext(request('공개 코스 보여줘'));
- assert.equal(context.publicCourses.catalog.length,11);assert.equal(context.media.photos,80);
+ assert.equal(context.publicCourses.catalog.length,11);assert.equal(context.media.photos,81);
  for(const trip of context.publicCourses.catalog){assert.ok(!('dayStories'in trip));assert.ok(!('story'in trip));assert.ok(!('blocks'in trip));}
  assert.ok(context.media.catalog.every(item=>!('photos'in item)&&item.photoCount>0));
 });
