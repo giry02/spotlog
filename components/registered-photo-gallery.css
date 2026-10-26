@@ -1,0 +1,20 @@
+.tr-registered-gallery { --tr-gallery-height: 160px; min-width: 0; }
+.tr-business-media .tr-registered-gallery { --tr-gallery-height: 220px; }
+.tr-business-media.is-compact .tr-registered-gallery { --tr-gallery-height: 190px; }
+.tr-photo-swipe-frame { position: relative; min-width: 0; overflow: hidden; border-radius: 12px; background: #edf0e7; }
+.tr-photo-swipe-viewport { overflow: hidden; min-width: 0; touch-action: pan-y pinch-zoom; cursor: grab; }
+.tr-photo-swipe-viewport:active { cursor: grabbing; }
+.tr-photo-swipe-viewport:focus-visible { outline: 2px solid #ad553d; outline-offset: -3px; border-radius: 12px; }
+.tr-photo-swipe-track { display: flex; min-width: 0; touch-action: pan-y pinch-zoom; }
+.tr-photo-swipe-slide { flex: 0 0 100%; min-width: 0; }
+.tr-registered-gallery .tr-photo-swipe-slide > img { display: block; width: 100%; height: var(--tr-gallery-height); max-height: 36vh; object-fit: cover; border-radius: 0; user-select: none; }
+.tr-photo-swipe-error { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; height: var(--tr-gallery-height); max-height: 36vh; padding: 16px; font-size: 12px; }
+.tr-photo-swipe-error > button { min-height: 44px; padding: 8px 16px; border: 1px solid #d7ddce; border-radius: 8px; background: white; }
+.tr-photo-swipe-pagination { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 7px; padding: 7px 10px; border-radius: 999px; background: #0006; pointer-events: none; }
+.tr-photo-swipe-pagination > span { display: block; flex: 0 0 7px; width: 7px; height: 7px; border: 1px solid #fff; border-radius: 50%; background: transparent; opacity: .8; }
+.tr-photo-swipe-pagination > span.is-active { background: #fff; opacity: 1; }
+.tr-photo-swipe-status { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 420px) {
+  .tr-business-media .tr-registered-gallery,
+  .tr-business-media.is-compact .tr-registered-gallery { --tr-gallery-height: 170px; }
+}
