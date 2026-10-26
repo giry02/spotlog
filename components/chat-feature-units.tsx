@@ -21,6 +21,8 @@ import {
 import { findFood, findPlace, money, period, scenarios } from '@/lib/trip-data';
 import type { TripAction, TripSession, TripState } from '@/lib/trip-engine';
 import type { OpenBusiness } from '@/components/business-detail';
+import { businessDetails } from '@/lib/business-details';
+import { BusinessContentSection, BusinessPhotoSection } from './business-content';
 import { PlanEditControls, TripLibraryManager } from './trip-edit-controls';
 import { RegisteredPhotoGallery } from './registered-photo-gallery';
 import { EntityShareControls } from './trip-share-controls';
@@ -297,9 +299,11 @@ export function ChatFeatureUnits({
         </section>
       );
     const place = findPlace(d.id);
+    const business = place ? null : businessDetails({ kind: findFood(d.id) ? 'food' : 'stay', id: d.id });
     return (
       <section className="tr-unit tr-chat-detail">
-        {d.registered ? <RegisteredPhotoGallery key={d.id} photos={d.photos} name={d.name}/>
+        {business?.registered ? <BusinessPhotoSection details={business}/>
+          : d.registered ? <RegisteredPhotoGallery key={d.id} photos={d.photos} name={d.name}/>
           : <><img className="tr-chat-detail-photo" src={d.image} alt={d.imageAlt} /><EntityPhotoSourceButton entityId={d.id} image={d.image} name={d.name}/></>}
         <Title icon={Info} label={`${d.kind} 상세정보`}>
           {d.name}
@@ -311,13 +315,13 @@ export function ChatFeatureUnits({
           ))}
         </div>
         <dl className="tr-chat-detail-facts">
-          <div>
+          {!business?.content && <div>
             <dt>가격 기준</dt>
             <dd>
               {d.price}
               <small>{d.priceLabel}</small>
             </dd>
-          </div>
+          </div>}
           <div>
             <dt>운영 정보</dt>
             <dd>{d.hours}</dd>
@@ -333,7 +337,7 @@ export function ChatFeatureUnits({
             </div>
           )}
         </dl>
-        {d.menu.length > 0 && (
+        {business?.content ? <BusinessContentSection details={business}/> : d.menu.length > 0 && (
           <ul className="tr-feature-list">
             {d.menu.map((m) => (
               <li key={m.name}>
