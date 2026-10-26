@@ -4,6 +4,7 @@ import { businessDetails } from '@/lib/business-details';
 import { findPlace, getRegisteredEntity } from '@/lib/trip-data';
 import type { Visit } from '@/lib/trip-engine';
 import { SocialSummary } from './spotlog-social';
+import { PlacePhotoSection } from './place-photo-section';
 import {
   BusinessContentSection,
   BusinessPhotoSection,
@@ -95,6 +96,7 @@ export function CommunityVisitAccordion({
             <BusinessContentSection details={business} compact />
           </>
         )}
+        {place && <PlacePhotoSection place={place} compact />}
         <dl className="tr-course-visit-facts">
           {location && (
             <div>

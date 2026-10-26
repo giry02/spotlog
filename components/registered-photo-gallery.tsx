@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
-import type { RegisteredPhoto } from '@/lib/registered-catalog';
+import type { PhotoSource } from '@/lib/photo-source';
 import { PhotoSourceButton } from './photo-source-modal';
 
-export function RegisteredPhotoGallery({photos,name}:{photos:readonly RegisteredPhoto[];name:string}){
+export function RegisteredPhotoGallery({photos,name}:{photos:readonly PhotoSource[];name:string}){
   const [active,setActive]=useState(0);
   const [failedPhotoId,setFailedPhotoId]=useState<string|null>(null);
   const photo=photos[Math.min(active,Math.max(0,photos.length-1))];

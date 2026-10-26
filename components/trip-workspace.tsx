@@ -86,8 +86,7 @@ import { TripHeaderNavigation } from '@/components/trip-header-navigation';
 import { placeMapCoordinates } from '@/lib/trip-map-data';
 import { PlanEditControls, CandidateProposal, CandidateReview, TripLibraryManager, tripDayDate } from '@/components/trip-edit-controls';
 import { SpotlogAppFeaturePanel, SpotlogNavigationCard, TripAppActions } from '@/components/spotlog-app-features';
-import { RegisteredPhotoGallery } from '@/components/registered-photo-gallery';
-import { EntityPhotoSourceButton } from '@/components/photo-source-modal';
+import { PlacePhotoSection } from '@/components/place-photo-section';
 import { TripReorderControls } from '@/components/trip-reorder-controls';
 import { EntityShareControls, TripShareControls } from '@/components/trip-share-controls';
 import { DiscoveryMediaUnit } from '@/components/discovery-media';
@@ -2571,15 +2570,14 @@ export default function TripWorkspace() {
               detail?.reference.kind === 'place' &&
               modalEntity && (
                 <div className="tr-business-detail">
-                  {modalPlace?.registered && modalPlace.photos ? <RegisteredPhotoGallery name={modalPlace.name} photos={modalPlace.photos}/> : <figure className="tr-detail-photo">
+                  {modalPlace ? <PlacePhotoSection place={modalPlace}/> : <figure className="tr-detail-photo">
                     <img
                       src={modalEntity.image}
-                      alt={modalPlace?.imageKind === 'illustration' ? `${modalPlace.name} 안내용 공통 일러스트` : modalEntity.imageAlt}
+                      alt={modalEntity.imageAlt}
                       width={600}
                       height={300}
                     />
                   </figure>}
-                  {modalPlace && !modalPlace.registered && <EntityPhotoSourceButton entityId={modalPlace.id} image={modalEntity.image} name={modalPlace.name}/>}
                   <section className="tr-detail-intro">
                     <span className="tr-detail-category">장소 정보</span>
                     <h3>{modalEntity.headline}</h3>

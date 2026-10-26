@@ -23,6 +23,7 @@ import type { TripAction, TripSession, TripState } from '@/lib/trip-engine';
 import type { OpenBusiness } from '@/components/business-detail';
 import { businessDetails } from '@/lib/business-details';
 import { BusinessContentSection, BusinessPhotoSection } from './business-content';
+import { PlacePhotoSection } from './place-photo-section';
 import { PlanEditControls, TripLibraryManager } from './trip-edit-controls';
 import { RegisteredPhotoGallery } from './registered-photo-gallery';
 import { EntityShareControls } from './trip-share-controls';
@@ -302,7 +303,8 @@ export function ChatFeatureUnits({
     const business = place ? null : businessDetails({ kind: findFood(d.id) ? 'food' : 'stay', id: d.id });
     return (
       <section className="tr-unit tr-chat-detail">
-        {business?.registered ? <BusinessPhotoSection details={business}/>
+        {place ? <PlacePhotoSection place={place}/>
+          : business?.registered ? <BusinessPhotoSection details={business}/>
           : d.registered ? <RegisteredPhotoGallery key={d.id} photos={d.photos} name={d.name}/>
           : <><img className="tr-chat-detail-photo" src={d.image} alt={d.imageAlt} /><EntityPhotoSourceButton entityId={d.id} image={d.image} name={d.name}/></>}
         <Title icon={Info} label={`${d.kind} 상세정보`}>
