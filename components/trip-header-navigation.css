@@ -1,7 +1,8 @@
 .tr-device header.tr-topbar {
   display: block;
-  padding: 8px 16px;
+  padding: 6px 16px;
   border-bottom: 1px solid var(--border);
+  background: var(--background);
 }
 
 .tr-header-navigation {
@@ -14,49 +15,34 @@
 
 .tr-header-navigation .tr-header-link {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  min-width: 0;
-  min-height: 58px;
-  padding: 4px 2px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
   border: 0;
   border-radius: 12px;
   background: transparent;
-  color: #55564f;
+  color: var(--foreground);
   -webkit-tap-highlight-color: transparent;
 }
 
 .tr-header-icon {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border-radius: 11px;
-  background: #eeeee8;
-  color: #55564f;
-}
-
-.tr-header-label {
-  font-size: 11px;
-  font-weight: 600;
-  line-height: 14px;
-  letter-spacing: -0.3px;
-  white-space: nowrap;
+  background: transparent;
+  color: inherit;
 }
 
 .tr-header-link-accent .tr-header-icon {
-  background: #fff0eb;
-  color: #c34d38;
-}
-
-.tr-header-link-accent .tr-header-label {
-  color: #a34332;
+  color: var(--accent-coral);
 }
 
 .tr-header-navigation .tr-header-link:focus-visible {
-  outline: 2px solid #ff4f35;
+  outline: 2px solid var(--accent-coral);
   outline-offset: 2px;
 }
 
@@ -65,18 +51,18 @@
 }
 
 .tr-header-navigation .tr-header-link:not(:disabled):active {
-  background: #eeeee8;
+  background: var(--secondary);
 }
 
 @media (hover: hover) {
   .tr-header-navigation .tr-header-link:not(:disabled):hover {
-    background: #eeeee880;
+    background: var(--secondary);
   }
 }
 
 @media (min-width: 601px) {
   .moa-device.tr-device header.tr-topbar {
-    padding: 8px max(24px, calc((100% - 960px) / 2));
+    padding: 6px max(24px, calc((100% - 960px) / 2));
   }
 }
 

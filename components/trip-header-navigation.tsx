@@ -51,13 +51,13 @@ export function TripHeaderNavigation({
           type="button"
           className={`tr-header-link${accent ? ' tr-header-link-accent' : ''}`}
           aria-label={label}
+          title={label}
           disabled={disabled}
           onClick={onClick}
         >
           <span className="tr-header-icon" aria-hidden="true">
-            <Icon size={20} strokeWidth={1.8} />
+            <Icon size={22} strokeWidth={1.8} />
           </span>
-          <span className="tr-header-label">{label}</span>
         </button>
       ))}
     </nav>
