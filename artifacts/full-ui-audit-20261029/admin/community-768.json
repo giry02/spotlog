@@ -1,0 +1,18 @@
+{
+  "width": 768,
+  "page": "여행기·커뮤니티",
+  "docOverflow": 0,
+  "mainOverflow": 0,
+  "tables": [],
+  "tabs": [
+    {
+      "gap": "6px",
+      "x": 16,
+      "y": 349,
+      "w": 721,
+      "h": 49
+    }
+  ],
+  "smallButtons": [],
+  "horizontalOverflowElements": []
+}

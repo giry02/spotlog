@@ -1,8 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react';
 import type { AiTranslationRequest, TranslationAdapter } from './aiPlanner';
-import { LanguageControls, useLocale } from './locale';
+import { ENGLISH_READING_ENABLED, LanguageControls, useLocale } from './locale';
 import { createTranslationCache, localTranslationAdapter, TRANSLATION_GLOSSARY_VERSION, translationState, validateTranslationResponse, type TranslationRecord } from './travelGuide';
 import './travel-guide.css';
+import { usePublicReview } from './publicReview';
+import { reviewedPublicTranslation } from './reviewServiceBridge';
 
 type ReadingStatus = 'original' | 'loading' | 'sample' | 'reviewed' | 'unavailable' | 'failed';
 type ReadingContext = {
@@ -31,6 +33,7 @@ export function ContentTranslationScope({ children }: { children: ReactNode }) {
 export function ContentLanguageControls() {
   const { locale } = useLocale();
   const reading = useContext(ReadingContext);
+  if (!ENGLISH_READING_ENABLED) return null;
   const statuses = Object.values(reading?.statuses ?? {});
   const loading = statuses.includes('loading');
   const failed = statuses.includes('failed');
@@ -55,6 +58,8 @@ export function TranslationText({ sourceId, sourceVersion, text, kind, glossaryV
   glossaryVersion?: string; as?: 'p' | 'span' | 'h1' | 'h2' | 'h3' | 'blockquote' | 'figcaption'; className?: string; adapter?: TranslationAdapter;
 }) {
   const { locale } = useLocale();
+  const { state: publicState } = usePublicReview();
+  const reviewed = reviewedPublicTranslation(publicState, sourceId, sourceVersion, text, glossaryVersion);
   const reading = useContext(ReadingContext);
   const report = reading?.report;
   const retryEpoch = reading?.retryEpoch ?? 0;
@@ -64,13 +69,14 @@ export function TranslationText({ sourceId, sourceVersion, text, kind, glossaryV
   const [result, setResult] = useState<{ key: string; record: TranslationRecord | null; failed: boolean }>({ key: '', record: null, failed: false });
   const request: AiTranslationRequest = { requestId: '', sourceId, sourceVersion, language: 'en', glossaryVersion, text, selectedPlaceIds: [], dayIds: [], lockedVisitIds: [] };
   const current = result.key === key ? result : null;
-  const state = translationState(current?.record ?? null, request);
+  const visibleRecord = reviewed ?? current?.record ?? null;
+  const state = translationState(visibleRecord, request);
   const ready = locale === 'en' && (state === 'sample' || state === 'reviewed');
   const status: ReadingStatus = locale === 'ko' || !text.trim() ? 'original' : current?.failed ? 'failed'
     : state === 'original' || state === 'stale' ? 'loading' : state;
 
   useEffect(() => {
-    if (locale !== 'en' || !text.trim()) return;
+    if (locale !== 'en' || !text.trim() || reviewed) return;
     const abort = new AbortController();
     const input: AiTranslationRequest = { requestId: crypto.randomUUID(), sourceId, sourceVersion, language: 'en', glossaryVersion, text, selectedPlaceIds: [], dayIds: [], lockedVisitIds: [] };
     const cached = cache.current.get(input);
@@ -89,9 +95,9 @@ export function TranslationText({ sourceId, sourceVersion, text, kind, glossaryV
       }
     })();
     return () => abort.abort();
-  }, [locale, sourceId, sourceVersion, text, glossaryVersion, key, adapter, retryEpoch]);
+  }, [locale, sourceId, sourceVersion, text, glossaryVersion, key, adapter, retryEpoch, reviewed?.translated]);
 
   useEffect(() => { report?.(id, status); }, [report, id, status]);
   useEffect(() => () => report?.(id, null), [report, id]);
-  return <Tag className={className} lang={ready ? 'en' : 'ko'} data-content-kind={kind}>{ready ? current?.record?.translated : text}</Tag>;
+  return <Tag className={className} lang={ready ? 'en' : 'ko'} data-content-kind={kind}>{ready ? visibleRecord?.translated : text}</Tag>;
 }

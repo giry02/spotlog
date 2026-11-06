@@ -1,0 +1,1591 @@
+
+> @spotlog/web@0.1.0 dev
+> vite --host 0.0.0.0 --port 5173 --strictPort --port 5210
+
+
+  VITE v8.2.2  ready in 327 ms
+
+  ➜  Local:   http://localhost:5210/
+  ➜  Network: http://172.27.208.1:5210/   vEthernet (Default …
+  ➜  Network: http://192.168.1.108:5210/  Wi-Fi
+  ➜  Network: http://172.25.112.1:5210/   vEthernet (WSL (Hyp…
+  ➜  press h + enter to show help
+오후 5:05:35 [vite] (client) page reload tests/zero-direction-review.html
+오후 5:10:37 [vite] (client) hmr update /tests/zero-direction-review.tsx
+오후 5:10:37 [vite] (client) hmr invalidate /tests/zero-direction-review.tsx Could not Fast Refresh ("true" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 5:10:37 [vite] (client) page reload tests/zero-direction-review.tsx
+오후 5:12:19 [vite] (client) hmr update /tests/zero-direction-review.tsx
+오후 5:12:19 [vite] (client) hmr update /tests/zero-direction-review.css
+오후 5:12:19 [vite] (client) hmr invalidate /tests/zero-direction-review.tsx Could not Fast Refresh ("true" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 5:12:19 [vite] (client) page reload tests/zero-direction-review.tsx
+오후 5:15:58 [vite] (client) hmr update /tests/zero-direction-review.css
+오후 5:17:18 [vite] (client) hmr update /tests/zero-direction-review.css
+오후 5:19:00 [vite] (client) hmr update /tests/zero-direction-review.tsx
+오후 5:19:00 [vite] (client) hmr invalidate /tests/zero-direction-review.tsx Could not Fast Refresh ("true" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 5:19:00 [vite] (client) page reload tests/zero-direction-review.tsx
+오후 5:27:16 [vite] (client) hmr update /tests/zero-direction-review.css
+오후 6:00:10 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 6:00:10 [vite] (client) hmr update /src/together/chat-workspace.css
+오후 6:01:33 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 6:01:33 [vite] (client) hmr update /src/together/chat-workspace.css
+오전 11:49:12 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오전 11:49:58 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오전 11:50:23 [vite] (client) hmr update /src/together/together.css
+오전 11:50:45 [vite] (client) hmr update /src/together/chat-workspace.css
+오전 11:50:56 [vite] (client) hmr update /src/together/group-discovery.css
+오전 11:55:44 [vite] (client) hmr update /src/App.tsx
+오전 11:55:44 [vite] (client) hmr update /src/App.tsx
+오전 11:55:44 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:55:44 [vite] (client) hmr update /src/BottomSheet.tsx
+오전 11:55:44 [vite] (client) page reload src/main.tsx
+오전 11:55:45 [vite] (client) [Unhandled error] ReferenceError: useConsumerDensity is not defined
+ > App src/App.tsx?t=1793588144738:708:2
+ > Object.react_stack_bottom_frame ../node_modules/react-dom/cjs/react-dom-client.development.js:25904:19
+ > renderWithHooks ../node_modules/react-dom/cjs/react-dom-client.development.js:7662:21
+ > updateFunctionComponent ../node_modules/react-dom/cjs/react-dom-client.development.js:10166:18
+ > beginWork ../node_modules/react-dom/cjs/react-dom-client.development.js:11778:17
+ > runWithFiberInDEV ../node_modules/react-dom/cjs/react-dom-client.development.js:871:29
+ > performUnitOfWork ../node_modules/react-dom/cjs/react-dom-client.development.js:17641:21
+ > workLoopSync ../node_modules/react-dom/cjs/react-dom-client.development.js:17469:40
+ > renderRootSync ../node_modules/react-dom/cjs/react-dom-client.development.js:17450:10
+ > performWorkOnRoot ../node_modules/react-dom/cjs/react-dom-client.development.js:16583:34
+
+오전 11:55:45 [vite] (client) [console.warn] An error occurred in the <App> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+오전 11:58:09 [vite] (client) hmr update /src/consumer-density.css
+오후 2:34:09 [vite] (client) hmr update /src/together/together.css
+오후 2:34:09 [vite] (client) hmr update /src/together/group-discovery.css
+오후 2:35:08 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 2:35:33 [vite] (client) hmr update /src/together/chat-workspace.css
+오후 2:35:33 [vite] (client) hmr update /src/together/chat-expressions.css
+오후 2:35:52 [vite] (client) hmr update /src/together/conversation-summary.css
+오후 2:36:08 [vite] (client) hmr update /src/consumer-density.css
+오후 2:36:08 [vite] (client) hmr update /src/consumer-density.css
+오후 2:39:42 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 2:39:42 [vite] (client) hmr update /src/together/chat-workspace.css
+오후 2:39:46 [vite] (client) page reload tests/layout-consistency-review.html
+오후 2:40:38 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 2:40:38 [vite] (client) hmr update /src/together/chat-workspace.css
+오후 2:41:47 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 2:42:23 [vite] (client) hmr update /src/consumer-density.css
+오후 2:46:05 [vite] (client) hmr update /src/together/together.css
+오후 2:46:28 [vite] (client) hmr update /src/navigation-spacing.css
+오후 2:46:47 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 2:46:47 [vite] (client) hmr update /src/together/conversation-summary.css
+오후 2:47:14 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 2:47:34 [vite] (client) hmr update /src/consumer-density.css
+오후 2:49:02 [vite] (client) hmr update /src/together/together.css
+오후 3:13:50 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:14:12 [vite] (client) hmr update /src/App.tsx
+오후 3:14:12 [vite] Internal server error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 19)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:14:12 [vite] Internal server error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 19)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:14:12 [vite] Internal server error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 19)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:14:12 [vite] (client) Pre-transform error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+오후 3:14:12 [vite] (client) Pre-transform error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+오후 3:14:12 [vite] (client) Pre-transform error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+오후 3:14:12 [vite] Internal server error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 19)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:14:12 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 3:14:12 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 3:14:12 [vite] (client) Pre-transform error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+오후 3:14:12 [vite] Internal server error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 19)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:14:12 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 3:14:12 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 3:14:12 [vite] (client) Pre-transform error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+오후 3:14:12 [vite] Internal server error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 19)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:14:12 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 3:14:12 [vite] (client) Pre-transform error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+오후 3:14:12 [vite] Internal server error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 19)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:14:12 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 3:14:12 [vite] (client) Pre-transform error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+오후 3:14:12 [vite] Internal server error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  50 |  import { ScreenHeader } from "./ScreenHeader";
+  51 |  import { publicPlaceRegion, filterHomePlaces } from "./homeDiscovery";
+  52 |  import "./recommendation-home.css";
+     |          ^
+  53 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  54 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 19)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:14:12 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 3:14:14 [vite] (client) hmr update /src/ScreenHeader.tsx
+오후 3:14:14 [vite] (client) hmr update /src/screen-header.css
+오후 3:14:16 [vite] (client) [console.error] [vite] Failed to reload /src/App.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+오후 3:15:43 [vite] (client) page reload src/App.tsx
+오후 3:15:43 [vite] (client) Pre-transform error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+  53 |  import "./recommendation-home.css";
+     |          ^
+  54 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  55 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+오후 3:15:43 [vite] (client) Pre-transform error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+  53 |  import "./recommendation-home.css";
+     |          ^
+  54 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  55 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+오후 3:15:44 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:15:44 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:15:44 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:15:44 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:15:44 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:15:44 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:15:44 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:15:44 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:15:44 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:15:44 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:15:44 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:15:44 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:15:44 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:15:44 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:15:44 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:15:44 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:15:44 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:15:44 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:15:47 [vite] (client) Pre-transform error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+  53 |  import "./recommendation-home.css";
+     |          ^
+  54 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  55 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+오후 3:15:47 [vite] Internal server error: Failed to resolve import "./recommendation-home.css" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:75:7
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+  53 |  import "./recommendation-home.css";
+     |          ^
+  54 |  import { createLocalRepository, PLACE_DIRECTORY_KEY } from "./localRepository";
+  55 |  import { LandmarkGuideCard } from "./LandmarkGuideCard";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 20)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:22 [vite] (client) page reload src/App.tsx
+오후 3:17:22 [vite] (client) hmr update /src/ScreenHeader.tsx
+오후 3:17:22 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:22 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:23 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:23 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:23 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:23 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:23 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:23 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:23 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:23 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:23 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:23 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:23 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:23 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:23 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:23 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:23 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:23 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:23 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:23 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:23 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:24 [vite] (client) page reload src/recommendation-home.css
+오후 3:17:24 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:24 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:24 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:24 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:24 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:24 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:24 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:24 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:25 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:25 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:25 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:25 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:25 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:25 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:25 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:25 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:17:25 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:17:25 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:20 [vite] (client) page reload tests/layout-consistency-review.tsx
+오후 3:19:20 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:20 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:20 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:20 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:20 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:20 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:20 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:20 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:20 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:20 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:21 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:21 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:21 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:21 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:21 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:21 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:21 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:33 [vite] (client) page reload src/App.tsx
+오후 3:19:33 [vite] (client) hmr update /src/consumer-density.css
+오후 3:19:34 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:34 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:34 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:34 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:34 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:34 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:34 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:34 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:34 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:34 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:34 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:34 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:34 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:34 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:34 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:34 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:34 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:19:35 [vite] (client) Pre-transform error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+오후 3:19:35 [vite] Internal server error: Failed to resolve import "./together/HomeCommunity" from "src/App.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: C:/Users/Giry/Documents/Spotlog/web/src/App.tsx:72:26
+  48 |  import InterestPlacesMap from "./InterestPlacesMap";
+  49 |  import TogetherApp from "./together/TogetherApp";
+  50 |  import HomeCommunity from "./together/HomeCommunity";
+     |                             ^
+  51 |  import { ScreenHeader, ScreenTabs } from "./ScreenHeader";
+  52 |  import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from "./homeDiscovery";
+      at TransformPluginContext._formatLog (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31147:39)
+      at TransformPluginContext.error (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:31144:14)
+      at normalizeUrl (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28083:18)
+      at async file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28153:30
+      at async Promise.all (index 17)
+      at async TransformPluginContext.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:28119:4)
+      at async EnvironmentPluginContainer.transform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:30932:14)
+      at async loadAndTransform (file:///C:/Users/Giry/Documents/Spotlog/node_modules/vite/dist/node/chunks/node.js:20671:26)
+오후 3:20:25 [vite] (client) page reload src/together/homeCommunityModel.ts
+오후 3:23:23 [vite] (client) hmr update /src/together/home-community.css
+오후 3:24:00 [vite] (client) hmr update /src/App.tsx
+오후 3:25:32 [vite] (client) page reload tests/home-community-review.html
+오후 3:26:47 [vite] (client) hmr update /src/App.tsx
+오후 3:26:47 [vite] (client) hmr update /src/consumer-density.css
+오후 3:28:06 [vite] (client) hmr update /src/together/home-community.css
+오후 3:28:27 [vite] (client) hmr update /src/App.tsx
+오후 3:28:27 [vite] (client) hmr update /src/screen-header.css
+오후 3:28:40 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:30:26 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오후 3:30:26 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:32:13 [vite] (client) hmr update /src/screen-header.css
+오후 3:32:13 [vite] (client) hmr update /src/ScreenHeader.tsx
+오후 3:32:13 [vite] (client) hmr update /src/App.tsx
+오후 3:35:10 [vite] (client) hmr update /src/consumer-density.css
+오후 3:36:21 [vite] (client) hmr update /src/App.tsx
+오후 3:48:18 [vite] (client) hmr update /src/App.tsx
+오후 3:48:18 [vite] (client) hmr update /src/together/HomeCommunity.tsx
+오후 3:48:18 [vite] (client) hmr update /src/LandmarkGuideCard.tsx
+오후 3:48:18 [vite] (client) hmr update /src/SavedLandmarkDetailSheet.tsx
+오후 3:48:18 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오후 3:48:18 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:48:53 [vite] (client) hmr update /src/PersonalTrip.tsx
+오후 3:48:53 [vite] (client) hmr update /src/AiPlannerSheet.tsx
+오후 3:48:53 [vite] (client) hmr update /src/TripCandidateReview.tsx
+오후 3:48:53 [vite] (client) hmr update /src/NearbyBusinessSheet.tsx
+오후 3:49:09 [vite] (client) hmr update /src/TripPlacePicker.tsx

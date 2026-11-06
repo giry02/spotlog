@@ -1,0 +1,52 @@
+{
+  "base": "http://127.0.0.1:5216/spotlog/",
+  "results": [
+    {
+      "width": 320,
+      "icon": {
+        "width": 36,
+        "height": 36,
+        "icon": "16"
+      },
+      "oneFooter": true,
+      "commentReport": true,
+      "replyReport": true,
+      "onlyOneSheet": true,
+      "draftPreserved": true,
+      "ownAndDeletedExcluded": true,
+      "receiptVerified": false
+    },
+    {
+      "width": 390,
+      "icon": {
+        "width": 36,
+        "height": 36,
+        "icon": "16"
+      },
+      "oneFooter": true,
+      "commentReport": true,
+      "replyReport": true,
+      "onlyOneSheet": true,
+      "draftPreserved": true,
+      "ownAndDeletedExcluded": true,
+      "receiptVerified": false
+    },
+    {
+      "width": 460,
+      "icon": {
+        "width": 36,
+        "height": 36,
+        "icon": "16"
+      },
+      "oneFooter": true,
+      "commentReport": true,
+      "replyReport": true,
+      "onlyOneSheet": true,
+      "draftPreserved": true,
+      "ownAndDeletedExcluded": true,
+      "receiptVerified": false
+    }
+  ],
+  "errors": [],
+  "note": "Isolated browser only; synthetic comment fixtures never sent to live service."
+}

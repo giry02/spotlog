@@ -1,0 +1,75 @@
+const { chromium } = require('C:/Users/Giry/.codex/worktrees/a125/Spotlog/node_modules/@playwright/test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const base = 'http://127.0.0.1:5210';
+async function main() {
+  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const checks = [], errors = [];
+  try {
+    for (const width of [320, 390, 460]) {
+      const context = await browser.newContext({ viewport: { width, height: 844 }, isMobile: true, hasTouch: true });
+      const page = await context.newPage();
+      page.on('pageerror', error => errors.push(String(error)));
+      await page.goto(base + '/tests/account-state.html#profile');
+      await page.locator('.guest-profile-card').waitFor();
+      await page.getByRole('button', { name: '로그인', exact: true }).click();
+      await page.getByLabel('이메일', { exact: true }).fill('qa@example.invalid');
+      await page.getByLabel('비밀번호', { exact: true }).fill('unverified');
+      await page.getByRole('button', { name: '이메일로 로그인', exact: true }).click();
+      await page.getByRole('heading', { name: '이메일 인증', exact: true }).waitFor();
+      const code = page.getByLabel('이메일 인증번호', { exact: true });
+      await code.fill('999999');
+      await page.getByRole('button', { name: '인증번호 다시 받기', exact: true }).click();
+      await page.getByText('인증번호를 다시 보냈어요. 최신 번호를 확인하세요.').waitFor();
+      assert.equal(await code.inputValue(), '');
+      assert.equal(await page.getByRole('button', { name: '인증하고 시작하기', exact: true }).isDisabled(), true);
+      assert.equal(await code.evaluate(element => document.activeElement === element), true);
+      assert.equal(await page.locator('.member-account-card').count(), 0);
+      await page.screenshot({ path: path.join(__dirname, width + '-verify-resend-clears-old-code.png') });
+      await code.fill('000000');
+      await page.getByRole('button', { name: '인증하고 시작하기', exact: true }).click();
+      await page.getByRole('alert').waitFor();
+      assert.equal(await code.inputValue(), '000000');
+      assert.equal(await page.locator('.member-account-card').count(), 0);
+      await code.fill('123456');
+      await page.getByRole('button', { name: '인증하고 시작하기', exact: true }).click();
+      await page.locator('.account-identity').waitFor();
+      checks.push({ width, state: 'unverified-login-resend-clears-stale-code-and-focuses' });
+      await context.close();
+    }
+    const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+    const page = await context.newPage();
+    page.on('pageerror', error => errors.push(String(error)));
+    await page.goto(base + '/#profile');
+    await page.locator('.guest-profile-card').waitFor();
+    const records = await page.evaluate(() => Object.fromEntries(Object.keys(localStorage).filter(key => key.startsWith('spotlog.')).map(key => [key, localStorage.getItem(key)])));
+    await page.getByRole('button', { name: '로그인', exact: true }).click();
+    await page.getByRole('button', { name: '이메일로 로그인', exact: true }).click();
+    await page.locator('.member-account-card').waitFor();
+    await page.evaluate(() => window.dispatchEvent(new Event('spotlog:account-expired')));
+    await page.locator('.guest-profile-card').waitFor();
+    assert.equal(await page.evaluate(() => sessionStorage.getItem('spotlog.review.account.session.v1')), null);
+    assert.deepEqual(await page.evaluate(() => Object.fromEntries(Object.keys(localStorage).filter(key => key.startsWith('spotlog.')).map(key => [key, localStorage.getItem(key)]))), records);
+    await page.reload();
+    await page.locator('.guest-profile-card').waitFor();
+    checks.push({ width: 390, state: 'expired-review-session-clears-auth-and-preserves-records' });
+    await page.goto(base + '/tests/account-state.html#profile');
+    await page.locator('.guest-profile-card').waitFor();
+    await page.getByRole('button', { name: '로그인', exact: true }).click();
+    await page.getByLabel('이메일', { exact: true }).fill('qa@example.invalid');
+    await page.getByLabel('비밀번호', { exact: true }).fill('correct-password');
+    await page.getByRole('button', { name: '이메일로 로그인', exact: true }).click();
+    await page.getByRole('button', { name: '닫기', exact: true }).click();
+    await page.getByRole('dialog').waitFor({ state: 'hidden' });
+    await page.waitForTimeout(300);
+    assert.equal(await page.locator('.member-account-card').count(), 0);
+    await page.locator('.guest-profile-card').waitFor();
+    checks.push({ width: 390, state: 'closed-pending-login-never-applies-late-response' });
+    await context.close();
+    assert.deepEqual(errors, []);
+    fs.writeFileSync(path.join(__dirname, 'failure-regression-results.json'), JSON.stringify({ passed: true, checks, errors }, null, 2));
+    console.log('Passed ' + checks.length + ' failure regression states');
+  } finally { await browser.close(); }
+}
+main().catch(error => { fs.writeFileSync(path.join(__dirname, 'failure-regression-failure.txt'), String(error.stack)); console.error(error); process.exitCode = 1; });

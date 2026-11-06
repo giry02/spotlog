@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-13",
+  "base": "http://127.0.0.1:5293/spotlog/",
+  "checks": [
+    {
+      "name": "320: one-tap explicit snapshot, photos and customer shell; private trip and admin sentinel untouched",
+      "detail": [
+        {
+          "name": "spotlog-offline-trip-v1-d4c320cd-d445-4f0e-bec6-d0dfdb4cd956",
+          "entries": 16
+        }
+      ]
+    },
+    {
+      "name": "320: close page and reopen offline preserves DAYs, places, photos and tile-free route",
+      "detail": "pass"
+    },
+    {
+      "name": "320: full browser process restart and cold navigation work with network disabled",
+      "detail": "pass"
+    },
+    {
+      "name": "390: one-tap explicit snapshot, photos and customer shell; private trip and admin sentinel untouched",
+      "detail": [
+        {
+          "name": "spotlog-offline-trip-v1-0f84fd3a-d19a-4d41-9f36-8b3b150cd760",
+          "entries": 16
+        }
+      ]
+    },
+    {
+      "name": "390: close page and reopen offline preserves DAYs, places, photos and tile-free route",
+      "detail": "pass"
+    },
+    {
+      "name": "390: full browser process restart and cold navigation work with network disabled",
+      "detail": "pass"
+    },
+    {
+      "name": "browser Offline signal shows saved trip badge/library notice and route diagram without modifying the trip",
+      "detail": "pass"
+    },
+    {
+      "name": "production draft location policy blocks GPS permission requests; stored route remains usable",
+      "detail": "pass"
+    },
+    {
+      "name": "failed offline package update retains old usable package and all actual edited trip data",
+      "detail": "pass"
+    },
+    {
+      "name": "explicit retry updates snapshot and keeps private visit identity",
+      "detail": "pass"
+    },
+    {
+      "name": "remove explicit offline copy preserves actual trip, notes and administrator data",
+      "detail": "pass"
+    },
+    {
+      "name": "administrator entry is not served by offline customer fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "optional photo download failure keeps usable itinerary and clearly identifies omitted photos",
+      "detail": {
+        "missingImages": 1
+      }
+    },
+    {
+      "name": "460: one-tap explicit snapshot, photos and customer shell; private trip and admin sentinel untouched",
+      "detail": [
+        {
+          "name": "spotlog-offline-trip-v1-b4b40373-b060-4341-9756-0e388c2b5c46",
+          "entries": 15
+        }
+      ]
+    },
+    {
+      "name": "460: close page and reopen offline preserves DAYs, places, photos and tile-free route",
+      "detail": "pass"
+    },
+    {
+      "name": "460: full browser process restart and cold navigation work with network disabled",
+      "detail": "pass"
+    }
+  ],
+  "errors": [],
+  "pass": true
+}

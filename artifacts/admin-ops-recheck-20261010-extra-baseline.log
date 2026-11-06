@@ -1,0 +1,9 @@
+AssertionError [ERR_ASSERTION]: ISO startsAt must remain visible in datetime-local editor
+    at main (C:\Users\Giry\Documents\Spotlog\web\tests\adminOperationsRecheckBrowser.cjs:31:12) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '',
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

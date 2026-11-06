@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-12",
+  "commit": "95a7c0a504f8af60113f8f4e7d1ebfa8700469e9",
+  "parent": "a26748a622464f7cb2df180efd97a88b37808e02",
+  "branches": ["codex/mobile-foundation", "codex/admin-manual-20261012"],
+  "pagesRun": 38223209123,
+  "pagesConclusion": "success",
+  "manualUrl": "https://giry02.github.io/spotlog/manual/admin/",
+  "singleHtmlUrl": "https://giry02.github.io/spotlog/manual/admin/spotlog-admin-manual.html",
+  "httpStatus": 200,
+  "screens": 53,
+  "numberedFeatures": 310,
+  "files": 64,
+  "localChecks": 45,
+  "releaseBrowserChecks": 43,
+  "liveBrowserChecks": 45,
+  "liveBrowserErrors": 0,
+  "productSourcesChanged": false,
+  "customerBundle": "customer-MHHzSzN0.js",
+  "adminBundle": "admin-BdFqIH-7.js",
+  "adminSimplicityRevisionPublished": false
+}

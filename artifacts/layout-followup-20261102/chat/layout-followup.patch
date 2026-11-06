@@ -1,0 +1,228 @@
+--- before/web/src/together/ChatWorkspace.tsx
++++ web/src/together/ChatWorkspace.tsx
+@@ -47,6 +47,8 @@
+   const input = useRef<HTMLTextAreaElement>(null);
+   const searchInput = useRef<HTMLInputElement>(null);
+   const stream = useRef<HTMLDivElement>(null);
++  const workspace = useRef<HTMLDivElement>(null);
++  const dock = useRef<HTMLDivElement>(null);
+   const anchor = useRef<{ id: string; top: number } | null>(null);
+   const scrollRoot = () => {
+     let element = stream.current?.parentElement;
+@@ -56,6 +58,33 @@
+     }
+     return document.scrollingElement as HTMLElement | null;
+   };
++  const resizeComposer = () => {
++    const element = input.current;
++    if (!element) return;
++    const style = getComputedStyle(element);
++    const border = parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
++    const padding = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
++    const minimum = parseFloat(style.minHeight) || 46;
++    let maximum = (parseFloat(style.lineHeight) || 24) * 4 + padding + border;
++    const form = element.closest('form');
++    if (dock.current?.querySelector('.tg-composer-extras') && form) {
++      const viewport = window.visualViewport;
++      const viewportHeight = viewport?.scale === 1 ? Math.min(window.innerHeight, viewport.height) : window.innerHeight;
++      const available = Math.min(viewportHeight, scrollRoot()?.clientHeight || viewportHeight);
++      const headerHeight = workspace.current?.previousElementSibling?.getBoundingClientRect().height || 68;
++      const formStyle = getComputedStyle(form);
++      const formInset = parseFloat(formStyle.paddingTop) + parseFloat(formStyle.paddingBottom) + parseFloat(formStyle.borderTopWidth) + parseFloat(formStyle.borderBottomWidth);
++      // Keep the current text, but make room for selectable preview controls.
++      const previewMinimum = 96;
++      const dockBudget = Math.max(minimum + formInset + 1, available - headerHeight - 120);
++      maximum = Math.max(minimum, Math.min(maximum, dockBudget - formInset - previewMinimum - 1));
++    }
++    element.style.overflowY = 'hidden';
++    element.style.height = 'auto';
++    const needed = element.scrollHeight + border;
++    element.style.height = `${Math.max(minimum, Math.min(needed, maximum))}px`;
++    element.style.overflowY = element.scrollHeight > element.clientHeight ? 'auto' : 'hidden';
++  };
+   const sorted = [...messages].sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt));
+   const unread = sorted.filter(item => item.authorId !== userId && (!boundary || item.createdAt > boundary));
+   const shown = sorted.filter(item => (person === 'all' || item.authorId === person) && (!query.trim() || `${memberName(state, item.authorId)} ${item.body} ${getChatSticker(item.stickerId)?.label || ''}`.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase())));
+@@ -92,6 +121,32 @@
+   };
+   useEffect(() => { if (searchOpen) searchInput.current?.focus({ preventScroll: true }); }, [searchOpen]);
+   useEffect(() => { if (highlight) { setQuery(''); setPerson('all'); } }, [highlight]);
++  useLayoutEffect(resizeComposer, [body, replyId, emojiOpen, stickerId, error, group.archived]);
++  useLayoutEffect(() => {
++    const header = workspace.current?.previousElementSibling;
++    const container = scrollRoot();
++    const updateMetrics = () => {
++      if (!workspace.current) return;
++      const viewport = window.visualViewport;
++      const viewportHeight = viewport?.scale === 1 ? Math.min(window.innerHeight, viewport.height) : window.innerHeight;
++      const height = Math.min(viewportHeight, container?.clientHeight || viewportHeight);
++      workspace.current.style.setProperty('--chat-viewport-height', `${height}px`);
++      if (header instanceof HTMLElement) workspace.current.style.setProperty('--chat-header-height', `${header.getBoundingClientRect().height}px`);
++      const composerHeight = dock.current?.querySelector<HTMLElement>('.tg-composer')?.getBoundingClientRect().height;
++      workspace.current.style.setProperty('--chat-composer-height', `${composerHeight ? Math.ceil(composerHeight) + 1 : 76}px`);
++      workspace.current.style.setProperty('--chat-dock-height', `${dock.current?.getBoundingClientRect().height || 76}px`);
++    };
++    const resized = () => { resizeComposer(); updateMetrics(); };
++    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(resized);
++    if (header) observer?.observe(header);
++    if (dock.current) observer?.observe(dock.current);
++    if (input.current) observer?.observe(input.current);
++    if (container) observer?.observe(container);
++    window.addEventListener('resize', resized);
++    window.visualViewport?.addEventListener('resize', resized);
++    resized();
++    return () => { observer?.disconnect(); window.removeEventListener('resize', resized); window.visualViewport?.removeEventListener('resize', resized); };
++  }, []);
+   useEffect(() => {
+     if (selectedMessage && !shown.some(item => item.id === selectedMessage && !item.deleted)) {
+       setSelectedMessage(''); setReactionMessage(''); setMessageTools('');
+@@ -110,13 +165,15 @@
+     anchor.current = target ? { id: target.id, top: target.getBoundingClientRect().top } : null;
+     setFontSize(size);
+   };
+-  return <div className="tg-chat-workspace" style={{ '--chat-text-size': `${fontSize}px` } as CSSProperties} onClick={event => {
++  return <div ref={workspace} className="tg-chat-workspace" style={{ '--chat-text-size': `${fontSize}px` } as CSSProperties} onClick={event => {
+     if (!(event.target as Element).closest('[data-message]')) closeMessageActions();
+   }}>
++    <div className="tg-chat-context" role="region" aria-label="채팅 도구와 공지" tabIndex={0}>
+     <div className="tg-room-tools"><button type="button" className="tg-room-summary" onClick={() => onSummary(boundary)}><Sparkles size={17}/><span>대화 요약·정리</span></button><button type="button" className="tg-icon" aria-label="대화 검색 열기" aria-expanded={searchOpen} onClick={() => setSearchOpen(value => !value)}><Search size={20}/></button><button type="button" className="tg-icon" aria-label="채팅방 도구" onClick={() => setMoreOpen(true)}><MoreHorizontal size={22}/></button></div>
+     {unread.length > 0 && <button type="button" className="tg-unread-summary" onClick={() => onSummary(boundary)}><MessageCircle size={18}/><span>안 읽은 대화 <strong>{unread.length}개</strong></span><span>정리 보기 →</span></button>}
+     {searchOpen && <div className="tg-room-search"><label><span className="ui-sr-only">대화 검색</span><Search size={17}/><input ref={searchInput} aria-label="대화 검색" placeholder="대화 내용·사람 검색" value={query} onChange={event => setQuery(event.target.value)}/>{query && <button type="button" className="tg-icon" aria-label="대화 검색 지우기" onClick={() => setQuery('')}><X size={16}/></button>}</label><select aria-label="대화 검색 대상" value={person} onChange={event => setPerson(event.target.value)}><option value="all">모든 멤버</option>{group.memberIds.map(id => <option key={id} value={id}>{memberName(state, id)}</option>)}</select><span aria-live="polite">{shown.length}개 대화</span></div>}
+     {notices.length > 0 && <details className="tg-chat-pinned"><summary><Bell size={17}/><span>{notices[0].title}</span><small>공지 {notices.length}</small><ChevronDown size={16}/></summary><div>{notices.map(item => <article key={item.id}><strong>{item.title}</strong><p>{item.body}</p></article>)}</div></details>}
++    </div>
+     <div className="tg-chat tg-room-stream" ref={stream} role="region" aria-label="채팅 대화">
+       {!shown.length && <div className="tg-empty"><MessageCircle size={28}/><h2>{query || person !== 'all' ? '검색 결과가 없어요' : '첫 인사를 나눠보세요'}</h2><p>이 방의 모임원끼리 대화를 확인해요.</p>{(query || person !== 'all') && <button onClick={() => { setQuery(''); setPerson('all'); }}>검색 초기화</button>}</div>}
+       {shown.map(message => {
+@@ -156,12 +213,15 @@
+       })}
+     </div>
+     {(highlight || sorted.length > 4) && <button type="button" className="tg-chat-latest" aria-label="최신 대화로 이동" title="최신 대화로 이동" onClick={latest}><ArrowDown size={20}/></button>}
+-    <div className="tg-composer-dock">{error && <div className="tg-composer-error tg-error" role="alert">{error}</div>}
++    <div ref={dock} className="tg-composer-dock">
++      {(error || replyId || emojiOpen && !group.archived || sticker) && <div className="tg-composer-extras" role="region" aria-label="답장·이모티콘 미리보기" tabIndex={0}>
++      {error && <div className="tg-composer-error tg-error" role="alert">{error}</div>}
+       {replyId && <div className="tg-reply-preview"><div><strong>{reply ? `${memberName(state, reply.authorId)}에게 답장` : '원문을 다시 확인해 주세요'}</strong><p>{reply?.body || (reply ? '이모티콘' : '원문을 볼 수 없어요. 답장을 취소한 뒤 보낼 수 있어요.')}</p></div><button type="button" className="tg-icon" aria-label="답장 취소" onClick={() => setReplyId('')}><X size={18}/></button></div>}
+       {emojiOpen && !group.archived && <ChatEmojiPicker onInsertEmoji={insert} onSelectSticker={id => { setStickerId(id); setEmojiOpen(false); input.current?.focus(); }} onClose={() => setEmojiOpen(false)}/>}
+       {sticker && <div className="tg-sticker-preview"><img src={sticker.src} alt={`선택한 이모티콘: ${sticker.label}`}/><strong>{sticker.label}</strong><button type="button" className="tg-icon" aria-label="선택한 이모티콘 빼기" onClick={() => setStickerId('')}><X size={18}/></button></div>}
++      </div>}
+       <form className="tg-composer" onSubmit={event => { event.preventDefault(); if ((!body.trim() && !sticker) || group.archived || (replyId && !reply)) return; if (onSend(body, sticker?.id, replyId || undefined)) { draftMemory.clear(draftContext); const empty = emptyChatDraft(); composerRef.current = empty; setComposer(empty); setEmojiOpen(false); } }}>
+-        <button className="tg-icon" type="button" aria-label="이모티콘 선택" aria-expanded={emojiOpen} disabled={group.archived} onClick={() => setEmojiOpen(value => !value)}><Smile size={21}/></button><button className="tg-icon" type="button" aria-label="멤버 태그" disabled={group.archived} onClick={() => setMentionOpen(true)}>@</button><textarea ref={input} id="tg-chat-input" aria-label="메시지" placeholder={group.archived ? '보관된 모임이에요' : '함께 나눌 이야기를 적어주세요'} value={body} onChange={event => setBody(event.target.value)} maxLength={4000} disabled={group.archived} rows={1}/><button className="tg-primary tg-icon" type="submit" aria-label="메시지 보내기" disabled={(!body.trim() && !sticker) || group.archived || Boolean(replyId && !reply)}><Send size={18}/></button>
++        <button className="tg-icon" type="button" aria-label="이모티콘 선택" aria-expanded={emojiOpen} disabled={group.archived} onClick={() => setEmojiOpen(value => !value)}><Smile size={21}/></button><button className="tg-icon" type="button" aria-label="멤버 태그" disabled={group.archived} onClick={() => setMentionOpen(true)}>@</button><textarea ref={input} id="tg-chat-input" aria-label="메시지" placeholder={group.archived ? '보관된 모임' : '메시지 입력'} value={body} onChange={event => setBody(event.target.value)} maxLength={4000} disabled={group.archived} rows={1}/><button className="tg-primary tg-icon" type="submit" aria-label="메시지 보내기" disabled={(!body.trim() && !sticker) || group.archived || Boolean(replyId && !reply)}><Send size={18}/></button>
+       </form>
+     </div>
+     {moreOpen && <BottomSheet title="채팅방 도구" onClose={() => setMoreOpen(false)}><div className="tg tg-room-options"><label>이 모임 안에서 대화방 이동<select value={roomRoute} onChange={event => { setMoreOpen(false); onNavigate(event.target.value); }}>{roomOptions.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label><div><strong>채팅 글자 크기</strong><div className="tg-font-options" role="group" aria-label="채팅 글자 크기">{[14, 16, 18, 20].map(size => <button key={size} type="button" aria-pressed={fontSize === size} onClick={() => resizeText(size)}>{size}px</button>)}</div></div><button type="button" onClick={() => { if (onRead()) { setBoundary(sorted.at(-1)?.createdAt); setMoreOpen(false); } }}><Check size={17}/>여기까지 읽음으로 표시</button>{canManage && <button type="button" onClick={() => { setMoreOpen(false); onNotice(); }}><Bell size={17}/>공지 작성</button>}<button type="button" onClick={() => { setMoreOpen(false); onNavigate(`group-${group.id}`); }}><Users size={17}/>모임 홈으로</button>{activity && <button type="button" onClick={() => { setMoreOpen(false); onNavigate(`activity-${activity.id}`); }}><MessageCircle size={17}/>이 일정 상세 보기</button>}</div></BottomSheet>}
+--- before/web/src/together/chat-workspace.css
++++ web/src/together/chat-workspace.css
+@@ -1,3 +1,6 @@
++.tg:has(>.tg-chat-workspace) { padding-bottom:0; }
++.tg-chat-workspace .tg-chat-context { position:sticky; top:var(--chat-header-height,68px); z-index:7; max-height:clamp(56px,calc(var(--chat-viewport-height,100dvh) - var(--chat-header-height,68px) - var(--chat-dock-height,76px) - 64px),40dvh); overflow-y:auto; overscroll-behavior:contain; padding-top:1px; background:var(--paper); border-bottom:1px solid var(--line); }
++.tg-chat-workspace :is(.tg-chat-context,.tg-composer-extras):focus-visible { outline:2px solid var(--accent); outline-offset:-2px; }
+ .tg-room-tools { display:flex; align-items:center; gap:8px; padding:8px 16px; }
+ .tg-room-tools .tg-room-summary { display:flex; align-items:center; gap:8px; margin-right:auto; min-height:44px; padding:10px 12px; color:#6b4d91; border-color:#e6dff1; background:#f7f3fc; font-size:14px; }
+ .tg .tg-unread-summary { display:flex; width:calc(100% - 32px); margin:0 16px 8px; align-items:center; gap:8px; padding:8px 12px; border-color:#d8e8df; color:#285f50; background:#f0f7f3; text-align:left; font-size:14px; line-height:20px; }
+@@ -11,6 +14,8 @@
+ .tg-chat-pinned summary span { min-width:0; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px; }
+ .tg-chat-pinned summary small { font-size:12px; white-space:nowrap; }
+ .tg-chat-pinned article { margin:0 12px; padding:12px 0; border-top:1px solid var(--line); }
++.tg-chat-pinned > div { max-height:min(240px,30dvh); overflow-y:auto; overscroll-behavior:contain; }
++.tg-chat-pinned article strong { display:block; overflow-wrap:anywhere; }
+ .tg-chat-workspace .tg-chat-pinned p { font-size:14px; line-height:20px; white-space:pre-wrap; overflow-wrap:anywhere; }
+ .tg-chat-workspace .tg-room-stream { padding:12px 16px 16px; gap:12px; }
+ .tg-chat-workspace .tg-room-stream .tg-chat-message { margin:0; gap:8px; }
+@@ -40,13 +45,17 @@
+ .tg-message-reactions,.tg-reaction-picker { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0; }
+ .tg-message-reactions button,.tg-reaction-picker button { min-width:44px; min-height:44px; padding:8px 10px; font-size:16px; }
+ .tg-message-reactions button[aria-pressed=true] { border-color:#6a8d7b; background:#eaf3ed; }
+-.tg .tg-chat-latest { position:sticky; bottom:calc(96px + env(safe-area-inset-bottom)); z-index:7; display:flex; align-items:center; justify-content:center; margin:0 16px 12px auto; width:44px; height:44px; padding:10px; border-radius:50%; background:#fff; box-shadow:0 3px 12px #00000014; }
++.tg .tg-chat-latest { position:sticky; bottom:calc(var(--chat-dock-height,76px) + 12px); z-index:7; display:flex; align-items:center; justify-content:center; margin:0 16px 12px auto; width:44px; height:44px; padding:10px; border-radius:50%; background:#fff; box-shadow:0 3px 12px #00000014; }
+ .tg-reply-preview { display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--line); background:#f7f7f2; }
+ .tg-reply-preview > div { flex:1; min-width:0; }
+ .tg-reply-preview strong { font-size:12px; color:#47695a; }
+ .tg-reply-preview p { margin:4px 0 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px; }
+ .tg-chat-workspace .tg-composer { gap:8px; }
+-.tg-chat-workspace .tg-composer textarea { min-width:0; font-size:16px; }
++.tg .tg-chat-workspace .tg-composer-dock { display:flex; flex-direction:column; max-height:max(var(--chat-composer-height,calc(76px + env(safe-area-inset-bottom))),calc(var(--chat-viewport-height,100dvh) - var(--chat-header-height,68px) - 120px)); }
++.tg-composer-extras { min-height:0; flex:0 1 auto; overflow-y:auto; overscroll-behavior:contain; }
++.tg-chat-workspace .tg-composer-extras>.chat-expression-picker { width:calc(100% - 24px); margin:10px 12px 0; }
++.tg-chat-workspace .tg-composer-dock>.tg-composer { flex:0 0 auto; }
++.tg .tg-chat-workspace .tg-composer textarea { min-width:0; min-height:46px; max-height:118px; padding:10px 12px; font-size:16px; line-height:24px; resize:none; }
+ .tg-room-options { display:grid; gap:20px; }
+ .tg-room-options label { display:grid; gap:8px; font-size:14px; font-weight:650; }
+ .tg-room-options select { font-size:16px; min-height:48px; }
+--- before/web/src/together/conversation-summary.css
++++ web/src/together/conversation-summary.css
+@@ -1,27 +1,28 @@
+ .conversation-digest { display:grid; gap:16px; min-width:0; padding:16px; border:1px solid var(--line); border-radius:16px; background:var(--paper, #fff); color:var(--ink); }
+ .conversation-digest .conversation-digest-heading { display:grid; gap:8px; }
+-.conversation-digest .conversation-digest-heading h3 { margin:0; font-size:var(--type-body); line-height:1.5; }
+-.conversation-digest .conversation-digest-heading p { margin:0; color:var(--muted); font-size:var(--type-subhead); line-height:1.5; }
++:is(.tg,.tg-sheet) .conversation-digest .conversation-digest-heading h3 { margin:0; font-size:16px; line-height:22px; }
++:is(.tg,.tg-sheet) .conversation-digest .conversation-digest-heading p { margin:0; color:var(--muted); font-size:14px; line-height:20px; }
+ .conversation-digest .conversation-digest-filters,.conversation-digest .conversation-digest-results { display:grid; gap:12px; min-width:0; }
+ .conversation-digest .conversation-digest-target,.conversation-digest .conversation-digest-dates { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
++.conversation-digest .conversation-digest-dates { grid-template-columns:repeat(auto-fit,minmax(min(100%,148px),1fr)); }
+ .conversation-digest label { display:grid; gap:8px; min-width:0; margin:0; }
+-.conversation-digest label>span { font-size:var(--type-subhead); font-weight:700; line-height:1.5; }
+-.conversation-digest select,.conversation-digest input { display:block; width:100%; min-width:0; max-width:100%; min-height:44px; padding:10px; color:var(--ink); background:white; border:1px solid var(--line); border-radius:11px; font-size:var(--type-body); font-weight:400; }
+-.conversation-digest button { min-width:0; min-height:44px; padding:10px 12px; display:inline-flex; align-items:center; justify-content:center; gap:8px; border:1px solid var(--line); border-radius:11px; background:white; color:var(--ink); font-size:var(--type-subhead); font-weight:700; line-height:1.5; overflow-wrap:anywhere; }
++:is(.tg,.tg-sheet) .conversation-digest label>span { font-size:14px; font-weight:700; line-height:20px; }
++:is(.tg,.tg-sheet) .conversation-digest select,:is(.tg,.tg-sheet) .conversation-digest input { display:block; width:100%; min-width:0; max-width:100%; min-height:44px; padding:10px; color:var(--ink); background:white; border:1px solid var(--line); border-radius:11px; font-size:16px; line-height:24px; font-weight:400; }
++:is(.tg,.tg-sheet) .conversation-digest button { min-width:0; min-height:44px; padding:10px 12px; display:inline-flex; align-items:center; justify-content:center; gap:8px; border:1px solid var(--line); border-radius:11px; background:white; color:var(--ink); font-size:14px; font-weight:700; line-height:20px; overflow-wrap:anywhere; }
+ .conversation-digest button:disabled { opacity:.45; cursor:default; }
+-.conversation-digest .conversation-digest-target button[aria-pressed=true],.conversation-digest .conversation-digest-collect { color:white; background:var(--ink); border-color:var(--ink); }
++.conversation-digest .conversation-digest-target button[aria-pressed=true],:is(.tg,.tg-sheet) .conversation-digest button.conversation-digest-collect { color:white; background:var(--ink); border-color:var(--ink); }
+ .conversation-digest :is(button,input,select):focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+-.conversation-digest .conversation-digest-meta,.conversation-digest .conversation-digest-result-meta>span { margin:0; color:var(--muted); font-size:var(--type-caption); line-height:1.5; overflow-wrap:anywhere; }
++:is(.tg,.tg-sheet) .conversation-digest .conversation-digest-meta,:is(.tg,.tg-sheet) .conversation-digest .conversation-digest-result-meta>span { margin:0; color:var(--muted); font-size:12px; line-height:16px; overflow-wrap:anywhere; }
+ .conversation-digest .conversation-digest-result-meta { display:grid; gap:6px; }
+-.conversation-digest .conversation-digest-result-meta>strong { font-size:var(--type-subhead); line-height:1.5; }
+-.conversation-digest .conversation-digest-status,.conversation-digest .conversation-digest-error { margin:0; padding:12px; background:#fff2ec; border-radius:10px; color:#914432; font-size:var(--type-subhead); line-height:1.5; }
+-.conversation-digest .conversation-digest-refresh { display:grid; gap:8px; padding:12px; border:1px solid var(--line); border-radius:10px; font-size:var(--type-subhead); line-height:1.5; }
++:is(.tg,.tg-sheet) .conversation-digest .conversation-digest-result-meta>strong { font-size:14px; line-height:20px; }
++:is(.tg,.tg-sheet) .conversation-digest .conversation-digest-status,:is(.tg,.tg-sheet) .conversation-digest .conversation-digest-error { margin:0; padding:12px; background:#fff2ec; border-radius:10px; color:#914432; font-size:14px; line-height:20px; }
++:is(.tg,.tg-sheet) .conversation-digest .conversation-digest-refresh { display:grid; gap:8px; padding:12px; border:1px solid var(--line); border-radius:10px; font-size:14px; line-height:20px; }
+ .conversation-digest .conversation-digest-group { display:grid; gap:8px; min-width:0; }
+-.conversation-digest .conversation-digest-group h4 { margin:4px 0 0; font-size:var(--type-body); line-height:1.5; }
++:is(.tg,.tg-sheet) .conversation-digest .conversation-digest-group h4 { margin:4px 0 0; font-size:16px; line-height:22px; }
+ .conversation-digest .conversation-digest-source { display:grid; gap:8px; min-width:0; padding:12px; border:1px solid var(--line); border-radius:12px; }
+-.conversation-digest .conversation-digest-source blockquote { margin:0; padding:0; border:0; color:var(--ink); font-size:var(--type-body); font-weight:400; line-height:1.7; white-space:pre-wrap; overflow-wrap:anywhere; }
++:is(.tg,.tg-sheet) .conversation-digest .conversation-digest-source blockquote { margin:0; padding:0; border:0; color:var(--ink); font-size:14px; font-weight:400; line-height:20px; white-space:pre-wrap; overflow-wrap:anywhere; }
+ .conversation-digest .conversation-digest-source button { justify-self:start; }
+ .conversation-digest .conversation-digest-empty { display:grid; gap:8px; padding:16px 0; }
+-.conversation-digest .conversation-digest-empty p { margin:0; font-size:var(--type-body); line-height:1.5; }
+-.conversation-digest .conversation-digest-empty>span { font-size:var(--type-subhead); color:var(--muted); line-height:1.5; }
++:is(.tg,.tg-sheet) .conversation-digest .conversation-digest-empty p { margin:0; font-size:14px; line-height:20px; }
++:is(.tg,.tg-sheet) .conversation-digest .conversation-digest-empty>span { font-size:14px; color:var(--muted); line-height:20px; }
+ .conversation-digest .conversation-digest-more { width:100%; }
+--- before/web/src/together/chat-expressions.css
++++ web/src/together/chat-expressions.css
+@@ -1,11 +1,11 @@
+ .tg .chat-expression-picker { min-width: 0; width: 100%; overflow: hidden; border: 1px solid #e4e4de; border-radius: 15px; color: var(--ink); background: #fff; }
+-.tg .chat-expression-picker button { min-height: 44px; border: 0; color: #62625e; background: transparent; font-size: var(--type-subhead); font-weight: 700; line-height: 1.4; }
++.tg .chat-expression-picker button { min-height: 44px; border: 0; color: #62625e; background: transparent; font-size: 14px; font-weight: 700; line-height: 20px; }
+ .tg .chat-expression-header { display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 8px 0 12px; border-bottom: 1px solid var(--line); }
+ .tg .chat-expression-tabs { min-width: 0; flex: 1; display: flex; gap: 14px; align-self: stretch; }
+ .tg .chat-expression-tabs > button { min-width: 60px; padding: 0 2px; border-bottom: 2px solid transparent; }
+ .tg .chat-expression-tabs > button[aria-selected=true] { color: var(--ink); border-color: var(--accent); }
+-.tg .chat-expression-header > .tg .chat-expression-close { width: 44px; flex: 0 0 44px; display: grid; place-items: center; padding: 0; }
+-.tg .chat-expression-categories { display: flex; gap: 7px; overflow-x: auto; padding: 8px 10px; border-bottom: 1px solid var(--line); scrollbar-width: thin; }
++.tg .chat-expression-header > .chat-expression-close { width: 44px; flex: 0 0 44px; display: grid; place-items: center; padding: 0; }
++.tg .chat-expression-categories { display: flex; gap: 8px; overflow-x: auto; padding: 8px 10px; border-bottom: 1px solid var(--line); scrollbar-width: thin; }
+ .tg .chat-expression-categories > button { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 7px 9px; border: 1px solid #dfdfda; border-radius: 10px; white-space: nowrap; }
+ .tg .chat-expression-categories > button[aria-pressed=true] { color: #fff; background: #242421; border-color: #242421; }
+ .tg .chat-expression-categories > button > span { font-size: 20px; line-height: 1; }
+@@ -16,11 +16,11 @@
+ .tg .chat-expression-emoji-grid > button { min-width: 0; width: 100%; min-height: 46px; display: grid; place-items: center; padding: 4px 0; border-radius: 10px; }
+ .tg .chat-expression-emoji-grid > button > span { font-size: 28px; line-height: 1.25; }
+ .tg .chat-expression-emoji-grid > button:hover { background: #f3f3ee; }
+-.tg .chat-expression-pack-name { margin: 0 0 7px; color: #777773; font-size: var(--type-caption); line-height: 1.5; }
++.tg .chat-expression-picker .chat-expression-pack-name { margin: 0 0 8px; color: #777773; font-size: 12px; line-height: 16px; }
+ .tg .chat-expression-sticker-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+ .tg .chat-expression-sticker-grid > button { display: flex; flex-direction: column; justify-content: flex-start; align-items: center; min-width: 0; padding: 3px 2px 6px; border: 2px solid transparent; border-radius: 11px; }
+ .tg .chat-expression-sticker-grid > button[aria-pressed=true] { border-color: var(--accent); background: #fff4ef; }
+ .tg .chat-expression-sticker-grid > button:hover { background: #f6f6f1; }
+ .tg .chat-expression-sticker-grid img { width: 100%; height: auto; aspect-ratio: 1; display: block; object-fit: contain; pointer-events: none; }
+-.tg .chat-expression-sticker-grid > button > span { font-size: var(--type-caption); font-weight: 400; line-height: 1.5; overflow-wrap: anywhere; }
+-.tg .chat-expression-hint { margin: 0; padding: 10px 12px; border-top: 1px solid var(--line); color: #62625e; background: #fafaf7; font-size: var(--type-subhead); line-height: 1.5; }
++.tg .chat-expression-sticker-grid > button > span { font-size: 12px; font-weight: 400; line-height: 16px; overflow-wrap: anywhere; }
++.tg .chat-expression-hint { margin: 0; padding: 10px 12px; border-top: 1px solid var(--line); color: #62625e; background: #fafaf7; font-size: 14px; line-height: 20px; }

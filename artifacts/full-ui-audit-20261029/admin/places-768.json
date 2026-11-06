@@ -1,0 +1,18 @@
+{
+  "width": 768,
+  "page": "장소·업체",
+  "docOverflow": 0,
+  "mainOverflow": 0,
+  "tables": [],
+  "tabs": [
+    {
+      "gap": "6px",
+      "x": 16,
+      "y": -984,
+      "w": 721,
+      "h": 49
+    }
+  ],
+  "smallButtons": [],
+  "horizontalOverflowElements": []
+}

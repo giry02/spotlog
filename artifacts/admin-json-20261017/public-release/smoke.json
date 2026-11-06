@@ -1,0 +1,282 @@
+{
+  "admin": {
+    "status": 200,
+    "asset": "admin-DAVsUwCH.js"
+  },
+  "customer": {
+    "status": 200,
+    "asset": "customer-DS7NtBsI.js"
+  },
+  "manual": {
+    "status": 200,
+    "screenshots": 53,
+    "checked": [
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-navigation.png",
+        "status": 200,
+        "bytes": 95956
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-overview-work.png",
+        "status": 200,
+        "bytes": 68214
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-list.png",
+        "status": 200,
+        "bytes": 89254
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-basic.png",
+        "status": 200,
+        "bytes": 53669
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-checklist.png",
+        "status": 200,
+        "bytes": 78884
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-source.png",
+        "status": 200,
+        "bytes": 42257
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-location.png",
+        "status": 200,
+        "bytes": 63089
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-media-file.png",
+        "status": 200,
+        "bytes": 84207
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-media-rights.png",
+        "status": 200,
+        "bytes": 96450
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-nearby.png",
+        "status": 200,
+        "bytes": 64584
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-guide.png",
+        "status": 200,
+        "bytes": 39975
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-ai.png",
+        "status": 200,
+        "bytes": 61060
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-workflow.png",
+        "status": 200,
+        "bytes": 53756
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-history.png",
+        "status": 200,
+        "bytes": 53638
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-withdraw.png",
+        "status": 200,
+        "bytes": 54864
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-csv.png",
+        "status": 200,
+        "bytes": 100322
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/data-place-regions.png",
+        "status": 200,
+        "bytes": 68039
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-exposure-start.png",
+        "status": 200,
+        "bytes": 95092
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-curated-conditions.png",
+        "status": 200,
+        "bytes": 117806
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-curated-day.png",
+        "status": 200,
+        "bytes": 125628
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-curated-visit-detail.png",
+        "status": 200,
+        "bytes": 131899
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-curated-publish.png",
+        "status": 200,
+        "bytes": 102968
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-main-post.png",
+        "status": 200,
+        "bytes": 118261
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-main-post-save.png",
+        "status": 200,
+        "bytes": 111499
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-popularity.png",
+        "status": 200,
+        "bytes": 108712
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-customer-preview.png",
+        "status": 200,
+        "bytes": 113612
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-report.png",
+        "status": 200,
+        "bytes": 135032
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-report-decision.png",
+        "status": 200,
+        "bytes": 119953
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-journal.png",
+        "status": 200,
+        "bytes": 148024
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-thread-actions.png",
+        "status": 200,
+        "bytes": 158586
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-card-replies.png",
+        "status": 200,
+        "bytes": 145423
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-translation.png",
+        "status": 200,
+        "bytes": 118790
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-members.png",
+        "status": 200,
+        "bytes": 116730
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-member-deletion.png",
+        "status": 200,
+        "bytes": 120528
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/service-inquiries.png",
+        "status": 200,
+        "bytes": 100365
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-documents.png",
+        "status": 200,
+        "bytes": 141039
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-indices.png",
+        "status": 200,
+        "bytes": 111015
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-tests.png",
+        "status": 200,
+        "bytes": 110121
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-test-results.png",
+        "status": 200,
+        "bytes": 89475
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-result-feedback.png",
+        "status": 200,
+        "bytes": 94415
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-requests.png",
+        "status": 200,
+        "bytes": 116089
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-policies.png",
+        "status": 200,
+        "bytes": 123126
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-policy-actions.png",
+        "status": 200,
+        "bytes": 110749
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-policy-activation.png",
+        "status": 200,
+        "bytes": 121067
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-references.png",
+        "status": 200,
+        "bytes": 80958
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-grades.png",
+        "status": 200,
+        "bytes": 100008
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-operators.png",
+        "status": 200,
+        "bytes": 73631
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-notifications.png",
+        "status": 200,
+        "bytes": 79027
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-connections.png",
+        "status": 200,
+        "bytes": 112905
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-supply.png",
+        "status": 200,
+        "bytes": 86074
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-cleanup.png",
+        "status": 200,
+        "bytes": 114614
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-file-cleanup.png",
+        "status": 200,
+        "bytes": 103800
+      },
+      {
+        "url": "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-audit.png",
+        "status": 200,
+        "bytes": 131350
+      }
+    ]
+  },
+  "passed": true
+}

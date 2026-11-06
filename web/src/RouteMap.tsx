@@ -6,9 +6,12 @@ import { hasLocation } from './tripPlan';
 import { distanceKm, makeEstimatedRoute, fetchRoadRoute,fetchServiceRoute, scheduleCheckForLeg, type RouteResult } from './routeData';
 import { useLocale } from './locale';
 import { NaverRouteCanvas } from './NaverRouteCanvas';
+import { OfflineRouteMap } from './OfflineRouteMap';
+import type { PolicyBundle } from './accountPolicies';
 import { adjacentRouteLeg, routeWarnings, type RouteWarning } from './routeWarnings';
 import 'maplibre-gl/dist/maplibre-gl.css';
-export default function RouteMap({ places, selectedVisitId, onSelectVisit, onResolveWarning }: { places: Place[]; selectedVisitId?: string; onSelectVisit?: (id: string) => void; onResolveWarning?: (warning: RouteWarning) => void }) {
+import mapWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+export default function RouteMap({ places, selectedVisitId, onSelectVisit, onResolveWarning, offline = false, locationPolicy }: { places: Place[]; selectedVisitId?: string; onSelectVisit?: (id: string) => void; onResolveWarning?: (warning: RouteWarning) => void; offline?: boolean; locationPolicy?: PolicyBundle }) {
   const copy=useUiCopy();
   const {locale}=useLocale(),en=locale==='en';
   const naverClientId=import.meta.env.VITE_NAVER_MAP_CLIENT_ID?.trim()??'';
@@ -21,14 +24,23 @@ export default function RouteMap({ places, selectedVisitId, onSelectVisit, onRes
   selection.current = { selectedVisitId, onSelectVisit };
   const markerNodes = useRef(new Map<string, HTMLElement>());
   const [mapError, setMapError] = useState(false);
+  const [online, setOnline] = useState(() => typeof navigator === 'undefined' || navigator.onLine);
+  const offlineMode = offline || !online;
   const estimatedRoute = useMemo(() => makeEstimatedRoute(mappablePlaces), [mappablePlaces]);
   const [routeResult, setRouteResult] = useState<RouteResult>(estimatedRoute);
   const [routeLoading, setRouteLoading] = useState(false);
   const [routeAttempt,setRouteAttempt]=useState(0);
 
   useEffect(() => {
+    const connected = () => { setOnline(true); setMapError(false); };
+    const disconnected = () => { setOnline(false); };
+    window.addEventListener('online', connected); window.addEventListener('offline', disconnected);
+    return () => { window.removeEventListener('online', connected); window.removeEventListener('offline', disconnected); };
+  }, []);
+
+  useEffect(() => {
     setRouteResult(estimatedRoute);
-    if (mappablePlaces.length < 2 || naverClientId&&!routeEndpoint) {
+    if (offlineMode || mapError || mappablePlaces.length < 2 || naverClientId&&!routeEndpoint) {
       setRouteLoading(false);
       return;
     }
@@ -45,20 +57,20 @@ export default function RouteMap({ places, selectedVisitId, onSelectVisit, onRes
         if (!controller.signal.aborted) setRouteLoading(false);
       });
     return () => { window.clearTimeout(timeout);controller.abort(); };
-  }, [estimatedRoute, mappablePlaces,routeAttempt]);
+  }, [estimatedRoute, mappablePlaces,routeAttempt,offlineMode,mapError]);
 
   useEffect(() => {
-    if (!containerRef.current || !mappablePlaces.length || naverClientId) return;
+    if (offlineMode || mapError || !containerRef.current || !mappablePlaces.length || naverClientId) return;
     const container = containerRef.current;
     markerNodes.current.clear();
-    setMapError(false);
     let disposed = false;
     let map: { remove: () => void } | null = null;
     let animationFrame: number | null = null;
     let routeOverlay: SVGSVGElement | null = null;
     let detachOverlayListeners: (() => void) | null = null;
-    void import('maplibre-gl').then(({ AttributionControl, LngLatBounds, Map: MapLibreMap, Marker }) => {
+    void import('maplibre-gl').then(({ AttributionControl, LngLatBounds, Map: MapLibreMap, Marker, setWorkerUrl }) => {
       if (disposed) return;
+      setWorkerUrl(mapWorkerUrl);
       const instance = new MapLibreMap({
         container,
         style: {
@@ -179,9 +191,11 @@ export default function RouteMap({ places, selectedVisitId, onSelectVisit, onRes
       routeOverlay?.remove();
       map?.remove();
     };
-  }, [mappablePlaces, routeResult]);
+  }, [mappablePlaces, routeResult,offlineMode,mapError,naverClientId]);
 
   useEffect(() => { markerNodes.current.forEach((node,id) => { node.dataset.selected = String(id === selectedVisitId); }); }, [selectedVisitId]);
+
+  if (offlineMode || mapError) return <section className="map-card"><div className="map-label"><MapIcon size={15}/><span>DAY ROUTE</span><strong>{en ? 'Saved positions' : '저장 위치'}</strong></div><OfflineRouteMap places={places} selectedVisitId={selectedVisitId} onSelectVisit={onSelectVisit} reason={offlineMode ? 'offline' : 'unavailable'} locationPolicy={locationPolicy}/>{!offlineMode && <button className="outline wide" onClick={() => { setMapError(false); setRouteAttempt(attempt => attempt + 1); }}>{en ? 'Reconnect map' : '지도 다시 연결'}</button>}</section>;
 
   const routeStatus = routeLoading
     ? copy("도로 경로 계산 중")
@@ -192,8 +206,7 @@ export default function RouteMap({ places, selectedVisitId, onSelectVisit, onRes
   const scheduleChecks = routeResult.legs.filter(leg=>adjacentRouteLeg(places,leg.from,leg.to)).map(scheduleCheckForLeg).filter((check): check is NonNullable<typeof check> => check !== null);
   const conflictCount = scheduleChecks.filter((check) => check.margin < 0).length;
 
-  return <section className="map-card"><div className="map-label"><MapIcon size={15} /><span>DAY ROUTE</span><strong aria-live="polite">{routeStatus}</strong></div>{mappablePlaces.length ? naverClientId?<NaverRouteCanvas places={mappablePlaces} numbers={markerNumbers} coordinates={routeResult.coordinates} selectedVisitId={selectedVisitId} onSelectVisit={onSelectVisit} clientId={naverClientId}/>:<div className="route-map" ref={containerRef} aria-label={en?'Trip map':copy("여행 지도")} /> : <div className="route-map-unavailable"><MapPin size={24} /><strong>{en?'No verified locations yet':copy("위치가 확인된 장소가 없어요")}</strong><span>{en?'Check the addresses to find these places on a map.':copy("주소를 확인한 뒤 지도에서 찾아볼 수 있어요.")}</span></div>}
-    {mapError && <p className="route-data-note" role="status">{copy("지도 일부를 불러오지 못했어요. 장소 목록은 계속 사용할 수 있어요.")}</p>}
+  return <section className="map-card"><div className="map-label"><MapIcon size={15} /><span>DAY ROUTE</span><strong aria-live="polite">{routeStatus}</strong></div>{mappablePlaces.length ? naverClientId?<NaverRouteCanvas places={mappablePlaces} numbers={markerNumbers} coordinates={routeResult.coordinates} selectedVisitId={selectedVisitId} onSelectVisit={onSelectVisit} clientId={naverClientId} onUnavailable={() => setMapError(true)}/>:<div className="route-map" ref={containerRef} aria-label={en?'Trip map':copy("여행 지도")} /> : <div className="route-map-unavailable"><MapPin size={24} /><strong>{en?'No verified locations yet':copy("위치가 확인된 장소가 없어요")}</strong><span>{en?'Check the addresses to find these places on a map.':copy("주소를 확인한 뒤 지도에서 찾아볼 수 있어요.")}</span></div>}
     {mappablePlaces.length < places.length && <p className="route-data-note">{copy("위치가 미확인인")}{' '}{places.length-mappablePlaces.length}{copy("곳은 지도에서 제외했어요.")}</p>}
     {routeResult.legs.length > 0 && <div className="route-leg-list">{routeResult.legs.map((leg) => {
       const schedule = adjacentRouteLeg(places,leg.from,leg.to)?scheduleCheckForLeg(leg):null;

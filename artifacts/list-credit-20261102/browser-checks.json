@@ -1,0 +1,27 @@
+[
+  {
+    "name": "관심 장소",
+    "overflow": false,
+    "visibleCredits": 0
+  },
+  {
+    "name": "둘러보기",
+    "overflow": false,
+    "visibleCredits": 0
+  },
+  {
+    "name": "내 여행",
+    "overflow": false,
+    "visibleCredits": 0
+  },
+  {
+    "name": "함께하기",
+    "overflow": false,
+    "visibleCredits": 0
+  },
+  {
+    "name": "모임 찾기",
+    "overflow": false,
+    "visibleCredits": 0
+  }
+]

@@ -1,0 +1,47 @@
+{
+  "changedFiles": [
+    {
+      "path": "web/src/together/ChatWorkspace.tsx",
+      "sha256": "87dc1f723d7adde26032b62ca45f535884755810223d6c1171344fe3e453b6b3"
+    },
+    {
+      "path": "web/src/together/chat-workspace.css",
+      "sha256": "f3a2f6302f7e8c2719e936dd713b9eca610e9383556f74240553f60549ad3c05"
+    },
+    {
+      "path": "web/src/together/conversation-summary.css",
+      "sha256": "b04727cc6f56e8655c7974c7884abd28359a8f7f734165efcb43e817e4a551b0"
+    },
+    {
+      "path": "web/src/together/chat-expressions.css",
+      "sha256": "f1def7108138d72a1c37119c75cefca69eeae5ad8a2d64b2f9e22690a9e4e2a9"
+    }
+  ],
+  "webTypecheck": "PASS",
+  "relatedChatTests": {
+    "pass": 58,
+    "fail": 0
+  },
+  "browserVerification": "Root verifies 320/390 and400px height; agent makes no device-keyboard verification claim",
+  "changes": [
+    "Composer16/24,46px minimum,4-line auto height,short placeholder",
+    "Dynamic dock/composer/header/visualViewport metrics",
+    "Single sticky context; bounded and keyboard-scrollable context/announcements",
+    "Preview/emoji/error scroll separately while form remains visible",
+    "Chat root bottom padding0",
+    "Summary adaptive date columns and14/20,12/16,16/24 roles",
+    "Emoji close selector44px and8px category gap"
+  ],
+  "preserved": [
+    "message callbacks",
+    "draft memory",
+    "read cursor",
+    "source routes",
+    "permissions",
+    "summary wording and processing"
+  ],
+  "git": "none",
+  "layoutHeight": "minimum of actual scroll-container clientHeight and visual/window viewport; container/header/dock/input ResizeObserver",
+  "composerPreviewBudget": "When extras are open, shrink 1-4 line height to nominal dock minus form insets and96px preview; retain exact input and enable textarea scroll when needed.",
+  "primaryAction": "Summary collect role-specific specificity restores dark background and white text."
+}

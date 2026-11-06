@@ -1,0 +1,237 @@
+{
+  "states": [
+    {
+      "overflow": 0,
+      "screen": "홈 · 모임원",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 320
+    },
+    {
+      "overflow": 0,
+      "screen": "홈 · 첫 방문",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 320
+    },
+    {
+      "overflow": 0,
+      "screen": "둘러보기",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 320
+    },
+    {
+      "overflow": 0,
+      "screen": "모임 · 가입 전",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 320
+    },
+    {
+      "overflow": 0,
+      "screen": "모임 · 가입 후",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 320
+    },
+    {
+      "overflow": 0,
+      "screen": "개별 약속",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 320
+    },
+    {
+      "overflow": 0,
+      "screen": "대화·AI",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 320
+    },
+    {
+      "overflow": 0,
+      "screen": "내 공간",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 320
+    },
+    {
+      "overflow": 0,
+      "screen": "홈 · 모임원",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 390
+    },
+    {
+      "overflow": 0,
+      "screen": "홈 · 첫 방문",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 390
+    },
+    {
+      "overflow": 0,
+      "screen": "둘러보기",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 390
+    },
+    {
+      "overflow": 0,
+      "screen": "모임 · 가입 전",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 390
+    },
+    {
+      "overflow": 0,
+      "screen": "모임 · 가입 후",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 390
+    },
+    {
+      "overflow": 0,
+      "screen": "개별 약속",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 390
+    },
+    {
+      "overflow": 0,
+      "screen": "대화·AI",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 390
+    },
+    {
+      "overflow": 0,
+      "screen": "내 공간",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 390
+    },
+    {
+      "overflow": 0,
+      "screen": "홈 · 모임원",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 460
+    },
+    {
+      "overflow": 0,
+      "screen": "홈 · 첫 방문",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 460
+    },
+    {
+      "overflow": 0,
+      "screen": "둘러보기",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 460
+    },
+    {
+      "overflow": 0,
+      "screen": "모임 · 가입 전",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 460
+    },
+    {
+      "overflow": 0,
+      "screen": "모임 · 가입 후",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 460
+    },
+    {
+      "overflow": 0,
+      "screen": "개별 약속",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 460
+    },
+    {
+      "overflow": 0,
+      "screen": "대화·AI",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 460
+    },
+    {
+      "overflow": 0,
+      "screen": "내 공간",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 460
+    },
+    {
+      "overflow": 0,
+      "screen": "홈 · 모임원",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 1440
+    },
+    {
+      "overflow": 0,
+      "screen": "홈 · 첫 방문",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 1440
+    },
+    {
+      "overflow": 0,
+      "screen": "둘러보기",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 1440
+    },
+    {
+      "overflow": 0,
+      "screen": "모임 · 가입 전",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 1440
+    },
+    {
+      "overflow": 0,
+      "screen": "모임 · 가입 후",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 1440
+    },
+    {
+      "overflow": 0,
+      "screen": "개별 약속",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 1440
+    },
+    {
+      "overflow": 0,
+      "screen": "대화·AI",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 1440
+    },
+    {
+      "overflow": 0,
+      "screen": "내 공간",
+      "smallDocButtons": 0,
+      "visiblePanels": 1,
+      "width": 1440
+    }
+  ],
+  "scope": "Standalone design document only; no product source integration",
+  "keyboardHome": "passed",
+  "publicReport": {
+    "url": "https://giry02.github.io/spotlog/reports/direction-20261103/",
+    "slides": 21,
+    "sourceImages": 2,
+    "activeLocalLinks": 0,
+    "consoleErrors": []
+  }
+}

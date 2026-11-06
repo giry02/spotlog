@@ -1,0 +1,26 @@
+{
+  "mode": "Design only; actual app reconfiguration stopped at user clarification",
+  "publication": {
+    "scope": "Existing Tuesday report plus two images only",
+    "url": "https://giry02.github.io/spotlog/reports/direction-20261103/",
+    "commit": "d330111c4e2106c225d0cad1efbb6ae3277e403a",
+    "runId": 41304209954,
+    "customerAdminBundlesUnchanged": true
+  },
+  "newLocalDesign": "deliverables/spotlog-group-activation-design-20261101.html",
+  "recommendation": "Compare current five roots with four roots Home/Explore/My Groups/My Space. My Space defaults to saved places. This is a proposal, not an approved product menu.",
+  "screens": 8,
+  "flows": 7,
+  "layoutStates": 32,
+  "productSourceBackupMatches": {
+    "web/src/together/TogetherApp.tsx": true,
+    "web/src/together/GroupDiscovery.tsx": true,
+    "web/src/together/together.css": true
+  },
+  "preserved": [
+    "customer/admin stores",
+    "personal plans and journals",
+    "existing conversation fixture and user browser draft",
+    "primary mixed checkout and Git index"
+  ]
+}

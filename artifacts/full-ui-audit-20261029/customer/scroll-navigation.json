@@ -1,0 +1,14 @@
+{
+  "scrollDownNav": {
+    "navBottom": 720,
+    "navTop": 646,
+    "scrollTop": 89,
+    "viewport": 720
+  },
+  "scrollUpNav": {
+    "navBottom": 720,
+    "navTop": 646,
+    "scrollTop": 0,
+    "viewport": 720
+  }
+}

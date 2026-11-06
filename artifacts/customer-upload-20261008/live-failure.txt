@@ -1,0 +1,22 @@
+Error: Route profile width 320 Spotlog
+내 계정
+로그인하고 여행을 이어가세요
+
+공개 장소와 여행기는 바로 둘러볼 수 있어요.
+로그인하면 댓글·응원을 남기고 내 여행을 계정에 보관할 수 있어요.
+
+로그인
+이메일 회원가입
+
+Google·Apple 로그인도 사용할 수 있어요.
+
+이 기기에 보관한 여행
+
+기존 장소·여행·작성 중인 내용을 그대로 이어볼 수 있어요. 아직 계정에 연결한 기록은 아니에요.
+
+기기 기록 보기
+약관 · 개인정보 locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('.tabbar')[22m
+
+    at main (C:\Users\Giry\Documents\Spotlog\artifacts\customer-upload-20261008\live.cjs:11:198)

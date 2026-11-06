@@ -1,0 +1,49 @@
+{
+  "base": "https://giry02.github.io/spotlog/",
+  "date": "2026-10-18",
+  "checks": [
+    {
+      "name": "1440 home: customer UI renders unchanged without preview entry"
+    },
+    {
+      "name": "1440 private trips: existing route and empty state open"
+    },
+    {
+      "name": "1440 login: all five account method buttons remain"
+    },
+    {
+      "name": "1440 email login: credential form remains available"
+    },
+    {
+      "name": "1440 signup: all five signup method buttons remain"
+    },
+    {
+      "name": "1440 email signup: correct terms step remains"
+    },
+    {
+      "name": "1440 customer smoke: no JS errors or viewport overflow"
+    },
+    {
+      "name": "390 home: customer UI renders unchanged without preview entry"
+    },
+    {
+      "name": "390 private trips: existing route and empty state open"
+    },
+    {
+      "name": "390 login: all five account method buttons remain"
+    },
+    {
+      "name": "390 email login: credential form remains available"
+    },
+    {
+      "name": "390 signup: all five signup method buttons remain"
+    },
+    {
+      "name": "390 email signup: correct terms step remains"
+    },
+    {
+      "name": "390 customer smoke: no JS errors or viewport overflow"
+    }
+  ],
+  "errors": []
+}

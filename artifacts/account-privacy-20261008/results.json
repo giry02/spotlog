@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "width": 320,
+      "state": "login"
+    },
+    {
+      "width": 320,
+      "state": "terms"
+    },
+    {
+      "width": 320,
+      "state": "consent"
+    },
+    {
+      "width": 320,
+      "state": "apple-consent"
+    },
+    {
+      "width": 320,
+      "state": "privacy"
+    },
+    {
+      "width": 320,
+      "state": "location"
+    },
+    {
+      "width": 390,
+      "state": "login"
+    },
+    {
+      "width": 390,
+      "state": "terms"
+    },
+    {
+      "width": 390,
+      "state": "consent"
+    },
+    {
+      "width": 390,
+      "state": "apple-consent"
+    },
+    {
+      "width": 390,
+      "state": "privacy"
+    },
+    {
+      "width": 390,
+      "state": "location"
+    },
+    {
+      "width": 460,
+      "state": "login"
+    },
+    {
+      "width": 460,
+      "state": "terms"
+    },
+    {
+      "width": 460,
+      "state": "consent"
+    },
+    {
+      "width": 460,
+      "state": "apple-consent"
+    },
+    {
+      "width": 460,
+      "state": "privacy"
+    },
+    {
+      "width": 460,
+      "state": "location"
+    },
+    {
+      "state": "fixture-required-consent-and-signup"
+    },
+    {
+      "state": "fixture-signup-failure-retry"
+    },
+    {
+      "state": "fixture-policy-conflict-reconsent"
+    },
+    {
+      "state": "fixture-oauth-failure"
+    }
+  ],
+  "errors": []
+}

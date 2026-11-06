@@ -1,0 +1,234 @@
+{
+  "base": "http://127.0.0.1:5312/spotlog/",
+  "date": "2026-10-12",
+  "checks": [
+    {
+      "width": "build",
+      "name": "customer/admin entrypoints, dev exclusion, Busan photo assets",
+      "detail": {
+        "htmlFiles": 2,
+        "entryAssets": 8,
+        "busanPhotos": 54
+      }
+    },
+    {
+      "width": 320,
+      "name": "Home layout and images",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "Busan landmarks and actual photo assets",
+      "detail": {
+        "initialCards": 4
+      }
+    },
+    {
+      "width": 320,
+      "name": "My trips/library/trash footer",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "Production guest can build an independent food/cafe itinerary",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "Anonymous profile and production login have no review identity or credentials",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "Customer error validation",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "Customer error session",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "Customer error conditions",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "Customer error forbidden",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "Customer error missing",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "Customer error server",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "Customer error unavailable",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "Admin production always uses API and blocks edits without authorized server state",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Home layout and images",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Busan landmarks and actual photo assets",
+      "detail": {
+        "initialCards": 4
+      }
+    },
+    {
+      "width": 390,
+      "name": "My trips/library/trash footer",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Production guest can build an independent food/cafe itinerary",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Anonymous profile and production login have no review identity or credentials",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Customer error validation",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Customer error session",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Customer error conditions",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Customer error forbidden",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Customer error missing",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Customer error server",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Customer error unavailable",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Admin production always uses API and blocks edits without authorized server state",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Home layout and images",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Busan landmarks and actual photo assets",
+      "detail": {
+        "initialCards": 4
+      }
+    },
+    {
+      "width": 460,
+      "name": "My trips/library/trash footer",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Production guest can build an independent food/cafe itinerary",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Anonymous profile and production login have no review identity or credentials",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Customer error validation",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Customer error session",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Customer error conditions",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Customer error forbidden",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Customer error missing",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Customer error server",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Customer error unavailable",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Admin production always uses API and blocks edits without authorized server state",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Mobile map worker remains a separate loaded production asset",
+      "detail": {
+        "asset": [
+          {
+            "path": "/spotlog/assets/maplibre-gl-worker-5lTrTa-q.js",
+            "status": 200
+          }
+        ],
+        "workers": [
+          "/spotlog/assets/maplibre-gl-worker-5lTrTa-q.js"
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "assetFailures": [],
+  "pass": true
+}

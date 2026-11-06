@@ -1,0 +1,36 @@
+✔ one journal entry offers exact journal, author, cover, place and individual photo identities (2.7046ms)
+✔ same venue on different DAYs keeps journal/card identity instead of merging report targets (0.7609ms)
+✔ all private, deleted and planning journeys have no report choices (0.1155ms)
+✔ only visible comments and replies of this journal can be selected; own or removed content is excluded (0.5646ms)
+✔ choosing a specific photo or comment produces the same receipt contract without leaking private notes (4.2705ms)
+✔ explicit report projects only public reading context and never reads private storage (5.0836ms)
+✔ private journals and plans cannot enter public review via any target (0.2556ms)
+✔ a newly published own journal is attributed to its current author even with legacy copied public identity (0.1574ms)
+✔ duplicate reports keep their ID and administrator decision, without another write (0.9444ms)
+✔ PHOTO report retains safe exact image identity and attribution without a journal (0.3408ms)
+✔ COMMENT report requires exact public parent journal and card identity (0.266ms)
+✔ sync is idempotent and excludes legacy synthetic publication by draft provenance (0.3636ms)
+✔ draft master imports leave all baseline consumer places intact; explicit inactive and revoked images remove exposure (0.415ms)
+✔ rights withdrawal filters public media overlays without rewriting stored or private journeys (0.2145ms)
+✔ schema failures preserve previous storage and reject unrecognized report data (0.2632ms)
+✔ API receipt validates parent context and does not send customer content or use local review storage (18.8659ms)
+✔ approved English requires exact public source, original text and source version; draft/stale content stays original (0.2846ms)
+✔ only explicitly selected public reactions enter the shared projection with nullable unprovided aggregates (0.644ms)
+✔ public pull preserves attribution and discards unexpected nested private metadata (0.3207ms)
+✔ only complete explicitly public operational templates replace a source template identity (0.5676ms)
+✔ exposure time windows end exclusively and published metadata and order override the baseline (0.3754ms)
+✔ existing base type sizes remain stable (0.7423ms)
+✔ .detail-creator-numbers span uses the named role without a duplicate override (0.96ms)
+✔ .detail-creator-numbers strong uses the named role without a duplicate override (0.1742ms)
+✔ .creator-journey-list strong uses the named role without a duplicate override (0.0937ms)
+✔ .creator-journey-list small uses the named role without a duplicate override (0.0975ms)
+✔ .creator-journey-list em uses the named role without a duplicate override (0.0674ms)
+✔ readable guide and in-app guide retain the same typography rules and rows (1.514ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 180.5435

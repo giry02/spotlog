@@ -1,0 +1,83 @@
+/* Customer density, approved 2026-11-02. Legacy --type-body stays 16px for inputs. */
+body.spotlog-consumer {
+  --consumer-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --consumer-body: 14px;
+  --consumer-meta: 12px;
+  --consumer-inset: 16px;
+  font-family: var(--consumer-font);
+  font-size: var(--consumer-body);
+  line-height: 20px;
+}
+body.spotlog-consumer :is(.app-shell, .phase-sheet) {
+  font-family: var(--consumer-font);
+  font-size: var(--consumer-body);
+  line-height: 20px;
+}
+body.spotlog-consumer :is(.app-shell, .phase-sheet) :where(h1,h2,h3,h4,p,li,dt,dd,blockquote,button,label,input,select,textarea) {
+  font-family: var(--consumer-font);
+}
+body.spotlog-consumer :is(.app-shell, .phase-sheet) :where(p,li,dt,dd,blockquote) { font-size:14px; line-height:20px; }
+body.spotlog-consumer :is(.app-shell, .phase-sheet) :where(small,time) { font-size:12px; line-height:16px; }
+body.spotlog-consumer :is(.app-shell, .phase-sheet) :where(h1) { font-size:20px; line-height:26px; font-weight:700; letter-spacing:-.4px; }
+body.spotlog-consumer :is(.app-shell, .phase-sheet) :where(h2) { font-size:18px; line-height:24px; font-weight:600; letter-spacing:-.3px; }
+body.spotlog-consumer :is(.app-shell, .phase-sheet) :where(h3,h4) { font-size:16px; line-height:22px; font-weight:600; letter-spacing:-.2px; }
+body.spotlog-consumer :is(.app-shell, .phase-sheet) :is(input:not([type=checkbox]):not([type=radio]),select,textarea) {
+  font-size:16px;
+  line-height:24px;
+  font-weight:400;
+}
+
+/* One outer inset; cards keep a single inner content inset. */
+body.spotlog-consumer .app-shell :is(.page,.home-page,.place-guide-content,.place-discover-header) { padding-inline:16px; }
+body.spotlog-consumer .app-shell :is(.home-topbar,.app-header) { min-height:80px; padding-top:max(16px,env(safe-area-inset-top)); padding-bottom:12px; }
+body.spotlog-consumer .app-shell :is(.home-topbar button,.header-action) { min-width:44px; min-height:44px; }
+body.spotlog-consumer .app-shell :is(.app-header h1,.home-lead h1,.place-guide-lead h1) { font-size:20px; line-height:26px; font-weight:700; }
+body.spotlog-consumer .app-shell .home-lead { padding:16px 0; }
+body.spotlog-consumer .app-shell .home-lead h1 { margin:6px 0 8px; }
+body.spotlog-consumer .app-shell .home-lead p { font-size:14px; line-height:20px; }
+body.spotlog-consumer .app-shell .home-section { margin-top:24px; }
+body.spotlog-consumer .app-shell :is(.promoted-track,.home-guide-list) { margin-right:-16px; padding-right:16px; }
+body.spotlog-consumer .app-shell .home-section-heading { gap:8px; margin-bottom:12px; }
+body.spotlog-consumer .app-shell .home-section-heading h2 { font-size:18px; line-height:24px; font-weight:600; }
+body.spotlog-consumer .app-shell .home-section-heading p { font-size:14px; line-height:20px; }
+body.spotlog-consumer .app-shell .home-topic-tabs [role=tab] { min-height:44px; padding:10px 8px; gap:8px; font-size:14px; line-height:20px; font-weight:600; }
+body.spotlog-consumer .app-shell .home-topic-primary { min-height:44px; padding:12px; gap:8px; font-size:14px; line-height:20px; font-weight:600; }
+body.spotlog-consumer .app-shell .home-place-kinds { gap:8px; margin-bottom:12px; }
+body.spotlog-consumer .app-shell .home-place-kinds button { padding:8px 12px; font-size:14px; line-height:20px; }
+body.spotlog-consumer .app-shell .home-place-preview { padding:12px; }
+body.spotlog-consumer .app-shell .home-place-preview-open { min-height:76px; }
+body.spotlog-consumer .app-shell .home-place-preview-open strong { font-size:16px; line-height:22px; font-weight:600; }
+body.spotlog-consumer .app-shell .home-place-preview-open small { font-size:12px; line-height:16px; }
+body.spotlog-consumer .app-shell .home-place-preview-open>span:last-child>span { font-size:14px; line-height:20px; }
+body.spotlog-consumer .app-shell .home-topic-more { margin-top:12px; font-size:14px; line-height:20px; font-weight:600; }
+body.spotlog-consumer .app-shell :is(.home-guide-card,.landmark-guide-copy) { padding:12px; gap:12px; }
+body.spotlog-consumer .app-shell :is(.landmark-guide-list,.saved-list,.saved-region-groups) { gap:12px; }
+body.spotlog-consumer .app-shell :is(.landmark-guide-copy h3,.saved-card-copy h3,.home-guide-copy h3) { font-size:16px; line-height:22px; font-weight:600; }
+body.spotlog-consumer .app-shell :is(.landmark-guide-copy>strong,.landmark-guide-copy>p,.landmark-guide-copy blockquote,.saved-card-copy p) { font-size:14px; line-height:20px; }
+body.spotlog-consumer .app-shell :is(.landmark-guide-copy>small,.landmark-guide-tags span,.saved-card-eyebrow>span,.saved-place-time) { font-size:12px; line-height:16px; }
+body.spotlog-consumer .app-shell .landmark-guide-actions { gap:8px; margin-top:12px; }
+body.spotlog-consumer .app-shell .landmark-guide-actions button { min-height:44px; font-size:14px; line-height:20px; font-weight:600; }
+body.spotlog-consumer .app-shell .place-guide-lead { padding:12px 0 16px; }
+body.spotlog-consumer .app-shell .place-guide-heading h2 { font-size:18px; line-height:24px; font-weight:600; }
+body.spotlog-consumer .app-shell .place-guide-search { padding:12px; }
+body.spotlog-consumer .app-shell .saved-region-heading { min-height:56px; padding:12px; }
+body.spotlog-consumer .app-shell .saved-region-heading small { font-size:12px; line-height:16px; }
+body.spotlog-consumer .app-shell .saved-card-copy { padding-block:12px; padding-left:12px; }
+body.spotlog-consumer .app-shell .journal-lead { padding:16px; }
+body.spotlog-consumer .app-shell .journal-lead .summary { margin:16px 0 8px; font-size:16px; line-height:22px; font-weight:600; }
+body.spotlog-consumer .app-shell :is(.journal-lead .story,.story-text-block p,.journey-comment p,.profile-feedback-list blockquote) { font-size:14px; line-height:20px; }
+body.spotlog-consumer .app-shell .story-text-block h3 { font-size:18px; line-height:24px; font-weight:600; }
+
+/* Body-mounted sheets belong to the same customer surface. */
+body.spotlog-consumer .phase-sheet>header { padding:16px; gap:12px; }
+body.spotlog-consumer .phase-sheet>header h2 { font-size:20px; line-height:26px; font-weight:600; }
+body.spotlog-consumer .phase-sheet>header p { font-size:14px; line-height:20px; }
+body.spotlog-consumer .phase-sheet-body { padding:16px 16px max(24px,env(safe-area-inset-bottom)); }
+body.spotlog-consumer .phase-sheet label { font-size:14px; line-height:20px; }
+body.spotlog-consumer .phase-sheet .phase-hint { font-size:12px; line-height:16px; }
+body.spotlog-consumer .phase-sheet .account-submit { margin-inline:-16px; padding-inline:16px; }
+body.spotlog-consumer .phase-sheet .ai-travel-day-options { top:-16px; }
+
+/* Brand/photographic covers and photo credits retain their separate roles. */
+body.spotlog-consumer .app-shell .promoted-copy h2 { font-size:22px; line-height:28px; font-weight:600; }
+body.spotlog-consumer :is(.app-shell,.phase-sheet) .public-photo-credit-button { font-size:11px; line-height:16px; }

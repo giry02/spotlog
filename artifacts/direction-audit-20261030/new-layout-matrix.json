@@ -1,0 +1,692 @@
+[
+  {
+    "version": "new",
+    "screen": "group",
+    "persona": "member",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "서면 취향 한 잔"
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "group",
+    "persona": "member",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "서면 취향 한 잔"
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "group",
+    "persona": "member",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "서면 취향 한 잔"
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "proposal",
+    "persona": "member",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "오후의 창가,같이 갈까요?"
+    ],
+    "controlCount": 5,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "proposal",
+    "persona": "member",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "오후의 창가,같이 갈까요?"
+    ],
+    "controlCount": 5,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "proposal",
+    "persona": "member",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "오후의 창가,같이 갈까요?"
+    ],
+    "controlCount": 5,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "activity",
+    "persona": "member",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "커피 마시며 취향 나누기"
+    ],
+    "controlCount": 6,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "activity",
+    "persona": "member",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "커피 마시며 취향 나누기"
+    ],
+    "controlCount": 6,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "activity",
+    "persona": "member",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "커피 마시며 취향 나누기"
+    ],
+    "controlCount": 6,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "chat",
+    "persona": "member",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [],
+    "controlCount": 5,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "INPUT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "chat",
+    "persona": "member",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [],
+    "controlCount": 5,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "INPUT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "chat",
+    "persona": "member",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [],
+    "controlCount": 5,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "INPUT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "applications",
+    "persona": "host",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "새로운 사람 맞이하기"
+    ],
+    "controlCount": 2,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "applications",
+    "persona": "host",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "새로운 사람 맞이하기"
+    ],
+    "controlCount": 2,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "applications",
+    "persona": "host",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "새로운 사람 맞이하기"
+    ],
+    "controlCount": 2,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "summary",
+    "persona": "member",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "대화에서 확인할 일"
+    ],
+    "controlCount": 7,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "summary",
+    "persona": "member",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "대화에서 확인할 일"
+    ],
+    "controlCount": 7,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "summary",
+    "persona": "member",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "대화에서 확인할 일"
+    ],
+    "controlCount": 7,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "join",
+    "persona": "new",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "먼저, 가벼운 인사"
+    ],
+    "controlCount": 4,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "TEXTAREA",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "join",
+    "persona": "new",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "먼저, 가벼운 인사"
+    ],
+    "controlCount": 4,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "TEXTAREA",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "join",
+    "persona": "new",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "먼저, 가벼운 인사"
+    ],
+    "controlCount": 4,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "TEXTAREA",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "home",
+    "persona": "member",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "바다 보며 아침 산책"
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "home",
+    "persona": "member",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "바다 보며 아침 산책"
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "home",
+    "persona": "member",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "바다 보며 아침 산책"
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "discover",
+    "persona": "member",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "무얼 함께할까요?"
+    ],
+    "controlCount": 19,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "16px"
+      },
+      {
+        "type": "INPUT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "discover",
+    "persona": "member",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "무얼 함께할까요?"
+    ],
+    "controlCount": 19,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "16px"
+      },
+      {
+        "type": "INPUT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "discover",
+    "persona": "member",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "무얼 함께할까요?"
+    ],
+    "controlCount": 19,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "16px"
+      },
+      {
+        "type": "INPUT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "groups",
+    "persona": "member",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "내 모임"
+    ],
+    "controlCount": 9,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "groups",
+    "persona": "member",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "내 모임"
+    ],
+    "controlCount": 9,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "groups",
+    "persona": "member",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "내 모임"
+    ],
+    "controlCount": 9,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "space",
+    "persona": "member",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "내 공간"
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "space",
+    "persona": "member",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "내 공간"
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "space",
+    "persona": "member",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "내 공간"
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "home",
+    "persona": "new",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "좋아하는 일을,\n함께하는 사람들."
+    ],
+    "controlCount": 9,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "home",
+    "persona": "new",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "좋아하는 일을,\n함께하는 사람들."
+    ],
+    "controlCount": 9,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "home",
+    "persona": "new",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "좋아하는 일을,\n함께하는 사람들."
+    ],
+    "controlCount": 9,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "home",
+    "persona": "host",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "함께하고 싶은\n새로운 사람이 왔어요."
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "home",
+    "persona": "host",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "함께하고 싶은\n새로운 사람이 왔어요."
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "new",
+    "screen": "home",
+    "persona": "host",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "함께하고 싶은\n새로운 사람이 왔어요."
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "checks": [
+    "unsaved place input survives detail close and browser reload",
+    "saving public-place changes leaves the published content intact",
+    "explicit publication applies the saved content",
+    "two tabs editing separate places keep both unfinished inputs",
+    "same-place concurrent save holds stale input and only explicit discard adopts the newer draft",
+    "draft and repository storage failures retain input and do not announce success",
+    "malformed optional provenance is rejected without overwriting the cached source",
+    "CSV read rejection stays inline and preserves entered CSV",
+    "late CSV file completion cannot replace newer manual input",
+    "CSV duplicate address is held while another same-name branch retains a separate place ID"
+  ],
+  "errors": [],
+  "error": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '초안 저장', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <button disabled>초안 저장</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    46 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\u001b[2m    - waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m  - element was detached from the DOM, retrying\u001b[22m\n"
+}

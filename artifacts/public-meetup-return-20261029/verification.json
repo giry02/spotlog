@@ -1,0 +1,22 @@
+{
+  "localOnly": true,
+  "sourceRoot": "C:/Users/Giry/Documents/Spotlog",
+  "automated": {
+    "command": "node --test web/tests/publicActivityIntent.test.mjs web/tests/membershipReviewFixture.test.mjs web/tests/togetherRepository.test.mjs web/tests/togetherDiscovery.test.mjs",
+    "passed": 46,
+    "failed": 0,
+    "newTests": 10
+  },
+  "webTypecheck": "passed",
+  "fixture": "http://127.0.0.1:5210/tests/group-public-meetup-return-review.html",
+  "fixtureStorage": "page-memory Map only; reload resets fixture; no browser customer/admin storage access",
+  "contract": {
+    "TogetherApplication.publicActivityIntent": "optional {groupId:string,activityId:string,date:YYYY-MM-DD}; schemaVersion remains 1",
+    "GroupDiscoveryFilters.publicActivityIntent": "optional navigation history card context",
+    "onOpenGroup": "(groupId:string,activityId?:string)=>void",
+    "onNavigate": "(route:string,filters?:GroupDiscoveryFilters)=>void"
+  },
+  "browserQA": "Root performs CUA; no external browser automation used.",
+  "noAppTsxEdits": true,
+  "noGitOrDeployment": true
+}

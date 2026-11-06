@@ -1,0 +1,65 @@
+{
+  "base": "http://127.0.0.1:5210",
+  "generatedAt": "2026-10-18T02:14:24.301Z",
+  "checks": [
+    {
+      "name": "overview begins with three primary actions; advanced operations are collapsed and seven menus remain"
+    },
+    {
+      "name": "Busan context is preserved in direct restaurant registration and incomplete content saves only as draft"
+    },
+    {
+      "name": "checklist jumps to location and rights; only complete verified data can be explicitly published"
+    },
+    {
+      "name": "published places lead directly to same-region recommendation draft with two days and private save"
+    },
+    {
+      "name": "recommendation publication and main placement are distinct actions with correct target and customer preview"
+    },
+    {
+      "name": "import keeps chosen region and review-needed status; quick review finds the item and preserves publication blockers"
+    },
+    {
+      "name": "unfinished input survives menu navigation and reload without changing published content"
+    },
+    {
+      "name": "regional data shortcut returns from region settings to the correct place list and resets old filters"
+    },
+    {
+      "name": "canonical region manager is in Places; duplicate reference category is hidden and stored legacy data is preserved"
+    },
+    {
+      "name": "seven administrator menus fit without body or main overflow",
+      "detail": "390"
+    },
+    {
+      "name": "seven administrator menus fit without body or main overflow",
+      "detail": "1024"
+    },
+    {
+      "name": "seven administrator menus fit without body or main overflow",
+      "detail": "1440"
+    },
+    {
+      "name": "seven administrator menus fit without body or main overflow",
+      "detail": "1920"
+    },
+    {
+      "name": "customer storage is untouched and no uncaught browser exceptions"
+    },
+    {
+      "name": "ordinary operators start in their assigned work and cannot change administrator sessions or AI policies"
+    },
+    {
+      "name": "legacy recommendation cache is recovered explicitly; changing global region does not overwrite it and success alone clears the old cache"
+    },
+    {
+      "name": "same-place concurrent edit retains input and blocks stale save and publication"
+    },
+    {
+      "name": "unavailable server keeps the access gate instead of fabricating work or creating a local administrator"
+    }
+  ],
+  "errors": []
+}

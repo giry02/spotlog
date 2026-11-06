@@ -1,0 +1,3757 @@
+{
+  "date": "2026-11-05",
+  "scope": "Isolated page-memory platform-review fixture; no customer/admin data reset or Git deployment",
+  "states": [
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 105,
+        "y": 201
+      },
+      "headings": [
+        "발견 · 사람과 장소",
+        "모집 중인 만남",
+        "함께할 모임을 찾아보세요",
+        "함께 고를 장소"
+      ],
+      "inputs": [
+        {
+          "name": "발견 활동 지역",
+          "size": "16px"
+        },
+        {
+          "name": "모임·만남·장소·여행 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "home",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 104,
+        "y": 212
+      },
+      "headings": [
+        "모임",
+        "모집 중인 모임",
+        "남포 한 끼, 골목 한 바퀴",
+        "서울숲 퇴근 산책",
+        "부산 편안한 언어 교환",
+        "서면 각자의 책 모임"
+      ],
+      "inputs": [
+        {
+          "name": "찾을 내용",
+          "size": "16px"
+        },
+        {
+          "name": "모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "find",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 89,
+        "y": 227
+      },
+      "headings": [
+        "관심 장소"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "saved",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 97,
+        "y": 232
+      },
+      "headings": [
+        "장소 찾기",
+        "모든 장소139곳"
+      ],
+      "inputs": [
+        {
+          "name": "장소 이름·지역 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "directory",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 93,
+        "y": 263
+      },
+      "headings": [
+        "모임",
+        "가족1",
+        "취미·지역1"
+      ],
+      "inputs": [
+        {
+          "name": "내 모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "together",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행",
+        "우리 가족 여행 안내",
+        "다음 약속",
+        "부산 가족여행",
+        "다음에는 카페 나들이",
+        "최근 이야기"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "group",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행",
+        "만나는 시간·장소",
+        "함께할까요?",
+        "함께할 내용",
+        "DAY 1",
+        "DAY 2"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "activity",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행모임 전체 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "groupchat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "AI로 계획하기",
+        "어떤 시간을 보내고 싶나요?"
+      ],
+      "inputs": [
+        {
+          "name": "어디에서 누구와 무엇을 하고 싶은지 적어주세요.",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "create",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "AI로 계획하기",
+        "어떤 시간을 보내고 싶나요?"
+      ],
+      "inputs": [
+        {
+          "name": "어디에서 누구와 무엇을 하고 싶은지 적어주세요.",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "travelcreate",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "개인으로 준비하는 부산 1박 2일",
+        "DAY 1"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "plan",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "지난 만남을 남긴 개인 여행기",
+        "바다와 한 끼",
+        "해운대해수욕장",
+        "해운대암소갈비집",
+        "시그니엘 부산",
+        "이날의 동선 한눈에 보기"
+      ],
+      "inputs": [
+        {
+          "name": "댓글 작성",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "journal",
+      "smallTargets": [
+        {
+          "h": 28,
+          "name": "사진 출처",
+          "w": 59
+        }
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 기록",
+        "함께한 시간"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "records",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "약속",
+        "함께할 약속",
+        "개인 여행 일정"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "appointments",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 105,
+        "y": 201
+      },
+      "headings": [
+        "발견 · 사람과 장소",
+        "모집 중인 만남",
+        "함께할 모임을 찾아보세요",
+        "함께 고를 장소"
+      ],
+      "inputs": [
+        {
+          "name": "발견 활동 지역",
+          "size": "16px"
+        },
+        {
+          "name": "모임·만남·장소·여행 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "home",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 104,
+        "y": 212
+      },
+      "headings": [
+        "모임",
+        "모집 중인 모임",
+        "남포 한 끼, 골목 한 바퀴",
+        "서울숲 퇴근 산책",
+        "부산 편안한 언어 교환",
+        "서면 각자의 책 모임"
+      ],
+      "inputs": [
+        {
+          "name": "찾을 내용",
+          "size": "16px"
+        },
+        {
+          "name": "모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "find",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 89,
+        "y": 227
+      },
+      "headings": [
+        "관심 장소"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "saved",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 97,
+        "y": 232
+      },
+      "headings": [
+        "장소 찾기",
+        "모든 장소139곳"
+      ],
+      "inputs": [
+        {
+          "name": "장소 이름·지역 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "directory",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 93,
+        "y": 263
+      },
+      "headings": [
+        "모임",
+        "가족1",
+        "취미·지역1"
+      ],
+      "inputs": [
+        {
+          "name": "내 모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "together",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행",
+        "우리 가족 여행 안내",
+        "다음 약속",
+        "부산 가족여행",
+        "다음에는 카페 나들이",
+        "최근 이야기"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "group",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행",
+        "만나는 시간·장소",
+        "함께할까요?",
+        "함께할 내용",
+        "DAY 1",
+        "DAY 2"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "activity",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행모임 전체 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "groupchat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "AI로 계획하기",
+        "어떤 시간을 보내고 싶나요?"
+      ],
+      "inputs": [
+        {
+          "name": "어디에서 누구와 무엇을 하고 싶은지 적어주세요.",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "create",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "AI로 계획하기",
+        "어떤 시간을 보내고 싶나요?"
+      ],
+      "inputs": [
+        {
+          "name": "어디에서 누구와 무엇을 하고 싶은지 적어주세요.",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "travelcreate",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "개인으로 준비하는 부산 1박 2일",
+        "DAY 1"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "plan",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "지난 만남을 남긴 개인 여행기",
+        "바다와 한 끼",
+        "해운대해수욕장",
+        "해운대암소갈비집",
+        "시그니엘 부산",
+        "이날의 동선 한눈에 보기"
+      ],
+      "inputs": [
+        {
+          "name": "댓글 작성",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "journal",
+      "smallTargets": [
+        {
+          "h": 28,
+          "name": "사진 출처",
+          "w": 59
+        }
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 기록",
+        "함께한 시간"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "records",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "약속",
+        "함께할 약속",
+        "개인 여행 일정"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "appointments",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 105,
+        "y": 201
+      },
+      "headings": [
+        "발견 · 사람과 장소",
+        "모집 중인 만남",
+        "함께할 모임을 찾아보세요",
+        "함께 고를 장소"
+      ],
+      "inputs": [
+        {
+          "name": "발견 활동 지역",
+          "size": "16px"
+        },
+        {
+          "name": "모임·만남·장소·여행 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "home",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 104,
+        "y": 212
+      },
+      "headings": [
+        "모임",
+        "모집 중인 모임",
+        "남포 한 끼, 골목 한 바퀴",
+        "서울숲 퇴근 산책",
+        "부산 편안한 언어 교환",
+        "서면 각자의 책 모임"
+      ],
+      "inputs": [
+        {
+          "name": "찾을 내용",
+          "size": "16px"
+        },
+        {
+          "name": "모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "find",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 89,
+        "y": 227
+      },
+      "headings": [
+        "관심 장소"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "saved",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 97,
+        "y": 232
+      },
+      "headings": [
+        "장소 찾기",
+        "모든 장소139곳"
+      ],
+      "inputs": [
+        {
+          "name": "장소 이름·지역 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "directory",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 93,
+        "y": 263
+      },
+      "headings": [
+        "모임",
+        "가족1",
+        "취미·지역1"
+      ],
+      "inputs": [
+        {
+          "name": "내 모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "together",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행",
+        "우리 가족 여행 안내",
+        "다음 약속",
+        "부산 가족여행",
+        "다음에는 카페 나들이",
+        "최근 이야기"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "group",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행",
+        "만나는 시간·장소",
+        "함께할까요?",
+        "함께할 내용",
+        "DAY 1",
+        "DAY 2"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "activity",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행모임 전체 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "groupchat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "AI로 계획하기",
+        "어떤 시간을 보내고 싶나요?"
+      ],
+      "inputs": [
+        {
+          "name": "어디에서 누구와 무엇을 하고 싶은지 적어주세요.",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "create",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "AI로 계획하기",
+        "어떤 시간을 보내고 싶나요?"
+      ],
+      "inputs": [
+        {
+          "name": "어디에서 누구와 무엇을 하고 싶은지 적어주세요.",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "travelcreate",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "개인으로 준비하는 부산 1박 2일",
+        "DAY 1"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "plan",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "지난 만남을 남긴 개인 여행기",
+        "바다와 한 끼",
+        "해운대해수욕장",
+        "해운대암소갈비집",
+        "시그니엘 부산",
+        "이날의 동선 한눈에 보기"
+      ],
+      "inputs": [
+        {
+          "name": "댓글 작성",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "journal",
+      "smallTargets": [
+        {
+          "h": 28,
+          "name": "사진 출처",
+          "w": 59
+        }
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 기록",
+        "함께한 시간"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "records",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "약속",
+        "함께할 약속",
+        "개인 여행 일정"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "appointments",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "지우",
+        "이 기기에 보관한 여행",
+        "플랫폼 검수 모임장",
+        "새싹 기록자",
+        "조회수 목표 알림"
+      ],
+      "inputs": [
+        {
+          "name": "내 프로필 아이콘 업로드",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "로그인하고 여행을 이어가세요",
+        "이 기기에 보관한 여행"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "guest"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "지우",
+        "이 기기에 보관한 여행",
+        "플랫폼 검수 모임장",
+        "새싹 기록자",
+        "조회수 목표 알림"
+      ],
+      "inputs": [
+        {
+          "name": "내 프로필 아이콘 업로드",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "로그인하고 여행을 이어가세요",
+        "이 기기에 보관한 여행"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "guest"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "지우",
+        "이 기기에 보관한 여행",
+        "플랫폼 검수 모임장",
+        "새싹 기록자",
+        "조회수 목표 알림"
+      ],
+      "inputs": [
+        {
+          "name": "내 프로필 아이콘 업로드",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "로그인하고 여행을 이어가세요",
+        "이 기기에 보관한 여행"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "guest"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행",
+        "우리 가족 여행 안내",
+        "다음 약속",
+        "부산 가족여행",
+        "다음에는 카페 나들이",
+        "최근 이야기"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "group",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "owner"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 104,
+        "y": 212
+      },
+      "headings": [
+        "모임",
+        "모집 중인 모임",
+        "남포 한 끼, 골목 한 바퀴",
+        "서울숲 퇴근 산책",
+        "부산 편안한 언어 교환",
+        "서면 각자의 책 모임"
+      ],
+      "inputs": [
+        {
+          "name": "찾을 내용",
+          "size": "16px"
+        },
+        {
+          "name": "모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "find",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "guest"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행",
+        "우리 가족 여행 안내",
+        "다음 약속",
+        "부산 가족여행",
+        "다음에는 카페 나들이",
+        "최근 이야기"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "group",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "owner"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 104,
+        "y": 212
+      },
+      "headings": [
+        "모임",
+        "모집 중인 모임",
+        "남포 한 끼, 골목 한 바퀴",
+        "서울숲 퇴근 산책",
+        "부산 편안한 언어 교환",
+        "서면 각자의 책 모임"
+      ],
+      "inputs": [
+        {
+          "name": "찾을 내용",
+          "size": "16px"
+        },
+        {
+          "name": "모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "find",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "guest"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행",
+        "우리 가족 여행 안내",
+        "다음 약속",
+        "부산 가족여행",
+        "다음에는 카페 나들이",
+        "최근 이야기"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "group",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "owner"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 104,
+        "y": 212
+      },
+      "headings": [
+        "모임",
+        "모집 중인 모임",
+        "남포 한 끼, 골목 한 바퀴",
+        "서울숲 퇴근 산책",
+        "부산 편안한 언어 교환",
+        "서면 각자의 책 모임"
+      ],
+      "inputs": [
+        {
+          "name": "찾을 내용",
+          "size": "16px"
+        },
+        {
+          "name": "모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "find",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "guest"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 667,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member",
+      "scenario": "short-phone"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 56,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 400,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member",
+      "scenario": "short-viewport-composer"
+    }
+  ],
+  "rawChecks": [
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 105,
+        "y": 261
+      },
+      "headings": [
+        "발견",
+        "모집 중인 만남",
+        "함께할 모임을 찾아보세요",
+        "함께 고를 장소"
+      ],
+      "inputs": [
+        {
+          "name": "발견 활동 지역",
+          "size": "16px"
+        },
+        {
+          "name": "모임·만남·장소·여행 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "home",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 104,
+        "y": 212
+      },
+      "headings": [
+        "모임",
+        "모집 중인 모임",
+        "남포 한 끼, 골목 한 바퀴",
+        "서울숲 퇴근 산책",
+        "부산 편안한 언어 교환",
+        "서면 각자의 책 모임"
+      ],
+      "inputs": [
+        {
+          "name": "찾을 내용",
+          "size": "16px"
+        },
+        {
+          "name": "모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "find",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 89,
+        "y": 227
+      },
+      "headings": [
+        "관심 장소"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "saved",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 97,
+        "y": 232
+      },
+      "headings": [
+        "장소 찾기",
+        "모든 장소139곳"
+      ],
+      "inputs": [
+        {
+          "name": "장소 이름·지역 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "directory",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "모임",
+        "가족1",
+        "취미·지역1"
+      ],
+      "inputs": [
+        {
+          "name": "내 모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "together",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행",
+        "우리 가족 여행 안내",
+        "다음 약속",
+        "부산 가족여행",
+        "다음에는 카페 나들이",
+        "최근 이야기"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "group",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행",
+        "만나는 시간·장소",
+        "함께할까요?",
+        "함께할 내용",
+        "DAY 1",
+        "DAY 2"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "activity",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 202,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 202,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행모임 전체 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "groupchat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "AI로 계획하기",
+        "어떤 시간을 보내고 싶나요?"
+      ],
+      "inputs": [
+        {
+          "name": "어디에서 누구와 무엇을 하고 싶은지 적어주세요.",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "create",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "AI로 계획하기",
+        "어떤 시간을 보내고 싶나요?"
+      ],
+      "inputs": [
+        {
+          "name": "어디에서 누구와 무엇을 하고 싶은지 적어주세요.",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "travelcreate",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "개인으로 준비하는 부산 1박 2일",
+        "DAY 1"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "plan",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "지난 만남을 남긴 개인 여행기",
+        "바다와 한 끼",
+        "해운대해수욕장",
+        "해운대암소갈비집",
+        "시그니엘 부산",
+        "이날의 동선 한눈에 보기"
+      ],
+      "inputs": [
+        {
+          "name": "댓글 작성",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "journal",
+      "smallTargets": [
+        {
+          "h": 40,
+          "name": "뒤로",
+          "w": 40
+        },
+        {
+          "h": 40,
+          "name": "여행기 편집",
+          "w": 40
+        },
+        {
+          "h": 28,
+          "name": "사진 출처",
+          "w": 59
+        },
+        {
+          "h": 38,
+          "name": "공유",
+          "w": 67
+        }
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 기록",
+        "함께한 시간"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "records",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "약속",
+        "함께할 약속",
+        "개인 여행 일정"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "appointments",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 105,
+        "y": 261
+      },
+      "headings": [
+        "발견",
+        "모집 중인 만남",
+        "함께할 모임을 찾아보세요",
+        "함께 고를 장소"
+      ],
+      "inputs": [
+        {
+          "name": "발견 활동 지역",
+          "size": "16px"
+        },
+        {
+          "name": "모임·만남·장소·여행 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "home",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 104,
+        "y": 212
+      },
+      "headings": [
+        "모임",
+        "모집 중인 모임",
+        "남포 한 끼, 골목 한 바퀴",
+        "서울숲 퇴근 산책",
+        "부산 편안한 언어 교환",
+        "서면 각자의 책 모임"
+      ],
+      "inputs": [
+        {
+          "name": "찾을 내용",
+          "size": "16px"
+        },
+        {
+          "name": "모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "find",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 89,
+        "y": 227
+      },
+      "headings": [
+        "관심 장소"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "saved",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 97,
+        "y": 232
+      },
+      "headings": [
+        "장소 찾기",
+        "모든 장소139곳"
+      ],
+      "inputs": [
+        {
+          "name": "장소 이름·지역 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "directory",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "모임",
+        "가족1",
+        "취미·지역1"
+      ],
+      "inputs": [
+        {
+          "name": "내 모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "together",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행",
+        "우리 가족 여행 안내",
+        "다음 약속",
+        "부산 가족여행",
+        "다음에는 카페 나들이",
+        "최근 이야기"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "group",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행",
+        "만나는 시간·장소",
+        "함께할까요?",
+        "함께할 내용",
+        "DAY 1",
+        "DAY 2"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "activity",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 202,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 202,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행모임 전체 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "groupchat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "AI로 계획하기",
+        "어떤 시간을 보내고 싶나요?"
+      ],
+      "inputs": [
+        {
+          "name": "어디에서 누구와 무엇을 하고 싶은지 적어주세요.",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "create",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "AI로 계획하기",
+        "어떤 시간을 보내고 싶나요?"
+      ],
+      "inputs": [
+        {
+          "name": "어디에서 누구와 무엇을 하고 싶은지 적어주세요.",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "travelcreate",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "개인으로 준비하는 부산 1박 2일",
+        "DAY 1"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "plan",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "지난 만남을 남긴 개인 여행기",
+        "바다와 한 끼",
+        "해운대해수욕장",
+        "해운대암소갈비집",
+        "시그니엘 부산",
+        "이날의 동선 한눈에 보기"
+      ],
+      "inputs": [
+        {
+          "name": "댓글 작성",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "journal",
+      "smallTargets": [
+        {
+          "h": 40,
+          "name": "뒤로",
+          "w": 40
+        },
+        {
+          "h": 40,
+          "name": "여행기 편집",
+          "w": 40
+        },
+        {
+          "h": 28,
+          "name": "사진 출처",
+          "w": 59
+        },
+        {
+          "h": 38,
+          "name": "공유",
+          "w": 67
+        }
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 기록",
+        "함께한 시간"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "records",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "약속",
+        "함께할 약속",
+        "개인 여행 일정"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "appointments",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 105,
+        "y": 261
+      },
+      "headings": [
+        "발견",
+        "모집 중인 만남",
+        "함께할 모임을 찾아보세요",
+        "함께 고를 장소"
+      ],
+      "inputs": [
+        {
+          "name": "발견 활동 지역",
+          "size": "16px"
+        },
+        {
+          "name": "모임·만남·장소·여행 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "home",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 104,
+        "y": 212
+      },
+      "headings": [
+        "모임",
+        "모집 중인 모임",
+        "남포 한 끼, 골목 한 바퀴",
+        "서울숲 퇴근 산책",
+        "부산 편안한 언어 교환",
+        "서면 각자의 책 모임"
+      ],
+      "inputs": [
+        {
+          "name": "찾을 내용",
+          "size": "16px"
+        },
+        {
+          "name": "모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "find",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 89,
+        "y": 227
+      },
+      "headings": [
+        "관심 장소"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "saved",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 97,
+        "y": 232
+      },
+      "headings": [
+        "장소 찾기",
+        "모든 장소139곳"
+      ],
+      "inputs": [
+        {
+          "name": "장소 이름·지역 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "directory",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "모임",
+        "가족1",
+        "취미·지역1"
+      ],
+      "inputs": [
+        {
+          "name": "내 모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "together",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행",
+        "우리 가족 여행 안내",
+        "다음 약속",
+        "부산 가족여행",
+        "다음에는 카페 나들이",
+        "최근 이야기"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "group",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행",
+        "만나는 시간·장소",
+        "함께할까요?",
+        "함께할 내용",
+        "DAY 1",
+        "DAY 2"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "activity",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 202,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 202,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행모임 전체 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "groupchat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "AI로 계획하기",
+        "어떤 시간을 보내고 싶나요?"
+      ],
+      "inputs": [
+        {
+          "name": "어디에서 누구와 무엇을 하고 싶은지 적어주세요.",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "create",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "AI로 계획하기",
+        "어떤 시간을 보내고 싶나요?"
+      ],
+      "inputs": [
+        {
+          "name": "어디에서 누구와 무엇을 하고 싶은지 적어주세요.",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "travelcreate",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "개인으로 준비하는 부산 1박 2일",
+        "DAY 1"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "plan",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "지난 만남을 남긴 개인 여행기",
+        "바다와 한 끼",
+        "해운대해수욕장",
+        "해운대암소갈비집",
+        "시그니엘 부산",
+        "이날의 동선 한눈에 보기"
+      ],
+      "inputs": [
+        {
+          "name": "댓글 작성",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "journal",
+      "smallTargets": [
+        {
+          "h": 40,
+          "name": "뒤로",
+          "w": 40
+        },
+        {
+          "h": 40,
+          "name": "여행기 편집",
+          "w": 40
+        },
+        {
+          "h": 28,
+          "name": "사진 출처",
+          "w": 59
+        },
+        {
+          "h": 38,
+          "name": "공유",
+          "w": 67
+        }
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 기록",
+        "함께한 시간"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "records",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "약속",
+        "함께할 약속",
+        "개인 여행 일정"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "appointments",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 105,
+        "y": 201
+      },
+      "headings": [
+        "발견 · 사람과 장소",
+        "모집 중인 만남",
+        "함께할 모임을 찾아보세요",
+        "함께 고를 장소"
+      ],
+      "inputs": [
+        {
+          "name": "발견 활동 지역",
+          "size": "16px"
+        },
+        {
+          "name": "모임·만남·장소·여행 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "home",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 93,
+        "y": 315
+      },
+      "headings": [
+        "모임",
+        "가족1",
+        "취미·지역1"
+      ],
+      "inputs": [
+        {
+          "name": "내 모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "together",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행모임 전체 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "groupchat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "지난 만남을 남긴 개인 여행기",
+        "바다와 한 끼",
+        "해운대해수욕장",
+        "해운대암소갈비집",
+        "시그니엘 부산",
+        "이날의 동선 한눈에 보기"
+      ],
+      "inputs": [
+        {
+          "name": "댓글 작성",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "journal",
+      "smallTargets": [
+        {
+          "h": 28,
+          "name": "사진 출처",
+          "w": 59
+        }
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "지우",
+        "이 기기에 보관한 여행",
+        "플랫폼 검수 모임장",
+        "새싹 기록자",
+        "조회수 목표 알림"
+      ],
+      "inputs": [
+        {
+          "name": "내 프로필 아이콘 업로드",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [
+        {
+          "h": 36,
+          "name": "내 아이콘 바꾸기",
+          "w": 116
+        }
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "로그인하고 여행을 이어가세요",
+        "이 기기에 보관한 여행"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "guest"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 105,
+        "y": 201
+      },
+      "headings": [
+        "발견 · 사람과 장소",
+        "모집 중인 만남",
+        "함께할 모임을 찾아보세요",
+        "함께 고를 장소"
+      ],
+      "inputs": [
+        {
+          "name": "발견 활동 지역",
+          "size": "16px"
+        },
+        {
+          "name": "모임·만남·장소·여행 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "home",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 93,
+        "y": 263
+      },
+      "headings": [
+        "모임",
+        "가족1",
+        "취미·지역1"
+      ],
+      "inputs": [
+        {
+          "name": "내 모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "together",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행모임 전체 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "groupchat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "지난 만남을 남긴 개인 여행기",
+        "바다와 한 끼",
+        "해운대해수욕장",
+        "해운대암소갈비집",
+        "시그니엘 부산",
+        "이날의 동선 한눈에 보기"
+      ],
+      "inputs": [
+        {
+          "name": "댓글 작성",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "journal",
+      "smallTargets": [
+        {
+          "h": 28,
+          "name": "사진 출처",
+          "w": 59
+        }
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "지우",
+        "이 기기에 보관한 여행",
+        "플랫폼 검수 모임장",
+        "새싹 기록자",
+        "조회수 목표 알림"
+      ],
+      "inputs": [
+        {
+          "name": "내 프로필 아이콘 업로드",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [
+        {
+          "h": 36,
+          "name": "내 아이콘 바꾸기",
+          "w": 136
+        }
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "로그인하고 여행을 이어가세요",
+        "이 기기에 보관한 여행"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "guest"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 105,
+        "y": 201
+      },
+      "headings": [
+        "발견 · 사람과 장소",
+        "모집 중인 만남",
+        "함께할 모임을 찾아보세요",
+        "함께 고를 장소"
+      ],
+      "inputs": [
+        {
+          "name": "발견 활동 지역",
+          "size": "16px"
+        },
+        {
+          "name": "모임·만남·장소·여행 검색",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "home",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 93,
+        "y": 263
+      },
+      "headings": [
+        "모임",
+        "가족1",
+        "취미·지역1"
+      ],
+      "inputs": [
+        {
+          "name": "내 모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "together",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행모임 전체 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "groupchat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "지난 만남을 남긴 개인 여행기",
+        "바다와 한 끼",
+        "해운대해수욕장",
+        "해운대암소갈비집",
+        "시그니엘 부산",
+        "이날의 동선 한눈에 보기"
+      ],
+      "inputs": [
+        {
+          "name": "댓글 작성",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "journal",
+      "smallTargets": [
+        {
+          "h": 28,
+          "name": "사진 출처",
+          "w": 59
+        }
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "지우",
+        "이 기기에 보관한 여행",
+        "플랫폼 검수 모임장",
+        "새싹 기록자",
+        "조회수 목표 알림"
+      ],
+      "inputs": [
+        {
+          "name": "내 프로필 아이콘 업로드",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [
+        {
+          "h": 36,
+          "name": "내 아이콘 바꾸기",
+          "w": 136
+        }
+      ],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "로그인하고 여행을 이어가세요",
+        "이 기기에 보관한 여행"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "guest"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 93,
+        "y": 263
+      },
+      "headings": [
+        "모임",
+        "가족1",
+        "취미·지역1"
+      ],
+      "inputs": [
+        {
+          "name": "내 모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "together",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "지우",
+        "이 기기에 보관한 여행",
+        "플랫폼 검수 모임장",
+        "새싹 기록자",
+        "조회수 목표 알림"
+      ],
+      "inputs": [
+        {
+          "name": "내 프로필 아이콘 업로드",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행",
+        "우리 가족 여행 안내",
+        "다음 약속",
+        "부산 가족여행",
+        "다음에는 카페 나들이",
+        "최근 이야기"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "group",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "owner"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 104,
+        "y": 212
+      },
+      "headings": [
+        "모임",
+        "모집 중인 모임",
+        "남포 한 끼, 골목 한 바퀴",
+        "서울숲 퇴근 산책",
+        "부산 편안한 언어 교환",
+        "서면 각자의 책 모임"
+      ],
+      "inputs": [
+        {
+          "name": "찾을 내용",
+          "size": "16px"
+        },
+        {
+          "name": "모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "find",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 320
+      },
+      "width": 320,
+      "role": "guest"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 93,
+        "y": 263
+      },
+      "headings": [
+        "모임",
+        "가족1",
+        "취미·지역1"
+      ],
+      "inputs": [
+        {
+          "name": "내 모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "together",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "지우",
+        "이 기기에 보관한 여행",
+        "플랫폼 검수 모임장",
+        "새싹 기록자",
+        "조회수 목표 알림"
+      ],
+      "inputs": [
+        {
+          "name": "내 프로필 아이콘 업로드",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행",
+        "우리 가족 여행 안내",
+        "다음 약속",
+        "부산 가족여행",
+        "다음에는 카페 나들이",
+        "최근 이야기"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "group",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "owner"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 104,
+        "y": 212
+      },
+      "headings": [
+        "모임",
+        "모집 중인 모임",
+        "남포 한 끼, 골목 한 바퀴",
+        "서울숲 퇴근 산책",
+        "부산 편안한 언어 교환",
+        "서면 각자의 책 모임"
+      ],
+      "inputs": [
+        {
+          "name": "찾을 내용",
+          "size": "16px"
+        },
+        {
+          "name": "모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "find",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "width": 390,
+      "role": "guest"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 93,
+        "y": 263
+      },
+      "headings": [
+        "모임",
+        "가족1",
+        "취미·지역1"
+      ],
+      "inputs": [
+        {
+          "name": "내 모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "together",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "내 계정",
+        "지우",
+        "이 기기에 보관한 여행",
+        "플랫폼 검수 모임장",
+        "새싹 기록자",
+        "조회수 목표 알림"
+      ],
+      "inputs": [
+        {
+          "name": "내 프로필 아이콘 업로드",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "profile",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "member"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "우리 가족 여행",
+        "우리 가족 여행 안내",
+        "다음 약속",
+        "부산 가족여행",
+        "다음에는 카페 나들이",
+        "최근 이야기"
+      ],
+      "inputs": [],
+      "pageOverflow": false,
+      "screen": "group",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "owner"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": null,
+      "contentOverflow": false,
+      "firstRow": {
+        "height": 104,
+        "y": 212
+      },
+      "headings": [
+        "모임",
+        "모집 중인 모임",
+        "남포 한 끼, 골목 한 바퀴",
+        "서울숲 퇴근 산책",
+        "부산 편안한 언어 교환",
+        "서면 각자의 책 모임"
+      ],
+      "inputs": [
+        {
+          "name": "찾을 내용",
+          "size": "16px"
+        },
+        {
+          "name": "모임 정렬",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "find",
+      "smallTargets": [],
+      "viewport": {
+        "height": 844,
+        "width": 460
+      },
+      "width": 460,
+      "role": "guest"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 100,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 667,
+        "width": 320
+      },
+      "width": 320,
+      "role": "member",
+      "scenario": "short-phone"
+    },
+    {
+      "brokenImages": [],
+      "chatTop": 56,
+      "contentOverflow": false,
+      "firstRow": null,
+      "headings": [
+        "부산 가족여행우리 가족 여행 · 약속 대화"
+      ],
+      "inputs": [
+        {
+          "name": "메시지",
+          "size": "16px"
+        }
+      ],
+      "pageOverflow": false,
+      "screen": "chat",
+      "smallTargets": [],
+      "viewport": {
+        "height": 400,
+        "width": 390
+      },
+      "width": 390,
+      "role": "member",
+      "scenario": "short-viewport-composer"
+    }
+  ],
+  "interactions": [
+    {
+      "check": "320px focused home search expands to 150px with query and clear control",
+      "passed": true
+    },
+    {
+      "check": "Recommended empty query shows one empty state; reset clears region and query",
+      "passed": true
+    },
+    {
+      "check": "Travel tab retains My trips, create trip and journals",
+      "passed": true
+    },
+    {
+      "check": "Find filters preserve Busan + cafe + 7-day scope while switching to meetups",
+      "passed": true
+    },
+    {
+      "check": "Saved folder + region + stay + text query intersect to exact hotel",
+      "passed": true
+    },
+    {
+      "check": "Food and hotel detail images load with address and description",
+      "passed": true
+    },
+    {
+      "check": "Saved removal restores focus to next surviving row",
+      "passed": true
+    },
+    {
+      "check": "Manual DAY1 add then DAY2 move updates visible Move/Undo labels and exact counts",
+      "passed": true
+    },
+    {
+      "check": "Creation next step keeps question below sticky header with inputs at 16px",
+      "passed": true
+    },
+    {
+      "check": "Chat notice and newly created poll accessible in one fixed context row after latest scroll",
+      "passed": true
+    },
+    {
+      "check": "Chat search empty state, successful original jump and same activity preparation navigation",
+      "passed": true
+    }
+  ],
+  "consoleWarningsAndErrors": [],
+  "exception": "Existing compact photo attribution control retains 28px height; primary actions checked at 44px minimum.",
+  "limitations": [
+    "Viewport and software keyboard space simulated in browser; physical Android/iOS keyboard not exercised.",
+    "Actual backend, OAuth, realtime and LLM remain separate from this UI change."
+  ]
+}

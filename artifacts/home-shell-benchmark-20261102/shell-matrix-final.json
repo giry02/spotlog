@@ -1,0 +1,479 @@
+[
+  {
+    "width": 320,
+    "label": "홈",
+    "header": {
+      "height": 64,
+      "width": 320,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 260,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [
+      44,
+      44,
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 320,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 140.234375,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 320,
+    "label": "둘러보기",
+    "header": {
+      "height": 64,
+      "width": 320,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 260,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 320,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 236,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 320,
+    "label": "함께하기",
+    "header": {
+      "height": 64,
+      "width": 320,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 260,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 320,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 184,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 320,
+    "label": "내 여행",
+    "header": {
+      "height": 64,
+      "width": 320,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 260,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 320,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 184,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 320,
+    "label": "관심 장소",
+    "header": {
+      "height": 64,
+      "width": 320,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 260,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [],
+    "tabs": null,
+    "title": {
+      "height": 26,
+      "width": 184,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 390,
+    "label": "홈",
+    "header": {
+      "height": 64,
+      "width": 390,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 330,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [
+      44,
+      44,
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 390,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 210.234375,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 390,
+    "label": "둘러보기",
+    "header": {
+      "height": 64,
+      "width": 390,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 330,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 390,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 306,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 390,
+    "label": "함께하기",
+    "header": {
+      "height": 64,
+      "width": 390,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 330,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 390,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 254,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 390,
+    "label": "내 여행",
+    "header": {
+      "height": 64,
+      "width": 390,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 330,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 390,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 254,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 390,
+    "label": "관심 장소",
+    "header": {
+      "height": 64,
+      "width": 390,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 330,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [],
+    "tabs": null,
+    "title": {
+      "height": 26,
+      "width": 254,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 460,
+    "label": "홈",
+    "header": {
+      "height": 64,
+      "width": 460,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 400,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [
+      44,
+      44,
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 460,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 280.234375,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 460,
+    "label": "둘러보기",
+    "header": {
+      "height": 64,
+      "width": 460,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 400,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 460,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 376,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 460,
+    "label": "함께하기",
+    "header": {
+      "height": 64,
+      "width": 460,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 400,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 460,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 324,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 460,
+    "label": "내 여행",
+    "header": {
+      "height": 64,
+      "width": 460,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 400,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 460,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 324,
+      "x": 16,
+      "y": 18.5
+    }
+  },
+  {
+    "width": 460,
+    "label": "관심 장소",
+    "header": {
+      "height": 64,
+      "width": 460,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 400,
+      "y": 9.5
+    },
+    "overflow": false,
+    "tabHeights": [],
+    "tabs": null,
+    "title": {
+      "height": 26,
+      "width": 324,
+      "x": 16,
+      "y": 18.5
+    }
+  }
+]

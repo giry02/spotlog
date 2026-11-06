@@ -1,0 +1,2431 @@
+{
+  "date": "2026-10-09",
+  "routes": [
+    {
+      "width": 320,
+      "route": "home",
+      "controls": [
+        {
+          "name": "프로필",
+          "font": 16,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "name": "가고 싶은 여행을 이야기해 주세요AI 여행 만들기지역·기간·취향을 적고 여행 초안을 받아보세요.",
+          "font": 16,
+          "width": 284,
+          "height": 147.28125
+        },
+        {
+          "name": "추천 일정 이전",
+          "font": 16,
+          "width": 33,
+          "height": 33
+        },
+        {
+          "name": "추천 일정 다음",
+          "font": 16,
+          "width": 33,
+          "height": 33
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "route": "community",
+      "controls": [
+        {
+          "name": "여행자 여행기",
+          "font": 12,
+          "width": 102.84375,
+          "height": 36
+        },
+        {
+          "name": "AI 추천 여행",
+          "font": 12,
+          "width": 93.453125,
+          "height": 36
+        },
+        {
+          "name": "여행기 지역 검색",
+          "font": 14,
+          "width": 189,
+          "height": 25.796875
+        },
+        {
+          "name": "전체",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "제주",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "부산",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "강원",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "서울",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "전남",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "남도",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "경주",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "전체 기간",
+          "font": 12,
+          "width": 78.84375,
+          "height": 36
+        },
+        {
+          "name": "당일치기",
+          "font": 12,
+          "width": 76,
+          "height": 36
+        },
+        {
+          "name": "1박 2일",
+          "font": 12,
+          "width": 66.125,
+          "height": 36
+        },
+        {
+          "name": "2박 3일",
+          "font": 12,
+          "width": 69,
+          "height": 36
+        },
+        {
+          "name": "3박 이상",
+          "font": 12,
+          "width": 74.078125,
+          "height": 36
+        },
+        {
+          "name": "남도 · 4박 5일",
+          "font": 16,
+          "width": 282,
+          "height": 190
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "route": "places-guide",
+      "controls": [
+        {
+          "name": "영상",
+          "font": 12,
+          "width": 56,
+          "height": 44
+        },
+        {
+          "name": "사진",
+          "font": 12,
+          "width": 56,
+          "height": 44
+        },
+        {
+          "name": "지역 안내",
+          "font": 12,
+          "width": 82.84375,
+          "height": 44
+        },
+        {
+          "name": "랜드마크 지역 검색",
+          "font": 14,
+          "width": 201,
+          "height": 25.796875
+        },
+        {
+          "name": "전체57",
+          "font": 16,
+          "width": 67.8125,
+          "height": 44
+        },
+        {
+          "name": "서울3",
+          "font": 16,
+          "width": 61.25,
+          "height": 44
+        },
+        {
+          "name": "경기2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "인천2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "강원8",
+          "font": 16,
+          "width": 61.59375,
+          "height": 44
+        },
+        {
+          "name": "충북2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "충남2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "대전2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "세종2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "전북2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "전남6",
+          "font": 16,
+          "width": 61.609375,
+          "height": 44
+        },
+        {
+          "name": "광주2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "경북6",
+          "font": 16,
+          "width": 61.609375,
+          "height": 44
+        },
+        {
+          "name": "경남3",
+          "font": 16,
+          "width": 61.25,
+          "height": 44
+        },
+        {
+          "name": "대구2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "울산2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "부산7",
+          "font": 16,
+          "width": 60.4375,
+          "height": 44
+        },
+        {
+          "name": "제주4",
+          "font": 16,
+          "width": 61.8125,
+          "height": 44
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "route": "places-photo",
+      "controls": [
+        {
+          "name": "영상",
+          "font": 12,
+          "width": 56,
+          "height": 44
+        },
+        {
+          "name": "사진",
+          "font": 12,
+          "width": 56,
+          "height": 44
+        },
+        {
+          "name": "지역 안내",
+          "font": 12,
+          "width": 82.84375,
+          "height": 44
+        },
+        {
+          "name": "사진 출처",
+          "font": 11,
+          "width": 61.9375,
+          "height": 44
+        },
+        {
+          "name": "동백섬 장소 이야기",
+          "font": 13,
+          "width": 86.1875,
+          "height": 44
+        },
+        {
+          "name": "동백섬 1번째 사진",
+          "font": 16,
+          "width": 44,
+          "height": 44
+        },
+        {
+          "name": "동백섬 2번째 사진",
+          "font": 16,
+          "width": 44,
+          "height": 44
+        },
+        {
+          "name": "동백섬 저장",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "동백섬 공유",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "동백섬 · 신고",
+          "font": 12,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "모든 지역 · 지역 변경",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 60,
+          "height": 66
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 60,
+          "height": 66
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 60,
+          "height": 66
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 60,
+          "height": 66
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 60,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "route": "places-video",
+      "controls": [
+        {
+          "name": "영상",
+          "font": 12,
+          "width": 56,
+          "height": 44
+        },
+        {
+          "name": "사진",
+          "font": 12,
+          "width": 56,
+          "height": 44
+        },
+        {
+          "name": "지역 안내",
+          "font": 12,
+          "width": 82.84375,
+          "height": 44
+        },
+        {
+          "name": "팔로우 · 후속 준비",
+          "font": 11,
+          "width": 57,
+          "height": 32.6875
+        },
+        {
+          "name": "협재해수욕장제주 한림 · 빠른 저장",
+          "font": 16,
+          "width": 220,
+          "height": 62.1875
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "공유",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "소리 켜기",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "모든 지역 · 지역 변경",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 60,
+          "height": 66
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 60,
+          "height": 66
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 60,
+          "height": 66
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 60,
+          "height": 66
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 60,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "route": "saved",
+      "controls": [
+        {
+          "name": "검색",
+          "font": 16,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "name": "날짜별로 담기",
+          "font": 12,
+          "width": 123,
+          "height": 36
+        },
+        {
+          "name": "바로 만들기",
+          "font": 12,
+          "width": 123,
+          "height": 36
+        },
+        {
+          "name": "장소 둘러보기",
+          "font": 14,
+          "width": 150.3125,
+          "height": 52
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "route": "trips",
+      "controls": [
+        {
+          "name": "새 여행",
+          "font": 16,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "name": "내 여행0",
+          "font": 14,
+          "width": 138,
+          "height": 44
+        },
+        {
+          "name": "내 여행기0",
+          "font": 14,
+          "width": 138,
+          "height": 44
+        },
+        {
+          "name": "휴지통",
+          "font": 12,
+          "width": 83,
+          "height": 38.390625
+        },
+        {
+          "name": "저장한 곳으로 여행 만들기",
+          "font": 14,
+          "width": 284,
+          "height": 52
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 60,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "route": "profile",
+      "controls": [
+        {
+          "name": "홈으로 돌아가기",
+          "font": 16,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "name": "로그인",
+          "font": 14,
+          "width": 242,
+          "height": 52
+        },
+        {
+          "name": "이메일 회원가입",
+          "font": 14,
+          "width": 242,
+          "height": 52
+        },
+        {
+          "name": "기기 기록 보기",
+          "font": 14,
+          "width": 242,
+          "height": 52
+        },
+        {
+          "name": "약관 · 개인정보",
+          "font": 12,
+          "width": 128.703125,
+          "height": 38.390625
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "route": "journey-jeju-west-slow",
+      "controls": [
+        {
+          "name": "뒤로",
+          "font": 16,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "name": "여행 공유",
+          "font": 16,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "name": "공유",
+          "font": 12,
+          "width": 69,
+          "height": 38
+        },
+        {
+          "name": "여행기 공유",
+          "font": 14,
+          "width": 52,
+          "height": 52
+        },
+        {
+          "name": "이 여행 복사해서 만들기",
+          "font": 14,
+          "width": 223,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "home",
+      "controls": [
+        {
+          "name": "프로필",
+          "font": 16,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "name": "가고 싶은 여행을 이야기해 주세요AI 여행 만들기지역·기간·취향을 적고 여행 초안을 받아보세요.",
+          "font": 16,
+          "width": 354,
+          "height": 126.890625
+        },
+        {
+          "name": "추천 일정 이전",
+          "font": 16,
+          "width": 33,
+          "height": 33
+        },
+        {
+          "name": "추천 일정 다음",
+          "font": 16,
+          "width": 33,
+          "height": 33
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "community",
+      "controls": [
+        {
+          "name": "여행자 여행기",
+          "font": 12,
+          "width": 102.84375,
+          "height": 36
+        },
+        {
+          "name": "AI 추천 여행",
+          "font": 12,
+          "width": 93.453125,
+          "height": 36
+        },
+        {
+          "name": "여행기 지역 검색",
+          "font": 14,
+          "width": 259,
+          "height": 25.796875
+        },
+        {
+          "name": "전체",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "제주",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "부산",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "강원",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "서울",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "전남",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "남도",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "경주",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "전체 기간",
+          "font": 12,
+          "width": 78.84375,
+          "height": 36
+        },
+        {
+          "name": "당일치기",
+          "font": 12,
+          "width": 76,
+          "height": 36
+        },
+        {
+          "name": "1박 2일",
+          "font": 12,
+          "width": 66.125,
+          "height": 36
+        },
+        {
+          "name": "2박 3일",
+          "font": 12,
+          "width": 69,
+          "height": 36
+        },
+        {
+          "name": "3박 이상",
+          "font": 12,
+          "width": 74.078125,
+          "height": 36
+        },
+        {
+          "name": "남도 · 4박 5일",
+          "font": 16,
+          "width": 352,
+          "height": 190
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "places-guide",
+      "controls": [
+        {
+          "name": "영상",
+          "font": 12,
+          "width": 63,
+          "height": 44
+        },
+        {
+          "name": "사진",
+          "font": 12,
+          "width": 63,
+          "height": 44
+        },
+        {
+          "name": "지역 안내",
+          "font": 12,
+          "width": 89.84375,
+          "height": 44
+        },
+        {
+          "name": "랜드마크 지역 검색",
+          "font": 14,
+          "width": 271,
+          "height": 25.796875
+        },
+        {
+          "name": "전체57",
+          "font": 16,
+          "width": 67.8125,
+          "height": 44
+        },
+        {
+          "name": "서울3",
+          "font": 16,
+          "width": 61.25,
+          "height": 44
+        },
+        {
+          "name": "경기2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "인천2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "강원8",
+          "font": 16,
+          "width": 61.59375,
+          "height": 44
+        },
+        {
+          "name": "충북2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "충남2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "대전2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "세종2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "전북2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "전남6",
+          "font": 16,
+          "width": 61.609375,
+          "height": 44
+        },
+        {
+          "name": "광주2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "경북6",
+          "font": 16,
+          "width": 61.609375,
+          "height": 44
+        },
+        {
+          "name": "경남3",
+          "font": 16,
+          "width": 61.25,
+          "height": 44
+        },
+        {
+          "name": "대구2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "울산2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "부산7",
+          "font": 16,
+          "width": 60.4375,
+          "height": 44
+        },
+        {
+          "name": "제주4",
+          "font": 16,
+          "width": 61.8125,
+          "height": 44
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "places-photo",
+      "controls": [
+        {
+          "name": "영상",
+          "font": 12,
+          "width": 63,
+          "height": 44
+        },
+        {
+          "name": "사진",
+          "font": 12,
+          "width": 63,
+          "height": 44
+        },
+        {
+          "name": "지역 안내",
+          "font": 12,
+          "width": 89.84375,
+          "height": 44
+        },
+        {
+          "name": "사진 출처",
+          "font": 11,
+          "width": 61.9375,
+          "height": 44
+        },
+        {
+          "name": "동백섬 장소 이야기",
+          "font": 13,
+          "width": 86.1875,
+          "height": 44
+        },
+        {
+          "name": "동백섬 1번째 사진",
+          "font": 16,
+          "width": 44,
+          "height": 44
+        },
+        {
+          "name": "동백섬 2번째 사진",
+          "font": 16,
+          "width": 44,
+          "height": 44
+        },
+        {
+          "name": "동백섬 저장",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "동백섬 공유",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "동백섬 · 신고",
+          "font": 12,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "모든 지역 · 지역 변경",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 74,
+          "height": 66
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 74,
+          "height": 66
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 74,
+          "height": 66
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 74,
+          "height": 66
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 74,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "places-video",
+      "controls": [
+        {
+          "name": "영상",
+          "font": 12,
+          "width": 63,
+          "height": 44
+        },
+        {
+          "name": "사진",
+          "font": 12,
+          "width": 63,
+          "height": 44
+        },
+        {
+          "name": "지역 안내",
+          "font": 12,
+          "width": 89.84375,
+          "height": 44
+        },
+        {
+          "name": "팔로우 · 후속 준비",
+          "font": 11,
+          "width": 57,
+          "height": 32.6875
+        },
+        {
+          "name": "협재해수욕장제주 한림 · 빠른 저장",
+          "font": 16,
+          "width": 290,
+          "height": 62.1875
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "공유",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "소리 켜기",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "모든 지역 · 지역 변경",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 74,
+          "height": 66
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 74,
+          "height": 66
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 74,
+          "height": 66
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 74,
+          "height": 66
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 74,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "saved",
+      "controls": [
+        {
+          "name": "검색",
+          "font": 16,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "name": "날짜별로 담기",
+          "font": 12,
+          "width": 158,
+          "height": 36
+        },
+        {
+          "name": "바로 만들기",
+          "font": 12,
+          "width": 158,
+          "height": 36
+        },
+        {
+          "name": "장소 둘러보기",
+          "font": 14,
+          "width": 150.3125,
+          "height": 52
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "trips",
+      "controls": [
+        {
+          "name": "새 여행",
+          "font": 16,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "name": "내 여행0",
+          "font": 14,
+          "width": 173,
+          "height": 44
+        },
+        {
+          "name": "내 여행기0",
+          "font": 14,
+          "width": 173,
+          "height": 44
+        },
+        {
+          "name": "휴지통",
+          "font": 12,
+          "width": 83,
+          "height": 38.390625
+        },
+        {
+          "name": "저장한 곳으로 여행 만들기",
+          "font": 14,
+          "width": 354,
+          "height": 52
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 74,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "profile",
+      "controls": [
+        {
+          "name": "홈으로 돌아가기",
+          "font": 16,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "name": "로그인",
+          "font": 14,
+          "width": 312,
+          "height": 52
+        },
+        {
+          "name": "이메일 회원가입",
+          "font": 14,
+          "width": 312,
+          "height": 52
+        },
+        {
+          "name": "기기 기록 보기",
+          "font": 14,
+          "width": 312,
+          "height": 52
+        },
+        {
+          "name": "약관 · 개인정보",
+          "font": 12,
+          "width": 128.703125,
+          "height": 38.390625
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "route": "journey-jeju-west-slow",
+      "controls": [
+        {
+          "name": "뒤로",
+          "font": 16,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "name": "여행 공유",
+          "font": 16,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "name": "공유",
+          "font": 12,
+          "width": 69,
+          "height": 38
+        },
+        {
+          "name": "여행기 공유",
+          "font": 14,
+          "width": 52,
+          "height": 52
+        },
+        {
+          "name": "이 여행 복사해서 만들기",
+          "font": 14,
+          "width": 293,
+          "height": 52
+        }
+      ]
+    },
+    {
+      "width": 460,
+      "route": "home",
+      "controls": [
+        {
+          "name": "프로필",
+          "font": 16,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "name": "가고 싶은 여행을 이야기해 주세요AI 여행 만들기지역·기간·취향을 적고 여행 초안을 받아보세요.",
+          "font": 16,
+          "width": 424,
+          "height": 105.890625
+        },
+        {
+          "name": "추천 일정 이전",
+          "font": 16,
+          "width": 33,
+          "height": 33
+        },
+        {
+          "name": "추천 일정 다음",
+          "font": 16,
+          "width": 33,
+          "height": 33
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "일정 자세히 보기",
+          "font": 12,
+          "width": 119.671875,
+          "height": 43
+        },
+        {
+          "name": "추천 일정 1번",
+          "font": 16,
+          "width": 36,
+          "height": 36
+        },
+        {
+          "name": "추천 일정 2번",
+          "font": 16,
+          "width": 36,
+          "height": 36
+        },
+        {
+          "name": "추천 일정 3번",
+          "font": 16,
+          "width": 36,
+          "height": 36
+        },
+        {
+          "name": "추천 일정 4번",
+          "font": 16,
+          "width": 36,
+          "height": 36
+        },
+        {
+          "name": "추천 일정 5번",
+          "font": 16,
+          "width": 36,
+          "height": 36
+        },
+        {
+          "name": "추천 일정 6번",
+          "font": 16,
+          "width": 36,
+          "height": 36
+        },
+        {
+          "name": "추천 일정 7번",
+          "font": 16,
+          "width": 36,
+          "height": 36
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 460,
+      "route": "community",
+      "controls": [
+        {
+          "name": "여행자 여행기",
+          "font": 12,
+          "width": 102.84375,
+          "height": 36
+        },
+        {
+          "name": "AI 추천 여행",
+          "font": 12,
+          "width": 93.453125,
+          "height": 36
+        },
+        {
+          "name": "여행기 지역 검색",
+          "font": 14,
+          "width": 329,
+          "height": 25.796875
+        },
+        {
+          "name": "전체",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "제주",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "부산",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "강원",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "서울",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "전남",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "남도",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "경주",
+          "font": 12,
+          "width": 52,
+          "height": 34
+        },
+        {
+          "name": "전체 기간",
+          "font": 12,
+          "width": 78.84375,
+          "height": 36
+        },
+        {
+          "name": "당일치기",
+          "font": 12,
+          "width": 76,
+          "height": 36
+        },
+        {
+          "name": "1박 2일",
+          "font": 12,
+          "width": 66.125,
+          "height": 36
+        },
+        {
+          "name": "2박 3일",
+          "font": 12,
+          "width": 69,
+          "height": 36
+        },
+        {
+          "name": "3박 이상",
+          "font": 12,
+          "width": 74.078125,
+          "height": 36
+        },
+        {
+          "name": "남도 · 4박 5일",
+          "font": 16,
+          "width": 422,
+          "height": 190
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 460,
+      "route": "places-guide",
+      "controls": [
+        {
+          "name": "영상",
+          "font": 12,
+          "width": 63,
+          "height": 44
+        },
+        {
+          "name": "사진",
+          "font": 12,
+          "width": 63,
+          "height": 44
+        },
+        {
+          "name": "지역 안내",
+          "font": 12,
+          "width": 89.84375,
+          "height": 44
+        },
+        {
+          "name": "랜드마크 지역 검색",
+          "font": 14,
+          "width": 341,
+          "height": 25.796875
+        },
+        {
+          "name": "전체57",
+          "font": 16,
+          "width": 67.8125,
+          "height": 44
+        },
+        {
+          "name": "서울3",
+          "font": 16,
+          "width": 61.25,
+          "height": 44
+        },
+        {
+          "name": "경기2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "인천2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "강원8",
+          "font": 16,
+          "width": 61.59375,
+          "height": 44
+        },
+        {
+          "name": "충북2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "충남2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "대전2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "세종2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "전북2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "전남6",
+          "font": 16,
+          "width": 61.609375,
+          "height": 44
+        },
+        {
+          "name": "광주2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "경북6",
+          "font": 16,
+          "width": 61.609375,
+          "height": 44
+        },
+        {
+          "name": "경남3",
+          "font": 16,
+          "width": 61.25,
+          "height": 44
+        },
+        {
+          "name": "대구2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "울산2",
+          "font": 16,
+          "width": 60.9375,
+          "height": 44
+        },
+        {
+          "name": "부산7",
+          "font": 16,
+          "width": 60.4375,
+          "height": 44
+        },
+        {
+          "name": "제주4",
+          "font": 16,
+          "width": 61.8125,
+          "height": 44
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 460,
+      "route": "places-photo",
+      "controls": [
+        {
+          "name": "영상",
+          "font": 12,
+          "width": 63,
+          "height": 44
+        },
+        {
+          "name": "사진",
+          "font": 12,
+          "width": 63,
+          "height": 44
+        },
+        {
+          "name": "지역 안내",
+          "font": 12,
+          "width": 89.84375,
+          "height": 44
+        },
+        {
+          "name": "사진 출처",
+          "font": 11,
+          "width": 61.9375,
+          "height": 44
+        },
+        {
+          "name": "동백섬 장소 이야기",
+          "font": 13,
+          "width": 86.1875,
+          "height": 44
+        },
+        {
+          "name": "동백섬 1번째 사진",
+          "font": 16,
+          "width": 44,
+          "height": 44
+        },
+        {
+          "name": "동백섬 2번째 사진",
+          "font": 16,
+          "width": 44,
+          "height": 44
+        },
+        {
+          "name": "동백섬 저장",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "동백섬 공유",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "동백섬 · 신고",
+          "font": 12,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "모든 지역 · 지역 변경",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 88,
+          "height": 66
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 88,
+          "height": 66
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 88,
+          "height": 66
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 88,
+          "height": 66
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 88,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "width": 460,
+      "route": "places-video",
+      "controls": [
+        {
+          "name": "영상",
+          "font": 12,
+          "width": 63,
+          "height": 44
+        },
+        {
+          "name": "사진",
+          "font": 12,
+          "width": 63,
+          "height": 44
+        },
+        {
+          "name": "지역 안내",
+          "font": 12,
+          "width": 89.84375,
+          "height": 44
+        },
+        {
+          "name": "팔로우 · 후속 준비",
+          "font": 11,
+          "width": 57,
+          "height": 32.6875
+        },
+        {
+          "name": "협재해수욕장제주 한림 · 빠른 저장",
+          "font": 16,
+          "width": 360,
+          "height": 62.1875
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "공유",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "소리 켜기",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "모든 지역 · 지역 변경",
+          "font": 16,
+          "width": 46,
+          "height": 46
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 88,
+          "height": 66
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 88,
+          "height": 66
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 88,
+          "height": 66
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 88,
+          "height": 66
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 88,
+          "height": 66
+        }
+      ]
+    },
+    {
+      "width": 460,
+      "route": "saved",
+      "controls": [
+        {
+          "name": "검색",
+          "font": 16,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "name": "날짜별로 담기",
+          "font": 12,
+          "width": 193,
+          "height": 36
+        },
+        {
+          "name": "바로 만들기",
+          "font": 12,
+          "width": 193,
+          "height": 36
+        },
+        {
+          "name": "장소 둘러보기",
+          "font": 14,
+          "width": 150.3125,
+          "height": 52
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 460,
+      "route": "trips",
+      "controls": [
+        {
+          "name": "새 여행",
+          "font": 16,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "name": "내 여행0",
+          "font": 14,
+          "width": 208,
+          "height": 44
+        },
+        {
+          "name": "내 여행기0",
+          "font": 14,
+          "width": 208,
+          "height": 44
+        },
+        {
+          "name": "휴지통",
+          "font": 12,
+          "width": 83,
+          "height": 38.390625
+        },
+        {
+          "name": "저장한 곳으로 여행 만들기",
+          "font": 14,
+          "width": 424,
+          "height": 52
+        },
+        {
+          "name": "홈",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "여행기",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "장소",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "내 여행",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        },
+        {
+          "name": "저장",
+          "font": 16,
+          "width": 88,
+          "height": 65
+        }
+      ]
+    },
+    {
+      "width": 460,
+      "route": "profile",
+      "controls": [
+        {
+          "name": "홈으로 돌아가기",
+          "font": 16,
+          "width": 42,
+          "height": 42
+        },
+        {
+          "name": "로그인",
+          "font": 14,
+          "width": 382,
+          "height": 52
+        },
+        {
+          "name": "이메일 회원가입",
+          "font": 14,
+          "width": 382,
+          "height": 52
+        },
+        {
+          "name": "기기 기록 보기",
+          "font": 14,
+          "width": 382,
+          "height": 52
+        },
+        {
+          "name": "약관 · 개인정보",
+          "font": 12,
+          "width": 128.703125,
+          "height": 38.390625
+        }
+      ]
+    },
+    {
+      "width": 460,
+      "route": "journey-jeju-west-slow",
+      "controls": [
+        {
+          "name": "뒤로",
+          "font": 16,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "name": "여행 공유",
+          "font": 16,
+          "width": 40,
+          "height": 40
+        },
+        {
+          "name": "공유",
+          "font": 12,
+          "width": 69,
+          "height": 38
+        },
+        {
+          "name": "여행기 공유",
+          "font": 14,
+          "width": 52,
+          "height": 52
+        },
+        {
+          "name": "이 여행 복사해서 만들기",
+          "font": 14,
+          "width": 363,
+          "height": 52
+        }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "width": 320,
+      "oneReportFooter": true,
+      "reportHandoff": true,
+      "commentDraftPreserved": true,
+      "placeEmptyRecovery": true,
+      "memberCommentAndReactionPersist": true,
+      "cardCommentAndLikePersist": true
+    },
+    {
+      "width": 390,
+      "oneReportFooter": true,
+      "reportHandoff": true,
+      "commentDraftPreserved": true,
+      "placeEmptyRecovery": true,
+      "memberCommentAndReactionPersist": true,
+      "cardCommentAndLikePersist": true
+    },
+    {
+      "width": 460,
+      "oneReportFooter": true,
+      "reportHandoff": true,
+      "commentDraftPreserved": true,
+      "placeEmptyRecovery": true,
+      "memberCommentAndReactionPersist": true,
+      "cardCommentAndLikePersist": true
+    }
+  ],
+  "errors": [],
+  "assetFailures": [],
+  "passed": true
+}

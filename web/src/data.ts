@@ -23,12 +23,14 @@ import seoulForestCover from '../../assets/spotlog/seoul-forest-evening.webp';
 import spa from '../../assets/spotlog/spa.jpg';
 import { publicTourismPlaces } from './publicTourismContent';
 import { plannerBusinessPlaces } from './plannerBusinessCatalog';
+import busanLandmarkRecords from './busanLandmarkRecords.json' with { type: 'json' };
+import { busanBusinessMediaById, busanLandmarkMediaById } from './busanBusinessMedia';
 import type { PlacePhotoInput } from './placePhotos';
 import { licensedPlaceSources } from './licensedPlaceSources';
 
 const cloudinaryVideo = (id: string) => `https://res.cloudinary.com/demo/video/upload/c_fill,g_center,h_1280,w_720,q_auto:eco/${id}.mp4`;
 
-export type PlaceKind = 'LANDMARK' | 'STAY' | 'FOOD' | 'CAFE' | 'SHOP';
+export type PlaceKind = 'LANDMARK' | 'STAY' | 'FOOD' | 'CAFE' | 'SHOP' | 'LEISURE';
 export type JourneyStatus = 'PLANNING' | 'TRAVELING' | 'PUBLISHED';
 export type VisitProgressStatus = 'done' | 'skipped';
 /** Private progress belongs to this trip's visit IDs, never the shared place. */
@@ -95,10 +97,16 @@ export interface StoryBlock {
 }
 
 export interface Journey {
+  /** Safe optional identity on published review projections. */
+  publicAuthorId?: string;
+  publicSourceKind?: 'SERVER' | 'PUBLIC_SAMPLE' | 'EDITORIAL' | 'SYNTHETIC';
   id: string;
   travelProgress?: TripTravelProgress;
   trash?: { deletedAt: string; expiresAt: string; ownerId: string; previousVisibility: 'PUBLIC' | 'PRIVATE'; previousStatus: JourneyStatus };
   purpose?: 'PLAN' | 'JOURNAL';
+  /** Private shortlist; alternatives are not visits until the customer confirms. */
+  planStage?: 'DRAFT' | 'READY';
+  businessCandidates?: TripCandidateGroup[];
   /** Private planning input. Never copy this into a public journal. */
   planningPreferences?: {
     mode: 'region' | 'saved'; region: string; dayCount: number; startDate: string; prompt: string;
@@ -128,6 +136,16 @@ export interface Journey {
   sourceAuthor?: string;
   recommendationKind?: 'AI';
   recommendationBasis?: 'OFFICIAL_SOURCE_SAMPLE';
+}
+
+export interface TripCandidateGroup {
+  id: string;
+  dayId: string;
+  anchorVisitId: string;
+  kind: 'FOOD' | 'CAFE' | 'STAY';
+  slot?: PlanningSlot;
+  selectedId?: string;
+  options: { place: Place; fixed: boolean }[];
 }
 
 export const discoveryLandmarks: Place[] = [
@@ -218,7 +236,7 @@ export const initialJourneys: Journey[] = [
 ];
 
 export const placeKindLabel: Record<PlaceKind, string> = {
-  LANDMARK: '랜드마크', STAY: '숙소', FOOD: '맛집', CAFE: '카페', SHOP: '로컬숍',
+  LANDMARK: '랜드마크', STAY: '숙소', FOOD: '음식점', CAFE: '카페', SHOP: '쇼핑', LEISURE: '레저',
 };
 
 const samplePlace = (
@@ -300,10 +318,23 @@ const catalogOnlyPlaces: Place[] = [
   samplePlace('goseong-cheonjin', '천진해변', '강원 고성', '강원 고성군 토성면 천진해변길 39', 38.2577, 128.5571, jejuAewolTravelNotes, '작은 항구와 잔잔한 해변을 함께 보며 동해안 여행을 마무리하기 좋은 곳.', '아야진에서 해안도로로 이어 이동하면 마지막 날 동선이 자연스럽습니다.', '1시간'),
 ];
 
+const busanLandmarkPlaces: Place[] = busanLandmarkRecords.map(record => {
+  const existing = publicTourismPlaces.find(place => place.id === record.id);
+  const media = busanLandmarkMediaById[record.id];
+  return { id: record.id, kind: 'LANDMARK', name: record.name, area: record.area, address: record.address,
+    lat: record.lat, lng: record.lng, locationVerified: true, image: media?.image ?? existing?.image ?? '',
+    description: record.description, note: '', duration: '', tags: record.tags,
+    ...(media ? { photos: media.photos, motionImages: media.photos.map(photo => photo.image) } : existing?.photos ? { photos: existing.photos } : {}),
+  };
+});
+discoveryLandmarks.push(...busanLandmarkPlaces.filter(place => !discoveryLandmarks.some(existing => existing.id === place.id)));
+
 export const placeCatalog: Place[] = Array.from(new Map(
-  [...discoveryLandmarks, ...initialJourneys.flatMap((journey) => journey.days.flatMap((day) => day.places)), ...catalogOnlyPlaces, ...publicTourismPlaces, ...plannerBusinessPlaces]
+  [...discoveryLandmarks, ...initialJourneys.flatMap((journey) => journey.days.flatMap((day) => day.places)), ...catalogOnlyPlaces, ...publicTourismPlaces, ...plannerBusinessPlaces, ...busanLandmarkPlaces]
     .map((place) => [place.id, place]),
 ).values()).map((place) => {
+  const busanMedia = busanBusinessMediaById[place.id] ?? busanLandmarkMediaById[place.id];
+  if (busanMedia) return { ...place, image: busanMedia.image, photos: busanMedia.photos };
   // New catalog selections carry photo identities into saved travel drafts.
   // Existing journeys, authored galleries and the video samples are not rewritten.
   const sources = licensedPlaceSources.filter((source) => source.placeId === place.id);

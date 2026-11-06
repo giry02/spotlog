@@ -1,0 +1,44 @@
+/* Saved browsing is a compact information list; editing keeps its existing DAY controls. */
+.saved-page .saved-card.saved-place-row {
+  display:grid; grid-template-columns:minmax(0,1fr) 44px; gap:8px;
+  min-height:88px; padding:12px 0; border:0; border-bottom:1px solid var(--line);
+  border-radius:0; background:transparent; box-shadow:none; overflow:visible;
+}
+.saved-page .saved-card.saved-place-row > button {
+  position:static; inset:auto; min-height:44px; margin:0; border:0;
+  border-radius:8px; font-family:inherit;
+}
+.saved-page .saved-place-row .saved-place-row-main {
+  width:100%; height:auto; padding:0; display:flex; align-items:center;
+  gap:12px; color:var(--ink); background:transparent; text-align:left;
+}
+.saved-place-row-media { width:64px; height:64px; flex:0 0 64px; overflow:hidden; display:grid; place-items:center; border-radius:10px; color:var(--muted); background:var(--line); }
+.saved-place-row-media img { width:100%; height:100%; object-fit:cover; }
+.saved-place-row-copy { min-width:0; flex:1; display:grid; gap:2px; }
+.saved-place-row-title { margin:0; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; overflow-wrap:anywhere; font-size:16px; line-height:22px; font-weight:600; }
+.saved-place-row-meta { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; line-height:16px; color:var(--muted); font-weight:400; }
+.saved-place-row-intro { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px; line-height:20px; color:var(--muted); font-weight:400; }
+.saved-page .saved-place-row .saved-place-row-add { align-self:center; width:44px; height:44px; padding:2px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; color:var(--ink); background:var(--line); }
+.saved-place-row-add span { font-size:12px; line-height:16px; }
+.saved-page .saved-place-row .saved-place-row-add.is-added { color:#176759; background:#e3f2ed; }
+.saved-place-row button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.saved-page .saved-region-section { border:0; border-radius:0; background:transparent; overflow:visible; }
+.saved-page .saved-region-section .saved-list { padding:0; gap:0; }
+body.spotlog-consumer .app-shell .saved-page .saved-region-heading { min-height:44px; padding:8px 0; grid-template-columns:minmax(0,1fr) auto; }
+.saved-page .saved-region-heading > span:nth-child(2) { display:none; }
+.saved-page .saved-region-heading > span:first-child { min-width:0; }
+.saved-landmark-actions { margin-top:16px; }
+.saved-landmark-actions .saved-place-remove { min-height:44px; width:100%; padding:10px 12px; display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid var(--line); border-radius:12px; color:var(--accent); background:white; font-size:14px; line-height:20px; }
+.interest-quick-filters { display:flex; align-items:center; gap:8px; min-width:0; }
+.interest-collections .interest-quick-filters > button { flex:1 1 0; min-width:0; padding:8px; font-size:14px; line-height:20px; font-weight:500; border-color:transparent; background:var(--line); }
+.interest-quick-filters > button:first-child { flex-grow:1.5; }
+.interest-quick-filters > button > span { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.interest-quick-filters > button > svg { flex-shrink:0; }
+.interest-collections .interest-quick-filters > .interest-search-toggle { flex:0 0 44px; }
+.interest-collections .interest-quick-filters > button[data-active=true] { color:var(--accent); background:#fff0eb; }
+.interest-filter-sheet { margin:0; }
+.interest-filter-sheet .interest-folder-strip { flex-wrap:wrap; overflow:visible; padding:0; margin:0 0 16px; }
+.interest-filter-sheet .interest-kind-filter { gap:8px; }
+.interest-filter-sheet .interest-kind-filter > button { min-height:44px; font-size:14px; }
+.saved-page .interest-collections { margin-bottom:8px; }
+.saved-page .interest-search-field { margin-top:8px; }

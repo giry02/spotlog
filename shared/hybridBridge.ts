@@ -18,6 +18,7 @@ export type WebToNativeMessage =
 
 export type NativeToWebMessage =
   | { type: 'GO_BACK' }
+  | { type: 'PREVIEW_NOTIFICATION_RESULT'; payload: { sent: boolean; reason?: 'permission' | 'unavailable' } }
   | {
     type: 'NOTIFICATION_STATUS';
     payload: {
@@ -60,6 +61,11 @@ export function parseNativeToWebMessage(value: unknown): NativeToWebMessage | nu
     const message: unknown = JSON.parse(value);
     if (!isRecord(message)) return null;
     if (message.type === 'GO_BACK') return { type: 'GO_BACK' };
+    if (message.type === 'PREVIEW_NOTIFICATION_RESULT' && isRecord(message.payload)) {
+      const { sent, reason } = message.payload;
+      if (typeof sent !== 'boolean' || (reason !== undefined && reason !== 'permission' && reason !== 'unavailable')) return null;
+      return { type: 'PREVIEW_NOTIFICATION_RESULT', payload: { sent, ...(reason ? { reason } : {}) } };
+    }
     if (message.type !== 'NOTIFICATION_STATUS' || !isRecord(message.payload)) return null;
     const permission = message.payload.permission;
     if (typeof message.payload.enabled !== 'boolean' || !['granted', 'denied', 'undetermined'].includes(String(permission))) return null;

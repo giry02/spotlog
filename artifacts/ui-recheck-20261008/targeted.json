@@ -1,0 +1,32 @@
+{
+  "fromLibrary": {
+    "purpose": "PLAN",
+    "stage": null,
+    "reviewButton": 0
+  },
+  "fromSaved": {
+    "purpose": "PLAN",
+    "stage": "DRAFT",
+    "candidates": 0,
+    "reviewButton": 1
+  },
+  "notificationShortcut": {
+    "menu": "운영 설정·이력",
+    "tab": "분류·운영 기준"
+  },
+  "mineShortcut": {
+    "assignee": "",
+    "review": ""
+  },
+  "regionShortcut": {
+    "tab": "분류·운영 기준"
+  },
+  "masterMigration": {
+    "baseline": 107,
+    "previous": 89,
+    "after": 89,
+    "newRegionRecords": 18,
+    "stillMissing": 18,
+    "editedPreserved": true
+  }
+}

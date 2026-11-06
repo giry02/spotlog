@@ -1,0 +1,37 @@
+✔ four original character packs expose exactly 34 stable, unique sticker IDs (1.3929ms)
+✔ only catalog IDs resolve; arbitrary URLs, markup, object keys and unknown IDs are refused (0.1793ms)
+✔ SVG data is self-contained constant artwork without executable markup or external resources (1.1217ms)
+✔ catalog objects are immutable and lookup preserves original artwork (0.5191ms)
+✔ Unicode choices carry visible Korean labels and cover expression, reaction, travel and food (0.3793ms)
+✔ discovery examples cover multiple interests and places without autojoining anyone or exposing private seed data (18.6049ms)
+✔ public activity projection requires explicit same-group selection and excludes private fields and cancellation (0.287ms)
+✔ discovery filters independent topic/style/district and paused recruitment without using synthetic popularity (1.9712ms)
+✔ date filters use Korean calendar overlap, current weekend and upcoming selected public activity only (5.3856ms)
+✔ one-time discovery hydration preserves all existing edits, selected visibility and earlier deleted legacy groups (1.7393ms)
+✔ repository saves catalog upgrade once only in its own key and preserves prior state when upgrade write fails (6.7682ms)
+✔ approved public snapshots stay unchanged after private edits, with current cancellation and removal always enforced (0.1976ms)
+✔ snapshot schema rejects internal fields and legacy origin backfill never changes edited visibility or restores deleted examples (1.4927ms)
+✔ together writes only an account-specific new namespace and preserves existing customer/admin bytes (17.325ms)
+✔ only the existing local review identity receives fictional joined scenes; other accounts remain nonmembers (6.8011ms)
+✔ a shared itinerary remaps independent DAY/visit/block IDs and booking constraints while stripping private notes and drafts (0.8998ms)
+✔ first acceptance binds one group to the shared intent; retries and a second token never duplicate it (0.6759ms)
+✔ different intents from the same personal source create independent groups; expired/revoked invites do not create (0.1827ms)
+✔ journal sharing keeps authored text as an independent snapshot, without creating a future activity (0.2738ms)
+✔ malformed storage is preserved and blocked from overwrite (1.2386ms)
+✔ quota failure preserves previous snapshot and bytes; invalid recipes cannot persist (2.1341ms)
+✔ a concurrent tab change is loaded before rejecting stale edits (3.1107ms)
+✔ activity editors must still be active group members; archiving revokes editing (1.4062ms)
+✔ unfinished route candidates cannot be silently converted to confirmed group visits (0.2152ms)
+✔ sanitized journal invitation snapshots preserve journal mode and never create an unintended future trip (0.213ms)
+✔ member removal revokes only the selected group, retains history and blocks old invites and approvals (1.6108ms)
+✔ owner and manager removal permissions cannot be bypassed; old schema stays valid (1.9626ms)
+✔ a rejected domain operation keeps input feedback and never partially saves draft changes (1.3727ms)
+✔ messages accept only a closed sticker identifier with the required text contract and reject remote image injection (2.7469ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 185.6177

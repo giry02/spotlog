@@ -37,6 +37,9 @@ jobs:
       - name: Build mobile web
         run: npm run web:build
 
+      - name: Include administrator manual
+        run: node scripts/publish-admin-manual.cjs
+
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 

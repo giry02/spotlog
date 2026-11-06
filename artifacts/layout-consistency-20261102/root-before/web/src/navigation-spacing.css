@@ -1,0 +1,93 @@
+/* Customer navigation spacing. Full-slide media tracks and manual gestures stay unchanged. */
+.home-topic-tabs,
+.home-place-kinds,
+.home-topics-page .rolling-controls,
+.browse-switch,
+.place-discover .place-view-toggle,
+.place-kind-filter,
+.region-count-grid.phase-region-strip,
+.interest-folder-strip,
+.interest-kind-filter,
+.interest-view-toggle,
+.saved-place-toolbar .interest-view-toggle,
+.saved-region-chips,
+.editor-day-tabs,
+.trip-picker-kinds,
+.saved-trip-region-options,
+.saved-trip-period-options,
+.gd .gd-date-filters,
+.gd .gd-home-style,
+.gd-home .gd-home-style,
+.gd-home .gd-home-switch,
+.gd-home .gd-categories,
+.gd-discovery .gd-categories,
+.gd .gd-category-extra,
+.gd .gd-region-shortcuts,
+.tg .tg-tabs,
+.tg .tg-filter,
+.tg .chat-expression-categories {
+  gap: var(--space-2, 8px);
+}
+
+/* Keep older library controls on the same touch scale as the new navigation. */
+.header-action { width:var(--touch-target,44px); height:var(--touch-target,44px); min-width:var(--touch-target,44px); }
+.destination-search input { min-height:var(--touch-target,44px); font-size:var(--type-body); }
+.destination-search button { min-height:var(--touch-target,44px); min-width:var(--touch-target,44px); font-size:var(--type-subhead); }
+.community-page .duration-chips,
+.community-page .destination-chips { gap:var(--space-2,8px); }
+.community-page .duration-chips > button,
+.community-page .destination-chips > button { min-height:var(--touch-target,44px); font-size:var(--type-subhead); }
+.saved-page .saved-card-copy .add-to-trip,
+.saved-page .saved-card-copy .saved-place-detail-button { min-height:var(--touch-target,44px); font-size:var(--type-subhead); }
+.saved-card > button { width:var(--touch-target,44px); height:var(--touch-target,44px); }
+.journey-card .journey-share { width:var(--touch-target,44px); height:var(--touch-target,44px); }
+.journey-card .journey-trash { right:62px; }
+.phase-three-profile-settings { min-height:var(--touch-target,44px); font-size:var(--type-subhead); }
+.profile-topbar > button { width:var(--touch-target,44px); height:var(--touch-target,44px); }
+.destination-search:focus-within { outline:2px solid var(--ink); outline-offset:2px; }
+
+/* Scroll only the strip; leave room for the first/last keyboard focus outline. */
+.region-count-grid.phase-region-strip,
+.interest-folder-strip,
+.trip-picker-kinds,
+.tg .tg-filter {
+  padding-inline: 3px;
+  scroll-padding-inline: 3px;
+  overscroll-behavior-x: contain;
+}
+.region-count-grid.phase-region-strip,
+.interest-folder-strip,
+.trip-picker-kinds {
+  padding-block: 3px 10px;
+}
+.tg .tg-filter { padding-block: 3px 6px; }
+.gd-home .gd-categories { padding-top: 3px; padding-bottom: 6px; scroll-padding-inline: 3px; }
+.tg .tg-tabs { padding-top: 3px; scroll-padding-inline: 20px; overscroll-behavior-x: contain; }
+
+/* Compact labels remain a full touch target and do not squeeze into adjacent buttons. */
+.saved-region-chips > button,
+.saved-trip-region-options > button,
+.saved-trip-period-options > button,
+.trip-picker-kinds > button,
+.tg .tg-tabs > button,
+.tg .tg-filter > button {
+  min-height: var(--touch-target, 44px);
+  min-width: var(--touch-target, 44px);
+}
+.tg .tg-tabs > button { flex: 1 0 auto; }
+.tg .tg-filter > button { flex: 0 0 auto; }
+.place-discover .place-view-toggle { max-width: 100%; }
+
+/* The media header can wrap; keep the photo count below both header rows. */
+.tab-discover.place-photo .photo-reel-meta {
+  top: calc(144px + env(safe-area-inset-top));
+}
+@media (max-width: 420px) {
+  .tab-discover.place-photo .photo-reel-meta {
+    top: calc(196px + env(safe-area-inset-top));
+  }
+}
+
+@media (max-width: 350px) {
+  .tg .tg-bar .tg-icon { width: var(--touch-target, 44px); min-width: var(--touch-target, 44px); }
+}

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>스팟로그 · MOA 채팅 벤치마킹 반영 검수</title>
+  <style>
+    :root{color-scheme:light;--ink:#242421;--muted:#686963;--line:#dedfd8;--paper:#fff;--accent:#ce5a45;--green:#276052}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f5f5f0;color:var(--ink);font:16px/1.7 system-ui,-apple-system,"Segoe UI",sans-serif;word-break:keep-all;overflow-wrap:anywhere}main{max-width:1100px;margin:auto;padding:40px 24px 64px}h1{font-size:32px;line-height:1.35;margin:8px 0 16px}h2{font-size:23px;line-height:1.45;margin:0 0 16px}h3{font-size:18px;margin:0 0 8px}p{margin:8px 0 16px}a{color:var(--green);text-underline-offset:4px}a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}code{font-size:14px;background:#f0f1eb;padding:2px 5px;border-radius:4px}ul,ol{padding-left:24px;margin:8px 0 0}li{margin:7px 0}header{margin-bottom:28px}.eyebrow{font-size:14px;font-weight:700;color:var(--green);margin:0}.meta{font-size:14px;color:var(--muted)}.lead{font-size:18px;max-width:850px}.chips,.links{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.chip{display:inline-flex;align-items:center;min-height:32px;padding:3px 10px;border:1px solid var(--line);border-radius:99px;font-size:14px;background:white}.chip.ok{color:var(--green);background:#edf4ef;border-color:#d5e4da}.links a{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:white;font-size:14px;font-weight:650;text-decoration:none}section{margin-top:24px;padding:24px;background:var(--paper);border:1px solid var(--line);border-radius:16px}.note{padding:16px;border-left:4px solid var(--accent);background:#fff4ee;border-radius:0 10px 10px 0}.note p:last-child{margin-bottom:0}.flow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0}.flow span{padding:8px 12px;background:#f1f5f1;border-radius:8px;font-size:14px}.flow b{color:var(--muted)}.table-wrap{max-width:100%;overflow:auto}table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.65}th,td{padding:14px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}th{background:#f1f3ed;font-weight:700}thead th:first-child{width:19%}.feature-table td:nth-child(2){width:39%}.feature-table td:nth-child(3){width:42%}.shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.shots figure{margin:0;min-width:0}.shots img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:12px;background:#ecece8}.shots figcaption{margin-top:10px;font-size:14px;color:var(--muted)}.checks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.checks article{padding:16px;border:1px solid var(--line);border-radius:12px}.checks strong{display:block;font-size:22px;color:var(--green)}.checks p{font-size:14px;margin:8px 0 0}.minor{font-size:14px;color:var(--muted)}details{margin-top:16px}summary{cursor:pointer;min-height:44px;padding:8px 0;font-size:16px;font-weight:700}footer{margin-top:24px;font-size:14px;color:var(--muted)}.source-list li{font-size:14px}section:target{outline:2px solid #b8cfc3;outline-offset:4px}@media(max-width:700px){main{padding:24px 16px 40px}h1{font-size:27px}h2{font-size:21px}section{padding:20px 16px}.checks,.shots{grid-template-columns:1fr}th,td{padding:12px 10px}.table-wrap table{min-width:650px}}@media print{body{background:white}main{max-width:none;padding:0}section{break-inside:avoid}.shots{grid-template-columns:1fr}.links{display:none}a{color:inherit}.table-wrap{overflow:visible}.table-wrap table{min-width:0}details>*{display:block!important}}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">SPOTLOG · 로컬 화면 검수 기록</p>
+    <h1>MOA의 채팅 장점,<br>스팟로그에 어떻게 반영했나</h1>
+    <p class="meta">반영·검수 기준 2026-10-29 · 기존 모임 구조 유지 · Git 업로드·배포 없음</p>
+    <p class="lead">안 읽은 대화에서 바로 정리 화면으로 이동. 기간·작성자별로 실제 발언을 모으고 원문 확인. 답장·반응·멤버 태그·글자 크기까지 현재 모임방 안에서 사용.</p>
+    <div class="chips"><span class="chip ok">관련 검사 79 / 79 통과</span><span class="chip ok">웹 빌드 통과</span><span class="chip ok">네이티브 타입 검사 통과</span><span class="chip">실제 LLM·서버 연결 전</span></div>
+    <nav class="links" aria-label="보고서 바로가기"><a href="#changes">적용 기능</a><a href="#howto">사용 순서</a><a href="#boundary">권한·연결 범위</a><a href="#screens">화면 보기</a><a href="#validation">검사 근거</a></nav>
+  </header>
+
+  <section id="benchmark">
+    <h2>01 · 실제로 확인한 참고 화면</h2>
+    <p><a href="https://giry02.github.io/moa/mobile.html">MOA 모바일 화면</a>과 같은 프로젝트의 채팅·요약 UI 소스 확인. 공개 화면은 <strong>‘모여봄’ 프로토타입</strong>. 실제 AI 분석·실시간 서버 연동이 완료된 서비스라는 의미는 아님.</p>
+    <ul>
+      <li>가져온 장점: 안 읽은 구간 진입, 전체·특정인과 기간 선택, 기준 시각, 원문 연결, 인용 답장, 반응, 멤버 태그, 글자 크기, 방 도구.</li>
+      <li>스팟로그에 맞춘 기준: 모임 전체 채팅과 하위 정모·여행 채팅 유지. 기존 모임원 권한 유지. 원문 발췌와 AI 결과 예시를 화면에서 분리.</li>
+      <li>참고 소스: <code>E:/AI_Project/somoim/prototype/app.js</code>, <code>chat-font.js</code>, <code>sticker-packs.js</code>. 공개 프로토타입과 로컬 소스의 관련 UI 확인.</li>
+    </ul>
+  </section>
+
+  <section id="changes">
+    <h2>02 · 적용한 기능과 실제 동작</h2>
+    <div class="table-wrap"><table class="feature-table"><thead><tr><th scope="col">기능</th><th scope="col">누르면 보이는 것</th><th scope="col">현재 적용 범위</th></tr></thead><tbody>
+      <tr><th scope="row">안 읽은 대화 → 정리</th><td>채팅 상단의 ‘정리 보기’ 또는 ‘대화 요약·정리’ → 현재 방의 정리 화면</td><td>진입 시 마지막 읽음 경계 유지. 열기·검색·정리만으로 읽음 위치를 바꾸지 않음.</td></tr>
+      <tr><th scope="row">기간·작성자별 원문</th><td>전체 참여자 / 특정인 → 안 읽은 대화·오늘·최근 7일·기간 선택·이 채팅 전체 → ‘선택한 대화 모아보기’</td><td>한국 시각 기준. 준비 관련 / 시간·장소 관련 / 확인·논의 관련 / 기타로 단어 기준 묶기. 원문 내용·작성자·시각 그대로 표시.</td></tr>
+      <tr><th scope="row">결과 변경 상태</th><td>조건을 바꾸면 이전 결과 안내. 새 발언이 생기면 건수와 ‘다시 모아보기’</td><td>명시적으로 누른 시각을 기준으로 결과 고정. 수정·삭제된 원문은 기존 결과에서 즉시 제외. 12개씩 확인 후 더 보기.</td></tr>
+      <tr><th scope="row">원문 이동</th><td>결과의 ‘원문 보기’ → 같은 방의 해당 메시지 강조. ‘최신 대화로’로 복귀</td><td>현재 방에 남아 있고 볼 권한이 있는 원문만 이동. 다른 방 메시지를 연결하지 않음.</td></tr>
+      <tr><th scope="row">인용 답장</th><td>메시지의 ‘답장’ → 입력창 위 인용 미리보기 → 직접 전송. 인용 부분을 누르면 원문 이동</td><td>답장은 원문 ID 참조로 저장. 다른 방·삭제된 원문은 답장 불가. 저장 실패 시 작성 중 내용 유지.</td></tr>
+      <tr><th scope="row">이모지 반응·이모티콘</th><td>‘반응’ → 👍 ❤️ 😂 ✅ ❓ 중 선택. 입력창의 웃는 얼굴 → 일반 이모지·캐릭터 선택</td><td>반응은 본인 선택만 추가·취소. 캐릭터 4팩·34개 고정 ID. 선택 후 미리보기, 전송 버튼으로 확정.</td></tr>
+      <tr><th scope="row">@ 멤버 태그</th><td>입력창의 @ → 현재 모임원 선택 → 작성 중 문장에 이름 삽입</td><td>초안에 삽입하는 기능. 실제 푸시·멘션 알림 서버 연결을 뜻하지 않음.</td></tr>
+      <tr><th scope="row">검색·글자 크기</th><td>돋보기 → 내용·사람 검색. 방 도구 → 채팅 글자 16 / 18 / 20px</td><td>기본 본문 16px. 크기 변경 시 읽던 메시지 위치 보정. 현재 화면의 표시 설정이며 전체 앱 폰트를 바꾸지 않음.</td></tr>
+      <tr><th scope="row">현재 모임방 도구</th><td>⋯ → 같은 모임 안의 전체·정모·여행 채팅 이동, 여기까지 읽음 표시, 모임 홈·현재 일정 상세</td><td>공지 작성은 운영 권한에 맞게 표시. 방 목록은 현재 모임에 한정. 다른 모임 전체 채팅을 같은 단계에 나열하지 않음.</td></tr>
+    </tbody></table></div>
+    <p class="minor">‘확인·논의 관련’은 확인이라는 단어가 있는 발언을 묶은 제목. ‘확인 완료’라고 적힌 문장을 미해결 사항으로 판정하지 않음. 담당자·예약·확정 여부도 추론하지 않음.</p>
+  </section>
+
+  <section id="howto">
+    <h2>03 · 사용 순서</h2>
+    <div class="flow" aria-label="채팅 정리 사용 흐름"><span>내 모임</span><b aria-hidden="true">›</b><span>모임 전체 또는 번개·정모·여행</span><b aria-hidden="true">›</b><span>해당 채팅</span><b aria-hidden="true">›</b><span>안 읽은 대화 · 정리 보기</span></div>
+    <ol>
+      <li><strong>대상과 기간 선택</strong> → 전체 참여자 또는 특정인 선택. 필요한 기간 선택.</li>
+      <li><strong>선택한 대화 모아보기</strong> → 원문 수·기준 시각 확인. 같은 단어 주제의 발언 확인.</li>
+      <li><strong>원문 보기</strong> → 정리 화면을 닫고 해당 메시지로 이동. 문맥을 본 뒤 직접 답장·반응.</li>
+      <li><strong>조건 변경·새 대화</strong> → 다시 모아보기로 새 결과 확인. 결과만으로 공지·일정·예약을 자동 변경하지 않음.</li>
+    </ol>
+    <div class="note"><p><strong>안 읽음 건수가 다른 이유</strong></p><p>채팅의 미읽음 배너는 <strong>다른 사람의 발언</strong> 기준. 원문 모아보기의 미읽음 범위는 <strong>마지막 읽음 이후 내 발언도 포함</strong>. 화면에 해당 설명과 선택 범위의 실제 발언 수 표시.</p></div>
+  </section>
+
+  <section id="boundary">
+    <h2>04 · 기존 구조·권한·연결 범위</h2>
+    <h3>그대로 유지한 구조</h3>
+    <ul>
+      <li>하단 메뉴와 모임 → 번개·정모·여행의 계층 유지. 채팅은 해당 모임·일정 안에서 진입.</li>
+      <li>현재 모임원이 모임 전체·하위 일정 채팅 확인. 정모 참석·불참 여부를 새로운 입장 조건으로 추가하지 않음.</li>
+      <li>탈퇴·강퇴·차단·다른 계정·다른 방은 기존 원문 결과 재사용 불가. 권한 상실 시 정리 내용 즉시 숨김.</li>
+      <li>보관된 모임은 기록 읽기 유지, 새 메시지·반응 작성 제한. 공지·준비·일정 수정은 기존 담당자·운영 권한 적용.</li>
+      <li>기존 개인 여행·여행기·찜·관리자 저장소 유지. 채팅 변경은 기존 계정별 모임 저장 공간 안에서 처리.</li>
+    </ul>
+    <h3>현재 동작과 연결 전인 부분</h3>
+    <div class="table-wrap"><table><thead><tr><th scope="col">구분</th><th scope="col">현재 기준</th></tr></thead><tbody>
+      <tr><th scope="row">발언 모아보기</th><td><strong>실제 LLM 호출 아님.</strong> 현재 방의 실제 텍스트를 날짜·작성자로 고르고 단어로 묶는 읽기 기능. 서버·외부 AI로 대화 전송 없음.</td></tr>
+      <tr><th scope="row">AI 요약·준비 반영 예시</th><td>별도 접이 영역으로 분리. 등록된 원문 ID와 본문이 정확히 일치하는 예시만 제공. 선택 후 준비 항목·공지·투표 초안을 명시적으로 반영하는 체험. 임의의 새 대화를 분석한 결과가 아님.</td></tr>
+      <tr><th scope="row">실제 서비스 연동</th><td>실시간 채팅 서버·여러 기기 동기화·푸시·멘션 알림·운영자 신고 전송·실제 AI 분석은 연결 전. 로컬 화면과 저장 기능 완성을 서버 구현 완료로 표시하지 않음.</td></tr>
+      <tr><th scope="row">검수용 대화</th><td>별도 검수 페이지의 메모리 저장소 사용. 새로 고침 시 예시로 복귀. 고객·관리자 원본 저장소에 테스트 대화·반응을 쓰지 않음.</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section id="screens">
+    <h2>05 · 반영 화면</h2>
+    <div class="shots">
+      <figure><a href="../../artifacts/moa-chat-alignment-20261029/chat-after.png"><img src="../../artifacts/moa-chat-alignment-20261029/chat-after.png" alt="정모·여행 채팅 상단의 대화 요약·정리와 안 읽은 대화 배너, 접이 공지, 답장·반응, 하단 입력창" loading="lazy"></a><figcaption>① 채팅: 안 읽은 대화에서 정리 진입. 공지·답장·반응·최신 대화 이동과 작성 도구 배치. 예시 이름과 대화 사용.</figcaption></figure>
+      <figure><a href="../../artifacts/moa-chat-alignment-20261029/summary-after.png"><img src="../../artifacts/moa-chat-alignment-20261029/summary-after.png" alt="발언 모아보기 결과의 기준 시각, 준비 관련과 시간·장소 관련 원문, 각 발언의 원문 보기 버튼" loading="lazy"></a><figcaption>② 원문 모아보기: 작성자·시각·본문 유지. ‘우산을 챙길게요’는 준비 관련으로 표시. 결과마다 원문 이동 제공.</figcaption></figure>
+    </div>
+    <p class="minor">이미지를 누르면 원본 크기로 확인. 화면의 ‘AI 대화 요약’은 진입창 이름이며, 내부의 실제 발언 모아보기와 고정 AI 예시의 동작 범위는 별도 안내.</p>
+  </section>
+
+  <section id="validation">
+    <h2>06 · 검사 결과와 근거</h2>
+    <div class="checks"><article><strong>79 / 79</strong><p>채팅 조작·원문 모아보기·이모티콘·기존 모임 저장소·탐색·관심 목록·타이포 관련 검사 통과. 실패·건너뜀 0.</p></article><article><strong>웹 빌드 통과</strong><p>웹 TypeScript 검사 포함 production 빌드 완료. 기존 큰 번들에 대한 Vite 크기 안내는 남아 있음.</p></article><article><strong>네이티브 타입 통과</strong><p>루트 TypeScript 검사 완료. 실제 iOS·Android 기기 조작이나 앱스토어 빌드 검수와는 별도.</p></article></div>
+    <ul>
+      <li><strong>원문 모아보기 15개</strong>: KST 날짜 경계·최근 7일·윤년 날짜·미읽음 경계·내 발언 포함·특정인·정확한 본문·수정/삭제·새/지연 발언·다른 방/계정·권한 회수·중복 ID·단어 분류 확인.</li>
+      <li><strong>채팅 조작 9개</strong>: 인용 ID·동일 방·원문 삭제·현재 회원 권한·보관 상태·문자/이모티콘 제한·본인 반응 토글·이전 저장 자료 호환·저장 실패 보존 확인.</li>
+      <li><strong>브라우저 UI</strong>: 정리 진입·전체/특정인·기간·결과·원문 이동·최신 대화 이동·인용 답장·반응·멤버 이름 삽입·글자 크기 확인. 새 발언 갱신·수정/삭제의 결과 제외는 자동 검사로 확인.</li>
+      <li><strong>320 / 390 / 460px</strong>: 가로 메뉴 사이 8px 기준, 주요 버튼 44px 이상, 페이지 가로 넘침 확인. 좁은 화면의 가로 메뉴는 내부 스크롤로 처리. 별도 간격 검수 기록에 화면·실측 저장.</li>
+      <li><strong>실측 예</strong>: 모임 홈 탭 간격 8px, 버튼 높이 50px. 320px에서 페이지 가로 넘침 0. 정모 상세의 긴 탭은 가로 탐색 영역 안에서 스크롤.</li>
+      <li><strong>범위 구분</strong>: 320/390/460px 브라우저 너비 검수. 실제 휴대폰 키보드·운영체제·네트워크·푸시·실제 LLM 품질은 이번 통과 항목에 포함하지 않음.</li>
+    </ul>
+    <div class="links"><a href="../../artifacts/moa-chat-alignment-20261029/focused-tests.txt">79개 검사 원문</a><a href="../../artifacts/moa-chat-alignment-20261029/web-build.txt">웹 빌드 기록</a><a href="../../artifacts/moa-chat-alignment-20261029/native-typecheck.txt">네이티브 타입 기록</a><a href="../../artifacts/navigation-spacing-20261029/index.html">320·390·460px 간격 검수</a></div>
+    <details><summary>구현 파일과 추가 근거</summary><ul class="source-list">
+      <li><a href="../../web/src/together/ChatWorkspace.tsx">ChatWorkspace.tsx</a> · 방 도구, 미읽음 경계, 인용 답장, 반응, 태그, 검색, 글자 크기.</li>
+      <li><a href="../../web/src/together/ConversationSummary.tsx">ConversationSummary.tsx</a> · 범위 선택, 명시적 실행, 결과 기준 시각, 원문 이동.</li>
+      <li><a href="../../web/src/together/chatDigest.ts">chatDigest.ts</a> · KST 기간, 계정·방·권한 검사, 원문 스냅샷과 수정·삭제 제외.</li>
+      <li><a href="../../web/src/together/chatActions.ts">chatActions.ts</a> · 현재 회원·방 검증, 인용 ID, 반응 토글.</li>
+      <li><a href="../../web/src/together/TogetherApp.tsx">TogetherApp.tsx</a> · 기존 모임/일정 연결, 별도 AI 예시, 권한에 따른 조작.</li>
+      <li><a href="../../web/tests/chatDigest.test.mjs">원문 모아보기 검사</a> · <a href="../../artifacts/navigation-spacing-20261029/group-measurements.json">모임 홈 실측</a> · <a href="../../artifacts/navigation-spacing-20261029/activity-measurements.json">정모 상세 실측</a>.</li>
+    </ul></details>
+  </section>
+
+  <section id="local">
+    <h2>07 · 로컬에서 확인</h2>
+    <div class="links"><a href="http://127.0.0.1:5210/#together">내 모임</a><a href="http://127.0.0.1:5210/tests/moa-chat-review.html">채팅 검수 화면</a><a href="http://127.0.0.1:5210/tests/moa-chat-review.html?view=summary">정리 화면 바로 확인</a></div>
+    <p>검수 화면은 실제 TogetherApp을 재사용하는 개발 전용 페이지. 예시 대화·전송·반응은 이 페이지 메모리에만 저장. 일반 고객 계정의 대화가 자동으로 채워지지 않음.</p>
+    <p class="minor">127.0.0.1 링크는 로컬 서버가 실행 중인 PC에서 열기. 이번 작업은 로컬만 반영. 외부 서비스에 글 작성·전송하거나 Git 업로드·배포하지 않음.</p>
+  </section>
+  <footer>스팟로그 · 2026-10-29 MOA 채팅 반영 검수 보고서 · 화면 구현·자동 검사·연결 전 항목을 분리해 기록</footer>
+</main>
+</body>
+</html>

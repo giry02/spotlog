@@ -1,0 +1,21 @@
+.saved-place-use { display:grid; min-width:0; gap:16px; }
+.saved-place-use-actions { display:grid; gap:8px; }
+.saved-place-use-actions>button { display:flex; align-items:center; gap:12px; width:100%; min-height:72px; padding:12px; border:1px solid var(--line); border-radius:12px; background:white; color:var(--ink); text-align:left; }
+.saved-place-use-actions>button>svg { flex-shrink:0; }
+.saved-place-use-actions>button>span { display:grid; flex:1; min-width:0; gap:4px; }
+.saved-place-use strong { font-size:14px; line-height:20px; font-weight:600; }
+.saved-place-use small { font-size:12px; line-height:16px; color:var(--muted); }
+.saved-place-use label { display:grid; gap:8px; font-size:14px; line-height:20px; font-weight:600; }
+.saved-place-use select { width:100%; min-width:0; min-height:44px; padding:8px; border:1px solid var(--line); border-radius:10px; background:white; color:var(--ink); font-size:16px; line-height:24px; }
+.saved-place-proposal-preview { display:flex; align-items:flex-start; gap:8px; border:1px solid var(--line); border-radius:12px; padding:12px; min-width:0; }
+.saved-place-proposal-preview>svg { flex-shrink:0; }
+.saved-place-proposal-preview>div { min-width:0; }
+.saved-place-proposal-preview p { white-space:pre-wrap; overflow-wrap:anywhere; margin:8px 0 0; font-size:14px; line-height:20px; }
+.saved-place-use-note,.saved-place-use-empty p { margin:0; color:var(--muted); font-size:14px; line-height:20px; }
+.saved-place-use .saved-place-use-back { justify-self:start; min-height:44px; padding:8px 0; background:transparent; border:0; font-size:14px; color:var(--muted); }
+.saved-place-use .saved-place-use-primary { width:100%; min-height:44px; border:1px solid var(--ink); border-radius:10px; padding:10px 12px; background:var(--ink); color:white; font-size:14px; line-height:20px; font-weight:600; }
+.saved-place-use-primary:disabled { opacity:.45; cursor:default; }
+.saved-place-use-error { margin:0; color:#b33b26; font-size:14px; line-height:20px; }
+.saved-place-use-empty { display:grid; justify-items:start; gap:12px; }
+.saved-place-use-empty h3 { margin:0; font-size:16px; line-height:22px; }
+.saved-place-use button:focus-visible,.saved-place-use select:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }

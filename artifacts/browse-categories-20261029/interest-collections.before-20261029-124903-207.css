@@ -1,0 +1,43 @@
+.interest-collections { margin: 0 0 18px; color: var(--ink); }
+.interest-collections button { min-height: 44px; padding: 9px 12px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid #dfdfda; border-radius: 11px; color: #383834; background: white; font-size: var(--type-subhead); font-weight: 700; line-height: 1.4; }
+.interest-collections button:disabled { cursor: default; opacity: .5; }
+.interest-folder-strip { display: flex; gap: 7px; overflow-x: auto; padding: 3px 2px 10px; scrollbar-width: thin; }
+.interest-folder-strip > button { flex: 0 0 auto; max-width: 270px; white-space: nowrap; }
+.interest-folder-strip > button.is-active { color: white; background: #242421; border-color: #242421; }
+.interest-folder-strip > button > span { font-size: var(--type-caption); font-weight: 400; }
+.interest-folder-strip > button > svg { flex-shrink: 0; }
+.interest-folder-strip > button > .interest-folder-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; font-size: var(--type-subhead); font-weight: 700; }
+.interest-folder-strip .interest-folder-create { color: #b04a37; border-style: dashed; }
+.interest-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.interest-filters label, .interest-edit-panel > label { min-width: 0; display: grid; gap: 6px; }
+.interest-filters label > span, .interest-edit-panel label > span { font-size: var(--type-subhead); font-weight: 700; }
+.interest-collections select, .interest-collections input:not([type=checkbox]) { width: 100%; min-width: 0; min-height: 44px; padding: 10px 11px; border: 1px solid #dfdfda; border-radius: 11px; color: var(--ink); background: white; font-size: var(--type-body); font-weight: 400; }
+.interest-folder-overview { display: flex; gap: 8px; align-items: center; justify-content: space-between; margin: 16px 0 10px; }
+.interest-folder-overview > div { min-width: 0; display: grid; gap: 2px; }
+.interest-folder-overview strong { overflow-wrap: anywhere; font-size: var(--type-body); line-height: 1.5; }
+.interest-folder-overview span { color: #777773; font-size: var(--type-caption); }
+.interest-folder-overview .interest-text-button { flex-shrink: 0; padding-right: 0; border-color: transparent; background: transparent; }
+.interest-folder-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.interest-folder-actions > button { flex: 1 1 130px; }
+.interest-edit-panel { display: grid; gap: 14px; margin: 12px 0; padding: 15px; border: 1px solid #e5e5e0; border-radius: 17px; background: #fff; }
+.interest-panel-heading { min-width: 0; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.interest-panel-heading strong { font-size: var(--type-body); line-height: 1.5; }
+.interest-panel-heading .interest-icon-button { width: 44px; flex: 0 0 44px; padding: 0; border-color: transparent; background: transparent; }
+.interest-edit-panel p, .interest-folder-empty p { margin: 0; color: #62625e; font-size: var(--type-subhead); line-height: 1.6; }
+.interest-panel-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.interest-collections .interest-primary { color: white; background: #242421; border-color: #242421; }
+.interest-collections .interest-danger { color: #b1402c; border-color: #f0c7be; }
+.interest-full-button { width: 100%; }
+.interest-place-picker { max-height: 296px; overflow-y: auto; overscroll-behavior: contain; }
+.interest-place-option { min-height: 64px; display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+.interest-place-option:last-child { border-bottom: 0; }
+.interest-place-option > input { width: 20px; height: 20px; flex-shrink: 0; margin: 0; accent-color: var(--accent); }
+.interest-place-option > span { min-width: 0; display: grid; gap: 2px; }
+.interest-place-option strong { overflow-wrap: anywhere; font-size: var(--type-body); font-weight: 700; line-height: 1.5; }
+.interest-place-option small { color: #777773; font-size: var(--type-caption); line-height: 1.5; }
+.interest-error { margin-top: 10px; padding: 12px; display: grid; gap: 8px; border: 1px solid #f0c7be; border-radius: 11px; background: #fff8f5; }
+.interest-error p { margin: 0; color: #a44230; font-size: var(--type-subhead); line-height: 1.6; }
+.interest-error button { justify-self: start; }
+.interest-notice { margin: 10px 0 0; color: #62625e; font-size: var(--type-subhead); line-height: 1.6; }
+.interest-folder-empty { margin-top: 12px; display: grid; justify-items: center; gap: 10px; padding: 18px 12px; border: 1px dashed #dfdfda; border-radius: 13px; background: #fff; }
+.interest-folder-empty > svg { color: #b06b59; }

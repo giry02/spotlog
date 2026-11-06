@@ -1,0 +1,53 @@
+{
+  "report": {
+    "url": "https://giry02.github.io/spotlog/reports/direction-20261103/",
+    "status": 200,
+    "bytes": 85097,
+    "sha256": "a7dc9fa11129c0b63ba1230122912010f483d0c17540be6b2348c16797c917ea",
+    "slides": 21,
+    "localActiveLinks": 0
+  },
+  "images": [
+    {
+      "url": "https://giry02.github.io/spotlog/reports/direction-20261103/assets/existing-groups-home.jpg",
+      "status": 200,
+      "bytes": 43949,
+      "sha256": "4d88a021d9ae233d9858dc37a439de1a6e1cd61b48755d035c3b6a406fa2b869",
+      "contentType": "image/jpeg"
+    },
+    {
+      "url": "https://giry02.github.io/spotlog/reports/direction-20261103/assets/proposed-role-homes.jpg",
+      "status": 200,
+      "bytes": 143281,
+      "sha256": "248b7b685077b9e37132779c1ab6ee4305de615ecb79308d73e62c024ca78b14",
+      "contentType": "image/jpeg"
+    }
+  ],
+  "bundles": {
+    "index.html": {
+      "status": 200,
+      "sameAssetReferences": true,
+      "assets": [
+        "/spotlog/assets/customer-q6QkWfPW.js",
+        "/spotlog/assets/serviceRequest-B91Ei66P.js",
+        "/spotlog/assets/theme-BD0yZbBl.js",
+        "/spotlog/assets/creatorGrade-Dburbg71.js",
+        "/spotlog/assets/theme-rBaQKUks.css",
+        "/spotlog/assets/customer-_z21jSAU.css"
+      ]
+    },
+    "admin-preview.html": {
+      "status": 200,
+      "sameAssetReferences": true,
+      "assets": [
+        "/spotlog/assets/adminPreview-B2fvwJ5n.js",
+        "/spotlog/assets/serviceRequest-B91Ei66P.js",
+        "/spotlog/assets/creatorGrade-Dburbg71.js",
+        "/spotlog/assets/admin-BypOLYrK.js",
+        "/spotlog/assets/admin-BrQ58E8N.css"
+      ]
+    }
+  },
+  "commit": "d330111c4e2106c225d0cad1efbb6ae3277e403a",
+  "runId": 41304209954
+}

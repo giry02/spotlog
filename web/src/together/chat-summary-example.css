@@ -1,0 +1,37 @@
+.chat-summary-example{display:grid;gap:16px;min-width:0;color:var(--ink);font-size:var(--type-body,16px)}
+.chat-summary-example .chat-summary-example-heading{display:grid;gap:8px;min-width:0}
+.chat-summary-example .chat-summary-example-heading h3{margin:0;font-size:var(--type-body,16px);line-height:1.5}
+.chat-summary-example .chat-summary-example-heading p{margin:0;font-size:var(--type-subhead,14px);line-height:1.6;color:var(--muted)}
+.chat-summary-example .chat-summary-example-scopes{display:grid;grid-template-columns:minmax(0,1.35fr) repeat(2,minmax(0,1fr));gap:8px}
+.chat-summary-example button,.chat-summary-example summary{min-height:44px;min-width:0;padding:10px 12px;font-size:var(--type-subhead,14px);font-weight:700;line-height:1.5;overflow-wrap:anywhere;cursor:pointer}
+.chat-summary-example button{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink)}
+.chat-summary-example button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.chat-summary-example button:disabled{opacity:.45;cursor:default}
+.chat-summary-example :is(button,select,input,summary):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chat-summary-example .chat-summary-example-person{display:grid;gap:8px;min-width:0;margin:0;font-size:var(--type-subhead,14px);font-weight:700}
+.chat-summary-example .chat-summary-example-person select{width:100%;min-width:0;min-height:44px;padding:10px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink);font:inherit;font-size:var(--type-body,16px);font-weight:400}
+.chat-summary-example .chat-summary-example-meta{margin:0;font-size:var(--type-caption,12px);line-height:1.6;color:var(--muted);overflow-wrap:anywhere}
+.chat-summary-example .chat-summary-example-category{display:grid;gap:8px;min-width:0}
+.chat-summary-example .chat-summary-example-category h4{display:flex;align-items:center;gap:8px;margin:8px 0 0;font-size:var(--type-body,16px);line-height:1.5}
+.chat-summary-example .chat-summary-example-category h4>span{font-size:var(--type-caption,12px);font-weight:400;color:var(--muted)}
+.chat-summary-example .chat-summary-example-item{display:grid;gap:8px;min-width:0;padding:8px 0 12px;border-bottom:1px solid var(--line)}
+.chat-summary-example .chat-summary-example-choice{display:flex;align-items:flex-start;gap:8px;min-height:44px;margin:0;padding:4px 0;cursor:pointer}
+.chat-summary-example .chat-summary-example-choice.is-readonly{cursor:default}
+.chat-summary-example .chat-summary-example-choice input{width:20px;height:20px;flex:0 0 20px;margin:3px 0 0;accent-color:var(--ink)}
+.chat-summary-example .chat-summary-example-choice>span{display:grid;gap:8px;min-width:0}
+.chat-summary-example .chat-summary-example-choice strong,.chat-summary-example .chat-summary-example-choice>span>span{font-size:var(--type-body,16px);line-height:1.6;overflow-wrap:anywhere}
+.chat-summary-example .chat-summary-example-choice>span>span{font-weight:400}
+.chat-summary-example .chat-summary-example-sources{min-width:0}
+.chat-summary-example .chat-summary-example-sources summary{padding:10px 0;color:var(--muted)}
+.chat-summary-example .chat-summary-example-sources>div{display:grid;gap:16px;padding:8px 0}
+.chat-summary-example .chat-summary-example-original{display:grid;gap:8px;min-width:0;padding-left:12px;border-left:2px solid var(--line)}
+.chat-summary-example .chat-summary-example-original small{font-size:var(--type-caption,12px);color:var(--muted)}
+.chat-summary-example .chat-summary-example-original blockquote{margin:0;padding:0;border:0;font-size:var(--type-body,16px);font-weight:400;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
+.chat-summary-example .chat-summary-example-original button{justify-self:start}
+.chat-summary-example .chat-summary-example-empty{display:grid;gap:8px;padding:8px 0}
+.chat-summary-example .chat-summary-example-empty p{margin:0;font-size:var(--type-body,16px);line-height:1.6}
+.chat-summary-example .chat-summary-example-empty button{justify-self:start}
+.chat-summary-example .chat-summary-example-error{margin:0;padding:12px;border-radius:10px;color:#914432;background:#fff2ec;font-size:var(--type-subhead,14px);line-height:1.6}
+.chat-summary-example .chat-summary-example-actions{display:grid;gap:8px;padding-top:8px}
+.chat-summary-example .chat-summary-example-actions>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.chat-summary-example .chat-summary-example-actions button:first-child{color:#fff;background:var(--ink);border-color:var(--ink)}

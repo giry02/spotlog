@@ -1,0 +1,20 @@
+/* Everyday admin tasks retain the established type sizes, spacing and permissions. */
+.admin-overview-simple .admin-primary-work { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.admin-work-secondary { display:flex; align-items:center; flex-wrap:wrap; gap:12px; }
+.admin-work-list { display:grid; gap:12px; }
+.admin-app .admin-work-list > button { display:flex; align-items:center; gap:16px; min-height:76px; padding:16px; text-align:left; }
+.admin-work-list > button > span:first-child { display:flex; flex-direction:column; flex:1; min-width:0; gap:4px; }
+.admin-work-list strong { font-size:16px; overflow-wrap:anywhere; }
+.admin-work-list small { font-size:12px; color:var(--admin-muted); }
+.admin-work-list svg { flex:none; }
+.admin-app .admin-report-summary { display:flex; align-self:stretch; width:100%; align-items:center; justify-content:space-between; gap:16px; padding:18px 24px; text-align:left; background:#fff; border-radius:12px; }
+.admin-report-summary > span { display:flex; flex-direction:column; gap:4px; }
+.admin-report-summary strong { font-size:16px; }
+.admin-report-summary small { font-size:12px; color:var(--admin-muted); }
+.admin-more-operations { border:1px solid var(--admin-line); border-radius:12px; background:#fff; padding:0 24px; }
+.admin-more-operations > summary { padding:18px 0; cursor:pointer; font-size:14px; font-weight:700; }
+.admin-more-operations > .admin-stack { padding-bottom:24px; }
+.admin-more-operations .admin-panel { border-radius:10px; }
+.admin-places-workspace > .admin-tabs { margin-bottom:20px; }
+@media(max-width:900px) { .admin-overview-simple .admin-primary-work { grid-template-columns:1fr; } }
+@media(max-width:600px) { .admin-app .admin-work-list > button { flex-wrap:wrap; gap:10px; }.admin-work-list > button > span:first-child { flex-basis:calc(100% - 30px); }.admin-more-operations { padding:0 16px; } }

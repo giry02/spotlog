@@ -1,5 +1,6 @@
 import { publicTourismSources, type PublicTourismSource } from './publicTourismContent';
 import { licensedPlaceSources } from './licensedPlaceSources';
+import { busanBusinessPhotoSources } from './busanBusinessMedia';
 
 /** Public tourism and CC photos keep their own attribution and license terms. */
 export interface PhotoSource extends Omit<PublicTourismSource, 'license' | 'coordinateSourceUrl'> {
@@ -12,7 +13,7 @@ export interface PhotoSource extends Omit<PublicTourismSource, 'license' | 'coor
   objectPosition?: string;
 }
 
-export const photoSources: PhotoSource[] = [...publicTourismSources, ...licensedPlaceSources];
+export const photoSources: PhotoSource[] = [...publicTourismSources, ...licensedPlaceSources, ...busanBusinessPhotoSources];
 const sourcesByImage = new Map(photoSources.map((source) => [source.image, source]));
 export function getPhotoSource(image: string): PhotoSource | undefined {
   return sourcesByImage.get(image);

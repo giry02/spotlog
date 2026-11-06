@@ -1,0 +1,26 @@
+✔ required-only signup excludes marketing and GPS; drafts never count as member consent (1.5635ms)
+✔ policy publication rejects unknown operator, draft versions, duplicates and missing content (0.6862ms)
+✔ Apple private email and missing email are supported without merging identities by email (0.2444ms)
+✔ OAuth redirects are HTTPS and exactly the selected provider; return route cannot leave app (0.3318ms)
+✔ unconnected auth and GPS create no requests and no fake account or permissions (0.7444ms)
+✔ social signup uses server session plus versions; no browser user ID, GPS or timestamps accepted as proof (17.7849ms)
+✔ current location requires published enabled feature and matching purpose/version before OS call (0.6372ms)
+✔ location denial, invalid position and cancel cannot leak a late position to feature (0.6538ms)
+✔ email signup cannot create a member before verified server response and versioned consent (1.4376ms)
+✔ email validation, draft policies and malformed verification block completion (0.9571ms)
+✔ email login/reset/resend are same-origin and unavailable adapter never sends credentials (0.94ms)
+✔ customer API 401 invalidates shared identity while independent admin auth stays separate (0.5951ms)
+✔ malformed route escapes become recoverable input errors, valid encoded IDs are preserved (1.0111ms)
+✔ explicit error links accept supported names and codes without executing arbitrary input (0.2227ms)
+✔ failure classification preserves transport status without exposing raw messages or mistaking unconfigured for offline (0.1383ms)
+✔ review account begins as guest, requires the preset pair, and persists only an explicit review flag (1.5238ms)
+✔ review account never pretends to send mail, complete signup, authenticate a social provider or delete a service member (0.3546ms)
+✔ aborted login never creates a review session; unavailable session storage falls back to memory (0.2047ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 156.336

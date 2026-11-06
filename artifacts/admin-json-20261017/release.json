@@ -1,0 +1,18 @@
+{
+  "commit": "18ddfc390e55220a9f7fc912358445966bd97023",
+  "branch": "codex/mobile-foundation",
+  "checkpoint": "codex/admin-json-fix-20261017",
+  "workflowRun": 38982504167,
+  "workflowStatus": "completed",
+  "automatedChecks": 525,
+  "devChecks": 209,
+  "staticChecks": 209,
+  "adminAsset": "admin-DAVsUwCH.js",
+  "customerAssetUnchanged": "customer-DS7NtBsI.js",
+  "cause": "missing admin API returns404 HTML; HTTP failure was parsed asJSON",
+  "realBackendConnected": false,
+  "actualMissingEndpoint": "https://giry02.github.io/api/admin/v1/me",
+  "workflowConclusion": "success",
+  "publicChecks": 214,
+  "actualUnmocked404GuidanceVerified": true
+}

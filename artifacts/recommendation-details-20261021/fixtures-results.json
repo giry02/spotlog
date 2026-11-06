@@ -1,0 +1,85 @@
+{
+  "pass": 20,
+  "results": [
+    {
+      "label": "fixture: five visits",
+      "pass": true
+    },
+    {
+      "label": "duplicate: same place another DAY remains closed",
+      "pass": true
+    },
+    {
+      "label": "duplicate: both visits independently open",
+      "pass": true
+    },
+    {
+      "label": "duplicate: visit notes scoped correctly",
+      "pass": true
+    },
+    {
+      "label": "duplicate: closing first leaves other DAY open",
+      "pass": true
+    },
+    {
+      "label": "missing photo: map icon fallback",
+      "pass": true
+    },
+    {
+      "label": "missing photo: no broken image element",
+      "pass": true
+    },
+    {
+      "label": "missing data: honest address/description fallback",
+      "pass": true
+    },
+    {
+      "label": "failed image: icon fallback and failed image removed",
+      "pass": true
+    },
+    {
+      "label": "failed image: details remain usable",
+      "pass": true
+    },
+    {
+      "label": "fixture disclosure: snapshot/sentinel unchanged",
+      "pass": true
+    },
+    {
+      "label": "fixture: 390 no horizontal overflow",
+      "pass": true
+    },
+    {
+      "label": "fixture: no JS errors",
+      "pass": true
+    },
+    {
+      "label": "HOME_TRIP customer view: all four expandable rows",
+      "pass": true
+    },
+    {
+      "label": "HOME_TRIP customer view: actual address opens",
+      "pass": true
+    },
+    {
+      "label": "HOME_JOURNAL customer view: reading present",
+      "pass": true
+    },
+    {
+      "label": "HOME_JOURNAL customer view: original cards unchanged",
+      "pass": true
+    },
+    {
+      "label": "customer preview disclosure: snapshot/sentinel unchanged",
+      "pass": true
+    },
+    {
+      "label": "customer preview: 1440 no horizontal overflow",
+      "pass": true
+    },
+    {
+      "label": "customer preview: no JS errors",
+      "pass": true
+    }
+  ]
+}

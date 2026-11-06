@@ -1,0 +1,1050 @@
+{
+  "stage": "after",
+  "results": [
+    {
+      "name": "운영 현황",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "장소·업체",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "노출·추천",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "여행기·커뮤니티",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "회원·문의",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "AI·검색 운영",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "운영 설정·이력",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "운영 현황",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "장소·업체",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "노출·추천",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "여행기·커뮤니티",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "회원·문의",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "AI·검색 운영",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "운영 설정·이력",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "운영 현황",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "장소·업체",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "노출·추천",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "여행기·커뮤니티",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "회원·문의",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "AI·검색 운영",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "운영 설정·이력",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "운영 현황",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "장소·업체",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "노출·추천",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "여행기·커뮤니티",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "회원·문의",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "AI·검색 운영",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "운영 설정·이력",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "운영 현황",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "장소·업체",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "노출·추천",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "여행기·커뮤니티",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "회원·문의",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "AI·검색 운영",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "운영 설정·이력",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "운영 현황",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "장소·업체",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "노출·추천",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "여행기·커뮤니티",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "회원·문의",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "AI·검색 운영",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "운영 설정·이력",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "운영 현황",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "장소·업체",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "노출·추천",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "여행기·커뮤니티",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "회원·문의",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "AI·검색 운영",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "운영 설정·이력",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "channel search spacing",
+      "gaps": {
+        "channelToSearch": 20,
+        "searchToList": 20,
+        "searchHeight": 42,
+        "resetHeight": 42
+      }
+    },
+    {
+      "name": "장소 상세 · 위치",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "장소 상세 · 사진·영상",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "media dimensions",
+      "width": 1440,
+      "rendered": 96,
+      "natural": 800
+    },
+    {
+      "name": "장소 상세 · 주변 업체",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "장소 상세 · 안내·번역",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "장소 상세 · AI 자료",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "장소 상세 · 이력",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "장소 상세 · 위치",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "장소 상세 · 사진·영상",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "media dimensions",
+      "width": 1024,
+      "rendered": 96,
+      "natural": 800
+    },
+    {
+      "name": "장소 상세 · 주변 업체",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "장소 상세 · 안내·번역",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "장소 상세 · AI 자료",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "장소 상세 · 이력",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "장소 상세 · 위치",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "장소 상세 · 사진·영상",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "media dimensions",
+      "width": 820,
+      "rendered": 96,
+      "natural": 800
+    },
+    {
+      "name": "장소 상세 · 주변 업체",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "장소 상세 · 안내·번역",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "장소 상세 · AI 자료",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "장소 상세 · 이력",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "장소 상세 · 위치",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "장소 상세 · 사진·영상",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "media dimensions",
+      "width": 800,
+      "rendered": 96,
+      "natural": 800
+    },
+    {
+      "name": "장소 상세 · 주변 업체",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "장소 상세 · 안내·번역",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "장소 상세 · AI 자료",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "장소 상세 · 이력",
+      "width": 800,
+      "dimensions": {
+        "width": 800,
+        "scroll": 800,
+        "main": 785,
+        "mainScroll": 785
+      }
+    },
+    {
+      "name": "장소 상세 · 위치",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "장소 상세 · 사진·영상",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "media dimensions",
+      "width": 390,
+      "rendered": 72,
+      "natural": 800
+    },
+    {
+      "name": "장소 상세 · 주변 업체",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "장소 상세 · 안내·번역",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "장소 상세 · AI 자료",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "장소 상세 · 이력",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "장소 상세 · 위치",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "장소 상세 · 사진·영상",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "media dimensions",
+      "width": 360,
+      "rendered": 72,
+      "natural": 800
+    },
+    {
+      "name": "장소 상세 · 주변 업체",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "장소 상세 · 안내·번역",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "장소 상세 · AI 자료",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "장소 상세 · 이력",
+      "width": 360,
+      "dimensions": {
+        "width": 360,
+        "scroll": 360,
+        "main": 345,
+        "mainScroll": 345
+      }
+    },
+    {
+      "name": "장소 상세 · 위치",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "장소 상세 · 사진·영상",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "media dimensions",
+      "width": 320,
+      "rendered": 72,
+      "natural": 800
+    },
+    {
+      "name": "장소 상세 · 주변 업체",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "장소 상세 · 안내·번역",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "장소 상세 · AI 자료",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "장소 상세 · 이력",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "AI 실행 정책",
+      "width": 1024,
+      "dimensions": {
+        "width": 1024,
+        "scroll": 1024,
+        "main": 1009,
+        "mainScroll": 1009
+      }
+    },
+    {
+      "name": "AI 실행 정책",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "AI 실행 정책",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "AI 실행 정책",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    },
+    {
+      "name": "운영 설정 · 한도 입력",
+      "width": 1440,
+      "dimensions": {
+        "width": 1440,
+        "scroll": 1440,
+        "main": 1189,
+        "mainScroll": 1189
+      }
+    },
+    {
+      "name": "운영 설정 · 한도 입력",
+      "width": 820,
+      "dimensions": {
+        "width": 820,
+        "scroll": 820,
+        "main": 805,
+        "mainScroll": 805
+      }
+    },
+    {
+      "name": "운영 설정 · 한도 입력",
+      "width": 390,
+      "dimensions": {
+        "width": 390,
+        "scroll": 390,
+        "main": 375,
+        "mainScroll": 375
+      }
+    },
+    {
+      "name": "운영 설정 · 한도 입력",
+      "width": 320,
+      "dimensions": {
+        "width": 320,
+        "scroll": 320,
+        "main": 305,
+        "mainScroll": 305
+      }
+    }
+  ],
+  "errors": [],
+  "privateStoragePreserved": true,
+  "unfinishedDraftPreserved": true,
+  "roleRestrictionsPreserved": true
+}

@@ -1,0 +1,48 @@
+/* Topic-specific home panels retain the existing product type and colors. */
+.home-topics-page .home-lead.strategy-home-lead { padding:20px 2px 18px; }
+.home-topics-page .strategy-home-lead p { color:#62625e; font-size:var(--type-body); line-height:var(--leading-body); }
+.home-topic-tabs { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-bottom:1px solid #e0e0da; margin-bottom:16px; }
+.home-topic-tabs [role=tab] { display:flex; align-items:center; justify-content:center; gap:7px; min-height:48px; min-width:0; padding:10px 8px; color:#62625e; background:transparent; border:0; border-bottom:3px solid transparent; font-size:16px; font-weight:700; }
+.home-topic-tabs [aria-selected=true] { color:var(--ink); border-bottom-color:var(--ink); }
+.home-topic-panel { min-width:0; }
+.home-topic-panel[hidden] { display:none!important; }
+.home-topic-primary { display:flex; align-items:center; gap:10px; min-height:48px; width:100%; padding:13px 16px; border:1px solid #272724; border-radius:13px; background:#272724; color:white; text-align:left; font-size:14px; font-weight:700; }
+.home-topic-primary>span { flex:1; min-width:0; }
+.home-topic-primary>svg { flex-shrink:0; }
+.home-topic-panel>.home-resume-trip { margin-top:16px; }
+.home-topics-page .home-section-heading { align-items:flex-start; gap:10px; }
+.home-topics-page .home-section-heading p { font-size:14px; color:#62625e; line-height:1.6; }
+.home-topics-page .home-section-heading>div { min-width:0; }
+.home-topics-page .home-section-heading small { font-size:12px; }
+.home-topics-page .rolling-controls button { width:44px; height:44px; }
+.home-topics-page .rolling-controls span { font-size:12px; }
+.home-topics-page .rolling-controls { flex-wrap:nowrap; justify-content:flex-end; white-space:nowrap; }
+.home-topics-page .promoted-copy button,.home-topics-page .home-guide-actions button { min-height:44px; }
+.home-topics-page .home-shortcuts strong { font-size:var(--type-subhead); font-weight:700; }
+.home-topics-page .home-shortcuts button { min-height:64px; }
+.home-place-kinds { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+.home-place-kinds button { min-height:44px; padding:8px 13px; border:1px solid #e0e0da; border-radius:12px; background:white; color:#62625e; font-size:14px; }
+.home-place-kinds [aria-pressed=true] { border-color:#272724; color:white; background:#272724; }
+.home-place-previews { display:grid; gap:12px; }
+.home-place-preview { padding:14px; border:1px solid #e7e7e2; border-radius:17px; background:white; min-width:0; }
+.home-place-preview-row { display:flex; align-items:center; gap:4px; }
+.home-place-preview-open { display:flex; align-items:center; gap:12px; min-height:84px; min-width:0; flex:1; padding:0; background:transparent; border:0; text-align:left; color:var(--ink); }
+.home-place-preview-open>img,.home-place-no-photo { flex-shrink:0; width:76px; height:76px; border-radius:12px; object-fit:cover; }
+.home-place-no-photo { display:grid; place-items:center; color:#62625e; background:#f1f1ee; }
+.home-place-preview-open>span:last-child { display:grid; gap:5px; min-width:0; }
+.home-place-preview-open small { color:#62625e; font-size:12px; line-height:1.5; }
+.home-place-preview-open strong { font-size:16px; line-height:1.5; overflow-wrap:anywhere; }
+.home-place-preview-open>span:last-child>span { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-size:14px; line-height:1.6; color:#62625e; }
+.home-place-save { display:grid; place-items:center; width:44px; height:44px; flex-shrink:0; border:0; background:transparent; color:#62625e; border-radius:12px; }
+.home-place-save[aria-pressed=true] { color:var(--accent); }
+.home-topic-more { display:flex; justify-content:center; align-items:center; gap:8px; min-height:44px; margin-top:14px; width:100%; padding:10px 14px; border:1px solid #dfdfda; border-radius:12px; background:white; color:var(--ink); font-size:14px; font-weight:700; }
+.home-topic-empty { padding:24px 16px; text-align:center; background:#f1f1ee; border-radius:14px; }
+.home-topic-empty p { font-size:16px; line-height:1.6; }
+.home-topic-empty button { min-height:44px; padding:10px 14px; border:1px solid #dfdfda; border-radius:12px; background:white; font-size:14px; }
+@media(max-width:359px) {
+  .home-place-preview { padding:12px; }
+  .home-place-preview-open { gap:9px; }
+  .home-place-preview-open>img,.home-place-no-photo { width:58px; height:70px; }
+  .home-topics-page .home-section-heading { flex-wrap:wrap; }
+  .home-topics-page .rolling-controls { margin-left:auto; max-width:none; }
+}

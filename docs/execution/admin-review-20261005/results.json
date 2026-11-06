@@ -1,0 +1,107 @@
+{
+  "checks": [
+    {
+      "name": "independent administrator entry and honest unavailable metrics",
+      "detail": "pass"
+    },
+    {
+      "name": "unfinished input retained; draft save keeps published version",
+      "detail": "pass"
+    },
+    {
+      "name": "explicit publish changes only isolated review data",
+      "detail": "pass"
+    },
+    {
+      "name": "nearby operator recommendation and exclusion per landmark",
+      "detail": "pass"
+    },
+    {
+      "name": "CSV preview imports draft with unverified coordinates and rights",
+      "detail": "pass"
+    },
+    {
+      "name": "registration directly saves dirty draft then publishes using latest revision",
+      "detail": "pass"
+    },
+    {
+      "name": "new published landmark discovers existing business by coordinates",
+      "detail": "pass"
+    },
+    {
+      "name": "candidate index staged execution, validation and activation",
+      "detail": "pass"
+    },
+    {
+      "name": "AI synthetic test never saves customer travel or calls model",
+      "detail": "pass"
+    },
+    {
+      "name": "inquiry answer recorded without external send",
+      "detail": "pass"
+    },
+    {
+      "name": "reference save payload and version contract",
+      "detail": "pass"
+    },
+    {
+      "name": "notification template saves; failed/optout/duplicate states stay distinct",
+      "detail": "pass"
+    },
+    {
+      "name": "six calendar month trash restore remains private",
+      "detail": "pass"
+    },
+    {
+      "name": "operator cannot edit administrator policy/role/session controls",
+      "detail": "pass"
+    },
+    {
+      "name": "customer storage sentinel unchanged",
+      "detail": "pass"
+    },
+    {
+      "name": "all menu layouts without page overflow",
+      "detail": "1440"
+    },
+    {
+      "name": "all menu layouts without page overflow",
+      "detail": "1024"
+    },
+    {
+      "name": "all menu layouts without page overflow",
+      "detail": "800"
+    },
+    {
+      "name": "all menu layouts without page overflow",
+      "detail": "390"
+    },
+    {
+      "name": "all menu layouts without page overflow",
+      "detail": "360"
+    },
+    {
+      "name": "small screen detail replaces list, input typography16px, keyboard tabs",
+      "detail": "pass"
+    },
+    {
+      "name": "unconnected API screen does not fabricate sample success",
+      "detail": "pass"
+    },
+    {
+      "name": "mock API session/metrics/health/server search honor DTO and avoid local storage",
+      "detail": "pass"
+    },
+    {
+      "name": "no browser uncaught errors",
+      "detail": "pass"
+    },
+    {
+      "name": "customer entry remains separate from admin styles/layout",
+      "detail": "pass"
+    }
+  ],
+  "errors": [],
+  "base": "http://127.0.0.1:5210",
+  "generatedAt": "2026-10-05T02:05:18.595Z"
+}

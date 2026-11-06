@@ -1,0 +1,47 @@
+✔ discovery examples cover multiple interests and places without autojoining anyone or exposing private seed data (33.3217ms)
+✔ public activity projection requires explicit same-group selection and excludes private fields and cancellation (0.3134ms)
+✔ discovery filters independent topic/style/district and paused recruitment without using synthetic popularity (2.8707ms)
+✔ date filters use Korean calendar overlap, current weekend and upcoming selected public activity only (6.0222ms)
+✔ one-time discovery hydration preserves all existing edits, selected visibility and earlier deleted legacy groups (2.3399ms)
+✔ repository saves catalog upgrade once only in its own key and preserves prior state when upgrade write fails (10.356ms)
+✔ approved public snapshots stay unchanged after private edits, with current cancellation and removal always enforced (0.2098ms)
+✔ snapshot schema rejects internal fields and legacy origin backfill never changes edited visibility or restores deleted examples (2.8004ms)
+✔ catalogue v2 replaces only exact old generated descriptions and never resurrects deleted v1 samples (6.1077ms)
+✔ v2 leaves same text on a locally authored non-example group untouched (3.9283ms)
+✔ catalogue v3 adds only new hobby IDs without recreating deleted tourism entries or overwriting existing private data (4.0886ms)
+✔ live completion stops upcoming promotion without revealing private edits and unpublishing removes both approval forms (0.2875ms)
+✔ soonest sorting compares same-day start times, missing time at day end and undated groups last (3.9614ms)
+✔ together writes only an account-specific new namespace and preserves existing customer/admin bytes (19.1901ms)
+✔ only the existing local review identity receives fictional joined scenes; other accounts remain nonmembers (10.1189ms)
+✔ a shared itinerary remaps independent DAY/visit/block IDs and booking constraints while stripping private notes and drafts (0.8989ms)
+✔ first acceptance binds one group to the shared intent; retries and a second token never duplicate it (0.3775ms)
+✔ different intents from the same personal source create independent groups; expired/revoked invites do not create (0.1903ms)
+✔ journal sharing keeps authored text as an independent snapshot, without creating a future activity (0.2969ms)
+✔ malformed storage is preserved and blocked from overwrite (2.3391ms)
+✔ quota failure preserves previous snapshot and bytes; invalid recipes cannot persist (3.6029ms)
+✔ a concurrent tab change is loaded before rejecting stale edits (4.5828ms)
+✔ activity editors must still be active group members; archiving revokes editing (3.0376ms)
+✔ unfinished route candidates cannot be silently converted to confirmed group visits (0.226ms)
+✔ sanitized journal invitation snapshots preserve journal mode and never create an unintended future trip (0.1863ms)
+✔ member removal revokes only the selected group, retains history and blocks old invites and approvals (2.3626ms)
+✔ owner and manager removal permissions cannot be bypassed; old schema stays valid (2.258ms)
+✔ a rejected domain operation keeps input feedback and never partially saves draft changes (2.3315ms)
+✔ messages accept only a closed sticker identifier with the required text contract and reject remote image injection (4.6757ms)
+✔ application decisions require operating permission, respect pending state, and cannot duplicate or revive old memberships (2.3221ms)
+✔ RSVP checks active membership, cancellation, capacity and concurrent last-seat writes (10.2323ms)
+✔ existing-group invites require a currently active owner or manager, including after a personal intent was accepted (0.3357ms)
+✔ existing base type sizes remain stable (0.8533ms)
+✔ .detail-creator-numbers span uses the named role without a duplicate override (0.8179ms)
+✔ .detail-creator-numbers strong uses the named role without a duplicate override (0.154ms)
+✔ .creator-journey-list strong uses the named role without a duplicate override (0.0853ms)
+✔ .creator-journey-list small uses the named role without a duplicate override (0.1046ms)
+✔ .creator-journey-list em uses the named role without a duplicate override (0.0666ms)
+✔ readable guide and in-app guide retain the same typography rules and rows (1.2307ms)
+ℹ tests 39
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 228.8033

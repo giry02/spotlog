@@ -1,0 +1,38 @@
+{
+  "results": [
+    {
+      "width": 1440,
+      "scene": "comment-reply-detail",
+      "target": {
+        "width": 637.2,
+        "height": 192.2,
+        "clientWidth": 635,
+        "scrollWidth": 635
+      },
+      "screenshot": "1440-comment-reply-detail.png"
+    },
+    {
+      "width": 1440,
+      "scene": "member-deletion-controls",
+      "target": {
+        "width": 111.1,
+        "height": 36,
+        "clientWidth": 109,
+        "scrollWidth": 109
+      },
+      "screenshot": "1440-member-deletion-controls.png"
+    },
+    {
+      "width": 1440,
+      "scene": "grade-edit-detail",
+      "target": {
+        "width": 301.6,
+        "height": 42,
+        "clientWidth": 300,
+        "scrollWidth": 300
+      },
+      "screenshot": "1440-grade-edit-detail.png"
+    }
+  ],
+  "failure": "locator.scrollIntoViewIfNeeded: Timeout 7000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.admin-page-body:not([hidden])').getByRole('button', { name: '템플릿 검수 저장', exact: true })\u001b[22m\n"
+}

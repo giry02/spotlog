@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-12",
+  "checks": [
+    {
+      "width": 320,
+      "name": "desktop drag, draft reload, explicit completion, readonly handles removed",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "linked child drag moves anchor/food/cafe together; booking, candidates and other DAY preserved; undo exact",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "Escape, pointercancel, lostpointercapture, header drop and handle tap never save or open a popup",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "incoming booking/time update cancels active drag without overwriting current order or data",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "keyboard reorder supported; failed save keeps previous order; STAY has no drag handle",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "long DAY edge scrolling works; cancellation preserves data; full-length reorder before stay",
+      "detail": "scrolled 141px"
+    },
+    {
+      "width": 390,
+      "name": "desktop drag, draft reload, explicit completion, readonly handles removed",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "linked child drag moves anchor/food/cafe together; booking, candidates and other DAY preserved; undo exact",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Escape, pointercancel, lostpointercapture, header drop and handle tap never save or open a popup",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "incoming booking/time update cancels active drag without overwriting current order or data",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "keyboard reorder supported; failed save keeps previous order; STAY has no drag handle",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "long DAY edge scrolling works; cancellation preserves data; full-length reorder before stay",
+      "detail": "scrolled 122px"
+    },
+    {
+      "width": 460,
+      "name": "desktop drag, draft reload, explicit completion, readonly handles removed",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "linked child drag moves anchor/food/cafe together; booking, candidates and other DAY preserved; undo exact",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Escape, pointercancel, lostpointercapture, header drop and handle tap never save or open a popup",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "incoming booking/time update cancels active drag without overwriting current order or data",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "keyboard reorder supported; failed save keeps previous order; STAY has no drag handle",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "long DAY edge scrolling works; cancellation preserves data; full-length reorder before stay",
+      "detail": "scrolled 125px"
+    },
+    {
+      "width": 390,
+      "name": "real touch drag preserves linked group; ordinary card swipe scrolls; touch cancel retains order",
+      "detail": "pass"
+    }
+  ],
+  "errors": []
+}

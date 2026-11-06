@@ -1,0 +1,15 @@
+.tg-creation-entry { display:flex; align-items:center; gap:10px; width:100%; min-height:64px; padding:12px; text-align:left; background:#f1f1eb; color:var(--ink,#242421); border:1px solid var(--line,#deded9); border-radius:12px; }
+.tg-creation-entry>svg { flex:0 0 auto; }
+.tg-creation-entry>svg:first-child { color:var(--accent,#ff5a3d); }
+.tg-creation-entry>span { display:grid; gap:2px; flex:1; min-width:0; }
+.tg-creation-entry strong { font-size:14px; line-height:20px; font-weight:600; }
+.tg-creation-entry small { font-size:12px; line-height:16px; color:var(--muted,#777773); }
+.tg-creation-destination { display:grid; grid-template-columns:1fr 1fr; gap:8px; min-width:0; margin:12px 0; padding:12px; border:1px solid var(--line,#deded9); border-radius:12px; }
+.tg-creation-destination legend { font-size:14px; line-height:20px; font-weight:600; padding:0 4px; }
+.tg-creation-destination label { display:flex; align-items:center; gap:8px; min-width:0; min-height:56px; padding:8px; border:1px solid var(--line,#deded9); border-radius:8px; font-size:14px; line-height:20px; }
+.tg-creation-destination input { flex:0 0 18px; width:18px; height:18px; margin:0; accent-color:var(--ink,#242421); }
+.creation-planner .tg-creation-destination label { flex-direction:row; }
+.creation-planner .tg-creation-destination input[type=radio] { flex:0 0 18px; width:18px; min-width:18px; height:18px; min-height:18px; padding:0; border:0; }
+.tg-creation-destination label>span { display:grid; gap:4px; min-width:0; overflow-wrap:anywhere; }
+.tg-creation-destination small { font-size:12px; line-height:16px; color:var(--muted,#777773); }
+@media(max-width:359px) { .tg-creation-destination { grid-template-columns:1fr; } }

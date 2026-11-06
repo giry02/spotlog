@@ -1,0 +1,310 @@
+{
+  "saved": [
+    {
+      "width": 320,
+      "url": "http://127.0.0.1:5210/tests/saved-search-review.html",
+      "pageOverflow": 0,
+      "buttons": [
+        {
+          "label": "관심 장소 검색 열기",
+          "width": 44,
+          "height": 44,
+          "font": "14px"
+        }
+      ],
+      "inputs": []
+    },
+    {
+      "width": 390,
+      "url": "http://127.0.0.1:5210/tests/saved-search-review.html",
+      "pageOverflow": 0,
+      "buttons": [
+        {
+          "label": "관심 장소 검색 열기",
+          "width": 44,
+          "height": 44,
+          "font": "14px"
+        }
+      ],
+      "inputs": []
+    },
+    {
+      "width": 460,
+      "url": "http://127.0.0.1:5210/tests/saved-search-review.html",
+      "pageOverflow": 0,
+      "buttons": [
+        {
+          "label": "관심 장소 검색 열기",
+          "width": 44,
+          "height": 44,
+          "font": "14px"
+        }
+      ],
+      "inputs": []
+    }
+  ],
+  "searchOpen": [
+    {
+      "width": 320,
+      "url": "http://127.0.0.1:5210/tests/saved-search-review.html",
+      "pageOverflow": 0,
+      "buttons": [
+        {
+          "label": "관심 장소 검색 접기",
+          "width": 44,
+          "height": 44,
+          "font": "14px"
+        }
+      ],
+      "inputs": [
+        {
+          "label": "저장 장소 이름·주소 검색",
+          "type": "search",
+          "font": "16px",
+          "height": 47
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "url": "http://127.0.0.1:5210/tests/saved-search-review.html",
+      "pageOverflow": 0,
+      "buttons": [
+        {
+          "label": "관심 장소 검색 접기",
+          "width": 44,
+          "height": 44,
+          "font": "14px"
+        }
+      ],
+      "inputs": [
+        {
+          "label": "저장 장소 이름·주소 검색",
+          "type": "search",
+          "font": "16px",
+          "height": 47
+        }
+      ]
+    },
+    {
+      "width": 460,
+      "url": "http://127.0.0.1:5210/tests/saved-search-review.html",
+      "pageOverflow": 0,
+      "buttons": [
+        {
+          "label": "관심 장소 검색 접기",
+          "width": 44,
+          "height": 44,
+          "font": "14px"
+        }
+      ],
+      "inputs": [
+        {
+          "label": "저장 장소 이름·주소 검색",
+          "type": "search",
+          "font": "16px",
+          "height": 47
+        }
+      ]
+    }
+  ],
+  "meetup": [
+    {
+      "width": 320,
+      "url": "http://127.0.0.1:5210/tests/group-public-meetup-return-review.html",
+      "pageOverflow": 0,
+      "buttons": [
+        {
+          "label": "10월30동네 한 잔과 취미 친구 · 모임 예시퇴근 후 커피와 책 이야기",
+          "width": 273,
+          "height": 112,
+          "font": "14px"
+        },
+        {
+          "label": "11월1동네 한 잔과 취미 친구 · 모임 예시주말 보드게임과 동네 수다1",
+          "width": 273,
+          "height": 136,
+          "font": "14px"
+        }
+      ],
+      "inputs": []
+    },
+    {
+      "width": 390,
+      "url": "http://127.0.0.1:5210/tests/group-public-meetup-return-review.html",
+      "pageOverflow": 0,
+      "buttons": [
+        {
+          "label": "10월30동네 한 잔과 취미 친구 · 모임 예시퇴근 후 커피와 책 이야기",
+          "width": 335,
+          "height": 94,
+          "font": "14px"
+        },
+        {
+          "label": "11월1동네 한 잔과 취미 친구 · 모임 예시주말 보드게임과 동네 수다1",
+          "width": 335,
+          "height": 94,
+          "font": "14px"
+        }
+      ],
+      "inputs": []
+    },
+    {
+      "width": 460,
+      "url": "http://127.0.0.1:5210/tests/group-public-meetup-return-review.html",
+      "pageOverflow": 0,
+      "buttons": [
+        {
+          "label": "10월30동네 한 잔과 취미 친구 · 모임 예시퇴근 후 커피와 책 이야기",
+          "width": 405,
+          "height": 94,
+          "font": "14px"
+        },
+        {
+          "label": "11월1동네 한 잔과 취미 친구 · 모임 예시주말 보드게임과 동네 수다1",
+          "width": 405,
+          "height": 94,
+          "font": "14px"
+        }
+      ],
+      "inputs": []
+    }
+  ],
+  "password": [
+    {
+      "width": 320,
+      "url": "http://127.0.0.1:5210/tests/password-field-review.html",
+      "pageOverflow": 0,
+      "buttons": [
+        {
+          "label": "로그인 비밀번호 보기",
+          "width": 86,
+          "height": 44,
+          "font": "14px"
+        },
+        {
+          "label": "가입 비밀번호 보기",
+          "width": 86,
+          "height": 44,
+          "font": "14px"
+        },
+        {
+          "label": "가입 비밀번호 확인 보기",
+          "width": 86,
+          "height": 44,
+          "font": "14px"
+        }
+      ],
+      "inputs": [
+        {
+          "label": "로그인 비밀번호",
+          "type": "password",
+          "font": "16px",
+          "height": 53
+        },
+        {
+          "label": "가입 비밀번호",
+          "type": "password",
+          "font": "16px",
+          "height": 53
+        },
+        {
+          "label": "가입 비밀번호 확인",
+          "type": "password",
+          "font": "16px",
+          "height": 53
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "url": "http://127.0.0.1:5210/tests/password-field-review.html",
+      "pageOverflow": 0,
+      "buttons": [
+        {
+          "label": "로그인 비밀번호 보기",
+          "width": 86,
+          "height": 44,
+          "font": "14px"
+        },
+        {
+          "label": "가입 비밀번호 보기",
+          "width": 86,
+          "height": 44,
+          "font": "14px"
+        },
+        {
+          "label": "가입 비밀번호 확인 보기",
+          "width": 86,
+          "height": 44,
+          "font": "14px"
+        }
+      ],
+      "inputs": [
+        {
+          "label": "로그인 비밀번호",
+          "type": "password",
+          "font": "16px",
+          "height": 53
+        },
+        {
+          "label": "가입 비밀번호",
+          "type": "password",
+          "font": "16px",
+          "height": 53
+        },
+        {
+          "label": "가입 비밀번호 확인",
+          "type": "password",
+          "font": "16px",
+          "height": 53
+        }
+      ]
+    },
+    {
+      "width": 460,
+      "url": "http://127.0.0.1:5210/tests/password-field-review.html",
+      "pageOverflow": 0,
+      "buttons": [
+        {
+          "label": "로그인 비밀번호 보기",
+          "width": 86,
+          "height": 44,
+          "font": "14px"
+        },
+        {
+          "label": "가입 비밀번호 보기",
+          "width": 86,
+          "height": 44,
+          "font": "14px"
+        },
+        {
+          "label": "가입 비밀번호 확인 보기",
+          "width": 86,
+          "height": 44,
+          "font": "14px"
+        }
+      ],
+      "inputs": [
+        {
+          "label": "로그인 비밀번호",
+          "type": "password",
+          "font": "16px",
+          "height": 53
+        },
+        {
+          "label": "가입 비밀번호",
+          "type": "password",
+          "font": "16px",
+          "height": 53
+        },
+        {
+          "label": "가입 비밀번호 확인",
+          "type": "password",
+          "font": "16px",
+          "height": 53
+        }
+      ]
+    }
+  ]
+}

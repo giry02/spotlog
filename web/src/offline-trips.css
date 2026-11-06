@@ -1,0 +1,17 @@
+.personal-trip .plan-offline-control { margin:14px 20px 0; padding:14px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+.personal-trip .plan-offline-control.is-saved { background:#edf6f2; border-color:#d5e5dd; }
+.plan-offline-row { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.plan-offline-row > div { min-width:0; flex:1; }
+.plan-offline-row strong { display:flex; align-items:center; gap:7px; font-size:var(--type-subhead); line-height:1.5; overflow-wrap:anywhere; }
+.plan-offline-row strong svg { flex:none; }
+.plan-offline-row p { margin:5px 0 0; color:var(--muted); font-size:var(--type-caption); line-height:1.6; }
+.plan-offline-message { margin:8px 0 0; color:var(--muted); font-size:var(--type-subhead); line-height:1.6; }
+.plan-offline-row > button { flex:none; min-height:44px; padding:0 12px; font-size:var(--type-subhead); gap:6px; white-space:nowrap; }
+.plan-offline-message.ui-error { color:#a53729; font-size:var(--type-subhead); }
+.plan-offline-management { display:grid; gap:10px; padding:16px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.plan-offline-management h3 { display:flex; align-items:center; gap:8px; margin:0; font-size:var(--type-body); }
+.plan-offline-management p { margin:0; font-size:var(--type-body); line-height:1.65; }
+.plan-offline-management button { min-height:44px; font-size:var(--type-subhead); }
+.offline-saved-badge { display:inline-flex; align-items:center; gap:5px; color:#197c6d; font-size:var(--type-caption); line-height:1.5; padding:6px 0 0; }
+.trip-offline-library { padding:12px 14px; margin:14px 0; border:1px solid #d5e5dd; border-radius:12px; background:#edf6f2; font-size:var(--type-subhead); line-height:1.6; }
+@media(max-width:350px) { .plan-offline-row { flex-wrap:wrap; gap:9px; } .plan-offline-row > button { margin-left:auto; } }

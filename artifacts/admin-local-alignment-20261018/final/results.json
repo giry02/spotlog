@@ -1,0 +1,610 @@
+{
+  "date": "2026-10-18",
+  "targets": [
+    {
+      "id": "main-admin",
+      "url": "http://127.0.0.1:5210/admin.html",
+      "initialSeed": 145,
+      "publishButtonHeight": 44,
+      "menus": [
+        {
+          "name": "운영 현황",
+          "tabs": []
+        },
+        {
+          "name": "장소·업체",
+          "tabs": [
+            "장소 목록",
+            "지역 설정"
+          ]
+        },
+        {
+          "name": "노출·추천",
+          "tabs": [
+            "작업 시작",
+            "추천 여행 만들기",
+            "메인 게시 관리",
+            "인기 콘텐츠",
+            "고객 화면 보기",
+            "DAY 1",
+            "DAY 2"
+          ]
+        },
+        {
+          "name": "여행기·커뮤니티",
+          "tabs": [
+            "신고·이의",
+            "공개 여행기·댓글",
+            "번역 검수"
+          ]
+        },
+        {
+          "name": "회원·문의",
+          "tabs": [
+            "회원·삭제 요청",
+            "문의 처리"
+          ]
+        },
+        {
+          "name": "AI·검색 운영",
+          "tabs": [
+            "검색 자료",
+            "색인 작업",
+            "품질 시험",
+            "요청 현황",
+            "실행 정책"
+          ]
+        },
+        {
+          "name": "운영 설정·이력",
+          "tabs": [
+            "지역 관리",
+            "분류·운영 기준",
+            "운영자·권한",
+            "알림",
+            "연결·수급",
+            "휴지통·파일 정리",
+            "변경·조치 이력"
+          ]
+        }
+      ],
+      "errors": [],
+      "apiRequests": []
+    },
+    {
+      "id": "main-preview",
+      "url": "http://127.0.0.1:5210/admin-preview.html",
+      "initialSeed": 145,
+      "publishButtonHeight": 44,
+      "menus": [
+        {
+          "name": "운영 현황",
+          "tabs": []
+        },
+        {
+          "name": "장소·업체",
+          "tabs": [
+            "장소 목록",
+            "지역 설정"
+          ]
+        },
+        {
+          "name": "노출·추천",
+          "tabs": [
+            "작업 시작",
+            "추천 여행 만들기",
+            "메인 게시 관리",
+            "인기 콘텐츠",
+            "고객 화면 보기",
+            "DAY 1",
+            "DAY 2"
+          ]
+        },
+        {
+          "name": "여행기·커뮤니티",
+          "tabs": [
+            "신고·이의",
+            "공개 여행기·댓글",
+            "번역 검수"
+          ]
+        },
+        {
+          "name": "회원·문의",
+          "tabs": [
+            "회원·삭제 요청",
+            "문의 처리"
+          ]
+        },
+        {
+          "name": "AI·검색 운영",
+          "tabs": [
+            "검색 자료",
+            "색인 작업",
+            "품질 시험",
+            "요청 현황",
+            "실행 정책"
+          ]
+        },
+        {
+          "name": "운영 설정·이력",
+          "tabs": [
+            "지역 관리",
+            "분류·운영 기준",
+            "운영자·권한",
+            "알림",
+            "연결·수급",
+            "휴지통·파일 정리",
+            "변경·조치 이력"
+          ]
+        }
+      ],
+      "errors": [],
+      "apiRequests": []
+    },
+    {
+      "id": "release-preview",
+      "url": "http://127.0.0.1:5295/spotlog/admin-preview.html",
+      "initialSeed": 145,
+      "publishButtonHeight": 44,
+      "menus": [
+        {
+          "name": "운영 현황",
+          "tabs": []
+        },
+        {
+          "name": "장소·업체",
+          "tabs": [
+            "장소 목록",
+            "지역 설정"
+          ]
+        },
+        {
+          "name": "노출·추천",
+          "tabs": [
+            "작업 시작",
+            "추천 여행 만들기",
+            "메인 게시 관리",
+            "인기 콘텐츠",
+            "고객 화면 보기",
+            "DAY 1",
+            "DAY 2"
+          ]
+        },
+        {
+          "name": "여행기·커뮤니티",
+          "tabs": [
+            "신고·이의",
+            "공개 여행기·댓글",
+            "번역 검수"
+          ]
+        },
+        {
+          "name": "회원·문의",
+          "tabs": [
+            "회원·삭제 요청",
+            "문의 처리"
+          ]
+        },
+        {
+          "name": "AI·검색 운영",
+          "tabs": [
+            "검색 자료",
+            "색인 작업",
+            "품질 시험",
+            "요청 현황",
+            "실행 정책"
+          ]
+        },
+        {
+          "name": "운영 설정·이력",
+          "tabs": [
+            "지역 관리",
+            "분류·운영 기준",
+            "운영자·권한",
+            "알림",
+            "연결·수급",
+            "휴지통·파일 정리",
+            "변경·조치 이력"
+          ]
+        }
+      ],
+      "errors": [],
+      "apiRequests": []
+    }
+  ],
+  "checks": [
+    {
+      "name": "main-admin: latest three-action overview, unfinished work and collapsed technical/global status",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: Busan context/type retained; compact four-tab editor and safe draft save; form16/action14+/primary44px",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: unfinished work opens the exact saved place",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: checklist jumps to coordinate/source fields and only complete verified data publishes",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: place → region-preserving two-day generation → PRIVATE save; optional explanations collapsed",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: PUBLIC → explicit main handoff auto-selects same trip; explicit activation → HOME_TRIP customer preview",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: changing overview region to Seoul does not change the existing Busan trip conditions",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: new drafts use the selected region without silently reusing another region draft",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: canonical place-region workspace, region-to-place handoff and quick work filter",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: duplicate REGION reference editor excluded without deleting legacy data",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: saved published trip and explicit home placement survive same-tab reload",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: unsaved trip title/prompt recover after reload without changing the published record",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: unsaved place editor recovers after reload; published content remains unchanged",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: region-specific unsaved input recovers without saving over canonical region",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: explicit legacy draft recovery keeps original region/prompt and clears old fixture only after successful save",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin after complete workflow: isolated private sentinel preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 1440 운영 현황: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 1440 장소·업체: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 1440 노출·추천: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 1440 여행기·커뮤니티: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 1440 회원·문의: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 1440 AI·검색 운영: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 1440 운영 설정·이력: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 390 운영 현황: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 390 장소·업체: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 390 노출·추천: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 390 여행기·커뮤니티: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 390 회원·문의: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 390 AI·검색 운영: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin 390 운영 설정·이력: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: full workflow and seven menus have no API requests or uncaught exceptions",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: latest three-action overview, unfinished work and collapsed technical/global status",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: Busan context/type retained; compact four-tab editor and safe draft save; form16/action14+/primary44px",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: unfinished work opens the exact saved place",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: checklist jumps to coordinate/source fields and only complete verified data publishes",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: place → region-preserving two-day generation → PRIVATE save; optional explanations collapsed",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: PUBLIC → explicit main handoff auto-selects same trip; explicit activation → HOME_TRIP customer preview",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: changing overview region to Seoul does not change the existing Busan trip conditions",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: new drafts use the selected region without silently reusing another region draft",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: canonical place-region workspace, region-to-place handoff and quick work filter",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: duplicate REGION reference editor excluded without deleting legacy data",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: saved published trip and explicit home placement survive same-tab reload",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: unsaved trip title/prompt recover after reload without changing the published record",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: unsaved place editor recovers after reload; published content remains unchanged",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: region-specific unsaved input recovers without saving over canonical region",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: explicit legacy draft recovery keeps original region/prompt and clears old fixture only after successful save",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview after complete workflow: preview uses only own session key; existing LS reads/writes/bridge events=0",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 1440 운영 현황: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 1440 장소·업체: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 1440 노출·추천: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 1440 여행기·커뮤니티: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 1440 회원·문의: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 1440 AI·검색 운영: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 1440 운영 설정·이력: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 390 운영 현황: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 390 장소·업체: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 390 노출·추천: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 390 여행기·커뮤니티: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 390 회원·문의: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 390 AI·검색 운영: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview 390 운영 설정·이력: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "main-preview: full workflow and seven menus have no API requests or uncaught exceptions",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: latest three-action overview, unfinished work and collapsed technical/global status",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: Busan context/type retained; compact four-tab editor and safe draft save; form16/action14+/primary44px",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: unfinished work opens the exact saved place",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: checklist jumps to coordinate/source fields and only complete verified data publishes",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: place → region-preserving two-day generation → PRIVATE save; optional explanations collapsed",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: PUBLIC → explicit main handoff auto-selects same trip; explicit activation → HOME_TRIP customer preview",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: changing overview region to Seoul does not change the existing Busan trip conditions",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: new drafts use the selected region without silently reusing another region draft",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: canonical place-region workspace, region-to-place handoff and quick work filter",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: duplicate REGION reference editor excluded without deleting legacy data",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: saved published trip and explicit home placement survive same-tab reload",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: unsaved trip title/prompt recover after reload without changing the published record",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: unsaved place editor recovers after reload; published content remains unchanged",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: region-specific unsaved input recovers without saving over canonical region",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: explicit legacy draft recovery keeps original region/prompt and clears old fixture only after successful save",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview after complete workflow: preview uses only own session key; existing LS reads/writes/bridge events=0",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 1440 운영 현황: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 1440 장소·업체: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 1440 노출·추천: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 1440 여행기·커뮤니티: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 1440 회원·문의: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 1440 AI·검색 운영: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 1440 운영 설정·이력: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 390 운영 현황: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 390 장소·업체: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 390 노출·추천: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 390 여행기·커뮤니티: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 390 회원·문의: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 390 AI·검색 운영: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview 390 운영 설정·이력: no body/main overflow, broken visible image or unnamed button",
+      "detail": "pass"
+    },
+    {
+      "name": "release-preview: full workflow and seven menus have no API requests or uncaught exceptions",
+      "detail": "pass"
+    },
+    {
+      "name": "http://127.0.0.1:5210/admin.html?mode=api 401: real-service gate retained; no local role fallback or snapshot after denied auth",
+      "detail": "pass"
+    },
+    {
+      "name": "http://127.0.0.1:5210/admin.html?mode=api 403: real-service gate retained; no local role fallback or snapshot after denied auth",
+      "detail": "pass"
+    },
+    {
+      "name": "http://127.0.0.1:5295/spotlog/admin.html?mode=local 401: real-service gate retained; no local role fallback or snapshot after denied auth",
+      "detail": "pass"
+    },
+    {
+      "name": "http://127.0.0.1:5295/spotlog/admin.html?mode=local 403: real-service gate retained; no local role fallback or snapshot after denied auth",
+      "detail": "pass"
+    },
+    {
+      "name": "three targets have identical seven-menu/tab signatures",
+      "detail": "pass"
+    }
+  ],
+  "errors": []
+}

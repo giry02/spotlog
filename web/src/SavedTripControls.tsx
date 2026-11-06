@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { ArrowDown, ArrowUp, CalendarDays, ChevronRight, Sparkles, X } from 'lucide-react';
 import type { Journey, Place } from './data';
 import { BottomSheet } from './BottomSheet';
@@ -8,26 +8,32 @@ import { localizedTripError, tripMessage, useLocale, type TripMessageKey } from 
 import { buildSavedTrip, forgetSavedTripPlace, reorderSavedTripPlace, resizeSavedTrip, savedTripDate, savedTripPeriod, savedTripRegion, validTripDate, type SavedTripDraft, type SavedTripMode } from './savedTripBuilder';
 import './saved-trip-builder.css';
 
-export function SavedTripControls({ draft, places, automaticPlaces, onChange, onCreate }: {
+export function SavedTripControls({ draft, places, automaticPlaces, onChange, onCreate, browseControls }: {
   draft: SavedTripDraft; places: Place[]; automaticPlaces: Place[];
   onChange: (next: SavedTripDraft) => void; onCreate: (journey: Journey) => string | null;
+  browseControls?: ReactNode;
 }) {
   const { locale } = useLocale();
   const s = (key: TripMessageKey, values?: Record<string, string | number>) => tripMessage(locale, key, values);
   const period = (days: number) => locale === 'en' ? days === 1 ? '1 day' : `${days} days` : savedTripPeriod(days);
   const [setup, setSetup] = useState<SavedTripMode | null>(null);
+  const [modeChoice, setModeChoice] = useState(false);
   const [more, setMore] = useState(draft.dayCount > 4);
   const [error, setError] = useState('');
   const [automaticRegion, setAutomaticRegion] = useState('');
   const saving = useRef(false);
   const toolbar = useRef<HTMLDivElement>(null);
+  const periodPanel = useRef<HTMLDivElement>(null);
+  useLayoutEffect(() => {
+    if (setup) periodPanel.current?.querySelector<HTMLButtonElement>('button:not(:disabled)')?.focus({ preventScroll: true });
+  }, [setup]);
   const unplaced = draft.assignments.filter(item => item.day === null);
   const selectedDay = draft.assignments.filter(item => item.day === draft.activeDay);
   const automaticRegions = Array.from(new Set(automaticPlaces.map(savedTripRegion)));
   const chosenRegion = automaticRegions.length === 1 ? automaticRegions[0] : automaticRegions.includes(automaticRegion) ? automaticRegion : '';
   const scopedPlaces = automaticPlaces.filter(place => savedTripRegion(place) === chosenRegion);
   const update = (next: SavedTripDraft) => { setError(''); onChange(next); };
-  const openSetup = (mode: SavedTripMode) => { setError(''); setMore(draft.dayCount > 4); setSetup(mode); };
+  const openSetup = (mode: SavedTripMode) => { setError(''); setMore(draft.dayCount > 4); setModeChoice(false); setSetup(mode); };
   const save = (next: SavedTripDraft) => {
     if (saving.current) return;
     saving.current = true;
@@ -59,14 +65,10 @@ export function SavedTripControls({ draft, places, automaticPlaces, onChange, on
     return { day, date: (date ? date.slice(5).replace('-', '.') + ' · ' : '') + s('count', { count: amount }), title: '', story: '', places: [], blocks: [] };
   });
   return <>
-    <section className="ai-trip-card saved-trip-maker" aria-labelledby="ai-trip-title">
-      <div className="ai-trip-heading"><span className="ai-trip-icon"><Sparkles size={19} /></span><div><small>TRIP MAKER</small><h2 id="ai-trip-title">{s('title')}</h2></div><span className="ai-trip-kpi">{s('count', { count: automaticPlaces.length })}</span></div>
-      <p>{s('intro')}</p>
-      <div className="saved-trip-modes" role="group" aria-label={s('modes')}>
-        <button type="button" aria-pressed={draft.active} aria-haspopup="dialog" disabled={!places.length} onClick={() => openSetup('manual')}><CalendarDays size={15} />{s('manual')}</button>
-        <button type="button" aria-haspopup="dialog" disabled={!automaticPlaces.length} onClick={() => openSetup('auto')}><Sparkles size={15} />{s('auto')}</button>
-      </div>
-    </section>
+    <div className="saved-place-toolbar">
+      {browseControls}
+      <button type="button" className="saved-trip-launch" aria-haspopup="dialog" disabled={!places.length} onClick={() => { setError(''); setModeChoice(true); }}><CalendarDays size={16} aria-hidden="true"/>{locale === 'en' ? 'Make a trip' : '여행 만들기'}</button>
+    </div>
     {draft.active && <>
       <div className="saved-trip-toolbar" ref={toolbar}>
         <div className="saved-trip-toolbar-row"><button type="button" className="saved-trip-period-link" aria-haspopup="dialog" onClick={() => openSetup('manual')}>{period(draft.dayCount)}<ChevronRight size={13} /></button><span aria-live="polite">{s('selectedCount', { count: draft.assignments.length })}</span><button type="button" className="saved-trip-confirm" disabled={!draft.assignments.length || unplaced.length > 0 || !validTripDate(draft.startDate)} onClick={() => save(draft)}>{s('create')}<ChevronRight size={14} /></button></div>
@@ -77,8 +79,11 @@ export function SavedTripControls({ draft, places, automaticPlaces, onChange, on
       {unplaced.length > 0 && <div className="saved-trip-unplaced" role="status"><p>{s('unplaced', { count: unplaced.length })}</p>{unplaced.map(item => <div key={item.placeId}><span>{places.find(place => place.id === item.placeId)?.name ?? s('unsaved')}</span><button type="button" onClick={() => update({ ...draft, assignments: draft.assignments.map(entry => entry.placeId === item.placeId ? { ...entry, day: draft.activeDay } : entry) })}>{s('addToDay', { day: draft.activeDay })}</button><button type="button" aria-label={(places.find(place => place.id === item.placeId)?.name ?? '') + ' ' + s('remove')} onClick={() => update(forgetSavedTripPlace(draft,item.placeId))}><X size={15} /></button></div>)}</div>}
       {selectedDay.length > 0 && <details className="saved-trip-order"><summary>{s('order', { day: draft.activeDay, count: selectedDay.length })}</summary><ol>{selectedDay.map((item,index) => <li key={item.placeId}><span>{index + 1}. {places.find(place => place.id === item.placeId)?.name}</span><button type="button" disabled={index === 0} aria-label={places.find(place => place.id === item.placeId)?.name + ' ' + s('up')} onClick={() => update(reorderSavedTripPlace(draft,item.placeId,-1))}><ArrowUp size={15} /></button><button type="button" disabled={index === selectedDay.length - 1} aria-label={places.find(place => place.id === item.placeId)?.name + ' ' + s('down')} onClick={() => update(reorderSavedTripPlace(draft,item.placeId,1))}><ArrowDown size={15} /></button><button type="button" aria-label={places.find(place => place.id === item.placeId)?.name + ' ' + s('remove')} onClick={() => update(forgetSavedTripPlace(draft,item.placeId))}><X size={15} /></button></li>)}</ol></details>}
     </>}
-    {setup && <BottomSheet title={s('periodTitle')} description={setup === 'manual' ? s('manualHint') : chosenRegion ? s('autoHint', { region: chosenRegion, count: scopedPlaces.length }) : s('autoRegionHint')} onClose={() => setSetup(null)}>
-      <div className="saved-trip-period-sheet">
+    {(modeChoice || setup) && <BottomSheet title={setup ? s('periodTitle') : s('title')} description={setup ? setup === 'manual' ? s('manualHint') : chosenRegion ? s('autoHint', { region: chosenRegion, count: scopedPlaces.length }) : s('autoRegionHint') : locale === 'en' ? 'Choose how to use your saved places.' : '저장한 장소를 일정으로 담는 방법을 골라보세요.'} onClose={() => { setModeChoice(false); setSetup(null); }}>
+      {!setup ? <div className="saved-trip-methods" role="group" aria-label={s('modes')}>
+        <button type="button" disabled={!places.length} onClick={() => openSetup('manual')}><CalendarDays size={21} aria-hidden="true"/><span><strong>{s('manual')}</strong><small>{locale === 'en' ? 'Pick saved places for each day.' : '저장한 장소를 DAY별로 직접 담아요.'}</small></span><ChevronRight size={18} aria-hidden="true"/></button>
+        <button type="button" disabled={!automaticPlaces.length} onClick={() => openSetup('auto')}><Sparkles size={21} aria-hidden="true"/><span><strong>{s('auto')}</strong><small>{locale === 'en' ? `Use ${automaticPlaces.length} places in the current list.` : `현재 목록 ${automaticPlaces.length}곳으로 일정을 만들어요.`}</small></span><ChevronRight size={18} aria-hidden="true"/></button>
+      </div> : <div className="saved-trip-period-sheet" ref={periodPanel}>
         {setup === 'auto' && automaticRegions.length > 1 && <div className="saved-trip-region-picker">
           <strong>{s('autoRegion')}</strong>
           <div className="saved-trip-region-options" role="group" aria-label={s('autoRegion')}>
@@ -98,7 +103,7 @@ export function SavedTripControls({ draft, places, automaticPlaces, onChange, on
         {!validTripDate(draft.startDate) && <p className="ui-error" role="alert">{s('invalidDate')}</p>}
         {error && <p className="ui-error" role="alert">{error}</p>}
         <button type="button" className="primary" disabled={!validTripDate(draft.startDate) || (setup === 'auto' && !scopedPlaces.length)} onClick={confirmSetup}>{setup === 'auto' && !chosenRegion ? s('autoRegionRequired') : `${period(draft.dayCount)} · ${setup === 'manual' ? s('addPlaces') : s('auto')}`}<ChevronRight size={16} /></button>
-      </div>
+      </div>}
     </BottomSheet>}
   </>;
 }

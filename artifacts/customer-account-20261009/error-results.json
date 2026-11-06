@@ -1,0 +1,188 @@
+{
+  "passed": true,
+  "states": 45,
+  "results": [
+    {
+      "width": 320,
+      "state": "validation"
+    },
+    {
+      "width": 320,
+      "state": "session"
+    },
+    {
+      "width": 320,
+      "state": "conditions"
+    },
+    {
+      "width": 320,
+      "state": "forbidden"
+    },
+    {
+      "width": 320,
+      "state": "missing"
+    },
+    {
+      "width": 320,
+      "state": "limit"
+    },
+    {
+      "width": 320,
+      "state": "server"
+    },
+    {
+      "width": 320,
+      "state": "gateway"
+    },
+    {
+      "width": 320,
+      "state": "unavailable"
+    },
+    {
+      "width": 320,
+      "state": "timeout"
+    },
+    {
+      "width": 320,
+      "state": "network"
+    },
+    {
+      "width": 390,
+      "state": "validation"
+    },
+    {
+      "width": 390,
+      "state": "session"
+    },
+    {
+      "width": 390,
+      "state": "conditions"
+    },
+    {
+      "width": 390,
+      "state": "forbidden"
+    },
+    {
+      "width": 390,
+      "state": "missing"
+    },
+    {
+      "width": 390,
+      "state": "limit"
+    },
+    {
+      "width": 390,
+      "state": "server"
+    },
+    {
+      "width": 390,
+      "state": "gateway"
+    },
+    {
+      "width": 390,
+      "state": "unavailable"
+    },
+    {
+      "width": 390,
+      "state": "timeout"
+    },
+    {
+      "width": 390,
+      "state": "network"
+    },
+    {
+      "width": 460,
+      "state": "validation"
+    },
+    {
+      "width": 460,
+      "state": "session"
+    },
+    {
+      "width": 460,
+      "state": "conditions"
+    },
+    {
+      "width": 460,
+      "state": "forbidden"
+    },
+    {
+      "width": 460,
+      "state": "missing"
+    },
+    {
+      "width": 460,
+      "state": "limit"
+    },
+    {
+      "width": 460,
+      "state": "server"
+    },
+    {
+      "width": 460,
+      "state": "gateway"
+    },
+    {
+      "width": 460,
+      "state": "unavailable"
+    },
+    {
+      "width": 460,
+      "state": "timeout"
+    },
+    {
+      "width": 460,
+      "state": "network"
+    },
+    {
+      "width": 390,
+      "state": "route-unknown-screen"
+    },
+    {
+      "width": 390,
+      "state": "route-xE0xA4xA"
+    },
+    {
+      "width": 390,
+      "state": "route-journey-does-not-exist"
+    },
+    {
+      "width": 390,
+      "state": "route-recommendation-does-not-exist"
+    },
+    {
+      "width": 390,
+      "state": "route-edit-does-not-exist"
+    },
+    {
+      "width": 390,
+      "state": "route-journey-"
+    },
+    {
+      "width": 390,
+      "state": "local-catalog"
+    },
+    {
+      "width": 390,
+      "state": "not-found-file"
+    },
+    {
+      "width": 390,
+      "state": "account-session-failure"
+    },
+    {
+      "width": 320,
+      "state": "short-server"
+    },
+    {
+      "width": 1280,
+      "state": "desktop-forbidden"
+    },
+    {
+      "width": 390,
+      "state": "render-boundary-recovery",
+      "renderFailureSeen": false
+    }
+  ],
+  "errors": []
+}

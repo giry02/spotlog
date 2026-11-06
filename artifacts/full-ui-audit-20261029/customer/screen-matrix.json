@@ -1,0 +1,2090 @@
+[
+  {
+    "screen": "home",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#home",
+        "heading": [
+          "오늘, 어디로 가볼까요?",
+          "종류별로 둘러보기"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "전체 메뉴",
+            "height": 42,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#home",
+        "heading": [
+          "오늘, 어디로 가볼까요?",
+          "종류별로 둘러보기"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "전체 메뉴",
+            "height": 42,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#home",
+        "heading": [
+          "오늘, 어디로 가볼까요?",
+          "종류별로 둘러보기"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "전체 메뉴",
+            "height": 42,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "home-groups",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#home-groups",
+        "heading": [
+          "모임과 정모",
+          "AI 대화 요약",
+          "취향이 맞는 모임"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "전체 메뉴",
+            "height": 42,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": [
+          "gd-group-card gd-group-card--showcase",
+          "gd-group-card gd-group-card--showcase"
+        ]
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#home-groups",
+        "heading": [
+          "모임과 정모",
+          "AI 대화 요약",
+          "취향이 맞는 모임"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "전체 메뉴",
+            "height": 42,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": [
+          "gd-group-card gd-group-card--showcase",
+          "gd-group-card gd-group-card--showcase"
+        ]
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#home-groups",
+        "heading": [
+          "모임과 정모",
+          "AI 대화 요약",
+          "취향이 맞는 모임"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "전체 메뉴",
+            "height": 42,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": [
+          "gd-group-card gd-group-card--showcase",
+          "gd-group-card gd-group-card--showcase"
+        ]
+      }
+    ]
+  },
+  {
+    "screen": "home-trips",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#home-trips",
+        "heading": [
+          "내 속도로 계획하는 여행",
+          "이번 주 추천 일정",
+          "제주 서쪽의 장면만 천천히"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "전체 메뉴",
+            "height": 42,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#home-trips",
+        "heading": [
+          "내 속도로 계획하는 여행",
+          "이번 주 추천 일정",
+          "제주 서쪽의 장면만 천천히"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "전체 메뉴",
+            "height": 42,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#home-trips",
+        "heading": [
+          "내 속도로 계획하는 여행",
+          "이번 주 추천 일정",
+          "제주 서쪽의 장면만 천천히"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "전체 메뉴",
+            "height": 42,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "places-guide",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#places-guide",
+        "heading": [
+          "가고 싶은 장소 찾기",
+          "지역별로 둘러보기",
+          "국내 장소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "장소 지역 검색",
+            "height": 26,
+            "font": "14px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          },
+          {
+            "name": "서울숲 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "성수연방 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "뚝섬한강공원 · 신고",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#places-guide",
+        "heading": [
+          "가고 싶은 장소 찾기",
+          "지역별로 둘러보기",
+          "국내 장소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "장소 지역 검색",
+            "height": 26,
+            "font": "14px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          },
+          {
+            "name": "서울숲 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "성수연방 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "뚝섬한강공원 · 신고",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#places-guide",
+        "heading": [
+          "가고 싶은 장소 찾기",
+          "지역별로 둘러보기",
+          "국내 장소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "장소 지역 검색",
+            "height": 26,
+            "font": "14px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          },
+          {
+            "name": "서울숲 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "성수연방 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "뚝섬한강공원 · 신고",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "places-photo",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#places-photo",
+        "heading": [
+          "광안리해수욕장",
+          "흰여울문화마을",
+          "송도해수욕장"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#places-photo",
+        "heading": [
+          "광안리해수욕장",
+          "흰여울문화마을",
+          "송도해수욕장"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#places-photo",
+        "heading": [
+          "광안리해수욕장",
+          "흰여울문화마을",
+          "송도해수욕장"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "places-video",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#places-video",
+        "heading": [
+          "제주의 하루가 가장 천천히 끝나는 곳",
+          "커피 한 잔 들고 오래 걷기 좋은 동해",
+          "물길과 산길이 만나는 정선의 여름"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#places-video",
+        "heading": [
+          "제주의 하루가 가장 천천히 끝나는 곳",
+          "커피 한 잔 들고 오래 걷기 좋은 동해",
+          "물길과 산길이 만나는 정선의 여름"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#places-video",
+        "heading": [
+          "제주의 하루가 가장 천천히 끝나는 곳",
+          "커피 한 잔 들고 오래 걷기 좋은 동해",
+          "물길과 산길이 만나는 정선의 여름"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          },
+          {
+            "name": "팔로우 · 후속 준비",
+            "height": 33,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "community",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#community",
+        "heading": [
+          "여행기",
+          "먼저 읽어보고,마음에 들면 내 여행에 담으세요.",
+          "지금 많이 담는 여행기"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "여행자 여행기",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "AI 추천 여행",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "여행기 지역 검색",
+            "height": 26,
+            "font": "14px"
+          },
+          {
+            "name": "전체",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "제주",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "부산",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "강원",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "서울",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "전남",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "남도",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "경주",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "전체 기간",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "당일치기",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "1박 2일",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "2박 3일",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "3박 이상",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#community",
+        "heading": [
+          "여행기",
+          "먼저 읽어보고,마음에 들면 내 여행에 담으세요.",
+          "지금 많이 담는 여행기"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "여행자 여행기",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "AI 추천 여행",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "여행기 지역 검색",
+            "height": 26,
+            "font": "14px"
+          },
+          {
+            "name": "전체",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "제주",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "부산",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "강원",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "서울",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "전남",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "남도",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "경주",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "전체 기간",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "당일치기",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "1박 2일",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "2박 3일",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "3박 이상",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#community",
+        "heading": [
+          "여행기",
+          "먼저 읽어보고,마음에 들면 내 여행에 담으세요.",
+          "지금 많이 담는 여행기"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "여행자 여행기",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "AI 추천 여행",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "여행기 지역 검색",
+            "height": 26,
+            "font": "14px"
+          },
+          {
+            "name": "전체",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "제주",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "부산",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "강원",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "서울",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "전남",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "남도",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "경주",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "전체 기간",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "당일치기",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "1박 2일",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "2박 3일",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "3박 이상",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "trips",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#trips",
+        "heading": [
+          "내 여행",
+          "내 여행 일정"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "새 여행",
+            "height": 42,
+            "font": "16px"
+          },
+          {
+            "name": "부산 4박 5일 여행 휴지통으로 이동",
+            "height": 36,
+            "font": "16px"
+          },
+          {
+            "name": "부산 4박 5일 여행 공유",
+            "height": 37,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#trips",
+        "heading": [
+          "내 여행",
+          "내 여행 일정"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "새 여행",
+            "height": 42,
+            "font": "16px"
+          },
+          {
+            "name": "부산 4박 5일 여행 휴지통으로 이동",
+            "height": 36,
+            "font": "16px"
+          },
+          {
+            "name": "부산 4박 5일 여행 공유",
+            "height": 37,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#trips",
+        "heading": [
+          "내 여행",
+          "내 여행 일정"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "새 여행",
+            "height": 42,
+            "font": "16px"
+          },
+          {
+            "name": "부산 4박 5일 여행 휴지통으로 이동",
+            "height": 36,
+            "font": "16px"
+          },
+          {
+            "name": "부산 4박 5일 여행 공유",
+            "height": 37,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "saved",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#saved",
+        "heading": [
+          "관심 장소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "관심 장소 직접 추가",
+            "height": 42,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          },
+          {
+            "name": "동백섬 상세보기",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "동백섬 저장 취소",
+            "height": 31,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#saved",
+        "heading": [
+          "관심 장소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "관심 장소 직접 추가",
+            "height": 42,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          },
+          {
+            "name": "동백섬, 담김 확인·해제",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "동백섬 상세보기",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "동백섬 저장 취소",
+            "height": 31,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#saved",
+        "heading": [
+          "관심 장소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "관심 장소 직접 추가",
+            "height": 42,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          },
+          {
+            "name": "동백섬, 담김 확인·해제",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "동백섬 상세보기",
+            "height": 34,
+            "font": "12px"
+          },
+          {
+            "name": "동백섬 저장 취소",
+            "height": 31,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "profile",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#profile",
+        "heading": [
+          "내 계정",
+          "로그인하고 여행을 이어가세요",
+          "이 기기에 보관한 여행"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "홈으로 돌아가기",
+            "height": 42,
+            "font": "16px"
+          },
+          {
+            "name": "약관 · 개인정보",
+            "height": 38,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#profile",
+        "heading": [
+          "내 계정",
+          "로그인하고 여행을 이어가세요",
+          "이 기기에 보관한 여행"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "홈으로 돌아가기",
+            "height": 42,
+            "font": "16px"
+          },
+          {
+            "name": "약관 · 개인정보",
+            "height": 38,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#profile",
+        "heading": [
+          "내 계정",
+          "로그인하고 여행을 이어가세요",
+          "이 기기에 보관한 여행"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "홈으로 돌아가기",
+            "height": 42,
+            "font": "16px"
+          },
+          {
+            "name": "약관 · 개인정보",
+            "height": 38,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "together-find",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#together-find",
+        "heading": [
+          "모임 찾기",
+          "모집 중인 모임 19"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#together-find",
+        "heading": [
+          "모임 찾기",
+          "모집 중인 모임 19"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#together-find",
+        "heading": [
+          "모임 찾기",
+          "모집 중인 모임 19"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "chat",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/tests/moa-chat-review.html",
+        "heading": [],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/tests/moa-chat-review.html",
+        "heading": [],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "채팅·요약 확인 화면 · 저장은 이 페이지 메모리만 사용",
+            "height": 24,
+            "font": "14px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/tests/moa-chat-review.html",
+        "heading": [],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "채팅·요약 확인 화면 · 저장은 이 페이지 메모리만 사용",
+            "height": 24,
+            "font": "14px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "summary",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/tests/moa-chat-review.html?view=summary",
+        "heading": [
+          "부산 가족여행",
+          "함께할 내용",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 1,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "AI 요약·준비 반영 예시",
+            "height": 27,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/tests/moa-chat-review.html?view=summary",
+        "heading": [
+          "부산 가족여행",
+          "함께할 내용",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 1,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "채팅·요약 확인 화면 · 저장은 이 페이지 메모리만 사용",
+            "height": 24,
+            "font": "14px"
+          },
+          {
+            "name": "AI 요약·준비 반영 예시",
+            "height": 27,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/tests/moa-chat-review.html?view=summary",
+        "heading": [
+          "부산 가족여행",
+          "함께할 내용",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 1,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "채팅·요약 확인 화면 · 저장은 이 페이지 메모리만 사용",
+            "height": 24,
+            "font": "14px"
+          },
+          {
+            "name": "AI 요약·준비 반영 예시",
+            "height": 27,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "plan-ready",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/tests/plan-view-edit.html?mode=ready",
+        "heading": [
+          "부산 1박 2일 내 여행",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "뒤로",
+            "height": 38,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/tests/plan-view-edit.html?mode=ready",
+        "heading": [
+          "부산 1박 2일 내 여행",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "뒤로",
+            "height": 38,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/tests/plan-view-edit.html?mode=ready",
+        "heading": [
+          "부산 1박 2일 내 여행",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "뒤로",
+            "height": 38,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "plan-draft",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/tests/plan-view-edit.html?mode=draft",
+        "heading": [
+          "부산 1박 2일 내 여행",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "뒤로",
+            "height": 38,
+            "font": "16px"
+          },
+          {
+            "name": "DAY 1 메뉴",
+            "height": 40,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          },
+          {
+            "name": "주변 업체",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "자갈치시장 · 장소 메뉴",
+            "height": 36,
+            "font": "16px"
+          },
+          {
+            "name": "주변 업체",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "해운대암소갈비집 · 장소 메뉴",
+            "height": 36,
+            "font": "16px"
+          },
+          {
+            "name": "주변 업체",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "웨이브온 커피 · 장소 메뉴",
+            "height": 36,
+            "font": "16px"
+          },
+          {
+            "name": "웨스틴 조선 부산 · 장소 메뉴",
+            "height": 36,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/tests/plan-view-edit.html?mode=draft",
+        "heading": [
+          "부산 1박 2일 내 여행",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "뒤로",
+            "height": 38,
+            "font": "16px"
+          },
+          {
+            "name": "DAY 1 메뉴",
+            "height": 40,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          },
+          {
+            "name": "주변 업체",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "자갈치시장 · 장소 메뉴",
+            "height": 36,
+            "font": "16px"
+          },
+          {
+            "name": "주변 업체",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "해운대암소갈비집 · 장소 메뉴",
+            "height": 36,
+            "font": "16px"
+          },
+          {
+            "name": "주변 업체",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "웨이브온 커피 · 장소 메뉴",
+            "height": 36,
+            "font": "16px"
+          },
+          {
+            "name": "웨스틴 조선 부산 · 장소 메뉴",
+            "height": 36,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/tests/plan-view-edit.html?mode=draft",
+        "heading": [
+          "부산 1박 2일 내 여행",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "뒤로",
+            "height": 38,
+            "font": "16px"
+          },
+          {
+            "name": "DAY 1 메뉴",
+            "height": 40,
+            "font": "16px"
+          },
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          },
+          {
+            "name": "주변 업체",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "자갈치시장 · 장소 메뉴",
+            "height": 36,
+            "font": "16px"
+          },
+          {
+            "name": "주변 업체",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "해운대암소갈비집 · 장소 메뉴",
+            "height": 36,
+            "font": "16px"
+          },
+          {
+            "name": "주변 업체",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "웨이브온 커피 · 장소 메뉴",
+            "height": 36,
+            "font": "16px"
+          },
+          {
+            "name": "웨스틴 조선 부산 · 장소 메뉴",
+            "height": 36,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "candidates",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/tests/trip-candidate-review.html",
+        "heading": [
+          "여행 마지막 확인"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 1,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "후보 확인 열기",
+            "height": 33,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/tests/trip-candidate-review.html",
+        "heading": [
+          "여행 마지막 확인"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 1,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "후보 확인 열기",
+            "height": 33,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/tests/trip-candidate-review.html",
+        "heading": [
+          "여행 마지막 확인"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 1,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "후보 확인 열기",
+            "height": 33,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "errors",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#errors",
+        "heading": [
+          "오류 화면"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#errors",
+        "heading": [
+          "오류 화면"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#errors",
+        "heading": [
+          "오류 화면"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "journal-detail",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#journey-southern-road-five-days",
+        "heading": [],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#journey-southern-road-five-days",
+        "heading": [],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#journey-southern-road-five-days",
+        "heading": [],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "food-guide",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#places-guide-food",
+        "heading": [
+          "가고 싶은 장소 찾기",
+          "지역별로 둘러보기",
+          "국내 음식점"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사델스 앳 키스 서울 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "기후 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "속초관광수산시장 · 신고",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#places-guide-food",
+        "heading": [
+          "가고 싶은 장소 찾기",
+          "지역별로 둘러보기",
+          "국내 음식점"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사델스 앳 키스 서울 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "기후 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "속초관광수산시장 · 신고",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#places-guide-food",
+        "heading": [
+          "가고 싶은 장소 찾기",
+          "지역별로 둘러보기",
+          "국내 음식점"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사델스 앳 키스 서울 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "기후 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "속초관광수산시장 · 신고",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "stay-guide",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#places-guide-stay",
+        "heading": [
+          "가고 싶은 장소 찾기",
+          "지역별로 둘러보기",
+          "국내 숙소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "호텔 리베라 청담 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "알로프트 서울 강남 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "경포비치호텔 · 신고",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#places-guide-stay",
+        "heading": [
+          "가고 싶은 장소 찾기",
+          "지역별로 둘러보기",
+          "국내 숙소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "호텔 리베라 청담 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "알로프트 서울 강남 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "경포비치호텔 · 신고",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#places-guide-stay",
+        "heading": [
+          "가고 싶은 장소 찾기",
+          "지역별로 둘러보기",
+          "국내 숙소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "호텔 리베라 청담 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "알로프트 서울 강남 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "경포비치호텔 · 신고",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "plan-traveling",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/tests/plan-view-edit.html?mode=traveling",
+        "heading": [
+          "부산 1박 2일 내 여행",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/tests/plan-view-edit.html?mode=traveling",
+        "heading": [
+          "부산 1박 2일 내 여행",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/tests/plan-view-edit.html?mode=traveling",
+        "heading": [
+          "부산 1박 2일 내 여행",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "plan-leisure",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/tests/layout-audit.html?view=plan",
+        "heading": [
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/tests/layout-audit.html?view=plan",
+        "heading": [
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/tests/layout-audit.html?view=plan",
+        "heading": [
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "plan-create",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/tests/layout-audit.html",
+        "heading": [
+          "저장한 곳으로 여행 만들기"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 1,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/tests/layout-audit.html",
+        "heading": [
+          "저장한 곳으로 여행 만들기"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 1,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/tests/layout-audit.html",
+        "heading": [
+          "저장한 곳으로 여행 만들기"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 1,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      }
+    ]
+  }
+]

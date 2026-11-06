@@ -17,9 +17,9 @@
     root.innerHTML=`<div class="shell"><header class="toolbar"><span class="brand">SPOTLOG · INTERNAL REPORT</span><span class="toolbar-title">${esc(shortTitle)} / ${esc(date)}</span><nav aria-label="문서 메뉴"><a href="${otherHref}">${esc(otherTitle)}</a><a class="service-link" href="./#home">서비스 화면</a><button type="button" data-print>인쇄·PDF</button></nav></header><main class="stage" id="stage" aria-label="${esc(title)}">${slides.map((s,i)=>`<article class="slide ${s.cover?'cover':''}" id="slide-${i+1}" data-title="${esc(s.title.replace(/<br\s*\/?>/g,' '))}" aria-labelledby="heading-${i+1}" tabindex="-1"><header class="slide-header"><p class="eyebrow">${esc(s.section||shortTitle)}</p>${s.cover?`<h1 id="heading-${i+1}">${s.title}</h1>`:`<h2 id="heading-${i+1}">${s.title}</h2>`}${s.lead?`<p class="lead">${s.lead}</p>`:''}</header><div class="slide-content">${s.html}</div><footer class="slide-footer"><div class="sources">${s.sources?.length?s.sources.map(([name,url])=>`<a href="${url}" target="_blank" rel="noopener noreferrer">${esc(name)}</a>`).join(''):'Spotlog 개발 계획 · 제안 사항과 현재 구현 상태를 구분함'}</div><span class="folio">${String(i+1).padStart(2,'0')} / ${slides.length}</span></footer></article>`).join('')}</main><footer class="controls"><div class="control-start"><button type="button" data-toc>목차</button><button type="button" class="all-button" data-all aria-pressed="false">전체 보기</button></div><div class="page-label" aria-live="polite" aria-atomic="true"><b data-current>01</b> / ${slides.length}</div><div class="progress" aria-hidden="true"><span></span></div><div class="control-end"><small>← → 방향키</small><button type="button" data-prev aria-label="이전 페이지">←</button><button type="button" data-next aria-label="다음 페이지">→</button></div></footer></div><dialog class="contents-dialog" aria-labelledby="toc-title"><header><h2 id="toc-title">${esc(shortTitle)} 목차</h2><button type="button" data-close>닫기</button></header><nav class="contents-list" aria-label="전체 페이지">${toc}</nav></dialog>`;
     document.title=title;
     const pages=[...root.querySelectorAll('.slide')], stage=root.querySelector('.stage'), dialog=root.querySelector('dialog');
-    let index=0, all=false;
+    let index=0, all=false, printing=false, scrollFrame=null;
     const fromHash=()=>/^#slide-\d+$/.test(location.hash)?Number(location.hash.slice(7))-1:0;
-    function show(next,{hash=true,focus=false}={}){
+    function show(next,{hash=true,focus=false,scroll=true}={}){
       index=Math.max(0,Math.min(pages.length-1,Number.isFinite(next)?next:0));
       pages.forEach((p,i)=>{p.classList.toggle('active',i===index);p.setAttribute('aria-hidden',String(!all&&i!==index));});
       root.querySelector('[data-current]').textContent=String(index+1).padStart(2,'0');
@@ -28,24 +28,45 @@
       root.querySelector('[data-next]').disabled=index===pages.length-1;
       document.title=`${pages[index].dataset.title} | ${shortTitle}`;
       if(hash)history.replaceState(null,'',`#slide-${index+1}`);
-      if(all)pages[index].scrollIntoView({block:'start'});else stage.scrollTop=0;
+      if(scroll){if(all)pages[index].scrollIntoView({block:'start'});else stage.scrollTop=0;}
       if(focus)pages[index].focus({preventScroll:true});
     }
+    // Reading the full document updates navigation without moving the reader.
+    function syncVisiblePage(){
+      scrollFrame=null;
+      if(!all||printing||dialog.open)return;
+      const top=Math.max(0,root.querySelector('.toolbar').getBoundingClientRect().bottom);
+      const bottom=Math.min(window.innerHeight,root.querySelector('.controls').getBoundingClientRect().top);
+      if(bottom<=top)return;
+      let next=index, largest=0;
+      pages.forEach((page,i)=>{
+        const rect=page.getBoundingClientRect();
+        const visible=Math.max(0,Math.min(rect.bottom,bottom)-Math.max(rect.top,top));
+        if(visible>largest){largest=visible;next=i;}
+      });
+      if(largest>0&&next!==index)show(next,{scroll:false});
+    }
+    function scheduleVisiblePage(){
+      if(all&&!printing&&scrollFrame===null)scrollFrame=window.requestAnimationFrame(syncVisiblePage);
+    }
+    window.addEventListener('scroll',scheduleVisiblePage,{passive:true});
+    stage.addEventListener('scroll',scheduleVisiblePage,{passive:true});
+    window.addEventListener('resize',scheduleVisiblePage);
     root.querySelector('[data-prev]').onclick=()=>show(index-1,{focus:true});
     root.querySelector('[data-next]').onclick=()=>show(index+1,{focus:true});
     root.querySelector('[data-print]').onclick=()=>window.print();
     root.querySelector('[data-toc]').onclick=()=>dialog.showModal();
     root.querySelector('[data-close]').onclick=()=>dialog.close();
     dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
-    root.querySelector('[data-all]').onclick=(e)=>{all=!all;document.body.classList.toggle('all-view',all);e.currentTarget.setAttribute('aria-pressed',String(all));e.currentTarget.textContent=all?'발표 보기':'전체 보기';show(index);};
+    root.querySelector('[data-all]').onclick=(e)=>{all=!all;document.body.classList.toggle('all-view',all);e.currentTarget.setAttribute('aria-pressed',String(all));e.currentTarget.textContent=all?'발표 보기':'전체 보기';show(index);scheduleVisiblePage();};
     root.addEventListener('click',e=>{const a=e.target.closest('a[href^="#slide-"]');if(!a)return;e.preventDefault();if(dialog.open)dialog.close();show(Number(a.hash.slice(7))-1,{focus:true});});
     window.addEventListener('hashchange',()=>show(fromHash(),{hash:false}));
     window.addEventListener('keydown',e=>{if(dialog.open||e.altKey||e.ctrlKey||e.metaKey||e.target.closest('input,textarea,select,[contenteditable="true"]'))return;if(['ArrowRight','PageDown'].includes(e.key)){e.preventDefault();show(index+1,{focus:true});}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(index-1,{focus:true});}if(e.key==='Home'){e.preventDefault();show(0,{focus:true});}if(e.key==='End'){e.preventDefault();show(pages.length-1,{focus:true});}});
     let start=null;
     stage.addEventListener('touchstart',e=>{start=e.touches.length===1&&!e.target.closest('a,button,input,select,textarea,.table-wrap')?{x:e.touches[0].clientX,y:e.touches[0].clientY}:null;},{passive:true});
     stage.addEventListener('touchend',e=>{if(!start||all)return;const dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;start=null;if(Math.abs(dx)>85&&Math.abs(dx)>Math.abs(dy)*2)show(index+(dx<0?1:-1));},{passive:true});
-    window.addEventListener('beforeprint',()=>pages.forEach(p=>p.setAttribute('aria-hidden','false')));
-    window.addEventListener('afterprint',()=>pages.forEach((p,i)=>p.setAttribute('aria-hidden',String(!all&&i!==index))));
+    window.addEventListener('beforeprint',()=>{printing=true;pages.forEach(p=>p.setAttribute('aria-hidden','false'));});
+    window.addEventListener('afterprint',()=>{printing=false;pages.forEach((p,i)=>p.setAttribute('aria-hidden',String(!all&&i!==index)));scheduleVisiblePage();});
     setupCost(root);
     show(fromHash(),{hash:false});
     document.documentElement.dataset.reportReady='true';

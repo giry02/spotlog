@@ -1,0 +1,23 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Spotlog 홈 구분·대화 요약 검수 · 2026.10.29</title><style>body{max-width:1080px;margin:32px auto;padding:0 22px;color:#202a35;font:16px/1.8 system-ui,'Malgun Gothic',sans-serif}h1{font-size:28px}h2{font-size:21px;margin-top:32px}a{color:#236d56}table{width:100%;border-collapse:collapse}th,td{border:1px solid #dce0e3;padding:12px;text-align:left;vertical-align:top}th{background:#f5f6f7}img{max-width:100%;height:auto;border:1px solid #dce0e3}code{overflow-wrap:anywhere}</style></head><body>
+<h1>홈 분류와 AI 대화 요약 진입 보완</h1><p>2026.10.29 · 로컬 검수 · Git 업로드·배포 없음</p>
+<p><a href="http://127.0.0.1:5210/#home">장소 홈</a> · <a href="http://127.0.0.1:5210/#home-groups">모임 홈</a> · <a href="http://127.0.0.1:5210/#home-trips">여행 홈</a> · <a href="http://127.0.0.1:5210/tests/chat-summary-review.html">메모리 전용 요약 흐름</a></p>
+<h2>원인과 변경</h2><table><thead><tr><th>확인된 문제</th><th>반영</th></tr></thead><tbody>
+<tr><td>세 개 진입 버튼 아래에 모임 홍보·여행 추천·장소를 한꺼번에 표시</td><td>홈 안을 장소/모임/여행 탭으로 나눔. 선택한 콘텐츠만 표시하며 기존 하단 5개 메뉴 유지.</td></tr>
+<tr><td>여행 카드가 4.6초/5.2초마다 자동 이동</td><td>홈 자동 타이머 제거. 직접 누르는 44px 이전·다음과 스와이프만 유지. 노출 기간·권리 철회 갱신은 유지.</td></tr>
+<tr><td>요약 진입이 채팅 내부 ‘대화 정리’에만 있고 실제 요청은 미연결 오류</td><td>홈 모임 탭에서 가입한 채팅 선택, 모임·정모 상세에서 AI 대화 요약 직접 열기. 실제 AI 연결 전 상태와 예시 확인 구분.</td></tr>
+<tr><td>요약 예시가 특정 여행 대화 5개에만 연결</td><td>기존 전체방·일반 취미 모임의 예시 원문도 연결. 고정 ID와 본문이 모두 맞는 경우만 표시. 고객 대화를 임의 요약하거나 예시로 대체하지 않음.</td></tr>
+<tr><td>상세에서 돌아오면 필터·카드가 바뀌거나 열려 있는 요약의 접근 권한이 남음</td><td>홈 탭·세로 위치·선택 카드 ID·모임 지역 보존. 권한을 잃으면 요약 표시를 즉시 차단하고 닫음.</td></tr>
+</tbody></table>
+<h2>탭별 구성</h2><ul><li>장소: 공개 장소의 종류별 탐색·사진·상세·저장, 운영자가 별도 선정한 HOME_PLACE 추천. 개인 등록 장소·미공개 초안 제외.</li><li>모임: 지역·관심사 모집, 번개·정모, 본인의 다음 약속, 가입한 방을 선택하는 AI 요약 진입.</li><li>여행: 간단 AI 초안, 내 여행 이어보기, 추천 일정, 공개 여행기. 자동 카드 넘김 없음.</li></ul>
+<h2>AI 화면의 현재 범위</h2><p>현재는 실제 LLM 미연결임. 범위·특정인 선택, 예시 결과, 근거 원문 이동, 선택한 준비 항목 추가·공지/투표 초안 편집을 확인하는 프런트 흐름임. 실제 메시지 분석·실시간 전송·서버 저장 완료를 뜻하지 않음. 예약·일정·읽음·참석·담당자를 자동 변경하지 않음.</p>
+<h2>검수 결과</h2><ul>
+<li>웹 프로덕션 빌드/타입검사, 네이티브 타입검사 통과. 관련 모임 저장소·발견·타이포그래피 39개 검사 통과.</li>
+<li>CUA: 각 홈 탭 단일 패널 표시, 키보드 이동/포커스, 여행 상세 왕복 시 탭·세로458px·카드2/7·가로418px 복원, 모임 소개 왕복 시 부산 지역 유지 확인.</li>
+<li>홈 카드 두 줄은 관찰 전후 약107초 동안 가로 위치0/0 유지. 수동 버튼·스와이프 구조 유지.</li>
+<li>320px 장소/390px 모임/460px 여행 iframe 실제 렌더 확인. 실제 휴대폰 검수는 별도임.</li>
+<li>메모리 전용 CUA: 정모 5분류 결과, 특정인 ‘엄마’의 발언만 선택, 일반 모임 결과, 원문 채팅 이동, 준비 항목1개 명시 추가, 중복 미추가, 예시 없는 상태/복귀 확인.</li>
+<li>요약이 열린 뒤 메모리 권한 회수 시험에서 요약 닫힘·내부 자료 접근 차단 확인. 실제 고객/관리자 저장소 변경 없음.</li>
+</ul>
+<h2>화면</h2><img src="../../artifacts/home-topics-20261029/home-topics-responsive.png" alt="320px 장소, 390px 모임, 460px 여행 홈을 나란히 비교한 실제 브라우저 검수 화면"><p><a href="../../artifacts/home-topics-20261029/chat-summary-example.png">특정인 요약 예시 화면</a></p>
+<p>수정 전 소스와 빌드·검사 로그는 <code>artifacts/home-topics-20261029</code>에 보관. 사용자 자료 초기화·실제 AI/외부 서비스 실행·Git 업로드 없음.</p>
+</body></html>

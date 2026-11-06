@@ -1,0 +1,135 @@
+{
+  "homeGroups": {
+    "buttons": [
+      {
+        "height": 52,
+        "text": "동네·취미 모임 찾기",
+        "top": 158
+      },
+      {
+        "height": 46,
+        "text": "로그인·내 모임 보기",
+        "top": 346
+      },
+      {
+        "height": 44,
+        "text": "공개 모임 전체 보기",
+        "top": 472
+      },
+      {
+        "height": 44,
+        "text": "번개·정모",
+        "top": 547
+      },
+      {
+        "height": 69,
+        "text": "👋이웃·친목",
+        "top": 606
+      },
+      {
+        "height": 69,
+        "text": "🍚맛집",
+        "top": 606
+      },
+      {
+        "height": 69,
+        "text": "☕카페",
+        "top": 606
+      },
+      {
+        "height": 69,
+        "text": "🚶산책",
+        "top": 606
+      },
+      {
+        "height": 69,
+        "text": "🏸운동",
+        "top": 606
+      },
+      {
+        "height": 69,
+        "text": "📚독서",
+        "top": 606
+      },
+      {
+        "height": 69,
+        "text": "🎨문화",
+        "top": 606
+      },
+      {
+        "height": 69,
+        "text": "🎲보드게임",
+        "top": 606
+      },
+      {
+        "height": 69,
+        "text": "···더보기",
+        "top": 606
+      },
+      {
+        "height": 287,
+        "text": "모집 중맛집모임 예시남포 한 끼, 골목 한 바퀴부산 · 중구혼자 오는 분도, 부산",
+        "top": 695
+      },
+      {
+        "height": 44,
+        "text": "사진 출처",
+        "top": 791
+      },
+      {
+        "height": 287,
+        "text": "모집 중카페모임 예시광안리 커피와 느린 대화부산 · 수영구카페에서 조용히 이야기 ",
+        "top": 695
+      },
+      {
+        "height": 44,
+        "text": "사진 출처",
+        "top": 791
+      },
+      {
+        "height": 287,
+        "text": "모집 중산책모임 예시서울숲 퇴근 산책서울 · 성동구오래 걷지 않고 기분 전환하고 ",
+        "top": 695
+      }
+    ],
+    "chatSummaryTop": 0,
+    "firstRecruitmentTop": 695,
+    "overflow": 0,
+    "viewport": 390
+  },
+  "discovery": [
+    {
+      "buttonsAboveFold": 19,
+      "firstContentTop": 483,
+      "headings": [
+        "모임 찾기",
+        "모집 중인 모임 19"
+      ],
+      "overflow": 0,
+      "page": "current-discovery",
+      "width": 320
+    },
+    {
+      "buttonsAboveFold": 19,
+      "firstContentTop": 487,
+      "headings": [
+        "모임 찾기",
+        "모집 중인 모임 19"
+      ],
+      "overflow": 0,
+      "page": "current-discovery",
+      "width": 390
+    },
+    {
+      "buttonsAboveFold": 19,
+      "firstContentTop": 487,
+      "headings": [
+        "모임 찾기",
+        "모집 중인 모임 19"
+      ],
+      "overflow": 0,
+      "page": "current-discovery",
+      "width": 460
+    }
+  ]
+}

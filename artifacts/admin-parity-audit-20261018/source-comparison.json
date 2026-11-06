@@ -1,0 +1,323 @@
+{
+  "ref": "96bcf6568dbfa6c79f4f874b2747d3fbf7d273bf",
+  "groups": {
+    "web/src/admin": {
+      "publicFiles": 33,
+      "localFiles": 40,
+      "counts": {
+        "same": 29,
+        "changed": 4,
+        "local-only": 7,
+        "public-only": 0
+      },
+      "files": [
+        {
+          "file": "web/src/admin/AIPage.tsx",
+          "status": "same",
+          "publicSha256": "7c1baa62d5bf98d54401bd2934559a79aadba5a65df815855c4fe61371ca3031",
+          "localSha256": "7c1baa62d5bf98d54401bd2934559a79aadba5a65df815855c4fe61371ca3031"
+        },
+        {
+          "file": "web/src/admin/AdminApp.tsx",
+          "status": "changed",
+          "publicSha256": "70f732e2720558973bbc5f833bc152f5390816d8de96c8cee5fd9766488774a9",
+          "localSha256": "771375a27cd50395eadc21e9f3f889c91059d52c436fff01865ec0c8b66dd35c"
+        },
+        {
+          "file": "web/src/admin/AdminOverview.tsx",
+          "status": "local-only",
+          "publicSha256": null,
+          "localSha256": "fa6893743eaf3b98586834a3ccabbebebb9a3c3c662d1e05defe33e086bc09dc"
+        },
+        {
+          "file": "web/src/admin/AdminSelect.tsx",
+          "status": "same",
+          "publicSha256": "95f214bfc1f48b340f53d282459ad42419cc8b33719cf029020a174efbe546ae",
+          "localSha256": "95f214bfc1f48b340f53d282459ad42419cc8b33719cf029020a174efbe546ae"
+        },
+        {
+          "file": "web/src/admin/OperationsPages.tsx",
+          "status": "changed",
+          "publicSha256": "26f48df8ddbf6efffce2415317819f9eee03f327b0fff72ee0423ed65790c5f8",
+          "localSha256": "aa48e87adc9752f4548e911a00bbe4b388744f04729d638c6a772c70780e9b69"
+        },
+        {
+          "file": "web/src/admin/PlacePreview.tsx",
+          "status": "same",
+          "publicSha256": "86ab723df7cc423fa0e9f665307712dc288a17eeffcf1148e52711b1c7e14d4a",
+          "localSha256": "86ab723df7cc423fa0e9f665307712dc288a17eeffcf1148e52711b1c7e14d4a"
+        },
+        {
+          "file": "web/src/admin/PlacesPage.tsx",
+          "status": "changed",
+          "publicSha256": "ce52ed34c8277a4cd18a7349a8b3090cf1707438db54f21ff8aed5e7b8aee138",
+          "localSha256": "b623cd3f2fcbdb55dce963a2358b8de919dac065de623fd8c6945fc47304e831"
+        },
+        {
+          "file": "web/src/admin/admin-editorial-workflow.css",
+          "status": "local-only",
+          "publicSha256": null,
+          "localSha256": "6786740f5ae8316bcfa0ad8c74db636ab45e665270259ae70ba46acd7fb46e53"
+        },
+        {
+          "file": "web/src/admin/admin-place-workflow.css",
+          "status": "local-only",
+          "publicSha256": null,
+          "localSha256": "e215fa8eb5630f9c5811236d67e7333a0a71d136f8bd174c28329583ec8a2aa6"
+        },
+        {
+          "file": "web/src/admin/admin-preview.css",
+          "status": "same",
+          "publicSha256": "75363d9ec16dd380c8f9d16e73711cd2f7b07222a368411144b0f0939a791db8",
+          "localSha256": "75363d9ec16dd380c8f9d16e73711cd2f7b07222a368411144b0f0939a791db8"
+        },
+        {
+          "file": "web/src/admin/admin-workflow.css",
+          "status": "local-only",
+          "publicSha256": null,
+          "localSha256": "2080cd43ba13899cc36cd82478ea3c9895e1d300a26aff39516c733291bb3a69"
+        },
+        {
+          "file": "web/src/admin/admin.css",
+          "status": "same",
+          "publicSha256": "1e8d35e79a3e6432a9ff80a7e51ce29c1abccae4a84358ccf41ae5a1644c8071",
+          "localSha256": "1e8d35e79a3e6432a9ff80a7e51ce29c1abccae4a84358ccf41ae5a1644c8071"
+        },
+        {
+          "file": "web/src/admin/aiDomain.ts",
+          "status": "same",
+          "publicSha256": "5b057c283aefa91714191c49731d97d542a6934169f2b4e58cf178a92c2eb926",
+          "localSha256": "5b057c283aefa91714191c49731d97d542a6934169f2b4e58cf178a92c2eb926"
+        },
+        {
+          "file": "web/src/admin/aiSeed.ts",
+          "status": "same",
+          "publicSha256": "f3208128182fd62f7ee3a818cf91fca31e1c499c2a2885deaa57eac57ce04122",
+          "localSha256": "f3208128182fd62f7ee3a818cf91fca31e1c499c2a2885deaa57eac57ce04122"
+        },
+        {
+          "file": "web/src/admin/aiTypes.ts",
+          "status": "same",
+          "publicSha256": "589c2ee82214b1924db35d7541c1818e65c5b63b1dc9b7c5c752940406200198",
+          "localSha256": "589c2ee82214b1924db35d7541c1818e65c5b63b1dc9b7c5c752940406200198"
+        },
+        {
+          "file": "web/src/admin/components.tsx",
+          "status": "same",
+          "publicSha256": "d4bf7f9d11eca70bb0e7044fd7dc98f50a49a830a4c5a9f02063971afd03cd07",
+          "localSha256": "d4bf7f9d11eca70bb0e7044fd7dc98f50a49a830a4c5a9f02063971afd03cd07"
+        },
+        {
+          "file": "web/src/admin/content.ts",
+          "status": "same",
+          "publicSha256": "aa0d3f46652d0d158093850cbb95561fd4175a5823c91794d6f38559c400c877",
+          "localSha256": "aa0d3f46652d0d158093850cbb95561fd4175a5823c91794d6f38559c400c877"
+        },
+        {
+          "file": "web/src/admin/contractGuard.ts",
+          "status": "same",
+          "publicSha256": "09b9b2953552b11e848beda4ecda2455e4c17b034a2305be4a0e47511cc46f92",
+          "localSha256": "09b9b2953552b11e848beda4ecda2455e4c17b034a2305be4a0e47511cc46f92"
+        },
+        {
+          "file": "web/src/admin/csv.ts",
+          "status": "same",
+          "publicSha256": "48f06ee77abe3fa07dd61b9fb181db6686c279432356d3f7a6f6e5fa95ad9568",
+          "localSha256": "48f06ee77abe3fa07dd61b9fb181db6686c279432356d3f7a6f6e5fa95ad9568"
+        },
+        {
+          "file": "web/src/admin/domain.ts",
+          "status": "same",
+          "publicSha256": "d6bc4de3b25c5d2d32087f073b5de2b9bab143bd80d2c96bc07603aff2273c04",
+          "localSha256": "d6bc4de3b25c5d2d32087f073b5de2b9bab143bd80d2c96bc07603aff2273c04"
+        },
+        {
+          "file": "web/src/admin/editorialDraft.ts",
+          "status": "same",
+          "publicSha256": "a6892b6fa93020b8ebabe861a1cd1aff68a216b3c0b49d03d7f402747387ddf2",
+          "localSha256": "a6892b6fa93020b8ebabe861a1cd1aff68a216b3c0b49d03d7f402747387ddf2"
+        },
+        {
+          "file": "web/src/admin/editorialSave.ts",
+          "status": "local-only",
+          "publicSha256": null,
+          "localSha256": "ace9d5482eca51eecf06033b3fad80e72db1be4b7d92a4ad9c670bb473fe22ba"
+        },
+        {
+          "file": "web/src/admin/editorialWorkflow.ts",
+          "status": "local-only",
+          "publicSha256": null,
+          "localSha256": "24f833fc38856d3e82094ea2e654498283f3842969e385bfd7c467402a5a96b6"
+        },
+        {
+          "file": "web/src/admin/main.tsx",
+          "status": "same",
+          "publicSha256": "ebbdb4f1fa73788fe01c8f8253d2fa217149b65a840db870998d8255cf0ef933",
+          "localSha256": "ebbdb4f1fa73788fe01c8f8253d2fa217149b65a840db870998d8255cf0ef933"
+        },
+        {
+          "file": "web/src/admin/migration.ts",
+          "status": "same",
+          "publicSha256": "c975f871eba6ee67e67995023ab4e2e3d13bc465297ca478737dd0cf764ceb32",
+          "localSha256": "c975f871eba6ee67e67995023ab4e2e3d13bc465297ca478737dd0cf764ceb32"
+        },
+        {
+          "file": "web/src/admin/opsDomain.ts",
+          "status": "same",
+          "publicSha256": "6bf9e6273ead2c4c1aa4c3849456889d410134f9d93012c6a045c1785cdb9b30",
+          "localSha256": "6bf9e6273ead2c4c1aa4c3849456889d410134f9d93012c6a045c1785cdb9b30"
+        },
+        {
+          "file": "web/src/admin/opsSeed.ts",
+          "status": "same",
+          "publicSha256": "aebc471992b081e27505650e67a14f426e499b15165e253546b0053bc442b902",
+          "localSha256": "aebc471992b081e27505650e67a14f426e499b15165e253546b0053bc442b902"
+        },
+        {
+          "file": "web/src/admin/opsTime.ts",
+          "status": "same",
+          "publicSha256": "406eadbc9549c230714ed13aa71d8170edec4685954f17d6cef84aac0b385bb5",
+          "localSha256": "406eadbc9549c230714ed13aa71d8170edec4685954f17d6cef84aac0b385bb5"
+        },
+        {
+          "file": "web/src/admin/opsTypes.ts",
+          "status": "same",
+          "publicSha256": "890c56eeb49bc667ef77f837b68752278e0b853faf86bece750ed0c340cbe75a",
+          "localSha256": "890c56eeb49bc667ef77f837b68752278e0b853faf86bece750ed0c340cbe75a"
+        },
+        {
+          "file": "web/src/admin/placeEditorCache.ts",
+          "status": "same",
+          "publicSha256": "3374c72a3ad67a222a947c743f2f021cfc57e29787c637af2bf52591fd23a9aa",
+          "localSha256": "3374c72a3ad67a222a947c743f2f021cfc57e29787c637af2bf52591fd23a9aa"
+        },
+        {
+          "file": "web/src/admin/placeWorkflow.ts",
+          "status": "local-only",
+          "publicSha256": null,
+          "localSha256": "bc3830e7860bd76030b1843684d4a39618c6460a40372ddcbd239f2aa91be34f"
+        },
+        {
+          "file": "web/src/admin/preview-main.tsx",
+          "status": "same",
+          "publicSha256": "36abce9f315dfe22e6012a8918b119915f9f948bd43dac9e2ad16c1fec6ea169",
+          "localSha256": "36abce9f315dfe22e6012a8918b119915f9f948bd43dac9e2ad16c1fec6ea169"
+        },
+        {
+          "file": "web/src/admin/previewAdapter.ts",
+          "status": "same",
+          "publicSha256": "e8577e46b81069463ccb8a8f5655118e3f31e1a13457a9443dc1c9910401c0e8",
+          "localSha256": "e8577e46b81069463ccb8a8f5655118e3f31e1a13457a9443dc1c9910401c0e8"
+        },
+        {
+          "file": "web/src/admin/previewDraftStorage.ts",
+          "status": "same",
+          "publicSha256": "962dc42073a4e4d6a9bb76d04f1a0223c10eceef0618951404b0dcb0cf546811",
+          "localSha256": "962dc42073a4e4d6a9bb76d04f1a0223c10eceef0618951404b0dcb0cf546811"
+        },
+        {
+          "file": "web/src/admin/regions.ts",
+          "status": "same",
+          "publicSha256": "cff70ee961af0a18eb37b69b4e317deec706e8cfc8dd48ae749c21ad68c9a569",
+          "localSha256": "cff70ee961af0a18eb37b69b4e317deec706e8cfc8dd48ae749c21ad68c9a569"
+        },
+        {
+          "file": "web/src/admin/repository.ts",
+          "status": "same",
+          "publicSha256": "ba296cfe31e53c51aad6d59b8e00cf6eb8d852c8b6216ef997fac1adc53d15ad",
+          "localSha256": "ba296cfe31e53c51aad6d59b8e00cf6eb8d852c8b6216ef997fac1adc53d15ad"
+        },
+        {
+          "file": "web/src/admin/seed.ts",
+          "status": "same",
+          "publicSha256": "91f6bed7dcb61b37ea812ee271cb33f4a3c286f0021c828792390e70c5f84df0",
+          "localSha256": "91f6bed7dcb61b37ea812ee271cb33f4a3c286f0021c828792390e70c5f84df0"
+        },
+        {
+          "file": "web/src/admin/selectors.ts",
+          "status": "same",
+          "publicSha256": "f7604f9a4023cda8ed24d4687a6a9d007e36cd6661faf3174cbecdc04019752f",
+          "localSha256": "f7604f9a4023cda8ed24d4687a6a9d007e36cd6661faf3174cbecdc04019752f"
+        },
+        {
+          "file": "web/src/admin/types.ts",
+          "status": "changed",
+          "publicSha256": "66a69f5f2f0fee45e59d8f6cd2a713d80add7152283ba176ed6e79e0b0760550",
+          "localSha256": "c4f15c5e50ec9018d54126694ed3ef88879140675ffc6ea00dba5557d714eba6"
+        },
+        {
+          "file": "web/src/admin/useReviewDraft.ts",
+          "status": "same",
+          "publicSha256": "14417095be1dca625c6a97e6090814870d9d497dde609e4e174d7e543f25fc72",
+          "localSha256": "14417095be1dca625c6a97e6090814870d9d497dde609e4e174d7e543f25fc72"
+        }
+      ]
+    },
+    "docs/contracts/admin-v1": {
+      "publicFiles": 9,
+      "localFiles": 9,
+      "counts": {
+        "same": 8,
+        "changed": 1,
+        "local-only": 0,
+        "public-only": 0
+      },
+      "files": [
+        {
+          "file": "docs/contracts/admin-v1/CONSUMER_LINKS.md",
+          "status": "changed",
+          "publicSha256": "3d71dac98f16635c1981a1ca74f325c46ff044378622157ba2eb89d9a3e860ba",
+          "localSha256": "4949407ac4df9e3808088d6674f7c2b22bc94d1d44437d023a89fd61db5c24a0"
+        },
+        {
+          "file": "docs/contracts/admin-v1/HANDOFF.md",
+          "status": "same",
+          "publicSha256": "24217eff1b2d4e589ad2c8c4dfad69425a857dd1ab67501098cbc1eae61b3694",
+          "localSha256": "24217eff1b2d4e589ad2c8c4dfad69425a857dd1ab67501098cbc1eae61b3694"
+        },
+        {
+          "file": "docs/contracts/admin-v1/README.md",
+          "status": "same",
+          "publicSha256": "e8004db4c7a4e6aaf481bd08478cb73672d1780fc8a9814011679f78f4a295d9",
+          "localSha256": "e8004db4c7a4e6aaf481bd08478cb73672d1780fc8a9814011679f78f4a295d9"
+        },
+        {
+          "file": "docs/contracts/admin-v1/build_contract.mjs",
+          "status": "same",
+          "publicSha256": "0bbd6025f408abba262b7ea50f0c98d273ff8c515452f886d26a62c63616c851",
+          "localSha256": "0bbd6025f408abba262b7ea50f0c98d273ff8c515452f886d26a62c63616c851"
+        },
+        {
+          "file": "docs/contracts/admin-v1/build_fixtures.mjs",
+          "status": "same",
+          "publicSha256": "aa43560a93914f2360aa135ba8ed8c3a70936509e034f3987e32cb6294590384",
+          "localSha256": "aa43560a93914f2360aa135ba8ed8c3a70936509e034f3987e32cb6294590384"
+        },
+        {
+          "file": "docs/contracts/admin-v1/fixtures.json",
+          "status": "same",
+          "publicSha256": "b9cf7f1bc1033b94010ce729be14321c8efa08413822e9f66ff891ededc5a4bb",
+          "localSha256": "b9cf7f1bc1033b94010ce729be14321c8efa08413822e9f66ff891ededc5a4bb"
+        },
+        {
+          "file": "docs/contracts/admin-v1/openapi.json",
+          "status": "same",
+          "publicSha256": "3d987b99a024f4662862383d1c462855284f27709504e9ce0742b09924d8bf24",
+          "localSha256": "3d987b99a024f4662862383d1c462855284f27709504e9ce0742b09924d8bf24"
+        },
+        {
+          "file": "docs/contracts/admin-v1/schemas.json",
+          "status": "same",
+          "publicSha256": "1bdebbf1c4694c4e8dcc47fd7166a2eae2ff0204b93fd9f6e9a2b620d5d0c2d5",
+          "localSha256": "1bdebbf1c4694c4e8dcc47fd7166a2eae2ff0204b93fd9f6e9a2b620d5d0c2d5"
+        },
+        {
+          "file": "docs/contracts/admin-v1/validate.py",
+          "status": "same",
+          "publicSha256": "a58a118acc7df1830c74e4d8ce51a6f93ae1a0fcaa408c0daecb87368d9c9298",
+          "localSha256": "a58a118acc7df1830c74e4d8ce51a6f93ae1a0fcaa408c0daecb87368d9c9298"
+        }
+      ]
+    }
+  }
+}

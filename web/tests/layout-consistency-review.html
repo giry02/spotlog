@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>Spotlog 레이아웃 메모리 검수</title>
+    <style>
+      html, body { margin:0; height:100%; }
+      body.layout-fixture { display:grid; grid-template-rows:auto minmax(0,1fr); height:100dvh; overflow:hidden; }
+      .layout-fixture #root { min-height:0; height:100%; }
+      .layout-fixture-toolbar { width:100%; max-width:460px; box-sizing:border-box; margin:0 auto; padding:0 12px; background:#fff5eb; color:#352e28; font:14px/20px system-ui,sans-serif; border-bottom:1px solid #e5d8ca; }
+      .layout-fixture-toolbar summary { display:flex; align-items:center; min-height:44px; cursor:pointer; font-weight:600; }
+      .layout-fixture-toolbar p { margin:0 0 12px; overflow-wrap:anywhere; }
+      .layout-fixture-toolbar nav { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 12px; }
+      .layout-fixture-toolbar a { display:inline-flex; align-items:center; min-height:44px; padding:0 10px; border:1px solid #cfc6bc; border-radius:8px; color:inherit; background:white; text-decoration:none; }
+      .layout-fixture-toolbar small { display:block; margin-bottom:12px; font-size:12px; line-height:16px; }
+      body.layout-fixture[data-embed="true"] { grid-template-rows:minmax(0,1fr); }
+      body.layout-fixture[data-embed="true"] .layout-fixture-toolbar { display:none; }
+    </style>
+  </head>
+  <body class="layout-fixture">
+    <details class="layout-fixture-toolbar">
+      <summary>검수 안내 · 이 페이지 메모리만 사용</summary>
+      <p>실제 앱과 같은 화면. 저장·수정·삭제는 페이지 메모리에서만 동작하며 새로 열면 초기화. 실제 고객 저장소·관리자·인증·오프라인 파일과 분리.</p>
+      <nav aria-label="레이아웃 검수 시작 화면" id="layout-fixture-links"></nav>
+      <small>긴 영문 업체명·80자 목록명·비공개 개인 일정·여행기 포함. 안내를 숨기려면 주소에 embed=1 추가. 사진은 기존 공개 카탈로그 자료이며 가상 업체의 실제 사진이 아님.</small>
+    </details>
+    <div id="root"><p style="padding:16px">메모리 저장소 분리 확인 중…</p></div>
+    <script type="module" src="/tests/layout-consistency-review.tsx"></script>
+  </body>
+</html>

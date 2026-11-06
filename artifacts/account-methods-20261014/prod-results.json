@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "asset": "customer-D92X6_FU.js",
+  "states": 18,
+  "results": [
+    {
+      "name": "guest-ignores-dev-session",
+      "width": 320
+    },
+    {
+      "name": "five-login-methods",
+      "width": 320
+    },
+    {
+      "name": "unconfigured-email-login",
+      "width": 320
+    },
+    {
+      "name": "five-signup-methods",
+      "width": 320
+    },
+    {
+      "name": "unconfigured-four-social-signups-never-authenticate",
+      "width": 320
+    },
+    {
+      "name": "unconfigured-email-signup",
+      "width": 320
+    },
+    {
+      "name": "guest-ignores-dev-session",
+      "width": 390
+    },
+    {
+      "name": "five-login-methods",
+      "width": 390
+    },
+    {
+      "name": "unconfigured-email-login",
+      "width": 390
+    },
+    {
+      "name": "five-signup-methods",
+      "width": 390
+    },
+    {
+      "name": "unconfigured-four-social-signups-never-authenticate",
+      "width": 390
+    },
+    {
+      "name": "unconfigured-email-signup",
+      "width": 390
+    },
+    {
+      "name": "guest-ignores-dev-session",
+      "width": 460
+    },
+    {
+      "name": "five-login-methods",
+      "width": 460
+    },
+    {
+      "name": "unconfigured-email-login",
+      "width": 460
+    },
+    {
+      "name": "five-signup-methods",
+      "width": 460
+    },
+    {
+      "name": "unconfigured-four-social-signups-never-authenticate",
+      "width": 460
+    },
+    {
+      "name": "unconfigured-email-signup",
+      "width": 460
+    }
+  ],
+  "errors": [],
+  "reviewCredentialsExcluded": true,
+  "realAuthenticationConnected": false
+}

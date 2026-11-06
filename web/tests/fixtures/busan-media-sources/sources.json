@@ -1,0 +1,1944 @@
+{
+  "METADATA012464": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012464",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "dababec1d657a77f4ac97875166c8c891f038c170451a5ea98c7ea5ed57845b1",
+    "fixtureSha256": "a67d8cea65541f5def5e02f56fad3c7b8c69ade6577f1d3271774417ebe8b1f4",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 45177,
+        "end": 45330,
+        "sha256": "cd2802f657ed5c61dfb22e2c96e2bd63b6cc56743e9e85de6acb426f9a84ff00",
+        "fixtureExcerptSha256": "5f68dd39cc338448839b41893747a0efeacc1f1759ea88589e770d3d940a665c"
+      },
+      {
+        "label": "original-address",
+        "start": 43047,
+        "end": 44022,
+        "sha256": "8f12efa1ef5844e15bb4ac47e7a9eb5a8df871638ddcf983fa2d04ab6a366b7d",
+        "fixtureExcerptSha256": "f664fab68ff588b6a2d6b5b7d11a88e33f4016202fcbe72e571a6c51c01c27c0"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 47638,
+        "end": 49019,
+        "sha256": "7db9d0fd225a3a8d61994ead88adc8abf70114a7a1c3200a24311f5089d3abf7",
+        "fixtureExcerptSha256": "ae7dafb723780b2700e9f0a092c1d1441915b73aaabccd7b46a9c3723f0b0230"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 49368,
+        "end": 49558,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012472": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012472",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "614844b7d59dd4fa366e7d2a4208b6532dee77a8a2d5f342b9e1867ffc8d7294",
+    "fixtureSha256": "461b1acbba7c4231d9e6a147a342b685d0527e62fafa069644d3257b181cd549",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 45177,
+        "end": 45330,
+        "sha256": "cd2802f657ed5c61dfb22e2c96e2bd63b6cc56743e9e85de6acb426f9a84ff00",
+        "fixtureExcerptSha256": "5f68dd39cc338448839b41893747a0efeacc1f1759ea88589e770d3d940a665c"
+      },
+      {
+        "label": "original-address",
+        "start": 43047,
+        "end": 44022,
+        "sha256": "8f12efa1ef5844e15bb4ac47e7a9eb5a8df871638ddcf983fa2d04ab6a366b7d",
+        "fixtureExcerptSha256": "f664fab68ff588b6a2d6b5b7d11a88e33f4016202fcbe72e571a6c51c01c27c0"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 47638,
+        "end": 49019,
+        "sha256": "72d7dceab755dcc4de2b503e628297f1a4a5ac11a7f3ed62dcf995f6bc04daa8",
+        "fixtureExcerptSha256": "d0aea6f019a4e644e84d7db1e110e402d7fd7b6dea9c6a2a0554dc70fd86de92"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 49368,
+        "end": 49558,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA002463": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA002463",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "9b9442fb198b437d61554ce2db95a2000d700881c01a0c018538aa86a582d4c1",
+    "fixtureSha256": "b0ae729f5e637e6955abc4b3cf37f8334c6eba0be539b78ba072863772d7f4cd",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 49903,
+        "end": 50051,
+        "sha256": "5770fe3a8f0b781b70f2dd7d115265b438c5ad86880b122928289c522b1f7c49",
+        "fixtureExcerptSha256": "50009cf3d4e2fa231fb10bcfa34dbf8dd33cf23d00772fd67d7c9267b9bf33dc"
+      },
+      {
+        "label": "original-address",
+        "start": 47764,
+        "end": 48745,
+        "sha256": "1a6632a8edf3f0bd11f2fcfb1e75fe4292580e4fbbe2d07a4aaef424e9aa68e0",
+        "fixtureExcerptSha256": "5069596d1b5c518450e498c498d318e43f4a503a367dad7d2729ec8e57e5d154"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52402,
+        "end": 53777,
+        "sha256": "ca9115aa4311d6493936323afbbd235b518b625d7109753ede8bb90ea2663f03",
+        "fixtureExcerptSha256": "e501bb64b5b78c2da19a82c90734e2a0741f045436a02484f0cdcf12ac9415e3"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54126,
+        "end": 54316,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA002464": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA002464",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "b69081dda77873e3f46f16cc40c129851531a8aee8e9eae239d495c542e65382",
+    "fixtureSha256": "6e9db8e2d0769d1476c72b11121e9d1af9f82eb33143515b59e378bd5bd5b4ba",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 49903,
+        "end": 50051,
+        "sha256": "5770fe3a8f0b781b70f2dd7d115265b438c5ad86880b122928289c522b1f7c49",
+        "fixtureExcerptSha256": "50009cf3d4e2fa231fb10bcfa34dbf8dd33cf23d00772fd67d7c9267b9bf33dc"
+      },
+      {
+        "label": "original-address",
+        "start": 47764,
+        "end": 48745,
+        "sha256": "1a6632a8edf3f0bd11f2fcfb1e75fe4292580e4fbbe2d07a4aaef424e9aa68e0",
+        "fixtureExcerptSha256": "5069596d1b5c518450e498c498d318e43f4a503a367dad7d2729ec8e57e5d154"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52402,
+        "end": 53777,
+        "sha256": "6556985d7a2b7c04c64b782dc05347ee7b8ce5b818e0967499f0be8681188936",
+        "fixtureExcerptSha256": "007311c3fcaa760f14e0124309e6fc7c978b74a2881dc1f6f9deb1b9bb7407b3"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54126,
+        "end": 54316,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012069": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012069",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "cbadbb9ffa708eceabe452930b93b09812ece5c8e9d79c845803eb71d56d616e",
+    "fixtureSha256": "5811d55b5725ee16587d098aa44897972924bf1d351940d66501952042c03998",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50492,
+        "end": 50638,
+        "sha256": "5837d4aa87d3d3b01c545b8f51abe08b2c4b1bfb6a8183e6a2ad98cb222d371a",
+        "fixtureExcerptSha256": "595428f98726343d2b13ba5a01e6e767d6d982d9bfae8acc03f7ab78c81c88a4"
+      },
+      {
+        "label": "original-address",
+        "start": 48359,
+        "end": 49336,
+        "sha256": "a255e5c1c0f6f0a4b89f52c4075ffb8d9aa448fdf0300881608e3c71f38d9817",
+        "fixtureExcerptSha256": "c467df11ec9032afd4fb9d75c290db9fd323e6ccac7b495df97a2861541988ea"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52883,
+        "end": 54263,
+        "sha256": "9aa114b4143896cf5f53520acd4cea0fd1e0ae952e3c1977ec06e3a11691e3dc",
+        "fixtureExcerptSha256": "44dbacb38229e702e0ba917593896915b7137c6fd459fa2d479894fd10b9f88c"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54612,
+        "end": 54802,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012070": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012070",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "3b640e5bb99e9db33d55fd52b3ebad60c33f93af6a6dd72870aa5dac6c8b2ff5",
+    "fixtureSha256": "a5c741c951c37bda21f2bc5405526649b44080c0423990b2dad34547f028d89d",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50492,
+        "end": 50638,
+        "sha256": "5837d4aa87d3d3b01c545b8f51abe08b2c4b1bfb6a8183e6a2ad98cb222d371a",
+        "fixtureExcerptSha256": "595428f98726343d2b13ba5a01e6e767d6d982d9bfae8acc03f7ab78c81c88a4"
+      },
+      {
+        "label": "original-address",
+        "start": 48359,
+        "end": 49336,
+        "sha256": "a255e5c1c0f6f0a4b89f52c4075ffb8d9aa448fdf0300881608e3c71f38d9817",
+        "fixtureExcerptSha256": "c467df11ec9032afd4fb9d75c290db9fd323e6ccac7b495df97a2861541988ea"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52883,
+        "end": 54263,
+        "sha256": "1856972e02882d3c308cf8d74ec01424030691c08e7a1b02223dfd4fb62774a0",
+        "fixtureExcerptSha256": "b823eba7ebbb70817b3a2e1c22c5a29000ef111b3c2a89d9efed0b97518c997a"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54612,
+        "end": 54802,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA000293": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA000293",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "7257e903a0b04083b1d5d935a28171f94d6b1d6d04f93ec4b787b219eaf6106e",
+    "fixtureSha256": "37e3243f992936b453b723fd9943a8076d67b442a1666feb4d2f02ef1070b860",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 48374,
+        "end": 48525,
+        "sha256": "10662743c1095d421856a59757da94fd6a29834992218e87d318a8476f2930e5",
+        "fixtureExcerptSha256": "3e852712e06efcdde550d7fb2f66fb34d4e168b0299b2ab249e13de1bb4da840"
+      },
+      {
+        "label": "original-address",
+        "start": 46247,
+        "end": 47220,
+        "sha256": "85897e64e37118f32e5a66e453c1758d0ffa7c067ed29a1ceb8de7433ff0d477",
+        "fixtureExcerptSha256": "3abf0c37787dc7164c84a73213ef50c586854be8a9035469684f92f892aab613"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 50782,
+        "end": 52150,
+        "sha256": "dff5b204fd94a9c743f205538e4262fcc3c1d4655d499d60fe329383d41b0628",
+        "fixtureExcerptSha256": "4b06f44de9baf54e1cf5a9ebf16d1fb668b94607061c44c243796f77bc22f1e4"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 52499,
+        "end": 52689,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA013151": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA013151",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "fe26219f3c330f29aebb8bf445d437cfcf69f2de27d0008982c0af9876280221",
+    "fixtureSha256": "bebbe565a49cae7390ea995129092de2a0aae2ca27f294b12bf39a1a904e4a25",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50498,
+        "end": 50645,
+        "sha256": "10f71f902b3293ca521f59aa6f2aa42dae2c9dc71e2f8d70014c5010e7ef316b",
+        "fixtureExcerptSha256": "4414b87e5756f39eb49c6e8160807a542fc67faf554221257b379ca84d81850c"
+      },
+      {
+        "label": "original-address",
+        "start": 48365,
+        "end": 49342,
+        "sha256": "f0a3b5c5e0a660a4743b0f7d15517339dc47db94b53b4e1de19df2b59079d36f",
+        "fixtureExcerptSha256": "9543d34b10e6bcdd2748ebbc76c89d216e288eb9e7b303d9c0b032d26945f85f"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52892,
+        "end": 54273,
+        "sha256": "748928d705c11ed22e589df21aedebac118bf7703a9d2a8521d19eafd12deddd",
+        "fixtureExcerptSha256": "8c4062408836dbe50a13d0ec1278b92a9d929a7f3e96452145be9f54ce065b6b"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54622,
+        "end": 54812,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA013152": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA013152",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "ff39c3a2fe3a2f2674cf6302c8155b19def0e95822e0eeef2a9f1b6a00120609",
+    "fixtureSha256": "b7bd35c83bde21721255a525dda16c941ff2aef48c97864201f18806dc88c70f",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50498,
+        "end": 50645,
+        "sha256": "10f71f902b3293ca521f59aa6f2aa42dae2c9dc71e2f8d70014c5010e7ef316b",
+        "fixtureExcerptSha256": "4414b87e5756f39eb49c6e8160807a542fc67faf554221257b379ca84d81850c"
+      },
+      {
+        "label": "original-address",
+        "start": 48365,
+        "end": 49342,
+        "sha256": "f0a3b5c5e0a660a4743b0f7d15517339dc47db94b53b4e1de19df2b59079d36f",
+        "fixtureExcerptSha256": "9543d34b10e6bcdd2748ebbc76c89d216e288eb9e7b303d9c0b032d26945f85f"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52892,
+        "end": 54273,
+        "sha256": "09d5246ce0fe7bbfe1e143cdd9ed1372b82485a0238a6eabaf96bcc3b2787e00",
+        "fixtureExcerptSha256": "80ed3dc6814675f88ce9923abda31f4b7be6f0fa9c4d602a69c3e21c2f05c554"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54622,
+        "end": 54812,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA013049": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA013049",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "067ecce99cbee9b2dc698b63e3175c77d43aad8e0be4e00f1451f7f544dcb90e",
+    "fixtureSha256": "c866bd74e230ec8aec52cc464bccd096f70c20419b5764975dedf5ef10c31282",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50477,
+        "end": 50624,
+        "sha256": "7f3c16db2b53ff9ada3119d21464f3aada8452f0c914a0d7c959b5f88c72ebbd",
+        "fixtureExcerptSha256": "1f7aec7269e7f6b5d2d9d206c1867d811ea8dac14e24ff9a5ef16eac712054ae"
+      },
+      {
+        "label": "original-address",
+        "start": 48362,
+        "end": 49327,
+        "sha256": "248bb1595f9d20ab558f591aa7818811e7dfb6bf0fbc5c444d0e3b7328009099",
+        "fixtureExcerptSha256": "de04697d4b2c80aeb173ef8d86f9124746fa336d604cb850c10193c9c6d2baf9"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52871,
+        "end": 54252,
+        "sha256": "a583e38d2b00d78b1e3d4f7d12205d38dca13012360f4b198e7422bfb4c1c31f",
+        "fixtureExcerptSha256": "29cf40fb3638bf676c357c27b92066317608b525b63efbdc116c8ad8a2b91286"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54601,
+        "end": 54791,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA013050": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA013050",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "69e67df50e0056bf1dc2a7845fb0458dd1c4ebe430f7f4fdda64531a38089c45",
+    "fixtureSha256": "a3c2ac4c08f07aa567fe06368d4b4bfdb67ebf7e4201a6f4637432f3838ad910",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50477,
+        "end": 50624,
+        "sha256": "7f3c16db2b53ff9ada3119d21464f3aada8452f0c914a0d7c959b5f88c72ebbd",
+        "fixtureExcerptSha256": "1f7aec7269e7f6b5d2d9d206c1867d811ea8dac14e24ff9a5ef16eac712054ae"
+      },
+      {
+        "label": "original-address",
+        "start": 48362,
+        "end": 49327,
+        "sha256": "248bb1595f9d20ab558f591aa7818811e7dfb6bf0fbc5c444d0e3b7328009099",
+        "fixtureExcerptSha256": "de04697d4b2c80aeb173ef8d86f9124746fa336d604cb850c10193c9c6d2baf9"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52871,
+        "end": 54252,
+        "sha256": "39fae97ce88842fca54f498be10c7740775142bd254a1de1d46c51ff855775e7",
+        "fixtureExcerptSha256": "f33c9ed109769b2ce041afb0796a749a8294589be8402b9c46cd170c2e31372f"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54601,
+        "end": 54791,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA000114": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA000114",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "6b535f1c61f276487bdd646efc3a6784c677ed34498baacf55b4a52b81d5e36a",
+    "fixtureSha256": "da56ad60b49693051079c035ce34158e8a9857bda6fddbc838f6bd0477201a4e",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 49933,
+        "end": 50080,
+        "sha256": "e4cb98ddd96fbee9161d2cb81cf5f6a5347bbcb81fbd739552c847bb66fe60b8",
+        "fixtureExcerptSha256": "f4443e7dcead78157342991b8cc0469d4e1544538966c29888ca4cf141b79c19"
+      },
+      {
+        "label": "original-address",
+        "start": 47761,
+        "end": 48764,
+        "sha256": "b2167ebb86c7979998e8f22f0394559da0263ac9b6756f55dca91d1142ef789c",
+        "fixtureExcerptSha256": "f5d1e1a3d5f77f4d14b54b9b1aa2283791b90c55d7deab0c131aac3fb0917338"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52333,
+        "end": 53705,
+        "sha256": "45b05d859c9f9d548c5f914887ef0693c10244c8285f69ef3a216b83ba2327b8",
+        "fixtureExcerptSha256": "4a7bb25b52a27558e2d9460c44c5ee3226f4e4e1e1d61fb8a2ce64659b5de7bf"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54054,
+        "end": 54244,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA000115": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA000115",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "560c3a47724ac790e26405cb55a6fa421800822fe843ee2dca12f48a17b06191",
+    "fixtureSha256": "39a82aa284bb7eec1cd5eb7bd8431ea2b33f7dfb4af53c13015737e9c02445c2",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 49933,
+        "end": 50080,
+        "sha256": "e4cb98ddd96fbee9161d2cb81cf5f6a5347bbcb81fbd739552c847bb66fe60b8",
+        "fixtureExcerptSha256": "f4443e7dcead78157342991b8cc0469d4e1544538966c29888ca4cf141b79c19"
+      },
+      {
+        "label": "original-address",
+        "start": 47761,
+        "end": 48764,
+        "sha256": "b2167ebb86c7979998e8f22f0394559da0263ac9b6756f55dca91d1142ef789c",
+        "fixtureExcerptSha256": "f5d1e1a3d5f77f4d14b54b9b1aa2283791b90c55d7deab0c131aac3fb0917338"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52333,
+        "end": 53705,
+        "sha256": "27821ed67d47dd8a22ea3bd16ddee60a118d26d8d3a4454b9da5b8095a1c54d9",
+        "fixtureExcerptSha256": "2dbd2df20e6ffebb1ab527d29fc337c228b58459753c80c91d32972545c05af9"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54054,
+        "end": 54244,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA002356": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA002356",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "fcabc0430191e9c9a0066451e7efa5c09e9c74e4c1e03995add1a35de920cea7",
+    "fixtureSha256": "a2d7552c4f4f7ac1820cc7adfb4988f9cbedeb874a154cfe2a5455997f5094b1",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 49892,
+        "end": 50041,
+        "sha256": "05b33d3c6f7f0ec66a543b536011c55163334b86abd7a8303ff0b99f0e1bb576",
+        "fixtureExcerptSha256": "0e6db47fdd818ea3a775ab0d96f24aaf4cfc3ddd47f492cd33786b10f429ffea"
+      },
+      {
+        "label": "original-address",
+        "start": 47753,
+        "end": 48734,
+        "sha256": "08a2b65d38b96f5ec8548ce04d4da17313ce200585b25d21bb1b8bea95d9a758",
+        "fixtureExcerptSha256": "b7295b1bd3619d496002e4e22c3e99f67cc39c21fda735730668659ade80f327"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52412,
+        "end": 53787,
+        "sha256": "cc44cff535e3b38d8430b9fc586f10eb60fe432082810d777811159fab0ba32e",
+        "fixtureExcerptSha256": "e0bc3a5513bd1793da01e3752cee9b1c903af6720df09e35d1937dc47790f284"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54136,
+        "end": 54326,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA002357": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA002357",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "6b9dd6f7eae5cbf85b30af2f5dfaa2a5bbd079f4f7378c4ff695115bc05128b5",
+    "fixtureSha256": "292b962c31c31a9053636fa64bb5f83845819045a7eba9f7740f960430e24abc",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 49892,
+        "end": 50041,
+        "sha256": "05b33d3c6f7f0ec66a543b536011c55163334b86abd7a8303ff0b99f0e1bb576",
+        "fixtureExcerptSha256": "0e6db47fdd818ea3a775ab0d96f24aaf4cfc3ddd47f492cd33786b10f429ffea"
+      },
+      {
+        "label": "original-address",
+        "start": 47753,
+        "end": 48734,
+        "sha256": "08a2b65d38b96f5ec8548ce04d4da17313ce200585b25d21bb1b8bea95d9a758",
+        "fixtureExcerptSha256": "b7295b1bd3619d496002e4e22c3e99f67cc39c21fda735730668659ade80f327"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52412,
+        "end": 53787,
+        "sha256": "94674e27281ccdd0ccacffecf85ad069d8325ab9213798d70f50292c50f2cf6f",
+        "fixtureExcerptSha256": "b0c4ca82cbe0d235b1dde5a335532105ea259682cad399a6503ba70567c10233"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54136,
+        "end": 54326,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA015284": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA015284",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "64a8e044bfb55b50f3954e8bd8744ca6abfe49814f8ea960a497fcc002babf6b",
+    "fixtureSha256": "7f1bb59c9d04f66932182b565f2b6135b8c207d6f13fe878fe03762aa9fce17b",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50521,
+        "end": 50668,
+        "sha256": "e9816053f15b615b28faab85b3e2bd647e571fd797cb5803dc6d76585b578cb6",
+        "fixtureExcerptSha256": "2c78801a234191863d60ba6e37df7d36fd2bcaacf9b9efdbe406e84dcd874259"
+      },
+      {
+        "label": "original-address",
+        "start": 48379,
+        "end": 49362,
+        "sha256": "0ba85112e13fdc7f3fd0df5d69e79ce1291cdde8438b62dc84be211864f33d33",
+        "fixtureExcerptSha256": "6aff367499d521dd2cbe90b0c0c45cfadcf8b50d48843b08e229b15836280df6"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52920,
+        "end": 54301,
+        "sha256": "ee25c776db926f5edb7c1cb7286044f525e94683e600ff47f30f572c3addd733",
+        "fixtureExcerptSha256": "faaf874482466312f0105be107736c587bb2896c38f3b90c822385a170cb04f4"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54650,
+        "end": 54840,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA015285": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA015285",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "3dc7e60c1c2c15834ab0f8093989b8f13f4ee2f1bada38358fd5b60211d2df9b",
+    "fixtureSha256": "3bda40ef30974a60dc02af66e1e1550bfc3476140001b68c329f8cdf5253b3c4",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50521,
+        "end": 50668,
+        "sha256": "e9816053f15b615b28faab85b3e2bd647e571fd797cb5803dc6d76585b578cb6",
+        "fixtureExcerptSha256": "2c78801a234191863d60ba6e37df7d36fd2bcaacf9b9efdbe406e84dcd874259"
+      },
+      {
+        "label": "original-address",
+        "start": 48379,
+        "end": 49362,
+        "sha256": "0ba85112e13fdc7f3fd0df5d69e79ce1291cdde8438b62dc84be211864f33d33",
+        "fixtureExcerptSha256": "6aff367499d521dd2cbe90b0c0c45cfadcf8b50d48843b08e229b15836280df6"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52920,
+        "end": 54301,
+        "sha256": "2c807350e53c2652a0525d6a828b4d7fb226089d32637489aad4d856670e0d60",
+        "fixtureExcerptSha256": "7137219df716533d75c7ef894d0c871393d271f6dc8c9487b0d6bbf7df58fdb1"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54650,
+        "end": 54840,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012148": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012148",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "af4671e81c2d0dd19e4737bf664bbb4170d3bd537324464333e9e13c91de28b7",
+    "fixtureSha256": "47301f35d744b259dd46bdd21d0afa488eeeef5906709ad191e01312699db76e",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50517,
+        "end": 50667,
+        "sha256": "2ed0d789ccb4606b7859871391362e3c8f282ea4c971392cfe0eef3ca5e78f50",
+        "fixtureExcerptSha256": "c7012a9b1933a7671b9feabf2e3322eb6ad774056df4030ca02792a9859fd728"
+      },
+      {
+        "label": "original-address",
+        "start": 48387,
+        "end": 49362,
+        "sha256": "0f5bf2501092c919deaf38b524e94858fc5253d40edcf273615ace636caa6243",
+        "fixtureExcerptSha256": "c391f9a9881a4d21a46b76ac0c7fc326af23a4da51e4c232cfc05a35491e8288"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52920,
+        "end": 54301,
+        "sha256": "38589a2bbc524f15c746496e06809d6cfccb513b64408d20c40dcf54cc9baaa6",
+        "fixtureExcerptSha256": "428d1018fedbdeef0f859a742753e91d08342b836a792d9d80010a28122c5ccb"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54650,
+        "end": 54840,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012149": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012149",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "f9970d4d2c784f10bd7ff06fdc030541a3e422d3e60a05135a093bc11daf70fb",
+    "fixtureSha256": "9e550045f929a4eb7fe7657bb45b118e46a4e44f8aca18d44f33c1e05233e1b1",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50517,
+        "end": 50667,
+        "sha256": "2ed0d789ccb4606b7859871391362e3c8f282ea4c971392cfe0eef3ca5e78f50",
+        "fixtureExcerptSha256": "c7012a9b1933a7671b9feabf2e3322eb6ad774056df4030ca02792a9859fd728"
+      },
+      {
+        "label": "original-address",
+        "start": 48387,
+        "end": 49362,
+        "sha256": "0f5bf2501092c919deaf38b524e94858fc5253d40edcf273615ace636caa6243",
+        "fixtureExcerptSha256": "c391f9a9881a4d21a46b76ac0c7fc326af23a4da51e4c232cfc05a35491e8288"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52920,
+        "end": 54301,
+        "sha256": "018f9fcb401376964e9b67b59de74bccc150366f86a0213a22a0ad5bfb31093e",
+        "fixtureExcerptSha256": "77b8bc0c2b40b785a93391566b9b70f35c30f9ca200b09274911daac46df2390"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54650,
+        "end": 54840,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012526": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012526",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "17b824ef794e72b9c1505ae54900feff98650ca7d5998965c8714b0b768e6df5",
+    "fixtureSha256": "81bb46ead1b7f99222903f6182e6d1cff5bfb7121a6ee5a9aaaff60320b9bc89",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50525,
+        "end": 50676,
+        "sha256": "9f6a7676341ff71c2df479b8519c6aeb614f19173990ccf1fe5e11f25135b435",
+        "fixtureExcerptSha256": "40789e097569d1b306450586d87bdf9534352e3d997067b616a4b5b3e6552516"
+      },
+      {
+        "label": "original-address",
+        "start": 48404,
+        "end": 49373,
+        "sha256": "8108ee8bcbb21e93fcbe30075b70c4252f9fdf2edcc920636a32b9f6bd3cc138",
+        "fixtureExcerptSha256": "fc4c9f36e98b223b3fd5439dc0affb3f9e03d718d1b448b23054c300968ecef5"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 53434,
+        "end": 54815,
+        "sha256": "d46fbbf5cac519a18d98a98370d17a4a745cd63fcde01fb391f2b98ceb7c8d93",
+        "fixtureExcerptSha256": "98d81d2eb75f78228740a03156bc423c051c6ade87932f59e3cf54d8248517f1"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 55164,
+        "end": 55354,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012528": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012528",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "aa6a6dffed3021614bcdb9bf6c2107be86ee447cbbcc78e16f5d85a203abb391",
+    "fixtureSha256": "de100fc981a946064db05a2a5ff0f743c91f02c8e7baf30f5d3add3bb6b15ab3",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50525,
+        "end": 50676,
+        "sha256": "9f6a7676341ff71c2df479b8519c6aeb614f19173990ccf1fe5e11f25135b435",
+        "fixtureExcerptSha256": "40789e097569d1b306450586d87bdf9534352e3d997067b616a4b5b3e6552516"
+      },
+      {
+        "label": "original-address",
+        "start": 48404,
+        "end": 49373,
+        "sha256": "8108ee8bcbb21e93fcbe30075b70c4252f9fdf2edcc920636a32b9f6bd3cc138",
+        "fixtureExcerptSha256": "fc4c9f36e98b223b3fd5439dc0affb3f9e03d718d1b448b23054c300968ecef5"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 53434,
+        "end": 54815,
+        "sha256": "d807cdc4d34d6202562d8ede3185dca85cfdfbe28ffd41acb07c55b8f985b156",
+        "fixtureExcerptSha256": "ce02bc044cf3e6b8204abd43b4eaec0e188cef84180d7937666870366957f4c0"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 55164,
+        "end": 55354,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012364": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012364",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "61b32288820f885452af75b3475fbf7e055618d7881abfe95eeb457bafe82981",
+    "fixtureSha256": "38776b691097045c6888f96acbfd703d8aa8c64228c777d82541a8dac1fe3780",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50523,
+        "end": 50673,
+        "sha256": "0ce532b8de6159af6124f05c003847f5a126550ac7483f7a6fe2e11933cf416f",
+        "fixtureExcerptSha256": "09bc5e17038fa70bcf18941320d5ab0729f50213b295f179bdb3f0be36a1d594"
+      },
+      {
+        "label": "original-address",
+        "start": 48396,
+        "end": 49369,
+        "sha256": "6deb17c620e59b43cc87e2c1fdae0edd76d1fc397b1c8c29b5cb005b9eccbaf9",
+        "fixtureExcerptSha256": "4ea76b5e8343cd6b482baab2bba1afc7a10b421083a4b31632333c7b386101b2"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52925,
+        "end": 54306,
+        "sha256": "89de45abaab7966b9207b4d8205bd78fb9ef8cf0d2e5672625558fa4e01ba55c",
+        "fixtureExcerptSha256": "a45dd1868883b706a8d526046e99fd3d35ddbe05b6acf825a67e7dd81d3b0ae0"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54655,
+        "end": 54845,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012365": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012365",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "6393b72491fabd289acbb6894657903d3a11dfc7c6e3c778f0ff9f201f394dbf",
+    "fixtureSha256": "68ae01eb71e29fb7aae07cfc372d9c174cfc54365533e37c2fcfbcf1a01efd40",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50523,
+        "end": 50673,
+        "sha256": "0ce532b8de6159af6124f05c003847f5a126550ac7483f7a6fe2e11933cf416f",
+        "fixtureExcerptSha256": "09bc5e17038fa70bcf18941320d5ab0729f50213b295f179bdb3f0be36a1d594"
+      },
+      {
+        "label": "original-address",
+        "start": 48396,
+        "end": 49369,
+        "sha256": "6deb17c620e59b43cc87e2c1fdae0edd76d1fc397b1c8c29b5cb005b9eccbaf9",
+        "fixtureExcerptSha256": "4ea76b5e8343cd6b482baab2bba1afc7a10b421083a4b31632333c7b386101b2"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52925,
+        "end": 54306,
+        "sha256": "d306b6635f6497ae73994855040e7d57b099eaaf86dfef029127d420f8dc7e73",
+        "fixtureExcerptSha256": "b7de3b00c9035c7a3042cba295c2a2066d3cfb70c10a6438f4a5d51a02ac7849"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54655,
+        "end": 54845,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA002341": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA002341",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "7c8d7c065061530d174f64d10cf14da47c89c1f9db491a3fc4b16543bc25e31b",
+    "fixtureSha256": "f837d325f9b2723cef3f1ceb4ecaecd7f79ef18be5b261afbf815aaba97f38ac",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 49904,
+        "end": 50053,
+        "sha256": "2571dc1c13b255109ce720fb52f8c6bf25541cfc92110c9fc929cbde76482de9",
+        "fixtureExcerptSha256": "1a564330d5f290edc27b6f17b8da18de440f13f7df39bb83dffea6515b898f78"
+      },
+      {
+        "label": "original-address",
+        "start": 47771,
+        "end": 48748,
+        "sha256": "73f901c79c2947490ad3588a64287799bb8ed9623f2e4e167354fb8b1e18dffa",
+        "fixtureExcerptSha256": "853d0d1168f86a75a93a0ece8b6ed264fcff11abc372104d24a6b11b0bec1503"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52307,
+        "end": 53678,
+        "sha256": "934fcc43430ccbccfeb61bf42f2d494d69596012d74d30c1e48501d6d7b7386b",
+        "fixtureExcerptSha256": "90dd6fbebe744a9f31e02c060db475655cf6f8cbc474a7364f05c8b06ee8e676"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54027,
+        "end": 54217,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA000589": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA000589",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "2614d8c78147673890e0459ec88be83b2d3897b20a8acf68a66755eefe5952ac",
+    "fixtureSha256": "8f7431189de2d8d036eed4b9bef2162048fed9ddfd6ab983621a6547cf08a081",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 49882,
+        "end": 50030,
+        "sha256": "c8fc6277e04979729037dd1f7bdce6f15660c0cf9004b71be64112dcb3ab7729",
+        "fixtureExcerptSha256": "ff86a8ef59c1795a00bca0c34f3c3195255155b15f67a259b4b8a21371803dca"
+      },
+      {
+        "label": "original-address",
+        "start": 47761,
+        "end": 48730,
+        "sha256": "7d621d26b5eaac89314ebf841fab06ed3a08f4a54313dc9292ca990d9c239684",
+        "fixtureExcerptSha256": "e4394a37dbd3e36792274b0f988ecdf3364e215c0a5eae568c7308f2c583ec60"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52292,
+        "end": 53663,
+        "sha256": "15185eab01b01339959d505e96643b4bd49d775eb8a5c4dee5ea1afdff70d896",
+        "fixtureExcerptSha256": "8ccbfb00a2bd10b2b04e43db5da7868897d692182909970c71bac88cfc13d39b"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54012,
+        "end": 54202,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA000586": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA000586",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "d128ea148d79649e946c012cbe192a429362044d3fefc307011d9a3a122254a3",
+    "fixtureSha256": "ad616b782c896164e3dd5febb5504416242e517bc510160254a2449f9b576c40",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 49882,
+        "end": 50030,
+        "sha256": "c8fc6277e04979729037dd1f7bdce6f15660c0cf9004b71be64112dcb3ab7729",
+        "fixtureExcerptSha256": "ff86a8ef59c1795a00bca0c34f3c3195255155b15f67a259b4b8a21371803dca"
+      },
+      {
+        "label": "original-address",
+        "start": 47761,
+        "end": 48730,
+        "sha256": "7d621d26b5eaac89314ebf841fab06ed3a08f4a54313dc9292ca990d9c239684",
+        "fixtureExcerptSha256": "e4394a37dbd3e36792274b0f988ecdf3364e215c0a5eae568c7308f2c583ec60"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52292,
+        "end": 53663,
+        "sha256": "786f4044cdf6978d7773990043a3323d831a616499c422ae468e0629d5f77387",
+        "fixtureExcerptSha256": "5a9ea0410c7d00d5bd1b5944c686a5c895084ff129f99097817690f243c7c874"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54012,
+        "end": 54202,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012697": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012697",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "9ecfa7d00d1c4d37d7cde974a837d3d8ba815d3b3d52c0d8e7ce3d5eaff7dae3",
+    "fixtureSha256": "9622ecc1f36786105d704a2fd8440bf2b59bd9cca9e6d3097f45a2b263aa7dcf",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50516,
+        "end": 50665,
+        "sha256": "bc5be8a8aa7f8b2c2b2a79468cb98a4d2862beaf5da403a5fbac2ad67cd33174",
+        "fixtureExcerptSha256": "7f2b15a0735f2940d1284e87270979fcd0596a6e46a2feb01e9f017ab22864de"
+      },
+      {
+        "label": "original-address",
+        "start": 48395,
+        "end": 49364,
+        "sha256": "f32b9c4f7ad77922a4606601d63ce29b2d752c2f14eaa46b35600889ae50a201",
+        "fixtureExcerptSha256": "2b1d6d76172e6debd4f2faf21bffbd4a87bd2e75be7cef073e8567b2d2574d45"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52917,
+        "end": 54297,
+        "sha256": "25ba9bdd1979b60aa336c90576c0983c60baf5fbb94a7f3f2236aaeda472200f",
+        "fixtureExcerptSha256": "8af9a1f2fdf98f17dec0063b7725e89cacb6d40488dedb67df6f4614431bb488"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54646,
+        "end": 54836,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012705": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012705",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "2d986c6603246ac40e41d4e469be130df45a5e0c29233b9339568717e53aac00",
+    "fixtureSha256": "db85096bc1e069963b4c8325e394ef002a134124990f3788792b49d863c6f81f",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50516,
+        "end": 50665,
+        "sha256": "bc5be8a8aa7f8b2c2b2a79468cb98a4d2862beaf5da403a5fbac2ad67cd33174",
+        "fixtureExcerptSha256": "7f2b15a0735f2940d1284e87270979fcd0596a6e46a2feb01e9f017ab22864de"
+      },
+      {
+        "label": "original-address",
+        "start": 48395,
+        "end": 49364,
+        "sha256": "f32b9c4f7ad77922a4606601d63ce29b2d752c2f14eaa46b35600889ae50a201",
+        "fixtureExcerptSha256": "2b1d6d76172e6debd4f2faf21bffbd4a87bd2e75be7cef073e8567b2d2574d45"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52917,
+        "end": 54297,
+        "sha256": "cff2247ed17e4dbef57de181bdb77ec306cac847c98cfa07e9a4953dae92c198",
+        "fixtureExcerptSha256": "6318ad0b79a1937cd685b3a27eb84414ac8b9ae9aa849b05f5f0c2fda0b28e12"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54646,
+        "end": 54836,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012589": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012589",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "5b620d8e1b0e019a369c6e26cc3ceae4c5f2fb0db9d5e6b164a9b104f99ed127",
+    "fixtureSha256": "a2a03d4ae4e1bddac7b2adcaab8f50213e69a8868e05f976275437eccbf8f1d0",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50524,
+        "end": 50674,
+        "sha256": "b61f0bd3f8f4a6e6559932a063239622f536974ffedd847da7437a0f02f33178",
+        "fixtureExcerptSha256": "980ecbde0994db8316b3d3f50ca7f2d0fafcff8dde468c73c89f092f1b703c19"
+      },
+      {
+        "label": "original-address",
+        "start": 48391,
+        "end": 49368,
+        "sha256": "bec4eba736750822e82791c53bd313db44959e7ac39b022efca9067699d09a2e",
+        "fixtureExcerptSha256": "9704cd336b63df4cc63306e744fdd7456b1c46d8e018661eb40fa4396667aac4"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52926,
+        "end": 54307,
+        "sha256": "973a4e1f1893bb2c3362ff143f73f489311909e3fd75d424fa2c81c9a3e5692b",
+        "fixtureExcerptSha256": "a9fdb9a77f79e23f3958eeef7bea98af6e14ac84adc6a2ef28cb63c88676c955"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54656,
+        "end": 54846,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012588": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012588",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "a0081da69e752dea8ef910eee7050dcd0e18fe99860cea7dabc6056f471a189c",
+    "fixtureSha256": "c521af60dc23736a27e384e9cb010930a83d59e58df717ca6c102c7a42044898",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50524,
+        "end": 50674,
+        "sha256": "b61f0bd3f8f4a6e6559932a063239622f536974ffedd847da7437a0f02f33178",
+        "fixtureExcerptSha256": "980ecbde0994db8316b3d3f50ca7f2d0fafcff8dde468c73c89f092f1b703c19"
+      },
+      {
+        "label": "original-address",
+        "start": 48391,
+        "end": 49368,
+        "sha256": "bec4eba736750822e82791c53bd313db44959e7ac39b022efca9067699d09a2e",
+        "fixtureExcerptSha256": "9704cd336b63df4cc63306e744fdd7456b1c46d8e018661eb40fa4396667aac4"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52926,
+        "end": 54307,
+        "sha256": "c68ed430593b36cc5cbb99babcb64f60d3ed594837a53f6dbfa468fe1923208d",
+        "fixtureExcerptSha256": "98169783c6bcf72dcbcc0106bce40bf737b0f0eed2a571023acd931e8c7b4dc5"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54656,
+        "end": 54846,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA000930": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA000930",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "3ab59e015fcf227855be2e3ee949731772bcf2ab6a92eceff9185e3575c533d3",
+    "fixtureSha256": "da8c356d613e132b4744e26f1ac18cbcfb2d7fff0aa756677655c3cb03474b1e",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 47868,
+        "end": 48018,
+        "sha256": "e79a7db5b325c20825ab7bde3ccb16aa020d1162199a6ab13a9e4d1811637f3a",
+        "fixtureExcerptSha256": "5a00123a2da37416733f78614074a317f6bc0f13576bd200ac3cc158b8cf2e68"
+      },
+      {
+        "label": "original-address",
+        "start": 45750,
+        "end": 46717,
+        "sha256": "344ea5d6828087e31be6a7cd08e7e1944c905b7837887cd4804097f8a500fbaf",
+        "fixtureExcerptSha256": "7c07608a7cf926640520037ddc12eae20ab48468243936a3dbff02a32756f36b"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 50288,
+        "end": 51665,
+        "sha256": "14cabdb515e80dd2e7052347936007d2be01ebe54158372f965739251d6be6cd",
+        "fixtureExcerptSha256": "4a62eceb53514885080a79485a455f8806f476ceacdb5087f5439df129d27363"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 52014,
+        "end": 52204,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA004299": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA004299",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "d14d3cf9e2d6c1c908bd58b7723f778a1813c3b1b8717259c5f34aa2c2c6026a",
+    "fixtureSha256": "c6bfcf755fb372e4b8345e5b07fe014dabf91e3859c8ce7092a6528f34261438",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 48596,
+        "end": 48746,
+        "sha256": "76aac3b94b4e97835f2e9bed6f1826010cdcc87ad0a982012f24cae1119ed032",
+        "fixtureExcerptSha256": "86284546014a62caac99be365f09390e27f8a59a160f8008d85e00c22718bba9"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 51013,
+        "end": 52399,
+        "sha256": "c9257ff09eec937e3ac431839470d62912f042e9d8c48002a002ac2f3479232e",
+        "fixtureExcerptSha256": "7d9cb1c61b8922dce0db215c128335af5120a7ccc329fb48404b24e4510ef56c"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 52748,
+        "end": 52938,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA002917": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA002917",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "0b86a2ed4c0d6633ebe4af29ff7286d3bd97f6dadc43062b016cc3636bfbdaac",
+    "fixtureSha256": "a76c9b1c000cdd040191aef1ef9523878936c5c879195be7c8dd9fa81086b000",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 48596,
+        "end": 48746,
+        "sha256": "76aac3b94b4e97835f2e9bed6f1826010cdcc87ad0a982012f24cae1119ed032",
+        "fixtureExcerptSha256": "86284546014a62caac99be365f09390e27f8a59a160f8008d85e00c22718bba9"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 51013,
+        "end": 52389,
+        "sha256": "20ca5f4def1fb038617427ced7e9e45f92dcb2fbe78c02e08adfb822cec11c78",
+        "fixtureExcerptSha256": "627e3d7306b3f630566842924236603a9c4f6ba12faadbda947242286bfa8d62"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 52738,
+        "end": 52928,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA004371": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA004371",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "330f8fa4b80a0107716bcf82c9e953a0e2424b88c9ec184e4771c9b46ff5443d",
+    "fixtureSha256": "ab8a67e2a33ca52f3f21dd94b9698b8d822f97531a1e0bb60df299546f9e27c5",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 48590,
+        "end": 48738,
+        "sha256": "752ecdad14f6d7139a8c9c99395559eb0eb9651981aa270c631604bba9468573",
+        "fixtureExcerptSha256": "16bc337212883bb787d6c8906c0d0fac672ba01885cc4ecf5dde7c797c12bb8c"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 51160,
+        "end": 52546,
+        "sha256": "ac1d6143baa3a22455b26fb825d18266b57f8970c7b14b964ad73bcaac691da8",
+        "fixtureExcerptSha256": "51e6a0ad5109f9fcffe3147a76a85c9a32efdc1129222cd7baa6b806cfb04829"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 52895,
+        "end": 53085,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA003911": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA003911",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "650cfe54e43333b5effdac7cbde25507228cf61a31624bffbe582f50e0317b45",
+    "fixtureSha256": "e617fa2eb94be2905c8748f92328d93c993c5d8b5140a5b1d9d047c6fc0d51b2",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 48590,
+        "end": 48738,
+        "sha256": "752ecdad14f6d7139a8c9c99395559eb0eb9651981aa270c631604bba9468573",
+        "fixtureExcerptSha256": "16bc337212883bb787d6c8906c0d0fac672ba01885cc4ecf5dde7c797c12bb8c"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 51160,
+        "end": 52536,
+        "sha256": "ff745d941f92a1b292df7854548c34f5dfd771e512d7aae6c603eeb87694ef06",
+        "fixtureExcerptSha256": "2eb5692f53f6c59e6e4b592d01992c4feed890ea3332b4c9f0b5e216baa07b36"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 52885,
+        "end": 53075,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA006375": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA006375",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "05dac09d0ee1beabce5065bcfabdc6cb0afa3e9e16edc3f3b6d6a2dcc6e87761",
+    "fixtureSha256": "72488dfcb0a6e7f5651657e4aa965f9be41ba69b494b2e1c759c1adae96dfea2",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 48849,
+        "end": 48997,
+        "sha256": "a175343168cec324b10e6a09f58c7f4e3d2d9098da08caa907c4a33db687f978",
+        "fixtureExcerptSha256": "b2b33f8e2fbc686bf6a90e0f106e3addc9615864e85fc343aec656505883ebc3"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 51412,
+        "end": 52789,
+        "sha256": "60591846c2eb730557d9301706af36d8ed4f9fa19f9e3c97adfc45248cbd559a",
+        "fixtureExcerptSha256": "6be7eb3a2562689c0d719012cf8e3ece1baa7ec43a4a8ac5ed55c270ab98d0c1"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 53138,
+        "end": 53328,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA006371": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA006371",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "e56037de4d24c9cd6007a52b9d9f138aa3d0b9be9736c2b25dee8066851c9c50",
+    "fixtureSha256": "6935ff8a9735b5e6b837373ecb41f5ae7a0cbc7f514a60ab75f5e0cee993da8f",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 48845,
+        "end": 48993,
+        "sha256": "a175343168cec324b10e6a09f58c7f4e3d2d9098da08caa907c4a33db687f978",
+        "fixtureExcerptSha256": "b2b33f8e2fbc686bf6a90e0f106e3addc9615864e85fc343aec656505883ebc3"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 51406,
+        "end": 52783,
+        "sha256": "a732e9a2f34dd5b006d159ae5c126edde68829a8c80f46f421acd7b5c33497ce",
+        "fixtureExcerptSha256": "3083cd0a1a1dcd7cd090c31939636a68e8a140cd9d5770e7ff7abe67429ac392"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 53132,
+        "end": 53322,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA006445": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA006445",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "b6c98ff548460f48ad2cecc151a3fa7ca7a12eb32cb72da315472c31611b1f46",
+    "fixtureSha256": "1c7e04fa828d1029d0f7c2131f99f3635a87a6c1d8064442c0c2f074a1d5fc26",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 49643,
+        "end": 49793,
+        "sha256": "2fc2ffbb8dd18a94ae6bbd9f5e55bf9c35a10cc84b78d7e4a93a68e4eb18127b",
+        "fixtureExcerptSha256": "1046f21d43257194db2ac2149a392cdf3863aff764af26b84c4f6871e3d22f78"
+      },
+      {
+        "label": "original-address",
+        "start": 47498,
+        "end": 48483,
+        "sha256": "783f9b7ee6a21f5cf8ba36cfb23223249028e83595023ee8a938f777da70f1bb",
+        "fixtureExcerptSha256": "e7880b462466425cf738783ee18b5feec3ddeb39d28c32a178ebd163ffaea94f"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52054,
+        "end": 53430,
+        "sha256": "89370c163d845e40465b4c77a9804b3742fe13042dc75131442da7710d242773",
+        "fixtureExcerptSha256": "b734f74ec59a32c204165bb1cac2a2ad97a9ba3ff56a147bfe23e233a0c759a6"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 53779,
+        "end": 53969,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA006440": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA006440",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "d80c1b387a1df406f24d5af5cd17251cdba3a45aac565bf8164f05e502e02656",
+    "fixtureSha256": "621b0e36f5d0a52efa2c7c05a49fcfd0b6abbc239f5453a271b2948d69427c4a",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 49643,
+        "end": 49793,
+        "sha256": "2fc2ffbb8dd18a94ae6bbd9f5e55bf9c35a10cc84b78d7e4a93a68e4eb18127b",
+        "fixtureExcerptSha256": "1046f21d43257194db2ac2149a392cdf3863aff764af26b84c4f6871e3d22f78"
+      },
+      {
+        "label": "original-address",
+        "start": 47498,
+        "end": 48483,
+        "sha256": "783f9b7ee6a21f5cf8ba36cfb23223249028e83595023ee8a938f777da70f1bb",
+        "fixtureExcerptSha256": "e7880b462466425cf738783ee18b5feec3ddeb39d28c32a178ebd163ffaea94f"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52054,
+        "end": 53430,
+        "sha256": "b9f8857c4ef87685aad2c5c571e4bf0cc2864e0a6fdb0f0965fa2789b7a719bd",
+        "fixtureExcerptSha256": "b72d2a7e57ba720756f9a63a2e324c7697eca230f486ea139c806d38bc3ad1fe"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 53779,
+        "end": 53969,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012896": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012896",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "8d9d6af0dac2c229c803987d667e792f3051dae6c4312cc951d707c449390686",
+    "fixtureSha256": "fa554b4ebe053b3f14284478f7c3ae55dfc4cebfea8b4212e26e506ee792ce2e",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50538,
+        "end": 50690,
+        "sha256": "6a97f19e4434c4eb0b996025ecd80e4f2f18bda359c741d15360c27408f8c80b",
+        "fixtureExcerptSha256": "df5a93d8cdaad64c7d97b7e66557649b867ed5b2781adb63d8ded5cc40a15293"
+      },
+      {
+        "label": "original-address",
+        "start": 48402,
+        "end": 49381,
+        "sha256": "01bae439357a84ba54aae65fa8f4ad160d4e8e182d0baf4fe85e045e224bcc3f",
+        "fixtureExcerptSha256": "9151427f0dfc413e08d165484f919071a28e1f035cfbf81a797bd699a1c69efa"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 53057,
+        "end": 54438,
+        "sha256": "04bcac6e34051344f5a9c20eeeac781429d93ead312954d0b6bed36c54af2e09",
+        "fixtureExcerptSha256": "817e61b0db5be12826bff9398b1d5e559256850d91af7e87811d4da65cfc1d1c"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54787,
+        "end": 54977,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012897": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012897",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "7f722270f9456ae21c2a1cc2c2997f79fcce3bad5e8a9edd4d3f672ecc2b7980",
+    "fixtureSha256": "2d5cb8b9e044c8abce576c9430078b6d197142525142e02fa5b027577249db84",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50538,
+        "end": 50690,
+        "sha256": "6a97f19e4434c4eb0b996025ecd80e4f2f18bda359c741d15360c27408f8c80b",
+        "fixtureExcerptSha256": "df5a93d8cdaad64c7d97b7e66557649b867ed5b2781adb63d8ded5cc40a15293"
+      },
+      {
+        "label": "original-address",
+        "start": 48402,
+        "end": 49381,
+        "sha256": "01bae439357a84ba54aae65fa8f4ad160d4e8e182d0baf4fe85e045e224bcc3f",
+        "fixtureExcerptSha256": "9151427f0dfc413e08d165484f919071a28e1f035cfbf81a797bd699a1c69efa"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 53057,
+        "end": 54438,
+        "sha256": "fa9e7eb227b6e0aaae3b1ec4f5e5e51096bcd1bae52abc3379afefdc76fd9265",
+        "fixtureExcerptSha256": "9455768bf30c6d77c62f7b176ee8cd9ef088bec4d568492e948f67d68c94f72a"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54787,
+        "end": 54977,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012783": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012783",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "db587bd39cfa3e3da50f4617c6573f5b4a2226c262c3f4db34358a938ee47579",
+    "fixtureSha256": "16731bbe3c1806b2fd6dad5c2b981cb6de0326b4b6c2558b3327f78e6104d169",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50751,
+        "end": 50900,
+        "sha256": "eea1f5bff39212e8d47c32232ab34227c48a40a211ba4660a83f2b4deff05d2c",
+        "fixtureExcerptSha256": "f1f90c837692db3b79600a17468290debb07f8c356e5d92e0c304b0acc70881c"
+      },
+      {
+        "label": "original-address",
+        "start": 48639,
+        "end": 49602,
+        "sha256": "a86c1a46a6375ce6150fdda77658bd50a9836e31b385ec98e149e6def44f789d",
+        "fixtureExcerptSha256": "575d46a7a1a2863890c06701cf8384015454e19c48f70c9796596dcb99cf5157"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 53153,
+        "end": 54534,
+        "sha256": "0dd1f438c268b88da212911b0b0c0a675ce12a095f7f01320547c07bc8512307",
+        "fixtureExcerptSha256": "dfbe6fb1c9897a40293c4e0590330db0e6557f8df2f0b0a330b6b369a827325c"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54883,
+        "end": 55073,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012773": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012773",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "deafa061bf2a58d28d239ba63ea58d4c3f85571f165f50f867d8273a8bd2f343",
+    "fixtureSha256": "516abc80f01a05a3b81320d698a0f4c04b77349c110ee3e9003b8faff7dd47e3",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50751,
+        "end": 50900,
+        "sha256": "eea1f5bff39212e8d47c32232ab34227c48a40a211ba4660a83f2b4deff05d2c",
+        "fixtureExcerptSha256": "f1f90c837692db3b79600a17468290debb07f8c356e5d92e0c304b0acc70881c"
+      },
+      {
+        "label": "original-address",
+        "start": 48639,
+        "end": 49602,
+        "sha256": "a86c1a46a6375ce6150fdda77658bd50a9836e31b385ec98e149e6def44f789d",
+        "fixtureExcerptSha256": "575d46a7a1a2863890c06701cf8384015454e19c48f70c9796596dcb99cf5157"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 53153,
+        "end": 54534,
+        "sha256": "ad4bb176636aac5347c3e01309cc2a9f72a6ce6656edf6a70e9069b5431939aa",
+        "fixtureExcerptSha256": "6ba70e4f60268719f1251352e607c4d8ac82d7121288c3b526cd462ec2f63c9e"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54883,
+        "end": 55073,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012991": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012991",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "e345d27d6bdc59eed43e76199c201432b53936e402c3f355cc0905b759c9f2e3",
+    "fixtureSha256": "07819dadd6252ef02b6200aaac36be36174de36b61f22bdfc913ee6da05c18bb",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50528,
+        "end": 50679,
+        "sha256": "2170cc7a3d793b8f73189cc0a11beb7cf9e761a750d202c23c07c95a959dd236",
+        "fixtureExcerptSha256": "2ffb2464dd854d6240dda83a7e71073598937060c8700c05dc71fbad7d6ecf78"
+      },
+      {
+        "label": "original-address",
+        "start": 48401,
+        "end": 49374,
+        "sha256": "5f188dba112433e1b47947dae01238bb33d94586d00f3da931ed1126825c9a0f",
+        "fixtureExcerptSha256": "1fcbaf249c62d4af30ce8d3684ba340dff587850246ca7aa40dcb0e1b43a52f7"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52937,
+        "end": 54318,
+        "sha256": "7c478af605ccb85d1f60fc824c6dbdfd5417a91c4c27f3d9f749724f3da6a7e1",
+        "fixtureExcerptSha256": "2cae9b053844610da6dcd3749234166a668bd7d59b35aabe0655096704b8f067"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54667,
+        "end": 54857,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012993": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012993",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "89dceae5433a63131270737a41e081827594aaab45a27ec76b057ece8749a2c3",
+    "fixtureSha256": "c9723b9009d0ee459b9c78ce37078da42d4aa3a849d0e6a388763148889209e2",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50528,
+        "end": 50679,
+        "sha256": "2170cc7a3d793b8f73189cc0a11beb7cf9e761a750d202c23c07c95a959dd236",
+        "fixtureExcerptSha256": "2ffb2464dd854d6240dda83a7e71073598937060c8700c05dc71fbad7d6ecf78"
+      },
+      {
+        "label": "original-address",
+        "start": 48401,
+        "end": 49374,
+        "sha256": "5f188dba112433e1b47947dae01238bb33d94586d00f3da931ed1126825c9a0f",
+        "fixtureExcerptSha256": "1fcbaf249c62d4af30ce8d3684ba340dff587850246ca7aa40dcb0e1b43a52f7"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52937,
+        "end": 54318,
+        "sha256": "daca4828d5a031ff4e628391d3ed82df34053a3f3b23516af41c6b542725d7d6",
+        "fixtureExcerptSha256": "1e71eb18cfe3a35d9b8cade618bc64f0061ec72fb0757f87cac510bf43800c92"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54667,
+        "end": 54857,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012180": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012180",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "a4f1754051ca84d5c3f96aef7f3467d867aa1c39463f98d530b8f3d4f2a58618",
+    "fixtureSha256": "2c3faaf018d29896d1d9680159abe8ad2a65ef42e5c791947fa4e51328f47f0f",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50541,
+        "end": 50693,
+        "sha256": "448460c93a65d5f2361549108a4ca61e2a277c0fcbd02f2f208c39db77c33d9d",
+        "fixtureExcerptSha256": "391dd083d1e3aadde141c42933e045afeb0769e55e6ac5ebb10d9cd59fb04deb"
+      },
+      {
+        "label": "original-address",
+        "start": 48405,
+        "end": 49384,
+        "sha256": "1af3081dab82f310586e92be5b14a56a5ea49e5b386ab25cba2b9b6439dd3755",
+        "fixtureExcerptSha256": "dab92421a9677b2166aea807989b2c1fc5eedc31c5b33d08a3df5e24a2d7c9a9"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52949,
+        "end": 54330,
+        "sha256": "f5f58b0d431cf3e0b07a2bde30e225249aeaf509e05954cfb1f3cc545b4ad065",
+        "fixtureExcerptSha256": "939038e13754a54959c58e9d0869293ad3ecec4acedbcbf00a0fca8599e5a83d"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54679,
+        "end": 54869,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012188": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012188",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "7578473e6db4fde5ae4b9dcd9683d7677df56f6f5addde20ce5209377dbcd8d8",
+    "fixtureSha256": "9392e18352923b3de320f8c38ef20406a89cafa3b5a3d20ac39d9fe4375898e2",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50541,
+        "end": 50693,
+        "sha256": "448460c93a65d5f2361549108a4ca61e2a277c0fcbd02f2f208c39db77c33d9d",
+        "fixtureExcerptSha256": "391dd083d1e3aadde141c42933e045afeb0769e55e6ac5ebb10d9cd59fb04deb"
+      },
+      {
+        "label": "original-address",
+        "start": 48405,
+        "end": 49384,
+        "sha256": "1af3081dab82f310586e92be5b14a56a5ea49e5b386ab25cba2b9b6439dd3755",
+        "fixtureExcerptSha256": "dab92421a9677b2166aea807989b2c1fc5eedc31c5b33d08a3df5e24a2d7c9a9"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52949,
+        "end": 54330,
+        "sha256": "cfef880bc3f3afda6ccbd08fb49cb87a3119859f4917cdd5aca75846295ae0e4",
+        "fixtureExcerptSha256": "36015edc9f414962f26643058af19c28423459a399eedc25489af0ef6f8577c7"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54679,
+        "end": 54869,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA002205": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA002205",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "1285b9dacc7d53f466adaa43437024f3806fad39eae4005cd7131482c693a703",
+    "fixtureSha256": "b15a44d76e821ce72b394a635bebeb6a3adde6702ccac224b9f159de4c9c45ec",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 46822,
+        "end": 46969,
+        "sha256": "4004b8713742cbcf23c5a9ee80e6543d977340c0e425fc1772a8e5eac5d76022",
+        "fixtureExcerptSha256": "6f7bfe732dd4bcb9efb8eddcbfba5a9c5f18c28c3c54e9136bf024c956a3acd6"
+      },
+      {
+        "label": "original-address",
+        "start": 44680,
+        "end": 45663,
+        "sha256": "2818538b5b8adc0a6bd11af8d60705ab64cc7b6ade67de67f71cdb3fc24a7ab9",
+        "fixtureExcerptSha256": "861e3ad909d142525fa46c84eaf954e651451b745ec4da07661e93369dadba7c"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 49218,
+        "end": 50590,
+        "sha256": "c2d87c935ff5ad31ee37a6947f5cedcd039e72c8e9bfd1aa03483052e4d023e3",
+        "fixtureExcerptSha256": "8c65adde4dcb60a7ff03abe83101b007d596914ef7425c3922355f895afe2c4f"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 50939,
+        "end": 51129,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA002206": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA002206",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "abde098646bc084a08c4aca6913006864a912258b66032844be1381a24425808",
+    "fixtureSha256": "606c51398e2fae4011634a95f263e8ae792245bd8f76d64ba500cb765e010233",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 46822,
+        "end": 46969,
+        "sha256": "4004b8713742cbcf23c5a9ee80e6543d977340c0e425fc1772a8e5eac5d76022",
+        "fixtureExcerptSha256": "6f7bfe732dd4bcb9efb8eddcbfba5a9c5f18c28c3c54e9136bf024c956a3acd6"
+      },
+      {
+        "label": "original-address",
+        "start": 44680,
+        "end": 45663,
+        "sha256": "2818538b5b8adc0a6bd11af8d60705ab64cc7b6ade67de67f71cdb3fc24a7ab9",
+        "fixtureExcerptSha256": "861e3ad909d142525fa46c84eaf954e651451b745ec4da07661e93369dadba7c"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 49218,
+        "end": 50590,
+        "sha256": "d247cf661d3075d1e3f8d4408e8bb2671a2acf204dba2ef818e8559b0387a447",
+        "fixtureExcerptSha256": "e126688a5a37251f5be6c6a02ac1400c80539ec5fa70d7f2a3894f18ba18cdda"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 50939,
+        "end": 51129,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012375": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012375",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "552000178c0d2f36d622e476edc6cdb2157c35cded0c1c528530b63a5a061494",
+    "fixtureSha256": "d420cc695d85e72452c5cc315b309c730f017904782dd3dc23aba01b0397d48a",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50521,
+        "end": 50671,
+        "sha256": "2149bfb851ecd79a9db331dea11471a5b438f5b8214ca319bd37d59a2ecd1c3d",
+        "fixtureExcerptSha256": "376fc656c1635a8909fb49945cce3d6deb38291b742b38619176525ace7196d7"
+      },
+      {
+        "label": "original-address",
+        "start": 48394,
+        "end": 49367,
+        "sha256": "0369624ba0c50514c4dfc7a07bae5c35784c376cfaf1d372270e26a7db779c82",
+        "fixtureExcerptSha256": "bc0d27aaf2ea7b8d037dcc5b35c32dfe673f004cc9d6fab53991f37f81a9dd6d"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52925,
+        "end": 54306,
+        "sha256": "920f375ff41cf4bbd06f370dc5d173346e46ef0bbc092d298493b26d61e9bd8f",
+        "fixtureExcerptSha256": "f89dbd281a9a710ee35d6c72293091b9fdff0ef65ddf4e62ddae630a235ed835"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54655,
+        "end": 54845,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA012383": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA012383",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "96116a1cef3f197b93fd0a475ea11a3b3c9c2e5fe696f54d7dc2c49a75893cf4",
+    "fixtureSha256": "ec1d91e606fb80d6a6b76124efc4062c888320e4f93865209efde7101747ca2e",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 50521,
+        "end": 50671,
+        "sha256": "2149bfb851ecd79a9db331dea11471a5b438f5b8214ca319bd37d59a2ecd1c3d",
+        "fixtureExcerptSha256": "376fc656c1635a8909fb49945cce3d6deb38291b742b38619176525ace7196d7"
+      },
+      {
+        "label": "original-address",
+        "start": 48394,
+        "end": 49367,
+        "sha256": "0369624ba0c50514c4dfc7a07bae5c35784c376cfaf1d372270e26a7db779c82",
+        "fixtureExcerptSha256": "bc0d27aaf2ea7b8d037dcc5b35c32dfe673f004cc9d6fab53991f37f81a9dd6d"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 52925,
+        "end": 54306,
+        "sha256": "12a098e5d781650e9ca814aa12dfdcf9a324f3a13557530dbd24c82b09121110",
+        "fixtureExcerptSha256": "0817ad5bd7396453e8e6b6a284fd3f3964a82fc7fb4a2772e0dab9bb7e29fb12"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 54655,
+        "end": 54845,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA006085": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA006085",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "a3640bfa6739921152a6c736fa72a137b3cbf9134d09641443ab4f593a7e3a25",
+    "fixtureSha256": "eed440e78425cf1caeaa7cdc6d848d3667a3f9f4f58da019f451b9cbe4c58668",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 48620,
+        "end": 48772,
+        "sha256": "6c6564e4a618728134739be58d232ea57b3fc2dbe4c539a652a618a6ab81e816",
+        "fixtureExcerptSha256": "f0d99896cd66d4cdb6005478f3e0b4106c6ac4a84420f2a2ef87db23a377987a"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 51168,
+        "end": 52534,
+        "sha256": "a0039a28a3a6f4e500e898987f9f0cc01ce93ee1f5d6ac28696d006306a91bba",
+        "fixtureExcerptSha256": "b0d36d1b96237e6f221c9fc860b6e139632159ec4d86dc16ae5ceeac29298718"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 52883,
+        "end": 53073,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA006339": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA006339",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "6b893c0b6e40a80cefbdf74ca3c6dfcf285f7d27321d23a2160835767d5f01aa",
+    "fixtureSha256": "29e405de71309a9ff400c41eb98e2fd0538b98a7ae4f3a2775a53b7c84d99838",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 48853,
+        "end": 49002,
+        "sha256": "cf09f58a42c29fd944638032498f4f2122e70098fbeec9c894c544c563400333",
+        "fixtureExcerptSha256": "4b076c2b6b406eea3a311f83ff193f6da2026165b879dd44cbf176b72065c2ad"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 51398,
+        "end": 52775,
+        "sha256": "0fcc952c5906c856e23fb5ad5742d6f288e7c940b72cabc784f1a2eae82e2f9e",
+        "fixtureExcerptSha256": "1a41f685a7d7f7beddf69e92b2a17163735255c270a4a07d31d23897c279904b"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 53124,
+        "end": 53314,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  },
+  "METADATA009975": {
+    "sourceUrl": "https://visitbusan.net/archive/dataSearch/view.nm?dataSid=METADATA009975",
+    "verifiedAt": "2026-10-12",
+    "originalHtmlSha256": "cc1332fe42658959ba574ba638a0720c5d12354c3c46a4ca49472993c5fa76d4",
+    "fixtureSha256": "1b56a073c29c66cebedf602abde4df727700c3e4abd94c1d37a605437a3dd63a",
+    "whitespaceNormalization": "Trim line indentation/trailing whitespace and omit empty whitespace lines; source words and HTML tags unchanged.",
+    "excerpts": [
+      {
+        "label": "original-title",
+        "start": 45234,
+        "end": 45396,
+        "sha256": "3e92cf599fd3b827d0cd941d018855e30e6ddb146b4d2368e09386ad0896ece2",
+        "fixtureExcerptSha256": "fe2026262e61ceb7c2fd42e7434c71e0599c34db478dc8b46d19c5c51595d9e1"
+      },
+      {
+        "label": "original-address",
+        "start": 43122,
+        "end": 44085,
+        "sha256": "d16e740beaa67517985ff11d1fb12fa771417247bedeae2e54679622cc5cfbce",
+        "fixtureExcerptSha256": "53349150ec9d429f263728594c631560f16dfed4b7c5ba5d6aefb332b3795206"
+      },
+      {
+        "label": "original-file-metadata",
+        "start": 47774,
+        "end": 49155,
+        "sha256": "2a842e780470c971571cf58d54f614fcb7e16d75190e76b16ec344e3dc2ee1ad",
+        "fixtureExcerptSha256": "a9bb4234452da54dcd5eb40f0f695dc204bfd2c9b4c0798a82a0af07603cd02f"
+      },
+      {
+        "label": "individual-photo-license",
+        "start": 49504,
+        "end": 49694,
+        "sha256": "95c59fdcaeea81b3f8d17a709745dbb2484f02a22fa4e6604e2dc0e6a78c95f0",
+        "fixtureExcerptSha256": "40c85801bc56e89aa413ef439ed4c1a6d3a7a69ed4a45012791d31d046b9f7fc"
+      }
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "links": [
+      {
+        "exists": true,
+        "target": "#m4"
+      },
+      {
+        "exists": true,
+        "target": "#m9"
+      }
+    ],
+    "pageOverflow": false,
+    "title": "현재 확정과 새 제안을 구분",
+    "type": "decision"
+  },
+  {
+    "links": [
+      {
+        "exists": true,
+        "target": "#m3"
+      },
+      {
+        "exists": true,
+        "target": "#m6"
+      },
+      {
+        "exists": true,
+        "target": "#m11"
+      }
+    ],
+    "pageOverflow": false,
+    "title": "장소를 고르기 전 남은 조건",
+    "type": "conditions"
+  },
+  {
+    "links": [
+      {
+        "exists": true,
+        "target": "#m7"
+      },
+      {
+        "exists": true,
+        "target": "#m8"
+      },
+      {
+        "exists": true,
+        "target": "#m12"
+      }
+    ],
+    "pageOverflow": false,
+    "title": "대화에서 준비 탭으로 제안",
+    "type": "tasks"
+  },
+  {
+    "links": [
+      {
+        "exists": true,
+        "target": "#m3"
+      },
+      {
+        "exists": true,
+        "target": "#m7"
+      },
+      {
+        "exists": true,
+        "target": "#m10"
+      }
+    ],
+    "pageOverflow": false,
+    "title": "민지가 이번 약속에서 말한 것",
+    "type": "person"
+  }
+]

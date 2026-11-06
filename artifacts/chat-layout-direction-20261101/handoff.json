@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-01",
+  "latest_request": "전체 레이아웃 개선 방향 우선. 제품 전체 화면 교체 보류.",
+  "proposal": "deliverables/spotlog-chat-layout-direction-20261101.html",
+  "product_local_changes": [
+    "web/src/together/ChatWorkspace.tsx: reply/reaction icon buttons and latest down-arrow only",
+    "web/src/together/chat-workspace.css: 44px message action targets and circular latest-arrow"
+  ],
+  "prepared_not_integrated": [
+    "web/src/together/workspaceNavigation.ts",
+    "web/src/together/chatSummaryExample.ts",
+    "web/src/together/ChatSummaryExample.tsx",
+    "web/tests/moa-chat-examples.ts"
+  ],
+  "preserved": [
+    "existing moa-chat-review.tsx fixture and user page-memory session",
+    "customer storage",
+    "existing main navigation and product-wide layout"
+  ],
+  "verification": {
+    "tests": "61 passed",
+    "webTypecheck": "passed",
+    "webBuild": "passed",
+    "proposalViewportWidths": [
+      320,
+      390,
+      460,
+      1440
+    ],
+    "horizontalOverflow": 0
+  },
+  "git": "No commit, push, or deployment"
+}

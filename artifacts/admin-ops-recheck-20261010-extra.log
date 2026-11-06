@@ -1,0 +1,9 @@
+PASS ISO publication periods are visible in the local minute picker, unchanged instants stay intact and unfinished draft survives reload
+PASS admin customer preview removes a period-ended main place without interaction or reload
+PASS popular main status matches the current exposure period
+PASS popular main status changes from scheduled to posted at its start without interaction
+PASS inquiry conflict preserves the old reply draft and rejects overwriting newer answer history
+PASS external policy without time/cost limits stays a draft and does not replace the active policy
+PASS saved/tested policy activates explicitly and previous policy rollback restores the prior version
+PASS operator role cannot edit or activate AI execution policy
+PASS index failure/retry/validation keeps the active version until explicit apply and rollback restores it

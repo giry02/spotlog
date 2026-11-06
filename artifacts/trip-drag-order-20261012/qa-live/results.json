@@ -1,0 +1,218 @@
+{
+  "base": "https://giry02.github.io/spotlog/",
+  "date": "2026-10-12",
+  "checks": [
+    {
+      "width": "build",
+      "name": "live customer entrypoint matches verified release; development fixture/credentials excluded",
+      "detail": {
+        "expected": "customer-MHHzSzN0.js",
+        "assets": [
+          "/spotlog/assets/customer-MHHzSzN0.js",
+          "/spotlog/assets/serviceRequest-B91Ei66P.js",
+          "/spotlog/assets/theme-D2Gebl-p.js",
+          "/spotlog/assets/creatorGrade-Dr5mmpV_.js"
+        ]
+      }
+    },
+    {
+      "width": 320,
+      "name": "manual food/cafe registration completes into simple private READY read view; map shares DAY row and zero-progress tools hidden",
+      "detail": {
+        "sameRow": true,
+        "cover": 154.5625,
+        "minCover": "132px"
+      }
+    },
+    {
+      "width": 320,
+      "name": "explicit edit writes recoverable DRAFT; reload stays editable; completion restores READY without public publication",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "read-place details contain no editing form or removal action",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "real registered Westin has truthful no-photo state; selected stay becomes fixed private overnight visit",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "independent food anchors two saved cafe candidates; reload retains both; final confirmation inserts one and protects fixed hotel",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "desktop pointer drag in real App moves linked cafe/food together; localRepository reload and keyboard ordering protect booked stay, facts and other DAY",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "drag edit completes to private read view; no handle in read mode and no public journal created",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "journey record is explicit separate private JOURNAL; original plan and private memo/reservation protected",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "traveling one-touch completion remains available and survives reload; hotel/places/journal/admin sentinel intact",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "manual food/cafe registration completes into simple private READY read view; map shares DAY row and zero-progress tools hidden",
+      "detail": {
+        "sameRow": true,
+        "cover": 132,
+        "minCover": "132px"
+      }
+    },
+    {
+      "width": 390,
+      "name": "explicit edit writes recoverable DRAFT; reload stays editable; completion restores READY without public publication",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "read-place details contain no editing form or removal action",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "real registered Westin has truthful no-photo state; selected stay becomes fixed private overnight visit",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "independent food anchors two saved cafe candidates; reload retains both; final confirmation inserts one and protects fixed hotel",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "desktop pointer drag in real App moves linked cafe/food together; localRepository reload and keyboard ordering protect booked stay, facts and other DAY",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "drag edit completes to private read view; no handle in read mode and no public journal created",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "journey record is explicit separate private JOURNAL; original plan and private memo/reservation protected",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "traveling one-touch completion remains available and survives reload; hotel/places/journal/admin sentinel intact",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "manual food/cafe registration completes into simple private READY read view; map shares DAY row and zero-progress tools hidden",
+      "detail": {
+        "sameRow": true,
+        "cover": 132,
+        "minCover": "132px"
+      }
+    },
+    {
+      "width": 460,
+      "name": "explicit edit writes recoverable DRAFT; reload stays editable; completion restores READY without public publication",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "read-place details contain no editing form or removal action",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "real registered Westin has truthful no-photo state; selected stay becomes fixed private overnight visit",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "independent food anchors two saved cafe candidates; reload retains both; final confirmation inserts one and protects fixed hotel",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "desktop pointer drag in real App moves linked cafe/food together; localRepository reload and keyboard ordering protect booked stay, facts and other DAY",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "drag edit completes to private read view; no handle in read mode and no public journal created",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "journey record is explicit separate private JOURNAL; original plan and private memo/reservation protected",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "traveling one-touch completion remains available and survives reload; hotel/places/journal/admin sentinel intact",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "manual food/cafe registration completes into simple private READY read view; map shares DAY row and zero-progress tools hidden",
+      "detail": {
+        "sameRow": true,
+        "cover": 132,
+        "minCover": "132px"
+      }
+    },
+    {
+      "width": 390,
+      "name": "explicit edit writes recoverable DRAFT; reload stays editable; completion restores READY without public publication",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "read-place details contain no editing form or removal action",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "real registered Westin has truthful no-photo state; selected stay becomes fixed private overnight visit",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "independent food anchors two saved cafe candidates; reload retains both; final confirmation inserts one and protects fixed hotel",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "mobile touch drag in real App moves linked cafe/food together; localRepository reload and keyboard ordering protect booked stay, facts and other DAY",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "drag edit completes to private read view; no handle in read mode and no public journal created",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "journey record is explicit separate private JOURNAL; original plan and private memo/reservation protected",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "traveling one-touch completion remains available and survives reload; hotel/places/journal/admin sentinel intact",
+      "detail": "pass"
+    }
+  ],
+  "errors": [],
+  "assetFailures": [],
+  "pass": true
+}

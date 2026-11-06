@@ -56,6 +56,19 @@ export function subscribeNavigationCommands(onBack: () => void) {
   };
 }
 
+export function subscribePreviewNotificationResult(callback: (result: { sent: boolean; reason?: 'permission' | 'unavailable' }) => void) {
+  const handleMessage = (event: Event) => {
+    const message = parseNativeToWebMessage((event as MessageEvent).data);
+    if (message?.type === 'PREVIEW_NOTIFICATION_RESULT') callback(message.payload);
+  };
+  window.addEventListener('message', handleMessage);
+  document.addEventListener('message', handleMessage);
+  return () => {
+    window.removeEventListener('message', handleMessage);
+    document.removeEventListener('message', handleMessage);
+  };
+}
+
 export function openExternal(url: string) {
   if (isNativeShell()) {
     postToNative({ type: 'OPEN_EXTERNAL', payload: { url } });

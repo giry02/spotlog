@@ -1,0 +1,16 @@
+{
+  "base": "http://127.0.0.1:5210/",
+  "date": "2026-10-12",
+  "checks": [
+    {
+      "width": "build",
+      "name": "loopback selector dry run; release hash intentionally unchecked",
+      "detail": "pass"
+    }
+  ],
+  "errors": [
+    "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog').getByRole('textbox', { name: '장소 이름·지역 검색', exact: true })\u001b[22m\n\n    at addPickerPlace (C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\plan-view-edit-20261012\\release-ui-qa.cjs:35:338)\n    at async customerFlow (C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\plan-view-edit-20261012\\release-ui-qa.cjs:42:3)\n    at async run (C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\plan-view-edit-20261012\\release-ui-qa.cjs:60:604)"
+  ],
+  "assetFailures": [],
+  "pass": false
+}

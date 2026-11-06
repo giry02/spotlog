@@ -3,8 +3,8 @@ import { ArrowLeft, MoveHorizontal } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import type { JourneyDay } from './data';
 
-export function DayNavigation({ days, selectedDay, onSelect, onBack, compact = false }: {
-  days: JourneyDay[]; selectedDay: number; onSelect: (day: number) => void; onBack: () => void; compact?: boolean;
+export function DayNavigation({ days, selectedDay, onSelect, onBack, compact = false, showBack = true }: {
+  days: JourneyDay[]; selectedDay: number; onSelect: (day: number) => void; onBack: () => void; compact?: boolean; showBack?: boolean;
 }) {
   const copy=useUiCopy();
   const navRef = useRef<HTMLElement>(null);
@@ -60,7 +60,7 @@ export function DayNavigation({ days, selectedDay, onSelect, onBack, compact = f
   const endDrag = () => { drag.current = null; setDragging(false); };
 
   return <nav ref={navRef} className={`day-tabs day-tabs-draggable${compact ? ' day-tabs-compact' : ''}`} aria-label={copy("여행 날짜")}>
-    <button type="button" className="day-tabs-back" onClick={onBack} aria-label={copy("목록으로 돌아가기")}><ArrowLeft size={20} /></button>
+    {showBack && <button type="button" className="day-tabs-back" onClick={onBack} aria-label={copy("목록으로 돌아가기")}><ArrowLeft size={20} /></button>}
     <div ref={trackRef} className={`day-tabs-track${dragging ? ' is-dragging' : ''}`}
       onPointerDown={(event) => {
         hinted.current = true;

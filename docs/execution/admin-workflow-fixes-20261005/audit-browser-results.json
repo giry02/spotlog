@@ -1,0 +1,106 @@
+{
+  "checks": [
+    {
+      "name": "all 65 historical findings and separate current results preserved",
+      "evidence": {
+        "rows": 65,
+        "columns": 9
+      }
+    },
+    {
+      "name": "current status filters reflect documented scope",
+      "evidence": {
+        "로컬 보완 완료": 25,
+        "일부 보완": 8,
+        "서버 연결 대기": 28,
+        "후속 유지": 4
+      }
+    },
+    {
+      "name": "historical status and current status combine independently",
+      "evidence": {
+        "intersection": 2
+      }
+    },
+    {
+      "name": "search includes current remaining work and fact jump clears filters",
+      "evidence": {
+        "remainingRow": "C05",
+        "jumpRow": "C36"
+      }
+    },
+    {
+      "name": "historical and current headline counts remain distinct",
+      "evidence": {
+        "consumerMasterPlaces": 83,
+        "adminSourceSeedPlaces": 83,
+        "missingSourceSeedPlaces": 0,
+        "adminSyntheticPlaces": 6,
+        "adminSourceSeedMedia": 77,
+        "consumerPhotoSources": 22,
+        "sourceVideos": 2,
+        "sourceMotionMedia": 2,
+        "canonicalRegions": 65,
+        "publicReadingJournals": 12,
+        "masterBrowserChecks": 16,
+        "homeRecommendationDrafts": 7
+      }
+    },
+    {
+      "name": "responsive audit 1440px: contained table and readable controls",
+      "evidence": {
+        "width": 1440,
+        "scroll": 1440,
+        "tableWidth": 2040,
+        "wrapWidth": 1382,
+        "controls": [
+          16,
+          16,
+          16
+        ]
+      }
+    },
+    {
+      "name": "responsive audit 800px: contained table and readable controls",
+      "evidence": {
+        "width": 800,
+        "scroll": 800,
+        "tableWidth": 2040,
+        "wrapWidth": 766,
+        "controls": [
+          16,
+          16,
+          16
+        ]
+      }
+    },
+    {
+      "name": "responsive audit 390px: contained table and readable controls",
+      "evidence": {
+        "width": 390,
+        "scroll": 390,
+        "tableWidth": 2040,
+        "wrapWidth": 356,
+        "controls": [
+          16,
+          16,
+          16
+        ]
+      }
+    },
+    {
+      "name": "isolated page completed without runtime errors",
+      "evidence": {
+        "errors": 0,
+        "context": "fresh browser context, local audit file"
+      }
+    }
+  ],
+  "errors": [],
+  "screenshots": [
+    "audit-browser-1440.png",
+    "audit-browser-800.png",
+    "audit-browser-390.png",
+    "audit-browser-current-columns.png"
+  ]
+}

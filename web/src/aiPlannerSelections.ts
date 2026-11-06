@@ -34,8 +34,9 @@ export function plannerStayForDay(choices:BusinessChoice[],journey:Journey,dayId
 /** Only overlapping nights are replaced. Other hotels and the rest of an existing stay remain. */
 export function upsertPlannerBusiness(choices:BusinessChoice[],journey:Journey,next:BusinessChoice):BusinessChoice[] {
   const day=journey.days.find(day=>day.dayId===next.dayId);
-  const anchor=(next.place.kind==='STAY'?journey.days.flatMap(day=>day.places):day?.places??[]).find(place=>place.visitId===next.anchorId&&place.kind==='LANDMARK');
+  const anchor=(next.place.kind==='STAY'?journey.days.flatMap(day=>day.places):day?.places??[]).find(place=>place.visitId===next.anchorId&&place.kind!=='STAY'&&!place.anchorVisitId);
   if(!day||!anchor)throw new Error('업체를 연결할 기준 장소를 확인해 주세요.');
+  if(next.place.kind!=='STAY'&&next.place.planningSlot&&day.places.some(place=>!place.anchorVisitId&&place.kind===next.place.kind&&place.planningSlot===next.place.planningSlot))throw new Error('직접 담은 방문이 있는 시간대예요. 해당 장소의 포함을 해제한 뒤 다른 곳을 선택해 주세요.');
   if(next.place.kind!=='STAY')return [...choices.filter(choice=>!(choice.dayId===next.dayId&&(next.place.planningSlot?choice.place.planningSlot===next.place.planningSlot&&choice.place.kind===next.place.kind:choice.place.id===next.place.id))),next];
   const range=stayRange(next,journey);
   return [...choices.flatMap(choice=>choice.place.kind==='STAY'?subtractNights(choice,journey,range.start,range.end):[choice]),next];
@@ -65,13 +66,14 @@ export function applyPlannerSelections(original: Journey, excludedVisits: string
     planningGaps:day.planningGaps?.map(gap=>({...gap,afterVisitId:gap.afterVisitId&&excluded.has(gap.afterVisitId)?undefined:gap.afterVisitId,beforeVisitId:gap.beforeVisitId&&excluded.has(gap.beforeVisitId)?undefined:gap.beforeVisitId})),
   })) };
   for (const choice of choices) {
-    const anchor = (choice.place.kind==='STAY'?journey.days.flatMap(day=>day.places):journey.days.find(day=>day.dayId===choice.dayId)?.places??[]).find(place=>place.visitId===choice.anchorId&&place.kind==='LANDMARK');
+    const anchor = (choice.place.kind==='STAY'?journey.days.flatMap(day=>day.places):journey.days.find(day=>day.dayId===choice.dayId)?.places??[]).find(place=>place.visitId===choice.anchorId&&place.kind!=='STAY'&&!place.anchorVisitId);
     if (!anchor) continue;
     if(choice.place.planningSlot&&choice.place.kind!=='STAY') {
       const slots:PlanningSlot[]=['morning','lunch','afternoon','dinner','stay'];
       journey={...journey,days:journey.days.map(day=>{
         if(day.dayId!==choice.dayId)return day;
         const removed=new Set(day.places.filter(p=>p.kind===choice.place.kind&&p.planningSlot===choice.place.planningSlot).map(p=>p.visitId));
+        if(day.places.some(place=>removed.has(place.visitId)&&!place.anchorVisitId))throw new Error('직접 담은 방문을 먼저 확인해 주세요. 기존 방문은 변경하지 않았어요.');
         const visits=day.places.filter(p=>!removed.has(p.visitId));
         const visit={...structuredClone(choice.place),visitId:crypto.randomUUID(),anchorVisitId:anchor.visitId,time:undefined,move:undefined,note:choice.place.personal?choice.place.note:''};
         const next=visits.findIndex(p=>slots.indexOf(p.planningSlot??'morning')>slots.indexOf(visit.planningSlot!));

@@ -1,0 +1,21 @@
+{
+  "files": [
+    {
+      "file": "web/src/together/ChatWorkspace.tsx",
+      "beforeSha256": "5ea8d6ceef90de09a829a1ba0d34d51e78e89e77466d3cbf2cdfad0bd62c9320",
+      "afterSha256": "f2d8e2d48a291a955ba210baba092ea59a906d7af5c1a5b5aa83f8c06c2a61bc"
+    },
+    {
+      "file": "web/src/together/chat-workspace.css",
+      "beforeSha256": "9ed8f8fbb49dc1b1207af45e4877eb6f33e6abaa5025a5a90fea487f515ff8ec",
+      "afterSha256": "195e1ca70e604a35920a399e64856020e9ed05d93c7d2f4729a79a6e1e2d369c"
+    }
+  ],
+  "relatedTests": {
+    "passed": 58,
+    "failed": 0
+  },
+  "webTypecheck": "pass",
+  "gitOrDeployment": "none",
+  "customerStorage": "not accessed; existing page-memory fixture only"
+}

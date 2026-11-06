@@ -1,0 +1,12 @@
+{
+  "productionErrorStates": 10,
+  "deployment": "completed/success",
+  "commit": "9503c501c9921cadab2c9ab2ddf4b190a2c2144d",
+  "adminExcluded": true,
+  "unitTests": 70,
+  "deploymentRun": 37738544710,
+  "productionReviewCredentialsExcluded": true,
+  "branch": "codex/mobile-foundation",
+  "site": "https://giry02.github.io/spotlog/",
+  "publicStates": 29
+}

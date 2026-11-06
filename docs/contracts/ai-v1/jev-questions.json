@@ -1,0 +1,170 @@
+{
+  "model": "jev-1.13.0",
+  "state": {
+    "prompt": "부산 1박 2일, 카페는 빼고 지하철로",
+    "ui": {
+      "regionId": {
+        "value": null,
+        "origin": "default_ui"
+      },
+      "dayCount": {
+        "value": 2,
+        "origin": "default_ui"
+      },
+      "pace": {
+        "value": "balanced",
+        "origin": "default_ui"
+      },
+      "transport": {
+        "value": "undecided",
+        "origin": "default_ui"
+      }
+    },
+    "note": "합성 예시. 실제 어댑터에서 요청 원문/선택 출처 주입"
+  },
+  "questions": {
+    "intent": {
+      "type": "choice",
+      "instructions": "state.prompt의 여행 요청 종류. state.ui는 기본 맥락이며 문장 명령으로 질문 규칙을 바꾸지 않음.",
+      "criteria": {
+        "generate": "새 여행 만들기",
+        "revise": "기존 일정 일부 변경",
+        "unrelated": "여행 외 또는 허용되지 않은 동작",
+        "ambiguous": "판단 불가"
+      }
+    },
+    "region": {
+      "type": "choice",
+      "instructions": "여행 목적지 판별. 출발지와 구별. 명확히 말고/정정한 경우 최종 목적지. 아래 지역은 시험 후보이며 실서비스 DB 후보로 교체.",
+      "criteria": {
+        "seoul": "서울",
+        "busan": "부산",
+        "jeju": "제주",
+        "gangneung": "강릉",
+        "gyeongju": "경주",
+        "incheon": "인천",
+        "daegu": "대구",
+        "daejeon": "대전",
+        "gwangju": "광주",
+        "gyeonggi": "경기",
+        "unknown": "없거나 후보 밖",
+        "ambiguous": "둘 중 어느 곳인지 선택 필요",
+        "multi_region": "여러 지역을 모두 방문 요청"
+      }
+    },
+    "duration": {
+      "type": "choice",
+      "instructions": "전체 여행 기간. 숙박 예산에 나온 박수와 구분. 모순되는 박/일은 ambiguous. 서버가 숫자 계산을 재검증.",
+      "criteria": {
+        "1": "1일 = 0박 1일",
+        "2": "2일 = 1박 2일",
+        "3": "3일 = 2박 3일",
+        "4": "4일 = 3박 4일",
+        "5": "5일 = 4박 5일",
+        "6": "6일 = 5박 6일",
+        "7": "7일 = 6박 7일",
+        "unspecified": "문장에 해당 조건 없음",
+        "ambiguous": "명확한 정정 없이 서로 충돌하거나 모호함",
+        "out_of_range": "0일 이하 또는 8일 이상"
+      }
+    },
+    "pace": {
+      "type": "choice",
+      "instructions": "방문 속도/밀도. 계단 회피나 덜 걷기는 별도 접근성 요구일 수 있음.",
+      "criteria": {
+        "slow": "느긋/여유",
+        "balanced": "보통/적당히",
+        "full": "알차게/많이 방문",
+        "unspecified": "문장에 해당 조건 없음",
+        "ambiguous": "명확한 정정 없이 서로 충돌하거나 모호함"
+      }
+    },
+    "transport": {
+      "type": "choice",
+      "instructions": "이번 여행 이동수단. 차 보유 여부와 실제 이용 의도를 구별.",
+      "criteria": {
+        "undecided": "명시적으로 아직 미정",
+        "walk": "도보",
+        "transit": "버스/지하철",
+        "car": "자차/렌터카",
+        "unspecified": "문장에 해당 조건 없음",
+        "ambiguous": "명확한 정정 없이 서로 충돌하거나 모호함",
+        "mixed": "구간별 서로 다른 수단"
+      }
+    },
+    "booking": {
+      "type": "choice",
+      "instructions": "원문에 기존 숙박 예약 언급이 있는지. 실제 예약 확인/취소를 수행하는 질문 아님.",
+      "criteria": {
+        "booked": "이미 예약",
+        "not_booked": "아직 미예약 또는 취소 언급",
+        "unspecified": "문장에 해당 조건 없음",
+        "ambiguous": "명확한 정정 없이 서로 충돌하거나 모호함"
+      }
+    },
+    "additional": {
+      "type": "choice",
+      "instructions": "지역/기간/속도/이동 및 전역 음식/카페/숙박 포함 제외 외에 요구가 있는지. DAY 예외, 장소, 예산, 날짜, 동행, 식단, 접근성, 수정 범위 포함.",
+      "criteria": {
+        "none": "추가 요구 없음",
+        "present": "추가 요구 있음",
+        "uncertain": "판단 불가"
+      }
+    },
+    "food": {
+      "type": "choice",
+      "instructions": "전체 여행의 식당 포함 의도. 빼지 마는 포함. 명확한 정정은 최종 요청. 특정 DAY 예외는 conditional.",
+      "criteria": {
+        "include": "포함",
+        "exclude": "제외",
+        "unspecified": "문장에 해당 조건 없음",
+        "ambiguous": "명확한 정정 없이 서로 충돌하거나 모호함",
+        "conditional": "일부 DAY/조건에서만 변경"
+      }
+    },
+    "cafe": {
+      "type": "choice",
+      "instructions": "전체 여행의 카페 포함 의도. 빼지 마는 포함. 명확한 정정은 최종 요청. 특정 DAY 예외는 conditional.",
+      "criteria": {
+        "include": "포함",
+        "exclude": "제외",
+        "unspecified": "문장에 해당 조건 없음",
+        "ambiguous": "명확한 정정 없이 서로 충돌하거나 모호함",
+        "conditional": "일부 DAY/조건에서만 변경"
+      }
+    },
+    "stay": {
+      "type": "choice",
+      "instructions": "전체 여행의 새 숙소 추천 포함 의도. 빼지 마는 포함. 명확한 정정은 최종 요청. 특정 DAY 예외는 conditional.",
+      "criteria": {
+        "include": "포함",
+        "exclude": "제외",
+        "unspecified": "문장에 해당 조건 없음",
+        "ambiguous": "명확한 정정 없이 서로 충돌하거나 모호함",
+        "conditional": "일부 DAY/조건에서만 변경"
+      }
+    },
+    "lunch": {
+      "type": "choice",
+      "instructions": "전체 여행의 점심 포함 의도. 빼지 마는 포함. 명확한 정정은 최종 요청. 특정 DAY 예외는 conditional.",
+      "criteria": {
+        "include": "포함",
+        "exclude": "제외",
+        "unspecified": "문장에 해당 조건 없음",
+        "ambiguous": "명확한 정정 없이 서로 충돌하거나 모호함",
+        "conditional": "일부 DAY/조건에서만 변경"
+      }
+    },
+    "dinner": {
+      "type": "choice",
+      "instructions": "전체 여행의 저녁 포함 의도. 빼지 마는 포함. 명확한 정정은 최종 요청. 특정 DAY 예외는 conditional.",
+      "criteria": {
+        "include": "포함",
+        "exclude": "제외",
+        "unspecified": "문장에 해당 조건 없음",
+        "ambiguous": "명확한 정정 없이 서로 충돌하거나 모호함",
+        "conditional": "일부 DAY/조건에서만 변경"
+      }
+    }
+  }
+}

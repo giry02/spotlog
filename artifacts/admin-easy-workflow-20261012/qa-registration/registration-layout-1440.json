@@ -1,0 +1,92 @@
+{
+  "scrollY": 0,
+  "mainScroll": 0,
+  "details": [
+    {
+      "name": "목록 검색·필터 대한민국 · 부산 · 72개",
+      "open": false,
+      "y": 278.1875,
+      "height": 37
+    },
+    {
+      "name": "상세 검색",
+      "open": false,
+      "y": 529.28125,
+      "height": 46
+    },
+    {
+      "name": "공개 전 확인 10개",
+      "open": false,
+      "y": 498.28125,
+      "height": 54
+    },
+    {
+      "name": "추가 관리 · 안내·AI·이력",
+      "open": false,
+      "y": 578.78125,
+      "height": 36
+    },
+    {
+      "name": "출처·사용 범위",
+      "open": false,
+      "y": 1085.65625,
+      "height": 60
+    },
+    {
+      "name": "추가 정보",
+      "open": false,
+      "y": 1165.65625,
+      "height": 60
+    },
+    {
+      "name": "담당 내부 관리자 · 작성 중",
+      "open": false,
+      "y": 1245.65625,
+      "height": 39
+    },
+    {
+      "name": "비활성·사용 철회·초안 삭제",
+      "open": false,
+      "y": 1437.65625,
+      "height": 56
+    },
+    {
+      "name": "지역 식별 정보",
+      "open": false,
+      "y": 0,
+      "height": 0
+    }
+  ],
+  "panels": [
+    {
+      "name": "장소·업체",
+      "y": 263.1875,
+      "height": 67,
+      "display": "flex"
+    },
+    {
+      "name": "등록 자료 72개",
+      "y": 350.1875,
+      "height": 1583.59375,
+      "display": "block"
+    },
+    {
+      "name": "새 장소 초안",
+      "y": 350.1875,
+      "height": 1168.46875,
+      "display": "block"
+    },
+    {
+      "name": "등록 지역",
+      "y": 0,
+      "height": 0,
+      "display": "block"
+    },
+    {
+      "name": "지역 편집",
+      "y": 0,
+      "height": 0,
+      "display": "block"
+    }
+  ]
+}

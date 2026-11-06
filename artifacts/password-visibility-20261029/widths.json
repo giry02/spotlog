@@ -1,0 +1,158 @@
+[
+  {
+    "width": "320",
+    "overflow": 0,
+    "inputs": [
+      {
+        "label": "로그인 비밀번호",
+        "type": "password",
+        "autocomplete": "current-password",
+        "font": "16px",
+        "disabled": false,
+        "pressed": "false",
+        "toggle": {
+          "width": 86,
+          "height": 44
+        },
+        "inputHeight": 53,
+        "inputLabelConnected": true,
+        "hintConnected": true
+      },
+      {
+        "label": "가입 비밀번호",
+        "type": "password",
+        "autocomplete": "new-password",
+        "font": "16px",
+        "disabled": false,
+        "pressed": "false",
+        "toggle": {
+          "width": 86,
+          "height": 44
+        },
+        "inputHeight": 53,
+        "inputLabelConnected": true,
+        "hintConnected": true
+      },
+      {
+        "label": "가입 비밀번호 확인",
+        "type": "password",
+        "autocomplete": "new-password",
+        "font": "16px",
+        "disabled": false,
+        "pressed": "false",
+        "toggle": {
+          "width": 86,
+          "height": 44
+        },
+        "inputHeight": 53,
+        "inputLabelConnected": true,
+        "hintConnected": true
+      }
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 0 · 입력 가능"
+  },
+  {
+    "width": "390",
+    "overflow": 0,
+    "inputs": [
+      {
+        "label": "로그인 비밀번호",
+        "type": "password",
+        "autocomplete": "current-password",
+        "font": "16px",
+        "disabled": false,
+        "pressed": "false",
+        "toggle": {
+          "width": 86,
+          "height": 44
+        },
+        "inputHeight": 53,
+        "inputLabelConnected": true,
+        "hintConnected": true
+      },
+      {
+        "label": "가입 비밀번호",
+        "type": "password",
+        "autocomplete": "new-password",
+        "font": "16px",
+        "disabled": false,
+        "pressed": "false",
+        "toggle": {
+          "width": 86,
+          "height": 44
+        },
+        "inputHeight": 53,
+        "inputLabelConnected": true,
+        "hintConnected": true
+      },
+      {
+        "label": "가입 비밀번호 확인",
+        "type": "password",
+        "autocomplete": "new-password",
+        "font": "16px",
+        "disabled": false,
+        "pressed": "false",
+        "toggle": {
+          "width": 86,
+          "height": 44
+        },
+        "inputHeight": 53,
+        "inputLabelConnected": true,
+        "hintConnected": true
+      }
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 0 · 입력 가능"
+  },
+  {
+    "width": "460",
+    "overflow": 0,
+    "inputs": [
+      {
+        "label": "로그인 비밀번호",
+        "type": "password",
+        "autocomplete": "current-password",
+        "font": "16px",
+        "disabled": false,
+        "pressed": "false",
+        "toggle": {
+          "width": 86,
+          "height": 44
+        },
+        "inputHeight": 53,
+        "inputLabelConnected": true,
+        "hintConnected": true
+      },
+      {
+        "label": "가입 비밀번호",
+        "type": "password",
+        "autocomplete": "new-password",
+        "font": "16px",
+        "disabled": false,
+        "pressed": "false",
+        "toggle": {
+          "width": 86,
+          "height": 44
+        },
+        "inputHeight": 53,
+        "inputLabelConnected": true,
+        "hintConnected": true
+      },
+      {
+        "label": "가입 비밀번호 확인",
+        "type": "password",
+        "autocomplete": "new-password",
+        "font": "16px",
+        "disabled": false,
+        "pressed": "false",
+        "toggle": {
+          "width": 86,
+          "height": 44
+        },
+        "inputHeight": 53,
+        "inputLabelConnected": true,
+        "hintConnected": true
+      }
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 0 · 입력 가능"
+  }
+]

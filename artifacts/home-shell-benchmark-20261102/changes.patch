@@ -1,0 +1,517 @@
+--- artifacts\home-shell-benchmark-20261102\root-before\App.tsx
++++ web\src\App.tsx
+@@ -68,7 +68,11 @@
+ import { AppMenu, AppMenuButton, AppMenuContext, OfflineLibrary } from './AppMenu';
+ import InterestCollections from './InterestCollections';
+ import InterestPlacesMap from './InterestPlacesMap';
+-import TogetherApp, { TogetherHomePreview } from './together/TogetherApp';
++import TogetherApp from './together/TogetherApp';
++import HomeCommunity from './together/HomeCommunity';
++import { ScreenHeader, ScreenTabs } from './ScreenHeader';
++import { publicPlaceRegion, filterHomePlaces, homePlacePreview } from './homeDiscovery';
++import './recommendation-home.css';
+ import type { GroupDiscoveryFilters } from './together/GroupDiscovery';
+ import type { NotificationPreferences } from '../../shared/hybridBridge';
+ import { createLocalRepository, PLACE_DIRECTORY_KEY } from './localRepository';
+@@ -173,8 +177,8 @@
+   slides: PhotoStorySlide[];
+ }
+ 
+-type HomeTopic = 'places' | 'groups' | 'trips';
+-interface HomeViewMemory { placeKind: PlaceKind | 'ALL'; groupRegion: { value: string }; recommendationId?: string; guideId?: string }
++type HomeTopic = 'recommended' | 'places' | 'groups' | 'trips';
++interface HomeViewMemory { placeKind: PlaceKind | 'ALL'; region?: string; query?: string; groupRegion: { value: string }; recommendationId?: string; guideId?: string }
+ 
+ interface SpotlogNavigationState {
+   spotlog: true;
+@@ -191,6 +195,8 @@
+   discoveryFilters?: GroupDiscoveryFilters;
+   homeTopic?: HomeTopic;
+   placeKind?: BrowsePlaceKind;
++  placeRegion?: string;
++  placeQuery?: string;
+ }
+ 
+ type TripDurationFilter = 'ALL' | 'DAY_TRIP' | 'ONE_NIGHT' | 'TWO_NIGHTS' | 'THREE_PLUS';
+@@ -442,8 +448,10 @@
+     && (state.tab !== 'error' || isErrorKind(state.errorKind))
+     && (state.tab !== 'together' || state.togetherRoute == null || isTogetherRoute(state.togetherRoute))
+     && ['VIDEO', 'GUIDE', 'PHOTO'].includes(String(state.placeView))
+-    && (state.homeTopic == null || ['places', 'groups', 'trips'].includes(state.homeTopic))
++    && (state.homeTopic == null || ['recommended', 'places', 'groups', 'trips'].includes(state.homeTopic))
+     && (state.placeKind == null || browsePlaceKinds.includes(state.placeKind))
++    && (state.placeRegion == null || typeof state.placeRegion === 'string')
++    && (state.placeQuery == null || typeof state.placeQuery === 'string')
+     && (state.detailDay == null || (Number.isInteger(state.detailDay) && state.detailDay > 0));
+ };
+ const spotlogNavigationUrl = (state: SpotlogNavigationState) => {
+@@ -455,7 +463,7 @@
+         ? `recommendation-${state.templateId}`
+         : state.tab === 'discover'
+           ? `places-${state.placeView.toLowerCase()}${state.placeView === 'GUIDE' && state.placeKind && state.placeKind !== 'ALL' ? `-${state.placeKind.toLowerCase()}` : ''}`
+-          : state.tab === 'home' && state.homeTopic && state.homeTopic !== 'places' ? `home-${state.homeTopic}` : state.tab;
++          : state.tab === 'home' && state.homeTopic && state.homeTopic !== 'recommended' ? `home-${state.homeTopic}` : state.tab;
+   return `${window.location.pathname}${window.location.search}#${encodeURIComponent(screen)}`;
+ };
+ const navigationStateFromHash = (): SpotlogNavigationState => {
+@@ -463,7 +471,7 @@
+   const base: SpotlogNavigationState = { spotlog: true, depth: 0, tab: 'home', placeView: 'GUIDE', placeKind: 'ALL', journeyId: null, templateId: null, editorId: null };
+   if (error !== undefined) return { ...base, tab: 'error', errorKind: error };
+   if (isTogetherRoute(screen)) return { ...base, tab: 'together', togetherRoute: screen };
+-  if (/^home-(places|groups|trips)$/.test(screen)) return { ...base, homeTopic: screen.slice(5) as HomeTopic };
++  if (/^home-(recommended|places|groups|trips)$/.test(screen)) return { ...base, homeTopic: screen.slice(5) as HomeTopic };
+   if (screen === 'places-guide') return { ...base, tab: 'discover', placeView: 'GUIDE' };
+   if (screen.startsWith('places-guide-')) {
+     const kind = screen.slice('places-guide-'.length).toUpperCase() as BrowsePlaceKind;
+@@ -577,8 +585,8 @@
+   const liveTemplates = useMemo(() => [...new Map([...homeTripTemplates, ...publicReview.operatingTemplates].map(t => [t.id,t])).values()].map(template => ({ ...template, cover: publicReview.state.withdrawnImages.includes(template.cover) ? '' : template.cover, places: template.places.flatMap(place => { const current = placeCatalog.find(p => p.id === place.id); return current ? [current] : []; }) })).filter(t => t.places.length > 0), [placeCatalog, publicReview]);
+   const aiPlaceCandidates = useMemo(() => { const official = placeCatalog.filter(p => publicTourismPlaces.some(o => o.id === p.id)); const keys = new Set(official.map(aiCandidateKey)); return [...official, ...placeCatalog.filter(p => !keys.has(aiCandidateKey(p)))]; }, [placeCatalog]);
+   const [tab, setTab] = useState<Tab>('home');
+-  const [homeTopic, setHomeTopic] = useState<HomeTopic>('places');
+-  const homeScrollTop = useRef<Record<HomeTopic, number>>({ places: 0, groups: 0, trips: 0 });
++  const [homeTopic, setHomeTopic] = useState<HomeTopic>('recommended');
++  const homeScrollTop = useRef<Record<HomeTopic, number>>({ recommended: 0, places: 0, groups: 0, trips: 0 });
+   const homeMemory = useRef<HomeViewMemory>({ placeKind: 'ALL', groupRegion: { value: '' } });
+   const [togetherRoute, setTogetherRoute] = useState('together');
+   const [discoveryFilters, setDiscoveryFilters] = useState<GroupDiscoveryFilters>({});
+@@ -612,6 +620,7 @@
+   const [guideKind, setGuideKind] = useState<BrowsePlaceKind>('ALL');
+   const [guideEntry, setGuideEntry] = useState(0);
+   const guideScrollTop = useRef(0);
++  const [guideSearch, setGuideSearch] = useState({ region: '', query: '' });
+   const [editingJourneyId, setEditingJourneyId] = useState<string | null>(null);
+   const [chatbotEditorEntry, setChatbotEditorEntry] = useState<{ journeyId: string; day: number; entry?: ChatbotEntry; requestId: string } | null>(null);
+   const [chatbotSocialEntry, setChatbotSocialEntry] = useState<{ journeyId: string; entry: 'journey-comment' | 'journey-cheer'; requestId: string } | null>(null);
+@@ -659,7 +668,7 @@
+   const applyNavigationState = useCallback((state: SpotlogNavigationState) => {
+     clearToast();
+     setTab(state.tab);
+-    setHomeTopic(state.homeTopic ?? 'places');
++    setHomeTopic(state.homeTopic ?? 'recommended');
+     setTogetherRoute(state.togetherRoute ?? 'together');
+     setDiscoveryFilters(state.discoveryFilters ?? {});
+     setAppMenuOpen(false);
+@@ -667,6 +676,7 @@
+     setErrorKind(state.errorKind ?? 500);
+     setPlaceView(state.placeView);
+     setGuideKind(state.placeKind ?? 'ALL');
++    setGuideSearch({ region: state.placeRegion ?? '', query: state.placeQuery ?? '' });
+     setSelectedJourneyId(state.journeyId);
+     setSelectedTemplate(state.templateId ? liveTemplates.find((template) => template.id === state.templateId) ?? null : null);
+     setRequestedTemplateId(state.templateId);
+@@ -704,6 +714,8 @@
+       discoveryFilters: next.discoveryFilters ?? discoveryFilters,
+       homeTopic: next.homeTopic ?? homeTopic,
+       placeKind: next.placeKind ?? guideKind,
++      placeRegion: next.placeRegion ?? guideSearch.region,
++      placeQuery: next.placeQuery ?? guideSearch.query,
+     };
+     setDetailDay(state.detailDay ?? null);
+     window.history[mode === 'push' ? 'pushState' : 'replaceState'](state, '', spotlogNavigationUrl(state));
+@@ -1006,9 +1018,9 @@
+     writeNavigationState({ tab: 'home', homeTopic: next, journeyId: null, templateId: null, editorId: null, scrollTop: homeScrollTop.current[next] }, 'replace');
+     setHomeTopic(next);
+   };
+-  const openPlaceGuide = (kind?: BrowsePlaceKind) => {
++  const openPlaceGuide = (kind?: BrowsePlaceKind, search?: { region?: string; query?: string }) => {
+     const nextKind = kind ?? guideKind;
+-    const freshSearch = kind !== undefined;
++    const freshSearch = kind !== undefined || search !== undefined;
+     if (!freshSearch && tab === 'discover' && placeView === 'GUIDE' && !selectedJourney && !editingJourney) return;
+     setSelectedJourneyId(null);
+     setSelectedTemplate(null);
+@@ -1017,8 +1029,10 @@
+     setTab('discover');
+     setPlaceView('GUIDE');
+     setGuideKind(nextKind);
++    const nextSearch = search ? { region: search.region ?? '', query: search.query ?? '' } : freshSearch ? { region: '', query: '' } : guideSearch;
++    setGuideSearch(nextSearch);
+     if (freshSearch) setGuideEntry(current => current + 1);
+-    writeNavigationState({ tab: 'discover', placeView: 'GUIDE', placeKind: nextKind, journeyId: null, templateId: null, editorId: null, scrollTop: freshSearch ? 0 : guideScrollTop.current });
++    writeNavigationState({ tab: 'discover', placeView: 'GUIDE', placeKind: nextKind, placeRegion: nextSearch.region, placeQuery: nextSearch.query, journeyId: null, templateId: null, editorId: null, scrollTop: freshSearch ? 0 : guideScrollTop.current });
+     if (freshSearch) guideScrollTop.current = 0;
+   };
+   const changeGuideKind = (kind: BrowsePlaceKind) => {
+@@ -1091,8 +1105,10 @@
+       }} />
+       <section className="content">
+         {storageIssue && <div className="local-storage-warning" role="alert">{storageIssue}</div>}
+-        {!selectedJourney && !editingJourney && (tab === 'community' || tab === 'discover') && <div className="browse-switch" role="group" aria-label="둘러보기"><button type="button" aria-pressed={tab === 'discover'} className={tab === 'discover' ? 'active' : ''} onClick={() => openPlaceGuide()}><MapPin size={16}/>장소</button><button type="button" aria-pressed={tab === 'community'} className={tab === 'community' ? 'active' : ''} onClick={() => selectTab('community')}><BookOpen size={16}/>여행기</button>{tab === 'discover' && <AppMenuButton/>}</div>}
+-        <div className={placeView !== 'GUIDE' ? 'discovery-pane' : ''} hidden={tab !== 'discover' || Boolean(selectedJourney || editingJourney)}><Discover key={guideEntry} view={placeView} onViewChange={changePlaceView} guideKind={guideKind} onKindChange={changeGuideKind} savedIds={savedIds} onToggle={toggleSaved} onShare={sharePlace} /></div>
++        {!selectedJourney && !editingJourney && (tab === 'community' || tab === 'discover') && (tab === 'discover' && placeView !== 'GUIDE'
++          ? <div className="browse-switch" role="group" aria-label="둘러보기"><button type="button" aria-pressed className="active" onClick={() => openPlaceGuide()}><MapPin size={16}/>장소</button><button type="button" aria-pressed={false} onClick={() => selectTab('community')}><BookOpen size={16}/>여행기</button><AppMenuButton/></div>
++          : <div className="browse-chrome"><ScreenHeader title="둘러보기" actions={<AppMenuButton/>}/><ScreenTabs label="둘러볼 내용" idPrefix="browse-topic" items={[{ id:'discover', label:'장소' },{ id:'community', label:'여행기' }]} value={tab} onChange={value => value === 'discover' ? openPlaceGuide() : selectTab('community')}/></div>)}
++        <div className={placeView !== 'GUIDE' ? 'discovery-pane' : ''} hidden={tab !== 'discover' || Boolean(selectedJourney || editingJourney)}><Discover key={guideEntry} view={placeView} onViewChange={changePlaceView} guideKind={guideKind} onResetSearch={() => { setGuideKind('ALL'); setGuideSearch({ region: '', query: '' }); guideScrollTop.current = 0; writeNavigationState({ placeKind: 'ALL', placeRegion: '', placeQuery: '', scrollTop: 0 }, 'replace'); }} search={guideSearch} onSearchChange={next => { setGuideSearch(next); writeNavigationState({ placeRegion: next.region, placeQuery: next.query, scrollTop: 0 }, 'replace'); }} onKindChange={changeGuideKind} savedIds={savedIds} onToggle={toggleSaved} onShare={sharePlace} /></div>
+         {editingJourney ? (
+           <JourneyEditor key={`${editingJourney.id}:${chatbotEditorEntry?.journeyId === editingJourney.id ? chatbotEditorEntry.requestId : ''}`} journey={editingJourney} initialDay={chatbotEditorEntry?.journeyId === editingJourney.id ? chatbotEditorEntry.day : undefined} initialEntry={chatbotEditorEntry?.journeyId === editingJourney.id ? chatbotEditorEntry.entry : undefined} onBack={goBack} onSave={saveJourney} onDraft={(draft,view)=>setJourneys(current=>current.map(item=>item.id===draft.id?stashJournalDraft(item,draft,view):item))} />
+         ) : selectedJourney && isPersonalPlan(selectedJourney) ? (
+@@ -1101,7 +1117,7 @@
+           <JourneyDetail key={`${selectedJourney.id}:${detailDay ?? 1}`} onTogether={selectedJourney.isMine ? () => navigateTogether(`together-share-${selectedJourney.id}`) : undefined} initialDay={detailDay ?? 1} socialRequestId={chatbotSocialEntry?.requestId} initialSocialEntry={chatbotSocialEntry?.journeyId === selectedJourney.id ? chatbotSocialEntry.entry : undefined} onCloseSocialEntry={() => setChatbotSocialEntry(null)} journey={selectedJourney} profile={profile} comments={comments.filter((comment) => comment.journeyId === selectedJourney.id)} cheers={cheers[selectedJourney.id] ?? { LOVE: 0, BEST: 0, HELPFUL: 0 }} authorJourneys={selectedJourney.isMine ? journeys.filter((journey) => journey.isMine && !isPersonalPlan(journey)) : journeys.filter((journey) => !journey.isMine && journey.author === selectedJourney.author)} onBack={goBack} onShare={() => void shareJourney(selectedJourney)} onSharePlace={(place) => void sharePlace(place)} onEdit={() => editJourney(selectedJourney.id)} onCopy={() => selectedTemplate ? startRecommendedJourney(selectedTemplate) : copyJourney(selectedJourney)} onComment={(body) => addJourneyComment(selectedJourney.id, body)} onCheer={(cheer) => toggleJourneyCheer(selectedJourney.id, cheer)} onOpenJourney={openJourney} copyLabel={selectedTemplateJourney ? copy("이 일정 내 여행에 담기") : undefined} />
+         ) : (
+           <>
+-            {tab === 'home' && <Home topic={homeTopic} onTopicChange={changeHomeTopic} memory={homeMemory.current} togetherPreview={<TogetherHomePreview regionMemory={homeMemory.current.groupRegion} viewer={togetherViewer} places={placeCatalog} onNavigate={navigateTogether} onExplore={filters => navigateTogether('together-find', filters)}/>} journeys={journeys} continuation={continuation} onResume={resumeTrip} templates={liveTemplates} savedIds={savedIds} onTogglePlace={toggleSaved} onSharePlace={sharePlace} onOpen={openJourney} onPreview={openTemplate} onGoCommunity={() => selectTab('community')} onGoPlaces={openPlaceGuide} onGoTogether={() => navigateTogether('together-find')} onGoTrips={() => selectTab('trips')} onGoProfile={() => selectTab('profile')} onAiTravel={() => setAiTravelOpen(true)} />}
++            {tab === 'home' && <Home topic={homeTopic} onTopicChange={changeHomeTopic} memory={homeMemory.current} viewer={togetherViewer} onNavigateTogether={navigateTogether} journeys={journeys} continuation={continuation} onResume={resumeTrip} templates={liveTemplates} savedIds={savedIds} onTogglePlace={toggleSaved} onSharePlace={sharePlace} onOpen={openJourney} onPreview={openTemplate} onGoCommunity={() => selectTab('community')} onGoPlaces={openPlaceGuide} onGoTogether={filters => navigateTogether('together-find', filters)} onGoTrips={() => selectTab('trips')} onGoProfile={() => selectTab('profile')} onAiTravel={() => setAiTravelOpen(true)} />}
+             {tab === 'community' && <Community journeys={journeys} filters={searchDraft} onFiltersChange={setSearchDraft} onOpen={openJourney} />}
+             {tab === 'together' && <TogetherApp key={togetherViewer?.id ?? 'guest'} route={togetherRoute} discoveryFilters={discoveryFilters} onDiscoveryFiltersChange={changeDiscoveryFilters} onBack={goTogetherBack} onNavigate={navigateTogether} viewer={togetherViewer} onLogin={() => account.openAccount('login', '로그인하고 모임에 함께해 주세요.')} places={placeCatalog} journeys={ownJourneys} onOpenJourney={openJourney} onSavePlace={place => {
+               const saved = saveBusiness({ ...place, personal: place.personal || !placeCatalog.some(item => item.id === place.id) });
+@@ -1149,80 +1165,77 @@
+   );
+ }
+ 
+-function Home({ topic, onTopicChange, memory, togetherPreview, journeys, continuation, onResume, templates, savedIds, onTogglePlace, onSharePlace, onOpen, onPreview, onGoCommunity, onGoPlaces, onGoTogether, onGoTrips, onAiTravel }: { topic: HomeTopic; onTopicChange: (topic: HomeTopic) => void; memory: HomeViewMemory; togetherPreview?: React.ReactNode; journeys: Journey[]; continuation: TripContinuation | null; onResume: (target: TripContinuation) => void; templates: HomeTripTemplate[]; savedIds: string[]; onTogglePlace: (id: string) => void; onSharePlace: (place: Place) => void; onOpen: (id: string) => void; onPreview: (template: HomeTripTemplate) => void; onGoCommunity: () => void; onGoPlaces: (kind: BrowsePlaceKind) => void; onGoTogether: () => void; onGoTrips: () => void; onGoProfile: () => void; onAiTravel: () => void }) {
++function Home({ topic, onTopicChange, memory, viewer, onNavigateTogether, journeys, continuation, onResume, templates, savedIds, onTogglePlace, onOpen, onPreview, onGoCommunity, onGoPlaces, onGoTogether, onGoTrips, onAiTravel }: {
++  topic: HomeTopic; onTopicChange: (topic: HomeTopic) => void; memory: HomeViewMemory;
++  viewer: { id: string; name: string } | null; onNavigateTogether: (route: string, filters?: GroupDiscoveryFilters) => void;
++  journeys: Journey[]; continuation: TripContinuation | null; onResume: (target: TripContinuation) => void;
++  templates: HomeTripTemplate[]; savedIds: string[]; onTogglePlace: (id: string) => void; onSharePlace: (place: Place) => void;
++  onOpen: (id: string) => void; onPreview: (template: HomeTripTemplate) => void; onGoCommunity: () => void;
++  onGoPlaces: (kind: BrowsePlaceKind, search?: { region?: string; query?: string }) => void;
++  onGoTogether: (filters?: GroupDiscoveryFilters) => void; onGoTrips: () => void; onGoProfile: () => void; onAiTravel: () => void;
++}) {
+   const copy = useUiCopy();
+-  const {state:reviewState, now, catalog} = usePublicReview();
++  const { state: reviewState, now, catalog } = usePublicReview();
+   const homePlaces = useHomePlaceExposures();
+-  templates = reviewExposureOrder(templates, 'HOME_TRIP', reviewState, now);
+   const { locale } = useLocale();
+   const en = locale === 'en';
+-  const publicGuides = reviewExposureOrder(journeys.filter((journey) => !journey.isMine && journey.visibility === 'PUBLIC' && journey.status === 'PUBLISHED' && journey.recommendationKind !== 'AI'), 'HOME_JOURNAL', reviewState, now);
+-  const authorCopyCount = (author: string) => publicGuides.filter((journey) => journey.author === author).reduce((sum, journey) => sum + journey.saves, 0);
+-  const recommendationRolling = useManualHomeCarousel(templates.map(item => item.id), memory, 'recommendationId', topic === 'trips');
+-  const guideRolling = useManualHomeCarousel(publicGuides.map(item => item.id), memory, 'guideId', topic === 'trips');
+-  const [placeKind, setPlaceKind] = useState<PlaceKind | 'ALL'>(memory.placeKind);
++  const [region, setRegion] = useState(memory.region ?? '');
++  const [query, setQuery] = useState(memory.query ?? '');
++  const [regionOpen, setRegionOpen] = useState(false);
++  const [placeKind, setPlaceKind] = useState<BrowsePlaceKind>(memory.placeKind);
+   const [detailPlaceId, setDetailPlaceId] = useState<string | null>(null);
+-  const directory = reviewExposureOrder(catalog, 'REGION_GUIDE', reviewState, now);
+-  const filteredPlaces = directory.filter(place => placeKind === 'ALL' || place.kind === placeKind);
+-  const previewPlaces = placeKind === 'ALL' ? [...new Map([
+-    ...(['FOOD', 'CAFE', 'LANDMARK'] as const).flatMap(kind => directory.find(place => place.kind === kind) ?? []), ...directory,
+-  ].map(place => [place.id, place])).values()].slice(0, 3) : filteredPlaces.slice(0, 3);
+-  const detailPlace = topic === 'places' ? [...directory, ...homePlaces].find(place => place.id === detailPlaceId) : null;
+-  const topics: Array<{id: HomeTopic; label: string; Icon: typeof MapPin}> = [
+-    { id: 'places', label: en ? 'Places' : '장소', Icon: MapPin },
+-    { id: 'groups', label: en ? 'Groups' : '모임', Icon: Users },
+-    { id: 'trips', label: en ? 'Trips' : '여행', Icon: Route },
+-  ];
+-  const changeTopic = (next: HomeTopic) => { setDetailPlaceId(null); onTopicChange(next); };
+-
+-  return <div className="home-page home-topics-page">
+-    <header className="home-topbar"><div><strong>spotlog</strong><span>{en ? 'Places, people and your next trip' : copy("맛집·카페부터 모임과 여행까지")}</span></div><AppMenuButton/></header>
+-    <nav className="home-topic-tabs" role="tablist" aria-label="홈에서 볼 내용">{topics.map(({id, label, Icon}) => <button type="button" role="tab" id={`home-topic-${id}`} key={id} aria-selected={topic === id} aria-controls={`home-panel-${id}`} tabIndex={topic === id ? 0 : -1} onClick={() => changeTopic(id)} onKeyDown={event => {
+-      if (event.altKey || event.ctrlKey || event.metaKey || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+-      event.preventDefault();
+-      const index = topics.findIndex(item => item.id === id);
+-      const target = event.key === 'Home' ? 0 : event.key === 'End' ? topics.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : -1) + topics.length) % topics.length;
+-      changeTopic(topics[target].id);
+-      document.getElementById(`home-topic-${topics[target].id}`)?.focus({ preventScroll: true });
+-    }}><Icon size={18} aria-hidden="true"/>{label}</button>)}</nav>
+-    <section role="tabpanel" id="home-panel-places" aria-labelledby="home-topic-places" className="home-topic-panel" hidden={topic !== 'places'}>
+-      <section className="home-lead strategy-home-lead"><h1>{en ? 'Where would you like to go today?' : '오늘, 어디로 가볼까요?'}</h1><p>{en ? 'Save a restaurant, café or place you want to visit.' : '맛집·카페·산책할 곳을 찾고, 마음에 들면 저장하세요.'}</p></section>
+-      <button type="button" className="home-topic-primary" onClick={() => onGoPlaces(placeKind)}><Search size={19}/><span>{en ? 'Find places by region and type' : '지역·종류로 장소 찾기'}</span><ChevronRight size={18}/></button>
+-      <section className="home-section home-place-discovery" aria-label="공개 장소 둘러보기">
+-        <div className="home-section-heading"><div><h2>{en ? 'Explore by type' : '종류별로 둘러보기'}</h2><p>{en ? 'A single place is enough. No itinerary needed.' : '여행을 만들지 않아도 한 곳씩 둘러볼 수 있어요.'}</p></div></div>
+-        <div className="home-place-kinds" aria-label="둘러볼 장소 종류">{browsePlaceKinds.map(kind => <button type="button" key={kind} aria-pressed={placeKind === kind} onClick={() => { setPlaceKind(kind); memory.placeKind = kind; }}>{kind === 'ALL' ? '전체' : placeKindLabel[kind]}</button>)}</div>
+-        <div className="home-place-previews">{previewPlaces.map(place => {
++  const directory = reviewExposureOrder([...new Map([...homePlaces, ...catalog].map(place => [place.id, place])).values()], 'REGION_GUIDE', reviewState, now);
++  const regions = [...new Set([...domesticRegionOrder, ...directory.map(place => publicPlaceRegion(place, reviewState.references))])];
++  const filteredPlaces = filterHomePlaces(directory, { region, query, kind: placeKind }, reviewState.references);
++  const previewPlaces = homePlacePreview(filteredPlaces, topic === 'places' ? 6 : 2);
++  const detailPlace = directory.find(place => place.id === detailPlaceId);
++  templates = reviewExposureOrder(templates, 'HOME_TRIP', reviewState, now).filter(item => matchesDestination(region, [item.region]) && matchesDestination(query, [item.title, item.summary, item.region]));
++  const publicGuides = reviewExposureOrder(journeys.filter(item => !item.isMine && item.visibility === 'PUBLIC' && item.status === 'PUBLISHED' && item.recommendationKind !== 'AI' && matchesDestination(region, [item.region]) && matchesDestination(query, [item.title, item.summary, item.region, item.author])), 'HOME_JOURNAL', reviewState, now);
++  const authorCopyCount = (author: string) => publicGuides.filter(item => item.author === author).reduce((sum, item) => sum + item.saves, 0);
++  const recommendationRolling = useManualHomeCarousel(templates.map(item => item.id), memory, 'recommendationId', topic === 'recommended' || topic === 'trips');
++  const guideRolling = useManualHomeCarousel(publicGuides.map(item => item.id), memory, 'guideId', topic === 'recommended' || topic === 'trips');
++  const topics = [{ id: 'recommended', label: '추천' }, { id: 'places', label: '장소' }, { id: 'groups', label: '모임' }, { id: 'trips', label: '여행' }] as const;
++  const changeTopic = (next: string) => { setDetailPlaceId(null); onTopicChange(next as HomeTopic); };
++  const showPlaces = topic === 'recommended' || topic === 'places';
++  const showGroups = topic === 'recommended' || topic === 'groups';
++  const showTrips = topic === 'recommended' || topic === 'trips';
++  const searchHint = topic === 'groups' ? '모임 이름·관심사 검색' : topic === 'trips' ? '여행 지역·제목 검색' : topic === 'places' ? '장소 이름·특징 검색' : '장소·모임 이름 검색';
++  const changeRegion = (next: string) => { setRegion(next); memory.region = next; memory.groupRegion.value = next; setRegionOpen(false); };
++
++  return <div className="home-page recommendation-home">
++    <ScreenHeader title="spotlog" brand actions={<><button type="button" className="home-region-button screen-header__text-action" onClick={() => setRegionOpen(true)} aria-label={`홈 지역 선택 · ${region || '전체 지역'}`}><MapPin size={16}/><span>{region || '전체 지역'}</span><ChevronRight size={14}/></button><AppMenuButton/></>} />
++    <ScreenTabs label="홈에서 볼 내용" idPrefix="home-topic" items={topics.map(item => ({ ...item, panelId: 'home-discovery-panel' }))} value={topic} onChange={changeTopic}/>
++    <div className="home-search-bar"><Search size={19} aria-hidden="true"/><input type="search" value={query} onChange={event => { setQuery(event.target.value); memory.query = event.target.value; }} aria-label={searchHint} placeholder={searchHint}/>{query && <button type="button" aria-label="홈 검색 지우기" onClick={() => { setQuery(''); memory.query = ''; }}>×</button>}</div>
++    <div id="home-discovery-panel" role="tabpanel" aria-labelledby={`home-topic-${topic}`} className="home-discovery-panel">
++      <h1 className="home-discovery-title">{query.trim() ? `‘${query.trim()}’ 검색 결과` : topic === 'recommended' ? '오늘의 발견, 함께할 사람들' : topic === 'places' ? `${region || '전국'}의 가고 싶은 장소` : topic === 'groups' ? `${region || '전국'}에서 함께하는 모임` : '내 속도로 떠나는 여행'}</h1>
++      {continuation && (topic === 'recommended' || topic === 'trips') && <button type="button" className="home-compact-continuation" onClick={() => onResume(continuation)}><span className="home-compact-icon"><Route size={20}/></span><span><small>내 일정 이어보기</small><strong>{continuation.journey.title}</strong></span><ChevronRight size={18}/></button>}
++      {showPlaces && <section className="home-hub-section" aria-label="공개 장소 둘러보기">
++        <div className="home-hub-heading"><div><h2>{region ? `${region}에서 가볼 만한 곳` : '가고 싶은 곳을 한 곳씩'}</h2><p>맛집·카페·숙소도 따로 저장해요</p></div><button type="button" onClick={() => onGoPlaces(placeKind, { region, query })} aria-label="선택한 지역과 종류의 장소 더 보기">더 보기<ChevronRight size={16}/></button></div>
++        <div className="home-category-strip" role="group" aria-label="둘러볼 장소 종류">{browsePlaceKinds.map(kind => { const Icon = kind === 'FOOD' ? Utensils : kind === 'CAFE' ? Coffee : kind === 'STAY' ? Hotel : kind === 'SHOP' ? Store : kind === 'LEISURE' ? Footprints : MapPin; return <button type="button" key={kind} aria-pressed={placeKind === kind} onClick={() => { setPlaceKind(kind); memory.placeKind = kind; }}><Icon size={17}/>{kind === 'ALL' ? '전체' : placeKindLabel[kind]}</button>; })}</div>
++        <div className="home-photo-grid">{previewPlaces.map(place => {
+           const photo = getPlacePhotos(place, true)[0];
+-          return <article className="home-place-preview" key={place.id}>
+-            <div className="home-place-preview-row"><button type="button" className="home-place-preview-open" aria-label={`${place.name} 상세 보기`} onClick={() => setDetailPlaceId(place.id)}>{photo ? <img src={photo.image} alt="" loading="lazy"/> : <span className="home-place-no-photo"><MapPin size={24}/></span>}<span><small>{placeKindLabel[place.kind]} · {place.area}</small><strong>{place.name}</strong><span>{place.hook || place.description}</span></span></button><button type="button" className="home-place-save" aria-label={`${place.name} ${savedIds.includes(place.id) ? '저장 취소' : '저장'}`} aria-pressed={savedIds.includes(place.id)} onClick={() => onTogglePlace(place.id)}><Bookmark size={20} fill={savedIds.includes(place.id) ? 'currentColor' : 'none'}/></button></div>
++          return <article className="home-photo-place" key={place.id}>
++            <div className="home-photo-place-media"><button type="button" aria-label={`${place.name} 상세 보기`} onClick={() => setDetailPlaceId(place.id)}>{photo ? <img src={photo.image} alt="" loading="lazy"/> : <span className="home-photo-placeholder"><MapPin size={28}/></span>}</button><button type="button" className="home-photo-bookmark" aria-label={`${place.name} ${savedIds.includes(place.id) ? '저장 취소' : '저장'}`} aria-pressed={savedIds.includes(place.id)} onClick={() => onTogglePlace(place.id)}><Bookmark size={19} fill={savedIds.includes(place.id) ? 'currentColor' : 'none'}/></button></div>
++            <button type="button" className="home-photo-place-copy" aria-label={`${place.name} 정보 보기`} onClick={() => setDetailPlaceId(place.id)}><small>{placeKindLabel[place.kind]} · {publicPlaceRegion(place, reviewState.references)}</small><strong>{place.name}</strong><span>{place.hook || place.description}</span></button>
+             {photo && <PhotoCredit image={photo.image} sourceId={photo.sourceId}/>}
+           </article>;
+         })}</div>
+-        {!previewPlaces.length && <div className="home-topic-empty"><MapPin size={24}/><p>이 종류의 공개 장소를 준비하고 있어요.</p><button type="button" onClick={() => { setPlaceKind('ALL'); memory.placeKind = 'ALL'; }}>전체 종류 보기</button></div>}
+-        <button type="button" className="home-topic-more" onClick={() => onGoPlaces(placeKind)}>{placeKind === 'ALL' ? '전체 장소 보기' : `${placeKindLabel[placeKind]} 더 보기`}<ChevronRight size={17}/></button>
+-      </section>
+-    {homePlaces.length > 0 && <section className="home-section" aria-label={copy("메인 추천 장소")}>
+-      <div className="home-section-heading"><div><small>PLACES TO SAVE</small><h2>{en ? 'Featured places' : copy("이번 주 추천 장소")}</h2><p>{en ? 'Save places for an everyday outing or your next trip.' : copy("일상에서도 여행에서도, 가고 싶은 곳을 저장하세요")}</p></div></div>
+-      {localPublicReviewEnabled() && <p className="local-data-note">{copy("로컬 검수에 게시한 장소입니다. 공개 사이트 게시와 실제 인기 집계는 연결 전입니다.")}</p>}
+-      <div className="landmark-guide-list">{homePlaces.map(place => <LandmarkGuideCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onTogglePlace(place.id)} onShare={() => onSharePlace(place)} />)}<Button variant="secondary" onClick={() => onGoPlaces(placeKind)}><Compass size={16}/>{en ? 'Discover more places' : copy("더 많은 장소 보기")}<ChevronRight size={16}/></Button></div>
+-    </section>}
+-
+-    </section>
+-    <section role="tabpanel" id="home-panel-groups" aria-labelledby="home-topic-groups" className="home-topic-panel" hidden={topic !== 'groups'}>
+-      <h1 className="ui-sr-only">모임과 정모</h1>
+-      <button type="button" className="home-topic-primary" onClick={onGoTogether}><Users size={19}/><span>{en ? 'Find local and hobby groups' : '동네·취미 모임 찾기'}</span><ChevronRight size={18}/></button>
+-      {togetherPreview}
+-    </section>
+-    <section role="tabpanel" id="home-panel-trips" aria-labelledby="home-topic-trips" className="home-topic-panel" hidden={topic !== 'trips'}>
+-      <section className="home-lead strategy-home-lead"><h1>{en ? 'A trip at your own pace' : '내 속도로 계획하는 여행'}</h1><p>{en ? 'Start with a draft or a published itinerary.' : '간단한 AI 초안이나 공개 일정으로 여행을 시작하세요.'}</p></section>
++        {!previewPlaces.length && <div className="home-hub-empty"><MapPin size={24}/><strong>조건에 맞는 장소가 없어요</strong><p>지역이나 종류, 검색어를 바꿔보세요.</p><button type="button" onClick={() => { changeRegion(''); setPlaceKind('ALL'); memory.placeKind = 'ALL'; setQuery(''); memory.query = ''; }}>전체 장소 보기</button></div>}
++      </section>}
++      {showGroups && <HomeCommunity viewer={viewer} places={catalog} region={region} query={query} onResetFilters={() => { changeRegion(''); setQuery(''); memory.query = ''; }} onNavigate={onNavigateTogether} onExplore={onGoTogether}/>}
++      {showTrips && <div className="home-trip-discovery">
++      <section className="home-lead strategy-home-lead"><h2>{en ? 'A trip at your own pace' : '내 속도로 계획하는 여행'}</h2><p>{en ? 'Start with a draft or a published itinerary.' : '간단한 AI 초안이나 공개 일정으로 여행을 시작하세요.'}</p></section>
+       <button type="button" className="home-topic-primary" onClick={onAiTravel}><Sparkles size={19}/><span>{en ? 'Create an AI trip draft' : 'AI 여행 초안 만들기'}</span><ChevronRight size={18}/></button>
+-    {continuation && <button type="button" className="home-resume-trip" aria-label={continuation.complete && !continuation.needsReview ? '내 여행 보기' : '내 여행 이어가기'} onClick={() => onResume(continuation)}><span className="home-resume-icon"><Route size={20}/></span><span className="home-resume-copy"><small>{copy("이 기기에 저장한 내 여행")}</small><strong>{continuation.journey.title}</strong><span>{continuation.needsReview ? `DAY ${continuation.day.day} · 후보 마지막 확인이 남았어요` : continuation.place ? `DAY ${continuation.day.day} · 다음 방문: ${continuation.place.name}` : continuation.complete ? '모든 방문 확인 완료 · 여행을 돌아보세요' : `DAY ${continuation.day.day} · 장소를 채워보세요`}</span><b>{continuation.complete && !continuation.needsReview ? '내 여행 보기' : '내 여행 이어가기'}<ChevronRight size={15}/></b></span></button>}
+-    {templates.length > 0 && <section className="home-section"><div className="home-section-heading"><div><small>SPOTLOG CURATION</small><h2>{en ? 'Featured itineraries' : copy("이번 주 추천 일정")}</h2><p>{en ? 'Explore selected itineraries and make them your own.' : copy("에디터가 고른 일정을 읽어보고 내 여행에 담으세요")}</p></div><RollingControls label={copy("추천 일정")} count={templates.length} activeIndex={recommendationRolling.activeIndex} onChange={recommendationRolling.goTo} /></div><div className="promoted-track" ref={recommendationRolling.trackRef} onScroll={recommendationRolling.syncIndex}>{templates.map((template) => <article className="promoted-trip" key={template.id}><img src={template.cover} alt="" /><div className="promoted-shade" /><div className="promoted-copy"><span>{template.region} · {template.duration}</span><h2>{template.title}</h2><p>{template.summary}</p><div><button onClick={() => onPreview(template)}>{en ? 'View itinerary' : copy("일정 자세히 보기")}</button><small>{template.places.length}{copy("개 장소 · 먼저 보고 담기")}</small></div></div></article>)}</div></section>}
++
++    {templates.length > 0 && <section className="home-section"><div className="home-section-heading"><div><small>SPOTLOG CURATION</small><h2>{en ? 'Featured itineraries' : copy("가볍게 시작하는 여행")}</h2><p>{en ? 'Explore selected itineraries and make them your own.' : copy("에디터가 고른 일정을 읽어보고 내 여행에 담으세요")}</p></div><RollingControls label={copy("추천 일정")} count={templates.length} activeIndex={recommendationRolling.activeIndex} onChange={recommendationRolling.goTo} /></div><div className="promoted-track" ref={recommendationRolling.trackRef} onScroll={recommendationRolling.syncIndex}>{templates.map((template) => <article className="promoted-trip" key={template.id}><img src={template.cover} alt="" /><div className="promoted-shade" /><div className="promoted-copy"><span>{template.region} · {template.duration}</span><h2>{template.title}</h2><p>{template.summary}</p><div><button onClick={() => onPreview(template)}>{en ? 'View itinerary' : copy("일정 자세히 보기")}</button><small>{template.places.length}{copy("개 장소 · 먼저 보고 담기")}</small></div></div></article>)}</div></section>}
+ 
+     {publicGuides.length > 0 && <section className="home-section"><div className="home-section-heading"><div><small>TRAVELER'S GUIDE</small><h2>{en ? 'Travelers’ journals' : copy("여행자들이 만든 일정")}</h2><p>{en ? 'Read travel stories and save ideas for your trip.' : copy("실제 여행 기록을 읽고 내 일정으로 가져오세요")}</p></div><RollingControls label={copy("여행자 일정")} count={publicGuides.length} activeIndex={guideRolling.activeIndex} onChange={guideRolling.goTo} /></div><div className="home-guide-list" ref={guideRolling.trackRef} onScroll={guideRolling.syncIndex}>{publicGuides.map((journey) => <article className="home-guide-card" key={journey.id}><button className="home-guide-cover" onClick={() => onOpen(journey.id)}><img src={journey.cover} alt="" /><span>{journey.region}<br />{journey.duration}</span></button><div className="home-guide-copy"><div className="home-guide-author">{journey.publicSourceKind === 'EDITORIAL' ? <span className="creator-tier-badge compact">{copy("운영 추천 여행기")}</span> : <CreatorBadge copyCount={authorCopyCount(journey.author)} compact />}<small>{journey.author} · {journeyPlaceCount(journey)}{copy("곳")}</small></div><h3>{journey.title}</h3><p>{journey.summary}</p><div className="home-guide-actions"><button onClick={() => onOpen(journey.id)}>{en ? 'Read journal' : copy("여행기 먼저 보기")}</button></div></div></article>)}</div></section>}
+ 
+       <section className="home-shortcuts"><button type="button" onClick={onGoCommunity}><BookOpen size={20}/><span><strong>여행기 더 보기</strong><small>지역·기간으로 공개 여행기 찾기</small></span><ChevronRight size={17}/></button><button type="button" onClick={onGoTrips}><MapIcon size={20}/><span><strong>내 여행</strong><small>작성한 일정 이어보기</small></span><ChevronRight size={17}/></button></section>
+-    </section>
++      {!templates.length && !publicGuides.length && <div className="home-hub-empty"><Route size={24}/><strong>조건에 맞는 공개 일정이 없어요</strong><p>저장한 장소로 직접 일정을 만들 수도 있어요.</p><button type="button" onClick={onAiTravel}>여행 초안 만들기</button></div>}
++      </div>}
++    </div>
++    {regionOpen && <BottomSheet title="보고 싶은 지역" description="장소와 공개 모임을 같은 지역으로 둘러봐요." onClose={() => setRegionOpen(false)}><div className="home-region-grid">{['', ...regions].map(item => <button type="button" key={item || 'ALL'} aria-pressed={region === item} onClick={() => changeRegion(item)}>{item || '전체 지역'}{region === item && <Check size={16}/>}</button>)}</div></BottomSheet>}
+     {detailPlace && <SavedLandmarkDetailSheet place={detailPlace} onClose={() => setDetailPlaceId(null)}/>}
+   </div>;
+ }
+@@ -1313,7 +1326,7 @@
+   const authorCopyCount = (author: string) => publicGuides.filter((journey) => journey.author === author).reduce((sum, journey) => sum + journey.saves, 0);
+ 
+   return <div className="page community-page">
+-    <AppHeader title={copy("여행기")} subtitle="여행자 기록과 AI 추천 여행" action={<span className="community-header-icon"><Globe2 size={20} /></span>} />
++    <p className="browse-intro">여행자들의 기록을 보고 내 여행에 담아보세요.</p>
+     <div className="duration-chips" role="group" aria-label={copy("여행기 종류")}><button className={!aiCategory ? 'active' : ''} aria-pressed={!aiCategory} onClick={() => onFiltersChange({ ...filters, category: 'TRAVELER' })}>{copy("여행자 여행기")}</button><button className={aiCategory ? 'active' : ''} aria-pressed={aiCategory} onClick={() => onFiltersChange({ ...filters, category: 'AI' })}>{copy("AI 추천 여행")}</button></div>
+     <section className="community-intro"><small>{aiCategory ? 'AI TRAVEL PICKS' : "TRAVELER'S STORIES"}</small><h2>{copy("먼저 읽어보고,")}<br />{copy("마음에 들면 내 여행에 담으세요.")}</h2><p>{aiCategory ? copy("공식 관광 자료와 이용 가능한 사진으로 구성한 추천 샘플입니다. 실제 방문 후기나 외부 AI의 실시간 생성 결과가 아닙니다.") : copy("지역과 여행 기간별 샘플 여행기를 살펴볼 수 있습니다. 조회·담김 수와 반응은 시연용이며 실제 사용자 집계가 아닙니다.")}</p></section>
+     <section className="community-search" aria-labelledby="community-search-title">
+@@ -1345,12 +1358,16 @@
+ const domesticRegionOrder = ['서울', '경기', '인천', '강원', '충북', '충남', '대전', '세종', '전북', '전남', '광주', '경북', '경남', '대구', '울산', '부산', '제주'];
+ const PLACE_LIST_PAGE_SIZE = 3;
+ 
+-function Discover({ view, onViewChange, guideKind, onKindChange, savedIds, onToggle, onShare }: { view: PlaceView; onViewChange: (view: PlaceView) => void; guideKind: BrowsePlaceKind; onKindChange: (kind: BrowsePlaceKind) => void; savedIds: string[]; onToggle: (id: string) => void; onShare: (place: Place) => void }) {
++function Discover({ view, onViewChange, guideKind, search, onResetSearch, onSearchChange, onKindChange, savedIds, onToggle, onShare }: { view: PlaceView; onViewChange: (view: PlaceView) => void; search: { region: string; query: string }; onResetSearch: () => void; onSearchChange: (search: { region: string; query: string }) => void; guideKind: BrowsePlaceKind; onKindChange: (kind: BrowsePlaceKind) => void; savedIds: string[]; onToggle: (id: string) => void; onShare: (place: Place) => void }) {
+   const copy=useUiCopy();
+   const { locale } = useLocale();
+   const { catalog: placeCatalog, state: reviewState, now } = usePublicReview();
+-  const [query, setQuery] = useState('');
+-  const [selectedRegion, setSelectedRegion] = useState('');
++  const { query } = search;
++  // Full-screen photo/video filters stay local and never replace a sheet history entry.
++  const [mediaRegion, setMediaRegion] = useState('');
++  const selectedRegion = view === 'GUIDE' ? search.region : mediaRegion;
++  const setQuery = (query: string) => onSearchChange({ ...search, query });
++  const setSelectedRegion = (region: string) => view === 'GUIDE' ? onSearchChange({ ...search, region }) : setMediaRegion(region);
+   const [regionOpen, setRegionOpen] = useState(false);
+   const regionTriggerRef = useRef<HTMLButtonElement | null>(null);
+   const openRegion = (trigger: HTMLButtonElement) => { regionTriggerRef.current = trigger; setRegionOpen(true); };
+@@ -1372,7 +1389,7 @@
+   // All regions stay available in a compact horizontal strip.
+   const [visiblePlaceCount, setVisiblePlaceCount] = useState(PLACE_LIST_PAGE_SIZE);
+   const placeLoadSentinelRef = useRef<HTMLDivElement>(null);
+-  const landmarkRegion = (place: Place) => reviewState.references.find(r => r.category === 'REGION' && r.referenceId === (place as PublicPlaceProjection).regionId)?.name ?? (place.area.split(' ')[0] || '기타');
++  const landmarkRegion = (place: Place) => publicPlaceRegion(place, reviewState.references);
+   const guideCatalog = useMemo(() => reviewExposureOrder(placeCatalog, 'REGION_GUIDE', reviewState,now)
+     .sort((a, b) => domesticRegionOrder.indexOf(landmarkRegion(a)) - domesticRegionOrder.indexOf(landmarkRegion(b))), [placeCatalog, reviewState,now]);
+   const guideLandmarks = useMemo(() => guideCatalog.filter(place => place.kind === 'LANDMARK'), [guideCatalog]);
+@@ -1387,11 +1404,8 @@
+   const mediaRegions = regionOrder.map((region) => ({ region, count: mediaPlaces.filter((place) => landmarkRegion(place) === region).length }))
+     .filter((group) => group.count > 0 || group.region === selectedRegion);
+   const videoPlaces = reviewExposureOrder(placeCatalog, 'DISCOVERY_VIDEO', reviewState,now).filter(place => (place.video || place.motionImages?.length) && (!selectedRegion || landmarkRegion(place) === selectedRegion));
+-  const kindCountPlaces = guideCatalog.filter(place => (!selectedRegion || landmarkRegion(place) === selectedRegion) && matchesDestination(query, [place.area, place.name, place.hook, place.description, place.note, ...(place.tags ?? [])]));
+-  const visiblePlaces = guidePlaces.filter((place) => {
+-    const matchesRegion = !selectedRegion || landmarkRegion(place) === selectedRegion;
+-    return matchesRegion && matchesDestination(query, [place.area, place.name, place.hook, place.description, place.note, ...(place.tags ?? [])]);
+-  });
++  const kindCountPlaces = filterHomePlaces(guideCatalog, { region: selectedRegion, query }, reviewState.references);
++  const visiblePlaces = filterHomePlaces(guideCatalog, { region: selectedRegion, query, kind: guideKind }, reviewState.references);
+   const resultTitle = query.trim()
+     ? `'${query.trim()}' 검색 결과`
+     : `${selectedRegion || "국내"} ${guideKind === "ALL" ? "장소" : placeKindLabel[guideKind]}`;
+@@ -1415,9 +1429,9 @@
+   }, [hasActiveResults, hasMorePlaces, visiblePlaces.length, displayedPlaces.length, view]);
+ 
+   return <div className={`place-discover ${view === 'VIDEO' ? 'is-video' : view === 'PHOTO' ? 'is-photo' : 'is-guide'}`}>
+-    <header className="place-discover-header"><div><strong>spotlog</strong><span>{savedIds.length}{copy("개 장소 저장")}</span></div><PlaceViewToggle view={view} onChange={onViewChange} /></header>
++    {view !== 'GUIDE' && <header className="place-discover-header"><div><strong>spotlog</strong><span>{savedIds.length}{copy("개 장소 저장")}</span></div><PlaceViewToggle view={view} onChange={onViewChange} /></header>}
+     {view === 'VIDEO' ? <div className="feed" key={selectedRegion}>{videoPlaces.length ? videoPlaces.map((place) => <FeedCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} region={selectedRegion} onChooseRegion={openRegion} />) : <div className="photo-reel-empty video-reel-empty"><Clapperboard size={28} /><h2>{selectedRegion}{' '}{copy("영상을 준비하고 있어요")}</h2><p>{copy("다른 지역의 장소 영상을 먼저 살펴보세요.")}</p><button type="button" className="photo-region-button" onClick={(event) => openRegion(event.currentTarget)}><MapPin size={16} />{copy("지역 선택")}</button></div>}</div> : view === 'PHOTO' ? <PhotoLandmarkFeed places={photoPlaces.filter((place) => !selectedRegion || landmarkRegion(place) === selectedRegion)} savedIds={savedIds} onToggle={onToggle} onShare={onShare} region={selectedRegion} onChooseRegion={openRegion} /> : <div className="place-guide-content">
+-      <section className="place-guide-lead"><small>PLACES TO DISCOVER</small><h1>{locale === 'en' ? 'Find your next place' : '가고 싶은 장소 찾기'}</h1><p>{locale === 'en' ? 'Choose a region or search, then save places for your trip.' : '랜드마크·음식점·카페·숙소를 골라 한 곳씩 저장하세요.'}</p></section>
++      <div className="browse-view-toolbar"><span>{selectedRegion || '전체 지역'} · {savedIds.length}곳 저장</span><PlaceViewToggle view={view} onChange={onViewChange}/></div>
+       <section className="place-guide-search"><label className="destination-search"><Search size={19} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={copy("지역이나 장소 이름을 검색하세요")} aria-label={copy("장소 지역 검색")} />{query && <button type="button" onClick={() => setQuery('')} aria-label={copy("검색 지우기")}>{copy("지우기")}</button>}</label></section>
+       <div className="place-kind-filter" role="group" aria-label="장소 종류">{browsePlaceKinds.map(kind => {
+         const count = kind === 'ALL' ? kindCountPlaces.length : kindCountPlaces.filter(place => place.kind === kind).length;
+@@ -1425,13 +1439,12 @@
+         return <button key={kind} type="button" aria-label={`${label} ${count}곳`} aria-pressed={guideKind === kind} className={guideKind === kind ? 'active' : ''} onClick={() => onKindChange(kind)}>{label}<span>{count}</span></button>;
+       })}</div>
+       <section className="region-directory" aria-label={copy("지역별 장소")}>
+-        <div className="region-directory-heading"><div><small>REGION DIRECTORY</small><h2>{copy("지역별로 둘러보기")}</h2></div><span>{regionGroups.length}{copy("개 지역 ·")}{' '}{guidePlaces.length}{copy("곳")}</span></div>
+         <div className="region-count-grid phase-region-strip">
+           <button type="button" className={!selectedRegion ? 'active' : ''} onClick={() => chooseRegion('')} aria-pressed={!selectedRegion}><strong>{copy("전체")}</strong><small>{guidePlaces.length}</small></button>
+           {displayedRegionGroups.map(({ region, places }) => <button type="button" key={region} className={selectedRegion === region ? 'active' : ''} onClick={() => chooseRegion(region)} aria-pressed={selectedRegion === region}><strong>{region}</strong><small>{places.length}</small></button>)}
+         </div>
+       </section>
+-      <section className="place-guide-results"><div className="place-guide-heading"><div><small>PLACES TO SAVE</small><h2>{hasActiveResults ? resultTitle : copy("지역을 골라 장소 보기")}</h2></div><span>{hasActiveResults ? `${visiblePlaces.length}곳` : copy("지역별로 나눠보기")}</span></div>{!hasActiveResults ? <div className="region-result-empty"><MapPin size={23} /><div><strong>{copy("위에서 지역을 선택하세요")}</strong><p>{copy("선택한 지역의 장소를 3곳씩 불러오며, 아래로 스크롤하면 다음 장소가 자동으로 이어집니다.")}</p></div></div> : visiblePlaces.length ? <><div className="landmark-guide-list">{displayedPlaces.map((place) => <LandmarkGuideCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} />)}</div>{hasMorePlaces ? <div ref={placeLoadSentinelRef} className="place-load-sentinel" aria-live="polite"><span className="place-load-indicator" aria-hidden="true"><i /><i /><i /></span><div><strong>{copy("아래로 스크롤하면 다음")}{' '}{Math.min(PLACE_LIST_PAGE_SIZE, visiblePlaces.length - displayedPlaces.length)}{copy("곳을 불러옵니다")}</strong><small>{displayedPlaces.length} / {visiblePlaces.length}{copy("곳 표시 중")}</small></div></div> : visiblePlaces.length > PLACE_LIST_PAGE_SIZE && <div className="place-list-end"><Check size={15} />{visiblePlaces.length}{copy("곳을 모두 불러왔습니다")}</div>}</> : <div className="community-empty"><MapPin size={27} /><h2>{copy("아직 준비된 장소가 없어요")}</h2><p>{copy("다른 지역이나 장소 종류로 찾아보세요.")}</p><button onClick={() => { setQuery(''); setSelectedRegion(''); onKindChange('ALL'); }}>{copy("전체 장소 보기")}</button></div>}</section>
++      <section className="place-guide-results"><div className="place-guide-heading"><div><h2>{hasActiveResults ? resultTitle : copy("지역을 골라 장소 보기")}</h2></div><span>{hasActiveResults ? `${visiblePlaces.length}곳` : copy("지역별로 나눠보기")}</span></div>{!hasActiveResults ? <div className="region-result-empty"><MapPin size={23} /><div><strong>{copy("위에서 지역을 선택하세요")}</strong><p>{copy("선택한 지역의 장소를 3곳씩 불러오며, 아래로 스크롤하면 다음 장소가 자동으로 이어집니다.")}</p></div></div> : visiblePlaces.length ? <><div className="landmark-guide-list">{displayedPlaces.map((place) => <LandmarkGuideCard key={place.id} place={place} saved={savedIds.includes(place.id)} onToggle={() => onToggle(place.id)} onShare={() => onShare(place)} />)}</div>{hasMorePlaces ? <div ref={placeLoadSentinelRef} className="place-load-sentinel" aria-live="polite"><span className="place-load-indicator" aria-hidden="true"><i /><i /><i /></span><div><strong>{copy("아래로 스크롤하면 다음")}{' '}{Math.min(PLACE_LIST_PAGE_SIZE, visiblePlaces.length - displayedPlaces.length)}{copy("곳을 불러옵니다")}</strong><small>{displayedPlaces.length} / {visiblePlaces.length}{copy("곳 표시 중")}</small></div></div> : visiblePlaces.length > PLACE_LIST_PAGE_SIZE && <div className="place-list-end"><Check size={15} />{visiblePlaces.length}{copy("곳을 모두 불러왔습니다")}</div>}</> : <div className="community-empty"><MapPin size={27} /><h2>{copy("아직 준비된 장소가 없어요")}</h2><p>{copy("다른 지역이나 장소 종류로 찾아보세요.")}</p><button onClick={onResetSearch}>{copy("전체 장소 보기")}</button></div>}</section>
+     </div>}
+     {regionOpen && <BottomSheet title={copy("어느 지역을 볼까요?")} description={copy("지역을 고르면 해당 지역의 장소가 이어집니다.")} onClose={() => setRegionOpen(false)}>
+       <div className="photo-region-options" aria-label={copy("탐색 지역")}>
+@@ -1519,9 +1532,9 @@
+   const ready = plans.filter(journey=>journey.planStage!=='DRAFT'), drafts = plans.filter(journey=>journey.planStage==='DRAFT');
+   return <div className="page trips-page">
+     <AppHeader title="내 여행" subtitle={view==='plans'?'장소를 이어 만든 나의 여행 일정':'따로 작성하고 보관하는 여행 이야기'} action={<button className="header-action solid" onClick={onCreate} aria-label="새 여행"><Plus size={20}/></button>}/>
++    <ScreenTabs label="내 여행과 여행기" items={[{id:'plans',label:<>내 여행<small>{plans.length}</small></>,tabId:'trip-plans-tab',panelId:'trip-library-panel'},{id:'journals',label:<>내 여행기<small>{journals.length}</small></>,tabId:'trip-journals-tab',panelId:'trip-library-panel'}]} value={view} onChange={value=>setView(value as 'plans'|'journals')}/>
+     <p className="device-record-note">이 기기에 보관한 기록이에요. {account?.session.state === 'SIGNED_IN' ? '계정 동기화는 서버 연결 후 제공해요.' : '로그인하지 않아도 초안을 만들 수 있어요. 계정 저장·공개에는 로그인이 필요해요.'}</p>
+     {!online && <p className="trip-offline-library" role="status">오프라인이에요. ‘오프라인 저장됨’ 여행은 저장한 사진도 볼 수 있어요. 새 정보와 길찾기는 인터넷 연결이 필요해요.</p>}
+-    <div className="trip-library-tabs" role="tablist" aria-label="내 여행과 여행기"><button role="tab" id="trip-plans-tab" aria-controls="trip-library-panel" aria-selected={view==='plans'} onClick={()=>setView('plans')}>내 여행<small>{plans.length}</small></button><button role="tab" id="trip-journals-tab" aria-controls="trip-library-panel" aria-selected={view==='journals'} onClick={()=>setView('journals')}>내 여행기<small>{journals.length}</small></button></div>
+     <div role="tabpanel" id="trip-library-panel" aria-labelledby={view==='plans'?'trip-plans-tab':'trip-journals-tab'}>
+       {view==='plans'?<>
+         {drafts.length>0&&<JourneySection title="여행 준비 중" description="후보를 담고 마지막에 한 곳씩 골라요" journeys={drafts} onOpen={onOpen} onShare={onShare} onDelete={onDelete}/>}
+@@ -1768,7 +1781,7 @@
+   const setPublishing = (status: Journey['status']) => setDraft((current) => ({ ...current, status, visibility: status === 'PUBLISHED' ? 'PUBLIC' : 'PRIVATE' }));
+ 
+   return <div className="journey-editor">
+-    <header className="editor-topbar"><button onClick={leaveEditor} aria-label={copy("작성 중 내용을 남기고 뒤로")}><ArrowLeft size={20} /></button><div><small>{draft.sourceAuthor ? `${draft.sourceAuthor}의 가이드에서 복사됨` : 'TRAVEL JOURNAL EDITOR'}</small><strong>{copy("여행기 작성")}</strong></div><button className="save-editor" onClick={()=>setPreviewing(true)}>{copy("미리보기")}</button></header>
++    <ScreenHeader variant="editor" title={copy("여행기 작성")} context={draft.sourceAuthor ? `${draft.sourceAuthor}의 가이드에서 복사됨` : undefined} leading={<button type="button" onClick={leaveEditor} aria-label={copy("작성 중 내용을 남기고 뒤로")}><ArrowLeft size={20}/></button>} actions={<button type="button" className="screen-header__text-action screen-header__primary-action" onClick={()=>setPreviewing(true)}>{copy("미리보기")}</button>}/>
+     <div className="journal-draft-status"><span role="status">{draftStatus||copy("내 여행과 별도로 작성하는 여행기예요.")}</span><div><button disabled={!history.current.length} onClick={()=>{const previous=history.current.pop();if(previous){future.current.push(draftRef.current);persistDraft(previous);}}}>{copy("되돌리기")}</button><button disabled={!future.current.length} onClick={()=>{const next=future.current.pop();if(next){history.current.push(draftRef.current);persistDraft(next);}}}>{copy("다시 실행")}</button></div>{draftError&&<p role="alert">{draftError}<button onClick={()=>persistDraft(draftRef.current)}>{copy("다시 저장")}</button></p>}</div>
+     <section className="editor-cover"><img src={draft.cover} alt="" /><div /><span>{draft.region}</span><p>{copy("표지 사진")}</p></section><PhotoCredit image={draft.cover} />
+     <section className="editor-basics">
+@@ -1949,7 +1962,7 @@
+   };
+ 
+   if (!member) return <div className="page profile-page guest-profile-page">
+-    <header className="profile-topbar"><button onClick={onBack} aria-label="홈으로 돌아가기"><ArrowLeft size={21} /></button><div><small>Spotlog</small><h1>내 계정</h1></div></header>
++    <ScreenHeader variant="detail" title="내 계정" leading={<button type="button" onClick={onBack} aria-label="홈으로 돌아가기"><ArrowLeft size={21}/></button>}/>
+     <section className="guest-profile-card">
+       <CircleUserRound size={44} aria-hidden="true" />
+       <h2>{account.status === 'CHECKING' ? '계정을 확인하고 있어요' : '로그인하고 여행을 이어가세요'}</h2>
+@@ -1964,7 +1977,7 @@
+     {privacyOpen && <PrivacySheet onClose={() => setPrivacyOpen(false)} />}
+   </div>;
+ 
+-  return <div className="page profile-page"><header className="profile-topbar"><button onClick={onBack} aria-label={copy("홈으로 돌아가기")}><ArrowLeft size={21} /></button><div><small>{account.adapter.reviewAccount ? '검수 계정 로그인됨' : '로그인됨'}</small><h1>내 계정</h1></div></header>
++  return <div className="page profile-page"><ScreenHeader variant="detail" title="내 계정" context={account.adapter.reviewAccount ? '검수 계정 로그인됨' : '로그인됨'} leading={<button type="button" onClick={onBack} aria-label={copy("홈으로 돌아가기")}><ArrowLeft size={21}/></button>}/>
+     <section className="member-account-card"><CircleUserRound size={36} aria-hidden="true" /><div><h2>{member.displayName}</h2><p>{accountProviderName(member.provider)} 계정 · {member.email ?? '이메일 미제공'}</p>{account.adapter.reviewAccount && <p>로컬 화면 검수용 · 실제 서비스 회원 아님</p>}</div><Button variant="secondary" onClick={() => account.openAccount('manage')}>계정 관리 · 로그아웃</Button></section>
+     <section className="guest-device-card"><h2>이 기기에 보관한 여행</h2><p>기기 기록은 그대로 유지돼요. 계정 동기화·실제 활동 통계는 서버 연결 후 제공해요.</p><Button variant="secondary" onClick={onDeviceTrips}>기기 기록 보기</Button></section>
+     <details className="device-profile-preview" ref={devicePreview}><summary>기기 프로필 · 활동 미리보기</summary><p className="device-record-note">아래 이름·아이콘·등급·통계·알림은 기기 검수 자료예요. 로그인 계정의 프로필이나 실제 서버 집계와 연결되지 않았어요.</p>
+@@ -1994,5 +2007,5 @@
+ }
+ 
+ function AppHeader({ title, subtitle, action }: { title: string; subtitle: string; action?: React.ReactNode }) {
+-  return <header className="app-header"><div><small>{subtitle}</small><h1>{title}</h1></div><div className="app-header-actions">{action}<AppMenuButton/></div></header>;
+-}
++  return <ScreenHeader title={title} actions={<>{action}<AppMenuButton/></>} />;
++}
+--- artifacts\home-shell-benchmark-20261102\root-before\consumer-density.css
++++ web\src\consumer-density.css
+@@ -8,6 +8,7 @@
+   --consumer-meta-line: 16px;
+   --consumer-gap: 8px;
+   --consumer-touch: 44px;
++  --screen-header-height: 64px;
+   font-family: var(--consumer-font);
+   font-size: var(--consumer-body);
+   line-height: 20px;
+@@ -114,3 +115,19 @@
+ /* Brand/photographic covers and photo credits retain their separate roles. */
+ body.spotlog-consumer .app-shell .promoted-copy h2 { font-size:22px; line-height:28px; font-weight:600; }
+ body.spotlog-consumer :is(.app-shell,.phase-sheet) .public-photo-credit-button { font-size:11px; line-height:16px; }
++
++/* Header and the editor DAY row share one measured design token. */
++body.spotlog-consumer .app-shell .editor-day-tabs,
++body.spotlog-consumer .app-shell .journey-editor > .day-tabs { top:calc(var(--screen-header-height) + env(safe-area-inset-top,0px)); }
++body.spotlog-consumer .app-shell :is(.saved-page,.profile-page) > .screen-header + * { margin-top:16px; }
++
++/* Search and filters use the same roles as the home; no nested input card. */
++body.spotlog-consumer .app-shell .place-guide-search { padding:0; margin:0 0 12px; border:0; border-radius:0; background:transparent; box-shadow:none; }
++body.spotlog-consumer .app-shell .place-guide-search .destination-search { min-height:46px; margin:0; padding:0 12px; border:1px solid var(--line); border-radius:12px; background:white; }
++body.spotlog-consumer .app-shell .place-guide-search input { min-height:44px; padding:8px 0; }
++body.spotlog-consumer .app-shell .place-kind-filter { flex-wrap:nowrap; gap:8px; overflow-x:auto; overscroll-behavior-x:contain; margin:0 -16px 12px; padding:0 16px 4px; scroll-padding-inline:16px; scrollbar-width:none; }
++body.spotlog-consumer .app-shell .place-kind-filter button { border-radius:12px; font-size:14px; line-height:20px; }
++body.spotlog-consumer .app-shell .place-discover.is-guide .region-directory { margin-top:0; }
++body.spotlog-consumer .app-shell .region-count-grid.phase-region-strip { scrollbar-width:none; }
++body.spotlog-consumer .app-shell .place-guide-results { margin-top:20px; }
++body.spotlog-consumer .app-shell .browse-view-toolbar { min-height:60px; }
+--- artifacts\home-shell-benchmark-20261102\root-before\GroupDiscovery.tsx
++++ web\src\together\GroupDiscovery.tsx
+@@ -13,7 +13,7 @@
+ }
+ export interface GroupDiscoveryProps {
+   state: TogetherState; viewerId: string; onOpenGroup: (id: string, activityId?: string) => void; onCreate: () => void;
+-  initialFilters?: GroupDiscoveryFilters; onFiltersChange?: (filters: GroupDiscoveryFilters) => void;
++  showCreate?: boolean; initialFilters?: GroupDiscoveryFilters; onFiltersChange?: (filters: GroupDiscoveryFilters) => void;
+ }
+ const normalized = (filters?: GroupDiscoveryFilters): GroupDiscoveryFilters => ({
+   region: filters?.region || '', district: filters?.district || '', topic: filters?.topic,
+@@ -69,7 +69,7 @@
+   </button>;
+ }
+ 
+-export default function GroupDiscovery({ state, viewerId, onOpenGroup, onCreate, initialFilters, onFiltersChange }: GroupDiscoveryProps) {
++export default function GroupDiscovery({ state, viewerId, onOpenGroup, onCreate, showCreate = true, initialFilters, onFiltersChange }: GroupDiscoveryProps) {
+   const [filters, setFilters] = useState<GroupDiscoveryFilters>(() => normalized(initialFilters));
+   const sort = filters.sort || 'SOONEST';
+   const [showSearch, setShowSearch] = useState(Boolean(initialFilters?.query));
+@@ -91,7 +91,7 @@
+   const activeFilters = Boolean(filters.region || filters.district || filters.topic || filters.query || filters.dateFilter !== 'ALL');
+   const meetupMode = filters.view === 'MEETUPS';
+   return <div className="gd gd-discovery">
+-    <div className="gd-view-tabs" aria-label="찾을 내용"><button className={!meetupMode ? 'is-active' : ''} aria-pressed={!meetupMode} onClick={() => update({ view: 'GROUPS' })}>모임</button><button className={meetupMode ? 'is-active' : ''} aria-pressed={meetupMode} onClick={() => update({ view: 'MEETUPS' })}><CalendarDays size={16} />번개·정모</button><button className="gd-mode-create" aria-label="모임 만들기" onClick={onCreate}><Plus size={19} /></button></div>
++    <div className="gd-view-tabs" aria-label="찾을 내용"><button className={!meetupMode ? 'is-active' : ''} aria-pressed={!meetupMode} onClick={() => update({ view: 'GROUPS' })}>모임</button><button className={meetupMode ? 'is-active' : ''} aria-pressed={meetupMode} onClick={() => update({ view: 'MEETUPS' })}><CalendarDays size={16} />번개·정모</button>{showCreate && <button className="gd-mode-create" aria-label="모임 만들기" onClick={onCreate}><Plus size={19} /></button>}</div>
+     <div className="gd-location-select"><MapPin size={18} /><label><span className="gd-sr-only">지역</span><select aria-label="모임 지역" value={filters.region || ''} onChange={event => update({ region: event.target.value, district: '' })}><option value="">전체 지역</option>{regions.map(region => <option key={region}>{region}</option>)}</select></label><span className="gd-select-divider" /><label><span className="gd-sr-only">동네</span><select aria-label="동네" value={filters.district || ''} onChange={event => update({ district: event.target.value })}><option value="">전체 동네</option>{districts.map(district => <option key={district}>{district}</option>)}</select></label></div>
+     <CategoryGrid selected={filters.topic} onChoose={topic => update({ topic: filters.topic === topic ? undefined : topic })} extra={<div className="gd-category-extra"><button className={filters.dateFilter !== 'ALL' ? 'has-filter' : ''} onClick={() => setShowDates(value => !value)} aria-expanded={showDates}><CalendarDays size={15} />{dateOptions.find(item => item.id === filters.dateFilter && item.id !== 'ALL')?.label || '날짜 선택'}<ChevronDown className={showDates ? 'is-open' : ''} size={15} /></button><button className="gd-search-toggle" aria-label={showSearch ? '검색창 접기' : '검색창 열기'} aria-expanded={showSearch} onClick={() => setShowSearch(value => !value)}><Search size={18} /></button></div>} />
+     {showDates && <div className="gd-date-filters" aria-label="모임 일정 날짜">{dateOptions.map(date => <button key={date.id} className={filters.dateFilter === date.id ? 'is-active' : ''} onClick={() => update({ dateFilter: date.id })} aria-pressed={filters.dateFilter === date.id}>{date.label}</button>)}</div>}
+--- artifacts\shared-screen-header-20261102\together-before\TogetherApp.tsx
++++ web\src\together\TogetherApp.tsx
+@@ -3,6 +3,7 @@
+ import type { Journey, Place } from '../data';
+ import { BottomSheet } from '../BottomSheet';
+ import { AppMenuButton } from '../AppMenu';
++import { ScreenHeader, ScreenTabs } from '../ScreenHeader';
+ import { getPlacePhotos } from '../PhotoPlaceCard';
+ import { PhotoCredit } from '../PublicTourismCredit';
+ import { naverDirectionsUrl } from '../placeDirections';
+@@ -133,8 +134,8 @@
+   const unread = (id: string) => { const cursor = state.readCursors[id]; return state.messages.filter(message => message.roomId === id && message.authorId !== uid && !message.deleted && (!cursor || message.createdAt > cursor)).length; };
+   const openTaskSource = (id: string) => { const source = state.messages.find(item => item.id === id); if (!source) return setToast('원문 메시지를 찾을 수 없어요.'); pendingSourceJump.current = id; nav(source.roomId.startsWith('activity:') ? `activitychat-${source.roomId.slice(9)}` : `groupchat-${source.roomId.slice(6)}`); };
+   const report = (type: string, id: string) => { if (requireUser()) open('report', { targetType: type, targetId: id }); };
+-  const header = (title: string, subtitle: string, back: string, actions?: ReactNode) => <header className="tg-bar"><button className="tg-icon" aria-label="뒤로" onClick={() => onBack ? onBack(back) : nav(back)}><ArrowLeft size={20} /></button><div><small>{subtitle}</small><strong role="heading" aria-level={1}>{title}</strong></div>{actions}</header>;
+-  const tabs = (items: [string, string][], value: string, change: (value: string) => void) => <div className="tg-tabs" role="tablist">{items.map(([id, label]) => <button key={id} role="tab" aria-selected={id === value} onClick={() => change(id)}>{label}</button>)}</div>;
++  const header = (title: string, subtitle: string, back: string, actions?: ReactNode) => <ScreenHeader variant="detail" title={title} context={subtitle} leading={<button type="button" aria-label="뒤로" onClick={() => onBack ? onBack(back) : nav(back)}><ArrowLeft size={20} /></button>} actions={actions} />;
++  const tabs = (items: [string, string][], value: string, change: (value: string) => void) => <ScreenTabs label="화면 내용" items={items.map(([id, label]) => ({ id, label }))} value={value} onChange={change} />;
+   const activityCard = (item: TogetherActivity, withGroup = false) => <button key={item.id} className="tg-activity" onClick={() => nav(`activity-${item.id}`)}><span className="tg-date">{item.date ? <><small>{Number(item.date.slice(5, 7))}월</small>{Number(item.date.slice(8, 10))}</> : <CalendarDays size={23} />}</span><div>{withGroup && <small>{state.groups.find(value => value.id === item.groupId)?.name}</small>}<span className="tg-tag">{activityKind(item) === 'TRIP' ? '함께 가는 여행' : '번개·정모'}</span><h3>{item.title}</h3><small>{activityWhen(item)}</small><small>참석 {countGroupParticipants(state, item.id)}{item.capacity ? `/${item.capacity}` : ''}명{item.meetingPoint ? ` · ${item.meetingPoint}` : ''}</small>{item.status === 'CANCELLED' && <span className="tg-tag coral">취소</span>}{item.status === 'COMPLETED' && <span className="tg-tag green">완료</span>}</div><ChevronRight size={18} /></button>;
+   const gallery = (activityOnly: boolean) => {
+     const media = state.media.filter(item => item.groupId === group?.id && (!activityOnly || item.activityId === activity?.id));
+@@ -146,7 +147,7 @@
+     return <div className="tg-stack"><div className="tg-section"><h2>{activityOnly ? '함께 남긴 기록' : '모임 게시판'}</h2>{member && !group?.archived && <button onClick={() => open('post', { category: activityOnly ? 'REVIEW' : 'FREE' })}><Plus size={16} />글쓰기</button>}</div>{journals.map(item => <article className="tg-card" key={item.id}><small>공유 여행기 · {memberName(state, item.authorId)}</small><h3>{item.journey.title}</h3><p>{item.journey.summary}</p><details><summary>여행기 내용 보기</summary><div className="tg-stack">{item.journey.story && <p>{item.journey.story}</p>}{item.journey.days.map(day => <section className="tg-stack" key={day.dayId || day.day}><h3>DAY {day.day} · {day.title}</h3>{day.story && <p>{day.story}</p>}{day.blocks.filter(block => block.type !== 'PLACE').map(block => <div key={block.id}>{block.heading && <h3>{block.heading}</h3>}{block.body && <p>{block.body}</p>}{block.image && <><img className="tg-journal-image" src={block.image} alt={block.caption || ''} /><PhotoCredit image={block.image} /></>}{block.images?.map(image => <figure key={image.id}><img className="tg-journal-image" src={image.image} alt={image.caption || ''} /><figcaption>{image.caption}</figcaption><PhotoCredit image={image.image} /></figure>)}</div>)}</section>)}</div></details><details><summary>공유된 동선 보기</summary><div className="tg-stack">{item.journey.days.map(day => <div key={day.dayId || day.day}><h3>DAY {day.day}</h3>{day.places.map(place => <PlaceRow key={place.visitId || place.id} place={place} onSave={onSavePlace} />)}</div>)}</div></details><div className="tg-row"><button onClick={() => onCopyJourney(item.journey)}>내 여행으로 만들기</button>{(item.authorId === uid || manager) && <button className="tg-text-button" onClick={() => mutate(draft => { draft.sharedJournals = draft.sharedJournals.filter(value => value.id !== item.id); }, '모임 공유를 해제했어요.')}>공유 해제</button>}</div></article>)}{!posts.length && !journals.length && <Empty title="첫 이야기를 남겨보세요">질문이나 모임 후기, 함께 볼 내용을 나눌 수 있어요.</Empty>}{posts.map(post => <article className="tg-post" key={post.id}><div className="tg-between"><small>{memberName(state, post.authorId)} · {post.category === 'REVIEW' ? '후기' : post.category === 'QUESTION' ? '질문' : post.category === 'NOTICE' ? '공지' : '자유글'}</small>{post.authorId !== uid && <button className="tg-text-button" onClick={() => report('POST', post.id)}><Flag size={14} />신고</button>}</div><h3>{post.title}</h3><p>{post.body}</p><button className="tg-text-button" aria-pressed={post.likes.includes(uid)} disabled={group?.archived} onClick={() => mutate(draft => { const target = draft.posts.find(item => item.id === post.id)!; target.likes = target.likes.includes(uid) ? target.likes.filter(id => id !== uid) : [...target.likes, uid]; })}><Heart size={16} fill={post.likes.includes(uid) ? 'currentColor' : 'none'} />{post.likes.length} · 댓글 {post.comments.length}</button><details><summary>댓글 보기·남기기</summary><div className="tg-stack">{post.comments.map(comment => <div key={comment.id}><small>{memberName(state, comment.authorId)}</small><p>{comment.body}</p>{comment.authorId !== uid && <button className="tg-text-button" onClick={() => report('COMMENT', comment.id)}>댓글 신고</button>}</div>)}<form className="tg-row" onSubmit={event => { event.preventDefault(); const input = event.currentTarget.elements.namedItem('comment') as HTMLInputElement; const body = input.value.trim(); if (!body || group?.archived) return; if (mutate(draft => { draft.posts.find(item => item.id === post.id)!.comments.push({ id: togetherId('comment'), authorId: uid, body, createdAt: now() }); })) input.value = ''; }}><input name="comment" disabled={group?.archived} aria-label="댓글" placeholder="댓글을 남겨주세요" maxLength={1000} required /><button type="submit" disabled={group?.archived}>등록</button></form></div></details></article>)}</div>;
+   };
+ 
+-  const mainScreen = () => <>{route === 'together-find' ? <header className="tg-find-head"><button className="tg-icon" aria-label="뒤로" onClick={() => onBack ? onBack('together') : nav('together')}><ArrowLeft size={20} /></button><div><h1>모임 찾기</h1><small>같은 취향으로, 가까운 곳에서</small></div><AppMenuButton /></header> : <header className="tg-head"><div><span className="tg-kicker">같은 취향, 가까운 사람들</span><h1>함께하기</h1><p>동네 친구부터 오래가는 취미 모임까지</p></div>{route !== 'together-find' && <button className="tg-icon" aria-label="모임 만들기" onClick={() => requireUser() && open('create-group', { kind: 'HOBBY', region: '부산' })}><Plus size={22} /></button>}<AppMenuButton /></header>}<div className="tg-pad tg-stack">{route !== 'together-find' && <div className="tg-segments"><button aria-pressed={route !== 'together-find'} onClick={() => nav('together')}>내 모임</button><button aria-pressed={route === 'together-find'} onClick={() => nav('together-find')}>모임 찾기</button></div>}{route !== 'together-find' ? <>{!viewer ? <Empty title="취향이 맞는 사람들과 함께해요" action={<button className="tg-primary" onClick={onLogin}>로그인하고 내 모임 보기</button>}>맛집·카페·운동·독서, 좋아하는 일을 함께해 보세요.</Empty> : <><button className="tg-summary tg-card-link" onClick={() => nav('together-invites')}><div className="tg-between"><div><h3>초대와 가입 신청</h3><small>받은 초대와 진행 상태 확인</small></div><ChevronRight size={18} /></div></button>{myGroups.length ? myGroups.map(item => <div key={item.id} className="tg-stack"><button className="tg-card-link" onClick={() => nav(`group-${item.id}`)}>{item.cover ? <img className="tg-cover" src={item.cover} alt="" /> : <div className="tg-cover-fallback"><Users size={36} /></div>}<div className="tg-card-copy"><div className="tg-between"><span className="tg-tag">{kindNames[item.kind]} · {item.region}</span>{unread(roomIdForGroup(item.id)) > 0 && <span className="tg-tag coral">새 대화 {unread(roomIdForGroup(item.id))}</span>}</div><h2>{item.name}</h2><p>{item.introduction || '좋아하는 일을 함께하고 일상의 이야기를 나눠요.'}</p><small>{item.memberIds.length}명 · {item.archived ? '보관된 모임' : item.visibility === 'PRIVATE' ? '초대받은 사람만' : '공개 모집'}</small></div></button>{item.cover && <PhotoCredit image={item.cover} />}{state.activities.filter(value => value.groupId === item.id && value.status === 'PLANNED' && (!value.date || value.date >= dayKey())).slice(0, 1).map(value => activityCard(value))}</div>) : <Empty title="첫 모임을 만들어보세요" action={<button className="tg-primary" onClick={() => open('create-group', { kind: 'HOBBY' })}>모임 만들기</button>}>가까운 모임을 찾거나 직접 모임을 만들어 친구를 초대해 보세요.</Empty>}<div className="tg-row"><button onClick={() => nav('together-calendar')}><CalendarDays size={17} />전체 캘린더</button><button onClick={() => nav('together-tasks')}><ClipboardList size={17} />내 할 일</button></div></>}</> : <GroupDiscovery state={state} viewerId={uid} onOpenGroup={(id, activityId) => nav(`group-${id}`, { ...discoveryFilters, publicActivityIntent: activityId ? createPublicActivityIntent(state, id, activityId) : undefined })} onCreate={() => requireUser() && open('create-group', { kind: 'HOBBY', region: discoveryFilters?.region || '부산' })} initialFilters={discoveryFilters} onFiltersChange={onDiscoveryFiltersChange} />}</div></>;
++  const mainScreen = () => <><ScreenHeader title="함께하기" actions={<><button type="button" aria-label="모임 만들기" onClick={() => requireUser() && open('create-group', { kind: 'HOBBY', region: '부산' })}><Plus size={22} /></button><AppMenuButton /></>} /><ScreenTabs label="함께하기에서 볼 내용" idPrefix="together-root" items={[{ id: 'together', label: '내 모임' }, { id: 'together-find', label: '모임 찾기' }]} value={route === 'together-find' ? 'together-find' : 'together'} onChange={value => nav(value)} /><div className="tg-pad tg-stack">{route !== 'together-find' ? <>{!viewer ? <Empty title="취향이 맞는 사람들과 함께해요" action={<button className="tg-primary" onClick={onLogin}>로그인하고 내 모임 보기</button>}>맛집·카페·운동·독서, 좋아하는 일을 함께해 보세요.</Empty> : <><button className="tg-summary tg-card-link" onClick={() => nav('together-invites')}><div className="tg-between"><div><h3>초대와 가입 신청</h3><small>받은 초대와 진행 상태 확인</small></div><ChevronRight size={18} /></div></button>{myGroups.length ? myGroups.map(item => <div key={item.id} className="tg-stack"><button className="tg-card-link" onClick={() => nav(`group-${item.id}`)}>{item.cover ? <img className="tg-cover" src={item.cover} alt="" /> : <div className="tg-cover-fallback"><Users size={36} /></div>}<div className="tg-card-copy"><div className="tg-between"><span className="tg-tag">{kindNames[item.kind]} · {item.region}</span>{unread(roomIdForGroup(item.id)) > 0 && <span className="tg-tag coral">새 대화 {unread(roomIdForGroup(item.id))}</span>}</div><h2>{item.name}</h2><p>{item.introduction || '좋아하는 일을 함께하고 일상의 이야기를 나눠요.'}</p><small>{item.memberIds.length}명 · {item.archived ? '보관된 모임' : item.visibility === 'PRIVATE' ? '초대받은 사람만' : '공개 모집'}</small></div></button>{item.cover && <PhotoCredit image={item.cover} />}{state.activities.filter(value => value.groupId === item.id && value.status === 'PLANNED' && (!value.date || value.date >= dayKey())).slice(0, 1).map(value => activityCard(value))}</div>) : <Empty title="첫 모임을 만들어보세요" action={<button className="tg-primary" onClick={() => open('create-group', { kind: 'HOBBY' })}>모임 만들기</button>}>가까운 모임을 찾거나 직접 모임을 만들어 친구를 초대해 보세요.</Empty>}<div className="tg-row"><button onClick={() => nav('together-calendar')}><CalendarDays size={17} />전체 캘린더</button><button onClick={() => nav('together-tasks')}><ClipboardList size={17} />내 할 일</button></div></>}</> : <GroupDiscovery showCreate={false} state={state} viewerId={uid} onOpenGroup={(id, activityId) => nav(`group-${id}`, { ...discoveryFilters, publicActivityIntent: activityId ? createPublicActivityIntent(state, id, activityId) : undefined })} onCreate={() => requireUser() && open('create-group', { kind: 'HOBBY', region: discoveryFilters?.region || '부산' })} initialFilters={discoveryFilters} onFiltersChange={onDiscoveryFiltersChange} />}</div></>;
+ 
+   const intentForGroup = (id: string): PublicActivityIntent | undefined => {
+     const application = state.applications.find(item => item.groupId === id && item.userId === uid && item.status !== 'DECLINED');
+@@ -191,7 +192,7 @@
+   const groupScreen = () => {
+     if (!group) return missing();
+     if (!member) return isDiscoverableGroup(group) ? publicGroupScreen(group) : denied();
+-    return <>{header(group.name, `${kindNames[group.kind]} · ${group.region}`, 'together', <button className="tg-icon" aria-label="모임 메뉴" onClick={() => open('manage')}><MoreHorizontal size={22} /></button>)}<div className="tg-pad tg-stack">{selectedPublicActivity(group.id)}<div className="tg-between"><div><span className="tg-tag">{group.memberIds.length}명 함께하는 중</span>{group.archived && <span className="tg-tag">보관됨</span>}</div><button onClick={() => nav(`groupchat-${group.id}`)}><MessageCircle size={17} />전체 채팅{unread(roomIdForGroup(group.id)) > 0 && <span className="tg-tag coral">{unread(roomIdForGroup(group.id))}</span>}</button></div>{groupTab === 'home' && <><h2>{group.name}</h2><p>{group.introduction || '좋아하는 일을 함께하고 일상의 이야기를 나눠요.'}</p><button className="tg-ai-entry" onClick={() => open('ai', { scope: 'unread', person: 'all' })}><Sparkles size={20} aria-hidden="true"/><span><strong>대화 요약·정리</strong><small>모임 전체 채팅에서 확인할 일 정리</small></span><ChevronRight size={18} aria-hidden="true"/></button></>}{manager && pendingApplications.length > 0 && <button className="tg-application-banner" onClick={() => open('applications')}><span className="tg-avatar"><Users size={20} /></span><span><strong>새 가입 신청 {pendingApplications.length}건</strong><small>가입 인사를 확인하고 함께할 멤버를 맞이해요.</small></span><ChevronRight size={18} /></button>}</div>{tabs([['home', '홈'], ['activities', '번개·정모'], ['board', '게시판'], ['album', '앨범']], groupTab, value => { groupTabs.current[groupId] = value; setGroupTab(value); })}<div className="tg-pad tg-stack">{groupTab === 'home' && <>{notices.length ? notices.slice(-2).map(item => <article className="tg-notice" key={item.id}><h3><Bell size={16} />{item.title}</h3><p>{item.body}</p></article>) : <div className="tg-summary"><h3>우리 모임의 첫 안내</h3><p>전체 채팅에서 반갑게 인사하고, 마음에 드는 번개·정모에 참석해 보세요.</p></div>}<div className="tg-section"><h2>다가오는 번개·정모</h2>{!group.archived && <button onClick={() => open('create-activity')}><Plus size={16} />등록</button>}</div>{groupActivities.filter(item => item.status === 'PLANNED' && (!item.date || item.date >= dayKey())).slice(0, 3).map(item => activityCard(item))}{!groupActivities.filter(item => item.status === 'PLANNED' && (!item.date || item.date >= dayKey())).length && <Empty title="첫 번개·정모를 열어보세요">커피 한 잔, 책 이야기, 운동처럼 가벼운 약속부터 시작해요.</Empty>}<div className="tg-row"><button onClick={() => open('places')}><MapPin size={17} />공동 관심 장소</button><button onClick={() => open('members')}><Users size={17} />멤버</button></div></>}{groupTab === 'activities' && <><div className="tg-between"><div className="tg-segments"><button aria-pressed={activityFilter === 'upcoming'} onClick={() => setActivityFilter('upcoming')}>예정</button><button aria-pressed={activityFilter === 'past'} onClick={() => setActivityFilter('past')}>지난 일정</button></div>{!group.archived && <button className="tg-icon" aria-label="일정 등록" onClick={() => open('create-activity')}><Plus size={20} /></button>}</div>{groupActivities.filter(item => activityFilter === 'past' ? item.status !== 'PLANNED' || Boolean(item.date && item.date < dayKey()) : item.status === 'PLANNED' && (!item.date || item.date >= dayKey())).map(item => activityCard(item))}{!groupActivities.length && <Empty title="등록한 일정이 없어요">식사·카페·운동·취미처럼 가벼운 만남부터 등록해 보세요.</Empty>}<button onClick={() => nav('together-calendar')}><CalendarDays size={17} />전체 캘린더에서 보기</button></>}{groupTab === 'board' && postList(false)}{groupTab === 'album' && gallery(false)}</div></>;
++    return <>{header(group.name, `${kindNames[group.kind]} · ${group.region}`, 'together', <button className="tg-icon" aria-label="모임 메뉴" onClick={() => open('manage')}><MoreHorizontal size={22} /></button>)}{tabs([['home', '홈'], ['activities', '번개·정모'], ['board', '게시판'], ['album', '앨범']], groupTab, value => { groupTabs.current[groupId] = value; setGroupTab(value); })}<div className="tg-pad tg-stack">{selectedPublicActivity(group.id)}<div className="tg-between"><div><span className="tg-tag">{group.memberIds.length}명 함께하는 중</span>{group.archived && <span className="tg-tag">보관됨</span>}</div><button onClick={() => nav(`groupchat-${group.id}`)}><MessageCircle size={17} />전체 채팅{unread(roomIdForGroup(group.id)) > 0 && <span className="tg-tag coral">{unread(roomIdForGroup(group.id))}</span>}</button></div>{groupTab === 'home' && <><p>{group.introduction || '좋아하는 일을 함께하고 일상의 이야기를 나눠요.'}</p><button className="tg-ai-entry" onClick={() => open('ai', { scope: 'unread', person: 'all' })}><Sparkles size={20} aria-hidden="true"/><span><strong>대화 요약·정리</strong><small>모임 전체 채팅에서 확인할 일 정리</small></span><ChevronRight size={18} aria-hidden="true"/></button></>}{manager && pendingApplications.length > 0 && <button className="tg-application-banner" onClick={() => open('applications')}><span className="tg-avatar"><Users size={20} /></span><span><strong>새 가입 신청 {pendingApplications.length}건</strong><small>가입 인사를 확인하고 함께할 멤버를 맞이해요.</small></span><ChevronRight size={18} /></button>}</div><div className="tg-pad tg-stack">{groupTab === 'home' && <>{notices.length ? notices.slice(-2).map(item => <article className="tg-notice" key={item.id}><h3><Bell size={16} />{item.title}</h3><p>{item.body}</p></article>) : <div className="tg-summary"><h3>우리 모임의 첫 안내</h3><p>전체 채팅에서 반갑게 인사하고, 마음에 드는 번개·정모에 참석해 보세요.</p></div>}<div className="tg-section"><h2>다가오는 번개·정모</h2>{!group.archived && <button onClick={() => open('create-activity')}><Plus size={16} />등록</button>}</div>{groupActivities.filter(item => item.status === 'PLANNED' && (!item.date || item.date >= dayKey())).slice(0, 3).map(item => activityCard(item))}{!groupActivities.filter(item => item.status === 'PLANNED' && (!item.date || item.date >= dayKey())).length && <Empty title="첫 번개·정모를 열어보세요">커피 한 잔, 책 이야기, 운동처럼 가벼운 약속부터 시작해요.</Empty>}<div className="tg-row"><button onClick={() => open('places')}><MapPin size={17} />공동 관심 장소</button><button onClick={() => open('members')}><Users size={17} />멤버</button></div></>}{groupTab === 'activities' && <><div className="tg-between"><div className="tg-segments"><button aria-pressed={activityFilter === 'upcoming'} onClick={() => setActivityFilter('upcoming')}>예정</button><button aria-pressed={activityFilter === 'past'} onClick={() => setActivityFilter('past')}>지난 일정</button></div>{!group.archived && <button className="tg-icon" aria-label="일정 등록" onClick={() => open('create-activity')}><Plus size={20} /></button>}</div>{groupActivities.filter(item => activityFilter === 'past' ? item.status !== 'PLANNED' || Boolean(item.date && item.date < dayKey()) : item.status === 'PLANNED' && (!item.date || item.date >= dayKey())).map(item => activityCard(item))}{!groupActivities.length && <Empty title="등록한 일정이 없어요">식사·카페·운동·취미처럼 가벼운 만남부터 등록해 보세요.</Empty>}<button onClick={() => nav('together-calendar')}><CalendarDays size={17} />전체 캘린더에서 보기</button></>}{groupTab === 'board' && postList(false)}{groupTab === 'album' && gallery(false)}</div></>;
+   };
+ 
+   const prepScreen = () => <div className="tg-stack"><div className="tg-section"><h2>준비물·담당 할 일</h2>{editor && <button onClick={() => open('task')}><Plus size={16} />추가</button>}</div>{state.tasks.filter(item => item.activityId === activity?.id).map(task => <div key={task.id}><label className={`tg-checkrow ${task.completed ? 'done' : ''}`}><input type="checkbox" checked={task.completed} disabled={group?.archived || (!editor && task.assigneeId !== uid)} onChange={event => mutate(draft => { draft.tasks.find(item => item.id === task.id)!.completed = event.target.checked; })} /><div><p>{task.title}</p><small>{task.assigneeId ? memberName(state, task.assigneeId) : '공동 준비'}{task.dueDate ? ` · ${dateLabel(task.dueDate)}까지` : ''}</small></div></label>{task.sourceMessageIds?.[0] && <button className="tg-text-button" onClick={() => openTaskSource(task.sourceMessageIds![0])}>관련 대화 보기 <ArrowRight size={14} /></button>}</div>)}{!state.tasks.some(item => item.activityId === activity?.id) && <div className="tg-summary"><p>챙길 물건이나 확인할 일을 등록해요. 대화 정리 예시에서 항목을 골라 담아볼 수도 있어요.</p></div>}<div className="tg-section"><h2>함께 고르기</h2>{editor && <button onClick={() => open('poll')}><Plus size={16} />투표</button>}</div>{state.polls.filter(item => item.activityId === activity?.id).map(poll => <div className="tg-card tg-stack" key={poll.id}><h3>{poll.question}</h3>{poll.options.map(option => <button key={option.id} className={option.voterIds.includes(uid) ? 'tg-soft' : ''} disabled={poll.closed || group?.archived} onClick={() => mutate(draft => { const target = draft.polls.find(item => item.id === poll.id)!; target.options.forEach(value => { value.voterIds = value.voterIds.filter(id => id !== uid); }); target.options.find(value => value.id === option.id)!.voterIds.push(uid); })}>{option.label} · {option.voterIds.length}명 {poll.confirmedOptionId === option.id && <Check size={16} />}</button>)}{editor && !poll.closed && <select aria-label="투표 결과 확정" value="" onChange={event => { const id = event.target.value; if (id) mutate(draft => { const target = draft.polls.find(item => item.id === poll.id)!; target.confirmedOptionId = id; target.closed = true; }, '선택을 확정했어요. 예약·일정은 자동 변경되지 않아요.'); }}><option value="">결과를 확인하고 선택 확정</option>{poll.options.map(option => <option key={option.id} value={option.id}>{option.label}</option>)}</select>}{poll.closed && <small>확정됨 · 예약과 일정 변경은 별도 확인</small>}</div>)}</div>;

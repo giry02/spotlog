@@ -1,0 +1,74 @@
+[
+  {
+    "id": "catalog-gangneung-49998",
+    "kind": "FOOD",
+    "name": "강릉짬뽕순두부 동화가든 본점",
+    "address": "강원특별자치도 강릉시 초당순두부길77번길 15 ",
+    "area": "강원 강릉",
+    "lat": 37.7911701185104,
+    "lng": 128.914668458316,
+    "provider": "한국관광공사 VISITKOREA",
+    "providerRecordId": "49998",
+    "sourceUrl": "https://english.visitkorea.or.kr/svc/whereToGo/locIntrdn/rgnContentsView.do?vcontsId=49998"
+  },
+  {
+    "id": "catalog-gangneung-174296",
+    "kind": "FOOD",
+    "name": "초당할머니순두부",
+    "address": "강원특별자치도 강릉시 초당순두부길 77 ",
+    "area": "강원 강릉",
+    "lat": 37.7905545319586,
+    "lng": 128.915396592974,
+    "provider": "한국관광공사 VISITKOREA",
+    "providerRecordId": "174296",
+    "sourceUrl": "https://english.visitkorea.or.kr/svc/whereToGo/locIntrdn/rgnContentsView.do?vcontsId=174296"
+  },
+  {
+    "id": "catalog-gangneung-174292",
+    "kind": "CAFE",
+    "name": "하슬라가배",
+    "address": "강원특별자치도 강릉시 창해로14번길 12   2층",
+    "area": "강원 강릉",
+    "lat": 37.7731155437147,
+    "lng": 128.94650823142,
+    "provider": "한국관광공사 VISITKOREA",
+    "providerRecordId": "174292",
+    "sourceUrl": "https://english.visitkorea.or.kr/svc/whereToGo/locIntrdn/rgnContentsView.do?vcontsId=174292"
+  },
+  {
+    "id": "catalog-gangneung-48612",
+    "kind": "CAFE",
+    "name": "카페미담",
+    "address": "강원특별자치도 강릉시 남부로17번길 8 ",
+    "area": "강원 강릉",
+    "lat": 37.7404062010987,
+    "lng": 128.882506486052,
+    "provider": "한국관광공사 VISITKOREA",
+    "providerRecordId": "48612",
+    "sourceUrl": "https://english.visitkorea.or.kr/svc/whereToGo/locIntrdn/rgnContentsView.do?vcontsId=48612"
+  },
+  {
+    "id": "catalog-gangneung-98592",
+    "kind": "STAY",
+    "name": "경포비치호텔",
+    "address": "강원특별자치도 강릉시 해안로406번길 17 (강문동)",
+    "area": "강원 강릉",
+    "lat": 37.798969151579,
+    "lng": 128.913657200013,
+    "provider": "한국관광공사 VISITKOREA",
+    "providerRecordId": "98592",
+    "sourceUrl": "https://english.visitkorea.or.kr/svc/whereToGo/locIntrdn/rgnContentsView.do?vcontsId=98592"
+  },
+  {
+    "id": "catalog-gangneung-34197",
+    "kind": "STAY",
+    "name": "하이오션 경포",
+    "address": "강원특별자치도 강릉시 경포로463번길 30-5   (안현동)",
+    "area": "강원 강릉",
+    "lat": 37.8034561519543,
+    "lng": 128.903620639614,
+    "provider": "한국관광공사 VISITKOREA",
+    "providerRecordId": "34197",
+    "sourceUrl": "https://english.visitkorea.or.kr/svc/whereToGo/locIntrdn/rgnContentsView.do?vcontsId=34197"
+  }
+]

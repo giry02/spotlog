@@ -1,0 +1,107 @@
+--- before/TogetherApp.tsx
++++ web/src/together/TogetherApp.tsx
+@@ -20,6 +20,7 @@
+ import { postTogetherMessage, toggleMessageReaction } from './chatActions';
+ import ActivityAssistant from './ActivityAssistantPanel';
+ import { applyActivityAssistantAction } from './activityAssistant';
++import { buildMyGroupDirectory, type MyGroupDirectoryItem, type MyGroupKindFilter, type MyGroupSort } from './myGroupDirectory';
+ import './together.css';
+ import { useConsumerDensity } from '../consumerDensity';
+ 
+@@ -34,6 +35,9 @@
+ type Modal = 'create-group' | 'create-activity' | 'members' | 'applications' | 'review-application' | 'apply' | 'manage' | 'promotion' | 'invite' | 'post' | 'task' | 'poll' | 'notice' | 'ai' | 'assistant' | 'places' | 'edit-activity' | 'upload' | 'report' | 'share' | 'itinerary' | 'remove-member' | 'restore-member' | 'withdraw-shares';
+ const TogetherRouteMap = lazy(() => import('../RouteMap'));
+ const kindNames: Record<GroupKind, string> = { FAMILY: '가족', FRIENDS: '친구', HOBBY: '취미·지역', GUIDE: '가이드' };
++const directoryKinds: GroupKind[] = ['FAMILY', 'FRIENDS', 'HOBBY', 'GUIDE'];
++type MyGroupView = { accountId: string; kind: MyGroupKindFilter; sort: MyGroupSort };
++const initialMyGroupView = (accountId: string): MyGroupView => ({ accountId, kind: 'ALL', sort: 'KIND' });
+ const placeNames: Record<string, string> = { LANDMARK: '랜드마크', FOOD: '음식점', CAFE: '카페', STAY: '숙소', SHOP: '쇼핑', LEISURE: '레저' };
+ const now = () => new Date().toISOString();
+ const dateLabel = (value: string) => value ? new Date(`${value}T12:00:00`).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' }) : '날짜 미정';
+@@ -78,6 +82,8 @@
+   const [recordView, setRecordView] = useState<'posts' | 'media'>('posts');
+   const groupTabs = useRef<Record<string, string>>({});
+   const activityTabs = useRef<Record<string, string>>({});
++  const directoryViewMemory = useRef<MyGroupView>(initialMyGroupView(viewer?.id ?? ''));
++  const [directoryView, setDirectoryView] = useState(directoryViewMemory.current);
+   const [activityFilter, setActivityFilter] = useState('upcoming');
+   const [modal, setModal] = useState<Modal | null>(null);
+   const [form, setForm] = useState<Record<string, string>>({});
+@@ -96,6 +102,18 @@
+   const activeReader = useRef<FileReader | null>(null);
+   useEffect(() => { uploadEpoch.current += 1; return () => { uploadEpoch.current += 1; activeReader.current?.abort(); }; }, [modal, viewer?.id, groupIdForUpload(route)]);
+   const uid = viewer?.id ?? '';
++  const currentDirectoryView = directoryView.accountId === uid ? directoryView : initialMyGroupView(uid);
++  useEffect(() => {
++    if (directoryViewMemory.current.accountId !== uid) {
++      directoryViewMemory.current = initialMyGroupView(uid);
++      setDirectoryView(directoryViewMemory.current);
++    }
++  }, [uid]);
++  const changeDirectoryView = (next: Partial<Pick<MyGroupView, 'kind' | 'sort'>>) => {
++    const updated = { ...currentDirectoryView, ...next };
++    directoryViewMemory.current = updated;
++    setDirectoryView(updated);
++  };
+   pageChatDraftMemory.activate(uid);
+   pageChatDraftMemory.reconcile(state, uid);
+   const nav = (target: string, filters?: GroupDiscoveryFilters) => onNavigate(target, filters);
+@@ -115,6 +133,7 @@
+   const inChat = route.startsWith('groupchat-') || route.startsWith('activitychat-');
+   useEffect(() => { if (!inChat || !pendingSourceJump.current) return; const id = pendingSourceJump.current; pendingSourceJump.current = ''; const timer = window.setTimeout(() => { setHighlight(id); document.getElementById(`tg-message-${id}`)?.scrollIntoView({ block: 'center' }); }, 80); return () => window.clearTimeout(timer); }, [route, inChat]);
+   const myGroups = state.groups.filter(item => item.spaceType !== 'ACTIVITY' && isMember(state, uid, item.id) && !item.blockedMemberIds?.includes(uid));
++  const myGroupDirectory = buildMyGroupDirectory(state, uid, currentDirectoryView);
+   const groupActivities = state.activities.filter(item => item.groupId === group?.id);
+   const pendingApplications = state.applications.filter(item => item.groupId === group?.id && item.status === 'PENDING');
+   const visibleActivities = state.activities.filter(item => isMember(state, uid, item.groupId));
+@@ -180,16 +199,18 @@
+ 
+   const mainScreen = () => {
+     const finding = route === 'together-find' || !viewer;
++    const groupRow = ({ group: item, nextActivity: next, unreadCount: count }: MyGroupDirectoryItem) => <button type="button" key={item.id} className="tg-my-group-row" onClick={() => nav(`group-${item.id}`)}><span className="tg-my-group-photo">{item.cover ? <img src={item.cover} alt=""/> : <Users size={28}/>}</span><span className="tg-my-group-copy"><small>{kindNames[item.kind] || '기타'}{item.region ? ` · ${item.region}` : ''}{item.archived ? ' · 보관됨' : ''}</small><strong>{item.name}</strong><span>{next ? `${activityWhen(next)} · ${next.title}` : item.introduction || '함께할 다음 약속을 만들어보세요.'}</span></span>{count > 0 ? <span className="tg-unread-count" aria-label={`안 읽은 대화 ${count}개`}>{count > 99 ? '99+' : count}</span> : <ChevronRight size={18}/>}</button>;
++    const directorySections = [...directoryKinds.map(kind => ({ id: kind as string, label: kindNames[kind], entries: myGroupDirectory.groups.filter(item => item.group.kind === kind) })), { id: 'other', label: '기타', entries: myGroupDirectory.groups.filter(item => !directoryKinds.includes(item.group.kind)) }];
++    const archivedGroups = myGroups.filter(item => item.archived && (currentDirectoryView.kind === 'ALL' || item.kind === currentDirectoryView.kind));
+     return <><ScreenHeader title="모임" actions={<><button type="button" aria-label="모임 만들기" onClick={() => requireUser() && open('create-group', { kind: 'HOBBY', region: discoveryFilters?.region || '' })}><Plus size={22}/></button><AppMenuButton/></>}/>
+       <ScreenTabs label="모임에서 볼 내용" idPrefix="together-root" items={[{ id: 'together', label: '내 모임' }, { id: 'together-find', label: '모임 찾기' }]} value={finding ? 'together-find' : 'together'} onChange={value => value === 'together' && !viewer ? onLogin() : nav(value)}/>
+       <div className="tg-pad tg-stack tg-groups-root">{finding ? <GroupDiscovery showCreate={false} state={state} viewerId={uid} onOpenGroup={(id, activityId) => nav(`group-${id}`, { ...discoveryFilters, publicActivityIntent: activityId ? createPublicActivityIntent(state, id, activityId) : undefined })} onCreate={() => requireUser() && open('create-group', { kind: 'HOBBY', region: discoveryFilters?.region || '' })} initialFilters={discoveryFilters} onFiltersChange={onDiscoveryFiltersChange}/>
+         : <><div className="tg-group-utilities"><button type="button" onClick={() => nav('together-invites')}><Users size={17}/>초대·가입 신청<ChevronRight size={16}/></button><button type="button" aria-label="모임의 내 할 일" onClick={() => nav('together-tasks')}><ClipboardList size={18}/><span>내 할 일</span></button></div>
+-          {myGroups.length ? <div className="tg-my-group-list">{myGroups.map(item => {
+-            const next = state.activities.filter(value => value.groupId === item.id && value.status === 'PLANNED' && (!value.date || (value.endDate || value.date) >= dayKey())).sort((a,b) => publicActivityTimeKey(a.date,a.startTime).localeCompare(publicActivityTimeKey(b.date,b.startTime)))[0];
+-            const count = unread(roomIdForGroup(item.id));
+-            return <button type="button" key={item.id} className="tg-my-group-row" onClick={() => nav(`group-${item.id}`)}><span className="tg-my-group-photo">{item.cover ? <img src={item.cover} alt=""/> : <Users size={28}/>}</span><span className="tg-my-group-copy"><small>{kindNames[item.kind]}{item.region ? ` · ${item.region}` : ''}{item.archived ? ' · 보관됨' : ''}</small><strong>{item.name}</strong><span>{next ? `${activityWhen(next)} · ${next.title}` : item.introduction || '함께할 다음 약속을 만들어보세요.'}</span></span>{count > 0 ? <span className="tg-unread-count" aria-label={`안 읽은 전체 대화 ${count}개`}>{count > 99 ? '99+' : count}</span> : <ChevronRight size={18}/>}</button>;
+-          })}</div> : <Empty title="함께할 모임을 찾아보세요" action={<button type="button" className="tg-primary" onClick={() => nav('together-find')}>모임 찾기</button>}>친구·가족끼리 초대하거나 관심사가 맞는 모임에 참여할 수 있어요.</Empty>}
+-          <button type="button" className="tg-inline-tool" onClick={() => nav('together-calendar')}><CalendarDays size={17}/><span>모임 일정 캘린더</span><ChevronRight size={16}/></button></>}
++          <div className="tg-my-group-filters" role="group" aria-label="내 모임 종류">{(['ALL', ...directoryKinds] as MyGroupKindFilter[]).map(kind => <button type="button" key={kind} aria-pressed={currentDirectoryView.kind === kind} onClick={() => changeDirectoryView({ kind })}>{kind === 'ALL' ? '전체' : kind === 'HOBBY' ? '취미' : kindNames[kind]}<span>{myGroupDirectory.counts[kind]}</span></button>)}</div>
++          <div className="tg-my-group-sort"><span role="status">{currentDirectoryView.kind === 'ALL' ? '내 모임' : kindNames[currentDirectoryView.kind]} {myGroupDirectory.groups.length}개</span><label><span>정렬</span><select aria-label="내 모임 정렬" value={currentDirectoryView.sort} onChange={event => changeDirectoryView({ sort: event.target.value as MyGroupSort })}><option value="KIND">종류별</option><option value="UPCOMING">다음 약속순</option><option value="UNREAD">안 읽은 순</option><option value="NAME">이름순</option></select></label></div>
++          {myGroupDirectory.groups.length ? currentDirectoryView.kind === 'ALL' && currentDirectoryView.sort === 'KIND' ? <div className="tg-my-group-sections">{directorySections.map(section => section.entries.length > 0 && <section key={section.id} aria-labelledby={`my-group-section-${section.id}`}><h2 id={`my-group-section-${section.id}`}>{section.label}<span>{section.entries.length}</span></h2><div className="tg-my-group-list">{section.entries.map(groupRow)}</div></section>)}</div> : <div className="tg-my-group-list">{myGroupDirectory.groups.map(groupRow)}</div> : myGroupDirectory.counts.ALL > 0 ? <Empty title={`${currentDirectoryView.kind === 'ALL' ? '선택한' : kindNames[currentDirectoryView.kind]} 모임이 아직 없어요`} action={<button type="button" onClick={() => changeDirectoryView({ kind: 'ALL' })}>전체 모임 보기</button>}>다른 종류를 선택하면 가입한 모임을 볼 수 있어요.</Empty> : <Empty title="함께할 모임을 찾아보세요" action={<button type="button" className="tg-primary" onClick={() => nav('together-find')}>모임 찾기</button>}>친구·가족끼리 초대하거나 관심사가 맞는 모임에 참여할 수 있어요.</Empty>}
++          <button type="button" className="tg-inline-tool" onClick={() => nav('together-calendar')}><CalendarDays size={17}/><span>모임 일정 캘린더</span><ChevronRight size={16}/></button>
++          {archivedGroups.length > 0 && <details className="tg-my-group-archives"><summary><span>보관한 모임 {archivedGroups.length}</span><ChevronDown size={16}/></summary><div className="tg-my-group-list">{archivedGroups.map(group => groupRow({ group, nextActivity: null, unreadCount: 0 }))}</div></details>}</>}
+       </div></>;
+   };
+ 
+--- before/together.css
++++ web/src/together/together.css
+@@ -245,6 +245,23 @@
+ .tg-group-utilities>button:first-child>svg:last-child { margin-left:auto; }
+ .tg-group-utilities>button { min-width:44px; white-space:nowrap; }
+ .tg-my-group-list { border-top:1px solid var(--line); }
++.tg-my-group-filters { display:flex; flex-wrap:wrap; gap:8px; min-width:0; }
++.tg .tg-my-group-filters>button { flex:0 0 auto; gap:6px; min-height:44px; padding:10px; white-space:nowrap; background:transparent; font-weight:400; }
++.tg .tg-my-group-filters>button[aria-pressed=true] { color:white; background:var(--ink); border-color:var(--ink); font-weight:600; }
++.tg-my-group-filters>button>span { font-size:12px; line-height:16px; font-variant-numeric:tabular-nums; }
++.tg-my-group-sort { display:flex; align-items:center; justify-content:space-between; gap:8px; min-width:0; }
++.tg-my-group-sort>span { min-width:0; font-size:14px; line-height:20px; }
++.tg-my-group-sort>label { display:flex; align-items:center; gap:8px; min-width:0; }
++.tg-my-group-sort>label>span { color:var(--muted); font-size:12px; line-height:16px; }
++.tg .tg-my-group-sort select { width:auto; min-width:0; min-height:44px; max-width:160px; padding:8px 28px 8px 10px; font-size:16px; line-height:24px; border:1px solid var(--line); border-radius:12px; background-color:transparent; color:var(--ink); }
++.tg-my-group-sections { display:grid; gap:20px; min-width:0; }
++.tg-my-group-sections>section { min-width:0; }
++.tg .tg-my-group-sections h2 { display:flex; gap:8px; align-items:center; margin-bottom:10px; font-size:16px; line-height:22px; font-weight:600; }
++.tg-my-group-sections h2>span { color:var(--muted); font-size:12px; line-height:16px; font-weight:400; }
++.tg .tg-my-group-archives>summary { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:44px; list-style:none; color:var(--muted); font-size:14px; line-height:20px; }
++.tg-my-group-archives>summary::-webkit-details-marker { display:none; }
++.tg-my-group-archives>summary>svg { flex-shrink:0; }
++.tg-my-group-archives[open]>summary>svg { transform:rotate(180deg); }
+ .tg .tg-my-group-row { display:flex; width:100%; gap:12px; padding:14px 0; border:0; border-bottom:1px solid var(--line); border-radius:0; background:transparent; text-align:left; font-weight:400; justify-content:flex-start; }
+ .tg-my-group-photo { display:grid; place-items:center; flex:0 0 64px; width:64px; height:64px; border-radius:12px; background:var(--line); color:var(--muted); overflow:hidden; }
+ .tg-my-group-photo img { display:block; width:100%; height:100%; object-fit:cover; }

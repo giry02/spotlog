@@ -1,8 +1,14 @@
-import type { Journey, JourneyDay, Place, PlaceKind } from './data';
+import type { Journey, JourneyDay, Place, PlaceKind, PlanningSlot } from './data';
 import { normalizeVisits } from './visits.ts';
-import { clearVisitProgress, reconcileTravelProgress } from './tripProgress.ts';
+import { clearVisitProgress, reconcileTravelProgress, visitProgress } from './tripProgress.ts';
+import { reconcileTripCandidates } from './tripCandidates.ts';
 
 const id = (): string => crypto.randomUUID();
+/** The save button approves a complete route; only actual candidate choices need final review. */
+export function initializeCreatedPlan(source: Journey, author: string): Journey {
+  const journey = normalizePlan(normalizeVisits({ ...source, purpose: 'PLAN', author, isMine: true, visibility: 'PRIVATE' }));
+  return { ...journey, planStage: journey.days.some(day => day.places.length > 0) && !journey.businessCandidates?.length ? 'READY' : 'DRAFT' };
+}
 const planningOrder = ['morning', 'lunch', 'afternoon', 'dinner', 'stay'];
 function withoutPlanningSlot(place: Place): Place {
   const { planningSlot: _planningSlot, ...rest } = place;
@@ -44,11 +50,11 @@ export function normalizePlan(journey: Journey): Journey {
   const normalized=normalizeVisits(journey);
   const first=normalized.days[0]?.date;
   const inferred=isPersonalPlan(journey)&&/^\d{4}-\d{2}-\d{2}$/.test(first??'')&&Number.isFinite(Date.parse(first))&&normalized.days.every((day,index)=>day.date===new Date(Date.parse(`${first}T00:00:00Z`)+index*86400000).toISOString().slice(0,10))?first:undefined;
-  return reconcileTravelProgress({ ...normalized,...(normalized.startDate||inferred?{startDate:normalized.startDate??inferred}:{}), days: normalized.days.map(day => {
+  return reconcileTravelProgress(reconcileTripCandidates({ ...normalized,...(normalized.startDate||inferred?{startDate:normalized.startDate??inferred}:{}), days: normalized.days.map(day => {
     const order=new Map(day.places.map((place,index)=>[place.visitId,index]));
     const cards=day.blocks.filter(block=>block.type==='PLACE').sort((a,b)=>(order.get(a.visitId)??Infinity)-(order.get(b.visitId)??Infinity));let index=0;
     return {...day,dayId:day.dayId??`${journey.id}:day-${day.day}`,blocks:isPersonalPlan(journey)?day.blocks.map(block=>block.type==='PLACE'?cards[index++]:block):day.blocks};
-  }) });
+  }) }));
 }
 export function setPlanDates(journey: Journey, startDate: string): Journey {
   if (startDate && (!/^\d{4}-\d{2}-\d{2}$/.test(startDate) || !Number.isFinite(Date.parse(`${startDate}T00:00:00Z`)) || new Date(`${startDate}T00:00:00Z`).toISOString().slice(0,10) !== startDate)) throw new Error('출발 날짜를 확인해 주세요.');
@@ -88,22 +94,111 @@ export function appendPlanLandmark(journey: Journey, dayId: string, source: Plac
   const place = { ...withoutPlanningSlot(structuredClone(source)), visitId: id(),note:source.personal?source.note:'',time:undefined,move:undefined, anchorVisitId: undefined };
   return { ...journey, cover: journey.cover || source.image, days: journey.days.map(item => item.dayId === dayId ? { ...item, places: [...item.places.filter(place=>place.kind!=='STAY'), place,...item.places.filter(place=>place.kind==='STAY')], blocks: [...item.blocks, { id: id(), type: 'PLACE', placeId: place.id, visitId: place.visitId }] } : item) };
 }
-export function insertNearby(journey: Journey, dayId: string, anchorId: string, source: Place): Journey {
+/** A selected meal/cafe is a real independent visit, not a candidate under a landmark. */
+export function appendPlanPlace(journey: Journey, dayId: string, source: Place, slot?: PlanningSlot): Journey {
+  if (!isPersonalPlan(journey) || journey.visibility !== 'PRIVATE' || journey.trash) throw new Error('내 여행에서만 담을 수 있어요.');
+  const day = journey.days.find(item => item.dayId === dayId);
+  if (!day) throw new Error('날짜가 바뀌었어요. 다시 선택해 주세요.');
+  if (source.kind === 'STAY') throw new Error('숙소는 숙박일을 선택해 담아주세요.');
+  if (slot && !(source.kind === 'FOOD' && ['lunch','dinner'].includes(slot) || source.kind === 'CAFE' && slot === 'afternoon')) throw new Error('장소 종류와 담을 시간대를 확인해 주세요.');
+  if (day.places.some(place => place.id === source.id && (source.kind === 'LANDMARK' || source.kind === 'SHOP' || place.planningSlot === slot))) return journey;
+  const { visitId: _visit, anchorVisitId: _anchor, stayDayIds: _stay, bookingFixed: _booking, time: _time, move: _move, ...clean } = withoutPlanningSlot(structuredClone(source));
+  const place = { ...clean, visitId: id(), note: source.personal ? source.note : '', ...(slot ? { planningSlot: slot } : {}) };
+  return normalizePlan({ ...journey, cover: journey.cover || source.image, region: journey.region === '국내' ? source.area.split(' ')[0] : journey.region,
+    planStage: journey.businessCandidates?.length ? journey.planStage : 'READY',
+    days: journey.days.map(item => item.dayId === dayId ? { ...item,
+      places: [...item.places.filter(visit => visit.kind !== 'STAY'), place, ...item.places.filter(visit => visit.kind === 'STAY')],
+      blocks: [...item.blocks, { id: id(), type: 'PLACE', placeId: place.id, visitId: place.visitId }],
+    } : item),
+  });
+}
+export function insertNearby(journey: Journey, dayId: string, anchorId: string, source: Place, slot?: PlanningSlot): Journey {
   if (!isPersonalPlan(journey)) throw new Error('내 여행에서만 담을 수 있어요.');
   const day = journey.days.find(item => item.dayId === dayId);
   const anchor = day?.places.find(place => place.visitId === anchorId);
   if (!day || !anchor) throw new Error('기준 장소가 바뀌었어요. 다시 선택해 주세요.');
-  if (day.places.some(place => place.id === source.id && place.anchorVisitId === anchorId)) return journey;
-  const visit: Place = { ...withoutPlanningSlot(structuredClone(source)), visitId: id(),note:source.personal?source.note:'',time:undefined,move:undefined, anchorVisitId: anchorId };
+  if (day.places.some(place => place.id === source.id && place.anchorVisitId === anchorId && (slot === undefined || place.planningSlot === slot))) return journey;
+  const visit: Place = { ...withoutPlanningSlot(structuredClone(source)), ...(slot ? { planningSlot: slot } : {}), visitId: id(),note:source.personal?source.note:'',time:undefined,move:undefined, anchorVisitId: anchorId };
   const index = day.places.findIndex(place => place.visitId === anchorId);
   let insertAt = index + 1;
-  while (day.places[insertAt]?.anchorVisitId === anchorId) insertAt++;
+  while (day.places[insertAt]?.anchorVisitId === anchorId && (!slot || !day.places[insertAt].planningSlot || planningOrder.indexOf(day.places[insertAt].planningSlot!) <= planningOrder.indexOf(slot))) insertAt++;
   const places = [...day.places.slice(0, insertAt), visit, ...day.places.slice(insertAt)];
   const anchorBlock = day.blocks.findIndex(block => block.visitId === anchorId);
   const blocks = [...day.blocks];
   blocks.splice(anchorBlock < 0 ? blocks.length : anchorBlock + insertAt - index, 0, { id: id(), type: 'PLACE', placeId: visit.id, visitId: visit.visitId });
   return { ...journey, days: journey.days.map(item => item.dayId === dayId ? { ...item, places, blocks } : item) };
 }
+/** A nearby visit always travels with its base visit; meal visits keep their own IDs. */
+export function planVisitGroups(day: JourneyDay): Place[][] {
+  const byId = new Map(day.places.filter(place => place.visitId).map(place => [place.visitId!, place]));
+  const groups = new Map<Place, Place[]>();
+  for (const place of day.places) {
+    let root = place;
+    const seen = new Set<Place>();
+    while (root.anchorVisitId && byId.has(root.anchorVisitId) && !seen.has(root)) {
+      seen.add(root);
+      root = byId.get(root.anchorVisitId)!;
+    }
+    // An invalid/cyclic relationship stays visible, but cannot be reordered below.
+    if (seen.has(root)) root = place;
+    const group = groups.get(root) ?? [];
+    if (place === root) group.unshift(place); else group.push(place);
+    groups.set(root, group);
+  }
+  return [...groups.values()];
+}
+
+function fixedPlanGroup(group: Place[]): boolean {
+  return group.some(place => place.kind === 'STAY' || place.bookingFixed);
+}
+
+function validPlanGroup(day: JourneyDay, group: Place[]): boolean {
+  if (!group.length || group[0].anchorVisitId) return false;
+  const ids = new Set(day.places.map(place => place.visitId));
+  if (ids.size !== day.places.length || day.places.some(place => !place.visitId)) return false;
+  const start = day.places.indexOf(group[0]);
+  return group.every((place, index) => day.places[start + index] === place);
+}
+
+/** Drag handles are available only for intact non-lodging groups. */
+export function canDragPlanVisit(day: JourneyDay, visitId: string): boolean {
+  const group = planVisitGroups(day).find(items => items.some(place => place.visitId === visitId));
+  return Boolean(group && !fixedPlanGroup(group) && validPlanGroup(day, group));
+}
+
+/** Insert before a visit's whole group; null means the end, before terminal lodging. */
+export function movePlanVisitBefore(journey: Journey, dayId: string, visitId: string, beforeVisitId: string | null): Journey {
+  if (!isPersonalPlan(journey) || journey.visibility !== 'PRIVATE' || journey.trash) throw new Error('내 비공개 여행에서만 순서를 바꿀 수 있어요.');
+  const day = journey.days.find(item => item.dayId === dayId);
+  if (!day) throw new Error('날짜가 바뀌었어요. 다시 선택해 주세요.');
+  const groups = planVisitGroups(day);
+  const sourceIndex = groups.findIndex(group => group.some(place => place.visitId === visitId));
+  if (sourceIndex < 0) throw new Error('방문할 장소가 바뀌었어요. 다시 선택해 주세요.');
+  if (!validPlanGroup(day, groups[sourceIndex])) throw new Error('연결된 장소를 확인한 뒤 순서를 바꿔 주세요.');
+  if (fixedPlanGroup(groups[sourceIndex])) throw new Error('숙소와 고정된 방문은 끌어서 이동할 수 없어요.');
+  let targetIndex = groups.length;
+  if (beforeVisitId !== null) {
+    targetIndex = groups.findIndex(group => group.some(place => place.visitId === beforeVisitId));
+    if (targetIndex < 0) throw new Error('이동할 위치가 바뀌었어요. 다시 선택해 주세요.');
+    if (!validPlanGroup(day, groups[targetIndex])) throw new Error('연결된 장소를 확인한 뒤 순서를 바꿔 주세요.');
+  } else {
+    while (targetIndex > 0 && groups[targetIndex - 1].some(place => place.kind === 'STAY')) targetIndex--;
+  }
+  if (targetIndex === sourceIndex || targetIndex === sourceIndex + 1) return journey;
+  const crossed = sourceIndex < targetIndex ? groups.slice(sourceIndex + 1, targetIndex) : groups.slice(targetIndex, sourceIndex);
+  if (crossed.some(fixedPlanGroup)) throw new Error('숙소와 고정된 방문의 앞뒤를 바꿀 수 없어요.');
+  if (groups.some(group => !validPlanGroup(day, group))) throw new Error('연결된 장소를 확인한 뒤 순서를 바꿔 주세요.');
+  const moved = [...groups];
+  const [source] = moved.splice(sourceIndex, 1);
+  moved.splice(sourceIndex < targetIndex ? targetIndex - 1 : targetIndex, 0, source);
+  const places = moved.flat();
+  const positions = new Map(places.map((place, index) => [place.visitId, index]));
+  const placeBlocks = day.blocks.filter(block => block.type === 'PLACE').sort((a, b) => (positions.get(a.visitId) ?? Infinity) - (positions.get(b.visitId) ?? Infinity));
+  let blockIndex = 0;
+  const updated = reconcilePlanningGaps({ ...day, places, blocks: day.blocks.map(block => block.type === 'PLACE' ? placeBlocks[blockIndex++] : block) });
+  return { ...journey, days: journey.days.map(item => item === day ? updated : item) };
+}
+
 export function reorderPlanVisit(journey: Journey, dayId: string, visitId: string, direction: -1 | 1): Journey {
   if (!isPersonalPlan(journey)) return journey;
   return { ...journey, days: journey.days.map(day => {
@@ -161,21 +256,54 @@ function copiedDays(sourceDays: JourneyDay[], itineraryOnly = false): JourneyDay
   }));
 }
 export function copyPersonalPlan(source: Journey, author: string): Journey {
-  const clean = normalizePlan(source);
+  const { publicAuthorId: _publicAuthorId, publicSourceKind: _publicSourceKind, ...clean } = normalizePlan(source);
+  const days = copiedDays(clean.days, true);
+  const businessCandidates = clean.businessCandidates?.map(group => {
+    const dayIndex = clean.days.findIndex(day => day.dayId === group.dayId);
+    const anchorDay = clean.days.findIndex(day => day.places.some(place => place.visitId === group.anchorVisitId));
+    const anchorIndex = clean.days[anchorDay].places.findIndex(place => place.visitId === group.anchorVisitId);
+    return { ...structuredClone(group), id: id(), dayId: days[dayIndex].dayId!, anchorVisitId: days[anchorDay].places[anchorIndex].visitId! };
+  });
   // Legacy sources are normalized by App before this operation. Authored originals remain untouched.
-  return { ...structuredClone(clean), travelProgress: undefined, id: `trip-${id()}`, purpose: 'PLAN', sourceTripId: undefined, editorDraft: undefined, sourceJourneyId: source.id, sourceAuthor: source.author,
+  return { ...structuredClone(clean), businessCandidates, planStage: clean.planStage === 'DRAFT' ? 'DRAFT' : 'READY', travelProgress: undefined, id: `trip-${id()}`, purpose: 'PLAN', sourceTripId: undefined, editorDraft: undefined, sourceJourneyId: source.id, sourceAuthor: source.author,
     title: `${source.title} · 내 동선`, story: '', summary: '가고 싶은 곳을 내 동선으로 가져왔어요.', status: 'PLANNING', visibility: 'PRIVATE', author, isMine: true, saves: 0, views: 0,
-    days: copiedDays(clean.days, true),
+    days,
   };
 }
-export function makeJournalFromPlan(source: Journey, author: string): Journey {
+export interface JournalFromPlanOptions {
+  /** Explicitly include still-planned visits. Skipped visits never become journal cards. */
+  includePlanned?: boolean;
+}
+export function makeJournalFromPlan(source: Journey, author: string, options: JournalFromPlanOptions = {}): Journey {
   if (!isPersonalPlan(source)) throw new Error('내 여행에서 여행기를 만들 수 있어요.');
-  const days = copiedDays(normalizePlan(source).days, true).map(day => {
-    const { planningGaps: _planningGaps, ...journalDay } = day;
-    return { ...journalDay, places: day.places.map(place => ({ ...withoutPlanningSlot(place), note: '', move:undefined, bookingFixed: undefined })) };
+  if (source.planStage === 'DRAFT' || source.businessCandidates?.length) throw new Error('후보를 먼저 확인하고 내 여행을 완성해 주세요.');
+  const plan = normalizePlan(source);
+  const hasCompletedVisits = plan.days.some(day => day.places.some(place => visitProgress(plan, place.visitId) === 'done'));
+  const visitedOnly = hasCompletedVisits && !options.includePlanned;
+  // Preserve the original DAY/date and trip duration; an unvisited DAY must not shift later records.
+  const selectedDays = plan.days.map(day => {
+    const places = day.places.filter(place => {
+      const progress = visitProgress(plan, place.visitId);
+      return visitedOnly ? progress === 'done' : progress !== 'skipped';
+    });
+    const visits = new Set(places.map(place => place.visitId));
+    return { ...day, places, blocks: day.blocks.filter(block => block.type === 'PLACE' && visits.has(block.visitId)) };
   });
-  return { ...structuredClone(source), travelProgress: undefined, id: `journal-${id()}`, purpose: 'JOURNAL', sourceTripId: source.id, planningPreferences: undefined, editorDraft: undefined, title: source.title,
-    status: 'PLANNING', visibility: 'PRIVATE', story: '', summary: '', author, isMine: true, saves: 0, views: 0, days };
+  if (!selectedDays.some(day => day.places.length)) throw new Error('여행기에 담을 장소가 없어요. 방문 장소를 확인해 주세요.');
+  const days = copiedDays(selectedDays, true).map(day => {
+    const { planningGaps: _planningGaps, ...journalDay } = day;
+    return { ...journalDay,
+      places: day.places.map(place => {
+        const { time: _time, move: _move, bookingFixed: _booking, stayDayIds: _stayDays, ...journalPlace } = withoutPlanningSlot(place);
+        return { ...journalPlace, note: '' };
+      }),
+      // A place card in a private itinerary can carry extra fields; only its identity is shared.
+      blocks: day.blocks.map(block => ({ id: block.id, type: 'PLACE' as const, placeId: block.placeId, visitId: block.visitId })),
+    };
+  });
+  const { publicAuthorId: _publicAuthorId, publicSourceKind: _publicSourceKind, ...journalSource } = source;
+  return { ...structuredClone(journalSource), businessCandidates: undefined, planStage: undefined, travelProgress: undefined, id: `journal-${id()}`, purpose: 'JOURNAL', sourceTripId: source.id, planningPreferences: undefined, editorDraft: undefined, title: source.title,
+    status: 'PLANNING', visibility: 'PRIVATE', cover: days.flatMap(day => day.places).find(place => place.image)?.image ?? '', story: '', summary: '', author, isMine: true, saves: 0, views: 0, days };
 }
 export function copyPlanDay(journey: Journey, dayId: string): Journey {
   const day = journey.days.find(day => day.dayId === dayId);
@@ -230,7 +358,7 @@ export function replacePlanBusiness(journey: Journey, dayId: string, visitId: st
   if (!day || !target) throw new Error('교체할 장소가 바뀌었어요. 다시 확인해 주세요.');
   if (!['FOOD', 'CAFE'].includes(target.kind) || target.kind !== source.kind) throw new Error('같은 종류의 음식점·카페로 교체해 주세요.');
   if (source.id === target.id) return journey;
-  if (day.places.some(place => place.id === source.id)) throw new Error('이 DAY에 이미 담긴 장소예요. 다른 곳을 골라주세요.');
+  if (day.places.some(place => place.id === source.id && (!target.planningSlot || !place.planningSlot || target.planningSlot === place.planningSlot))) throw new Error('이 시간대에 이미 담긴 장소예요. 다른 곳을 골라주세요.');
   if (source.area.split(' ')[0] !== target.area.split(' ')[0]) throw new Error('같은 지역의 장소를 골라주세요.');
   const { visitId: _visit, anchorVisitId: _anchor, stayDayIds: _stay, bookingFixed: _fixed, planningSlot: _slot, ...business } = structuredClone(source);
   const replacement: Place = { ...business, visitId, anchorVisitId: target.anchorVisitId,

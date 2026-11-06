@@ -5,6 +5,7 @@ import { BottomSheet, hasActiveSheet } from './BottomSheet';
 import { getPlacePhotos, type PlacePhoto } from './PhotoPlaceCard';
 import { activePhotoIndex } from './placePhotos';
 import { PhotoCredit } from './PublicTourismCredit';
+import { PlaceReportActions } from './ReportSheet';
 import { realSlot, wrapPlace } from './photoFeedNavigation';
 import { usePhotoFeedGesture } from './usePhotoFeedGesture';
 import { MediaRegionButton } from './MediaRegionButton';
@@ -232,6 +233,7 @@ function PhotoLandmarkReel({ place, photos, index, total, active, nearby, photoI
     <div className="photo-reel-actions">
       <div><button type="button" className={saved ? 'is-saved' : ''} onClick={onToggle} aria-pressed={saved} aria-label={`${place.name} ${saved ? '저장 해제' : '저장'}`}><Bookmark size={25} fill={saved ? 'currentColor' : 'none'} /></button><span>{saved ? '저장됨' : '저장'}</span></div>
       <div><button type="button" onClick={onShare} aria-label={`${place.name} 공유`}><Share2 size={24} /></button><span>공유</span></div>
+      <PlaceReportActions place={place} photo={photos[photoIndex]} />
       {onChooseRegion && <MediaRegionButton region={region} onChoose={onChooseRegion} />}
     </div>
   </article>;

@@ -1,0 +1,224 @@
+{
+  "results": [
+    {
+      "width": 1440,
+      "scene": "comment-reply-detail",
+      "target": {
+        "width": 637.2,
+        "height": 192.2,
+        "clientWidth": 635,
+        "scrollWidth": 635
+      },
+      "screenshot": "1440-comment-reply-detail.png"
+    },
+    {
+      "width": 1440,
+      "scene": "member-deletion-controls",
+      "target": {
+        "width": 111.1,
+        "height": 36,
+        "clientWidth": 109,
+        "scrollWidth": 109
+      },
+      "screenshot": "1440-member-deletion-controls.png"
+    },
+    {
+      "width": 1440,
+      "scene": "grade-edit-detail",
+      "target": {
+        "width": 301.6,
+        "height": 42,
+        "clientWidth": 300,
+        "scrollWidth": 300
+      },
+      "screenshot": "1440-grade-edit-detail.png"
+    },
+    {
+      "width": 1440,
+      "scene": "notification-controls",
+      "target": {
+        "width": 94.3,
+        "height": 36,
+        "clientWidth": 92,
+        "scrollWidth": 92
+      },
+      "screenshot": "1440-notification-controls.png"
+    },
+    {
+      "width": 1440,
+      "scene": "connection-limit-detail",
+      "target": {
+        "width": 111.1,
+        "height": 42,
+        "clientWidth": 109,
+        "scrollWidth": 109
+      },
+      "screenshot": "1440-connection-limit-detail.png"
+    },
+    {
+      "width": 820,
+      "scene": "comment-reply-detail",
+      "target": {
+        "width": 398,
+        "height": 192.2,
+        "clientWidth": 396,
+        "scrollWidth": 396
+      },
+      "screenshot": "820-comment-reply-detail.png"
+    },
+    {
+      "width": 820,
+      "scene": "member-deletion-controls",
+      "target": {
+        "width": 111.1,
+        "height": 36,
+        "clientWidth": 109,
+        "scrollWidth": 109
+      },
+      "screenshot": "820-member-deletion-controls.png"
+    },
+    {
+      "width": 820,
+      "scene": "grade-edit-detail",
+      "target": {
+        "width": 380,
+        "height": 42,
+        "clientWidth": 378,
+        "scrollWidth": 378
+      },
+      "screenshot": "820-grade-edit-detail.png"
+    },
+    {
+      "width": 820,
+      "scene": "notification-controls",
+      "target": {
+        "width": 94.3,
+        "height": 36,
+        "clientWidth": 92,
+        "scrollWidth": 92
+      },
+      "screenshot": "820-notification-controls.png"
+    },
+    {
+      "width": 820,
+      "scene": "connection-limit-detail",
+      "target": {
+        "width": 111.1,
+        "height": 42,
+        "clientWidth": 109,
+        "scrollWidth": 109
+      },
+      "screenshot": "820-connection-limit-detail.png"
+    },
+    {
+      "width": 390,
+      "scene": "comment-reply-detail",
+      "target": {
+        "width": 293,
+        "height": 258,
+        "clientWidth": 291,
+        "scrollWidth": 291
+      },
+      "screenshot": "390-comment-reply-detail.png"
+    },
+    {
+      "width": 390,
+      "scene": "member-deletion-controls",
+      "target": {
+        "width": 111.1,
+        "height": 36,
+        "clientWidth": 109,
+        "scrollWidth": 109
+      },
+      "screenshot": "390-member-deletion-controls.png"
+    },
+    {
+      "width": 390,
+      "scene": "grade-edit-detail",
+      "target": {
+        "width": 275,
+        "height": 42,
+        "clientWidth": 273,
+        "scrollWidth": 273
+      },
+      "screenshot": "390-grade-edit-detail.png"
+    },
+    {
+      "width": 390,
+      "scene": "notification-controls",
+      "target": {
+        "width": 94.3,
+        "height": 36,
+        "clientWidth": 92,
+        "scrollWidth": 92
+      },
+      "screenshot": "390-notification-controls.png"
+    },
+    {
+      "width": 390,
+      "scene": "connection-limit-detail",
+      "target": {
+        "width": 111.1,
+        "height": 42,
+        "clientWidth": 109,
+        "scrollWidth": 109
+      },
+      "screenshot": "390-connection-limit-detail.png"
+    },
+    {
+      "width": 320,
+      "scene": "comment-reply-detail",
+      "target": {
+        "width": 223,
+        "height": 284.4,
+        "clientWidth": 221,
+        "scrollWidth": 221
+      },
+      "screenshot": "320-comment-reply-detail.png"
+    },
+    {
+      "width": 320,
+      "scene": "member-deletion-controls",
+      "target": {
+        "width": 111.1,
+        "height": 36,
+        "clientWidth": 109,
+        "scrollWidth": 109
+      },
+      "screenshot": "320-member-deletion-controls.png"
+    },
+    {
+      "width": 320,
+      "scene": "grade-edit-detail",
+      "target": {
+        "width": 205,
+        "height": 42,
+        "clientWidth": 203,
+        "scrollWidth": 203
+      },
+      "screenshot": "320-grade-edit-detail.png"
+    },
+    {
+      "width": 320,
+      "scene": "notification-controls",
+      "target": {
+        "width": 94.3,
+        "height": 36,
+        "clientWidth": 92,
+        "scrollWidth": 92
+      },
+      "screenshot": "320-notification-controls.png"
+    },
+    {
+      "width": 320,
+      "scene": "connection-limit-detail",
+      "target": {
+        "width": 111.1,
+        "height": 42,
+        "clientWidth": 109,
+        "scrollWidth": 109
+      },
+      "screenshot": "320-connection-limit-detail.png"
+    }
+  ]
+}

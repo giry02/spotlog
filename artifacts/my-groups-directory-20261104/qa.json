@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-11-04",
+  "workspace": "C:/Users/Giry/Documents/Spotlog",
+  "delivery": "local-only; no commit, push or deployment",
+  "implemented": [
+    "My groups: family/friends/hobby/guide filters and membership counts",
+    "Default category sections; global upcoming/unread/name sorts",
+    "Filter preservation on detail return; account-boundary reset; archived access",
+    "Wrapped 44px category controls with 8px gaps",
+    "Isolated platform-review fixture grid width correction"
+  ],
+  "proposalsOnly": [
+    "Public discovery: independent relationship, topic/subtopic, base/venue/destination and participation conditions",
+    "Creation-first AI: actual restaurants, landmarks, seasonal outings and travel proposals",
+    "Group creation drafts, choice comparison, voting, availability and midpoint planning",
+    "Preparation gaps, weather alternatives, decision ledger, selected notice import and shared records"
+  ],
+  "verification": {
+    "webDomainTests": { "command": "node --experimental-strip-types --test web/tests/*.test.mjs", "passed": 760, "failed": 0 },
+    "webBuild": { "command": "npm run web:build", "exitCode": 0, "note": "Existing bundle-size warning remains; no build errors." },
+    "browser": {
+      "testStorage": "Isolated in-memory platform-review fixture; no customer/admin storage edits",
+      "appWidths": [320, 390, 460],
+      "appHorizontalOverflow": false,
+      "visibleBrokenImages": 0,
+      "undersizedVisibleButtonsAt320": 0,
+      "checked": ["category sections", "global upcoming order", "unread sort", "name sort", "family detail/back preservation", "empty guide filter/reset"],
+      "consoleErrors": [],
+      "reportWidths": [320, 390, 1280],
+      "reportHorizontalOverflow": false,
+      "reportBrokenImages": 0,
+      "interactivePlanningCases": ["food", "autumn", "new group"],
+      "reportConsoleErrors": []
+    }
+  },
+  "artifacts": [
+    "deliverables/group-direction-ai-20261104/index.html",
+    "deliverables/group-direction-ai-20261104/assets/my-groups-390.png",
+    "artifacts/my-groups-directory-20261104/my-groups-390.png",
+    "artifacts/my-groups-directory-20261104/ai-creation-plan.png",
+    "artifacts/my-groups-directory-20261104/ui-change.patch"
+  ]
+}

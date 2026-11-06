@@ -1,0 +1,15 @@
+✔ existing base type sizes remain stable (0.861ms)
+✔ .detail-creator-numbers span uses the named role without a duplicate override (0.8557ms)
+✔ .detail-creator-numbers strong uses the named role without a duplicate override (0.1494ms)
+✔ .creator-journey-list strong uses the named role without a duplicate override (0.0958ms)
+✔ .creator-journey-list small uses the named role without a duplicate override (0.1077ms)
+✔ .creator-journey-list em uses the named role without a duplicate override (0.0651ms)
+✔ readable guide and in-app guide retain the same typography rules and rows (1.0228ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 74.4138

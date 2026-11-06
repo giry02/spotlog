@@ -1,0 +1,18 @@
+{
+  "width": 1440,
+  "page": "운영 설정·이력",
+  "docOverflow": 0,
+  "mainOverflow": 0,
+  "tables": [],
+  "tabs": [
+    {
+      "gap": "6px",
+      "x": 268,
+      "y": 383,
+      "w": 1125,
+      "h": 49
+    }
+  ],
+  "smallButtons": [],
+  "horizontalOverflowElements": []
+}

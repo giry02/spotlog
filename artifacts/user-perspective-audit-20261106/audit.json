@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-06",
+  "mode": "read-only product review; all interactions in isolated memory fixture; no product source edits",
+  "homeWidths": [
+    {
+      "width": 320,
+      "documentWidth": 320,
+      "searchWidth": 145.5
+    },
+    {
+      "width": 390,
+      "documentWidth": 390,
+      "searchWidth": 215.5
+    },
+    {
+      "width": 460,
+      "documentWidth": 460,
+      "searchWidth": 285.5
+    }
+  ],
+  "browserVerified": [
+    "Guest home has no visible Spotlog name; brand heading is screen-reader-only.",
+    "Bottom Places opens saved Interest places, whereas home Places is public discovery.",
+    "Saved rows offer travel placement and travel creation; broad group handoff is weak.",
+    "Guest appointments has login as its only main empty-state action.",
+    "Guest AI planning shows login before request entry.",
+    "Group board → chat → back button returns group home rather than board.",
+    "Chat + → planning helper → tool selection adds a step before polls/tasks.",
+    "Group discovery first card starts416px down at390×844 after root tabs, area, sub-navigation and136px interest grid."
+  ],
+  "sourceVerified": [
+    "DiscoveryHome has public recruitment/groups/places with no compact next-member-appointment or unread-return section.",
+    "My-group directory already includes upcoming activities and unread sort; do not describe those features as absent.",
+    "Direct and optional approval joining already exist; improvement is post-join next steps, not rebuilding join policies."
+  ],
+  "recommendationOrder": [
+    "Brand and terminology/navigation hierarchy",
+    "Saved-place to group/appointment handoff",
+    "Preserve originating tab on chat return",
+    "Expose purpose-specific chat tools",
+    "Preview-before-login and post-join welcome",
+    "Compact return shortcuts for signed-in returning members"
+  ],
+  "names": {
+    "shortlist": [
+      "한데로",
+      "모여온",
+      "이음날"
+    ],
+    "candidates": [
+      "한데로",
+      "모여온",
+      "이음날",
+      "한데온",
+      "모여담",
+      "온자리",
+      "모이루",
+      "모아루",
+      "잇모아",
+      "같이로"
+    ],
+    "existing": "Spotlog remains in document/share/about naming; absent visible home header",
+    "excludedExistingApps": [
+      "온모임",
+      "모이모",
+      "모임결"
+    ],
+    "status": "Creative naming proposals; no availability clearance or rename applied"
+  }
+}

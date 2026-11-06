@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Spotlog · 모임 탐색·홍보 보완</title><style>
+:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;background:#f7f7f3;color:#232321;font:16px/1.75 system-ui,sans-serif}main{max-width:1080px;margin:auto;padding:40px 24px 80px}h1{font-size:30px;line-height:1.4}h2{font-size:22px;margin:0 0 16px}h3{font-size:18px;margin:0 0 8px}small{font-size:13px;color:#686863}p{margin:8px 0 16px}section{background:white;border:1px solid #deded8;border-radius:18px;padding:24px;margin:22px 0}a{color:#a7432c;text-underline-offset:4px}.links{display:flex;flex-wrap:wrap;gap:10px}.links a{min-height:44px;padding:10px 16px;background:#232321;color:white;text-decoration:none;border-radius:10px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.item{padding:20px;background:#fafaf7;border-radius:14px}.num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#ffede6;color:#ac4631;font-weight:800;margin-right:8px}table{border-collapse:collapse;width:100%;font-size:15px}th,td{text-align:left;padding:14px 12px;border-bottom:1px solid #e7e7df;vertical-align:top}th{background:#f4f4ef}code{font-size:13px;overflow-wrap:anywhere}li+li{margin-top:8px}.note{border-left:3px solid #b6c8b9;padding-left:16px}@media(max-width:640px){main{padding:24px 16px 60px}section{padding:18px}.grid{grid-template-columns:1fr}.table{overflow:auto}table{min-width:650px}}
+</style></head><body><main>
+<small>2026.10.28 · 로컬 프론트 검수</small><h1>모임을 발견하고, 소개를 읽고, 가입하는 흐름</h1>
+<p>SOMOIM 프로젝트의 ‘모여봄’ 탐색 화면과 원작 캐릭터 자료 참고. 기존 개인 여행·여행기·모임 내부 기능 유지.</p>
+<nav class="links"><a href="http://127.0.0.1:5210/#home">홈</a><a href="http://127.0.0.1:5210/#together-find">모임 찾기</a><a href="http://127.0.0.1:5210/#group-discovery-gwangan-cafe">가입 전 소개</a><a href="http://127.0.0.1:5210/#activitychat-family-next">이모티콘 채팅</a></nav>
+<section><h2>달라진 화면</h2><div class="grid">
+<div class="item"><h3><span class="num">1</span>홈에서 모임 홍보</h3><p>AI 여행 만들기 다음에 공개 모집 영역 배치. 여행지·동네 선택, 지역 선택, 관심사, 사진 모집 카드, 다음 공개 일정 제공.</p><small>내 모임의 다음 여행은 별도 이어보기. 비공개 가족 모임은 공개 카드에 포함하지 않음.</small></div>
+<div class="item"><h3><span class="num">2</span>동네·관심사 탐색</h3><p>🏡 동네에서 / 🧳 여행지에서 구분. 지역·동네 직접 선택. 맛집·카페·산책·여행·사진·레저·문화·가족 8개 관심사.</p><small>오늘·7일 안에·주말, 검색어, 일정순·이름순. 상세에서 돌아오면 조건·정렬 유지.</small></div>
+<div class="item"><h3><span class="num">3</span>가입 전 공개 소개</h3><p>사진·활동 지역·관심사 → 첫 참여 안내 → 공개 일정·지난 활동 → 가입 조건 → 모임장 → 가입 신청.</p><small>비로그인도 열람 가능. 로그인 후 자동 가입하지 않음. 가입 신청과 일정 참가는 별도.</small></div>
+<div class="item"><h3><span class="num">4</span>모임장 모집 관리</h3><p>모임 메뉴 → 공개 모집·홍보. 관심사·지역·모집 문구·가입 안내·대표 사진·공개할 일정 선택. 미리보기와 공개 범위 확인 후 게시.</p><small>모집 쉬기, 공개 소개 내리기 제공. 대표 사진 없이도 공개 가능.</small></div>
+<div class="item"><h3><span class="num">5</span>채팅 이모티콘</h3><p>입력창의 웃는 얼굴 → 이모지 / 캐릭터. 이모지 60개, 토끼·고양이·곰·오리 4팩 34종.</p><small>캐릭터 선택 → 미리보기 → 보내기. 선택만으로 전송하지 않음. 텍스트와 함께 전송·재열기 가능.</small></div>
+<div class="item"><h3><span class="num">6</span>다양한 모임 예시</h3><p>부산·서울·제주·강원·인천의 공개 모임 12개와 활동 24개. 카페 대화·한 끼 산책·사진·문화·가족 여행 등.</p><small>‘모임 예시’로 구분. 사진은 등록된 지역 자료 사용. 실제 개최·운영 실적을 뜻하지 않음.</small></div>
+</div></section>
+<section><h2>벤치마킹을 화면으로 옮긴 기준</h2><div class="table"><table><thead><tr><th>참고</th><th>가져온 방향</th><th>Spotlog에 적용</th></tr></thead><tbody>
+<tr><td>사용자 SOMOIM · 모여봄</td><td>사진 중심 카드, 지역·관심사 분리, 원작 캐릭터 팩</td><td>모집 사진·첫 참여 안내, 동네/여행지 탐색, 채팅 이모티콘</td></tr>
+<tr><td><a href="https://www.somoim.co.kr/">소모임</a></td><td>관심사와 지역에서 모임·활동 발견</td><td>8개 관심사, 지역·동네, 공개 활동 날짜와 모임 소개 연결</td></tr>
+<tr><td><a href="https://about.daangn.com/company/pr/archive/당근-모임-서비스-지역-전국-확장/">당근 모임</a></td><td>가까운 지역에서 가볍게 참여</td><td>동네 탐색과 한 끼·카페·산책 모임. GPS 인증 강제 없음</td></tr>
+<tr><td><a href="https://open.kakao.com/">카카오 오픈채팅</a></td><td>관심사로 발견하고 소개를 통해 참여</td><td>가입 전 안내와 승인 절차, 채팅 표현 도구. 채팅은 모임·일정 안에 유지</td></tr>
+</tbody></table></div><p><small>위 표는 Spotlog 적용 판단. 다른 서비스의 기능을 동일하게 복제했다는 뜻은 아님. AI 대화 정리는 기존 연결 예정 흐름 유지.</small></p></section>
+<section><h2>확인한 동작</h2><ul>
+<li>부산·카페 선택 → 해당 모임만 표시 → 소개 → 뒤로 이동 시 조건·이름순 유지.</li>
+<li>비로그인 소개 열람 → 가입 클릭 시 로그인 방식 선택 → 로그인 후 같은 소개 복귀. 자동 신청 없음.</li>
+<li>가입 신청 → 승인 대기 → 신청 취소. 자동 가입·자동 일정 참가 없음.</li>
+<li>별도 화면 확인용 모임 생성 → 공개 범위 미확인 차단 → 명시적 공개 → 검색 반영 → 공개 소개 내리기 후 검색 제외.</li>
+<li>텍스트 초안에 이모지 삽입 → 캐릭터 선택 → 전송 전 미리보기 → 텍스트·그림 동시 저장 → 재열기.</li>
+<li>320·390·460px에서 탐색·공개 소개·홈 확인. 새 모임 조작 영역 44px 이상, 의도하지 않은 가로 넘침 없음. 홈의 가로 카드·관심사 스크롤은 의도한 동작.</li>
+<li>자동 검사 631개 통과. 웹 프로덕션 빌드·네이티브 타입 검사 통과. 검수한 브라우저 오류 로그 없음.</li>
+</ul><p class="note">변경은 로컬에만 보관. 실제 가입 전달·다중 사용자 채팅·외부 초대·AI 분석은 서버 연결 단계. 현재 동작은 계정별 기기 저장소 사용.</p></section>
+<section><h2>자료 보호·서버 연결 기준</h2><ul>
+<li>공개 모임만 탐색. 비공개·보관 모임 제외. 공개 활동은 운영자가 선택한 ID와 승인 당시 제목·날짜·소개만 반환.</li>
+<li>공개 활동과 내부 채팅·참가자·집합 장소·개인 동선·앨범 분리. 일정 소개를 수정하면 기존 공개 선정에서 내려가고 재공개 필요.</li>
+<li>취소·삭제 활동은 승인 스냅샷이 남아 있어도 즉시 제외. 기존 개인 여행·관리자 자료는 수정하지 않음.</li>
+<li>기존 저장소에는 예시를 한 번만 추가. 사용자 변경·삭제 보존. 이전 자동 설명과 정확히 같은 알려진 예시 문구만 갱신.</li>
+<li><code>TogetherGroup.discovery</code>: topics·district·style·recruitment·welcome·joinGuide. 모임 종류와 관심사는 별개.</li>
+<li><code>promotionActivitySnapshots</code>: 공개 승인 내용. 서버도 권한·선정 ID·현재 공개/취소 상태 확인 필요.</li>
+<li><code>TogetherMessage.stickerId</code>: 등록된 정적 캐릭터 ID만 허용. 외부 URL·임의 SVG 저장 불가.</li>
+</ul></section>
+</main></body></html>

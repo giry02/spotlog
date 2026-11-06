@@ -1,0 +1,130 @@
+[
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "discovery",
+    "visiblePanels": 1,
+    "width": 320
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "appointments",
+    "visiblePanels": 1,
+    "width": 320
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "group",
+    "visiblePanels": 1,
+    "width": 320
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "chat",
+    "visiblePanels": 1,
+    "width": 320
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "discovery",
+    "visiblePanels": 1,
+    "width": 390
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "appointments",
+    "visiblePanels": 1,
+    "width": 390
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "group",
+    "visiblePanels": 1,
+    "width": 390
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "chat",
+    "visiblePanels": 1,
+    "width": 390
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "discovery",
+    "visiblePanels": 1,
+    "width": 460
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "appointments",
+    "visiblePanels": 1,
+    "width": 460
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "group",
+    "visiblePanels": 1,
+    "width": 460
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "chat",
+    "visiblePanels": 1,
+    "width": 460
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "discovery",
+    "visiblePanels": 1,
+    "width": 1440
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "appointments",
+    "visiblePanels": 1,
+    "width": 1440
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "group",
+    "visiblePanels": 1,
+    "width": 1440
+  },
+  {
+    "brokenImages": [],
+    "narrowButtons": 0,
+    "pageOverflow": false,
+    "view": "chat",
+    "visiblePanels": 1,
+    "width": 1440
+  }
+]

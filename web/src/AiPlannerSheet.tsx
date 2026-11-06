@@ -13,7 +13,6 @@ import { useLocale } from './locale';
 import { plannerText } from './aiPlanner';
 import { readQuickPlannerPrompt, normalizeQuickPlannerConditions, dayBusinessSuggestions } from './aiPlannerQuickStart';
 import { travelRegionOptions } from './aiTravelDraft';
-import { PhotoCredit } from './PublicTourismCredit';
 import { createAiPlannerDraftStore } from './aiPlannerDraft';
 import { plannerTimeline, plannerVisitContext, planningSlotLabel, planningGapLabel } from './plannerTimeline';
 
@@ -32,6 +31,7 @@ const plannerKinds = {
   STAY: { icon: BedDouble, ko: '숙소', en: 'Stay' },
   CAFE: { icon: Coffee, ko: '카페', en: 'Cafe' },
   SHOP: { icon: Store, ko: '로컬숍', en: 'Shop' },
+  LEISURE: { icon: MapPin, ko: '레저', en: 'Leisure' },
 };
 
 function PlannerKindBadge({ kind, locale }: { kind: PlaceKind; locale: 'ko' | 'en' }) {
@@ -43,7 +43,6 @@ function PlannerPlacePhoto({ place, className }: { place: Place; className: stri
   const Icon = plannerKinds[place.kind].icon;
   return <div className={className}>
     {place.image ? <img src={place.image} alt=""/> : <span className="ai-planner-photo-empty" data-kind={place.kind} aria-hidden="true"><Icon size={25}/></span>}
-    <PhotoCredit image={place.image}/>
   </div>;
 }
 
@@ -91,9 +90,9 @@ export function AiPlannerSheet({places,savedPlaces,author,draftRef,existingJourn
   const close=()=>{cancel();onClose();};
   const change=(patch:Partial<PlannerConditions>)=>{cancel();setError('');setConditions(current=>normalizeQuickPlannerConditions({...current,...patch}));};
   const pool=conditions.mode==='saved'?savedPlaces:places.filter(place=>!place.personal);
-  const candidates=useMemo(()=>[...new Map(pool.filter(p=>p.kind==='LANDMARK'&&(!conditions.region||p.area===conditions.region||p.area.startsWith(`${conditions.region} `))).map(p=>[p.id,p])).values()],[pool,conditions.mode,conditions.region]);
-  const regions=travelRegionOptions(places.filter(p=>p.kind==='LANDMARK'&&!p.personal));
-  const savedRegions=travelRegionOptions(savedPlaces.filter(p=>p.kind==='LANDMARK'));
+  const candidates=useMemo(()=>[...new Map(pool.filter(p=>p.kind!=='STAY'&&(!conditions.region||p.area===conditions.region||p.area.startsWith(`${conditions.region} `))).map(p=>[p.id,p])).values()],[pool,conditions.mode,conditions.region]);
+  const regions=travelRegionOptions(places.filter(p=>p.kind!=='STAY'&&!p.personal));
+  const savedRegions=travelRegionOptions(savedPlaces.filter(p=>p.kind!=='STAY'));
   const quickPrompt=(prompt:string)=>change(readQuickPlannerPrompt(prompt,normalizeQuickPlannerConditions(conditions),places));
   const generate=async()=>{
     if(pending.current||saving.current||needsReset)return;
@@ -118,7 +117,7 @@ export function AiPlannerSheet({places,savedPlaces,author,draftRef,existingJourn
   const selectedStayInfo=day&&preview?plannerStayForDay(businesses,preview.data.journey,day.dayId!):null;
   const selectedStay=selectedStayInfo?.choice;
   const stayNights=selectedStayInfo?.remainingNights??nights;
-  const selectedAnchors=day?.places.filter(p=>p.kind==='LANDMARK'&&!excludedVisits.includes(p.visitId!))??[];
+  const selectedAnchors=day?.places.filter(p=>p.kind!=='STAY'&&!p.anchorVisitId&&!excludedVisits.includes(p.visitId!))??[];
   const businessPool=[...new Map([...places,...savedPlaces].map(p=>[p.id,p])).values()];
   const businessCandidates=dayBusinessSuggestions(anchorId?selectedAnchors.filter(p=>p.visitId===anchorId):selectedAnchors,businessPool,businessKind,businessMode==='saved'?new Set(savedPlaces.map(p=>p.id)):undefined,businessMode==='search'?search:'');
   const chooseBusiness=(place:Place,anchor:Place)=>{
@@ -143,7 +142,7 @@ export function AiPlannerSheet({places,savedPlaces,author,draftRef,existingJourn
   };
   const registerBusiness=()=>{
     const anchor=selectedAnchors.find(place=>place.visitId===businessForm?.anchorId);
-    if(!businessForm||businessForm.dayId!==day?.dayId||!anchor){setError(locale==='en'?'Choose a landmark for this business.':'업체를 연결할 랜드마크를 골라 주세요.');return;}
+    if(!businessForm||businessForm.dayId!==day?.dayId||!anchor){setError(locale==='en'?'Choose a base place for this business.':'업체를 연결할 기준 장소를 골라 주세요.');return;}
     try{const place=personalPlannerBusiness(businessForm,anchor);if(businessForm.kind==='STAY'&&day.planningGaps?.some(g=>g.reason==='booked'&&g.kind==='STAY'))place.bookingFixed=true;if(chooseBusiness(place,anchor)){setBusinessForm(undefined);setError('');}}catch(cause){setError(cause instanceof Error?cause.message:'업체를 담지 못했어요.');}
   };
   const save=()=>{
@@ -172,8 +171,8 @@ export function AiPlannerSheet({places,savedPlaces,author,draftRef,existingJourn
         <Field label={locale==='en'?'Transport · route unverified':'이동수단 · 경로 검증 전'}><select value={conditions.transport} onChange={e=>change({transport:e.target.value as PlannerConditions['transport']})}><option value="undecided">{say("미정")}</option><option value="walk">{say("도보")}</option><option value="transit">{say("대중교통")}</option><option value="car">{say("자동차")}</option></select></Field>
       </div>
       {error&&<p className="ui-error" role="alert">{say(error)}</p>}
-      <Button type="submit" loading={busy} disabled={needsReset||(conditions.mode==='region'&&!conditions.prompt.trim()&&!conditions.region)}><Sparkles size={17}/>{locale==='en'?'Create draft':'초안 만들기'}</Button>
-      {busy&&<Button type="button" size="compact" variant="ghost" className="ai-planner-cancel" onClick={cancel}>{say("생성 취소 · 입력 유지")}</Button>}
+      <div className="ai-planner-generate"><Button type="submit" loading={busy} disabled={needsReset||(conditions.mode==='region'&&!conditions.prompt.trim()&&!conditions.region)}><Sparkles size={17}/>{locale==='en'?'Create draft':'초안 만들기'}</Button>
+      {busy&&<Button type="button" size="compact" variant="ghost" className="ai-planner-cancel" onClick={cancel}>{say("생성 취소 · 입력 유지")}</Button>}</div>
     </form>:<div className="ai-travel-preview">
       <Button size="compact" variant="secondary" className="ai-planner-back" onClick={()=>{cancel();setConditions(current=>normalizeQuickPlannerConditions(current));setPreview(null);setError('');}}><ArrowLeft size={16}/>{say("조건 바꾸기")}</Button>
       <h3>{preview.data.journey.title}</h3><p className="ai-planner-note">{period(conditions.dayCount,locale)} · {locale==='en'?'Your route is ready to review and save. Change only what you need.':'요청에 맞춰 하루 흐름을 만들었어요. 그대로 저장하고 필요한 곳만 바꿔보세요.'}</p>
@@ -194,7 +193,7 @@ export function AiPlannerSheet({places,savedPlaces,author,draftRef,existingJourn
               {place.kind==='STAY'&&<small>DAY {selectedDay} {locale==='en'?'overnight':'숙박'}{place.bookingFixed?(locale==='en'?' · Booked':' · 예약 고정'):''}</small>}
               {place.personal&&<small>{locale==='en'?'Location unverified':'위치 확인 필요'}</small>}
               {place.kind!=='LANDMARK'&&<small>{plannerVisitContext(selectedRoute,entry,locale==='en')}</small>}
-              {editing&&place.kind!=='LANDMARK'&&place.kind!=='SHOP'&&!place.bookingFixed&&<div className="ai-planner-row-actions"><Button size="compact" variant="secondary" disabled={Boolean(businessForm)} onClick={()=>editBusiness(place.kind as 'FOOD'|'CAFE'|'STAY',place.planningSlot??'lunch',place.anchorVisitId)}><SlidersHorizontal size={14}/>{locale==='en'?'Change':'바꾸기'}</Button><button className="ai-planner-remove" disabled={Boolean(businessForm)} aria-label={`${place.name} ${place.planningSlot?planningSlotLabel(place.planningSlot,locale==='en'):''} ${locale==='en'?'remove':'빼기'}`} onClick={()=>removeBusiness(place)}><X size={16}/></button></div>}
+              {editing&&['FOOD','CAFE','STAY'].includes(place.kind)&&Boolean(place.anchorVisitId||place.kind==='STAY')&&!place.bookingFixed&&<div className="ai-planner-row-actions"><Button size="compact" variant="secondary" disabled={Boolean(businessForm)} onClick={()=>editBusiness(place.kind as 'FOOD'|'CAFE'|'STAY',place.planningSlot??'lunch',place.anchorVisitId)}><SlidersHorizontal size={14}/>{locale==='en'?'Change':'바꾸기'}</Button><button className="ai-planner-remove" disabled={Boolean(businessForm)} aria-label={`${place.name} ${place.planningSlot?planningSlotLabel(place.planningSlot,locale==='en'):''} ${locale==='en'?'remove':'빼기'}`} onClick={()=>removeBusiness(place)}><X size={16}/></button></div>}
             </div>
           </li>;
         })}</ol>
@@ -204,7 +203,7 @@ export function AiPlannerSheet({places,savedPlaces,author,draftRef,existingJourn
         <div className="ai-planner-section-heading"><h4>{locale==='en'?'Along this day’s route':'이날 함께 들를 곳'}</h4><span>{locale==='en'?'Optional':'선택 사항'}</span></div>
         <div className="ai-planner-tabs"><button disabled={Boolean(businessForm)} aria-pressed={businessKind==='FOOD'} onClick={()=>{setBusinessKind('FOOD');setBusinessSlot('lunch');}}><Utensils size={14}/>{say("음식점")}</button><button disabled={Boolean(businessForm)} aria-pressed={businessKind==='CAFE'} onClick={()=>{setBusinessKind('CAFE');setBusinessSlot('afternoon');}}><Coffee size={14}/>{locale==='en'?'Cafe':'카페'}</button><button disabled={Boolean(businessForm)} aria-pressed={businessKind==='STAY'} onClick={()=>{setBusinessKind('STAY');setBusinessSlot('stay');}}><BedDouble size={14}/>{say("숙소")}</button></div>
         {businessKind==='FOOD'&&<div className="ai-planner-tabs" aria-label={locale==='en'?'Meal to change':'수정할 식사'}>{(['lunch','dinner'] as const).map(slot=><button key={slot} disabled={Boolean(businessForm)} aria-pressed={businessSlot===slot} onClick={()=>setBusinessSlot(slot)}>{planningSlotLabel(slot,locale==='en')}</button>)}</div>}
-        {!businessForm&&<p className="ai-planner-note">{locale==='en'?'Registered samples within 15 km of this day’s landmarks. Add only what you like.':'이날 랜드마크 주변 15km 이내 등록 샘플이에요. 마음에 드는 곳만 담으세요.'}</p>}
+        {!businessForm&&<p className="ai-planner-note">{locale==='en'?'Registered samples within 15 km of this day’s places. Add only what you like.':'이날 방문 장소 주변 15km 이내 등록 샘플이에요. 마음에 드는 곳만 담으세요.'}</p>}
         {!businessForm&&<PlannerDisclosure icon={<SlidersHorizontal size={16}/>} label={locale==='en'?'Filter or search candidates':'후보 필터·검색'}><div className="ui-stack">
           <Field label={say("기준 랜드마크")}><select value={anchorId} onChange={e=>setAnchorId(e.target.value)}><option value="">{locale==='en'?'All landmarks on this day':'이날 랜드마크 전체'}</option>{selectedAnchors.map(p=><option key={p.visitId} value={p.visitId}>{p.name}</option>)}</select></Field>
           <div className="ai-planner-tabs">{([['recommended','주변 후보'],['saved','저장한 업체'],['search','직접 검색']] as const).map(([mode,label])=><button key={mode} aria-pressed={businessMode===mode} onClick={()=>setBusinessMode(mode)}>{say(label)}</button>)}</div>
@@ -220,15 +219,15 @@ export function AiPlannerSheet({places,savedPlaces,author,draftRef,existingJourn
         }))}
         {selectedAnchors.length>0&&(businessKind!=='STAY'||selectedDay<conditions.dayCount)&&(businessForm?<div className="ai-planner-registration ui-stack">
           <div className="ai-planner-section-heading"><h4>{locale==='en'?'Add a place you know':'아는 업체 직접 담기'}</h4><Button size="compact" variant="ghost" onClick={()=>{setBusinessForm(undefined);setError('');}}><X size={14}/>{locale==='en'?'Cancel':'취소'}</Button></div>
-          <Field label={say('기준 랜드마크')}><select value={businessForm.anchorId} onChange={e=>setBusinessForm({...businessForm,anchorId:e.target.value})}>{selectedAnchors.map(place=><option key={place.visitId} value={place.visitId}>{place.name}</option>)}</select></Field>
+          <Field label={say('기준 장소')}><select value={businessForm.anchorId} onChange={e=>setBusinessForm({...businessForm,anchorId:e.target.value})}>{selectedAnchors.map(place=><option key={place.visitId} value={place.visitId}>{place.name}</option>)}</select></Field>
           <Field label={locale==='en'?'Business name':'업체명'}><input value={businessForm.name} maxLength={80} onChange={e=>setBusinessForm({...businessForm,name:e.target.value})}/></Field>
           <Field label={locale==='en'?'Address':'주소'}><input value={businessForm.address} maxLength={200} onChange={e=>setBusinessForm({...businessForm,address:e.target.value})}/></Field>
           <p className="ai-planner-note">{locale==='en'?'Only added to your trip. Location and distance remain unverified.':'내 여행에만 담겨요. 위치 확인 전에는 지도와 거리가 표시되지 않아요.'}</p>
           <Button size="compact" variant="secondary" disabled={!businessForm.name.trim()||!businessForm.address.trim()} onClick={registerBusiness}><Plus size={14}/>{locale==='en'?`Add to DAY ${selectedDay}`:`DAY ${selectedDay}에 담기`}</Button>
         </div>:<Button size="compact" variant="secondary" className="ai-planner-register" onClick={()=>setBusinessForm({dayId:day!.dayId!,anchorId:anchorId||selectedAnchors[0].visitId!,kind:businessKind,name:search,address:'',planningSlot:businessSlot})}><Plus size={14}/>{locale==='en'?'Add a place you know':'아는 업체 직접 담기'}</Button>)}
       </section>}
-      <PlannerDisclosure icon={<Images size={16}/>} label={locale==='en'?'Landmark photos and details':'장소 사진·상세 보기'}>
-      <div className="ui-stack">{day?.places.filter(place=>place.kind==='LANDMARK').map(place=>{
+      <PlannerDisclosure icon={<Images size={16}/>} label={locale==='en'?'Place photos and details':'장소 사진·상세 보기'}>
+      <div className="ui-stack">{day?.places.filter(place=>place.kind!=='STAY'&&!place.anchorVisitId).map(place=>{
         const fixed=Boolean(place.bookingFixed)||conditions.requiredIds.includes(place.id),included=!excludedVisits.includes(place.visitId!);
         return <LandmarkGuideCard key={place.visitId} place={place} footer={<div className="ai-planner-evidence"><p>{preview.data.reasons[place.id]}</p><p>{say('체류')} {place.duration||say('직접 정하기')}</p></div>} actions={editing?<Button size="card" variant="secondary" disabled={fixed||Boolean(businessForm)} aria-pressed={included} className={included?'is-included':''} onClick={()=>{setExcludedVisits(toggle(excludedVisits,place.visitId!));setBusinesses(current=>current.filter(choice=>choice.anchorId!==place.visitId));if(anchorId===place.visitId)setAnchorId('');}}>{fixed?<LockKeyhole size={14}/>:included?<Check size={14}/>:<Plus size={14}/>}{say(fixed?'필수·고정 장소':included?'일정에 포함됨':'일정에 포함')}</Button>:undefined}/>;
       })}{!day?.places.length&&<p className="ai-planner-note">{say("이 DAY는 비워 두었어요. 생성 후 원하는 장소를 담을 수 있어요.")}</p>}</div>

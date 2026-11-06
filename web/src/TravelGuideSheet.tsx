@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Accessibility, ArrowRight, CalendarDays, Check, Clock3, Copy, Languages, MapPin, Send, Sparkles } from 'lucide-react';
 import type { Journey, Place } from './data';
 import { BottomSheet, useBottomSheetDetail } from './BottomSheet';
-import { LanguageControls, useLocale, type MessageKey } from './locale';
+import { ENGLISH_READING_ENABLED, LanguageControls, useLocale, type MessageKey } from './locale';
 import { createGuideSessionStore, guideAnswerKey, guideDayId, guideRequest, guideSessionKey, guideVisitId, koreanPlaceAddress, localGuideAdapter, sourceVersion, validateGuideResponse, type GuideSession } from './travelGuide';
 import type { GuideAdapter } from './aiPlanner';
 import { ContentLanguageControls, ContentTranslationScope, TranslationText } from './TranslationText';
@@ -108,7 +108,7 @@ export default function TravelGuideSheet({ journey, initialDay = 1, onClose, ada
 export function AccountAppInfo() {
   const { t } = useLocale();
   return <section className="guide-account">
-    <h3>{t('language')}</h3><LanguageControls />
+    {ENGLISH_READING_ENABLED && <><h3>{t('language')}</h3><LanguageControls /></>}
     <h3>{t('localAccount')}</h3><p>{t('accountExplanation')}</p><p className="guide-meta">{t('syncUnavailable')}</p>
     <h3>{t('appHelp')}</h3><p>{t('appExplanation')}</p>
   </section>;

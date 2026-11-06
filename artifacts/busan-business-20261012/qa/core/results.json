@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-12",
+  "checks": [
+    {
+      "width": 320,
+      "name": "food/cafe-only itinerary, independent lunch/dinner visits and ordering",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "DAY separation, reload/close/save-failure and original/customer/admin data protection",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "adding independent food protects locked overnight visit",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "independent restaurant can anchor nearby cafe shortlist and confirmation",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "trash footer and open/close in both library tabs",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "food/cafe-only itinerary, independent lunch/dinner visits and ordering",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "DAY separation, reload/close/save-failure and original/customer/admin data protection",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "adding independent food protects locked overnight visit",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "independent restaurant can anchor nearby cafe shortlist and confirmation",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "trash footer and open/close in both library tabs",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "food/cafe-only itinerary, independent lunch/dinner visits and ordering",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "DAY separation, reload/close/save-failure and original/customer/admin data protection",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "adding independent food protects locked overnight visit",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "independent restaurant can anchor nearby cafe shortlist and confirmation",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "trash footer and open/close in both library tabs",
+      "detail": "pass"
+    }
+  ],
+  "errors": [],
+  "pass": true
+}

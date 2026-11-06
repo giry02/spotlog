@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-03",
+  "sourceRoot": "C:/Users/Giry/Documents/Spotlog",
+  "scope": "Local customer frontend implementation of community-platform benchmark direction",
+  "gitCommitPushOrDeploy": false,
+  "navigation": ["발견", "약속", "모임", "장소", "내 기록"],
+  "implemented": [
+    "Public discovery combines region, interest, query and explicit public-activity selection; private member fields are excluded",
+    "Compact public/private group rows and place directory, with full photos and sources in place detail",
+    "Private friend/family appointment creation without permanent club setup; date optional; creation never RSVPs",
+    "Standalone appointments use a private single-activity backing space; repeating creates a separate creator-only space",
+    "Group home/appointments/board/album/chat and appointment schedule/preparation/records/chat tabs",
+    "Peer workspace navigation replaces duplicate history; actual parent transitions retain history",
+    "Chat notice and digest tools remain fixed; icon actions and latest-message arrow retained",
+    "Saved-first places and all existing trip/journal/template/offline/account functions remain accessible",
+    "Device-local personal plans and journals explicitly separated from verified account/group identity",
+    "Assistant frontend: shared-place vote, entered-condition comparison, current-vs-proposed time, source-linked tasks, first-attendee guide, alternate candidates, repeat, translation request contract"
+  ],
+  "aiBoundary": {
+    "realLLMConnected": false,
+    "semanticChatAnalysis": "Not connected; existing curated example digest remains distinguishable",
+    "automaticTranslation": "Not connected; request scope and language/timezone form only",
+    "deterministicLocalActions": ["Place voting", "Manual condition comparison", "Explicit source-linked preparation", "Guarded time change", "Private appointment draft repetition"],
+    "neverAutomatic": ["Group membership approval", "RSVP", "Reservations", "Schedule deletion", "External message sending"]
+  },
+  "verification": {
+    "automatedTests": 760,
+    "failures": 0,
+    "skipped": 0,
+    "testsLog": "tests-final.log",
+    "webTypecheckAndProductionBuild": "passed; build-final.log",
+    "nativeTypecheck": "passed; native-typecheck-final.log",
+    "responsiveWidths": [320, 390, 460],
+    "shortChatViewport": "320x400 tested independently",
+    "browserStorage": "Page-memory fixture; real customer/admin/offline stores not used",
+    "browserLog": "Root final review tab and independent approval/guest review had no warning/error entries",
+    "flows": [
+      "Public activity opens exact approved introduction; back retains discovery region",
+      "Appointment creation with no date preserves RSVP 0; invitation explains device-only limitation",
+      "Applicant chooses second public activity; owner approves; applicant returns to exact activity without RSVP",
+      "Food and accommodation saved independently and visible in corresponding saved-place category",
+      "Place region and kind applied atomically; navigate away/back retains both",
+      "Shared places create a candidate poll without changing the itinerary",
+      "Selected message becomes an unassigned preparation task unless actor explicitly self-accepts",
+      "Chat remains within group/activity; notice/digest/composer available during scroll",
+      "Guest does not receive private group contents or automatic personal-record cards"
+    ],
+    "fixedDuringQA": [
+      "Unsupported received-invite count removed",
+      "Legacy journey activity labels restored",
+      "Personal plans sorted by calendar date",
+      "Standalone repetition invitation access isolated",
+      "Place filter history previously lost region when kind changed simultaneously; now applied in one navigation update",
+      "Place reset control enlarged from 41px to minimum 44px"
+    ],
+    "remainingValidation": ["Real authentication/backend", "Real-time cross-device invitation/chat", "LLM and translation integration", "Physical-device keyboard/offline/GPS field checks"],
+    "existingBuildAdvisory": "Vite bundle chunks exceed 500kB; build succeeds"
+  },
+  "links": {
+    "app": "http://127.0.0.1:5210/#home",
+    "isolatedReview": "http://127.0.0.1:5210/tests/platform-review.html?screen=home&mode=member",
+    "assistantReview": "http://127.0.0.1:5210/tests/platform-review.html?screen=assistant&mode=member",
+    "benchmarkReport": "http://127.0.0.1:5210/@fs/C:/Users/Giry/Documents/Spotlog/deliverables/community-benchmark-20261103/index.html"
+  }
+}

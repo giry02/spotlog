@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-29",
+  "localOnly": true,
+  "automated": {
+    "files": 77,
+    "tests": 681,
+    "passed": 681,
+    "failed": 0,
+    "skipped": 0
+  },
+  "customer": {
+    "screenTypes": 23,
+    "widths": [
+      320,
+      390,
+      460
+    ],
+    "states": 69,
+    "pageOverflow": 0
+  },
+  "admin": {
+    "menus": 7,
+    "widths": [
+      1440,
+      768,
+      390
+    ],
+    "states": 21,
+    "pageOverflow": 0
+  },
+  "separateInvestigation": {
+    "widthHarnessObserverErrors": 2,
+    "standaloneAppReproduction": false
+  },
+  "reportMissingTargets": []
+}

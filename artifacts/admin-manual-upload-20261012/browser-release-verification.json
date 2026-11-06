@@ -1,0 +1,223 @@
+{
+  "url": "https://giry02.github.io/spotlog/manual/admin/",
+  "localRouteOnly": true,
+  "checks": [
+    {
+      "name": "HTTPS administrator link",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "local screenshot header",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "53 pages",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "310 numbered features",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "all 53 PNG decode",
+      "okay": true,
+      "detail": []
+    },
+    {
+      "name": "relative asset paths",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu 운영 현황",
+      "okay": true,
+      "detail": 2
+    },
+    {
+      "name": "desktop overflow overview",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu 장소·업체",
+      "okay": true,
+      "detail": 15
+    },
+    {
+      "name": "desktop overflow places",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu 노출·추천",
+      "okay": true,
+      "detail": 9
+    },
+    {
+      "name": "desktop overflow exposure",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu 여행기·커뮤니티",
+      "okay": true,
+      "detail": 6
+    },
+    {
+      "name": "desktop overflow community",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu 회원·문의",
+      "okay": true,
+      "detail": 3
+    },
+    {
+      "name": "desktop overflow members",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu AI·검색 운영",
+      "okay": true,
+      "detail": 9
+    },
+    {
+      "name": "desktop overflow ai",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu 운영 설정·이력",
+      "okay": true,
+      "detail": 9
+    },
+    {
+      "name": "desktop overflow settings",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "search main",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "search empty",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "search clear",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "number selects description",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer opens",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer number description",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer original",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer plus",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer minus",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer fit",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer escape closes",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer focus returns",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile start overflow",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow overview",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow places",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow exposure",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow community",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow members",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow ai",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow settings",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile viewer overflow",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "no JS errors",
+      "okay": true,
+      "detail": []
+    },
+    {
+      "name": "no external or missing requests",
+      "okay": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "unexpected": []
+}

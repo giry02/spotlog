@@ -1,0 +1,36 @@
+✔ account namespaces and guest device namespace never share stored folders (1.4653ms)
+✔ malformed, foreign-owner and unknown-version records are preserved and cannot be overwritten (0.9015ms)
+✔ failed write and stale revision preserve previous folders (1.1373ms)
+✔ same saved restaurant may appear in multiple folders; deleting a folder leaves other folders and input untouched (1.4206ms)
+✔ regional and kind filters include food/café/stay without requiring landmarks (0.8229ms)
+✔ temporary unsaved references are retained without reintroducing favorites or changing trips (0.1855ms)
+✔ folder validation rejects unusable names without changing prior state (1.9522ms)
+✔ manual creation preserves exact DAY/order and empty days across year boundary (5.6869ms)
+✔ automatic placement uses only selected places and preserves requested empty DAYs (0.9356ms)
+✔ reducing duration keeps displaced places pending and blocks generation until placed (0.5808ms)
+✔ manual move and toggle do not duplicate a place or touch automatic choices (0.1566ms)
+✔ reordering operates only inside chosen DAY (0.252ms)
+✔ automatic creation keeps same-region places even with missing coordinates and does not claim AI (0.2243ms)
+✔ automatic creation blocks distant mixed regions without altering saved choices (0.2703ms)
+✔ manual creation retains deliberate cross-region DAY placement (0.1828ms)
+✔ invalid dates, period, unknown places, and duplicate choices fail without dropping data (0.2636ms)
+✔ undated manual creation and leap dates keep correct calendar semantics (0.2806ms)
+✔ unsaving a place clears it from both modes (0.1392ms)
+✔ unfinished manual period, active DAY and cross-region choices survive a new repository instance (2.6688ms)
+✔ unplaced choices remain recoverable after shortening the trip; reset is separate from bookmarks (0.2612ms)
+✔ malformed and duplicate DAY choices cannot overwrite a valid saved draft (0.315ms)
+✔ existing base type sizes remain stable (0.986ms)
+✔ .detail-creator-numbers span uses the named role without a duplicate override (0.8267ms)
+✔ .detail-creator-numbers strong uses the named role without a duplicate override (0.1456ms)
+✔ .creator-journey-list strong uses the named role without a duplicate override (0.0774ms)
+✔ .creator-journey-list small uses the named role without a duplicate override (0.2824ms)
+✔ .creator-journey-list em uses the named role without a duplicate override (0.0687ms)
+✔ readable guide and in-app guide retain the same typography rules and rows (1.5676ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 169.8082

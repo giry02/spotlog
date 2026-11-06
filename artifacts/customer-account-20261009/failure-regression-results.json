@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "width": 320,
+      "state": "unverified-login-resend-clears-stale-code-and-focuses"
+    },
+    {
+      "width": 390,
+      "state": "unverified-login-resend-clears-stale-code-and-focuses"
+    },
+    {
+      "width": 460,
+      "state": "unverified-login-resend-clears-stale-code-and-focuses"
+    },
+    {
+      "width": 390,
+      "state": "expired-review-session-clears-auth-and-preserves-records"
+    },
+    {
+      "width": 390,
+      "state": "closed-pending-login-never-applies-late-response"
+    }
+  ],
+  "errors": []
+}

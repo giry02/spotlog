@@ -1,0 +1,87 @@
+{
+  "scope": "Independent regression and read-only route audit; no App source edits or browser use",
+  "recordedAt": "2026-11-03T18:49:48.3430566+09:00",
+  "source": "C:/Users/Giry/Documents/Spotlog",
+  "checks": {
+    "webProductionBuild": {
+      "status": "passed",
+      "log": "web-build.log"
+    },
+    "nativeTypecheck": {
+      "status": "passed",
+      "log": "native-typecheck.log"
+    },
+    "webMjsTests": {
+      "log": "web-tests.log",
+      "status": "passed",
+      "files": 85,
+      "tests": 751,
+      "failures": 0,
+      "skipped": 0
+    },
+    "typographyCjsTests": {
+      "log": "typography-tests.log",
+      "status": "passed",
+      "files": 1,
+      "tests": 7,
+      "failures": 0,
+      "skipped": 0
+    },
+    "totalAutomatedTests": 758
+  },
+  "advisories": [
+    "Existing Vite chunks exceed 500 kB after minification. No build failure.",
+    "Existing Node MODULE_TYPELESS_PACKAGE_JSON warning on shared/hybridBridge.ts. No test failure."
+  ],
+  "routeAudit": {
+    "newRootHashes": [
+      "home",
+      "appointments",
+      "together",
+      "saved",
+      "records"
+    ],
+    "retainedHashes": [
+      "community",
+      "trips",
+      "profile",
+      "offline",
+      "places-guide",
+      "places-guide-food",
+      "places-guide-stay",
+      "places-photo",
+      "places-video",
+      "photo-stories",
+      "journey-*",
+      "recommendation-*",
+      "edit-*",
+      "group-*",
+      "activity-*",
+      "groupchat-*",
+      "activitychat-*",
+      "groupsummary-*",
+      "activitysummary-*",
+      "together-find",
+      "together-calendar",
+      "together-tasks",
+      "together-invites",
+      "together-shares",
+      "together-share-*",
+      "group-invite-*"
+    ],
+    "statePreserved": [
+      "Discovery region/query/view/purpose",
+      "Place region/query/kind",
+      "Appointment range",
+      "Records section",
+      "Exact selected public activity intent with live revalidation"
+    ],
+    "sourceConcernReportedToRoot": {
+      "detail": "PlaceDirectory header back always selects saved and pushes navigation, even when entered from filtered discovery. Prefer actual goBack with saved fallback.",
+      "source": "web/src/App.tsx",
+      "line": 1171
+    },
+    "customerDataChanged": false,
+    "browserUsed": false
+  }
+}

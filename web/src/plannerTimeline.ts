@@ -18,8 +18,10 @@ export function plannerTimeline(day: JourneyDay): PlannerTimelineEntry[] {
 export function plannerVisitContext(day: JourneyDay, entry: PlannerTimelineEntry, en = false): string {
   const rows=plannerTimeline(day),key=entry.type==='place'?entry.place.visitId:entry.gap.id;
   const index=rows.findIndex(row=>(row.type==='place'?row.place.visitId:row.gap.id)===key);
-  const before=rows.slice(0,index).reverse().find(row=>row.type==='place'&&row.place.kind==='LANDMARK');
-  const after=rows.slice(index+1).find(row=>row.type==='place'&&row.place.kind==='LANDMARK');
+  const previous=rows.slice(0,index).reverse(),following=rows.slice(index+1);
+  const landmarks=day.places.some(place=>place.kind==='LANDMARK');
+  const matches=(row:PlannerTimelineEntry)=>row.type==='place'&&(landmarks?row.place.kind==='LANDMARK':row.place.kind!=='STAY');
+  const before=previous.find(matches),after=following.find(matches);
   return [before?.type==='place'?(en?`After ${before.place.name}`:`${before.place.name} 방문 후`):'',after?.type==='place'?(en?`Before ${after.place.name}`:`${after.place.name} 방문 전`):''].filter(Boolean).join(' · ');
 }
 export function planningGapLabel(gap: PlanningGap, en=false): string {

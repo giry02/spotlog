@@ -1,0 +1,65 @@
+{
+  "results": [
+    {
+      "width": 320,
+      "draftCloseReload": true,
+      "selectionPreserved": true,
+      "successfulCreationClearsDraft": true,
+      "noEmptyFinalReview": true,
+      "aiCtaVisible": true,
+      "aiOneRequestCreatesRoute": true,
+      "staySameNightOneClick": true,
+      "stayDatePreserved": true,
+      "fixedBookingExplicit": true
+    },
+    {
+      "width": 390,
+      "draftCloseReload": true,
+      "selectionPreserved": true,
+      "successfulCreationClearsDraft": true,
+      "noEmptyFinalReview": true,
+      "aiCtaVisible": true,
+      "aiOneRequestCreatesRoute": true,
+      "staySameNightOneClick": true,
+      "stayDatePreserved": true,
+      "fixedBookingExplicit": true
+    },
+    {
+      "width": 460,
+      "draftCloseReload": true,
+      "selectionPreserved": true,
+      "successfulCreationClearsDraft": true,
+      "noEmptyFinalReview": true,
+      "aiCtaVisible": true,
+      "aiOneRequestCreatesRoute": true,
+      "staySameNightOneClick": true,
+      "stayDatePreserved": true,
+      "fixedBookingExplicit": true
+    },
+    {
+      "width": 1440,
+      "exactShortcuts": true,
+      "failedJobsFiltered": true,
+      "mineFiltersPreserved": true,
+      "hiddenPageDoesNotConsumeAction": true,
+      "nameFieldVisible": 680.953125
+    },
+    {
+      "width": 1024,
+      "exactShortcuts": true,
+      "failedJobsFiltered": true,
+      "mineFiltersPreserved": true,
+      "hiddenPageDoesNotConsumeAction": true,
+      "nameFieldVisible": 708.953125
+    },
+    {
+      "width": 390,
+      "exactShortcuts": true,
+      "failedJobsFiltered": true,
+      "mineFiltersPreserved": true,
+      "hiddenPageDoesNotConsumeAction": true,
+      "nameFieldVisible": 347.625
+    }
+  ],
+  "errors": []
+}

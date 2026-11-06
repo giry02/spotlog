@@ -1,0 +1,52 @@
+{
+  "checks": [
+    {
+      "width": 1440,
+      "descriptionCount": 1,
+      "sourceRecordsPreserved": true,
+      "geometry": {
+        "width": 653.2,
+        "clientWidth": 651,
+        "scrollWidth": 651,
+        "sourcePresent": false
+      },
+      "screenshot": "1440-public-card-likes.png"
+    },
+    {
+      "width": 820,
+      "descriptionCount": 1,
+      "sourceRecordsPreserved": true,
+      "geometry": {
+        "width": 414,
+        "clientWidth": 412,
+        "scrollWidth": 412,
+        "sourcePresent": false
+      },
+      "screenshot": "820-public-card-likes.png"
+    },
+    {
+      "width": 390,
+      "descriptionCount": 1,
+      "sourceRecordsPreserved": true,
+      "geometry": {
+        "width": 309,
+        "clientWidth": 307,
+        "scrollWidth": 307,
+        "sourcePresent": false
+      },
+      "screenshot": "390-public-card-likes.png"
+    },
+    {
+      "width": 320,
+      "descriptionCount": 1,
+      "sourceRecordsPreserved": true,
+      "geometry": {
+        "width": 239,
+        "clientWidth": 237,
+        "scrollWidth": 237,
+        "sourcePresent": false
+      },
+      "screenshot": "320-public-card-likes.png"
+    }
+  ]
+}

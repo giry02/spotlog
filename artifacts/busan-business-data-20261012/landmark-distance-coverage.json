@@ -1,0 +1,82 @@
+[
+  {
+    "anchorId": "public-busan-jagalchi",
+    "name": "자갈치시장",
+    "food3km": 10,
+    "cafe3km": 3,
+    "stay3km": 0,
+    "food15km": 21,
+    "cafe15km": 14,
+    "stay15km": 4
+  },
+  {
+    "anchorId": "public-busan-gukje",
+    "name": "국제시장",
+    "food3km": 10,
+    "cafe3km": 3,
+    "stay3km": 0,
+    "food15km": 21,
+    "cafe15km": 14,
+    "stay15km": 4
+  },
+  {
+    "anchorId": "public-busan-huinnyeoul",
+    "name": "흰여울문화마을",
+    "food3km": 5,
+    "cafe3km": 2,
+    "stay3km": 0,
+    "food15km": 21,
+    "cafe15km": 12,
+    "stay15km": 4
+  },
+  {
+    "anchorId": "public-busan-songdo",
+    "name": "송도해수욕장",
+    "food3km": 6,
+    "cafe3km": 2,
+    "stay3km": 0,
+    "food15km": 14,
+    "cafe15km": 12,
+    "stay15km": 1
+  },
+  {
+    "anchorId": "public-busan-taejongdae",
+    "name": "태종대",
+    "food3km": 0,
+    "cafe3km": 0,
+    "stay3km": 0,
+    "food15km": 21,
+    "cafe15km": 12,
+    "stay15km": 4
+  },
+  {
+    "anchorId": "public-busan-dongnae",
+    "name": "동래읍성",
+    "food3km": 1,
+    "cafe3km": 1,
+    "stay3km": 0,
+    "food15km": 25,
+    "cafe15km": 13,
+    "stay15km": 4
+  },
+  {
+    "anchorId": "public-busan-ilgwang",
+    "name": "일광해수욕장",
+    "food3km": 0,
+    "cafe3km": 0,
+    "stay3km": 0,
+    "food15km": 12,
+    "cafe15km": 5,
+    "stay15km": 4
+  },
+  {
+    "anchorId": "public-busan-jukseong",
+    "name": "죽성성당 드림세트장",
+    "food3km": 0,
+    "cafe3km": 0,
+    "stay3km": 0,
+    "food15km": 11,
+    "cafe15km": 5,
+    "stay15km": 4
+  }
+]

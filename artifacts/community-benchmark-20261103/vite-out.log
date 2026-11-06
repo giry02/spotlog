@@ -1,0 +1,297 @@
+
+  VITE v8.2.2  ready in 1152 ms
+
+  ➜  Local:   http://127.0.0.1:5210/
+  ➜  press h + enter to show help
+오후 6:41:51 [vite] (client) page reload tests/platform-review.html
+오후 6:42:57 [vite] (client) page reload tests/platform-review.html
+오후 6:44:03 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 6:46:21 [vite] (client) hmr update /src/AppMenu.tsx
+오후 6:46:21 [vite] (client) hmr invalidate /src/AppMenu.tsx Could not Fast Refresh ("AppMenuContext" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 6:46:21 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 6:47:56 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 6:47:57 [vite] (client) hmr update /src/together/chat-workspace.css
+오후 6:48:49 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 6:49:42 [vite] (client) hmr update /src/App.tsx
+오후 6:49:43 [vite] (client) hmr update /src/App.tsx
+오후 6:49:43 [vite] (client) hmr update /src/community/PlatformHubs.tsx
+오후 6:49:51 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 6:53:08 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오후 6:53:08 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오후 6:53:08 [vite] (client) hmr update /src/community/discovery-home.css
+오후 6:53:08 [vite] (client) page reload tests/platform-review.tsx
+오후 6:53:15 [vite] (client) hmr update /src/App.tsx
+오후 6:53:18 [vite] (client) hmr update /src/app-navigation.css
+오후 6:54:11 [vite] (client) hmr update /src/AppMenu.tsx
+오후 6:54:11 [vite] (client) hmr invalidate /src/AppMenu.tsx Could not Fast Refresh ("AppMenuContext" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 6:54:11 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/App.tsx, /src/community/PlaceDirectory.tsx, /src/community/PlatformHubs.tsx
+오후 6:54:15 [vite] (client) hmr update /src/app-navigation.css
+오후 6:56:15 [vite] (client) page reload src/together/repository.ts
+오후 6:57:43 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/ActivityAssistantPanel.tsx
+오후 6:58:07 [vite] (client) hmr update /src/community/PlatformHubs.tsx
+오후 6:58:08 [vite] (client) hmr update /src/community/PlatformHubs.tsx
+오후 6:58:13 [vite] (client) hmr update /src/community/platform-hubs.css
+오후 6:58:21 [vite] (client) hmr update /src/together/ActivityAssistantPanel.tsx
+오후 7:00:56 [vite] (client) hmr update /src/community/PlaceDirectory.tsx
+오후 7:00:57 [vite] (client) hmr update /src/App.tsx
+오후 7:01:46 [vite] (client) hmr update /src/community/place-directory.css
+오전 8:45:32 [vite] (client) hmr update /src/App.tsx
+오전 8:47:40 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오전 8:47:40 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오전 8:47:42 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오전 8:47:42 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오전 8:48:14 [vite] (client) hmr update /src/App.tsx
+오전 8:48:15 [vite] (client) hmr update /src/App.tsx
+오전 8:48:15 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오전 8:48:46 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오전 9:48:20 [vite] (client) hmr update /src/App.tsx
+오전 9:49:59 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 9:49:59 [vite] (client) hmr update /src/together/together.css
+오전 9:50:29 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx
+오전 9:51:40 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 9:52:56 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 9:52:56 [vite] (client) hmr update /src/together/together.css
+오전 9:54:28 [vite] (client) page reload tests/platform-review.html
+오전 10:01:05 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 10:01:05 [vite] (client) hmr update /src/together/together.css
+오전 11:27:53 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:28:45 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:28:49 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx
+오전 11:29:14 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx
+오전 11:29:19 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오전 11:29:39 [vite] (client) hmr update /src/together/creation-planner.css
+오전 11:29:39 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:29:43 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:29:50 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx
+오전 11:29:52 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx, /src/together/CreationPlannerPanel.tsx
+오전 11:30:41 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx
+오전 11:30:41 [vite] (client) hmr update /src/App.tsx
+오전 11:30:41 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오전 11:30:41 [vite] (client) page reload tests/platform-review.tsx
+오전 11:30:41 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:31:03 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:31:16 [vite] (client) hmr update /src/community/discovery-home.css
+오전 11:31:16 [vite] (client) hmr update /src/community/discovery-home.css
+오전 11:31:16 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx
+오전 11:31:18 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:31:35 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:31:40 [vite] (client) hmr update /src/together/PlanningSupportPanel.tsx
+오전 11:32:11 [vite] (client) hmr update /src/together/planning-support.css
+오전 11:32:29 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:32:32 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:32:32 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:33:01 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오전 11:34:00 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:34:13 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:34:21 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오전 11:35:08 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:35:27 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:36:44 [vite] (client) hmr update /src/together/PlanningSupportPanel.tsx
+오전 11:36:58 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:36:59 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:37:03 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:41:24 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오전 11:42:30 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오전 11:42:37 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:42:56 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오전 11:43:06 [vite] (client) hmr update /src/together/creation-entry.css
+오전 11:43:23 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:43:24 [vite] (client) hmr update /src/together/creation-planner.css
+오전 11:43:24 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:44:14 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:44:47 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:45:19 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:45:20 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:47:12 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:47:35 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:47:53 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 11:49:40 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오전 11:51:54 [vite] (client) hmr update /src/together/creation-planner.css
+오전 11:51:54 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오전 11:53:01 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 11:56:08 [vite] (client) hmr update /src/App.tsx
+오후 12:01:06 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오후 4:14:06 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 4:14:11 [vite] (client) page reload src/together/model.ts
+오후 4:14:11 [vite] (client) page reload src/together/repository.ts
+오후 4:14:17 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 4:14:40 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx
+오후 4:14:50 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx, /src/together/ActivityAssistantPanel.tsx, /src/together/PlanningSupportPanel.tsx
+오후 4:14:50 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx
+오후 4:15:00 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx, /src/together/CreationPlannerPanel.tsx
+오후 4:15:10 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx
+오후 4:15:31 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx
+오후 4:15:31 [vite] (client) hmr update /tests/moa-chat-review.tsx, /src/App.tsx
+오후 4:15:32 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 4:15:36 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오후 4:16:46 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 4:16:47 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 4:16:47 [vite] (client) hmr update /src/together/ChatEntityCard.tsx
+오후 4:17:12 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오후 4:17:28 [vite] (client) hmr update /src/together/ActivityAssistantPanel.tsx
+오후 4:17:28 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 4:17:47 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오후 4:18:07 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오후 4:18:20 [vite] (client) hmr update /src/together/PlanningSupportPanel.tsx
+오후 4:18:37 [vite] (client) hmr update /src/together/planning-support.css
+오후 4:18:43 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 4:19:04 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 4:19:08 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오후 4:19:08 [vite] (client) hmr update /src/together/PlanningSupportPanel.tsx, /src/together/TogetherApp.tsx
+오후 4:19:08 [vite] (client) hmr update /src/together/creation-planner.css
+오후 4:19:12 [vite] (client) hmr update /src/together/PlanningSupportPanel.tsx
+오후 4:19:17 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 4:19:17 [vite] (client) hmr update /src/together/PlanningSupportPanel.tsx
+오후 4:20:21 [vite] (client) hmr update /src/together/PlanningSupportPanel.tsx, /src/together/TogetherApp.tsx
+오후 4:20:21 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오후 4:20:54 [vite] (client) page reload src/together/chatDigest.ts
+오후 4:20:54 [vite] (client) hmr update /src/together/ConversationSummary.tsx
+오후 4:20:54 [vite] (client) page reload tests/platform-review.tsx
+오후 4:21:04 [vite] (client) hmr update /src/together/ChatEntityCard.tsx
+오후 4:21:58 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오후 4:22:06 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오후 4:22:38 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 4:22:39 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 4:22:47 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오후 4:23:12 [vite] (client) hmr update /src/together/group-workspace.css
+오후 4:23:34 [vite] (client) page reload src/together/chatDigest.ts
+오후 4:23:34 [vite] (client) hmr update /src/together/ConversationSummary.tsx
+오후 4:23:34 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/ActivityAssistantPanel.tsx, /src/together/PlanningSupportPanel.tsx
+오후 4:23:34 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 4:23:43 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오후 4:27:59 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 4:29:54 [vite] (client) hmr update /src/together/group-workspace.css
+오전 8:42:21 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오전 8:42:29 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오전 8:42:29 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오전 8:42:29 [vite] (client) hmr update /src/together/creation-planner.css
+오전 8:42:59 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오전 8:43:04 [vite] (client) hmr update /src/community/discovery-home.css
+오전 8:43:31 [vite] (client) hmr update /src/together/creation-planner.css
+오전 8:43:33 [vite] (client) hmr update /src/App.tsx
+오전 8:43:33 [vite] (client) hmr update /src/SavedLandmarkDetailSheet.tsx
+오전 8:43:33 [vite] (client) hmr update /src/InterestCollections.tsx
+오전 8:43:54 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오전 8:43:55 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오전 8:44:11 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오전 8:44:24 [vite] (client) hmr update /src/InterestCollections.tsx
+오전 8:44:24 [vite] (client) hmr update /src/App.tsx
+오전 8:44:24 [vite] (client) hmr update /src/consumer-density.css
+오전 8:44:24 [vite] (client) hmr update /src/screen-header.css
+오전 8:44:36 [vite] (client) hmr update /src/together/group-discovery.css
+오전 8:44:37 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 8:44:37 [vite] (client) hmr update /src/together/chat-workspace.css
+오전 8:45:14 [vite] (client) hmr update /src/community/TravelDiscovery.tsx
+오전 8:45:14 [vite] (client) hmr invalidate /src/community/TravelDiscovery.tsx Could not Fast Refresh ("filterTravelTemplates" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오전 8:45:14 [vite] (client) hmr update /src/App.tsx
+오전 8:45:14 [vite] (client) hmr update /src/community/travel-discovery.css
+오전 8:45:21 [vite] (client) page reload tests/platform-review.tsx
+오전 8:45:21 [vite] (client) hmr update /src/personal-trip-refinement.css
+오전 8:45:21 [vite] (client) hmr update /src/account-privacy.css
+오전 8:46:10 [vite] (client) hmr update /src/App.tsx
+오전 8:46:27 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오전 8:46:55 [vite] (client) hmr update /src/App.tsx
+오전 8:50:07 [vite] (client) hmr update /src/together/chat-workspace.css, /src/together/chat-workspace.css?check=20261105
+오전 8:50:48 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오전 8:50:48 [vite] (client) hmr update /src/consumer-density.css
+오전 8:50:48 [vite] (client) hmr update /src/community/discovery-home.css
+오전 8:50:52 [vite] (client) hmr update /src/App.tsx
+오전 8:54:03 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오전 8:54:04 [vite] (client) hmr update /src/together/together.css
+오전 8:54:04 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오전 8:54:43 [vite] (client) page reload tests/platform-review.tsx
+오전 8:55:23 [vite] (client) hmr update /src/community/discovery-home.css
+오전 8:55:24 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오전 8:58:04 [vite] (client) hmr update /src/together/together.css
+오전 8:58:04 [vite] (client) hmr update /src/consumer-density.css
+오후 5:14:52 [vite] (client) page reload src/together/model.ts
+오후 5:14:52 [vite] (client) page reload src/together/discovery.ts
+오후 5:14:52 [vite] (client) page reload src/together/repository.ts
+오후 5:14:53 [vite] (client) page reload src/together/repository.ts
+오후 5:15:24 [vite] (client) page reload src/together/publicActivityIntent.ts
+오후 5:15:26 [vite] (client) page reload src/together/model.ts
+오후 5:15:26 [vite] (client) page reload src/together/repository.ts
+오후 5:15:46 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:17:23 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:17:24 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:18:15 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:18:15 [vite] (client) page reload src/together/repository.ts
+오후 5:18:44 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오후 5:18:44 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:19:09 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오후 5:19:09 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오후 5:19:09 [vite] (client) hmr update /src/community/discovery-home.css
+오후 5:19:33 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오후 5:20:18 [vite] (client) hmr update /src/App.tsx
+오후 5:20:18 [vite] (client) hmr update /src/AppMenu.tsx
+오후 5:20:18 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오후 5:20:18 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:20:18 [vite] (client) page reload tests/membershipReviewFixture.ts
+오후 5:20:18 [vite] (client) page reload src/together/model.ts
+오후 5:20:18 [vite] (client) page reload src/together/seed.ts
+오후 5:20:18 [vite] (client) page reload src/together/discoveryExamples.ts
+오후 5:20:20 [vite] (client) hmr update /src/App.tsx
+오후 5:20:33 [vite] (client) hmr update /src/together/group-discovery.css
+오후 5:21:37 [vite] (client) page reload src/together/discoveryExamples.ts
+오후 5:21:38 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:23:33 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:23:59 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/together/CreationPlannerPanel.tsx
+오후 5:24:32 [vite] (client) hmr update /src/App.tsx, /src/community/PlaceDirectory.tsx, /src/community/DiscoveryHome.tsx
+오후 5:24:32 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오후 5:24:32 [vite] (client) hmr update /src/community/PlaceDirectory.tsx
+오후 5:24:32 [vite] (client) hmr update /src/App.tsx
+오후 5:25:05 [vite] (client) page reload src/together/publicActivityIntent.ts
+오후 5:25:05 [vite] (client) page reload src/together/model.ts
+오후 5:25:07 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오후 5:25:08 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오후 5:25:51 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오후 5:26:02 [vite] (client) hmr update /src/App.tsx
+오후 5:26:15 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오후 5:28:27 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:28:27 [vite] (client) page reload src/together/discoveryExamples.ts
+오후 5:30:34 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오후 5:30:34 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오후 5:31:06 [vite] (client) page reload src/together/discovery.ts
+오후 5:31:06 [vite] (client) hmr update /src/together/group-discovery.css
+오후 5:31:50 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:32:52 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:32:52 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:33:21 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오후 5:33:21 [vite] (client) hmr update /src/together/group-discovery.css
+오후 5:33:21 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오후 5:36:24 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 5:37:21 [vite] (client) hmr update /src/App.tsx
+오후 5:38:53 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오후 2:59:33 [vite] (client) hmr update /src/together/CreationPlannerPanel.tsx
+오후 3:00:43 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:01:25 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:01:54 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오후 3:02:30 [vite] (client) hmr update /src/community/discovery-home.css
+오후 3:02:31 [vite] (client) hmr update /src/together/PlanningSupportPanel.tsx
+오후 3:02:31 [vite] (client) hmr update /src/together/ChatWorkspace.tsx
+오후 3:03:58 [vite] (client) hmr update /src/App.tsx
+오후 3:03:58 [vite] (client) hmr update /src/AppMenu.tsx
+오후 3:03:58 [vite] (client) hmr update /src/together/GroupDiscovery.tsx
+오후 3:03:58 [vite] (client) hmr update /src/community/PlatformHubs.tsx
+오후 3:03:59 [vite] (client) hmr invalidate /src/AppMenu.tsx Could not Fast Refresh ("AppMenuContext" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+오후 3:03:59 [vite] (client) hmr update /src/together/TogetherApp.tsx, /src/App.tsx, /src/community/PlaceDirectory.tsx, /src/community/PlatformHubs.tsx
+오후 3:04:08 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:04:08 [vite] (client) hmr update /src/together/chat-workspace.css, /src/together/chat-workspace.css?check=20261105
+오후 3:04:08 [vite] (client) hmr update /src/together/group-workspace.css
+오후 3:04:16 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오후 3:04:56 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:04:56 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:05:46 [vite] (client) hmr update /src/community/DiscoveryHome.tsx
+오후 3:05:46 [vite] (client) hmr update /src/community/MemberReturnStrip.tsx
+오후 3:06:14 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:06:15 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:07:31 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:08:08 [vite] (client) hmr update /src/App.tsx
+오후 3:09:49 [vite] (client) hmr update /src/SavedPlaceUseSheet.tsx
+오후 3:09:49 [vite] (client) hmr update /src/App.tsx, /src/SavedPlaceUseSheet.tsx
+오후 3:11:07 [vite] (client) hmr update /src/community/PlatformHubs.tsx
+오후 3:21:01 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:21:01 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:21:01 [vite] (client) hmr update /src/together/TogetherApp.tsx
+오후 3:21:05 [vite] (client) hmr update /src/saved-place-use.css
+오후 3:21:55 [vite] (client) hmr update /src/together/TogetherApp.tsx

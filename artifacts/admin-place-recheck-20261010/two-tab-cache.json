@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 2,
+  "operatorId": "operator-admin",
+  "entries": {
+    "review-food": {
+      "baseRevision": 3,
+      "content": {
+        "kind": "FOOD",
+        "name": "식당 탭 미저장 입력",
+        "companyId": "",
+        "area": "부산 · 검수 자료",
+        "regionId": "kr-busan",
+        "visitDuration": "1시간",
+        "hook": "",
+        "creatorLabel": "",
+        "address": "검수용 바다 식당 가상 검수 주소 — 실제 방문용 아님",
+        "description": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+        "tags": [],
+        "operation": "OPEN",
+        "location": {
+          "lat": 35.161,
+          "lng": 129.162,
+          "verified": true,
+          "reference": "검수 전용 가상 좌표",
+          "sourceUrl": "https://example.org/spotlog-review",
+          "checkedAt": "2026-10-05"
+        },
+        "rights": {
+          "display": true,
+          "store": true,
+          "modify": true,
+          "ai": true
+        },
+        "provider": "Spotlog 검수 자료",
+        "sourceUrl": "https://example.org/spotlog-review",
+        "checkedAt": "2026-10-05",
+        "media": [
+          {
+            "mediaId": "review-food-photo",
+            "type": "PHOTO",
+            "url": "/admin-review.svg",
+            "caption": "실제 장소 사진이 아닌 검수용 도형",
+            "alt": "검수용 바다 식당 검수용 도형",
+            "cover": true,
+            "provider": "Spotlog 검수 자료",
+            "author": "Spotlog",
+            "sourceUrl": "https://example.org/spotlog-review",
+            "license": "자체 검수용 도형",
+            "licenseUrl": "https://example.org/spotlog-review",
+            "checkedAt": "2026-10-05",
+            "rights": {
+              "display": true,
+              "store": true,
+              "modify": true,
+              "ai": true
+            },
+            "withdrawn": false
+          }
+        ],
+        "guide": {
+          "hours": "",
+          "bestTime": "",
+          "facilities": "",
+          "menu": "",
+          "lodging": "",
+          "access": "",
+          "english": "",
+          "englishStatus": "MISSING",
+          "sourceUrl": "",
+          "checkedAt": "",
+          "sourceRevision": 0
+        },
+        "ai": {
+          "text": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+          "tags": [
+            "FOOD"
+          ],
+          "sourceUrl": "https://example.org/spotlog-review",
+          "provider": "Spotlog 검수 자료",
+          "checkedAt": "2026-10-05",
+          "allowed": true,
+          "version": 1
+        },
+        "provenance": {
+          "origin": "SYNTHETIC"
+        }
+      }
+    },
+    "review-cafe": {
+      "baseRevision": 1,
+      "content": {
+        "kind": "CAFE",
+        "name": "카페 탭 미저장 입력",
+        "companyId": "",
+        "area": "부산 · 검수 자료",
+        "regionId": "kr-busan",
+        "visitDuration": "1시간",
+        "hook": "",
+        "creatorLabel": "",
+        "address": "검수용 풍경 카페 가상 검수 주소 — 실제 방문용 아님",
+        "description": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+        "tags": [],
+        "operation": "OPEN",
+        "location": {
+          "lat": 35.164,
+          "lng": 129.163,
+          "verified": true,
+          "reference": "검수 전용 가상 좌표",
+          "sourceUrl": "https://example.org/spotlog-review",
+          "checkedAt": "2026-10-05"
+        },
+        "rights": {
+          "display": true,
+          "store": true,
+          "modify": true,
+          "ai": true
+        },
+        "provider": "Spotlog 검수 자료",
+        "sourceUrl": "https://example.org/spotlog-review",
+        "checkedAt": "2026-10-05",
+        "media": [
+          {
+            "mediaId": "review-cafe-photo",
+            "type": "PHOTO",
+            "url": "/admin-review.svg",
+            "caption": "실제 장소 사진이 아닌 검수용 도형",
+            "alt": "검수용 풍경 카페 검수용 도형",
+            "cover": true,
+            "provider": "Spotlog 검수 자료",
+            "author": "Spotlog",
+            "sourceUrl": "https://example.org/spotlog-review",
+            "license": "자체 검수용 도형",
+            "licenseUrl": "https://example.org/spotlog-review",
+            "checkedAt": "2026-10-05",
+            "rights": {
+              "display": true,
+              "store": true,
+              "modify": true,
+              "ai": true
+            },
+            "withdrawn": false
+          }
+        ],
+        "guide": {
+          "hours": "",
+          "bestTime": "",
+          "facilities": "",
+          "menu": "",
+          "lodging": "",
+          "access": "",
+          "english": "",
+          "englishStatus": "MISSING",
+          "sourceUrl": "",
+          "checkedAt": "",
+          "sourceRevision": 0
+        },
+        "ai": {
+          "text": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+          "tags": [
+            "CAFE"
+          ],
+          "sourceUrl": "https://example.org/spotlog-review",
+          "provider": "Spotlog 검수 자료",
+          "checkedAt": "2026-10-05",
+          "allowed": true,
+          "version": 1
+        },
+        "provenance": {
+          "origin": "SYNTHETIC"
+        }
+      }
+    }
+  }
+}

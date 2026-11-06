@@ -1,0 +1,101 @@
+{
+  "base": "http://127.0.0.1:5216/",
+  "stage": "before",
+  "results": [
+    {
+      "width": 390,
+      "computed": {
+        ".map-label strong": {
+          "size": 11,
+          "weight": "700",
+          "lineHeight": "18.7px"
+        },
+        ".route-leg small": {
+          "size": 11,
+          "weight": "700",
+          "lineHeight": "18.7px"
+        },
+        ".route-leg strong": {
+          "size": 13,
+          "weight": "700",
+          "lineHeight": "18.2px"
+        },
+        ".route-leg em": {
+          "size": 12,
+          "weight": "700",
+          "lineHeight": "17.4px"
+        },
+        ".route-schedule-summary": {
+          "size": 11,
+          "weight": "700",
+          "lineHeight": "15.95px"
+        },
+        ".route-data-note": {
+          "size": 11,
+          "weight": "400",
+          "lineHeight": "16.5px"
+        },
+        ".route-summary strong": {
+          "size": 12,
+          "weight": "700",
+          "lineHeight": "18px"
+        },
+        ".route-summary span": {
+          "size": 12,
+          "weight": "400",
+          "lineHeight": "18px"
+        },
+        ".journey-social > header > span": {
+          "size": 10,
+          "weight": "700",
+          "lineHeight": "17px"
+        },
+        ".quick-cheers strong": {
+          "size": 10,
+          "weight": "700",
+          "lineHeight": "12.5px"
+        },
+        ".quick-cheers span": {
+          "size": 9,
+          "weight": "400",
+          "lineHeight": "15.3px"
+        },
+        ".comment-author > strong": {
+          "size": 12,
+          "weight": "700",
+          "lineHeight": "20.4px"
+        },
+        ".comment-author > time": {
+          "size": 12,
+          "weight": "400",
+          "lineHeight": "20.4px"
+        },
+        ".journey-comment p": {
+          "size": 12,
+          "weight": "400",
+          "lineHeight": "19.44px"
+        },
+        ".comment-composer input": {
+          "size": 12,
+          "weight": "400",
+          "lineHeight": "20.4px"
+        },
+        ".comment-composer button": {
+          "size": 12,
+          "weight": "800",
+          "lineHeight": "20.4px"
+        },
+        ".social-kind-note": {
+          "size": 12,
+          "weight": "400",
+          "lineHeight": "20.4px"
+        }
+      },
+      "overflow": false,
+      "commentPosting": false,
+      "emptyAndSelected": false
+    }
+  ],
+  "errors": [],
+  "note": "Isolated browser storage; no server writes."
+}

@@ -1,0 +1,13 @@
+{
+  "placeToProposalToActivity": true,
+  "voteDoesNotAutoCreateActivity": true,
+  "repeatProposalSubmissionOpensExistingActivity": true,
+  "newActivityDoesNotAutoRsvp": true,
+  "rsvpRequiresExplicitClick": true,
+  "newActivityPrivateByDefaultAndNotInPublicIntroduction": true,
+  "secondPublicMeetupPreservedThroughApplicationApproval": true,
+  "approvalDoesNotAutoRsvp": true,
+  "authorFilteredOriginalSelection": true,
+  "selectedGroupOriginalVisibleAsGroupTask": true,
+  "scope": "page-memory prototype only; no actual members, external delivery, or AI inference"
+}

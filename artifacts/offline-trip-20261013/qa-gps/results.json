@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-13",
+  "base": "http://127.0.0.1:5210/tests/offline-route.html",
+  "checks": [
+    {
+      "name": "320: tile-free route retains visit numbering, selects actual visit and identifies missing coordinate",
+      "detail": "pass"
+    },
+    {
+      "name": "320: explicit feature consent allows one foreground simulated GPS fix while offline; no server transfer or coordinate storage",
+      "detail": "pass"
+    },
+    {
+      "name": "320: GPS permission denial preserves saved route and offers retry",
+      "detail": "pass"
+    },
+    {
+      "name": "320: timeout retry succeeds; another DAY clears current coordinates and consent",
+      "detail": "pass"
+    },
+    {
+      "name": "320: pending GPS completion cannot resurrect coordinates after DAY change",
+      "detail": "pass"
+    },
+    {
+      "name": "320: unprepared location policy blocks permission request; no runtime exception or background request",
+      "detail": "pass"
+    },
+    {
+      "name": "390: tile-free route retains visit numbering, selects actual visit and identifies missing coordinate",
+      "detail": "pass"
+    },
+    {
+      "name": "390: explicit feature consent allows one foreground simulated GPS fix while offline; no server transfer or coordinate storage",
+      "detail": "pass"
+    },
+    {
+      "name": "390: GPS permission denial preserves saved route and offers retry",
+      "detail": "pass"
+    },
+    {
+      "name": "390: timeout retry succeeds; another DAY clears current coordinates and consent",
+      "detail": "pass"
+    },
+    {
+      "name": "390: pending GPS completion cannot resurrect coordinates after DAY change",
+      "detail": "pass"
+    },
+    {
+      "name": "390: unprepared location policy blocks permission request; no runtime exception or background request",
+      "detail": "pass"
+    },
+    {
+      "name": "460: tile-free route retains visit numbering, selects actual visit and identifies missing coordinate",
+      "detail": "pass"
+    },
+    {
+      "name": "460: explicit feature consent allows one foreground simulated GPS fix while offline; no server transfer or coordinate storage",
+      "detail": "pass"
+    },
+    {
+      "name": "460: GPS permission denial preserves saved route and offers retry",
+      "detail": "pass"
+    },
+    {
+      "name": "460: timeout retry succeeds; another DAY clears current coordinates and consent",
+      "detail": "pass"
+    },
+    {
+      "name": "460: pending GPS completion cannot resurrect coordinates after DAY change",
+      "detail": "pass"
+    },
+    {
+      "name": "460: unprepared location policy blocks permission request; no runtime exception or background request",
+      "detail": "pass"
+    }
+  ],
+  "errors": [],
+  "pass": true
+}

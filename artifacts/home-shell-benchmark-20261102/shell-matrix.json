@@ -1,0 +1,530 @@
+[
+  {
+    "width": 320,
+    "label": "홈",
+    "appWidth": 320,
+    "h1": [
+      "‘해운대’ 검색 결과"
+    ],
+    "header": {
+      "height": 64,
+      "width": 320,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 260,
+      "y": 9.5
+    },
+    "outerWidth": 320,
+    "tabHeights": [
+      44,
+      44,
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 320,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 27,
+      "width": 65.90625,
+      "x": 16,
+      "y": 17.5
+    },
+    "viewport": 320
+  },
+  {
+    "width": 320,
+    "label": "둘러보기",
+    "appWidth": 320,
+    "h1": [
+      "둘러보기"
+    ],
+    "header": {
+      "height": 64,
+      "width": 320,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 260,
+      "y": 9.5
+    },
+    "outerWidth": 320,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 320,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 236,
+      "x": 16,
+      "y": 18.5
+    },
+    "viewport": 320
+  },
+  {
+    "width": 320,
+    "label": "함께하기",
+    "appWidth": 320,
+    "h1": [
+      "함께하기"
+    ],
+    "header": {
+      "height": 64,
+      "width": 320,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 260,
+      "y": 9.5
+    },
+    "outerWidth": 320,
+    "tabHeights": [],
+    "tabs": null,
+    "title": {
+      "height": 26,
+      "width": 184,
+      "x": 16,
+      "y": 10.5
+    },
+    "viewport": 320
+  },
+  {
+    "width": 320,
+    "label": "내 여행",
+    "appWidth": 320,
+    "h1": [
+      "내 여행"
+    ],
+    "header": {
+      "height": 64,
+      "width": 320,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 260,
+      "y": 9.5
+    },
+    "outerWidth": 320,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 320,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 184,
+      "x": 16,
+      "y": 10.5
+    },
+    "viewport": 320
+  },
+  {
+    "width": 320,
+    "label": "관심 장소",
+    "appWidth": 320,
+    "h1": [
+      "관심 장소"
+    ],
+    "header": {
+      "height": 64,
+      "width": 320,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 260,
+      "y": 9.5
+    },
+    "outerWidth": 320,
+    "tabHeights": [],
+    "tabs": null,
+    "title": {
+      "height": 26,
+      "width": 184,
+      "x": 16,
+      "y": 10.5
+    },
+    "viewport": 320
+  },
+  {
+    "width": 390,
+    "label": "홈",
+    "appWidth": 390,
+    "h1": [
+      "‘해운대’ 검색 결과"
+    ],
+    "header": {
+      "height": 64,
+      "width": 390,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 330,
+      "y": 9.5
+    },
+    "outerWidth": 390,
+    "tabHeights": [
+      44,
+      44,
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 390,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 27,
+      "width": 65.90625,
+      "x": 16,
+      "y": 17.5
+    },
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "label": "둘러보기",
+    "appWidth": 390,
+    "h1": [
+      "둘러보기"
+    ],
+    "header": {
+      "height": 64,
+      "width": 390,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 330,
+      "y": 9.5
+    },
+    "outerWidth": 390,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 390,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 306,
+      "x": 16,
+      "y": 18.5
+    },
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "label": "함께하기",
+    "appWidth": 390,
+    "h1": [
+      "함께하기"
+    ],
+    "header": {
+      "height": 64,
+      "width": 390,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 330,
+      "y": 9.5
+    },
+    "outerWidth": 390,
+    "tabHeights": [],
+    "tabs": null,
+    "title": {
+      "height": 26,
+      "width": 254,
+      "x": 16,
+      "y": 10.5
+    },
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "label": "내 여행",
+    "appWidth": 390,
+    "h1": [
+      "내 여행"
+    ],
+    "header": {
+      "height": 64,
+      "width": 390,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 330,
+      "y": 9.5
+    },
+    "outerWidth": 390,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 390,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 254,
+      "x": 16,
+      "y": 10.5
+    },
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "label": "관심 장소",
+    "appWidth": 390,
+    "h1": [
+      "관심 장소"
+    ],
+    "header": {
+      "height": 64,
+      "width": 390,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 330,
+      "y": 9.5
+    },
+    "outerWidth": 390,
+    "tabHeights": [],
+    "tabs": null,
+    "title": {
+      "height": 26,
+      "width": 254,
+      "x": 16,
+      "y": 10.5
+    },
+    "viewport": 390
+  },
+  {
+    "width": 460,
+    "label": "홈",
+    "appWidth": 460,
+    "h1": [
+      "‘해운대’ 검색 결과"
+    ],
+    "header": {
+      "height": 64,
+      "width": 460,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 400,
+      "y": 9.5
+    },
+    "outerWidth": 460,
+    "tabHeights": [
+      44,
+      44,
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 460,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 27,
+      "width": 65.90625,
+      "x": 16,
+      "y": 17.5
+    },
+    "viewport": 460
+  },
+  {
+    "width": 460,
+    "label": "둘러보기",
+    "appWidth": 460,
+    "h1": [
+      "둘러보기"
+    ],
+    "header": {
+      "height": 64,
+      "width": 460,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 400,
+      "y": 9.5
+    },
+    "outerWidth": 460,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 460,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 376,
+      "x": 16,
+      "y": 18.5
+    },
+    "viewport": 460
+  },
+  {
+    "width": 460,
+    "label": "함께하기",
+    "appWidth": 460,
+    "h1": [
+      "함께하기"
+    ],
+    "header": {
+      "height": 64,
+      "width": 460,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 400,
+      "y": 9.5
+    },
+    "outerWidth": 460,
+    "tabHeights": [],
+    "tabs": null,
+    "title": {
+      "height": 26,
+      "width": 324,
+      "x": 16,
+      "y": 10.5
+    },
+    "viewport": 460
+  },
+  {
+    "width": 460,
+    "label": "내 여행",
+    "appWidth": 460,
+    "h1": [
+      "내 여행"
+    ],
+    "header": {
+      "height": 64,
+      "width": 460,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 400,
+      "y": 9.5
+    },
+    "outerWidth": 460,
+    "tabHeights": [
+      44,
+      44
+    ],
+    "tabs": {
+      "height": 45,
+      "width": 460,
+      "x": 0,
+      "y": 64
+    },
+    "title": {
+      "height": 26,
+      "width": 324,
+      "x": 16,
+      "y": 10.5
+    },
+    "viewport": 460
+  },
+  {
+    "width": 460,
+    "label": "관심 장소",
+    "appWidth": 460,
+    "h1": [
+      "관심 장소"
+    ],
+    "header": {
+      "height": 64,
+      "width": 460,
+      "x": 0,
+      "y": 0
+    },
+    "menu": {
+      "height": 44,
+      "width": 44,
+      "x": 400,
+      "y": 9.5
+    },
+    "outerWidth": 460,
+    "tabHeights": [],
+    "tabs": null,
+    "title": {
+      "height": 26,
+      "width": 324,
+      "x": 16,
+      "y": 10.5
+    },
+    "viewport": 460
+  }
+]

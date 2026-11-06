@@ -1,4 +1,4 @@
-/* Personal itinerary actions reuse the existing 36px / R11 / 12px compact role.
+/* Personal itinerary actions use 44px touch targets and the 14px action role.
    Keep page actions, form inputs, and other card types on their own styles. */
 .personal-trip .plan-stops { gap: 10px; }
 .personal-trip .plan-stop { padding: 12px; }
@@ -7,23 +7,23 @@
 .personal-trip .plan-stop > .public-photo-credit { margin-top: 2px; margin-left: 72px; }
 .personal-trip .plan-stop-actions { gap: 4px; margin-top: 6px; }
 .personal-trip .plan-stop-actions > .outline {
-  min-height: 36px;
+  min-height: var(--touch-target,44px);
   padding: 0 10px;
   gap: 5px;
   border-radius: 11px;
   border-color: #e5e4df;
   background: #f8f8f6;
-  font-size: var(--type-caption);
+  font-size: var(--type-subhead);
   font-weight: 700;
   line-height: 1.5;
   box-shadow: none;
 }
 .personal-trip .plan-stop-actions > .outline > svg { width: 14px; height: 14px; }
 .personal-trip .plan-stop-actions > button:not(.outline) {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  min-height: 36px;
+  width: var(--touch-target,44px);
+  height: var(--touch-target,44px);
+  min-width: var(--touch-target,44px);
+  min-height: var(--touch-target,44px);
   padding: 0;
   color: #73736d;
 }
@@ -40,12 +40,12 @@
 }
 
 /* Nearby sheets use card actions, not full-size page confirmation buttons. */
-.phase-sheet .nearby-row>.outline { min-height:36px; padding:0 10px; border-radius:11px; font-size:var(--type-caption); font-weight:700; line-height:1.5; box-shadow:none; }
+.phase-sheet .nearby-row>.outline { min-height:var(--touch-target,44px); padding:0 10px; border-radius:11px; font-size:var(--type-subhead); font-weight:700; line-height:1.5; box-shadow:none; }
 .phase-sheet .nearby-search { position:relative; display:flex; align-items:center; margin:0; }
 .phase-sheet .nearby-search>svg { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; }
-.phase-sheet .nearby-search>input { padding-left:38px; font-size:var(--type-subhead); font-weight:400; }
-.phase-sheet .nearby-saved-button { min-height:40px; padding:0 12px; border-radius:11px; font-size:var(--type-caption); line-height:1.5; box-shadow:none; }
-.phase-sheet .nearby-register-button { min-height:36px; font-size:var(--type-caption); line-height:1.5; }
+.phase-sheet .nearby-search>input { padding-left:38px; font-size:var(--type-body); font-weight:400; }
+.phase-sheet .nearby-saved-button { min-height:var(--touch-target,44px); padding:0 12px; border-radius:11px; font-size:var(--type-subhead); line-height:1.5; box-shadow:none; }
+.phase-sheet .nearby-register-button { min-height:var(--touch-target,44px); font-size:var(--type-subhead); line-height:1.5; }
 .phase-sheet .plan-form .plan-check { display:flex; align-items:center; gap:8px; font-size:var(--type-subhead); font-weight:400; margin:0; }
 .phase-sheet .plan-form .plan-check input { margin:0; }
 .plan-timeline-gap { display:grid; gap:6px; background:#f1f1ed; }
@@ -65,6 +65,38 @@
 .phase-sheet .nearby-empty p { margin:0; font-size:var(--type-caption); line-height:1.5; }
 .phase-sheet .nearby-empty>.outline { margin-top:8px; }
 .phase-sheet .nearby-search>input { padding-right:46px; }
-.phase-sheet .nearby-search-clear { position:absolute; right:6px; width:36px; min-width:36px; height:36px; min-height:36px; display:grid; place-items:center; padding:0; border:0; border-radius:8px; background:transparent; color:var(--muted); }
+.phase-sheet .nearby-search-clear { position:absolute; right:6px; width:44px; min-width:44px; height:44px; min-height:44px; display:grid; place-items:center; padding:0; border:0; border-radius:8px; background:transparent; color:var(--muted); }
 .phase-sheet .nearby-search-clear:hover { background:#eeede8; }
 .phase-sheet .nearby-source-link { display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:var(--type-caption); line-height:1.5; color:inherit; }
+
+/* Keep registration focused on places and explicit completion. */
+.personal-trip .editor-topbar > div { min-width:0; }
+.personal-trip .editor-topbar .plan-header-actions { display:flex; flex-direction:row; align-items:center; gap:6px; }
+.personal-trip .plan-header-actions .plan-mode-action { min-width:58px; min-height:44px; padding:0 12px; font-size:var(--type-subhead); border-radius:12px; }
+.personal-trip .plan-header-actions > button:not(.plan-mode-action) { display:grid; place-items:center; width:44px; min-width:44px; height:44px; padding:0; border:0; border-radius:10px; background:transparent; color:inherit; }
+.personal-trip .editor-topbar > div:not(.plan-header-actions) strong { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; line-height:1.3; overflow-wrap:anywhere; }
+.personal-trip .plan-view-map-toggle { display:flex; align-items:center; gap:7px; min-height:44px; margin:0; padding:0 12px; border:1px solid var(--line); border-radius:12px; background:#fff; color:inherit; font-size:var(--type-subhead); }
+.personal-trip .editor-topbar > button,.personal-trip .plan-icon { min-width:44px; min-height:44px; }
+.personal-trip.plan-edit-mode .plan-day > .outline.wide { min-height:44px; font-size:var(--type-subhead); border-radius:12px; }
+.phase-sheet .plan-place-order { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.phase-sheet .plan-place-order > button { min-height:44px; }
+.phase-sheet .plan-place-detail-image { width:100%; max-height:240px; object-fit:cover; border-radius:12px; }
+.phase-sheet .plan-place-description { margin:0; font-size:var(--type-body); line-height:1.6; }
+
+/* Touch dragging is scoped to a handle; the card body keeps ordinary scrolling. */
+.personal-trip .plan-drag-hint { display:flex; align-items:center; gap:5px; margin:0 0 12px; color:var(--muted); font-size:var(--type-caption); line-height:1.5; }
+.personal-trip .plan-stop-heading { display:flex; align-items:flex-start; min-width:0; }
+.personal-trip .plan-stop-heading .plan-stop-main { flex:1; min-width:0; }
+.personal-trip .plan-stop-heading-draggable { gap:4px; }
+.personal-trip .plan-drag-handle { flex:none; width:44px; height:44px; min-width:44px; padding:0; display:grid; place-items:center; border:0; border-radius:10px; background:transparent; color:var(--muted); touch-action:none; cursor:grab; user-select:none; -webkit-user-select:none; }
+.personal-trip .plan-drag-handle:hover,.personal-trip .plan-drag-handle:focus-visible { background:#eeede8; color:var(--ink); }
+.personal-trip .plan-drag-handle:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+.personal-trip .plan-stop { position:relative; }
+.personal-trip .plan-dragging { border-color:#197c6d; background:#eaf4f0; opacity:.7; }
+.personal-trip .plan-dragging .plan-drag-handle { cursor:grabbing; }
+.personal-trip .plan-drop-before::before { content:''; position:absolute; left:0; right:0; top:-8px; height:4px; border-radius:4px; background:#197c6d; }
+.personal-trip .plan-drop-end { height:4px; border-radius:4px; background:#197c6d; }
+.personal-trip .plan-drag-preview { position:fixed; z-index:80; display:flex; align-items:center; gap:8px; box-sizing:border-box; padding:12px; border-radius:12px; background:#222220; color:#fff; box-shadow:0 6px 20px rgba(0,0,0,.18); font-size:var(--type-subhead); line-height:1.5; pointer-events:none; }
+.personal-trip .plan-drag-preview svg { flex:none; }
+.personal-trip .plan-drag-preview span { min-width:0; overflow-wrap:anywhere; }
+.plan-drag-sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }

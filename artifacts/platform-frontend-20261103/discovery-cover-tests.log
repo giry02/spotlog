@@ -1,0 +1,19 @@
+✔ home admits only currently public, published, open recruitment and approved activities (13.2695ms)
+✔ guest home projections exclude internal member identifiers, messages, meeting points and participation (0.9577ms)
+✔ approved snapshot content remains authoritative while cancellation and unpublication remove current results (0.6624ms)
+✔ public upcoming order includes an ongoing multiday event and sorts same-day times without mutating originals (2.6062ms)
+✔ region, purpose and query intersect for each content type and hand off the same selected metadata (0.7703ms)
+✔ event-title searches work independently of group-name matching and retained unknown region never widens results (0.6394ms)
+✔ registered region identity takes priority, while missing references use the shared regional aliases (0.7735ms)
+✔ region, kind and query intersect without widening scope or changing source order (0.832ms)
+✔ search accepts normalized case and width, remains literal, and covers the guide descriptive fields (0.2263ms)
+✔ preview starts with distinct food, cafe, landmark and stay cards then fills in editorial order (0.744ms)
+✔ preview keeps the first record for each id and handles sparse and empty catalogues (0.2151ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 124.0903

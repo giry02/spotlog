@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-01",
+  "scope": "Focused home audit; read-only filters; no product edits",
+  "width": 390,
+  "places": {
+    "homeRegionControl": false,
+    "firstPlaceTop": 555,
+    "guideFirstTitleTop": 906,
+    "guideBusanToHome": "Home still shows Jeju samples"
+  },
+  "groupTopEntry": {
+    "homeRegion": "서울",
+    "destination": "전체 지역"
+  },
+  "groupModuleEntry": {
+    "homeRegion": "서울",
+    "destination": "서울"
+  },
+  "prototypeSearch": {
+    "query": "주말 보드게임",
+    "visibleBeforeSearch": "주말 보드게임 한 판",
+    "resultAfterSearch": 0,
+    "scope": "Independent memory prototype"
+  },
+  "newHome": {
+    "width": 390,
+    "primaryAction": "가까운 모임 찾기",
+    "primaryTop": 307,
+    "personalSpaceEntryTop": 702
+  },
+  "logs": {
+    "current": [],
+    "prototype": []
+  }
+}

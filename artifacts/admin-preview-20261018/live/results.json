@@ -1,0 +1,290 @@
+{
+  "date": "2026-10-18",
+  "base": "https://giry02.github.io/spotlog/",
+  "checks": [
+    {
+      "name": "ordinary 404: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "ordinary 404: verified API auth gate remains; explicit preview entry provided",
+      "detail": "pass"
+    },
+    {
+      "name": "ordinary 401: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "ordinary 401: verified API auth gate remains; explicit preview entry provided",
+      "detail": "pass"
+    },
+    {
+      "name": "ordinary 403: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "ordinary 403: verified API auth gate remains; explicit preview entry provided",
+      "detail": "pass"
+    },
+    {
+      "name": "1440: explicit preview loads data without backend",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 운영 현황: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 운영 현황: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 장소·업체: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 장소·업체: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 노출·추천: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 노출·추천: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 여행기·커뮤니티: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 여행기·커뮤니티: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 회원·문의: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 회원·문의: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 AI·검색 운영: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 AI·검색 운영: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 운영 설정·이력: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 운영 설정·이력: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "1440: seven menu screens; no API requests or uncaught JavaScript errors",
+      "detail": "pass"
+    },
+    {
+      "name": "1440 tour complete: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "390: explicit preview loads data without backend",
+      "detail": "pass"
+    },
+    {
+      "name": "390 운영 현황: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "390 운영 현황: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "390 장소·업체: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "390 장소·업체: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "390 노출·추천: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "390 노출·추천: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "390 여행기·커뮤니티: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "390 여행기·커뮤니티: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "390 회원·문의: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "390 회원·문의: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "390 AI·검색 운영: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "390 AI·검색 운영: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "390 운영 설정·이력: viewport fits; visible buttons have accessible labels",
+      "detail": "pass"
+    },
+    {
+      "name": "390 운영 설정·이력: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "390: seven menu screens; no API requests or uncaught JavaScript errors",
+      "detail": "pass"
+    },
+    {
+      "name": "390 tour complete: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "place: register incomplete spot as draft, without automatic publication",
+      "detail": "pass"
+    },
+    {
+      "name": "after place save: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "place: saved example survives reload in its own tab session",
+      "detail": "pass"
+    },
+    {
+      "name": "region: add country-level example region in isolated preview store",
+      "detail": "pass"
+    },
+    {
+      "name": "AI: existing fixture runs the sample checks and renders versioned results",
+      "detail": "pass"
+    },
+    {
+      "name": "exposure: create draft home placement without affecting customer projection",
+      "detail": "pass"
+    },
+    {
+      "name": "after all sample workflows: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "workflows: no API/network mutation or uncaught exception",
+      "detail": "pass"
+    },
+    {
+      "name": "complete",
+      "detail": {
+        "checks": 49,
+        "scenes": 14
+      }
+    }
+  ],
+  "scenes": [
+    {
+      "width": 1440,
+      "menu": "운영 현황",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\n운영 현황\n지역별 자료를 쌓고, 검수한 장소로 추천 여행을 만들어 보세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n오늘의 운영 작업\n\n지역 → 자료 등록·검수 → 추천 여행 → 고객 미리보기\n\n작업 지역\n전체 지역\n담당 범위\n전체 담당\n스팟·업체 등록\n선택한 지역에 새 장소 추가\n자료 가져오기\n출처를 보존해 초안으로 등록\n검수 이어하기\n담당 자료·사진·위치 확인\n추천 여행 만들기\n등록 장소로 DAY·여행기 초안\n처리할 항목\n장소 초안 검수\n원본·출처·공개 요건\n139\n좌표·사용 범위 확인\n좌표 검증과 자료 사용 허가\n139\n미처리 신고\n대상·문맥과 처리 사유\n3\n운영 정보 재확인\n영업·임시휴업 상태\n0\nRAG 갱신 실패\n실패 항목과 정상 버전\n0\n알림 실패 검수\n발송 실패·재시도 조건\n1\n수급 실패 검수\n자료 가져오기·재시도 조건\n1\n지역별 자료 현황\n\n랜드마크와 주변 업체를 같은 지역 안에서 등록·검수합니다.\n\n지역 관리\n지역\t랜드마크\t업체\t검수 대기\t공개\t작업\n서울\t3\t6\t9\t0\t서울 자료 보기\n부산\t17\t54\t65\t6\t부산 자료 보기\n대구\t2\t0\t2\t0\t대구 자료 보기\n인천\t2\t0\t2\t0\t인천 자료 보기\n광주\t2\t0\t2\t0\t광주 자료 보기\n대전\t2\t0\t2\t0\t대전 자료 보기\n울산\t2\t0\t2\t0\t울산 자료 보기\n세종\t2\t0\t2\t0\t세종 자료 보기\n경기\t2\t0\t2\t0\t경기 자료 보기\n강원\t8\t7\t15\t0\t강원 자료 보기\n충북\t2\t0\t2\t0\t충북 자료 보기\n충남\t2\t0\t2\t0\t충남 자료 보기\n전북\t2\t1\t3\t0\t전북 자료 보기\n전남\t6\t0\t6\t0\t전남 자료 보기\n경북\t6\t6\t12\t0\t경북 자료 보기\n경남\t3\t0\t3\t0\t경남 자료 보기\n제주\t4\t4\t8\t0\t제주 자료 보기\n연결 설정 확인"
+    },
+    {
+      "width": 1440,
+      "menu": "장소·업체",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\n장소·업체\n지역과 담당자를 선택해 스팟·주변 업체 자료를 등록하고 검수하세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n장소·업체\n\n한 지점의 자료를 등록하고 발견·주변 추천·AI에서 같은 ID로 연결해요.\n\n필터 초기화\nCSV 가져오기\n장소 등록\n목록 검색·필터 지역 미지정 · 145개\n지역\n전체 지역 · 145개\n장소 검색\n공개 상태\n모든 상태\n종류·담당 직원·검수 상태\n등록 자료 145개\n검수용 바다 전망대\n랜드마크 · 부산 · 검수 자료\nreview-landmark\n검수 완료 · 담당 내부 관리자\n공개\n검수용 바다 식당\n음식점 · 부산 · 검수 자료\nreview-food\n검수 완료 · 담당 내부 관리자\n공개\n검수용 풍경 카페\n카페 · 부산 · 검수 자료\nreview-cafe\n검수 완료 · 담당 내부 관리자\n공개\n검수용 바다 숙소\n숙소 · 부산 · 검수 자료\nreview-stay\n검수 완료 · 담당 내부 관리자\n공개\n검수용 도심 공원\n랜드마크 · 부산 · 검수 자료\nreview-landmark-2\n검수 완료 · 담당 내부 관리자\n공개\n검수용 여행 상점\n쇼핑 · 부산 · 검수 자료\nreview-shop\n검수 완료 · 담당 내부 관리자\n공개\n협재해수욕장\n랜드마크 · 제주 한림\njeju-hyeopjae\n확인 필요 · 담당 미배정\n초안\n안목해변\n랜드마크 · 강원 강릉\ngangneung-anmok\n확인 필요 · 담당 미배정\n초안\n정선 아우라지\n랜드마크 · 강원 정선\njeongseon-rail\n확인 필요 · 담당 미배정\n초안\n서울숲\n랜드마크 · 서울 성동\nseoul-seoulforest\n확인 필요 · 담당 미배정\n초안\n자갈치시장\n랜드마크 · 부산 중구\npublic-busan-jagalchi\n확인 필요 · 담당 미배정\n초안\n국제시장\n랜드마크 · 부산 중구\npublic-busan-gukje\n확인 필요 · 담당 미배정\n초안\n이전\n1 / 13\n다음\n장소를 선택해 주세요\n등록 자료를 한 곳에서 관리해요\n\n목록에서 장소를 선택하면 위치·사진·주변 업체·AI 자료까지 이어서 확인할 수 있어요."
+    },
+    {
+      "width": 1440,
+      "menu": "노출·추천",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\n노출·추천\n추천 여행 초안을 만들고 고객에게 보여줄 콘텐츠를 골라 주세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n인기 자료·메인 게시\n노출 설정\n운영 추천 여행기\n고객 화면 미리보기\n채널별 노출\n노출 추가\n노출 채널\n홈 추천 여행기\n검색 초기화\n이 채널의 노출 항목이 없습니다.\n\n검수한 공개 장소나 여행기를 선택해 추가하세요.\n\n노출 편집\n목록에서 항목을 선택하세요.\n\n기간과 미디어를 확인하고 채널별 미리보기를 볼 수 있습니다."
+    },
+    {
+      "width": 1440,
+      "menu": "여행기·커뮤니티",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\n여행기·커뮤니티\n고객이 보는 여행기·사진·댓글의 문맥에서 신고를 처리하세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n신고·이의\n공개 여행기·댓글\n번역 검수\n신고 목록\n검색 초기화\n처리 상태\n미처리\n콘텐츠 신고\n댓글 내용 검수가 필요하다는 샘플 신고입니다.\nreview-comment-2 · 2026. 10. 4. 15시 0분 0초\n미처리\n저작권 이의\n사진 권리 확인을 요청하는 샘플 이의입니다.\nreview-journal-1 · 2026. 10. 4. 16시 0분 0초\n미처리\n정보 확인\n공개 프로필 점검 요청 예시\nreview-member-2 · 2026. 10. 4. 17시 0분 0초\n미처리\n신고 상세\nCOMMENT · review-comment-2\n\n댓글 내용 검수가 필요하다는 샘플 신고입니다.\n\n접수 2026. 10. 4. 15시 0분 0초\n\n샘플 여행기 · 바다 산책\n신고 댓글 · 검수 회원 B\n\n첫 번째 카드에 남기는 샘플 댓글입니다.\n\nreview-comment-2 · 2026. 10. 4. 14시 5분 0초\n\n샘플 장소 카드 A\n\n합성 검수 샘플 장소 사진과 본문입니다.\n\n조용히 둘러본 장소입니다.\n\n출처 Spotlog 로컬 검수 도안 · 검수용 합성 자료\n\n좋아요한 공개 회원\n\n카드 review-card-1\n\n여행기와 댓글 문맥 확인\n신고 처리 사유\n처리 완료 기록\n해당 없음 기록\n관련 조치 이력\n\n아직 조치 이력이 없습니다."
+    },
+    {
+      "width": 1440,
+      "menu": "회원·문의",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\n회원·문의\n공개 프로필과 활동 집계, 이용 상태를 확인하세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n공개 프로필과 운영 처리 상태만 조회합니다. 개인 일정·메모·예약·대화 원문은 기본 관리자 자료에 포함하지 않습니다.\n회원·삭제 요청\n문의 처리\n회원 검색\n검색 초기화\n검수 회원 A\nreview-member-1\n정상\n검수 회원 B\nreview-member-2\n정상 · 삭제 요청\n검수 회원 A\n\nreview-member-1\n\n등급 미제공\n\n바다와 산책을 좋아하는 샘플 공개 프로필\n\n—공개 여행기\n—팔로워\n—담김\n—조회\n\n예시 집계\n\n정상 이용\n조치 사유\n기간 정지 종료일\n경고 기록\n기간 정지 기록\n정지 해제\n공개 프로필 신고\n관련 조치 이력\n\n아직 조치 이력이 없습니다."
+    },
+    {
+      "width": 1440,
+      "menu": "AI·검색 운영",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\nAI·검색 운영\n승인 자료와 검증한 버전으로 검색·생성을 운영하세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n생성 정책 준비\n공개 근거 6건 · 현재 색인 유효 0건\n생성 일시 중지\n검색 자료\n색인 작업\n품질 시험\n요청 현황\n실행 정책\n승인된 검색 설명\n\n공개본의 AI 사용 허용·출처·확인일·좌표·영업 상태를 통과한 자료만 표시합니다. 수정은 장소 상세의 AI 자료에서 진행합니다.\n\n색인 작업 보기\n장소·지역·태그 검색\n반영 상태\n전체 승인 자료\n검수용 바다 전망대\n랜드마크\n반영 필요\n\n관리자 등록·추천 흐름을 확인하는 가상 자료입니다.\n\nreview-landmark · 원문 v1 · 부산 · 검수 자료 · Spotlog 검수 자료 · 확인 2026-10-05\n검색 태그 LANDMARK · 영어 미반영\n자료 출처 확인\n장소에서 수정\n재색인 대기\n검수용 바다 식당\n음식점\n반영 필요\n\n관리자 등록·추천 흐름을 확인하는 가상 자료입니다.\n\nreview-food · 원문 v1 · 부산 · 검수 자료 · Spotlog 검수 자료 · 확인 2026-10-05\n검색 태그 FOOD · 영어 미반영\n자료 출처 확인\n장소에서 수정\n재색인 대기\n검수용 풍경 카페\n카페\n반영 필요\n\n관리자 등록·추천 흐름을 확인하는 가상 자료입니다.\n\nreview-cafe · 원문 v1 · 부산 · 검수 자료 · Spotlog 검수 자료 · 확인 2026-10-05\n검색 태그 CAFE · 영어 미반영\n자료 출처 확인\n장소에서 수정\n재색인 대기\n검수용 바다 숙소\n숙소\n반영 필요\n\n관리자 등록·추천 흐름을 확인하는 가상 자료입니다.\n\nreview-stay · 원문 v1 · 부산 · 검수 자료 · Spotlog 검수 자료 · 확인 2026-10-05\n검색 태그 STAY · 영어 미반영\n자료 출처 확인\n장소에서 수정\n재색인 대기\n검수용 도심 공원\n랜드마크\n반영 필요\n\n관리자 등록·추천 흐름을 확인하는 가상 자료입니다.\n\nreview-landmark-2 · 원문 v1 · 부산 · 검수 자료 · Spotlog 검수 자료 · 확인 2026-10-05\n검색 태그 LANDMARK · 영어 미반영\n자료 출처 확인\n장소에서 수정\n재색인 대기\n검수용 여행 상점\n쇼핑\n반영 필요\n\n관리자 등록·추천 흐름을 확인하는 가상 자료입니다.\n\nreview-shop · 원문 v1 · 부산 · 검수 자료 · Spotlog 검수 자료 · 확인 2026-10-05\n검색 태그 SHOP · 영어 미반영\n자료 출처 확인\n장소에서 수정\n재색인 대기\n검색 제외 자료 139건\n\n초안·비활성·폐업·좌표 미검수·AI 사용권 미확인 자료는 추천과 RAG에서 제외합니다.\n\n협재해수욕장\njeju-hyeopjae · 미공개 초안\n검수하기\n안목해변\ngangneung-anmok · 미공개 초안\n검수하기\n정선 아우라지\njeongseon-rail · 미공개 초안\n검수하기\n서울숲\nseoul-seoulforest · 미공개 초안\n검수하기\n자갈치시장\npublic-busan-jagalchi · 미공개 초안\n검수하기\n국제시장\npublic-busan-gukje · 미공개 초안\n검수하기\n흰여울문화마을\npublic-busan-huinnyeoul · 미공개 초안\n검수하기\n송도해수욕장\npublic-busan-songdo · 미공개 초안\n검수하기\n태종대\npublic-busan-taejongdae · 미공개 초안\n검수하기\n동래읍성\npublic-busan-dongnae · 미공개 초안\n검수하기\n일광해수욕장\npublic-busan-ilgwang · 미공개 초안\n검수하기\n죽성성당 드림세트장\npublic-busan-jukseong · 미공개 초안\n검수하기\n수우동\njeju-suudon · 미공개 초안\n검수하기\n제주신화월드 메리어트\njeju-shinhwa · 미공개 초안\n검수하기\n오설록 티뮤지엄\njeju-osulloc · 미공개 초안\n검수하기\n원앤온리\njeju-oneonly · 미공개 초안\n검수하기\n사계해안\njeju-sagye · 미공개 초안\n검수하기\n새별오름\njeju-saebyeol · 미공개 초안\n검수하기\n애월의 작은 베이커리\njeju-aewol-bakery · 미공개 초안\n검수하기\n감천문화마을\nbusan-gamcheon · 미공개 초안\n검수하기\n시그니엘 부산\nbusan-signiel · 미공개 초안\n검수하기\n해운대암소갈비집\nbusan-amso · 미공개 초안\n검수하기\n웨이브온 커피\nbusan-waveon · 미공개 초안\n검수하기\n해동용궁사\nbusan-haedong-yonggungsa · 미공개 초안\n검수하기\n수원화성\ngyeonggi-suwon-hwaseong · 미공개 초안\n검수하기\n두물머리\ngyeonggi-yangpyeong-dumulmeori · 미공개 초안\n검수하기\n송도 센트럴파크\nincheon-songdo-central-park · 미공개 초안\n검수하기\n인천 개항장거리\nincheon-open-port · 미공개 초안\n검수하기\n도담삼봉\nchungbuk-danyang-dodamsambong · 미공개 초안\n검수하기\n상당산성\nchungbuk-cheongju-sangdangsanseong · 미공개 초안\n검수하기\n공산성\nchungnam-gongju-gongsanseong · 미공개 초안\n검수하기\n꽃지해수욕장\nchungnam-taean-kkoji · 미공개 초안\n검수하기\n한밭수목원\ndaejeon-hanbat-arboretum · 미공개 초안\n검수하기\n대동하늘공원\ndaejeon-daedong-sky-park · 미공개 초안\n검수하기\n국립세종수목원\nsejong-national-arboretum · 미공개 초안\n검수하기\n세종호수공원\nsejong-lake-park · 미공개 초안\n검수하기\n국립아시아문화전당\ngwangju-acc · 미공개 초안\n검수하기\n양림동 역사문화마을\ngwangju-yangnim-dong · 미공개 초안\n검수하기\n대릉원\ngyeongbuk-gyeongju-daereungwon · 미공개 초안\n검수하기\n안동 하회마을\ngyeongbuk-andong-hahoe · 미공개 초안\n검수하기\n앞산전망대\ndaegu-apsan-observatory · 미공개 초안\n검수하기\n김광석 다시그리기길\ndaegu-kim-gwangseok-street · 미공개 초안\n검수하기\n대왕암공원\nulsan-daewangam-park · 미공개 초안\n검수하기\n태화강 국가정원\nulsan-taehwagang-garden · 미공개 초안\n검수하기\n군산 근대역사문화거리\njeonbuk-gunsan-modern-street · 미공개 초안\n검수하기\n진주성\ngyeongnam-jinju-castle · 미공개 초안\n검수하기\n성수연방\nseoul-seongsu-yeonbang · 미공개 초안\n검수하기\n뚝섬한강공원\nseoul-tukseom-hangang · 미공개 초안\n검수하기\n전주한옥마을\njeonju-hanok · 미공개 초안\n검수하기\n전주남부시장\njeonju-nambu-market · 미공개 초안\n검수하기\n죽녹원\ndamyang-juknokwon · 미공개 초안\n검수하기\n메타세쿼이아길\ndamyang-metasequoia · 미공개 초안\n검수하기\n순천만국가정원\nsuncheon-garden · 미공개 초안\n검수하기\n순천만습지\nsuncheon-bay · 미공개 초안\n검수하기\n오동도\nyeosu-odongdo · 미공개 초안\n검수하기\n돌산공원\nyeosu-dolsan · 미공개 초안\n검수하기\n동피랑 벽화마을\ntongyeong-dongpirang · 미공개 초안\n검수하기\n미륵산\ntongyeong-mireuksan · 미공개 초안\n검수하기\n오죽헌\ngangneung-ojukheon · 미공개 초안\n검수하기\n낙산사\nyangyang-naksansa · 미공개 초안\n검수하기\n서피비치\nyangyang-surfy · 미공개 초안\n검수하기\n영금정\nsokcho-yeonggeumjeong · 미공개 초안\n검수하기\n속초관광수산시장\nsokcho-central-market · 미공개 초안\n검수하기\n아야진해변\ngoseong-ayajin · 미공개 초안\n검수하기\n천진해변\ngoseong-cheonjin · 미공개 초안\n검수하기\n동백섬\npublic-busan-dongbaek · 미공개 초안\n검수하기\n해운대해수욕장\npublic-busan-haeundae · 미공개 초안\n검수하기\n감천문화마을\npublic-busan-gamcheon · 미공개 초안\n검수하기\n이기대 해안산책로\npublic-busan-igidae · 미공개 초안\n검수하기\n광안리해수욕장\npublic-busan-gwangalli · 미공개 초안\n검수하기\n대릉원\npublic-gyeongju-daereungwon · 미공개 초안\n검수하기\n첨성대\npublic-gyeongju-cheomseongdae · 미공개 초안\n검수하기\n월정교\npublic-gyeongju-woljeonggyo · 미공개 초안\n검수하기\n동궁과 월지\npublic-gyeongju-donggung · 미공개 초안\n검수하기\n금수복국 해운대본점\ncatalog-busan-geumsu · 미공개 초안\n검수하기\n거대갈비\ncatalog-busan-geodae · 미공개 초안\n검수하기\n동백섬횟집\ncatalog-busan-dongbaek-sashimi · 미공개 초안\n검수하기\n남천면가\ncatalog-busan-namcheon-noodles · 미공개 초안\n검수하기\n할매가야밀면\ncatalog-busan-halme-gaya · 미공개 초안\n검수하기\n재기돼지국밥\ncatalog-busan-jaegi · 미공개 초안\n검수하기\n몽실종가돼지국밥 감천문화마을 본점\ncatalog-busan-mongsil · 미공개 초안\n검수하기\n신창국밥 본점\ncatalog-busan-sinchang · 미공개 초안\n검수하기\n웨스틴 조선 부산\ncatalog-busan-westin · 미공개 초안\n검수하기\n신라스테이 해운대\ncatalog-busan-shilla-stay · 미공개 초안\n검수하기\n파라다이스호텔부산\ncatalog-busan-paradise · 미공개 초안\n검수하기\n파크하얏트부산\ncatalog-busan-park-hyatt · 미공개 초안\n검수하기\n비비비당\ncatalog-busan-bibibidang · 미공개 초안\n검수하기\n블랙업커피 서면점\ncatalog-busan-blackup · 미공개 초안\n검수하기\n모모스커피 온천장점\ncatalog-busan-momos · 미공개 초안\n검수하기\n춘하추동밀면 본점\ncatalog-busan-chunha-chudong · 미공개 초안\n검수하기\n동래할매파전\ncatalog-busan-dongnae-pajeon · 미공개 초안\n검수하기\n신발원\ncatalog-busan-shinbalwon · 미공개 초안\n검수하기\n국이네낙지볶음\ncatalog-busan-gugine · 미공개 초안\n검수하기\n나가하마만게츠\ncatalog-busan-nagahama · 미공개 초안\n검수하기\n본전돼지국밥\ncatalog-busan-bonjeon · 미공개 초안\n검수하기\n이재모피자 본점\ncatalog-busan-ijaemo · 미공개 초안\n검수하기\n도희네 조개구이\ncatalog-busan-dohine · 미공개 초안\n검수하기\n카파도키아\ncatalog-busan-kappadokia · 미공개 초안\n검수하기\n해목 해운대점\ncatalog-busan-haemok · 미공개 초안\n검수하기\n풍원장 고기정찬\ncatalog-busan-pungwon-gogi · 미공개 초안\n검수하기\n밀양순대돼지국밥 부산본점\ncatalog-busan-milyang-gukbap · 미공개 초안\n검수하기\n하녹\ncatalog-busan-hanok · 미공개 초안\n검수하기\n씨앤트리 카페\ncatalog-busan-sea-and-tree · 미공개 초안\n검수하기\n페를리\ncatalog-busan-perli · 미공개 초안\n검수하기\n다락재\ncatalog-busan-darakjae · 미공개 초안\n검수하기\n모모스커피 도모헌점\ncatalog-busan-momos-domoheon · 미공개 초안\n검수하기\n모모스커피 영도 로스터리&커피바\ncatalog-busan-momos-yeongdo · 미공개 초안\n검수하기\n피아크 카페&베이커리\ncatalog-busan-piark · 미공개 초안\n검수하기\n웨이브온커피\ncatalog-busan-waveon · 미공개 초안\n검수하기\n초량1941\ncatalog-busan-choryang1941 · 미공개 초안\n검수하기\n젊은이의 둥지\ncatalog-busan-youth-nest · 미공개 초안\n검수하기\n카페 만디\ncatalog-busan-mandi · 미공개 초안\n검수하기\n블랙업커피 (사하 낙동남로)\ncatalog-busan-blackup-saha · 미공개 초안\n검수하기\n카페 EL 16.52\ncatalog-busan-el1652 · 미공개 초안\n검수하기\n국제통닭 부평본점\ncatalog-busan-gukje-chicken · 미공개 초안\n검수하기\n사거리분식\ncatalog-busan-sageori-bunsik · 미공개 초안\n검수하기\n남천녹차팥빙수\ncatalog-busan-namcheon-green-tea · 미공개 초안\n검수하기\n남천숯불장어\ncatalog-busan-namcheon-eel · 미공개 초안\n검수하기\n오굳띵\ncatalog-busan-ogoodthing · 미공개 초안\n검수하기\n승기씨앗호떡\ncatalog-busan-seunggi-hotteok · 미공개 초안\n검수하기\n국보미역 본점\ncatalog-busan-gukbo-miyeok · 미공개 초안\n검수하기\n박용자경주명동쫄면 본점\ncatalog-gyeongju-760 · 미공개 초안\n검수하기\n대화만두 본점\ncatalog-gyeongju-759 · 미공개 초안\n검수하기\n노워즈\ncatalog-gyeongju-22 · 미공개 초안\n검수하기\n카페 탁(TAK)\ncatalog-gyeongju-7684 · 미공개 초안\n검수하기\n다다맨션\ncatalog-gyeongju-618 · 미공개 초안\n검수하기\n다온게스트하우스\ncatalog-gyeongju-605 · 미공개 초안\n검수하기\n카페씨떼\ncatalog-seoul-cite · 미공개 초안\n검수하기\n텍스쳐성수\ncatalog-seoul-texture · 미공개 초안\n검수하기\n사델스 앳 키스 서울\ncatalog-seoul-sadelles · 미공개 초안\n검수하기\n기후\ncatalog-seoul-kihoo · 미공개 초안\n검수하기\n호텔 리베라 청담\ncatalog-seoul-riviera · 미공개 초안\n검수하기\n알로프트 서울 강남\ncatalog-seoul-aloft · 미공개 초안\n검수하기\n강릉짬뽕순두부 동화가든 본점\ncatalog-gangneung-49998 · 미공개 초안\n검수하기\n초당할머니순두부\ncatalog-gangneung-174296 · 미공개 초안\n검수하기\n하슬라가배\ncatalog-gangneung-174292 · 미공개 초안\n검수하기\n카페미담\ncatalog-gangneung-48612 · 미공개 초안\n검수하기\n경포비치호텔\ncatalog-gangneung-98592 · 미공개 초안\n검수하기\n하이오션 경포\ncatalog-gangneung-34197 · 미공개 초안\n검수하기"
+    },
+    {
+      "width": 1440,
+      "menu": "운영 설정·이력",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\n운영 설정·이력\n지역·권한·연결 설정과 작업 이력을 관리하세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n연결·세션·수급·발송·정리는 실제 서버 미연결 상태입니다. 검수 기록과 실제 처리 완료를 구분합니다.\n지역 관리\n분류·운영 기준\n운영자·권한\n알림\n연결·수급\n휴지통·파일 정리\n변경·조치 이력\n운영 기준 목록\n새 항목\n기준 종류\n지역\n부산\nv1 · 사용\n지역 편집\n\n변경할 때마다 새 버전과 이력을 남깁니다.\n\n이름\n기준값·설명\n사용 여부\n사용\n기준 저장"
+    },
+    {
+      "width": 390,
+      "menu": "운영 현황",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\n운영 현황\n지역별 자료를 쌓고, 검수한 장소로 추천 여행을 만들어 보세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n오늘의 운영 작업\n\n지역 → 자료 등록·검수 → 추천 여행 → 고객 미리보기\n\n작업 지역\n전체 지역\n담당 범위\n전체 담당\n스팟·업체 등록\n선택한 지역에 새 장소 추가\n자료 가져오기\n출처를 보존해 초안으로 등록\n검수 이어하기\n담당 자료·사진·위치 확인\n추천 여행 만들기\n등록 장소로 DAY·여행기 초안\n처리할 항목\n장소 초안 검수\n원본·출처·공개 요건\n139\n좌표·사용 범위 확인\n좌표 검증과 자료 사용 허가\n139\n미처리 신고\n대상·문맥과 처리 사유\n3\n운영 정보 재확인\n영업·임시휴업 상태\n0\nRAG 갱신 실패\n실패 항목과 정상 버전\n0\n알림 실패 검수\n발송 실패·재시도 조건\n1\n수급 실패 검수\n자료 가져오기·재시도 조건\n1\n지역별 자료 현황\n\n랜드마크와 주변 업체를 같은 지역 안에서 등록·검수합니다.\n\n지역 관리\n지역\t랜드마크\t업체\t검수 대기\t공개\t작업\n서울\t3\t6\t9\t0\t서울 자료 보기\n부산\t17\t54\t65\t6\t부산 자료 보기\n대구\t2\t0\t2\t0\t대구 자료 보기\n인천\t2\t0\t2\t0\t인천 자료 보기\n광주\t2\t0\t2\t0\t광주 자료 보기\n대전\t2\t0\t2\t0\t대전 자료 보기\n울산\t2\t0\t2\t0\t울산 자료 보기\n세종\t2\t0\t2\t0\t세종 자료 보기\n경기\t2\t0\t2\t0\t경기 자료 보기\n강원\t8\t7\t15\t0\t강원 자료 보기\n충북\t2\t0\t2\t0\t충북 자료 보기\n충남\t2\t0\t2\t0\t충남 자료 보기\n전북\t2\t1\t3\t0\t전북 자료 보기\n전남\t6\t0\t6\t0\t전남 자료 보기\n경북\t6\t6\t12\t0\t경북 자료 보기\n경남\t3\t0\t3\t0\t경남 자료 보기\n제주\t4\t4\t8\t0\t제주 자료 보기\n연결 설정 확인"
+    },
+    {
+      "width": 390,
+      "menu": "장소·업체",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\n장소·업체\n지역과 담당자를 선택해 스팟·주변 업체 자료를 등록하고 검수하세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n장소·업체\n\n한 지점의 자료를 등록하고 발견·주변 추천·AI에서 같은 ID로 연결해요.\n\n필터 초기화\nCSV 가져오기\n장소 등록\n목록 검색·필터\n지역 미지정 · 145개\n지역\n전체 지역 · 145개\n장소 검색\n공개 상태\n모든 상태\n종류·담당 직원·검수 상태\n등록 자료 145개\n검수용 바다 전망대\n랜드마크 · 부산 · 검수 자료\nreview-landmark\n검수 완료 · 담당 내부 관리자\n공개\n검수용 바다 식당\n음식점 · 부산 · 검수 자료\nreview-food\n검수 완료 · 담당 내부 관리자\n공개\n검수용 풍경 카페\n카페 · 부산 · 검수 자료\nreview-cafe\n검수 완료 · 담당 내부 관리자\n공개\n검수용 바다 숙소\n숙소 · 부산 · 검수 자료\nreview-stay\n검수 완료 · 담당 내부 관리자\n공개\n검수용 도심 공원\n랜드마크 · 부산 · 검수 자료\nreview-landmark-2\n검수 완료 · 담당 내부 관리자\n공개\n검수용 여행 상점\n쇼핑 · 부산 · 검수 자료\nreview-shop\n검수 완료 · 담당 내부 관리자\n공개\n협재해수욕장\n랜드마크 · 제주 한림\njeju-hyeopjae\n확인 필요 · 담당 미배정\n초안\n안목해변\n랜드마크 · 강원 강릉\ngangneung-anmok\n확인 필요 · 담당 미배정\n초안\n정선 아우라지\n랜드마크 · 강원 정선\njeongseon-rail\n확인 필요 · 담당 미배정\n초안\n서울숲\n랜드마크 · 서울 성동\nseoul-seoulforest\n확인 필요 · 담당 미배정\n초안\n자갈치시장\n랜드마크 · 부산 중구\npublic-busan-jagalchi\n확인 필요 · 담당 미배정\n초안\n국제시장\n랜드마크 · 부산 중구\npublic-busan-gukje\n확인 필요 · 담당 미배정\n초안\n이전\n1 / 13\n다음\n장소를 선택해 주세요\n등록 자료를 한 곳에서 관리해요\n\n목록에서 장소를 선택하면 위치·사진·주변 업체·AI 자료까지 이어서 확인할 수 있어요."
+    },
+    {
+      "width": 390,
+      "menu": "노출·추천",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\n노출·추천\n추천 여행 초안을 만들고 고객에게 보여줄 콘텐츠를 골라 주세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n인기 자료·메인 게시\n노출 설정\n운영 추천 여행기\n고객 화면 미리보기\n채널별 노출\n노출 추가\n노출 채널\n홈 추천 여행기\n검색 초기화\n이 채널의 노출 항목이 없습니다.\n\n검수한 공개 장소나 여행기를 선택해 추가하세요.\n\n노출 편집\n목록에서 항목을 선택하세요.\n\n기간과 미디어를 확인하고 채널별 미리보기를 볼 수 있습니다."
+    },
+    {
+      "width": 390,
+      "menu": "여행기·커뮤니티",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\n여행기·커뮤니티\n고객이 보는 여행기·사진·댓글의 문맥에서 신고를 처리하세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n신고·이의\n공개 여행기·댓글\n번역 검수\n신고 목록\n검색 초기화\n처리 상태\n미처리\n콘텐츠 신고\n댓글 내용 검수가 필요하다는 샘플 신고입니다.\nreview-comment-2 · 2026. 10. 4. 15시 0분 0초\n미처리\n저작권 이의\n사진 권리 확인을 요청하는 샘플 이의입니다.\nreview-journal-1 · 2026. 10. 4. 16시 0분 0초\n미처리\n정보 확인\n공개 프로필 점검 요청 예시\nreview-member-2 · 2026. 10. 4. 17시 0분 0초\n미처리\n신고 상세\nCOMMENT · review-comment-2\n\n댓글 내용 검수가 필요하다는 샘플 신고입니다.\n\n접수 2026. 10. 4. 15시 0분 0초\n\n샘플 여행기 · 바다 산책\n신고 댓글 · 검수 회원 B\n\n첫 번째 카드에 남기는 샘플 댓글입니다.\n\nreview-comment-2 · 2026. 10. 4. 14시 5분 0초\n\n샘플 장소 카드 A\n\n합성 검수 샘플 장소 사진과 본문입니다.\n\n조용히 둘러본 장소입니다.\n\n출처 Spotlog 로컬 검수 도안 · 검수용 합성 자료\n\n좋아요한 공개 회원\n\n카드 review-card-1\n\n여행기와 댓글 문맥 확인\n신고 처리 사유\n처리 완료 기록\n해당 없음 기록\n관련 조치 이력\n\n아직 조치 이력이 없습니다."
+    },
+    {
+      "width": 390,
+      "menu": "회원·문의",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\n회원·문의\n공개 프로필과 활동 집계, 이용 상태를 확인하세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n공개 프로필과 운영 처리 상태만 조회합니다. 개인 일정·메모·예약·대화 원문은 기본 관리자 자료에 포함하지 않습니다.\n회원·삭제 요청\n문의 처리\n회원 검색\n검색 초기화\n검수 회원 A\nreview-member-1\n정상\n검수 회원 B\nreview-member-2\n정상 · 삭제 요청\n검수 회원 A\n\nreview-member-1\n\n등급 미제공\n\n바다와 산책을 좋아하는 샘플 공개 프로필\n\n—공개 여행기\n—팔로워\n—담김\n—조회\n\n예시 집계\n\n정상 이용\n조치 사유\n기간 정지 종료일\n경고 기록\n기간 정지 기록\n정지 해제\n공개 프로필 신고\n관련 조치 이력\n\n아직 조치 이력이 없습니다."
+    },
+    {
+      "width": 390,
+      "menu": "AI·검색 운영",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\nAI·검색 운영\n승인 자료와 검증한 버전으로 검색·생성을 운영하세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n생성 정책 준비\n공개 근거 6건 · 현재 색인 유효 0건\n생성 일시 중지\n검색 자료\n색인 작업\n품질 시험\n요청 현황\n실행 정책\n승인된 검색 설명\n\n공개본의 AI 사용 허용·출처·확인일·좌표·영업 상태를 통과한 자료만 표시합니다. 수정은 장소 상세의 AI 자료에서 진행합니다.\n\n색인 작업 보기\n장소·지역·태그 검색\n반영 상태\n전체 승인 자료\n검수용 바다 전망대\n랜드마크\n반영 필요\n\n관리자 등록·추천 흐름을 확인하는 가상 자료입니다.\n\nreview-landmark · 원문 v1 · 부산 · 검수 자료 · Spotlog 검수 자료 · 확인 2026-10-05\n검색 태그 LANDMARK · 영어 미반영\n자료 출처 확인\n장소에서 수정\n재색인 대기\n검수용 바다 식당\n음식점\n반영 필요\n\n관리자 등록·추천 흐름을 확인하는 가상 자료입니다.\n\nreview-food · 원문 v1 · 부산 · 검수 자료 · Spotlog 검수 자료 · 확인 2026-10-05\n검색 태그 FOOD · 영어 미반영\n자료 출처 확인\n장소에서 수정\n재색인 대기\n검수용 풍경 카페\n카페\n반영 필요\n\n관리자 등록·추천 흐름을 확인하는 가상 자료입니다.\n\nreview-cafe · 원문 v1 · 부산 · 검수 자료 · Spotlog 검수 자료 · 확인 2026-10-05\n검색 태그 CAFE · 영어 미반영\n자료 출처 확인\n장소에서 수정\n재색인 대기\n검수용 바다 숙소\n숙소\n반영 필요\n\n관리자 등록·추천 흐름을 확인하는 가상 자료입니다.\n\nreview-stay · 원문 v1 · 부산 · 검수 자료 · Spotlog 검수 자료 · 확인 2026-10-05\n검색 태그 STAY · 영어 미반영\n자료 출처 확인\n장소에서 수정\n재색인 대기\n검수용 도심 공원\n랜드마크\n반영 필요\n\n관리자 등록·추천 흐름을 확인하는 가상 자료입니다.\n\nreview-landmark-2 · 원문 v1 · 부산 · 검수 자료 · Spotlog 검수 자료 · 확인 2026-10-05\n검색 태그 LANDMARK · 영어 미반영\n자료 출처 확인\n장소에서 수정\n재색인 대기\n검수용 여행 상점\n쇼핑\n반영 필요\n\n관리자 등록·추천 흐름을 확인하는 가상 자료입니다.\n\nreview-shop · 원문 v1 · 부산 · 검수 자료 · Spotlog 검수 자료 · 확인 2026-10-05\n검색 태그 SHOP · 영어 미반영\n자료 출처 확인\n장소에서 수정\n재색인 대기\n검색 제외 자료 139건\n\n초안·비활성·폐업·좌표 미검수·AI 사용권 미확인 자료는 추천과 RAG에서 제외합니다.\n\n협재해수욕장\njeju-hyeopjae · 미공개 초안\n검수하기\n안목해변\ngangneung-anmok · 미공개 초안\n검수하기\n정선 아우라지\njeongseon-rail · 미공개 초안\n검수하기\n서울숲\nseoul-seoulforest · 미공개 초안\n검수하기\n자갈치시장\npublic-busan-jagalchi · 미공개 초안\n검수하기\n국제시장\npublic-busan-gukje · 미공개 초안\n검수하기\n흰여울문화마을\npublic-busan-huinnyeoul · 미공개 초안\n검수하기\n송도해수욕장\npublic-busan-songdo · 미공개 초안\n검수하기\n태종대\npublic-busan-taejongdae · 미공개 초안\n검수하기\n동래읍성\npublic-busan-dongnae · 미공개 초안\n검수하기\n일광해수욕장\npublic-busan-ilgwang · 미공개 초안\n검수하기\n죽성성당 드림세트장\npublic-busan-jukseong · 미공개 초안\n검수하기\n수우동\njeju-suudon · 미공개 초안\n검수하기\n제주신화월드 메리어트\njeju-shinhwa · 미공개 초안\n검수하기\n오설록 티뮤지엄\njeju-osulloc · 미공개 초안\n검수하기\n원앤온리\njeju-oneonly · 미공개 초안\n검수하기\n사계해안\njeju-sagye · 미공개 초안\n검수하기\n새별오름\njeju-saebyeol · 미공개 초안\n검수하기\n애월의 작은 베이커리\njeju-aewol-bakery · 미공개 초안\n검수하기\n감천문화마을\nbusan-gamcheon · 미공개 초안\n검수하기\n시그니엘 부산\nbusan-signiel · 미공개 초안\n검수하기\n해운대암소갈비집\nbusan-amso · 미공개 초안\n검수하기\n웨이브온 커피\nbusan-waveon · 미공개 초안\n검수하기\n해동용궁사\nbusan-haedong-yonggungsa · 미공개 초안\n검수하기\n수원화성\ngyeonggi-suwon-hwaseong · 미공개 초안\n검수하기\n두물머리\ngyeonggi-yangpyeong-dumulmeori · 미공개 초안\n검수하기\n송도 센트럴파크\nincheon-songdo-central-park · 미공개 초안\n검수하기\n인천 개항장거리\nincheon-open-port · 미공개 초안\n검수하기\n도담삼봉\nchungbuk-danyang-dodamsambong · 미공개 초안\n검수하기\n상당산성\nchungbuk-cheongju-sangdangsanseong · 미공개 초안\n검수하기\n공산성\nchungnam-gongju-gongsanseong · 미공개 초안\n검수하기\n꽃지해수욕장\nchungnam-taean-kkoji · 미공개 초안\n검수하기\n한밭수목원\ndaejeon-hanbat-arboretum · 미공개 초안\n검수하기\n대동하늘공원\ndaejeon-daedong-sky-park · 미공개 초안\n검수하기\n국립세종수목원\nsejong-national-arboretum · 미공개 초안\n검수하기\n세종호수공원\nsejong-lake-park · 미공개 초안\n검수하기\n국립아시아문화전당\ngwangju-acc · 미공개 초안\n검수하기\n양림동 역사문화마을\ngwangju-yangnim-dong · 미공개 초안\n검수하기\n대릉원\ngyeongbuk-gyeongju-daereungwon · 미공개 초안\n검수하기\n안동 하회마을\ngyeongbuk-andong-hahoe · 미공개 초안\n검수하기\n앞산전망대\ndaegu-apsan-observatory · 미공개 초안\n검수하기\n김광석 다시그리기길\ndaegu-kim-gwangseok-street · 미공개 초안\n검수하기\n대왕암공원\nulsan-daewangam-park · 미공개 초안\n검수하기\n태화강 국가정원\nulsan-taehwagang-garden · 미공개 초안\n검수하기\n군산 근대역사문화거리\njeonbuk-gunsan-modern-street · 미공개 초안\n검수하기\n진주성\ngyeongnam-jinju-castle · 미공개 초안\n검수하기\n성수연방\nseoul-seongsu-yeonbang · 미공개 초안\n검수하기\n뚝섬한강공원\nseoul-tukseom-hangang · 미공개 초안\n검수하기\n전주한옥마을\njeonju-hanok · 미공개 초안\n검수하기\n전주남부시장\njeonju-nambu-market · 미공개 초안\n검수하기\n죽녹원\ndamyang-juknokwon · 미공개 초안\n검수하기\n메타세쿼이아길\ndamyang-metasequoia · 미공개 초안\n검수하기\n순천만국가정원\nsuncheon-garden · 미공개 초안\n검수하기\n순천만습지\nsuncheon-bay · 미공개 초안\n검수하기\n오동도\nyeosu-odongdo · 미공개 초안\n검수하기\n돌산공원\nyeosu-dolsan · 미공개 초안\n검수하기\n동피랑 벽화마을\ntongyeong-dongpirang · 미공개 초안\n검수하기\n미륵산\ntongyeong-mireuksan · 미공개 초안\n검수하기\n오죽헌\ngangneung-ojukheon · 미공개 초안\n검수하기\n낙산사\nyangyang-naksansa · 미공개 초안\n검수하기\n서피비치\nyangyang-surfy · 미공개 초안\n검수하기\n영금정\nsokcho-yeonggeumjeong · 미공개 초안\n검수하기\n속초관광수산시장\nsokcho-central-market · 미공개 초안\n검수하기\n아야진해변\ngoseong-ayajin · 미공개 초안\n검수하기\n천진해변\ngoseong-cheonjin · 미공개 초안\n검수하기\n동백섬\npublic-busan-dongbaek · 미공개 초안\n검수하기\n해운대해수욕장\npublic-busan-haeundae · 미공개 초안\n검수하기\n감천문화마을\npublic-busan-gamcheon · 미공개 초안\n검수하기\n이기대 해안산책로\npublic-busan-igidae · 미공개 초안\n검수하기\n광안리해수욕장\npublic-busan-gwangalli · 미공개 초안\n검수하기\n대릉원\npublic-gyeongju-daereungwon · 미공개 초안\n검수하기\n첨성대\npublic-gyeongju-cheomseongdae · 미공개 초안\n검수하기\n월정교\npublic-gyeongju-woljeonggyo · 미공개 초안\n검수하기\n동궁과 월지\npublic-gyeongju-donggung · 미공개 초안\n검수하기\n금수복국 해운대본점\ncatalog-busan-geumsu · 미공개 초안\n검수하기\n거대갈비\ncatalog-busan-geodae · 미공개 초안\n검수하기\n동백섬횟집\ncatalog-busan-dongbaek-sashimi · 미공개 초안\n검수하기\n남천면가\ncatalog-busan-namcheon-noodles · 미공개 초안\n검수하기\n할매가야밀면\ncatalog-busan-halme-gaya · 미공개 초안\n검수하기\n재기돼지국밥\ncatalog-busan-jaegi · 미공개 초안\n검수하기\n몽실종가돼지국밥 감천문화마을 본점\ncatalog-busan-mongsil · 미공개 초안\n검수하기\n신창국밥 본점\ncatalog-busan-sinchang · 미공개 초안\n검수하기\n웨스틴 조선 부산\ncatalog-busan-westin · 미공개 초안\n검수하기\n신라스테이 해운대\ncatalog-busan-shilla-stay · 미공개 초안\n검수하기\n파라다이스호텔부산\ncatalog-busan-paradise · 미공개 초안\n검수하기\n파크하얏트부산\ncatalog-busan-park-hyatt · 미공개 초안\n검수하기\n비비비당\ncatalog-busan-bibibidang · 미공개 초안\n검수하기\n블랙업커피 서면점\ncatalog-busan-blackup · 미공개 초안\n검수하기\n모모스커피 온천장점\ncatalog-busan-momos · 미공개 초안\n검수하기\n춘하추동밀면 본점\ncatalog-busan-chunha-chudong · 미공개 초안\n검수하기\n동래할매파전\ncatalog-busan-dongnae-pajeon · 미공개 초안\n검수하기\n신발원\ncatalog-busan-shinbalwon · 미공개 초안\n검수하기\n국이네낙지볶음\ncatalog-busan-gugine · 미공개 초안\n검수하기\n나가하마만게츠\ncatalog-busan-nagahama · 미공개 초안\n검수하기\n본전돼지국밥\ncatalog-busan-bonjeon · 미공개 초안\n검수하기\n이재모피자 본점\ncatalog-busan-ijaemo · 미공개 초안\n검수하기\n도희네 조개구이\ncatalog-busan-dohine · 미공개 초안\n검수하기\n카파도키아\ncatalog-busan-kappadokia · 미공개 초안\n검수하기\n해목 해운대점\ncatalog-busan-haemok · 미공개 초안\n검수하기\n풍원장 고기정찬\ncatalog-busan-pungwon-gogi · 미공개 초안\n검수하기\n밀양순대돼지국밥 부산본점\ncatalog-busan-milyang-gukbap · 미공개 초안\n검수하기\n하녹\ncatalog-busan-hanok · 미공개 초안\n검수하기\n씨앤트리 카페\ncatalog-busan-sea-and-tree · 미공개 초안\n검수하기\n페를리\ncatalog-busan-perli · 미공개 초안\n검수하기\n다락재\ncatalog-busan-darakjae · 미공개 초안\n검수하기\n모모스커피 도모헌점\ncatalog-busan-momos-domoheon · 미공개 초안\n검수하기\n모모스커피 영도 로스터리&커피바\ncatalog-busan-momos-yeongdo · 미공개 초안\n검수하기\n피아크 카페&베이커리\ncatalog-busan-piark · 미공개 초안\n검수하기\n웨이브온커피\ncatalog-busan-waveon · 미공개 초안\n검수하기\n초량1941\ncatalog-busan-choryang1941 · 미공개 초안\n검수하기\n젊은이의 둥지\ncatalog-busan-youth-nest · 미공개 초안\n검수하기\n카페 만디\ncatalog-busan-mandi · 미공개 초안\n검수하기\n블랙업커피 (사하 낙동남로)\ncatalog-busan-blackup-saha · 미공개 초안\n검수하기\n카페 EL 16.52\ncatalog-busan-el1652 · 미공개 초안\n검수하기\n국제통닭 부평본점\ncatalog-busan-gukje-chicken · 미공개 초안\n검수하기\n사거리분식\ncatalog-busan-sageori-bunsik · 미공개 초안\n검수하기\n남천녹차팥빙수\ncatalog-busan-namcheon-green-tea · 미공개 초안\n검수하기\n남천숯불장어\ncatalog-busan-namcheon-eel · 미공개 초안\n검수하기\n오굳띵\ncatalog-busan-ogoodthing · 미공개 초안\n검수하기\n승기씨앗호떡\ncatalog-busan-seunggi-hotteok · 미공개 초안\n검수하기\n국보미역 본점\ncatalog-busan-gukbo-miyeok · 미공개 초안\n검수하기\n박용자경주명동쫄면 본점\ncatalog-gyeongju-760 · 미공개 초안\n검수하기\n대화만두 본점\ncatalog-gyeongju-759 · 미공개 초안\n검수하기\n노워즈\ncatalog-gyeongju-22 · 미공개 초안\n검수하기\n카페 탁(TAK)\ncatalog-gyeongju-7684 · 미공개 초안\n검수하기\n다다맨션\ncatalog-gyeongju-618 · 미공개 초안\n검수하기\n다온게스트하우스\ncatalog-gyeongju-605 · 미공개 초안\n검수하기\n카페씨떼\ncatalog-seoul-cite · 미공개 초안\n검수하기\n텍스쳐성수\ncatalog-seoul-texture · 미공개 초안\n검수하기\n사델스 앳 키스 서울\ncatalog-seoul-sadelles · 미공개 초안\n검수하기\n기후\ncatalog-seoul-kihoo · 미공개 초안\n검수하기\n호텔 리베라 청담\ncatalog-seoul-riviera · 미공개 초안\n검수하기\n알로프트 서울 강남\ncatalog-seoul-aloft · 미공개 초안\n검수하기\n강릉짬뽕순두부 동화가든 본점\ncatalog-gangneung-49998 · 미공개 초안\n검수하기\n초당할머니순두부\ncatalog-gangneung-174296 · 미공개 초안\n검수하기\n하슬라가배\ncatalog-gangneung-174292 · 미공개 초안\n검수하기\n카페미담\ncatalog-gangneung-48612 · 미공개 초안\n검수하기\n경포비치호텔\ncatalog-gangneung-98592 · 미공개 초안\n검수하기\n하이오션 경포\ncatalog-gangneung-34197 · 미공개 초안\n검수하기"
+    },
+    {
+      "width": 390,
+      "menu": "운영 설정·이력",
+      "text": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n미리보기고객 화면 열기\n운영 콘솔\n내부 관리자\n최고관리자\n새로 조회\n\nSPOTLOG OPERATIONS\n\n운영 설정·이력\n지역·권한·연결 설정과 작업 이력을 관리하세요.\n관리자 화면 미리보기\n\n예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.\n\n서비스 관리자\n연결·세션·수급·발송·정리는 실제 서버 미연결 상태입니다. 검수 기록과 실제 처리 완료를 구분합니다.\n지역 관리\n분류·운영 기준\n운영자·권한\n알림\n연결·수급\n휴지통·파일 정리\n변경·조치 이력\n운영 기준 목록\n새 항목\n기준 종류\n지역\n부산\nv1 · 사용\n지역 편집\n\n변경할 때마다 새 버전과 이력을 남깁니다.\n\n이름\n기준값·설명\n사용 여부\n사용\n기준 저장"
+    }
+  ],
+  "errors": [],
+  "previewSessionKeys": [
+    "qa-initialized",
+    "spotlog.admin.preview.v1"
+  ],
+  "previewSessionSummary": {
+    "qa-initialized": {
+      "length": 3
+    },
+    "spotlog.admin.preview.v1": {
+      "length": 475141
+    }
+  }
+}

@@ -1,0 +1,11 @@
+const fs = require('node:fs');
+const path = require('node:path');
+const ts = require('typescript');
+const root = path.resolve(__dirname, '../..');
+const file = path.join(root, 'web/src/admin/opsTypes.ts');
+const source = ts.createSourceFile(file, fs.readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true);
+const wanted = new Set(['OpsVisibility', 'ModerationState', 'ExposureChannel', 'ExposureEntry', 'PublicRecordSource', 'PublicSourceCredit', 'PublicJournalPhoto', 'PublicJournalPlace', 'PublicJournalBlock', 'PublicJournalDay', 'PublicJournalCard', 'PublicReactionMember', 'PublicJournal', 'PublicComment', 'OpsReport', 'ReferenceCategory', 'OpsReference']);
+const definitions = source.statements.filter(statement => wanted.has(statement.name?.text));
+if (definitions.length !== wanted.size) throw new Error('Missing shared public service contract');
+fs.writeFileSync(path.join(root, 'web/src/publicServiceTypes.ts'), '/** Customer-facing public service contracts. No administrator UI or authentication dependency. */\n' + definitions.map(statement => statement.getFullText(source).trim()).join('\n') + '\n', 'utf8');
+console.log('Extracted', definitions.length, 'public service DTOs');

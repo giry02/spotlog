@@ -1,0 +1,432 @@
+{
+  "date": "2026-11-05",
+  "environment": "390×844 local isolated review fixture; app viewport excludes browser/OS chrome",
+  "readOnlyApplication": true,
+  "metrics": [
+    {
+      "bodyWidth": 390,
+      "firstRowY": 453,
+      "headers": [
+        {
+          "bottom": 64,
+          "class": "screen-header screen-header--root",
+          "height": 64,
+          "position": "static",
+          "top": 0
+        },
+        {
+          "bottom": 178,
+          "class": "discovery-home__search-area",
+          "height": 114,
+          "position": "static",
+          "top": 64
+        },
+        {
+          "bottom": 242,
+          "class": "discovery-home__plan",
+          "height": 64,
+          "position": "static",
+          "top": 178
+        },
+        {
+          "bottom": 340,
+          "class": "discovery-home__purposes",
+          "height": 82,
+          "position": "static",
+          "top": 258
+        },
+        {
+          "bottom": 385,
+          "class": "discovery-home__views",
+          "height": 45,
+          "position": "static",
+          "top": 340
+        }
+      ],
+      "height": 844,
+      "nav": [
+        {
+          "bottom": 844,
+          "class": "tabbar",
+          "height": 74,
+          "position": "absolute",
+          "top": 770
+        }
+      ],
+      "rowHeights": [
+        105,
+        104
+      ],
+      "rowsVisible": 2,
+      "screen": "home",
+      "url": "#home",
+      "width": 390
+    },
+    {
+      "bodyWidth": 390,
+      "firstRowY": 472,
+      "headers": [
+        {
+          "bottom": 64,
+          "class": "screen-header screen-header--root",
+          "height": 64,
+          "position": "static",
+          "top": 0
+        },
+        {
+          "bottom": 109,
+          "class": "screen-tabs",
+          "height": 45,
+          "position": "static",
+          "top": 64
+        },
+        {
+          "bottom": 227,
+          "class": "gd-location-select",
+          "height": 46,
+          "position": "static",
+          "top": 181
+        },
+        {
+          "bottom": 465,
+          "class": "gd-results-heading",
+          "height": 44,
+          "position": "static",
+          "top": 421
+        }
+      ],
+      "height": 844,
+      "nav": [
+        {
+          "bottom": 844,
+          "class": "tabbar",
+          "height": 74,
+          "position": "absolute",
+          "top": 770
+        }
+      ],
+      "rowHeights": [
+        104,
+        104,
+        104,
+        104,
+        104,
+        104
+      ],
+      "rowsVisible": 2,
+      "screen": "find",
+      "url": "#together-find",
+      "width": 390
+    },
+    {
+      "bodyWidth": 390,
+      "firstRowY": 351,
+      "headers": [
+        {
+          "bottom": 109,
+          "class": "tg-space-chrome",
+          "height": 109,
+          "position": "sticky",
+          "top": 0
+        },
+        {
+          "bottom": 64,
+          "class": "screen-header screen-header--detail",
+          "height": 64,
+          "position": "static",
+          "top": 0
+        },
+        {
+          "bottom": 109,
+          "class": "screen-tabs",
+          "height": 45,
+          "position": "static",
+          "top": 64
+        }
+      ],
+      "height": 844,
+      "nav": [],
+      "rowHeights": [
+        102,
+        102
+      ],
+      "rowsVisible": 2,
+      "screen": "group",
+      "url": "#group-family-busan",
+      "width": 390
+    },
+    {
+      "bodyWidth": 390,
+      "firstRowY": 239,
+      "headers": [
+        {
+          "bottom": 64,
+          "class": "screen-header screen-header--root",
+          "height": 64,
+          "position": "static",
+          "top": 0
+        },
+        {
+          "bottom": 126,
+          "class": "community-place-directory__search",
+          "height": 46,
+          "position": "static",
+          "top": 80
+        },
+        {
+          "bottom": 182,
+          "class": "community-place-directory__toolbar",
+          "height": 44,
+          "position": "static",
+          "top": 138
+        },
+        {
+          "bottom": 234,
+          "class": "community-place-directory__results-title",
+          "height": 44,
+          "position": "static",
+          "top": 190
+        }
+      ],
+      "height": 844,
+      "nav": [
+        {
+          "bottom": 844,
+          "class": "tabbar",
+          "height": 74,
+          "position": "absolute",
+          "top": 770
+        }
+      ],
+      "rowHeights": [
+        97,
+        97,
+        97,
+        97,
+        97,
+        97
+      ],
+      "rowsVisible": 5,
+      "screen": "directory",
+      "url": "#places-guide",
+      "width": 390
+    },
+    {
+      "bodyWidth": 390,
+      "firstRowY": 435,
+      "headers": [
+        {
+          "bottom": 64,
+          "class": "screen-header screen-header--root",
+          "height": 64,
+          "position": "static",
+          "top": 0
+        }
+      ],
+      "height": 844,
+      "nav": [
+        {
+          "bottom": 844,
+          "class": "tabbar",
+          "height": 74,
+          "position": "absolute",
+          "top": 770
+        }
+      ],
+      "rowHeights": [
+        197,
+        197,
+        197,
+        197,
+        197,
+        197
+      ],
+      "rowsVisible": 1,
+      "screen": "saved",
+      "url": "#saved",
+      "width": 390
+    },
+    {
+      "bodyWidth": 390,
+      "firstRowY": 326,
+      "headers": [
+        {
+          "bottom": 64,
+          "class": "screen-header screen-header--root",
+          "height": 64,
+          "position": "static",
+          "top": 0
+        },
+        {
+          "bottom": 109,
+          "class": "screen-tabs",
+          "height": 45,
+          "position": "static",
+          "top": 64
+        },
+        {
+          "bottom": 225,
+          "class": "tg-my-group-filters",
+          "height": 44,
+          "position": "static",
+          "top": 181
+        },
+        {
+          "bottom": 281,
+          "class": "tg-my-group-sort",
+          "height": 44,
+          "position": "static",
+          "top": 237
+        }
+      ],
+      "height": 844,
+      "nav": [
+        {
+          "bottom": 844,
+          "class": "tabbar",
+          "height": 74,
+          "position": "absolute",
+          "top": 770
+        }
+      ],
+      "rowHeights": [
+        93,
+        93,
+        93
+      ],
+      "rowsVisible": 3,
+      "screen": "together",
+      "url": "#together",
+      "width": 390
+    },
+    {
+      "bodyWidth": 390,
+      "firstRowY": 251,
+      "headers": [
+        {
+          "bottom": 109,
+          "class": "tg-space-chrome",
+          "height": 109,
+          "position": "sticky",
+          "top": 0
+        },
+        {
+          "bottom": 64,
+          "class": "screen-header screen-header--detail",
+          "height": 64,
+          "position": "static",
+          "top": 0
+        },
+        {
+          "bottom": 109,
+          "class": "screen-tabs",
+          "height": 45,
+          "position": "static",
+          "top": 64
+        }
+      ],
+      "height": 844,
+      "nav": [],
+      "rowHeights": [
+        102,
+        102
+      ],
+      "rowsVisible": 2,
+      "screen": "group-member",
+      "url": "#group-family-busan",
+      "width": 390
+    },
+    {
+      "bodyWidth": 390,
+      "firstRowY": 237,
+      "headers": [
+        {
+          "bottom": 109,
+          "class": "tg-space-chrome",
+          "height": 109,
+          "position": "sticky",
+          "top": 0
+        },
+        {
+          "bottom": 64,
+          "class": "screen-header screen-header--detail",
+          "height": 64,
+          "position": "static",
+          "top": 0
+        },
+        {
+          "bottom": 109,
+          "class": "screen-tabs",
+          "height": 45,
+          "position": "static",
+          "top": 64
+        },
+        {
+          "bottom": 170,
+          "class": "tg-room-tools",
+          "height": 60,
+          "position": "static",
+          "top": 110
+        },
+        {
+          "bottom": 216,
+          "class": "tg-chat-pinned",
+          "height": 46,
+          "position": "static",
+          "top": 170
+        },
+        {
+          "bottom": 844,
+          "class": "tg-composer-dock",
+          "height": 71,
+          "position": "sticky",
+          "top": 773
+        }
+      ],
+      "height": 844,
+      "nav": [],
+      "rowHeights": [
+        82,
+        82,
+        82,
+        102,
+        102,
+        64
+      ],
+      "rowsVisible": 6,
+      "screen": "chat",
+      "url": "#activitychat-family-next",
+      "width": 390
+    },
+    {
+      "contextHeight": 116,
+      "dockHeight": 71,
+      "headerHeight": 109,
+      "height": 844,
+      "readingHeight": 548,
+      "screen": "chat-notice-only",
+      "topBudget": 225,
+      "width": 390
+    },
+    {
+      "contextHeight": 169,
+      "dockHeight": 71,
+      "headerHeight": 109,
+      "height": 844,
+      "readingHeight": 495,
+      "screen": "chat-with-pending",
+      "topBudget": 278,
+      "width": 390
+    },
+    {
+      "contextHeight": 169,
+      "dockHeight": 71,
+      "headerHeight": 109,
+      "height": 667,
+      "readingHeight": 318,
+      "screen": "chat-short-height",
+      "topBudget": 278,
+      "width": 390
+    }
+  ]
+}

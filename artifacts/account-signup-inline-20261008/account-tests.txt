@@ -1,0 +1,20 @@
+✔ required-only signup excludes marketing and GPS; drafts never count as member consent (1.5577ms)
+✔ policy publication rejects unknown operator, draft versions, duplicates and missing content (0.7455ms)
+✔ Apple private email and missing email are supported without merging identities by email (0.228ms)
+✔ OAuth redirects are HTTPS and exactly the selected provider; return route cannot leave app (0.4111ms)
+✔ unconnected auth and GPS create no requests and no fake account or permissions (0.7432ms)
+✔ social signup uses server session plus versions; no browser user ID, GPS or timestamps accepted as proof (16.7875ms)
+✔ current location requires published enabled feature and matching purpose/version before OS call (0.4112ms)
+✔ location denial, invalid position and cancel cannot leak a late position to feature (0.4185ms)
+✔ email signup cannot create a member before verified server response and versioned consent (1.1624ms)
+✔ email validation, draft policies and malformed verification block completion (0.7194ms)
+✔ email login/reset/resend are same-origin and unavailable adapter never sends credentials (0.6357ms)
+✔ customer API 401 invalidates shared identity while independent admin auth stays separate (0.3569ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 142.6705

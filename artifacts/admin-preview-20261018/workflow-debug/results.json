@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-18",
+  "base": "http://127.0.0.1:5295/spotlog/",
+  "checks": [
+    {
+      "name": "place: register incomplete spot as draft, without automatic publication",
+      "detail": "pass"
+    },
+    {
+      "name": "after place save: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "place: saved example survives reload in its own tab session",
+      "detail": "pass"
+    },
+    {
+      "name": "region: add country-level example region in isolated preview store",
+      "detail": "pass"
+    },
+    {
+      "name": "AI: existing fixture runs the sample checks and renders versioned results",
+      "detail": "pass"
+    },
+    {
+      "name": "exposure: create draft home placement without affecting customer projection",
+      "detail": "pass"
+    },
+    {
+      "name": "after all sample workflows: customer/admin/account/draft/bridge records unchanged; no extra local-store key or bridge event",
+      "detail": "pass"
+    },
+    {
+      "name": "workflows: no API/network mutation or uncaught exception",
+      "detail": "pass"
+    },
+    {
+      "name": "complete",
+      "detail": {
+        "checks": 9,
+        "scenes": 0
+      }
+    }
+  ],
+  "scenes": [],
+  "errors": [],
+  "previewSessionKeys": [
+    "qa-initialized",
+    "spotlog.admin.preview.v1"
+  ],
+  "previewSessionSummary": {
+    "qa-initialized": {
+      "length": 3
+    },
+    "spotlog.admin.preview.v1": {
+      "length": 475013
+    }
+  }
+}

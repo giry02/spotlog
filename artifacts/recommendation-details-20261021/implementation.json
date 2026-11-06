@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-21",
+  "scope": "recommendation previews only",
+  "localOnly": true,
+  "source": [
+    {
+      "file": "web/src/admin/OperationsPages.tsx",
+      "sameInMainAndCandidate": true,
+      "sha256": "a45c5f2518969a45f0239f47293b23bad53f51c1884fe5b21fa9dbcadab687c6"
+    },
+    {
+      "file": "web/src/admin/admin-editorial-workflow.css",
+      "sameInMainAndCandidate": true,
+      "sha256": "8df3f3a7065e76e8b12a7f47c669e0278775e09dad713146253703a445a99cad"
+    }
+  ],
+  "typecheck": "passed",
+  "build": "passed",
+  "dataModelChanged": false,
+  "commit": false,
+  "push": false,
+  "focusedBrowserChecks": 62,
+  "existingEditorialChecks": 9,
+  "samePlaceDifferentDays": "passed",
+  "emptyAndFailedMedia": "passed",
+  "communityReadingRegression": "passed",
+  "sourceRecordsUnchanged": true
+}

@@ -1,8 +1,10 @@
-# Jev 판별·서버 병합 기준
+# 소형 로컬 해석·서버 병합 기준
 
 ## 무엇을 판별할지
 
-Jev는 외부 선택형 AI. 정해 둔 선택지 중 판별하고 확률을 반환하는 역할. 임의 장소명·날짜·문장을 생성하는 LLM처럼 사용하지 않음. `jev-questions.json`은 공식 `choice / instructions / criteria` 형식의 질문 초안. `model`, `state`, `questions`를 한 요청에 담는 어댑터는 백엔드에서 구현. 실제 호출·한국어 성능 검증은 아직 없음. [공식 API](https://docs.typesafe.ai/api), [Choice](https://docs.typesafe.ai/primitives/choice).
+기본 경로는 맥미니 소형 로컬 LLM의 고정 형식 조건 해석이다. 서버는 원문 근거·직접 선택 출처·허용 지역·기간·기존 예약을 검증하고 DB의 실제 장소만 사용한다. 외부 대형은 근거가 충분한 모델 실패 부분만 요청 전체 1회 한도에서 보완하며, 정보 부족·좌표 누락·장비 장애에는 호출하지 않는다. 실제 모델 연결·한국어 품질 실측은 아직 없다.
+
+Jev는 정해 둔 선택지 판별을 비교할 선택적 외부 후보다. `jev-questions.json`은 비교용 `choice / instructions / criteria` 초안이며 기본 운영 의존성이 아니다. 임의 장소명·좌표·운영 사실을 생성하는 도구로 사용하지 않는다. 실제 호출·한국어 비교 검증은 아직 없다. [비교 후보 API](https://docs.typesafe.ai/api), [Choice](https://docs.typesafe.ai/primitives/choice).
 
 | 항목 | 값 | 서버 처리 |
 |---|---|---|
@@ -18,7 +20,7 @@ Jev는 외부 선택형 AI. 정해 둔 선택지 중 판별하고 확률을 반�
 
 `unknown`: 선택지 밖/판단 불가. `unspecified`: 언급 없음. `ambiguous`: 서로 다른 뜻·충돌. 이 셋을 ‘보통’이나 ‘전국’으로 치환하지 않음. 지역 후보는 실제 DB에서 주입; 제공 파일의 지역 목록은 시험용.
 
-날짜·가격·고유명사처럼 자유 값은 코드로 원문 구간과 후보를 먼저 추출한 뒤 Jev 선택 또는 미해결 소형 해석에 전달. Jev가 문자열을 새로 추출해 주는 계약으로 만들지 않음. [공식 사전 추출 패턴](https://docs.typesafe.ai/cookbooks/pre_parsed_value_extraction_cookbook).
+날짜·가격·고유명사 같은 자유 값은 원문 구간과 후보를 보존한 소형 해석 후 서버에서 검증한다. 선택적 Jev 비교에서는 미리 추출한 후보 선택으로 제한하며 Jev가 문자열을 새로 추출해 주는 계약으로 만들지 않는다. [비교 후보 사전 추출 패턴](https://docs.typesafe.ai/cookbooks/pre_parsed_value_extraction_cookbook).
 
 ## UI 값과 문장 병합
 
@@ -43,7 +45,7 @@ Jev는 외부 선택형 AI. 정해 둔 선택지 중 판별하고 확률을 반�
 
 ## 정규화 출력과 다음 단계
 
-`Normalized`는 서버 병합 후 결과. Jev 원시 응답 자체가 아님. fields, nextAction, issues, unresolved, preserveVisitIds로 구성. 원문은 원래 GenerateRequest/RevisionRequest에 보존.
+`Normalized`는 로컬 해석을 서버에서 검증·병합한 결과다. 모델 원시 응답 자체가 아니다. fields, nextAction, issues, unresolved, preserveVisitIds로 구성한다. 원문은 원래 GenerateRequest/RevisionRequest에 보존하며 관리자 요청 요약·공용 평가집에 고객 원문을 자동 편입하지 않는다.
 
 | nextAction | 조건 | 뒤 처리 |
 |---|---|---|
@@ -56,12 +58,12 @@ Jev는 외부 선택형 AI. 정해 둔 선택지 중 판별하고 확률을 반�
 
 `unresolved.text`는 원문의 정확한 부분 문자열, reason은 `day_specific / mobility / companion / diet / budget / date / place / mixed_transport / multi_region / revision / other`. 구간을 특정할 수 없으면 원문 전체와 other. 모델의 확신만으로 unresolved를 비우지 않음.
 
-서버의 숫자/기간·지역·예약/제외 충돌 검사와 원문 보존을 기본 적용. Jev가 additional=none으로 놓친 의미는 여전히 가능하므로 한국어 평가에서 누락률 별도 측정. 의미 누락이 충분히 낮지 않으면 Jev 경로 채택 보류 또는 검사 범위 조정. 모든 요청을 다시 LLM에 보내면 속도 절감 가정을 다시 평가.
+서버의 숫자/기간·지역·예약/제외 충돌 검사와 원문 보존을 기본 적용한다. 모델이 additional=none으로 판단해도 놓친 의미가 있을 수 있으므로 한국어 평가에서 누락률을 별도 측정한다. 선택적 Jev 비교의 의미 누락이 충분히 낮지 않으면 채택을 보류한다. 모든 요청을 다시 LLM에 보내는 경우 속도 절감 가정도 다시 평가한다.
 
 ## 비교 방법
 
-동일 입력·자료·일정 계산·검증으로 A=로컬 해석, B=Jev+필요 부분만 로컬 해석. 모델 버전/양자화·프롬프트·색인·칩·동시 요청 수 기록. 정상/오류 모두 포함. 최초 로딩과 준비 완료 상태를 분리해 측정.
+동일 입력·자료·일정 계산·검증으로 기본 A=소형 로컬 해석, 선택적 B=Jev+필요 부분만 소형 로컬 해석을 비교한다. 모델 버전/양자화·프롬프트·색인·칩·동시 요청 수를 기록한다. 정상/오류 모두 포함하며 최초 로딩과 준비 완료 상태를 분리해 측정한다.
 
-100개 정답은 준비 자료. 실측 성적 없음. `evaluate.py`는 항목 일치율·전체 정답·잘못된 진행(clarify/unsupported를 ready 처리)·예약 보존 실패·미해결 요구 누락·지연 p50/p95 집계. 문장 의미 판정의 동일한 다른 구간 표기는 사람이 재검토. 이 자동 점수가 실제 경로·검색 품질을 검증하지는 않음.
+100개 예상 정답은 준비 자료이며 실측 성적은 없다. 별도 평가 실행기는 아직 제공되지 않는다. 향후 항목 일치율·전체 정답·잘못된 진행(clarify/unsupported를 ready 처리)·예약 보존 실패·미해결 요구 누락·지연 p50/p95를 집계한다. 문장 의미 판정의 다른 구간 표기는 사람이 재검토한다. 정규화 점수만으로 실제 경로·검색 품질이 검증되지는 않는다.
 
 초기 채택 목표 제안: 핵심 4항목 95% 이상, 제외/예약 보호 중대 오류 0건, 보류 30문장에서도 같은 기준. 소규모 시험으로 일반 고객 전체 정확도를 보장하지 않음. B가 A보다 실제 전체 초안 생성 시간이 짧으면서 품질이 유지될 때만 속도 이점 인정.

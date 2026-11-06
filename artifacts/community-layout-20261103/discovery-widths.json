@@ -1,0 +1,29 @@
+[
+  {
+    "broken": 0,
+    "firstRowHeight": 104,
+    "firstRowTop": 533,
+    "overflow": false,
+    "smallControls": 0,
+    "thumbWidth": 64,
+    "width": 320
+  },
+  {
+    "broken": 0,
+    "firstRowHeight": 104,
+    "firstRowTop": 513,
+    "overflow": false,
+    "smallControls": 0,
+    "thumbWidth": 64,
+    "width": 390
+  },
+  {
+    "broken": 0,
+    "firstRowHeight": 104,
+    "firstRowTop": 513,
+    "overflow": false,
+    "smallControls": 0,
+    "thumbWidth": 64,
+    "width": 460
+  }
+]

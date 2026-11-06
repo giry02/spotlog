@@ -1,0 +1,61 @@
+.hcm { min-width:0; color:var(--ink); font-size:14px; line-height:20px; }
+.hcm * { box-sizing:border-box; }
+.hcm h2,.hcm p { margin:0; }
+.hcm h2 { font-size:18px; line-height:24px; font-weight:600; letter-spacing:-.3px; overflow-wrap:anywhere; }
+.hcm button { font:inherit; min-height:44px; color:inherit; cursor:pointer; }
+.hcm button:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.hcm :is(.hcm-meetup-open,.hcm-group-open):focus-visible { outline-offset:-3px; }
+.hcm :is(strong,span,small) { min-width:0; }
+.hcm small,.hcm-card-meta,.hcm-card-owner { font-size:12px; line-height:16px; color:#6b6b65; }
+.hcm-status { padding:12px; margin-block:12px!important; background:#fff0e9; border-radius:12px; font-size:14px; line-height:20px; }
+.hcm-continuation { padding:8px 12px 12px; margin-top:16px; border:1px solid #e4e2d9; border-radius:16px; background:#f1f0e9; }
+.hcm-continuation-heading { display:flex; align-items:center; justify-content:space-between; gap:8px; font-size:12px; line-height:16px; font-weight:600; color:#65645e; }
+.hcm-continuation-heading>button,.hcm-section-heading>button { display:inline-flex; align-items:center; justify-content:center; gap:3px; padding:8px 0 8px 8px; flex-shrink:0; border:0; background:transparent; font-size:14px; line-height:20px; font-weight:600; white-space:nowrap; }
+.hcm .hcm-continue-open { display:flex; align-items:center; gap:10px; width:100%; padding:0; background:transparent; border:0; text-align:left; }
+.hcm-continue-icon { display:grid; place-items:center; width:40px; height:48px; flex-shrink:0; color:#a24b36; }
+.hcm-continue-copy { display:grid; gap:4px; flex:1; }
+.hcm-continue-copy>small { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; overflow-wrap:anywhere; }
+.hcm-continue-copy>strong { font-size:16px; line-height:22px; font-weight:600; overflow-wrap:anywhere; }
+.hcm-continue-copy>span { font-size:12px; line-height:16px; color:#6b6b65; }
+.hcm-continue-open>svg { flex-shrink:0; }
+.hcm-continue-chat { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; align-items:center; margin-top:12px; padding-top:8px; border-top:1px solid #deddd5; }
+.hcm .hcm-continue-chat>button { display:flex; align-items:center; gap:8px; padding:0; border:0; background:transparent; text-align:left; }
+.hcm-continue-chat>button>svg { flex-shrink:0; }
+.hcm-continue-chat>button>span { display:grid; gap:2px; }
+.hcm-continue-chat small { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.hcm .hcm-continue-chat>.hcm-summary-link { padding:8px; justify-content:center; font-size:12px; line-height:16px; font-weight:600; white-space:nowrap; color:#72538f; }
+.hcm-section { margin-top:24px; min-width:0; }
+.hcm-section-heading { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px; }
+.hcm-section-heading>h2 { min-width:0; }
+.hcm-meetup-list { display:grid; gap:12px; }
+.hcm-meetup-card,.hcm-group-card { min-width:0; border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#fff; }
+.hcm .hcm-meetup-open { display:grid; grid-template-columns:88px minmax(0,1fr); width:100%; padding:0; text-align:left; border:0; background:transparent; }
+.hcm-meetup-image { display:block; min-height:150px; height:100%; background:#ecebe4; overflow:hidden; }
+.hcm-meetup-image>img,.hcm-group-image>img { display:block; width:100%; height:100%; object-fit:cover; }
+.hcm-cover-fallback { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:8px; width:100%; height:100%; min-height:inherit; background:linear-gradient(145deg,#eee9df,#f7f3ed); }
+.hcm-cover-fallback>span { font-size:36px; line-height:1; }
+.hcm-cover-fallback>small { font-size:12px; line-height:16px; color:#756a5c; }
+.hcm-meetup-copy { display:grid; align-content:center; gap:5px; padding:12px; }
+.hcm-card-kicker { color:#a94b35; font-size:12px; line-height:16px; font-weight:600; overflow-wrap:anywhere; }
+.hcm-meetup-copy>strong,.hcm-group-copy>strong { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; overflow-wrap:anywhere; font-size:16px; line-height:22px; font-weight:600; }
+.hcm-card-meta,.hcm-card-owner { display:block; overflow-wrap:anywhere; }
+.hcm-card-owner { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.hcm-card-action { display:flex; align-items:center; gap:5px; margin-top:3px; font-size:12px; line-height:16px; font-weight:600; }
+.hcm-card-action>svg { flex-shrink:0; }
+.hcm-photo-credit { display:flex; justify-content:flex-end; padding:0 8px; border-top:1px solid #efefe9; }
+.hcm-photo-credit .public-photo-credit { margin:0; }
+.hcm-photo-credit .public-photo-credit-button { min-height:44px; }
+.hcm-group-list { display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,min(264px,88%)); gap:12px; overflow-x:auto; padding:2px 2px 8px; scroll-snap-type:x proximity; scroll-padding-inline:2px; scrollbar-width:thin; }
+.hcm-group-card { scroll-snap-align:start; }
+.hcm .hcm-group-open { display:block; width:100%; padding:0; border:0; text-align:left; background:transparent; }
+.hcm-group-image { display:block; position:relative; height:112px; background:#ecebe4; }
+.hcm-category { position:absolute; left:10px; bottom:10px; padding:4px 8px; border-radius:8px; background:#fff; color:#484842; font-size:12px; line-height:16px; font-weight:600; }
+.hcm-group-copy { display:grid; gap:6px; padding:12px; }
+.hcm-group-welcome { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; overflow-wrap:anywhere; font-size:14px; line-height:20px; color:#696963; }
+.hcm-empty { display:grid; justify-items:start; gap:12px; padding:20px 16px; margin-top:24px; border:1px solid var(--line); border-radius:16px; background:#f1f1eb; }
+.hcm-empty>svg { color:#927761; }
+.hcm-empty>p,.hcm-quiet-empty { font-size:14px; line-height:20px; color:#6b6b65; overflow-wrap:anywhere; }
+.hcm-empty>div { display:flex; flex-wrap:wrap; gap:8px; }
+.hcm-empty button { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 12px; border:1px solid #d9d9d1; border-radius:12px; background:#fff; font-size:14px; line-height:20px; font-weight:600; }
+.hcm-quiet-empty { padding:12px 0; }
+@media(max-width:359px) { .hcm .hcm-meetup-open { grid-template-columns:76px minmax(0,1fr); } .hcm-meetup-copy { padding:10px; } }

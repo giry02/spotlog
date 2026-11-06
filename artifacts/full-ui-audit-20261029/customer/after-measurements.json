@@ -1,0 +1,407 @@
+[
+  {
+    "screen": "community",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#community",
+        "heading": [
+          "여행기",
+          "먼저 읽어보고,마음에 들면 내 여행에 담으세요.",
+          "지금 많이 담는 여행기"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#community",
+        "heading": [
+          "여행기",
+          "먼저 읽어보고,마음에 들면 내 여행에 담으세요.",
+          "지금 많이 담는 여행기"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#community",
+        "heading": [
+          "여행기",
+          "먼저 읽어보고,마음에 들면 내 여행에 담으세요.",
+          "지금 많이 담는 여행기"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "saved",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#saved",
+        "heading": [
+          "관심 장소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#saved",
+        "heading": [
+          "관심 장소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#saved",
+        "heading": [
+          "관심 장소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "trips",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#trips",
+        "heading": [
+          "내 여행",
+          "내 여행 일정"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#trips",
+        "heading": [
+          "내 여행",
+          "내 여행 일정"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#trips",
+        "heading": [
+          "내 여행",
+          "내 여행 일정"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "places-guide",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#places-guide",
+        "heading": [
+          "가고 싶은 장소 찾기",
+          "지역별로 둘러보기",
+          "국내 장소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          },
+          {
+            "name": "서울숲 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "성수연방 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "뚝섬한강공원 · 신고",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#places-guide",
+        "heading": [
+          "가고 싶은 장소 찾기",
+          "지역별로 둘러보기",
+          "국내 장소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          },
+          {
+            "name": "서울숲 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "성수연방 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "뚝섬한강공원 · 신고",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#places-guide",
+        "heading": [
+          "가고 싶은 장소 찾기",
+          "지역별로 둘러보기",
+          "국내 장소"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          },
+          {
+            "name": "서울숲 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "성수연방 · 신고",
+            "height": 36,
+            "font": "12px"
+          },
+          {
+            "name": "뚝섬한강공원 · 신고",
+            "height": 36,
+            "font": "12px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "profile",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/#profile",
+        "heading": [
+          "내 계정",
+          "로그인하고 여행을 이어가세요",
+          "이 기기에 보관한 여행"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "홈으로 돌아가기",
+            "height": 42,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/#profile",
+        "heading": [
+          "내 계정",
+          "로그인하고 여행을 이어가세요",
+          "이 기기에 보관한 여행"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "홈으로 돌아가기",
+            "height": 42,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/#profile",
+        "heading": [
+          "내 계정",
+          "로그인하고 여행을 이어가세요",
+          "이 기기에 보관한 여행"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "홈으로 돌아가기",
+            "height": 42,
+            "font": "16px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  },
+  {
+    "screen": "plan-draft",
+    "results": [
+      {
+        "width": 320,
+        "url": "http://127.0.0.1:5210/tests/plan-view-edit.html?mode=draft",
+        "heading": [
+          "부산 1박 2일 내 여행",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 390,
+        "url": "http://127.0.0.1:5210/tests/plan-view-edit.html?mode=draft",
+        "heading": [
+          "부산 1박 2일 내 여행",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      },
+      {
+        "width": 460,
+        "url": "http://127.0.0.1:5210/tests/plan-view-edit.html?mode=draft",
+        "heading": [
+          "부산 1박 2일 내 여행",
+          "DAY 1"
+        ],
+        "pageOverflow": 0,
+        "dialogs": 0,
+        "brokenImages": [],
+        "shortControls": [
+          {
+            "name": "사진 출처",
+            "height": 28,
+            "font": "11px"
+          }
+        ],
+        "edgeOverflow": []
+      }
+    ]
+  }
+]

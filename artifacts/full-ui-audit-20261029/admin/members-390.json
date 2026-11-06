@@ -1,0 +1,18 @@
+{
+  "width": 390,
+  "page": "회원·문의",
+  "docOverflow": 0,
+  "mainOverflow": 0,
+  "tables": [],
+  "tabs": [
+    {
+      "gap": "4px",
+      "x": 16,
+      "y": 534,
+      "w": 343,
+      "h": 49
+    }
+  ],
+  "smallButtons": [],
+  "horizontalOverflowElements": []
+}

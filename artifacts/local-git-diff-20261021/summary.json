@@ -1,0 +1,33 @@
+{
+  "baseline": "96bcf6568dbfa6c79f4f874b2747d3fbf7d273bf",
+  "scope": "Actual filesystem comparison, CRLF-normalized, against origin/codex/mobile-foundation; not git index status",
+  "admin": {
+    "localCount": 40,
+    "equalCount": 28,
+    "changed": [
+      "web/src/admin/AdminApp.tsx",
+      "web/src/admin/OperationsPages.tsx",
+      "web/src/admin/PlacesPage.tsx",
+      "web/src/admin/previewDraftStorage.ts",
+      "web/src/admin/types.ts"
+    ],
+    "localOnly": [
+      "web/src/admin/AdminOverview.tsx",
+      "web/src/admin/admin-editorial-workflow.css",
+      "web/src/admin/admin-place-workflow.css",
+      "web/src/admin/admin-workflow.css",
+      "web/src/admin/editorialSave.ts",
+      "web/src/admin/editorialWorkflow.ts",
+      "web/src/admin/placeWorkflow.ts"
+    ],
+    "matches20261018AlignedSnapshot": true
+  },
+  "contracts": {
+    "changed": [
+      "docs/contracts/admin-v1/CONSUMER_LINKS.md"
+    ],
+    "machineContractsUnchanged": true
+  },
+  "productChangesMade": false,
+  "gitCommitPush": false
+}

@@ -1,0 +1,126 @@
+{
+  "home": [
+    {
+      "docWidth": 320,
+      "nav": [
+        {
+          "h": 65,
+          "text": "발견",
+          "w": 60
+        },
+        {
+          "h": 65,
+          "text": "약속",
+          "w": 60
+        },
+        {
+          "h": 65,
+          "text": "모임",
+          "w": 60
+        },
+        {
+          "h": 65,
+          "text": "장소",
+          "w": 60
+        },
+        {
+          "h": 65,
+          "text": "내 기록",
+          "w": 60
+        }
+      ],
+      "overflow": [],
+      "small": [],
+      "width": 320
+    },
+    {
+      "docWidth": 390,
+      "nav": [
+        {
+          "h": 65,
+          "text": "발견",
+          "w": 74
+        },
+        {
+          "h": 65,
+          "text": "약속",
+          "w": 74
+        },
+        {
+          "h": 65,
+          "text": "모임",
+          "w": 74
+        },
+        {
+          "h": 65,
+          "text": "장소",
+          "w": 74
+        },
+        {
+          "h": 65,
+          "text": "내 기록",
+          "w": 74
+        }
+      ],
+      "overflow": [],
+      "small": [],
+      "width": 390
+    },
+    {
+      "docWidth": 460,
+      "nav": [
+        {
+          "h": 65,
+          "text": "발견",
+          "w": 88
+        },
+        {
+          "h": 65,
+          "text": "약속",
+          "w": 88
+        },
+        {
+          "h": 65,
+          "text": "모임",
+          "w": 88
+        },
+        {
+          "h": 65,
+          "text": "장소",
+          "w": 88
+        },
+        {
+          "h": 65,
+          "text": "내 기록",
+          "w": 88
+        }
+      ],
+      "overflow": [],
+      "small": [],
+      "width": 460
+    }
+  ],
+  "directory": [
+    {
+      "badButtons": [],
+      "badImages": [],
+      "checkedButtons": 17,
+      "overflow": false,
+      "width": 320
+    },
+    {
+      "badButtons": [],
+      "badImages": [],
+      "checkedButtons": 17,
+      "overflow": false,
+      "width": 390
+    },
+    {
+      "badButtons": [],
+      "badImages": [],
+      "checkedButtons": 17,
+      "overflow": false,
+      "width": 460
+    }
+  ]
+}

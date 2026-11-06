@@ -1,0 +1,224 @@
+{
+  "passed": true,
+  "states": 9,
+  "checks": [
+    {
+      "width": 320,
+      "state": "scheduled",
+      "optionBounds": [
+        {
+          "tag": "SELECT",
+          "left": 63,
+          "right": 257,
+          "parentLeft": 52,
+          "parentRight": 268,
+          "height": 38
+        },
+        {
+          "tag": "BUTTON",
+          "left": 63,
+          "right": 257,
+          "parentLeft": 52,
+          "parentRight": 268,
+          "height": 44
+        }
+      ],
+      "simulatedBridgeOnly": true,
+      "osNotificationSent": false
+    },
+    {
+      "width": 320,
+      "state": "permission",
+      "optionBounds": [
+        {
+          "tag": "SELECT",
+          "left": 63,
+          "right": 257,
+          "parentLeft": 52,
+          "parentRight": 268,
+          "height": 38
+        },
+        {
+          "tag": "BUTTON",
+          "left": 63,
+          "right": 257,
+          "parentLeft": 52,
+          "parentRight": 268,
+          "height": 44
+        }
+      ],
+      "simulatedBridgeOnly": true,
+      "osNotificationSent": false
+    },
+    {
+      "width": 320,
+      "state": "unavailable",
+      "optionBounds": [
+        {
+          "tag": "SELECT",
+          "left": 63,
+          "right": 257,
+          "parentLeft": 52,
+          "parentRight": 268,
+          "height": 38
+        },
+        {
+          "tag": "BUTTON",
+          "left": 63,
+          "right": 257,
+          "parentLeft": 52,
+          "parentRight": 268,
+          "height": 44
+        }
+      ],
+      "simulatedBridgeOnly": true,
+      "osNotificationSent": false
+    },
+    {
+      "width": 390,
+      "state": "scheduled",
+      "optionBounds": [
+        {
+          "tag": "SELECT",
+          "left": 63,
+          "right": 327,
+          "parentLeft": 52,
+          "parentRight": 338,
+          "height": 38
+        },
+        {
+          "tag": "BUTTON",
+          "left": 63,
+          "right": 327,
+          "parentLeft": 52,
+          "parentRight": 338,
+          "height": 44
+        }
+      ],
+      "simulatedBridgeOnly": true,
+      "osNotificationSent": false
+    },
+    {
+      "width": 390,
+      "state": "permission",
+      "optionBounds": [
+        {
+          "tag": "SELECT",
+          "left": 63,
+          "right": 327,
+          "parentLeft": 52,
+          "parentRight": 338,
+          "height": 38
+        },
+        {
+          "tag": "BUTTON",
+          "left": 63,
+          "right": 327,
+          "parentLeft": 52,
+          "parentRight": 338,
+          "height": 44
+        }
+      ],
+      "simulatedBridgeOnly": true,
+      "osNotificationSent": false
+    },
+    {
+      "width": 390,
+      "state": "unavailable",
+      "optionBounds": [
+        {
+          "tag": "SELECT",
+          "left": 63,
+          "right": 327,
+          "parentLeft": 52,
+          "parentRight": 338,
+          "height": 38
+        },
+        {
+          "tag": "BUTTON",
+          "left": 63,
+          "right": 327,
+          "parentLeft": 52,
+          "parentRight": 338,
+          "height": 44
+        }
+      ],
+      "simulatedBridgeOnly": true,
+      "osNotificationSent": false
+    },
+    {
+      "width": 460,
+      "state": "scheduled",
+      "optionBounds": [
+        {
+          "tag": "SELECT",
+          "left": 63,
+          "right": 225.5,
+          "parentLeft": 52,
+          "parentRight": 408,
+          "height": 38
+        },
+        {
+          "tag": "BUTTON",
+          "left": 234.5,
+          "right": 397,
+          "parentLeft": 52,
+          "parentRight": 408,
+          "height": 44
+        }
+      ],
+      "simulatedBridgeOnly": true,
+      "osNotificationSent": false
+    },
+    {
+      "width": 460,
+      "state": "permission",
+      "optionBounds": [
+        {
+          "tag": "SELECT",
+          "left": 63,
+          "right": 225.5,
+          "parentLeft": 52,
+          "parentRight": 408,
+          "height": 38
+        },
+        {
+          "tag": "BUTTON",
+          "left": 234.5,
+          "right": 397,
+          "parentLeft": 52,
+          "parentRight": 408,
+          "height": 44
+        }
+      ],
+      "simulatedBridgeOnly": true,
+      "osNotificationSent": false
+    },
+    {
+      "width": 460,
+      "state": "unavailable",
+      "optionBounds": [
+        {
+          "tag": "SELECT",
+          "left": 63,
+          "right": 225.5,
+          "parentLeft": 52,
+          "parentRight": 408,
+          "height": 38
+        },
+        {
+          "tag": "BUTTON",
+          "left": 234.5,
+          "right": 397,
+          "parentLeft": 52,
+          "parentRight": 408,
+          "height": 44
+        }
+      ],
+      "simulatedBridgeOnly": true,
+      "osNotificationSent": false
+    }
+  ],
+  "errors": [],
+  "scope": "Browser-to-native bridge simulation only; actual OS delivery not tested."
+}

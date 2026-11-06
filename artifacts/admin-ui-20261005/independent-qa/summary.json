@@ -1,0 +1,17 @@
+{
+  "mainScenes": 60,
+  "detailScenes": 20,
+  "duplicateRechecks": 4,
+  "totalMainScenes": 84,
+  "additionalCompletedPublicSweepScenes": 52,
+  "finalVisualFindings": 0,
+  "pageErrors": 0,
+  "widths": [
+    1440,
+    820,
+    390,
+    320
+  ],
+  "isolation": "Fresh Edge contexts; no operation commands; operation records unchanged",
+  "duplicateCorrection": "Matching description and original now render as one paragraph; source records unchanged"
+}

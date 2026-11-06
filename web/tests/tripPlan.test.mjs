@@ -1,9 +1,20 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { addPlanDay, buildPersonalPlan, copyPersonalPlan, copyPlanDay, insertNearby, makeJournalFromPlan, reorderPlanVisit, removePlanVisit, nearbyCandidates, normalizePlan, distanceBetween, setPlanStay, transferVisit } from '../src/tripPlan.ts';
+import { initializeCreatedPlan } from '../src/tripPlan.ts';
+import { addTripCandidate } from '../src/tripCandidates.ts';
 
 const spot = (id, kind = 'LANDMARK', lng = 126.24) => ({ id, kind, name: id, area: '제주 한림', address: '제주', lat: 33.39, lng, image: '', photos: [], note: '', description: '', duration: '' });
 const setup = () => buildPersonalPlan([spot('beach'), spot('tea', 'LANDMARK', 126.29)], 1, '', '나');
+test('creation approval finishes a route, but preserves actual candidate review and empty draft stages', () => {
+  const trip=buildPersonalPlan([spot('a')],2,'','나');
+  assert.equal(initializeCreatedPlan(trip,'나').planStage,'READY');
+  assert.equal(initializeCreatedPlan({...trip,days:trip.days.map(day=>({...day,places:[],blocks:[]}))},'나').planStage,'DRAFT');
+  const withCandidate=addTripCandidate(trip,spot('food','FOOD'),{dayId:trip.days[0].dayId,anchorVisitId:trip.days[0].places[0].visitId});
+  const result=initializeCreatedPlan(withCandidate,'나');
+  assert.equal(result.planStage,'DRAFT'); assert.deepEqual(result.businessCandidates,withCandidate.businessCandidates);
+  assert.equal(trip.planStage,undefined);
+});
 test('saved landmarks create a private plan without requiring writing, with stable independent identities', () => {
   const original = [spot('a'), spot('b'), spot('a')];
   const trip = buildPersonalPlan(original, 2, '', '나');
@@ -84,6 +95,16 @@ test('journal creation is an independent private snapshot without personal notes
   assert.equal(journal.days[0].places[0].note,'');assert.equal(journal.days[0].places[0].bookingFixed,undefined);
   journal.days[0].places[0].name='새 이름';assert.equal(trip.days[0].places[0].name,'beach');
   assert.notEqual(journal.days[0].blocks[0].id,trip.days[0].blocks[0].id);
+});
+test('personal copies and journals drop the original public author and editorial source identity', () => {
+  const source = { ...setup(), publicAuthorId: 'spotlog-editorial', publicSourceKind: 'EDITORIAL', author: 'Spotlog 운영' };
+  const copied = copyPersonalPlan(source, '새 작성자');
+  for (const field of ['publicAuthorId', 'publicSourceKind']) assert.equal(Object.hasOwn(copied, field), false);
+  assert.equal(copied.author, '새 작성자'); assert.equal(copied.isMine, true); assert.equal(copied.visibility, 'PRIVATE');
+  const journal = makeJournalFromPlan(source, '새 작성자');
+  for (const field of ['publicAuthorId', 'publicSourceKind']) assert.equal(Object.hasOwn(journal, field), false);
+  assert.equal(journal.author, '새 작성자'); assert.equal(journal.isMine, true);
+  assert.equal(source.publicAuthorId, 'spotlog-editorial'); assert.equal(source.publicSourceKind, 'EDITORIAL');
 });
 test('one-night replacement leaves other nights unchanged and locked bookings require unlock', () => {
   const trip=addPlanDay(addPlanDay(setup())), first=trip.days[0].dayId;

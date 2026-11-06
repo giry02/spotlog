@@ -1,0 +1,33 @@
+{
+  "written": "2026-11-01",
+  "reportFor": "2026-11-03 Tuesday",
+  "scope": "Local HTML deliverables only. No product, data, Git or deployment changes.",
+  "outputs": [
+    "deliverables/spotlog-direction-report-20261103.html",
+    "deliverables/spotlog-home-followup-20261101.html"
+  ],
+  "reportPages": 21,
+  "qa": [
+    "static-qa.json",
+    "browser-qa.json",
+    "home-audit-qa.json"
+  ],
+  "sources": {
+    "NOL": [
+      "https://nol-universe.com/ko/newsroom/pressRelease/detail?prNo=2545",
+      "https://www.yanoljagroup.com/ko/press_release/view?id=1541",
+      "https://nol-universe.com/ko/newsroom/pressRelease/detail?prNo=2519"
+    ],
+    "PC": [
+      "https://cs.kr.karrotmarket.com/wv/faqs/1618",
+      "https://learn.microsoft.com/en-us/microsoft-edge/progressive-web-apps/ux"
+    ]
+  },
+  "remainingProductFindings": [
+    "Home group-region entry inconsistency",
+    "Prototype activity title search does not query activity title",
+    "Home place-region/filter/result continuity",
+    "Personal discovery visibility in new home",
+    "Desktop shared state and PWA are a proposal, not implemented"
+  ]
+}

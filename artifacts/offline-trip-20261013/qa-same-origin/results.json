@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-13",
+  "base": "http://127.0.0.1:5210/spotlog/",
+  "checks": [
+    {
+      "name": "actual DEV Busan licensed photo sources save in same-origin built preview without rewriting original trip URLs",
+      "detail": {
+        "images": 4,
+        "missingImages": 0
+      }
+    },
+    {
+      "name": "cold browser process restart displays actual saved /@fs photo with network disabled",
+      "detail": "pass"
+    },
+    {
+      "name": "evicted selected photo is identified; one-tap online repair replaces package without blocking valid retry",
+      "detail": "pass"
+    },
+    {
+      "name": "cancel during unresolved worker registration immediately releases UI and keeps previous complete package and trip",
+      "detail": "pass"
+    },
+    {
+      "name": "actual source DEV trash UI removes only its built-preview offline package; other trip/package and admin record preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "offline old trip link cannot resurrect trashed source from a cached snapshot",
+      "detail": "pass"
+    }
+  ],
+  "errors": [],
+  "pass": true
+}

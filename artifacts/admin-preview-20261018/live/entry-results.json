@@ -1,0 +1,37 @@
+{
+  "base": "https://giry02.github.io/spotlog/",
+  "checks": [
+    {
+      "name": "1440 actual GitHub administrator: real backend absence yields a readable gate with explicit preview action"
+    },
+    {
+      "name": "1440 exact user URL → visible CTA → working preview with example data"
+    },
+    {
+      "name": "1440 actual entry: no JS exception or horizontal overflow"
+    },
+    {
+      "name": "390 actual GitHub administrator: real backend absence yields a readable gate with explicit preview action"
+    },
+    {
+      "name": "390 exact user URL → visible CTA → working preview with example data"
+    },
+    {
+      "name": "390 actual entry: no JS exception or horizontal overflow"
+    },
+    {
+      "name": "Actual public 404 API absence verified without any response interception"
+    }
+  ],
+  "responses": [
+    {
+      "url": "https://giry02.github.io/api/admin/v1/me",
+      "status": 404
+    },
+    {
+      "url": "https://giry02.github.io/api/admin/v1/me",
+      "status": 404
+    }
+  ],
+  "errors": []
+}

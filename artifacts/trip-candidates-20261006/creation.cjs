@@ -1,0 +1,36 @@
+const { chromium } = require('C:/Users/Giry/.codex/worktrees/a125/Spotlog/node_modules/@playwright/test');
+const fs = require('node:fs');
+const assert = require('node:assert/strict');
+(async () => {
+  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  const context = await browser.newContext({ viewport: { width: 390, height: 850 } });
+  const page = await context.newPage();
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  const base = process.env.SPOTLOG_CANDIDATE_URL || 'http://127.0.0.1:5210/';
+  await page.goto(base);
+  await page.evaluate(async () => {
+    const { createLocalRepository } = await import('/src/localRepository.ts');
+    const repository = createLocalRepository(localStorage);
+    if (!repository.setItem('spotlog.web.saved.v3', JSON.stringify(['public-busan-haeundae']))) throw Error('saved fixture failed');
+  });
+  await page.goto(base + '#saved'); await page.reload();
+  await page.locator('.saved-trip-modes').getByRole('button', { name: '바로 만들기', exact: true }).click();
+  await page.locator('.saved-trip-period-options').getByRole('button', { name: '1박 2일', exact: true }).click();
+  await page.locator('.saved-trip-period-sheet > button.primary').click();
+  await page.getByRole('button', { name: '마지막 확인', exact: true }).waitFor();
+  const readState = () => page.evaluate(async () => JSON.parse((await import('/src/localRepository.ts')).createLocalRepository(localStorage).getItem('spotlog.web.journeys.v4')));
+  const before = (await readState()).find(journey => journey.isMine && journey.purpose === 'PLAN');
+  assert.equal(before.planStage, 'DRAFT');
+  assert.equal(before.days.length, 2);
+  await page.getByRole('button', { name: '마지막 확인', exact: true }).click();
+  assert.equal(await page.getByRole('button', { name: '내 여행 완성', exact: true }).isEnabled(), true);
+  await page.getByRole('button', { name: '내 여행 완성', exact: true }).click();
+  assert.equal((await readState()).find(journey => journey.id === before.id).planStage, 'READY');
+  assert.equal(await page.getByRole('button', { name: '마지막 확인', exact: true }).count(), 0);
+  assert.deepEqual(errors, []);
+  const result = { realSavedCreation: true, dayCount: 2, optionalCandidates: true, finalStage: 'READY', errors };
+  fs.writeFileSync(__dirname + '/creation.json', JSON.stringify(result, null, 2));
+  console.log(JSON.stringify(result));
+  await browser.close();
+})().catch(error => { console.error(error); process.exit(1); });

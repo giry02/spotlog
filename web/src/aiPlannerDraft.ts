@@ -22,7 +22,7 @@ const hasConditions = (value: unknown): value is PlannerConditions => object(val
   && ['requiredIds', 'excludedIds', 'fixedIds'].every(key => uniqueStrings(value[key])) && typeof value.suggestFood === 'boolean' && typeof value.suggestStay === 'boolean';
 const hasPlace = (value: unknown): value is Place => object(value)
   && requiredStrings(value, ['id', 'name', 'area', 'address', 'image', 'description', 'note', 'duration'])
-  && matches(value.kind, ['LANDMARK', 'FOOD', 'CAFE', 'STAY', 'SHOP'])
+  && matches(value.kind, ['LANDMARK', 'FOOD', 'CAFE', 'STAY', 'SHOP', 'LEISURE'])
   && (value.lat === null || typeof value.lat === 'number') && (value.lng === null || typeof value.lng === 'number')
   && (value.tags === undefined || strings(value.tags))
   && ['visitId', 'anchorVisitId', 'time', 'move'].every(key => value[key] === undefined || typeof value[key] === 'string')
@@ -62,7 +62,7 @@ export function isAiPlannerDraft(value: unknown, context?: AiPlannerDraftContext
       requestId: String(value.preview.requestId), sourceVersion: String(value.preview.sourceVersion), language: 'ko',
       selectedPlaceIds: snapshotPlaces.map(place => place.id), dayIds: [], lockedVisitIds: [], conditions: value.conditions,
       catalog: useCurrent ? context.catalog : [...snapshotPlaces, ...value.preview.data.alternatives],
-      savedPlaces: useCurrent ? context.savedPlaces : snapshotPlaces, author: String(value.preview.data.journey.author),
+      savedPlaces: useCurrent ? context.savedPlaces : snapshotPlaces.filter(place=>!place.anchorVisitId&&place.kind!=='STAY'), author: String(value.preview.data.journey.author),
     };
     const legacy=value.preview.data.compositionVersion===undefined;
     const candidates=conditions.mode==='saved'?[...request.savedPlaces,...request.catalog.filter(p=>conditions.fixedIds.includes(p.id)&&p.kind==='STAY')]:request.catalog;
@@ -76,7 +76,7 @@ export function isAiPlannerDraft(value: unknown, context?: AiPlannerDraftContext
     for (const choice of value.businesses as AiPlannerDraft['businesses']) {
       const day = selected.days.find(day => day.dayId === choice.dayId);
       const anchors=choice.place.kind==='STAY'?selected.days.flatMap(day=>day.places):day?.places??[];
-      if (!day || !anchors.some(place => place.visitId === choice.anchorId && place.kind === 'LANDMARK')) return false;
+      if (!day || !anchors.some(place => place.visitId === choice.anchorId && place.kind !== 'STAY' && !place.anchorVisitId)) return false;
       if(choice.place.kind==='STAY') {
         const start=selected.days.indexOf(day);
         for(const night of selected.days.slice(start,start+choice.nights)) {if(occupiedNights.has(night.dayId!))return false;occupiedNights.add(night.dayId!);}
@@ -85,7 +85,7 @@ export function isAiPlannerDraft(value: unknown, context?: AiPlannerDraftContext
     applyPlannerSelections(preview.data.journey,excludedVisits,value.businesses as AiPlannerDraft['businesses']);
     if (object(value.businessForm)) {
       const form = value.businessForm;
-      if (!days.some(day => day.day === value.selectedDay && day.dayId === form.dayId && day.places.some(place => place.visitId === form.anchorId && place.kind === 'LANDMARK' && !excludedVisits.includes(place.visitId!)))) return false;
+      if (!days.some(day => day.day === value.selectedDay && day.dayId === form.dayId && day.places.some(place => place.visitId === form.anchorId && place.kind !== 'STAY' && !place.anchorVisitId && !excludedVisits.includes(place.visitId!)))) return false;
     }
     return true;
   } catch { return false; }

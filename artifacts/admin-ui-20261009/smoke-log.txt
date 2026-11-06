@@ -1,0 +1,26 @@
+PASS independent administrator entry and honest unavailable metrics pass
+PASS unfinished input retained; draft save keeps published version pass
+PASS explicit publish changes only isolated review data pass
+PASS nearby operator recommendation and exclusion per landmark pass
+PASS CSV preview imports draft with unverified coordinates and rights pass
+PASS registration directly saves dirty draft then publishes using latest revision pass
+PASS new published landmark discovers existing business by coordinates pass
+PASS candidate index staged execution, validation and activation pass
+PASS AI synthetic test never saves customer travel or calls model pass
+PASS inquiry answer recorded without external send pass
+PASS reference save payload and version contract pass
+PASS notification template saves; failed/optout/duplicate states stay distinct pass
+PASS six calendar month trash restore remains private pass
+PASS operator cannot edit administrator policy/role/session controls pass
+PASS customer storage sentinel unchanged pass
+PASS all menu layouts without page overflow 1440
+PASS all menu layouts without page overflow 1024
+PASS all menu layouts without page overflow 800
+PASS all menu layouts without page overflow 390
+PASS all menu layouts without page overflow 360
+PASS small screen detail replaces list, input typography16px, keyboard tabs pass
+PASS unconnected API screen does not fabricate sample success pass
+PASS mock API session/metrics/health/server search honor DTO and avoid local storage pass
+PASS no browser uncaught errors pass
+PASS customer entry remains separate from admin styles/layout pass
+ADMIN_BROWSER_CHECKS 25 OUTPUT C:/Users/Giry/Documents/Spotlog/artifacts/admin-ui-20261009/smoke

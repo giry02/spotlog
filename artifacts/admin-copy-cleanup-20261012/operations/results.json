@@ -1,0 +1,22 @@
+{
+  "base": "http://127.0.0.1:5210",
+  "generatedAt": "2026-10-11T23:15:57.057Z",
+  "checks": [
+    "sample popularity is read-only, synthetic home publication is blocked and a checked catalog place creates one HOME_PLACE exposure",
+    "checked main place appears in the actual customer Home at 320/390/460px without page overflow",
+    "Home main-place period expires and starts automatically without a page reload",
+    "popular public journal can be posted to main and already-posted state prevents duplicate click",
+    "filtered exposure order cannot move a hidden neighbor; clearing search restores channel reorder",
+    "report detail shows the report resolution actor, reason and action history",
+    "deletion workflow only selects valid next steps and never marks account deletion complete",
+    "audit search has an empty state and reason column gets adequate width",
+    "API popularity stays empty with sample/no server aggregate and accepts server read-only saves ranking"
+  ],
+  "widths": [
+    237,
+    301,
+    215,
+    323
+  ],
+  "errors": []
+}

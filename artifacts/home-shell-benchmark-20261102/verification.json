@@ -1,0 +1,58 @@
+{
+  "localOnly": true,
+  "published": false,
+  "customerDataMigration": false,
+  "adminSourceChanges": false,
+  "validation": {
+    "webTypecheck": "passed",
+    "productionBuild": "passed",
+    "relatedTests": {
+      "passed": 87,
+      "failed": 0
+    },
+    "browserWidths": [
+      320,
+      390,
+      460
+    ],
+    "rootHeader": {
+      "height": 64,
+      "inset": 16,
+      "menuTarget": 44,
+      "tabTarget": 44,
+      "sameTitleBaseline": true
+    },
+    "outerHorizontalOverflow": false,
+    "consoleErrors": 0,
+    "flows": [
+      "home region+kind+query -> guide -> Back -> Forward",
+      "empty guide reset with atomic navigation write",
+      "photo region selection -> single Back to guide",
+      "public meetup -> parent group intro with exact selected meetup",
+      "chat previous-sibling header measured64 and composer visible at320x400",
+      "journal editor header64 and sticky DAY offset64"
+    ]
+  },
+  "benchmarks": [
+    {
+      "site": "Daangn public web",
+      "url": "https://www.daangn.com/kr/search/group/",
+      "pattern": "region and search context before discovery results"
+    },
+    {
+      "site": "Somoim public web",
+      "url": "https://www.somoim.co.kr/",
+      "pattern": "local group discovery, interests and concrete upcoming meetups"
+    },
+    {
+      "site": "Meetup public web",
+      "url": "https://www.meetup.com/ko-kr/",
+      "pattern": "separate upcoming events and groups, explicit dates"
+    }
+  ],
+  "knownLimitations": [
+    "Physical phone keyboard was not tested",
+    "Public examples are existing seeded data; no live popularity or GPS claims added",
+    "Existing Vite chunk size advisory remains"
+  ]
+}

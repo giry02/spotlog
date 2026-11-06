@@ -1,0 +1,176 @@
+[
+  {
+    "width": "320",
+    "url": "http://127.0.0.1:5214/#places-photo",
+    "pageOverflow": 0,
+    "photoHeader": {
+      "headerBottom": 176,
+      "counterTop": 196,
+      "separation": 20
+    },
+    "strips": [
+      {
+        "selector": ".browse-switch",
+        "gap": "8px",
+        "client": 320,
+        "scroll": 320,
+        "buttons": [
+          {
+            "text": "장소",
+            "w": 116,
+            "h": 44
+          },
+          {
+            "text": "여행기",
+            "w": 116,
+            "h": 44
+          },
+          {
+            "text": "",
+            "w": 44,
+            "h": 44
+          }
+        ]
+      },
+      {
+        "selector": ".place-view-toggle",
+        "gap": "8px",
+        "client": 256,
+        "scroll": 256,
+        "buttons": [
+          {
+            "text": "장소 목록",
+            "w": 79,
+            "h": 44
+          },
+          {
+            "text": "랜드마크 사진",
+            "w": 101,
+            "h": 44
+          },
+          {
+            "text": "영상",
+            "w": 54,
+            "h": 44
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": "390",
+    "url": "http://127.0.0.1:5214/#places-photo",
+    "pageOverflow": 0,
+    "photoHeader": {
+      "headerBottom": 185,
+      "counterTop": 196,
+      "separation": 11
+    },
+    "strips": [
+      {
+        "selector": ".browse-switch",
+        "gap": "8px",
+        "client": 390,
+        "scroll": 390,
+        "buttons": [
+          {
+            "text": "장소",
+            "w": 151,
+            "h": 44
+          },
+          {
+            "text": "여행기",
+            "w": 151,
+            "h": 44
+          },
+          {
+            "text": "",
+            "w": 44,
+            "h": 44
+          }
+        ]
+      },
+      {
+        "selector": ".place-view-toggle",
+        "gap": "8px",
+        "client": 277,
+        "scroll": 277,
+        "buttons": [
+          {
+            "text": "장소 목록",
+            "w": 86,
+            "h": 44
+          },
+          {
+            "text": "랜드마크 사진",
+            "w": 108,
+            "h": 44
+          },
+          {
+            "text": "영상",
+            "w": 61,
+            "h": 44
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": "460",
+    "url": "http://127.0.0.1:5214/#places-photo",
+    "pageOverflow": 0,
+    "photoHeader": {
+      "headerBottom": 132,
+      "counterTop": 144,
+      "separation": 12
+    },
+    "strips": [
+      {
+        "selector": ".browse-switch",
+        "gap": "8px",
+        "client": 460,
+        "scroll": 460,
+        "buttons": [
+          {
+            "text": "장소",
+            "w": 186,
+            "h": 44
+          },
+          {
+            "text": "여행기",
+            "w": 186,
+            "h": 44
+          },
+          {
+            "text": "",
+            "w": 44,
+            "h": 44
+          }
+        ]
+      },
+      {
+        "selector": ".place-view-toggle",
+        "gap": "8px",
+        "client": 277,
+        "scroll": 277,
+        "buttons": [
+          {
+            "text": "장소 목록",
+            "w": 86,
+            "h": 44
+          },
+          {
+            "text": "랜드마크 사진",
+            "w": 108,
+            "h": 44
+          },
+          {
+            "text": "영상",
+            "w": 61,
+            "h": 44
+          }
+        ]
+      }
+    ]
+  }
+]

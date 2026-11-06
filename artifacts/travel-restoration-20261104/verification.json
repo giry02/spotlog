@@ -1,0 +1,35 @@
+{
+  "date": "2026-11-04",
+  "scope": "Restore visible travel entry while retaining current navigation pending product-direction review",
+  "sourceRoot": "C:/Users/Giry/Documents/Spotlog",
+  "localOnly": true,
+  "gitPushOrDeploy": false,
+  "changes": [
+    "Discovery has a visible 여행 tab and travel purpose shortcut opens it",
+    "Travel contains 내 여행, 여행 만들기, 여행기 보기 and approved recommended itinerary previews",
+    "Travel filters approved templates by selected region and query without changing original records or publication",
+    "home-trips deep link and history restoration select the actual travel tab",
+    "공개 약속 customer wording changed to 만남 / 모집 중인 만남 / 만남 찾기; private plan permissions unchanged"
+  ],
+  "validation": {
+    "webTypecheckAndProductionBuild": "passed",
+    "relatedAutomatedTests": 26,
+    "failures": 0,
+    "templateFilterAssertions": 8,
+    "widths": [320, 390, 460],
+    "pageAndTabOverflow": false,
+    "travelTargetsBelow44px": false,
+    "brokenImages": 0,
+    "browserFlows": [
+      "Travel tab opens recommended itineraries",
+      "My trips opens existing personal trip and journal library",
+      "Create trip opens existing DAY itinerary form; no creation submitted",
+      "Selected Busan recommended itinerary opens existing preview",
+      "Back returns to home-trips with Busan filter and same template",
+      "All five discovery tabs visible without horizontal scrolling at 320px"
+    ],
+    "customerData": "Only isolated memory fixture used for interaction tests; no real customer/admin store mutation"
+  },
+  "strategyBoundary": "Further menu reorganization is a proposal until the user reviews product direction. Travel remains a core use case alongside everyday appointments and persistent groups.",
+  "localTravelUrl": "http://127.0.0.1:5210/#home-trips"
+}

@@ -1,0 +1,81 @@
+{
+  "base": "http://127.0.0.1:5210",
+  "generatedAt": "2026-10-05T06:12:16.085Z",
+  "checks": [
+    {
+      "name": "12 public source journals have exact consumer IDs and rich reading projections",
+      "evidence": [
+        "jeju-west-slow",
+        "jeju-west-weekend",
+        "busan-oldtown-to-sea",
+        "gangwon-sea-and-river",
+        "seoul-seongsu-day",
+        "suncheon-yeosu-three-days",
+        "east-coast-four-days",
+        "southern-road-five-days",
+        "public-busan-coast-day",
+        "public-busan-oldtown-2days",
+        "public-busan-slow-3days",
+        "public-gyeongju-2days"
+      ]
+    },
+    {
+      "name": "five customer report targets reach admin from real UI in the same isolated browser",
+      "evidence": [
+        {
+          "id": "local-report-f3abaf54-898d-4af2-9ae4-3a4bdaedc717",
+          "type": "JOURNAL",
+          "target": "busan-oldtown-to-sea"
+        },
+        {
+          "id": "local-report-80003a29-6bac-4061-886f-3b6a4be5c3bb",
+          "type": "PHOTO",
+          "target": "busan-oldtown-to-sea:cover"
+        },
+        {
+          "id": "local-report-29b6072e-f6f5-4be5-9e14-41c003127301",
+          "type": "PLACE",
+          "target": "busan-gamcheon"
+        },
+        {
+          "id": "local-report-bb07f6cc-9aea-409f-9abd-b7c6428fd773",
+          "type": "PROFILE",
+          "target": "public-author:부산산책자"
+        },
+        {
+          "id": "local-report-3c2f22c9-51ea-425d-bb0a-13d45167dcc0",
+          "type": "COMMENT",
+          "target": "comment-busan-1"
+        }
+      ]
+    },
+    {
+      "name": "duplicate receipt never creates another report"
+    },
+    {
+      "name": "deliberate public like and cheer update admin read-only aggregates"
+    },
+    {
+      "name": "one global English control displays the exact admin-approved public story"
+    },
+    {
+      "name": "profile report opens the matching public-author member record"
+    },
+    {
+      "name": "photo report preserves exact public photograph context"
+    },
+    {
+      "name": "admin hides only the target public journal and customer list updates"
+    },
+    {
+      "name": "report resolution status is synchronized to the receipt"
+    },
+    {
+      "name": "customer private storage remains intact and no browser runtime errors occur",
+      "evidence": {
+        "errors": []
+      }
+    }
+  ],
+  "errors": []
+}

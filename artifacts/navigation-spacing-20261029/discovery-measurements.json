@@ -1,0 +1,170 @@
+[
+  {
+    "width": "320",
+    "url": "http://127.0.0.1:5214/#together-find",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".gd-categories",
+        "gap": "8px",
+        "client": 288,
+        "scroll": 288,
+        "buttons": [
+          {
+            "text": "👋이웃·친목",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🍚맛집",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "☕카페",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🚶산책",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🏸운동",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "📚독서",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🎨문화",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🎲보드게임",
+            "w": 66,
+            "h": 69
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": "390",
+    "url": "http://127.0.0.1:5214/#together-find",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".gd-categories",
+        "gap": "8px",
+        "client": 350,
+        "scroll": 350,
+        "buttons": [
+          {
+            "text": "👋이웃·친목",
+            "w": 82,
+            "h": 69
+          },
+          {
+            "text": "🍚맛집",
+            "w": 82,
+            "h": 69
+          },
+          {
+            "text": "☕카페",
+            "w": 82,
+            "h": 69
+          },
+          {
+            "text": "🚶산책",
+            "w": 82,
+            "h": 69
+          },
+          {
+            "text": "🏸운동",
+            "w": 82,
+            "h": 69
+          },
+          {
+            "text": "📚독서",
+            "w": 82,
+            "h": 69
+          },
+          {
+            "text": "🎨문화",
+            "w": 82,
+            "h": 69
+          },
+          {
+            "text": "🎲보드게임",
+            "w": 82,
+            "h": 69
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": "460",
+    "url": "http://127.0.0.1:5214/#together-find",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".gd-categories",
+        "gap": "8px",
+        "client": 420,
+        "scroll": 420,
+        "buttons": [
+          {
+            "text": "👋이웃·친목",
+            "w": 99,
+            "h": 69
+          },
+          {
+            "text": "🍚맛집",
+            "w": 99,
+            "h": 69
+          },
+          {
+            "text": "☕카페",
+            "w": 99,
+            "h": 69
+          },
+          {
+            "text": "🚶산책",
+            "w": 99,
+            "h": 69
+          },
+          {
+            "text": "🏸운동",
+            "w": 99,
+            "h": 69
+          },
+          {
+            "text": "📚독서",
+            "w": 99,
+            "h": 69
+          },
+          {
+            "text": "🎨문화",
+            "w": 99,
+            "h": 69
+          },
+          {
+            "text": "🎲보드게임",
+            "w": 99,
+            "h": 69
+          }
+        ]
+      }
+    ]
+  }
+]

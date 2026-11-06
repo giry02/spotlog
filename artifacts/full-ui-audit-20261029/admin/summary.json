@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-29",
+  "scope": "관리자 미리보기·로컬",
+  "widths": [
+    1440,
+    768,
+    390
+  ],
+  "menus": [
+    "운영 현황",
+    "장소·업체",
+    "노출·추천",
+    "여행기·커뮤니티",
+    "회원·문의",
+    "AI·검색 운영",
+    "운영 설정·이력"
+  ],
+  "checkedStates": 21,
+  "documentOverflow": 0,
+  "mainOverflow": 0,
+  "changes": [
+    "관리자 탭 간격 8px",
+    "800px 이하 버튼·아이콘·선택창 항목 44px",
+    "600px 이하 탭 한 줄 가로 넘김·포커스 여백",
+    "새 장소 상세 진입 시 상세 시작으로 이동",
+    "상세 탭·입력 재렌더는 현재 스크롤 유지",
+    "목록 복귀 시 검색·필터·원래 스크롤 보존"
+  ],
+  "files": [
+    "web/src/admin/admin.css",
+    "web/src/admin/AdminApp.tsx",
+    "web/src/admin/PlacesPage.tsx"
+  ],
+  "actualScrollCheck": {
+    "search": "해",
+    "beforeList": 923,
+    "detailTop": 8,
+    "detailScroll": 490,
+    "afterTabScroll": 490,
+    "returnedList": 923,
+    "queryPreserved": true
+  },
+  "validation": [
+    "관리자 7메뉴×3폭 실제 CUA 검수",
+    "마지막 탭 키보드 End 접근",
+    "작업자 선택창 아래 열림·화면 안쪽 유지",
+    "웹 타입 검사 통과",
+    "root 최종 테스트681/681·웹 production 빌드·네이티브 타입 검사 통과"
+  ],
+  "untouched": [
+    "실제 운영 관리자 저장 자료",
+    "고객 원본·개인 일정",
+    "실제 권한·회원 조치",
+    "Git·배포"
+  ],
+  "limitations": [
+    "실제 API 연결과 브라우저 UI 배치 검수는 별도",
+    "실제 휴대폰·태블릿 기기 검수와 다른 브라우저 iframe 반응형 검수"
+  ],
+  "idea": "후속으로 모바일 미리보기 설명을 접을 수 있게 하면 첫 화면에서 업무 내용이 더 빨리 보임. 실제 처리 상태 구분은 유지."
+}

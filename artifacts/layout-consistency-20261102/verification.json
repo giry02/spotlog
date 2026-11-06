@@ -1,0 +1,85 @@
+{
+  "scope": "Local customer layout fixes; no navigation IA, server contracts, permission, customer/admin record or deployment changes",
+  "files": [
+    {
+      "path": "docs/STYLE_GUIDE.md",
+      "before": "03b2a55c3fa5427e79d51dd92759098568ac0d6f2be2381afd0fe093b0858bec",
+      "after": "d60818c7b3f3593052001fd0ab8bf3044fe4330beafbeffb8f09c82d5f2205f7"
+    },
+    {
+      "path": "web/src/consumer-density.css",
+      "before": "d8e6f782f2682ae78c0437489b78b0bfeba6ddd62dcab824520eec2f4738c86f",
+      "after": "015ef9829460a55b02b95763651ae579f34a30de09246583a63853c0795b3558"
+    },
+    {
+      "path": "web/src/navigation-spacing.css",
+      "before": "bc3227bed2c284021256d429da22017c13912104151e191107bb7a5db8bbe182",
+      "after": "0fd6afb02fc33434d59521bb7b2579c6d2d57b35b49834e8f79f7d4245744c56"
+    },
+    {
+      "path": "web/src/together/together.css",
+      "before": "a675437d563ff94d8738e768146b6fd48e67906c617bcff186da853d1a155857",
+      "after": "b40336f8f3b6580df64ef6a6e3ea5d79b4d6a00797e6b953bd75b562cf971f42"
+    },
+    {
+      "path": "web/src/together/group-discovery.css",
+      "before": "96da89c306878861a29941a6688de9eb6814686459f396175bce367136c2faf0",
+      "after": "3400ad84c3f0036830967ce1ae0a545e300f7a09ad4be50122d94277f6b45b5a"
+    },
+    {
+      "path": "web/src/together/ChatWorkspace.tsx",
+      "before": "f2d8e2d48a291a955ba210baba092ea59a906d7af5c1a5b5aa83f8c06c2a61bc",
+      "after": "87dc1f723d7adde26032b62ca45f535884755810223d6c1171344fe3e453b6b3"
+    },
+    {
+      "path": "web/src/together/chat-workspace.css",
+      "before": "195e1ca70e604a35920a399e64856020e9ed05d93c7d2f4729a79a6e1e2d369c",
+      "after": "f3a2f6302f7e8c2719e936dd713b9eca610e9383556f74240553f60549ad3c05"
+    },
+    {
+      "path": "web/src/together/conversation-summary.css",
+      "before": "194a7ebd46ace95c963e01ca689eb95f814493c0bd7c7b0d2f7ea60d72dc57f0",
+      "after": "b04727cc6f56e8655c7974c7884abd28359a8f7f734165efcb43e817e4a551b0"
+    },
+    {
+      "path": "web/src/together/chat-expressions.css",
+      "before": "4d5e72c1b75cc1bb31a7b60f03ab0025ec471b8c3936c3d5a95904f519d4d219",
+      "after": "f1def7108138d72a1c37119c75cefca69eeae5ad8a2d64b2f9e22690a9e4e2a9"
+    },
+    {
+      "path": "web/tests/layout-consistency-review.html",
+      "new": true,
+      "after": "1c1906f2cfad0a97eba2cf7375b8a55f2384f45cec3dd4ff089fcc8ed7d196ea"
+    },
+    {
+      "path": "web/tests/layout-consistency-review.tsx",
+      "new": true,
+      "after": "630ab857371704eb7d5eacc40af2f439eb1b9891de3a470e2078970f7a027d36"
+    }
+  ],
+  "verification": {
+    "webBuild": "PASS",
+    "relatedTests": {
+      "pass": 77,
+      "fail": 0
+    },
+    "mobileWidths": [
+      320,
+      390,
+      460
+    ],
+    "shortChatViewport": "320x400, actual scroll container339; textarea46, extras83, exact draft preserved and emoji inserted without sending",
+    "editor": "2 input columns138px each at320, header62, actions44x44; no overflow at320/390/460",
+    "longContent": "80-character folder deletion confirmation and long restaurant/hotel names fit320; no actual deletion",
+    "forms": "date/time full273px single column at320, aligned two165.5px columns at390 and200.5px at460",
+    "summary": "date fields239px single column at320, primary dark/white, metadata12px",
+    "chat": "header/context/dock do not overlap; latest12px above actual dock; empty textarea client44=scroll44; 20px preference keeps input16 and reply/draft",
+    "console": "no warning/error in four audit tabs and final fresh chat tab",
+    "storage": "all editing scenarios use DEV memory-only fixture, no customer storage reset",
+    "admin": "not edited"
+  },
+  "limits": [
+    "Browser viewport checks, not physical mobile keyboard or assistive-device certification",
+    "Pre-existing production bundle size advisory remains"
+  ]
+}

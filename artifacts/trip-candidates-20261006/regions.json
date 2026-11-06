@@ -1,0 +1,32 @@
+[
+  {
+    "anchor": "서울숲",
+    "counts": {
+      "맛집": 2,
+      "카페": 2,
+      "숙소": 2
+    },
+    "shortlistedCafes": 2,
+    "actualVisits": 1
+  },
+  {
+    "anchor": "안목해변",
+    "counts": {
+      "맛집": 2,
+      "카페": 2,
+      "숙소": 2
+    },
+    "shortlistedCafes": 2,
+    "actualVisits": 1
+  },
+  {
+    "anchor": "첨성대",
+    "counts": {
+      "맛집": 2,
+      "카페": 2,
+      "숙소": 2
+    },
+    "shortlistedCafes": 2,
+    "actualVisits": 1
+  }
+]

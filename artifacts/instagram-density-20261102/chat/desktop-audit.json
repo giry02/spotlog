@@ -1,0 +1,29 @@
+{
+  "measured": {
+    "bodyFont": "14px",
+    "bodyLine": "20px",
+    "bodyMinHeight": "44px",
+    "defaultActionRows": 0,
+    "fixtureWidth": 460,
+    "focusedId": "tg-message-select-family-chat-6",
+    "inputFont": "16px",
+    "inputText": "입력 중인 문장 · 보내지 않음",
+    "metadataFont": "12px",
+    "metadataLine": "16px",
+    "nestedButtons": 0,
+    "pageOverflow": false,
+    "streamGap": "12px",
+    "streamPadding": "12px 16px 16px"
+  },
+  "console": [],
+  "checks": [
+    "native Enter opens actions",
+    "Escape closes and returns message focus",
+    "selecting another message closes previous reaction picker",
+    "selected action targets 44x44",
+    "reply fills preview and focuses composer",
+    "14/16/18/20 options; 20px measured20/26",
+    "typed text and reply survive font changes"
+  ],
+  "browserScope": "Desktop viewport with 460px review container; physical device keyboard and mobile viewport widths not measured in this pass"
+}

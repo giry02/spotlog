@@ -1,0 +1,27 @@
+(node:259152) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///C:/Users/Giry/Documents/Spotlog/shared/hybridBridge.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\C:\Users\Giry\Documents\Spotlog\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native bridge rejects malformed messages, unsupported notification results and nonfinite thresholds (1.2267ms)
+✔ app startup continues when the OS notification service is unavailable (4.2041ms)
+✔ startup restores valid notification intent and rejects malformed, nonfinite or unreadable device preferences (7.6796ms)
+✔ notification channel and storage failures are handled and do not poison the following Off request (2.1588ms)
+✔ turning notifications off persists even when the permission service is unavailable (1.119ms)
+✔ a denied preview returns a failure result without claiming that a notification was sent (0.9903ms)
+✔ preview completion is acknowledged only after OS scheduling and clearly says it is a test (10.9467ms)
+✔ OS scheduling failures return a retryable preview failure result (1.1371ms)
+✔ rapid On then Off changes serialize permission prompts and preserve the last choice (1.1995ms)
+✔ external WebView navigation failures are caught and internal navigation stays in the app (0.9694ms)
+✔ share and explicit external-link failures recover without uncaught rejection (1.0073ms)
+✔ Android back respects web history, and failed load plus retry clears stale history and the error immediately (0.9511ms)
+✔ only main-document HTTP errors block the shell; web renderer termination offers recovery (0.6616ms)
+✔ iOS uses its own simulator URL and does not install an Android back handler (0.6463ms)
+✔ web preview subscriber receives native completion on either platform event target and cleans up on unmount (22.2467ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 353.2806

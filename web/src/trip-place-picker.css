@@ -1,0 +1,22 @@
+.trip-place-picker {display:grid;gap:14px;min-width:0;padding-bottom:8px;}
+.trip-picker-kinds {display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding:3px;}
+.trip-picker-kinds button,.trip-picker-filter>button,.trip-picker-meal button {display:inline-flex;align-items:center;justify-content:center;gap:5px;flex:none;min-height:44px;padding:8px 11px;border:1px solid #e2e2dc;border-radius:11px;background:white;font-size:var(--type-subhead);color:#444440;}
+.trip-picker-kinds button[aria-selected=true],.trip-picker-filter>button.active,.trip-picker-meal button[aria-pressed=true] {background:#222220;color:white;border-color:#222220;}
+.trip-picker-filter {display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end;}
+.trip-place-picker label.trip-picker-search {display:flex;gap:8px;align-items:center;min-height:44px;border:1px solid #e2e2dc;border-radius:11px;padding:8px 10px;}
+.trip-picker-search input {flex:1;min-width:0;border:0;background:transparent;font-size:var(--type-body);outline:0;}
+.trip-picker-meal {display:flex;gap:8px;}
+.trip-picker-context {margin:0;font-size:var(--type-caption);color:#62625e;}
+.trip-picker-results {display:grid;gap:12px;}
+.trip-picker-place {padding:12px;border:1px solid #e2e2dc;border-radius:15px;background:#fff;min-width:0;}
+.trip-picker-main {display:flex;align-items:flex-start;gap:10px;min-width:0;}
+.trip-picker-photo {display:grid;place-items:center;width:64px;height:64px;flex:none;background:#f1f1ee;border-radius:11px;overflow:hidden;}
+.trip-picker-photo img {width:100%;height:100%;object-fit:cover;}
+.trip-picker-copy {min-width:0;flex:1;}
+.trip-picker-copy strong {font-size:var(--type-body);line-height:1.5;overflow-wrap:anywhere;}
+.trip-picker-copy>small {display:block;font-size:var(--type-caption);color:#62625e;margin-top:3px;}
+.trip-picker-copy p {margin:5px 0;font-size:var(--type-subhead);line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.trip-picker-tags {display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;}
+.trip-picker-tags span {background:#f1f1ee;padding:2px 5px;border-radius:5px;color:#62625e;font-size:var(--type-caption);}
+.trip-picker-main>.ui-button {flex:none;min-height:44px;padding:7px 9px;}
+.trip-picker-place>.public-photo-credit {margin-top:6px;min-height:44px;}

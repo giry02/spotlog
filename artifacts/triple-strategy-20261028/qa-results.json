@@ -1,0 +1,854 @@
+{
+  "pages": 28,
+  "errors": [],
+  "checks": [
+    "28 pages / next / keyboard / Home-End / TOC / deep-link reload / all view",
+    "28 desktop screenshots / 84 narrow-width page and scroll-end checks / 28 print geometry checks / no page exceptions"
+  ],
+  "desktop": [
+    {
+      "page": 1,
+      "height": 768,
+      "overflow": 0,
+      "title": "트리플 비교와 Spotlog 서비스 방향성"
+    },
+    {
+      "page": 2,
+      "height": 768,
+      "overflow": 0,
+      "title": "결론: 더 많은 기능보다, 여행을 끝까지 완성함"
+    },
+    {
+      "page": 3,
+      "height": 768,
+      "overflow": 0,
+      "title": "조사 범위와 판단 기준을 분리함"
+    },
+    {
+      "page": 4,
+      "height": 768,
+      "overflow": 0,
+      "title": "현재 경쟁 대상은 트리플에서 NOL로 이동 중임"
+    },
+    {
+      "page": 5,
+      "height": 768,
+      "overflow": 0,
+      "title": "트리플의 강점: 여행 전·중·후를 연결함"
+    },
+    {
+      "page": 6,
+      "height": 768,
+      "overflow": 0,
+      "title": "트리플의 한계: 전환기 제약과 검증할 불편"
+    },
+    {
+      "page": 7,
+      "height": 768,
+      "overflow": 0,
+      "title": "리뷰에서 배울 점: 기본 동작의 작은 불편"
+    },
+    {
+      "page": 8,
+      "height": 768,
+      "overflow": 0,
+      "title": "Spotlog에는 이미 주요 여행 설계 기능이 있음"
+    },
+    {
+      "page": 9,
+      "height": 770.796875,
+      "overflow": 0,
+      "title": "현재 약점은 화면 수보다 실제 운영 연결에 있음"
+    },
+    {
+      "page": 10,
+      "height": 768,
+      "overflow": 0,
+      "title": "기능 비교: 겹치는 영역과 경쟁할 영역"
+    },
+    {
+      "page": 11,
+      "height": 768,
+      "overflow": 0,
+      "title": "차별화는 “국내 여행 + AI”보다 구체적이어야 함"
+    },
+    {
+      "page": 12,
+      "height": 768,
+      "overflow": 0,
+      "title": "화면 구조는 유지하고, 여행의 연결을 강화함"
+    },
+    {
+      "page": 13,
+      "height": 768,
+      "overflow": 0,
+      "title": "추가 기능은 신규·보완·운영 연결로 구분함"
+    },
+    {
+      "page": 14,
+      "height": 768,
+      "overflow": 0,
+      "title": "추가 ① 좋은 하루만 내 여행에 가져옴"
+    },
+    {
+      "page": 15,
+      "height": 768,
+      "overflow": 0,
+      "title": "추가 ② 장소의 신뢰 정보를 운영까지 연결함"
+    },
+    {
+      "page": 16,
+      "height": 768,
+      "overflow": 0,
+      "title": "추가 ③ 우천·휴무 대안은 예약을 지키며 적용함"
+    },
+    {
+      "page": 17,
+      "height": 768,
+      "overflow": 0,
+      "title": "추가 ④ 읽기 공유와 여행 자료의 지속성"
+    },
+    {
+      "page": 18,
+      "height": 768,
+      "overflow": 0,
+      "title": "함께하기는 신규 개발보다 실제 공동 사용 검증이 먼저임"
+    },
+    {
+      "page": 19,
+      "height": 769.25,
+      "overflow": 0,
+      "title": "AI의 차별점은 모델명이 아니라 데이터와 수정 통제임"
+    },
+    {
+      "page": 20,
+      "height": 768,
+      "overflow": 0,
+      "title": "데이터와 콘텐츠는 좁은 지역에서 깊이를 확보함"
+    },
+    {
+      "page": 21,
+      "height": 768,
+      "overflow": 0,
+      "title": "외국인 확대는 번역보다 현장 이용 가능성이 기준임"
+    },
+    {
+      "page": 22,
+      "height": 768,
+      "overflow": 0,
+      "title": "수익과 비용: 신뢰를 해치지 않는 순서로 검증함"
+    },
+    {
+      "page": 23,
+      "height": 768,
+      "overflow": 0,
+      "title": "기존 개발 차수에는 이렇게 반영함"
+    },
+    {
+      "page": 24,
+      "height": 768,
+      "overflow": 0,
+      "title": "우위는 같은 과제를 수행한 결과로 판단함"
+    },
+    {
+      "page": 25,
+      "height": 768,
+      "overflow": 0,
+      "title": "최종 제안: 기존 자산을 운영 가능한 여행 경험으로 묶음"
+    },
+    {
+      "page": 26,
+      "height": 768,
+      "overflow": 0,
+      "title": "공식 근거 ① 트리플 기능과 NOL 전환"
+    },
+    {
+      "page": 27,
+      "height": 768,
+      "overflow": 0,
+      "title": "공식 근거 ② AI 발견과 외국인 서비스"
+    },
+    {
+      "page": 28,
+      "height": 769.84375,
+      "overflow": 0,
+      "title": "Spotlog 현황 근거와 후속 확인 목록"
+    }
+  ],
+  "mobile": [
+    {
+      "width": 320,
+      "page": 1,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 2,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 3,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 4,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 5,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 6,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 7,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 8,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 9,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 10,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 11,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 12,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 13,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 14,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 15,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 16,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 17,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 18,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 19,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 20,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 21,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 22,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 23,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 24,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 25,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 26,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 27,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 320,
+      "page": 28,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 1,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 2,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 3,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 4,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 5,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 6,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 7,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 8,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 9,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 10,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 11,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 12,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 13,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 14,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 15,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 16,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 17,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 18,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 19,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 20,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 21,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 22,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 23,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 24,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 25,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 26,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 27,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 390,
+      "page": 28,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 1,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 2,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 3,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 4,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 5,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 6,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 7,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 8,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 9,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 10,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 11,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 12,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 13,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 14,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 15,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 16,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 17,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 18,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 19,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 20,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 21,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 22,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 23,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 24,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 25,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 26,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 27,
+      "body": 0,
+      "stage": 0
+    },
+    {
+      "width": 760,
+      "page": 28,
+      "body": 0,
+      "stage": 0
+    }
+  ],
+  "print": [
+    {
+      "page": 1,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 2,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 3,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 4,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 5,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 6,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 7,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 8,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 9,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 10,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 11,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 12,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 13,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 14,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 15,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 16,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 17,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 18,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 19,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 20,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 21,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 22,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 23,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 24,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 25,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 26,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 27,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    },
+    {
+      "page": 28,
+      "height": 768,
+      "overflow": 0,
+      "horizontal": 0
+    }
+  ]
+}

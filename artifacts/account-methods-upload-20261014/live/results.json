@@ -1,0 +1,340 @@
+{
+  "passed": true,
+  "base": "https://giry02.github.io/spotlog/",
+  "customerAsset": "customer-DS7NtBsI.js",
+  "adminAsset": "admin-BdFqIH-7.js",
+  "states": 61,
+  "results": [
+    {
+      "name": "customer-release-identity",
+      "width": null,
+      "customerAsset": "customer-DS7NtBsI.js",
+      "checkedEntryAssets": [
+        "customer-DS7NtBsI.js",
+        "serviceRequest-B91Ei66P.js",
+        "theme-BD0yZbBl.js",
+        "creatorGrade-Dr5mmpV_.js"
+      ]
+    },
+    {
+      "name": "administrator-bundle-unchanged",
+      "width": null,
+      "adminAsset": "admin-BdFqIH-7.js"
+    },
+    {
+      "name": "guest",
+      "width": 320
+    },
+    {
+      "name": "five-login",
+      "width": 320
+    },
+    {
+      "name": "login-카카오",
+      "width": 320
+    },
+    {
+      "name": "login-네이버",
+      "width": 320
+    },
+    {
+      "name": "login-Google",
+      "width": 320
+    },
+    {
+      "name": "login-Apple",
+      "width": 320
+    },
+    {
+      "name": "email-login-unconfigured",
+      "width": 320
+    },
+    {
+      "name": "five-signup",
+      "width": 320
+    },
+    {
+      "name": "signup-카카오",
+      "width": 320
+    },
+    {
+      "name": "signup-네이버",
+      "width": 320
+    },
+    {
+      "name": "signup-Google",
+      "width": 320
+    },
+    {
+      "name": "signup-Apple",
+      "width": 320
+    },
+    {
+      "name": "email-signup-unconfigured",
+      "width": 320
+    },
+    {
+      "name": "route-home",
+      "width": 320,
+      "images": {
+        "visible": 0,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "route-community",
+      "width": 320,
+      "images": {
+        "visible": 8,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "route-places-photo",
+      "width": 320,
+      "images": {
+        "visible": 5,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "route-trips",
+      "width": 320,
+      "images": {
+        "visible": 0,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "route-saved",
+      "width": 320,
+      "images": {
+        "visible": 0,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "expired-session-five-login",
+      "width": 320
+    },
+    {
+      "name": "guest",
+      "width": 390
+    },
+    {
+      "name": "five-login",
+      "width": 390
+    },
+    {
+      "name": "login-카카오",
+      "width": 390
+    },
+    {
+      "name": "login-네이버",
+      "width": 390
+    },
+    {
+      "name": "login-Google",
+      "width": 390
+    },
+    {
+      "name": "login-Apple",
+      "width": 390
+    },
+    {
+      "name": "email-login-unconfigured",
+      "width": 390
+    },
+    {
+      "name": "five-signup",
+      "width": 390
+    },
+    {
+      "name": "signup-카카오",
+      "width": 390
+    },
+    {
+      "name": "signup-네이버",
+      "width": 390
+    },
+    {
+      "name": "signup-Google",
+      "width": 390
+    },
+    {
+      "name": "signup-Apple",
+      "width": 390
+    },
+    {
+      "name": "email-signup-unconfigured",
+      "width": 390
+    },
+    {
+      "name": "route-home",
+      "width": 390,
+      "images": {
+        "visible": 15,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "route-community",
+      "width": 390,
+      "images": {
+        "visible": 8,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "route-places-photo",
+      "width": 390,
+      "images": {
+        "visible": 5,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "route-trips",
+      "width": 390,
+      "images": {
+        "visible": 0,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "route-saved",
+      "width": 390,
+      "images": {
+        "visible": 0,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "expired-session-five-login",
+      "width": 390
+    },
+    {
+      "name": "guest",
+      "width": 460
+    },
+    {
+      "name": "five-login",
+      "width": 460
+    },
+    {
+      "name": "login-카카오",
+      "width": 460
+    },
+    {
+      "name": "login-네이버",
+      "width": 460
+    },
+    {
+      "name": "login-Google",
+      "width": 460
+    },
+    {
+      "name": "login-Apple",
+      "width": 460
+    },
+    {
+      "name": "email-login-unconfigured",
+      "width": 460
+    },
+    {
+      "name": "five-signup",
+      "width": 460
+    },
+    {
+      "name": "signup-카카오",
+      "width": 460
+    },
+    {
+      "name": "signup-네이버",
+      "width": 460
+    },
+    {
+      "name": "signup-Google",
+      "width": 460
+    },
+    {
+      "name": "signup-Apple",
+      "width": 460
+    },
+    {
+      "name": "email-signup-unconfigured",
+      "width": 460
+    },
+    {
+      "name": "route-home",
+      "width": 460,
+      "images": {
+        "visible": 15,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "route-community",
+      "width": 460,
+      "images": {
+        "visible": 8,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "route-places-photo",
+      "width": 460,
+      "images": {
+        "visible": 5,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "route-trips",
+      "width": 460,
+      "images": {
+        "visible": 0,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "route-saved",
+      "width": 460,
+      "images": {
+        "visible": 0,
+        "broken": [],
+        "pending": []
+      }
+    },
+    {
+      "name": "expired-session-five-login",
+      "width": 460
+    },
+    {
+      "name": "admin-service-access-gate",
+      "width": 1440
+    },
+    {
+      "name": "administrator-manual-retained",
+      "width": 1440
+    }
+  ],
+  "errors": [],
+  "apiRequests": [],
+  "actualAuthenticationConnected": false,
+  "devCredentialsExcluded": true
+}

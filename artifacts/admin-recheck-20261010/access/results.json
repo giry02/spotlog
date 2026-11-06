@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "checks": [
+    "compact menu keyboard entry focus loop escape and focus return",
+    "initial authorized API",
+    "expired refresh conceals previous operator data",
+    "authorized reconnection",
+    "expired command conceals editor",
+    "same operator input preserved through reconnect",
+    "server failure retains editor",
+    "invalid reload does not reuse previous authorization",
+    "network failure explained in Korean",
+    "forbidden account remains blocked",
+    "different operator does not inherit previous editor input",
+    "list authorization failure also blocks shared workspace"
+  ],
+  "errors": []
+}
