@@ -1,0 +1,110 @@
+[
+  {
+    "width": "320",
+    "url": "http://127.0.0.1:5214/@fs/C:/Users/Giry/Documents/Spotlog/artifacts/navigation-spacing-20261029/together-review.html",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".tg-tabs",
+        "gap": "8px",
+        "client": 305,
+        "scroll": 318,
+        "buttons": [
+          {
+            "text": "모임 안내",
+            "w": 75,
+            "h": 50
+          },
+          {
+            "text": "준비",
+            "w": 46,
+            "h": 50
+          },
+          {
+            "text": "게시글·후기",
+            "w": 88,
+            "h": 50
+          },
+          {
+            "text": "앨범",
+            "w": 46,
+            "h": 50
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": "390",
+    "url": "http://127.0.0.1:5214/@fs/C:/Users/Giry/Documents/Spotlog/artifacts/navigation-spacing-20261029/together-review.html",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".tg-tabs",
+        "gap": "8px",
+        "client": 375,
+        "scroll": 375,
+        "buttons": [
+          {
+            "text": "모임 안내",
+            "w": 89,
+            "h": 50
+          },
+          {
+            "text": "준비",
+            "w": 60,
+            "h": 50
+          },
+          {
+            "text": "게시글·후기",
+            "w": 102,
+            "h": 50
+          },
+          {
+            "text": "앨범",
+            "w": 60,
+            "h": 50
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": "460",
+    "url": "http://127.0.0.1:5214/@fs/C:/Users/Giry/Documents/Spotlog/artifacts/navigation-spacing-20261029/together-review.html",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".tg-tabs",
+        "gap": "8px",
+        "client": 445,
+        "scroll": 445,
+        "buttons": [
+          {
+            "text": "모임 안내",
+            "w": 107,
+            "h": 50
+          },
+          {
+            "text": "준비",
+            "w": 77,
+            "h": 50
+          },
+          {
+            "text": "게시글·후기",
+            "w": 120,
+            "h": 50
+          },
+          {
+            "text": "앨범",
+            "w": 77,
+            "h": 50
+          }
+        ]
+      }
+    ]
+  }
+]

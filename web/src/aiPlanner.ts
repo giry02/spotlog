@@ -1,4 +1,4 @@
-import type { Journey, Place } from './data';
+import type { Journey, Place, PlaceKind } from './data';
 import { buildPersonalPlan, distanceBetween, hasLocation, setPlanDates } from './tripPlan.ts';
 import { readPlannerIntent, type PlannerIntent } from './plannerIntent.ts';
 import { chosenPlannerRegion, composePlannerItinerary, isPlannerRegion, planningSlots, reanchorPlannerGaps, requestedDaySlots, spatialPlannerOrder } from './itineraryComposer.ts';
@@ -35,6 +35,30 @@ export const journeyVersion = (journey: Journey): string => JSON.stringify(journ
 export const catalogVersion = (places: Place[]): string => JSON.stringify(places.map(p => [p.id,p.name,p.area,p.lat,p.lng,p.description,p.tags,p.photos]));
 const object = (value:unknown):value is Record<string,unknown> => typeof value==='object'&&value!==null&&!Array.isArray(value);
 const strings = (value:unknown):value is string[] => Array.isArray(value)&&value.every(item=>typeof item==='string');
+function explicitlyOnlyKind(prompt:string):PlaceKind|undefined {
+  if(/(?:카페|커피)\s*만|(?:caf[eé]s?|coffee)\s+only|only\s+(?:caf[eé]s?|coffee)/i.test(prompt))return 'CAFE';
+  if(/(?:음식점|맛집|식당|식사)\s*만|restaurants?\s+only|only\s+restaurants?/i.test(prompt))return 'FOOD';
+  if(/(?:레저|체험|액티비티)\s*만/i.test(prompt))return 'LEISURE';
+  if(/(?:쇼핑|상점|로컬숍)\s*만/i.test(prompt))return 'SHOP';
+  return undefined;
+}
+/** Saved choices are real visits; public regional defaults retain the existing sightseeing route. */
+function plannerSeedPool(c:PlannerConditions,pool:Place[]):Place[] {
+  const available=pool.filter(p=>p.kind!=='STAY'),only=explicitlyOnlyKind(c.prompt);
+  if(c.mode==='saved')return available;
+  if(only)return available.filter(p=>p.kind===only);
+  const landmarks=available.filter(p=>p.kind==='LANDMARK'||c.requiredIds.includes(p.id)||c.fixedIds.includes(p.id));
+  return landmarks.length?landmarks:available;
+}
+function plannerSeedIntent(c:PlannerConditions,seeds:Place[]):PlannerIntent {
+  const intent=readPlannerIntent(c.prompt,c.dayCount,c.meals),only=explicitlyOnlyKind(c.prompt);
+  if(only) {
+    if(only!=='FOOD'){intent.food='exclude';intent.lunch=false;intent.dinner=false;}
+    intent.cafe=only==='CAFE'?'include':'exclude';
+    intent.stay='exclude';
+  } else if(seeds.some(p=>p.kind==='CAFE')&&!intent.reasons.some(reason=>reason.includes('카페를 제외')||reason.includes('관광지만')))intent.cafe='include';
+  return intent;
+}
 function validateEnvelope(request:AiContext,result:unknown):asserts result is AiEnvelope<unknown> {
   if(!object(result)||result.requestId!==request.requestId||result.sourceVersion!==request.sourceVersion||typeof result.mock!=='boolean'||!object(result.data)||!strings(result.warnings)||!Array.isArray(result.sources)||!Array.isArray(result.unplaced)
     ||!result.sources.every(s=>object(s)&&typeof s.id==='string'&&typeof s.label==='string'&&typeof s.sourceVersion==='string'&&(s.checkedAt===null||typeof s.checkedAt==='string')&&(s.url===undefined||typeof s.url==='string'))
@@ -43,7 +67,7 @@ function validateEnvelope(request:AiContext,result:unknown):asserts result is Ai
 function hasJourneyShape(value:unknown):value is Journey {
   return object(value)&&['id','title','region','dateRange','duration','cover','summary','story','author'].every(key=>typeof value[key]==='string')&&typeof value.isMine==='boolean'&&typeof value.saves==='number'&&strings(value.tags)&&Array.isArray(value.days)
     &&value.days.every(day=>object(day)&&typeof day.dayId==='string'&&Number.isInteger(day.day)&&['date','title','story'].every(key=>typeof day[key]==='string')&&Array.isArray(day.places)&&Array.isArray(day.blocks)
-      &&day.places.every(p=>object(p)&&['id','visitId','name','kind','area','address','image','description','note','duration'].every(key=>typeof p[key]==='string')&&['LANDMARK','FOOD','STAY','CAFE','SHOP'].includes(String(p.kind))&&(p.lat===null||typeof p.lat==='number')&&(p.lng===null||typeof p.lng==='number')&&(p.photos===undefined||Array.isArray(p.photos)&&p.photos.every(photo=>object(photo)&&['image','alt','caption'].every(key=>typeof photo[key]==='string'))))
+      &&day.places.every(p=>object(p)&&['id','visitId','name','kind','area','address','image','description','note','duration'].every(key=>typeof p[key]==='string')&&['LANDMARK','FOOD','STAY','CAFE','SHOP','LEISURE'].includes(String(p.kind))&&(p.lat===null||typeof p.lat==='number')&&(p.lng===null||typeof p.lng==='number')&&(p.photos===undefined||Array.isArray(p.photos)&&p.photos.every(photo=>object(photo)&&['image','alt','caption'].every(key=>typeof photo[key]==='string'))))
       &&day.blocks.every(b=>object(b)&&typeof b.id==='string'&&['TEXT','IMAGE','PLACE'].includes(String(b.type))));
 }
 /** Validate an adapter response before putting it into React state or offering approval. */
@@ -53,7 +77,7 @@ export function validatePlannerResult(request:PlannerRequest,result:unknown,opti
   if(!object(data)||!hasJourneyShape(data.journey)||!object(data.reasons)||!Object.values(data.reasons).every(v=>typeof v==='string')||!Array.isArray(data.alternatives)||!data.alternatives.every(p=>object(p)&&typeof p.id==='string')||JSON.stringify(data.conditions)!==JSON.stringify(request.conditions)) throw new AiPlannerError('invalid','추천 응답의 일정 형식을 확인하지 못했어요. 다시 시도해 주세요.');
   const journey=data.journey,c=request.conditions,visits=journey.days.flatMap(day=>day.places),legacy=options.allowLegacy&&data.compositionVersion===undefined;
   const region=chosenPlannerRegion(c,c.mode==='saved'?request.savedPlaces:request.catalog);
-  const landmarkPool=(c.mode==='saved'?request.savedPlaces:request.catalog.filter(p=>!p.personal)).filter(p=>p.kind==='LANDMARK'&&!c.excludedIds.includes(p.id)&&(legacy&&c.mode==='saved'||isPlannerRegion(p,region)));
+  const landmarkPool=plannerSeedPool(c,c.mode==='saved'?request.savedPlaces:request.catalog.filter(p=>!p.personal)).filter(p=>!c.excludedIds.includes(p.id)&&(legacy&&c.mode==='saved'||isPlannerRegion(p,region)));
   const allowedLandmarks=new Set(landmarkPool.map(p=>p.id));
   const booked=plannerBookedStays(request);
   const businessPool=[...request.catalog.filter(p=>!p.personal),...booked].filter(p=>!c.excludedIds.includes(p.id)&&isPlannerRegion(p,region));
@@ -74,31 +98,40 @@ function plannerBookedStays(request:PlannerRequest):Place[] {
   return unique([...request.savedPlaces,...request.catalog].filter(p=>p.kind==='STAY'&&(c.fixedIds.includes(p.id)||p.bookingFixed||intent.stay==='booked'&&p.name.length>=3&&c.prompt.includes(p.name))));
 }
 function validateCompletePlannerResult(request:PlannerRequest,data:PlannerData,landmarks:Place[],businesses:Place[],booked:Place[]):void {
-  const c=request.conditions,intent=readPlannerIntent(c.prompt,c.dayCount,c.meals),journey=data.journey;
+  const c=request.conditions,intent=plannerSeedIntent(c,landmarks),journey=data.journey;
   const fail=()=>{throw new AiPlannerError('invalid','요청한 포함·제외 조건과 시간대·주변 장소가 일치하지 않아 적용하지 않았어요.');};
   if(JSON.stringify(data.intent)!==JSON.stringify(intent))fail();
   const sameCoordinate=(a:number,b:number)=>!Number.isFinite(a)&&!Number.isFinite(b)||a===b;
   const allGapIds=new Set<string>();
+  const independentVisits=journey.days.flatMap(day=>day.places).filter(place=>!place.anchorVisitId&&place.kind!=='STAY');
+  if(new Set(independentVisits.map(place=>place.id)).size!==independentVisits.length||c.mode==='saved'&&landmarks.some(seed=>!independentVisits.some(place=>place.id===seed.id)))fail();
   journey.days.forEach((day,index)=>{
     if(!Array.isArray(day.planningGaps))fail();
     const gaps=day.planningGaps!;
     const expectations=requestedDaySlots(c,intent,index);
     const byVisit=new Map(day.places.map(p=>[p.visitId,p]));
     for(const p of day.places){
-      const origin=(p.kind==='LANDMARK'?landmarks:businesses).find(source=>source.id===p.id);
+      const independent=!p.anchorVisitId&&p.kind!=='STAY';
+      const origin=(independent?landmarks:businesses).find(source=>source.id===p.id);
       if(!origin||p.kind!==origin.kind||p.name!==origin.name||p.address!==origin.address||p.area!==origin.area||p.image!==origin.image||p.description!==origin.description||JSON.stringify(p.photos)!==JSON.stringify(origin.photos)||!sameCoordinate(p.lat,origin.lat)||!sameCoordinate(p.lng,origin.lng)||p.time!==undefined||p.move!==undefined||!planningSlots.includes(p.planningSlot!))fail();
-      if(p.kind!=='LANDMARK'){
+      if(independent){
+        if(p.kind==='FOOD'&&!expectations.some(e=>e.kind==='FOOD'&&e.slot===p.planningSlot)||p.kind==='CAFE'&&!expectations.some(e=>e.kind==='CAFE'&&e.slot===p.planningSlot))fail();
+      }else{
         const isBooked=booked.some(b=>b.id===p.id),anchor=byVisit.get(p.anchorVisitId)??(isBooked?journey.days.flatMap(d=>d.places).find(v=>v.visitId===p.anchorVisitId):undefined);
-        if(!anchor||anchor.kind!=='LANDMARK'||!expectations.some(e=>e.kind===p.kind&&e.slot===p.planningSlot)||(!isBooked&&(distanceBetween(anchor,p)===null||distanceBetween(anchor,p)!>15)))fail();
+        if(!anchor||anchor.kind==='STAY'||anchor.anchorVisitId||!expectations.some(e=>e.kind===p.kind&&e.slot===p.planningSlot)||(!isBooked&&(distanceBetween(anchor,p)===null||distanceBetween(anchor,p)!>15)))fail();
         if(p.kind==='STAY'&&(JSON.stringify(p.stayDayIds)!==JSON.stringify([day.dayId])||isBooked&&!p.bookingFixed||!isBooked&&intent.stay==='booked'))fail();
       }
     }
     for(const gap of gaps){
-      if(!object(gap)||typeof gap.id!=='string'||!gap.id||allGapIds.has(gap.id)||!expectations.some(e=>e.kind===gap.kind&&e.slot===gap.slot)||!['missing-data','booked'].includes(gap.reason)||gap.reason==='booked'&&(gap.kind!=='STAY'||intent.stay!=='booked')||gap.afterVisitId!==undefined&&byVisit.get(gap.afterVisitId)?.kind!=='LANDMARK'||gap.beforeVisitId!==undefined&&byVisit.get(gap.beforeVisitId)?.kind!=='LANDMARK')fail();
+      const validBoundary=(id:string|undefined)=>id===undefined||Boolean(byVisit.get(id)&&byVisit.get(id)!.kind!=='STAY'&&!byVisit.get(id)!.anchorVisitId);
+      if(!object(gap)||typeof gap.id!=='string'||!gap.id||allGapIds.has(gap.id)||!expectations.some(e=>e.kind===gap.kind&&e.slot===gap.slot)||!['missing-data','booked'].includes(gap.reason)||gap.reason==='booked'&&(gap.kind!=='STAY'||intent.stay!=='booked')||!validBoundary(gap.afterVisitId)||!validBoundary(gap.beforeVisitId))fail();
       allGapIds.add(gap.id);
       if(gap.afterVisitId&&gap.beforeVisitId&&day.places.findIndex(p=>p.visitId===gap.afterVisitId)>=day.places.findIndex(p=>p.visitId===gap.beforeVisitId))fail();
     }
-    for(const expected of expectations)if(day.places.filter(p=>p.kind===expected.kind&&p.planningSlot===expected.slot).length+gaps.filter(g=>g.kind===expected.kind&&g.slot===expected.slot).length!==1)fail();
+    for(const expected of expectations){
+      const explicit=day.places.filter(p=>p.kind===expected.kind&&p.planningSlot===expected.slot&&!p.anchorVisitId).length;
+      if(day.places.filter(p=>p.kind===expected.kind&&p.planningSlot===expected.slot).length+gaps.filter(g=>g.kind===expected.kind&&g.slot===expected.slot).length!==Math.max(1,explicit))fail();
+    }
     if(day.places.some((p,i)=>i>0&&planningSlots.indexOf(p.planningSlot!)<planningSlots.indexOf(day.places[i-1].planningSlot!)))fail();
   });
   if(booked.some(p=>!journey.days.some(d=>d.places.some(v=>v.id===p.id&&v.bookingFixed))))fail();
@@ -110,7 +143,7 @@ export function validatePlannerConditions(c: PlannerConditions, candidates: Plac
   if (c.mode === 'region' && !c.region) errors.push('여행 지역을 선택해 주세요.');
   if (c.requiredIds.some(id => c.excludedIds.includes(id))) errors.push('필수 장소와 제외 장소가 겹쳐요.');
   if (c.fixedIds.some(id => c.excludedIds.includes(id))) errors.push('고정한 장소는 제외할 수 없어요.');
-  if (c.requiredIds.some(id=>!candidates.some(p=>p.id===id&&p.kind==='LANDMARK'))||c.fixedIds.some(id=>!candidates.some(p=>p.id===id&&(p.kind==='LANDMARK'||p.kind==='STAY')))) errors.push('필수·고정 장소를 현재 자료에서 찾을 수 없어요. 다시 선택해 주세요.');
+  if (c.requiredIds.some(id=>!candidates.some(p=>p.id===id&&p.kind!=='STAY'))||c.fixedIds.some(id=>!candidates.some(p=>p.id===id))) errors.push('필수·고정 장소를 현재 자료에서 찾을 수 없어요. 다시 선택해 주세요.');
   const region=chosenPlannerRegion(c,candidates);
   if(c.mode==='saved'&&!region)errors.push('저장한 장소가 여러 지역에 있어요. 이번에 여행할 지역을 선택해 주세요.');
   if (region && [...c.requiredIds,...c.fixedIds].some(id => candidates.some(p => p.id === id && !regional(p,region)))) errors.push('필수·고정 장소와 선택한 지역이 달라요.');
@@ -118,7 +151,7 @@ export function validatePlannerConditions(c: PlannerConditions, candidates: Plac
   if (c.startDate && (!/^\d{4}-\d{2}-\d{2}$/.test(c.startDate) || !Number.isFinite(Date.parse(`${c.startDate}T00:00:00Z`)) || new Date(`${c.startDate}T00:00:00Z`).toISOString().slice(0,10)!==c.startDate)) errors.push('출발 날짜를 확인해 주세요.');
   if ([c.arrival,c.departure].some(time => time && !/^([01]\d|2[0-3]):[0-5]\d$/.test(time))) errors.push('도착·출발 시간을 확인해 주세요.');
   if (c.dayCount === 1 && c.arrival && c.departure && c.arrival >= c.departure) errors.push('당일 여행은 출발 시간이 도착 시간보다 뒤여야 해요.');
-  const count = unique(candidates.filter(p => p.kind==='LANDMARK' && !c.excludedIds.includes(p.id)&&(!region||isPlannerRegion(p,region)))).length;
+  const count = unique(plannerSeedPool(c,candidates).filter(p => !c.excludedIds.includes(p.id)&&(!region||isPlannerRegion(p,region)))).length;
   if ((c.mode === 'saved' && count > 30) || new Set([...c.requiredIds,...c.fixedIds]).size > 30) errors.push('한 번에 추천할 장소는 최대 30곳이에요. 제외할 장소를 선택해 주세요.');
   return errors;
 }
@@ -126,7 +159,7 @@ export function generatePlannerSample(request: PlannerRequest): PlannerResult {
   const c = structuredClone(request.conditions);
   // The caller supplies the public, rights-cleared catalog. Saved data remains request-private.
   const pool = unique(c.mode === 'saved' ? request.savedPlaces : request.catalog.filter(p => !p.personal));
-  const booked=plannerBookedStays(request),intent=readPlannerIntent(c.prompt,c.dayCount,c.meals);
+  const booked=plannerBookedStays(request),intent=plannerSeedIntent(c,plannerSeedPool(c,pool));
   const errors = validatePlannerConditions(c,unique([...pool,...booked]));
   if (errors.length) throw new AiPlannerError('invalid',errors.join(' '));
   const required = new Set([...c.requiredIds,...c.fixedIds]);
@@ -135,8 +168,9 @@ export function generatePlannerSample(request: PlannerRequest): PlannerResult {
   if(booked.some(p=>c.excludedIds.includes(p.id)))throw new AiPlannerError('invalid','예약한 숙소가 제외 장소에 있어요. 예약 또는 제외 조건을 확인해 주세요.');
   if(booked.length>c.dayCount-1)throw new AiPlannerError('invalid','예약한 숙소 수가 숙박일보다 많아요. 여행 기간 또는 고정한 숙소를 확인해 주세요.');
   if(booked.length&&intent.stay==='exclude')throw new AiPlannerError('invalid','고정한 숙소가 있어요. 숙박 제외 요청 또는 고정 숙소를 확인해 주세요.');
-  const eligible = pool.filter(p => p.kind==='LANDMARK' && !c.excludedIds.includes(p.id) && regional(p,region));
-  if (!eligible.length) throw new AiPlannerError('empty','조건에 맞는 등록 랜드마크가 없어요. 지역이나 제외 조건을 바꿔 주세요.');
+  const eligible = plannerSeedPool(c,pool).filter(p => !c.excludedIds.includes(p.id) && regional(p,region));
+  if (!eligible.length) throw new AiPlannerError('empty','조건에 맞는 등록 장소가 없어요. 숙소는 숙박일을 정해 별도로 담을 수 있어요.');
+  if(eligible.some(p=>p.kind==='FOOD'&&intent.food==='exclude'||p.kind==='CAFE'&&intent.cafe==='exclude'))throw new AiPlannerError('invalid','저장·필수 장소와 음식점 또는 카페 제외 요청이 겹쳐요. 선택한 장소나 요청을 확인해 주세요.');
   const words = c.prompt.trim().split(/\s+/).filter(word => word.length > 1);
   const scored = eligible.map((place,index) => ({ place,index,score: words.filter(word=>`${place.name} ${place.description} ${(place.tags??[]).join(' ')}`.includes(word)).length })).sort((a,b)=>Number(required.has(b.place.id))-Number(required.has(a.place.id)) || b.score-a.score || a.index-b.index);
   const perDay = c.pace==='slow' || c.walking==='less' ? 2 : c.pace==='full' ? 4 : 3;
@@ -157,9 +191,9 @@ export function generatePlannerSample(request: PlannerRequest): PlannerResult {
   if (selected.some(p=>!hasLocation(p))) warnings.push('좌표가 없는 장소도 선택에서 지우지 않았어요. 지도·이동 정보는 확인이 필요해요.');
   if (new Set(selected.map(p=>p.area.split(' ')[0])).size>1) warnings.push('서로 다른 지역이 포함돼요. 도시·섬 사이 이동편을 확인해 주세요.');
   if (selected.length>c.dayCount*perDay) warnings.push('필수·저장 장소를 모두 유지했어요. 하루 방문 수가 많아 기간이나 제외 장소를 조정하는 것이 좋아요.');
-  const outsideRegion=c.mode==='saved'?pool.filter(p=>p.kind==='LANDMARK'&&!c.excludedIds.includes(p.id)&&!regional(p,region)):[];
+  const outsideRegion=c.mode==='saved'?pool.filter(p=>p.kind!=='STAY'&&!c.excludedIds.includes(p.id)&&!regional(p,region)):[];
   const alternatives = [...scored.slice(limit).map(({place})=>place),...outsideRegion];
-  const reasons = {...Object.fromEntries(selected.map(p=>[p.id,required.has(p.id)?'직접 지정한 필수·고정 장소':c.mode==='saved'?'내가 저장한 장소':words.some(word=>`${p.name} ${p.description} ${(p.tags??[]).join(' ')}`.includes(word))?'입력한 관심 단어와 등록 설명이 일치해요.':`${region}에 등록된 랜드마크예요.`])),...composed.reasons};
+  const reasons = {...Object.fromEntries(selected.map(p=>[p.id,required.has(p.id)?'직접 지정한 필수·고정 장소':c.mode==='saved'?'내가 저장한 장소':words.some(word=>`${p.name} ${p.description} ${(p.tags??[]).join(' ')}`.includes(word))?'입력한 관심 단어와 등록 설명이 일치해요.':`${region}에 등록된 장소예요.`])),...composed.reasons};
   return {requestId:request.requestId,sourceVersion:request.sourceVersion,mock:true,data:{journey,reasons:Object.fromEntries(Object.entries(reasons).map(([id,reason])=>[id,plannerText(request.language,reason)])),conditions:c,alternatives,intent,compositionVersion:2},sources:[source(request.sourceVersion)],warnings:warnings.map(w=>plannerText(request.language,w)),unplaced:alternatives.map(p=>({placeId:p.id,reason:plannerText(request.language,outsideRegion.includes(p)?'이번에 선택한 여행 지역과 달라 이번 일정에 넣지 않았어요.':'선택한 여행 속도의 권장 방문 수를 넘어서 대안으로 남겼어요.')}))};
 }
 export function revisionScopeVisits(request: RevisionRequest): Set<string> {

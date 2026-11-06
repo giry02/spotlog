@@ -1,0 +1,28 @@
+.my-regions { display:flex; flex-direction:column; gap:16px; min-width:0; color:var(--ink); font-size:14px; line-height:20px; }
+.my-regions * { box-sizing:border-box; }
+.my-regions :is(p,fieldset,legend) { margin:0; }
+.my-regions-help { font-size:14px; line-height:20px; color:var(--muted); }
+.my-regions-list { display:flex; flex-direction:column; gap:16px; min-width:0; }
+.my-region-entry { min-width:0; border:0; border-bottom:1px solid var(--line); padding:0 0 12px; }
+.my-region-heading { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:44px; margin-bottom:8px; }
+.my-region-heading strong { display:flex; align-items:center; gap:8px; font-size:16px; line-height:22px; font-weight:600; }
+.my-regions button { min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; gap:8px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); font:inherit; font-size:14px; line-height:20px; padding:10px 12px; }
+.my-regions button:disabled { cursor:default; opacity:.45; }
+.my-regions .my-region-icon { flex:none; width:44px; height:44px; padding:0; border:0; background:transparent; color:var(--muted); }
+.my-region-fields { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.4fr); gap:12px; }
+.my-regions label { display:flex; flex-direction:column; gap:8px; min-width:0; margin:0; font-size:14px; line-height:20px; font-weight:500; }
+.my-regions :is(select,input:not([type=radio])) { min-width:0; width:100%; min-height:44px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:#fff; color:var(--ink); font:inherit; font-size:16px; line-height:24px; font-weight:400; }
+.my-regions input:disabled { background:var(--paper); color:var(--muted); }
+.my-regions :is(input,select)[aria-invalid=true] { border-color:var(--accent); }
+.my-regions .my-region-default { display:flex; flex-direction:row; align-items:center; gap:10px; min-height:44px; margin-top:8px; font-size:14px; font-weight:400; }
+.my-regions input[type=radio] { flex:0 0 20px; width:20px; height:20px; min-height:20px; margin:0; accent-color:var(--ink); }
+.my-regions .my-regions-add { background:transparent; border-style:dashed; }
+.my-regions .my-regions-save { width:100%; border-color:var(--ink); background:var(--ink); color:white; font-weight:600; }
+.my-regions-storage { color:var(--muted); font-size:12px; line-height:16px; }
+.my-regions-empty { padding:12px; background:var(--paper); border-radius:10px; color:var(--muted); }
+.my-regions-error { padding:12px; border-radius:10px; background:#fff0eb; color:#a63e2b; display:grid; gap:8px; }
+.my-regions-error p { font-size:14px; line-height:20px; }
+.my-regions-error button { justify-self:start; background:transparent; border-color:currentColor; color:inherit; }
+.my-regions :is(button,input,select):focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.my-regions-sr-only { position:absolute; width:1px; height:1px; margin:-1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
+@media(max-width:359px) { .my-region-fields { grid-template-columns:minmax(0,1fr); } }

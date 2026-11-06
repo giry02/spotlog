@@ -1,0 +1,59 @@
+{
+  "base": "http://127.0.0.1:5295/spotlog/",
+  "date": "2026-10-18",
+  "checks": [
+    {
+      "name": "1440 place media: every visible photo loaded",
+      "detail": [
+        {
+          "src": "http://127.0.0.1:5295/spotlog/admin-review.svg",
+          "complete": true,
+          "width": 800
+        }
+      ]
+    },
+    {
+      "name": "1440 community report context: every visible photo loaded",
+      "detail": [
+        {
+          "src": "http://127.0.0.1:5295/spotlog/admin-review.svg",
+          "complete": true,
+          "width": 800
+        }
+      ]
+    },
+    {
+      "name": "1440: no photo HTTP failure or uncaught error"
+    },
+    {
+      "name": "1440: independent tab starts own preview; existing tab remains untouched"
+    },
+    {
+      "name": "390 place media: every visible photo loaded",
+      "detail": [
+        {
+          "src": "http://127.0.0.1:5295/spotlog/admin-review.svg",
+          "complete": true,
+          "width": 800
+        }
+      ]
+    },
+    {
+      "name": "390 community report context: every visible photo loaded",
+      "detail": [
+        {
+          "src": "http://127.0.0.1:5295/spotlog/admin-review.svg",
+          "complete": true,
+          "width": 800
+        }
+      ]
+    },
+    {
+      "name": "390: no photo HTTP failure or uncaught error"
+    },
+    {
+      "name": "390: independent tab starts own preview; existing tab remains untouched"
+    }
+  ],
+  "errors": []
+}

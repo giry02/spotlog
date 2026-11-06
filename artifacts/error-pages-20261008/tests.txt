@@ -1,0 +1,32 @@
+✔ required-only signup excludes marketing and GPS; drafts never count as member consent (1.3541ms)
+✔ policy publication rejects unknown operator, draft versions, duplicates and missing content (0.6044ms)
+✔ Apple private email and missing email are supported without merging identities by email (0.1896ms)
+✔ OAuth redirects are HTTPS and exactly the selected provider; return route cannot leave app (0.2943ms)
+✔ unconnected auth and GPS create no requests and no fake account or permissions (0.7186ms)
+✔ social signup uses server session plus versions; no browser user ID, GPS or timestamps accepted as proof (17.3208ms)
+✔ current location requires published enabled feature and matching purpose/version before OS call (0.4215ms)
+✔ location denial, invalid position and cancel cannot leak a late position to feature (0.5259ms)
+✔ email signup cannot create a member before verified server response and versioned consent (1.0425ms)
+✔ email validation, draft policies and malformed verification block completion (0.6541ms)
+✔ email login/reset/resend are same-origin and unavailable adapter never sends credentials (0.666ms)
+✔ customer API 401 invalidates shared identity while independent admin auth stays separate (0.3384ms)
+✔ malformed route escapes become recoverable input errors, valid encoded IDs are preserved (1.029ms)
+✔ explicit error links accept supported names and codes without executing arbitrary input (0.2242ms)
+✔ failure classification preserves transport status without exposing raw messages or mistaking unconfigured for offline (0.1413ms)
+✔ service requests stay on our origin, and external links reject executable URLs (0.8085ms)
+✔ requests pass cancellation and timeout, never turn malformed responses into success (29.8583ms)
+✔ external results preserve provider order, separate source, and safe links (1.1994ms)
+✔ unconfigured accounts never claim signed in; session expiration is a guest state (0.757ms)
+✔ account writes use same-origin POST and only explicit payloads (0.6778ms)
+✔ deadline cancels underlying work and rejects late adapters without applying them (13.0126ms)
+✔ route response must match this exact DAY visit order and valid geometry (0.3986ms)
+✔ route backend receives coordinates with visit IDs; malformed legacy road data fails safely (0.9491ms)
+✔ Naver SDK shares loading and reports late authorization failure, then retries (0.9383ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 186.2923

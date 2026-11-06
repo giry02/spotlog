@@ -11,7 +11,7 @@ export interface PublicSourceCredit { provider: string; author?: string; sourceU
 export interface PublicJournalPhoto { id: string; image: string; caption: string; sourceCredit?: PublicSourceCredit }
 /** A public reading projection. Private planning preferences, bookings and progress are excluded. */
 export interface PublicJournalPlace {
-  id: string; visitId?: string; kind: 'LANDMARK' | 'FOOD' | 'CAFE' | 'STAY' | 'SHOP'; name: string; area: string; address: string;
+  id: string; visitId?: string; kind: 'LANDMARK' | 'FOOD' | 'CAFE' | 'STAY' | 'SHOP' | 'LEISURE'; name: string; area: string; address: string;
   image: string; description: string; note: string; duration: string; planningSlot?: 'morning' | 'lunch' | 'afternoon' | 'dinner' | 'stay';
   photos?: PublicJournalPhoto[]; sourceCredit?: PublicSourceCredit;
 }

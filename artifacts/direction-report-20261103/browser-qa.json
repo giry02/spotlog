@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-01",
+  "reportViewports": [
+    {
+      "broken": 0,
+      "height": 844,
+      "pageOverflow": 0,
+      "slideOverflow": [],
+      "slides": 21,
+      "width": 390
+    },
+    {
+      "broken": 0,
+      "height": 1024,
+      "pageOverflow": 0,
+      "slideOverflow": [],
+      "slides": 21,
+      "width": 768
+    },
+    {
+      "broken": 0,
+      "height": 900,
+      "pageOverflow": 0,
+      "slideOverflow": [],
+      "slides": 21,
+      "width": 1440
+    }
+  ],
+  "printLayoutSimulation": {
+    "overflow": [],
+    "pages": 21,
+    "tooTall": [],
+    "width": 1047
+  },
+  "homeAuditDocument": [
+    {
+      "broken": 0,
+      "heading": "세 영역을 나누는 것만으로는찾기 쉬워지지 않음",
+      "pageOverflow": 0,
+      "tableOverflow": 0,
+      "width": 390
+    },
+    {
+      "broken": 0,
+      "heading": "세 영역을 나누는 것만으로는찾기 쉬워지지 않음",
+      "pageOverflow": 0,
+      "tableOverflow": 0,
+      "width": 1440
+    }
+  ],
+  "controls": {
+    "next": true,
+    "toc": true,
+    "allView": true,
+    "imageZoomAndClose": true,
+    "desktopChapter": true
+  },
+  "warnings": [],
+  "limitations": [
+    "Print CSS was checked through a screen simulation; no PDF file generated.",
+    "Local-file browser protocol unavailable; standalone assets verified statically.",
+    "Actual product unchanged; focused home findings in home-audit-qa.json."
+  ]
+}

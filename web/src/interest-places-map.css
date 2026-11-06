@@ -1,0 +1,31 @@
+.interest-places-map { margin: 12px 0 18px; overflow: hidden; border: 1px solid #e5e5e0; border-radius: 17px; background: white; }
+.interest-map-heading { padding: 15px 15px 6px; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.interest-map-heading strong { font-size: var(--type-body); line-height: 1.5; }
+.interest-map-heading > span { color: #777773; font-size: var(--type-caption); white-space: nowrap; }
+.interest-map-note { margin: 0; padding: 0 15px 14px; color: #62625e; font-size: var(--type-subhead); line-height: 1.6; }
+.interest-map-surface { position: relative; height: 300px; }
+.interest-map-canvas { width: 100%; height: 300px; background: #f0f0eb; }
+.interest-map-loading { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); margin: 0; padding: 7px 11px; border-radius: 10px; color: #383834; background: rgba(255,255,255,.95); font-size: var(--type-subhead); white-space: nowrap; pointer-events: none; }
+.interest-map-pin { min-width: 44px; min-height: 44px; padding: 6px 8px; border: 2px solid white; border-radius: 13px 13px 13px 3px; color: white; background: #242421; box-shadow: 0 2px 8px #0003; font-size: var(--type-caption); font-weight: 700; line-height: 1.5; }
+.interest-map-pin[data-kind=FOOD] { background: #b9442e; }
+.interest-map-pin[data-kind=CAFE] { background: #825a3d; }
+.interest-map-pin[data-kind=STAY] { background: #346a91; }
+.interest-map-pin[data-kind=LEISURE] { background: #586b40; }
+.interest-map-pin:focus-visible { z-index: 3; outline: 3px solid var(--accent); outline-offset: 3px; }
+.interest-map-fallback { min-height: 220px; padding: 24px 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; background: #f4f4ef; text-align: center; }
+.interest-map-fallback > svg { color: #b06b59; }
+.interest-map-fallback > strong { font-size: var(--type-body); line-height: 1.6; }
+.interest-map-fallback > p { margin: 0; color: #62625e; font-size: var(--type-subhead); line-height: 1.6; }
+.interest-map-fallback > button { min-height: 44px; padding: 10px 13px; display: inline-flex; align-items: center; gap: 7px; border: 1px solid #dcdcd6; border-radius: 11px; color: #383834; background: white; font-size: var(--type-subhead); font-weight: 700; }
+.interest-map-list { border-top: 1px solid var(--line); }
+.interest-map-list > summary { min-height: 48px; padding: 12px 15px; font-size: var(--type-subhead); font-weight: 700; cursor: pointer; }
+.interest-map-list > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+.interest-map-list > div { display: grid; padding: 0 15px 10px; }
+.interest-map-list > p { padding: 0 15px 8px; margin: 0; color: #62625e; font-size: var(--type-subhead); line-height: 1.6; }
+.interest-map-list button { width: 100%; min-height: 64px; display: flex; gap: 10px; align-items: center; padding: 10px 0; border: 0; border-top: 1px solid var(--line); color: var(--ink); background: transparent; text-align: left; }
+.interest-map-list button > svg { flex-shrink: 0; color: #b06b59; }
+.interest-map-list button > span:first-of-type { min-width: 0; flex: 1; display: grid; gap: 2px; }
+.interest-map-list button strong { font-size: var(--type-body); line-height: 1.5; overflow-wrap: anywhere; }
+.interest-map-list button small { color: #777773; font-size: var(--type-caption); line-height: 1.5; }
+.interest-map-list button > span:last-child { flex-shrink: 0; font-size: var(--type-subhead); }
+.interest-map-empty { margin: 0; padding: 15px; color: #62625e; font-size: var(--type-subhead); line-height: 1.6; }

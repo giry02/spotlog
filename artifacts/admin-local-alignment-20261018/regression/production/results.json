@@ -1,0 +1,122 @@
+{
+  "base": "http://127.0.0.1:5295/spotlog/",
+  "checks": [
+    {
+      "name": "changing global region preserves the active Busan editorial draft and conditions",
+      "detail": "pass"
+    },
+    {
+      "name": "returning through region-specific new draft restores the unsaved Busan title and conditions",
+      "detail": "pass"
+    },
+    {
+      "name": "Seoul and Busan unfinished conditions remain independent",
+      "detail": "pass"
+    },
+    {
+      "name": "isolated preview saves recovered draft privately into its dedicated session snapshot",
+      "detail": "pass"
+    },
+    {
+      "name": "preview regional recovery; no existing local storage reads, writes or bridge events",
+      "detail": "pass"
+    },
+    {
+      "name": "unfinished region-scoped draft conditions also recover after same-tab reload",
+      "detail": "pass"
+    },
+    {
+      "name": "preview reload recovery; no existing local storage reads, writes or bridge events",
+      "detail": "pass"
+    },
+    {
+      "name": "preview performs no service API calls",
+      "detail": "pass"
+    },
+    {
+      "name": "API recommendation 409 retains input and requires explicit latest-version reload",
+      "detail": "pass"
+    },
+    {
+      "name": "existing recommendation delayed save adopts revision and preserves post-submit text",
+      "detail": "pass"
+    },
+    {
+      "name": "API region 409 also preserves input and reloads only through explicit action",
+      "detail": "pass"
+    },
+    {
+      "name": "existing region delayed save preserves post-submit text without false conflict",
+      "detail": "pass"
+    },
+    {
+      "name": "new region draft-to-saved handoff preserves post-submit text",
+      "detail": "pass"
+    },
+    {
+      "name": "new recommendation handoff preserves post-submit title and generation conditions",
+      "detail": "pass"
+    },
+    {
+      "name": "real API editor fixtures stay memory-only; no existing local storage reads, writes or bridge events",
+      "detail": "pass"
+    },
+    {
+      "name": "real API editor never instantiates preview storage",
+      "detail": "pass"
+    },
+    {
+      "name": "ordinary admin 401; no existing local storage reads, writes or bridge events",
+      "detail": "pass"
+    },
+    {
+      "name": "ordinary 401 access gate enforced with mode=local",
+      "detail": "pass"
+    },
+    {
+      "name": "ordinary admin 403; no existing local storage reads, writes or bridge events",
+      "detail": "pass"
+    },
+    {
+      "name": "ordinary 403 access gate enforced with mode=local",
+      "detail": "pass"
+    },
+    {
+      "name": "ordinary admin 503; no existing local storage reads, writes or bridge events",
+      "detail": "pass"
+    },
+    {
+      "name": "ordinary 503 access gate enforced with mode=local",
+      "detail": "pass"
+    },
+    {
+      "name": "all isolated editor regression scenarios completed without uncaught errors",
+      "detail": "pass"
+    }
+  ],
+  "errors": [],
+  "apiCommands": [
+    {
+      "kind": "ops.curated.save",
+      "entityRevision": 1
+    },
+    {
+      "kind": "ops.curated.save",
+      "entityRevision": 2
+    },
+    {
+      "kind": "region.save",
+      "entityRevision": 1
+    },
+    {
+      "kind": "region.save",
+      "entityRevision": 2
+    },
+    {
+      "kind": "region.save"
+    },
+    {
+      "kind": "ops.curated.save"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "passed": true,
+  "states": 26,
+  "results": [
+    {
+      "width": 320,
+      "state": "preset-email-login"
+    },
+    {
+      "width": 320,
+      "state": "google-keeps-login"
+    },
+    {
+      "width": 320,
+      "state": "apple-keeps-login"
+    },
+    {
+      "width": 320,
+      "state": "one-click-review-member"
+    },
+    {
+      "width": 320,
+      "state": "review-session-reload"
+    },
+    {
+      "width": 320,
+      "state": "logout-remains-guest"
+    },
+    {
+      "width": 390,
+      "state": "preset-email-login"
+    },
+    {
+      "width": 390,
+      "state": "google-keeps-login"
+    },
+    {
+      "width": 390,
+      "state": "apple-keeps-login"
+    },
+    {
+      "width": 390,
+      "state": "one-click-review-member"
+    },
+    {
+      "width": 390,
+      "state": "review-session-reload"
+    },
+    {
+      "width": 390,
+      "state": "logout-remains-guest"
+    },
+    {
+      "width": 460,
+      "state": "preset-email-login"
+    },
+    {
+      "width": 460,
+      "state": "google-keeps-login"
+    },
+    {
+      "width": 460,
+      "state": "apple-keeps-login"
+    },
+    {
+      "width": 460,
+      "state": "one-click-review-member"
+    },
+    {
+      "width": 460,
+      "state": "review-session-reload"
+    },
+    {
+      "width": 460,
+      "state": "logout-remains-guest"
+    },
+    {
+      "width": 390,
+      "state": "google-existing-direct-login"
+    },
+    {
+      "width": 390,
+      "state": "google-new-pending-consent"
+    },
+    {
+      "width": 390,
+      "state": "apple-existing-direct-login"
+    },
+    {
+      "width": 390,
+      "state": "apple-new-pending-consent"
+    },
+    {
+      "width": 390,
+      "state": "social-conflict-preserves-email-login"
+    },
+    {
+      "width": 390,
+      "state": "normal-preserves-email-login"
+    },
+    {
+      "width": 390,
+      "state": "social-cancel-then-email-login"
+    },
+    {
+      "width": 390,
+      "state": "native-unavailable-keeps-login"
+    }
+  ],
+  "errors": []
+}

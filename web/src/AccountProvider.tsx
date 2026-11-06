@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
-import { AccountContext, type AccountView } from './accountContext';
+import { AccountContext, type AccountView, type AccountEntry } from './accountContext';
 import { AccountSheet } from './AccountSheet';
 import { createSocialAccountAdapter, type SocialAccountAdapter, type SocialSession } from './socialAccountService';
 import { createReviewAccountAdapter } from './reviewAccountService';
@@ -11,7 +11,7 @@ const defaultAdapter = import.meta.env.DEV && !endpoint ? createReviewAccountAda
 export function AccountProvider({ children, adapter = defaultAdapter }: { children: ReactNode; adapter?: SocialAccountAdapter }) {
   const [session, setSession] = useState<SocialSession>({ state: 'GUEST' });
   const [status, setStatus] = useState<'CHECKING' | 'READY' | 'ERROR'>(adapter.configured ? 'CHECKING' : 'READY');
-  const [sheet, setSheet] = useState<{ view: AccountView; reason?: string; instance: number } | null>(null);
+  const [sheet, setSheet] = useState<{ view: AccountView; reason?: string; entry?: AccountEntry; instance: number } | null>(null);
   const sheetInstance = useRef(0);
   const [generation, setGeneration] = useState(0);
   const [failureKind, setFailureKind] = useState<ErrorKind | null>(null);
@@ -32,10 +32,10 @@ export function AccountProvider({ children, adapter = defaultAdapter }: { childr
     window.addEventListener('focus', recheck); document.addEventListener('visibilitychange', recheck);
     return () => { window.removeEventListener('focus', recheck); document.removeEventListener('visibilitychange', recheck); };
   }, [adapter]);
-  const openAccount = (view: AccountView = session.state === 'SIGNED_IN' ? 'manage' : 'login', reason?: string) => setSheet({ view, reason, instance: ++sheetInstance.current });
+  const openAccount = (view: AccountView = session.state === 'SIGNED_IN' ? 'manage' : 'login', reason?: string, entry?: AccountEntry) => setSheet({ view, reason, entry, instance: ++sheetInstance.current });
   const sessionIdentity = session.state === 'SIGNED_IN' ? 'member:' + session.user.id : session.state === 'PENDING_SIGNUP' ? 'signup:' + session.provider : 'guest';
   return <AccountContext.Provider value={{ adapter, session, status, failureKind, updateSession, refresh: () => setGeneration(g => g + 1), openAccount, requireMember: reason => {
     if (status === 'READY' && session.state === 'SIGNED_IN') return true;
     openAccount('login', reason); return false;
-  } }}>{children}{sheet && <AccountSheet key={sheet.instance + ':' + sessionIdentity} adapter={adapter} initialView={sheet.view} reason={sheet.reason} onClose={() => setSheet(null)} />}</AccountContext.Provider>;
+  } }}>{children}{sheet && <AccountSheet key={sheet.instance + ':' + sessionIdentity} adapter={adapter} initialView={sheet.view} initialEntry={sheet.entry} reason={sheet.reason} onClose={() => setSheet(null)} />}</AccountContext.Provider>;
 }

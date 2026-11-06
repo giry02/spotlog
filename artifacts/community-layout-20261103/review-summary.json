@@ -1,0 +1,69 @@
+{
+  "scope": "local frontend only; existing customer/admin storage untouched; memory-only fixture",
+  "changedFiles": [
+    "TogetherApp.tsx",
+    "together.css",
+    "GroupDiscovery.tsx",
+    "group-discovery.css",
+    "ChatWorkspace.tsx",
+    "chat-workspace.css"
+  ],
+  "automated": {
+    "relatedTests": 101,
+    "failures": 0,
+    "webTypecheck": "passed"
+  },
+  "browser": {
+    "fixture": "http://127.0.0.1:5210/tests/moa-chat-review.html",
+    "widths": [
+      320,
+      390,
+      460
+    ],
+    "publicDiscovery": {
+      "horizontalOverflow": false,
+      "brokenImages": 0,
+      "rowHeight": 104,
+      "thumbnailWidth": 64,
+      "buttonsBelow44px": 0
+    },
+    "groupTabs320": {
+      "count": 5,
+      "minimumWidth": 48,
+      "height": 44
+    },
+    "chat390": {
+      "inputClientHeight": 44,
+      "inputScrollHeight": 44,
+      "composerBottom": 844
+    },
+    "chat320x400WithSixLinesAndEmoji": {
+      "scrollContainerHeight": 339,
+      "parentHeaderAndTabsHeight": 109,
+      "contextHeight": 48,
+      "composerDockHeight": 138,
+      "extrasClientHeight": 67,
+      "textareaClientHeight": 44,
+      "textareaScrollHeight": 164,
+      "emojiInsertionVerified": true,
+      "messageSubmitted": false
+    },
+    "consoleWarningsAndErrors": 0,
+    "flows": [
+      "activity schedule -> current activity assistant -> close -> group home -> own groups -> public discovery",
+      "collapsed board post -> body/reactions/comments disclosure",
+      "emoji selection appends to preserved page-memory draft; no send"
+    ]
+  },
+  "limitations": [
+    "Native phone keyboard not exercised",
+    "Real auth, messaging transport, notifications and actual AI remain unconnected",
+    "Standalone create/invite flow checked independently by root agent"
+  ],
+  "captures": [
+    "group-390.png",
+    "my-groups-320.png",
+    "discovery-390.png",
+    "chat-320x400.png"
+  ]
+}

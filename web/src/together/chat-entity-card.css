@@ -1,0 +1,45 @@
+/* Tabs navigate; these compact outlined controls operate on live shared items. */
+.tg-chat-workspace .tg-room-tools .tg-room-assistant { display:flex; flex:none; align-items:center; justify-content:center; gap:6px; min-height:44px; padding:8px; font-size:14px; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:8px; white-space:nowrap; }
+.tg-chat-workspace .tg-room-tools > .tg-icon { flex:none; }
+.tg-room-active-items { margin:0 16px 8px; border-top:1px solid var(--line); }
+.tg-room-active-items summary { display:flex; align-items:center; gap:8px; min-height:44px; list-style:none; cursor:pointer; font-size:14px; }
+.tg-room-active-items summary > span { flex:1; min-width:0; }
+.tg-room-active-items summary > small { font-size:12px; }
+.tg-room-active-items > div { max-height:160px; overflow-y:auto; overscroll-behavior:contain; }
+.tg .tg-room-active-items button { display:flex; align-items:center; gap:8px; width:100%; min-height:44px; padding:8px; border:0; border-top:1px solid var(--line); border-radius:0; text-align:left; background:transparent; }
+.tg-room-active-items button > span { flex:none; font-size:12px; color:var(--muted); }
+.tg-room-active-items button > strong { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px; font-weight:550; }
+.tg-chat-workspace .tg-chat-entity { width:280px; max-width:100%; min-width:0; padding:12px; border:1px solid var(--line); border-radius:12px; background:#fff; color:var(--ink); font-size:14px; line-height:20px; text-align:left; overflow-wrap:anywhere; }
+.tg-chat-entity-heading { display:flex; align-items:center; gap:6px; margin-bottom:8px; color:var(--muted); font-size:12px; line-height:16px; }
+.tg-chat-entity-heading > svg { flex:none; }
+.tg-chat-entity-heading > small { margin:0 0 0 auto; font-size:12px; }
+.tg-chat-entity .tg-chat-entity-title { display:block; font-size:16px; line-height:22px; margin-bottom:12px; font-weight:650; }
+.tg-chat-poll-options { display:grid; gap:8px; }
+.tg .tg-chat-poll-options > button { display:flex; align-items:center; width:100%; min-width:0; min-height:44px; gap:8px; padding:10px; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--ink); font-size:14px; line-height:20px; text-align:left; font-weight:400; }
+.tg .tg-chat-poll-options > button.is-chosen { border-color:var(--ink); background:var(--paper); }
+.tg-chat-poll-options > button > span:nth-child(2) { min-width:0; flex:1; overflow-wrap:anywhere; }
+.tg-chat-poll-options > button > strong { flex:none; font-size:12px; }
+.tg-chat-poll-options > button small { display:block; color:var(--accent); font-size:12px; }
+.tg-chat-poll-marker { display:flex; align-items:center; flex:none; }
+.tg-chat-entity .tg-chat-entity-footnote { margin-top:10px; color:var(--muted); font-size:12px; line-height:18px; }
+.tg-chat-entity-info { display:grid; gap:4px; margin:0 0 12px; }
+.tg-chat-entity-info > div { display:flex; gap:8px; }
+.tg-chat-entity-info dt { flex:none; color:var(--muted); }
+.tg-chat-entity-info dd { min-width:0; margin:0; }
+.tg .tg-chat-entity .tg-chat-task-toggle { display:flex; align-items:center; justify-content:flex-start; width:100%; min-height:44px; padding:10px; gap:8px; color:var(--ink); background:var(--paper); border:1px solid var(--line); border-radius:8px; font-size:14px; }
+.tg-chat-task-toggle > span { display:flex; align-items:center; justify-content:center; flex:none; width:18px; height:18px; border:1px solid var(--muted); border-radius:3px; }
+.tg-chat-task-toggle > span.is-complete { color:#fff; background:var(--ink); border-color:var(--ink); }
+.tg-chat-entity-line { display:flex; align-items:flex-start; gap:8px; margin:8px 0; font-size:14px; line-height:20px; }
+.tg-chat-entity-line > svg { flex:none; margin-top:2px; color:var(--muted); }
+.tg-chat-entity-line > span { min-width:0; }
+.tg .tg-chat-entity .tg-chat-entity-open { width:100%; min-height:44px; margin-top:8px; padding:10px; background:var(--ink); color:#fff; border:0; border-radius:8px; font-size:14px; }
+.tg-chat-notice-detail > summary { min-height:44px; display:flex; align-items:center; cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
+.tg-chat-notice-detail > div { padding-top:8px; border-top:1px solid var(--line); white-space:pre-wrap; }
+.tg-chat-entity-unavailable > strong { display:block; margin-bottom:4px; font-size:14px; }
+.tg-chat-entity-unavailable > div { color:var(--muted); font-size:12px; line-height:18px; }
+.tg-chat-entity-error { margin-top:8px; color:#a43828; font-size:12px; line-height:18px; }
+.tg .tg-chat-workspace .tg-entity-message-tools { display:flex; align-items:center; justify-content:center; width:44px; min-height:44px; padding:8px; margin-top:2px; background:transparent; border:0; color:var(--muted); }
+.tg-chat-message.mine .tg-entity-message-tools { margin-left:auto; }
+.tg-chat-entity button:focus-visible,.tg-room-active-items summary:focus-visible,.tg-chat-notice-detail summary:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+.tg .tg-chat-entity button:disabled { opacity:1; cursor:default; }
+.tg .tg-chat-poll-options > button:disabled:not(.is-chosen) { color:var(--muted); }

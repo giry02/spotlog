@@ -1,0 +1,49 @@
+/* Group navigation, content and actions have different visual roles. */
+.app-shell:has(.tg-chat-workspace) { overflow:clip; }
+.tg .tg-group-content { gap:24px; }
+.tg-home-section { display:flex; flex-direction:column; gap:12px; min-width:0; }
+.tg-home-section>.tg-section { margin:0; }
+.tg-home-section>.tg-activity-list { display:flex; flex-direction:column; gap:8px; }
+.tg .tg-create-action { min-height:44px; padding:10px 12px; border-radius:10px; font-weight:600; white-space:nowrap; }
+.tg .tg-home-section .tg-activity { background:var(--card,#fff); border:1px solid var(--line); border-radius:12px; }
+.tg .tg-room-assistant-link { justify-content:flex-start; padding:8px 0; border:0; border-radius:0; background:transparent; color:var(--muted); font-weight:500; }
+.tg-room-assistant-link>span { flex:1; text-align:left; }
+.tg-room-assistant-link>svg { flex-shrink:0; }
+.tg-group-information { border-top:1px solid var(--line); padding-top:24px; }
+.tg-group-info-list { display:flex; flex-direction:column; min-width:0; }
+.tg .tg-group-info-list>button { justify-content:flex-start; min-height:52px; border:0; border-bottom:1px solid var(--line); border-radius:0; padding:12px 0; background:transparent; font-weight:500; text-align:left; }
+.tg-group-info-list>button>span { flex:1; min-width:0; }
+.tg-group-info-list>button>small { white-space:nowrap; }
+.tg-group-info-list>button>svg { flex-shrink:0; }
+.tg .tg-group-information .tg-group-introduction { margin:0; }
+.tg .tg-group-information .tg-group-introduction summary { min-height:44px; display:flex; align-items:center; gap:8px; color:var(--muted); }
+.tg-assistant-destination { display:flex; align-items:flex-start; gap:8px; padding:12px; background:var(--soft,#f1f1ee); border-radius:10px; }
+.tg-assistant-destination>svg { flex:0 0 auto; margin-top:2px; }
+.tg-assistant-destination>div { min-width:0; }
+.tg-assistant-destination strong { display:block; font-size:14px; line-height:20px; font-weight:600; overflow-wrap:anywhere; }
+.tg-assistant-destination small { margin-top:4px; }
+.tg-assistant-extra { border-top:1px solid var(--line); padding-top:8px; }
+.tg-assistant-extra>summary { min-height:44px; display:flex; align-items:center; justify-content:space-between; gap:8px; cursor:pointer; color:var(--muted); font-size:14px; line-height:20px; }
+.tg-assistant-extra[open]>summary { margin-bottom:16px; }
+.tg-assistant-start { display:flex; align-items:center; gap:12px; }
+.tg-assistant-start>div { flex:1; min-width:0; }
+.tg-assistant-start h3 { font-size:16px; line-height:22px; }
+.tg-assistant-start>button { flex-shrink:0; }
+@media(max-width:359px) { .tg .tg-create-action { gap:4px; padding-inline:8px; } .tg-assistant-start { flex-wrap:wrap; } }
+
+.tg-join-welcome { min-width:0; padding:12px; border:1px solid var(--line); border-radius:12px; background:var(--soft-accent,#fff0eb); }
+.tg-join-welcome .tg-between { align-items:flex-start; gap:8px; }
+.tg-join-welcome .tg-between>div { flex:1; min-width:0; }
+.tg-join-welcome h2 { font-size:16px; line-height:22px; }
+.tg-join-welcome p { margin:4px 0 8px; font-size:14px; line-height:20px; }
+.tg-join-welcome .tg-row { gap:8px; flex-wrap:wrap; }
+.tg-join-welcome .tg-row>button { flex:1; min-height:44px; font-size:14px; white-space:normal; }
+.tg-pending-memberships { min-width:0; border-bottom:1px solid var(--line); padding-bottom:16px; }
+.tg-pending-memberships h2 { font-size:16px; line-height:22px; margin:0 0 8px; }
+.tg-pending-memberships h2>span { margin-left:4px; color:var(--muted); font-size:14px; font-weight:400; }
+.tg-pending-membership { display:flex; align-items:center; gap:8px; min-width:0; border-bottom:1px solid var(--line); }
+.tg .tg-pending-membership>button:first-child { flex:1; min-width:0; min-height:56px; justify-content:space-between; gap:8px; text-align:left; border:0; border-radius:0; padding:8px 0; background:transparent; }
+.tg-pending-membership>button:first-child>span { min-width:0; }
+.tg-pending-membership strong { display:block; overflow-wrap:anywhere; font-size:14px; line-height:20px; }
+.tg-pending-membership small { font-size:12px; line-height:16px; }
+.tg .tg-pending-membership>.tg-text-button { flex:none; min-height:44px; font-size:14px; }

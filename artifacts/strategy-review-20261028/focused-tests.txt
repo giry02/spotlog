@@ -1,0 +1,23 @@
+✔ saved food and café generate independent visits without any landmark or duplicate café (7.9637ms)
+✔ all saved food/café choices are retained even when several occupy the same broad time slot (0.9723ms)
+✔ public café-only requests use real café catalog seeds while existing default still selects landmarks (7.4173ms)
+✔ LEISURE is understood, generated and persisted without converting into a landmark (4.2998ms)
+✔ explicit exclusions and tampered saved-seed anchors are rejected instead of dropping selected places (1.0515ms)
+✔ hotel-only manual creation requires explicit nights and keeps accommodation identity independent (0.9886ms)
+✔ two hotels cannot silently replace each other on the same manually selected night (0.2513ms)
+✔ standalone base can receive a missing meal without removing itself and the saved preview remains recoverable (2.0606ms)
+✔ existing base type sizes remain stable (1.0339ms)
+✔ .detail-creator-numbers span uses the named role without a duplicate override (0.7892ms)
+✔ .detail-creator-numbers strong uses the named role without a duplicate override (0.1461ms)
+✔ .creator-journey-list strong uses the named role without a duplicate override (0.0765ms)
+✔ .creator-journey-list small uses the named role without a duplicate override (0.2243ms)
+✔ .creator-journey-list em uses the named role without a duplicate override (0.1226ms)
+✔ readable guide and in-app guide retain the same typography rules and rows (1.4996ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 166.8933

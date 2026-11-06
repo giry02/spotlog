@@ -17,6 +17,8 @@
 
 ## 공통 원본과 작업 흐름
 
+2026-10-12 관리자 사용성 개편: 지역 편집의 원본은 `AdminState.regions`와 기존 `region.save`로 통일. `ops.references`의 `REGION`은 옛 자료 호환을 위해 보존하지만 새 지역 등록 경로로 사용하지 않음. 지역별 장소 목록·새 추천 초안에는 같은 `regionId` 전달. UI의 `place-list`는 화면 진입 행동이며 API/DTO 명령 추가가 아님. 공개 후 메인 편집 연결도 기존 `HOME_TRIP` 노출 명령 사용, 명시적 저장 전 자동 게시 금지. 기존 서버 권한·revision·idempotency 및 사용권 검증 유지. [개편·검수 범위](../../execution/ADMIN_EASY_WORKFLOW_20261012.md).
+
 - 장소 `placeId`, 지역 `regionId`, 미디어 `mediaId` 고정. 기존 고객 원본 83개를 미승인 초안으로 수용하고 미디어 77개·출처 식별 22개 보존. 합성 검수 자료 6개는 별도 표시.
 - `AdminRegion`은 부모 지역·수준·사용 상태 관리. 장소 `draft/published.regionId`로 지역별 업무 연결. `filter.regionId`는 하위 지역 포함. `meta.createdById/assignedToId/reviewStatus/sourceBatchId`로 스태프·검수·가져오기 묶음 관리.
 - 공개 수정은 초안만 변경. 공개 전 이름·종류·지역·주소·검증 좌표·설명·출처·사용권 확인. 사진·영상은 매체별 사용권 검수. 원본 수용은 승인과 다름.

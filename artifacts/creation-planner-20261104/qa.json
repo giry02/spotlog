@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-11-04",
+  "workspace": "C:/Users/Giry/Documents/Spotlog",
+  "delivery": "local-only; no commit, push or deployment",
+  "implementation": {
+    "entries": ["home", "together-plan", "together-plan-trip", "group creation", "group next activity", "existing activity planning tools"],
+    "creationFlow": ["explicit prompt", "confirm and edit conditions", "up to three public catalog plans", "photo and address details", "replace/add/remove places", "review then save"],
+    "destinations": ["private personal itinerary", "new activity in a current persistent group", "one-off private activity space", "private persistent group"],
+    "groupDraft": ["name and kind", "base city and district", "introduction", "explicit interests", "welcome text", "joining guide", "first activity idea without automatic appointment"],
+    "support": ["shared-place comparison and poll", "explicit date candidates and poll", "departure checklist and preparation task", "actor-written feedback and next activity draft"],
+    "source": "CATALOG",
+    "actualLlmConnected": false,
+    "actualRealtimeWeatherPricesAvailabilityRoutingConnected": false,
+    "pending": ["LLM server adapter", "fresh weather/season/price/availability and real road/transit routes", "shared availability and midpoint automation", "automatic decision extraction and selected document import", "public discovery taxonomy expansion"]
+  },
+  "verification": {
+    "tests": {"command": "node --experimental-strip-types --test web/tests/*.test.mjs", "passed": 797, "failed": 0},
+    "build": {"command": "npm run web:build", "exitCode": 0, "note": "Includes web TypeScript check. Existing bundle-size warning remains."},
+    "browserIsolation": "All UI creation and writes used the existing in-memory platform-review fixture. Existing customer/admin storage and public records were not edited.",
+    "flowsChecked": ["food itinerary saved privately and opened", "date and time survive condition changes", "date poll saved without changing appointment or RSVP", "preparation task saved unassigned", "typed feedback explicitly shared", "next outing saved into current family group", "new group with city/district/interests/join guide saved privately", "first activity idea reopens in creation without automatic save", "three-day travel with lodging saved into a new actor-only activity space", "invitation screen opens without sending an invitation", "guest home entry opens login chooser", "empty nature catalog returns to preserved conditions"],
+    "responsiveWidths": [320, 390, 460],
+    "horizontalOverflowObserved": false,
+    "undersizedVisibleButtonsObserved": false,
+    "newInputFont": "16px",
+    "consoleErrorsObserved": [],
+    "images": "No loaded-image failures observed; unloaded offscreen lazy images are distinguished in browser-qa.json. Missing registered media uses the existing placeholder. Reference images are labelled in details.",
+    "domainChecks": ["latest membership and archive/block guards", "catalog withdrawal and unknown IDs", "private-field allowlist", "withdrawn-photo exclusion", "source/visit/day identities", "fixed-booking originals unchanged", "idempotent actions", "DAY partition replay conflict", "KST past and revision guards", "restaurant-only itinerary", "same-place alias avoidance without merging branches", "nature-only seasonal anchors", "no invented prices/walking/season/availability"]
+  },
+  "contracts": ["web/src/together/creationPlanner.ts: CreationBrief, CreationPlan, CreationGroupDraft, future CreationPlannerRequestV1/ResponseV1", "web/src/together/creationCommit.ts: CreationCommitInput and guarded write helpers"],
+  "evidence": ["browser-qa.json", "full-tests.txt", "build.txt", "nature-candidates-390.png", "group-review-390.png", "planning-next-390.png", "before/"]
+}

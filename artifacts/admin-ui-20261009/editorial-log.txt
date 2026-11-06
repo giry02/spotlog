@@ -1,0 +1,10 @@
+PASS selected region and two-day prompt create complete local rule draft 검수용 바다 전망대 → 검수용 바다 식당 → 검수용 풍경 카페 → 검수용 바다 숙소
+PASS DAY edits and order save as private draft, excluded from public bridge 
+PASS saved private draft survives reload and renders DAY/PLACE/source preview 
+PASS explicit publication appears on customer home in same isolated review context 
+PASS customer reading preserves published DAY and operator-edited article content 
+PASS isolated private sentinel preserved and no browser exceptions 
+PASS grade stages save incomplete draft through structured fields without JSON input 
+PASS valid structured grade stages activate as one policy with versioned save 
+PASS activated grade policy appears only in authenticated local device preview without editing copy counts 
+EDITORIAL_BROWSER_CHECKS 9 OUTPUT C:\Users\Giry\Documents\Spotlog\docs\execution\admin-workflow-fixes-20261005\editorial-browser

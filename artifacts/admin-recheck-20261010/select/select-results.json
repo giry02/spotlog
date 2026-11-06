@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "width": 390,
+      "state": "bounded-downward"
+    },
+    {
+      "width": 390,
+      "state": "search-select-native-change-focus"
+    },
+    {
+      "width": 390,
+      "state": "empty-search-escape"
+    },
+    {
+      "width": 390,
+      "state": "keyboard-skip-disabled"
+    },
+    {
+      "width": 390,
+      "state": "disabled-fieldset-policy"
+    },
+    {
+      "width": 390,
+      "state": "outside-dismiss"
+    },
+    {
+      "width": 390,
+      "state": "bottom-remains-in-viewport"
+    },
+    {
+      "width": 1024,
+      "state": "bounded-downward"
+    },
+    {
+      "width": 1024,
+      "state": "search-select-native-change-focus"
+    },
+    {
+      "width": 1024,
+      "state": "empty-search-escape"
+    },
+    {
+      "width": 1024,
+      "state": "keyboard-skip-disabled"
+    },
+    {
+      "width": 1024,
+      "state": "disabled-fieldset-policy"
+    },
+    {
+      "width": 1024,
+      "state": "outside-dismiss"
+    },
+    {
+      "width": 1024,
+      "state": "bottom-remains-in-viewport"
+    },
+    {
+      "width": 1920,
+      "state": "bounded-downward"
+    },
+    {
+      "width": 1920,
+      "state": "search-select-native-change-focus"
+    },
+    {
+      "width": 1920,
+      "state": "empty-search-escape"
+    },
+    {
+      "width": 1920,
+      "state": "keyboard-skip-disabled"
+    },
+    {
+      "width": 1920,
+      "state": "disabled-fieldset-policy"
+    },
+    {
+      "width": 1920,
+      "state": "outside-dismiss"
+    },
+    {
+      "width": 1920,
+      "state": "bottom-remains-in-viewport"
+    }
+  ],
+  "errors": []
+}

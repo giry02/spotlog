@@ -1,0 +1,167 @@
+{
+  "date": "2026-10-26",
+  "url": "http://127.0.0.1:5210/admin.html",
+  "course": "부산의 오래된 골목과 새 바다",
+  "checks": [
+    {
+      "width": 1440,
+      "name": "해운대암소갈비집",
+      "keyboardClosed": true,
+      "font": "16px",
+      "loaded": true,
+      "open": true,
+      "text": "점심\n해운대암소갈비집\n음식점 · 부산 해운대\n해운대암소갈비집 사진\n주소\n부산 해운대구 중동2로10번길 32-10\n체류\n1시간 20분\n\n해운대에서 오랫동안 자리를 지켜온 식당.\n\n출처 기존 프론트 샘플 — 사용 범위 재검수\n\n출처 기존 프론트 샘플 — 개별 출처 재검수"
+    },
+    {
+      "width": 1440,
+      "name": "시그니엘 부산",
+      "keyboardClosed": true,
+      "font": "16px",
+      "loaded": true,
+      "open": true,
+      "text": "숙박\n시그니엘 부산\n숙소 · 부산 해운대\n시그니엘 부산 사진\n주소\n부산 해운대구 달맞이길 30\n체류\n숙박\n\n해운대와 달맞이길 일정을 연결하기 좋은 바다 앞 숙박 거점.\n\n출처 기존 프론트 샘플 — 사용 범위 재검수\n\n출처 기존 프론트 샘플 — 개별 출처 재검수"
+    },
+    {
+      "width": 390,
+      "name": "해운대암소갈비집",
+      "pointerClosed": true,
+      "font": "16px",
+      "imageCount": 2,
+      "loaded": true,
+      "open": true,
+      "overflow": true,
+      "text": "점심\n해운대암소갈비집\n음식점 · 부산 해운대\n해운대암소갈비집 사진\n주소\n부산 해운대구 중동2로10번길 32-10\n체류\n1시간 20분\n\n해운대에서 오랫동안 자리를 지켜온 식당.\n\n출처 기존 프론트 샘플 — 사용 범위 재검수\n\n출처 기존 프론트 샘플 — 개별 출처 재검수"
+    },
+    {
+      "width": 390,
+      "name": "시그니엘 부산",
+      "pointerClosed": true,
+      "font": "16px",
+      "imageCount": 2,
+      "loaded": true,
+      "open": true,
+      "overflow": true,
+      "text": "숙박\n시그니엘 부산\n숙소 · 부산 해운대\n시그니엘 부산 사진\n주소\n부산 해운대구 달맞이길 30\n체류\n숙박\n\n해운대와 달맞이길 일정을 연결하기 좋은 바다 앞 숙박 거점.\n\n출처 기존 프론트 샘플 — 사용 범위 재검수\n\n출처 기존 프론트 샘플 — 개별 출처 재검수"
+    },
+    {
+      "width": 390,
+      "name": "웨이브온 커피",
+      "pointerClosed": true,
+      "font": "16px",
+      "imageCount": 2,
+      "loaded": true,
+      "open": true,
+      "overflow": true,
+      "text": "오후\n웨이브온 커피\n카페 · 부산 기장\n웨이브온 커피 사진\n주소\n부산 기장군 장안읍 해맞이로 286\n체류\n1시간\n\n기장 해안을 바라보며 동부산 드라이브 중 쉬어가기 좋은 카페.\n\n출처 기존 프론트 샘플 — 사용 범위 재검수\n\n출처 기존 프론트 샘플 — 개별 출처 재검수"
+    },
+    {
+      "check": "mobile-layout-after-fix",
+      "documentWidth": 390,
+      "rows": [
+        {
+          "bodyWidth": 275,
+          "client": 275,
+          "columns": "42px 40px 149px 20px",
+          "name": "감천문화마을",
+          "scroll": 275
+        },
+        {
+          "bodyWidth": 275,
+          "client": 275,
+          "columns": "42px 40px 149px 20px",
+          "name": "해운대암소갈비집",
+          "scroll": 275
+        },
+        {
+          "bodyWidth": 275,
+          "client": 275,
+          "columns": "42px 40px 149px 20px",
+          "name": "시그니엘 부산",
+          "scroll": 275
+        },
+        {
+          "bodyWidth": 275,
+          "client": 275,
+          "columns": "42px 40px 149px 20px",
+          "name": "웨이브온 커피",
+          "scroll": 275
+        }
+      ],
+      "width": 390
+    }
+  ],
+  "finalCheck": {
+    "documentWidth": 455,
+    "rows": [
+      {
+        "client": 340,
+        "images": [
+          {
+            "loaded": true,
+            "url": "http://127.0.0.1:5210/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/night-market.jpg"
+          },
+          {
+            "loaded": true,
+            "url": "http://127.0.0.1:5210/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/night-market.jpg"
+          }
+        ],
+        "name": "감천문화마을",
+        "open": false,
+        "scroll": 340
+      },
+      {
+        "client": 340,
+        "images": [
+          {
+            "loaded": true,
+            "url": "http://127.0.0.1:5210/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/local-food.jpg"
+          },
+          {
+            "loaded": true,
+            "url": "http://127.0.0.1:5210/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/local-food.jpg"
+          }
+        ],
+        "name": "해운대암소갈비집",
+        "open": true,
+        "scroll": 340
+      },
+      {
+        "client": 340,
+        "images": [
+          {
+            "loaded": true,
+            "url": "http://127.0.0.1:5210/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/resort.jpg"
+          },
+          {
+            "loaded": true,
+            "url": "http://127.0.0.1:5210/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/resort.jpg"
+          }
+        ],
+        "name": "시그니엘 부산",
+        "open": true,
+        "scroll": 340
+      },
+      {
+        "client": 340,
+        "images": [
+          {
+            "loaded": true,
+            "url": "http://127.0.0.1:5210/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/danang-beach.jpg"
+          },
+          {
+            "loaded": true,
+            "url": "http://127.0.0.1:5210/@fs/C:/Users/Giry/Documents/Spotlog/assets/spotlog/danang-beach.jpg"
+          }
+        ],
+        "name": "웨이브온 커피",
+        "open": true,
+        "scroll": 340
+      }
+    ],
+    "width": 455
+  },
+  "consoleErrors": [],
+  "photoNote": "Existing common sample images; not verified photographs of the named businesses.",
+  "change": "Mobile summary trailing track widened from 18px to 20px for 19px chevron; no content/store changes.",
+  "git": "No commit, push or deployment."
+}

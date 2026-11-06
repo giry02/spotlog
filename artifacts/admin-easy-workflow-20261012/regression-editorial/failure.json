@@ -1,0 +1,5 @@
+{
+  "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.admin-page-body:not([hidden])').getByRole('button', { name: '조건으로 초안 다시 만들기', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.admin-page-body:not([hidden])').getByRole('button', { name: '조건으로 초안 다시 만들기', exact: true }) with timeout 5000ms\n  - waiting for locator('.admin-page-body:not([hidden])').getByRole('button', { name: '조건으로 초안 다시 만들기', exact: true })\n\n    at captureRawStack (C:\\Users\\Giry\\.codex\\worktrees\\a125\\Spotlog\\node_modules\\playwright-core\\lib\\coreBundle.js:8588:17)\n    at callMatcherAsStep (C:\\Users\\Giry\\.codex\\worktrees\\a125\\Spotlog\\node_modules\\playwright\\lib\\matchers\\expect.js:13310:57)\n    at Object.toBeVisible (C:\\Users\\Giry\\.codex\\worktrees\\a125\\Spotlog\\node_modules\\playwright\\lib\\matchers\\expect.js:13302:23)\n    at main (C:\\Users\\Giry\\Documents\\Spotlog\\web\\tests\\adminEditorialBrowser.cjs:27:93)",
+  "checks": [],
+  "errors": []
+}

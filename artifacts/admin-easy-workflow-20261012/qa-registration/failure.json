@@ -1,0 +1,20 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: 390 registration begins below first viewport: {\"x\":33,\"y\":919.953125,\"width\":309,\"height\":42}\n    at registrationLayoutChecks (C:\\Users\\Giry\\Documents\\Spotlog\\web\\tests\\adminEasyWorkflowBrowser.cjs:143:12)\n    at async main (C:\\Users\\Giry\\Documents\\Spotlog\\web\\tests\\adminEasyWorkflowBrowser.cjs:161:50)",
+  "checks": [
+    {
+      "name": "registration starts within first viewport, uses 16px input and keeps description clear of sticky actions",
+      "detail": {
+        "width": 1440,
+        "nameY": 672
+      }
+    },
+    {
+      "name": "registration starts within first viewport, uses 16px input and keeps description clear of sticky actions",
+      "detail": {
+        "width": 1024,
+        "nameY": 658
+      }
+    }
+  ],
+  "errors": []
+}

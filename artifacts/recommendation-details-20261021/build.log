@@ -1,0 +1,139 @@
+
+> spotlog@1.0.0 web:build
+> npm run build --workspace @spotlog/web
+
+
+> @spotlog/web@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.2.2 building client environment for production...
+transforming...
+✓ 2079 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/error.html                                                                0.74 kB │ gzip:   0.38 kB
+dist/404.html                                                                  0.78 kB │ gzip:   0.43 kB
+dist/index.html                                                                0.84 kB │ gzip:   0.38 kB
+dist/admin.html                                                                0.88 kB │ gzip:   0.43 kB
+dist/admin-preview.html                                                        0.88 kB │ gzip:   0.44 kB
+dist/assets/catalog-busan-piark-metadata015285-B94PuocQ.webp                  30.28 kB
+dist/assets/catalog-busan-choryang1941-metadata000930-BZMCUnG5.webp           39.86 kB
+dist/assets/catalog-busan-bibibidang-metadata002464-C30inj4A.webp             51.67 kB
+dist/assets/catalog-busan-chunha-chudong-metadata012365-BsnlCq0V.webp         53.49 kB
+dist/assets/catalog-busan-darakjae-metadata013050-CDOawZov.webp               56.36 kB
+dist/assets/catalog-busan-perli-metadata013152-COmzX5EK.webp                  62.22 kB
+dist/assets/catalog-busan-dohine-metadata012528-BlQICk2E.webp                 66.64 kB
+dist/assets/catalog-busan-piark-metadata015284-C70B7v8S.webp                  74.52 kB
+dist/assets/catalog-busan-kappadokia-metadata012705-D3rfkMKp.webp             76.09 kB
+dist/assets/jeju-aewol-travel-notes-Be-LXJMF.webp                             79.76 kB
+dist/assets/catalog-busan-geumsu-metadata012464-DQugnMHx.webp                 83.08 kB
+dist/assets/catalog-busan-momos-domoheon-metadata000115-C6sCSiif.webp         87.55 kB
+dist/assets/catalog-busan-gukje-chicken-metadata012897-Z0nIXnD7.webp          91.06 kB
+dist/assets/catalog-busan-kappadokia-metadata012697-ebD3-Aq5.webp             91.97 kB
+dist/assets/catalog-busan-ogoodthing-metadata002206-CF9oZ0Y0.webp             94.33 kB
+dist/assets/catalog-busan-chunha-chudong-metadata012364-DuZ99SmV.webp         96.54 kB
+dist/assets/catalog-busan-sea-and-tree-metadata000293-BcGTNJta.webp          100.19 kB
+dist/assets/jeju-hyeopjae-udon-dinner-Bf6NCz0w.webp                          101.46 kB
+dist/assets/catalog-busan-momos-yeongdo-metadata002356-DFgzXWfL.webp         104.83 kB
+dist/assets/public-busan-ilgwang-metadata006445-B5LemFnq.webp                111.09 kB
+dist/assets/gangwon-east-sea-sunrise-BKoDeWES.webp                           111.21 kB
+dist/assets/catalog-busan-darakjae-metadata013049-BX9-DjNx.webp              113.78 kB
+dist/assets/gyeongju-donggung-C19WkUCa.jpg                                   118.19 kB
+dist/assets/public-busan-huinnyeoul-metadata006085-BMlbsB5z.webp             121.10 kB
+dist/assets/public-busan-jukseong-metadata006371-BCSk626D.webp               122.39 kB
+dist/assets/catalog-busan-momos-domoheon-metadata000114-DHSaz_T8.webp        126.86 kB
+dist/assets/catalog-busan-seunggi-hotteok-metadata012375-BZm5mlHj.webp       128.99 kB
+dist/assets/catalog-busan-dongnae-pajeon-metadata012588-DjhvvZ3i.webp        129.03 kB
+dist/assets/public-busan-taejongdae-metadata009975-DdjLOtHk.webp             129.99 kB
+dist/assets/catalog-busan-sageori-bunsik-metadata012773-BMOGq6Cr.webp        134.27 kB
+dist/assets/catalog-busan-ogoodthing-metadata002205-JSw8AAB-.webp            137.36 kB
+dist/assets/catalog-busan-sageori-bunsik-metadata012783-DOPaLJjS.webp        144.09 kB
+dist/assets/spa-COepYCq0.jpg                                                 146.48 kB
+dist/assets/catalog-busan-perli-metadata013151-CduvOK3w.webp                 148.75 kB
+dist/assets/jeju-west-hotel-night-DClj6H8k.jpg                               150.31 kB
+dist/assets/public-busan-jukseong-metadata006375-BAcaw4NX.webp               158.46 kB
+dist/assets/night-market-CceaUVSe.jpg                                        161.35 kB
+dist/assets/public-busan-songdo-metadata004299-CpeygcVg.webp                 161.72 kB
+dist/assets/catalog-busan-gukje-chicken-metadata012896-DJuk0ACG.webp         161.95 kB
+dist/assets/busan-haeundae-blue-hour-wlBFIqqn.webp                           163.19 kB
+dist/assets/public-busan-dongnae-metadata003911-D0TxfiVW.webp                164.11 kB
+dist/assets/jeju-hyeopjae-udon-Cz94FHY8.jpg                                  164.51 kB
+dist/assets/catalog-busan-bibibidang-metadata002463-B52OR4r5.webp            170.69 kB
+dist/assets/jeju-osulloc-morning-dew-HyESjvLH.webp                           171.69 kB
+dist/assets/catalog-busan-blackup-saha-metadata002341-BY7SQQwB.webp          171.72 kB
+dist/assets/catalog-busan-mandi-metadata000589-tEL67JnW.webp                 173.69 kB
+dist/assets/osulloc-tea-B6Hc88fY.jpg                                         174.53 kB
+dist/assets/catalog-busan-dohine-metadata012526-C4EOdLTJ.webp                177.19 kB
+dist/assets/hyeopjae-scenery-B0yDzKQL.jpg                                    177.38 kB
+dist/assets/catalog-busan-namcheon-green-tea-metadata012993-u1uxDglz.webp    178.11 kB
+dist/assets/catalog-busan-geumsu-metadata012472-BM2edzDE.webp                178.68 kB
+dist/assets/public-busan-ilgwang-metadata006440-DrRcZJYP.webp                180.49 kB
+dist/assets/gyeongju-woljeonggyo-DbvnFIQc.jpg                                197.79 kB
+dist/assets/catalog-busan-mandi-metadata000586-LRW-Qljv.webp                 198.97 kB
+dist/assets/public-busan-huinnyeoul-metadata006339-C-t4Te8A.webp             201.86 kB
+dist/assets/local-food-FU7q1UfV.jpg                                          202.87 kB
+dist/assets/osulloc-museum-D1lMo5h0.jpg                                      203.10 kB
+dist/assets/public-busan-songdo-metadata002917-BFuBkvFx.webp                 207.08 kB
+dist/assets/marble-mountain-CbTwj9N9.jpg                                     207.37 kB
+dist/assets/jeju-aewol-bakery-oBrOaP-D.jpg                                   207.98 kB
+dist/assets/gyeongju-cheomseongdae-ZksrDkWA.jpg                              213.89 kB
+dist/assets/anmok-beach-D8IGZuJ9.jpg                                         215.64 kB
+dist/assets/catalog-busan-hanok-metadata012070-AM89WFJ4.webp                 215.89 kB
+dist/assets/catalog-busan-hanok-metadata012069-BL-sN-VE.webp                 219.72 kB
+dist/assets/catalog-busan-namcheon-eel-metadata012180-B_zN10oV.webp          230.47 kB
+dist/assets/jeju-west-guide-cover-CVH5GF-a.jpg                               230.49 kB
+dist/assets/catalog-busan-dongnae-pajeon-metadata012589-DuDtfcY0.webp        231.40 kB
+dist/assets/gyeongju-daereungwon-Duu25E2m.jpg                                231.90 kB
+dist/assets/jeju-hyeopjae-tidepool-Dc3nxX4O.webp                             233.18 kB
+dist/assets/catalog-busan-namcheon-eel-metadata012188-g-xVch7G.webp          236.50 kB
+dist/assets/hyeopjae-shore-CsSl8C_9.jpg                                      240.66 kB
+dist/assets/jeju-saebyeol-trail-CGeU0QEE.webp                                240.85 kB
+dist/assets/jeju-sanbangsan-cafe-BIcbiJWh.jpg                                248.83 kB
+dist/assets/catalog-busan-waveon-metadata012148-Dhc7sYNc.webp                250.20 kB
+dist/assets/catalog-busan-seunggi-hotteok-metadata012383-CvDAcDCN.webp       253.42 kB
+dist/assets/catalog-busan-momos-yeongdo-metadata002357-CyMh7P_H.webp         253.95 kB
+dist/assets/jeju-osulloc-tea-field-D_okO3ye.jpg                              255.22 kB
+dist/assets/jeju-sagye-tidepool-CxAGYl0m.webp                                262.04 kB
+dist/assets/saebyeol-ridge-7Fdr8Yw1.jpg                                      281.73 kB
+dist/assets/saebyeol-autumn-DpT5dhFI.jpg                                     304.16 kB
+dist/assets/jeju-sagye-coast-CgEknOW-.jpg                                    310.18 kB
+dist/assets/resort-CPFOxvNM.jpg                                              321.61 kB
+dist/assets/sagye-rocks-Xe3mvRDd.jpg                                         348.10 kB
+dist/assets/jeju-saebyeol-oreum-D5mPmj0S.jpg                                 354.96 kB
+dist/assets/catalog-busan-waveon-metadata012149-LX6Sdbv3.webp                361.16 kB
+dist/assets/seoul-forest-evening-DPpAlJ_g.webp                               372.68 kB
+dist/assets/sagye-coast-7-4cBguH.jpg                                         378.84 kB
+dist/assets/busan-dongbaek-riXv9_cQ.jpg                                      401.94 kB
+dist/assets/public-busan-dongnae-metadata004371-CGJJvNr1.webp                405.57 kB
+dist/assets/danang-beach-BGP69XQ2.jpg                                        419.12 kB
+dist/assets/catalog-busan-namcheon-green-tea-metadata012991-BcGnMHET.webp    447.15 kB
+dist/assets/maplibre-gl-worker-5lTrTa-q.js                                   475.77 kB
+dist/assets/seoulforest-path-BK5vIzLM.jpg                                    540.34 kB
+dist/assets/busan-dongbaek-camellia-DbSunhUS.png                             658.32 kB
+dist/assets/busan-gwangalli-BmB5XF9m.png                                   1,737.66 kB
+dist/assets/busan-gukje-B9IDteUo.png                                       2,043.60 kB
+dist/assets/busan-gamcheon-yZay2bAk.png                                    2,442.27 kB
+dist/assets/busan-igidae-DRVjc6T-.png                                      2,490.34 kB
+dist/assets/busan-haeundae-BxtwOP4K.png                                    2,570.87 kB
+dist/assets/busan-jagalchi-BEmttbwO.png                                    2,679.07 kB
+dist/assets/admin-BCw10mIX.css                                                43.44 kB │ gzip:   8.04 kB
+dist/assets/RouteMap-CKRTiAqP.css                                             82.86 kB │ gzip:  10.71 kB
+dist/assets/customer-_z21jSAU.css                                             84.44 kB │ gzip:  14.86 kB
+dist/assets/theme-rBaQKUks.css                                               114.04 kB │ gzip:  21.21 kB
+dist/assets/admin-VbztTP1Q.js                                                  0.24 kB │ gzip:   0.20 kB
+dist/assets/error-main-u9ESRdfp.js                                             1.19 kB │ gzip:   0.61 kB
+dist/assets/adminPreview-DaD2Xq5D.js                                           1.45 kB │ gzip:   0.91 kB
+dist/assets/RouteMap-DbiUPlYA.js                                              11.10 kB │ gzip:   5.09 kB
+dist/assets/theme-BD0yZbBl.js                                                103.13 kB │ gzip:  34.09 kB
+dist/assets/serviceRequest-B91Ei66P.js                                       194.07 kB │ gzip:  61.69 kB
+dist/assets/creatorGrade-Dburbg71.js                                         214.96 kB │ gzip:  59.72 kB
+dist/assets/admin-Ccgjuhr6.js                                                384.40 kB │ gzip:  92.69 kB
+dist/assets/customer-q6QkWfPW.js                                             413.69 kB │ gzip: 123.69 kB
+dist/assets/maplibre-gl-uag32EAZ.js                                          952.39 kB │ gzip: 248.03 kB
+
+✓ built in 1.25s
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

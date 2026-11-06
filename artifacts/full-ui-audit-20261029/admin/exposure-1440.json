@@ -1,0 +1,18 @@
+{
+  "width": 1440,
+  "page": "노출·추천",
+  "docOverflow": 0,
+  "mainOverflow": 0,
+  "tables": [],
+  "tabs": [
+    {
+      "gap": "6px",
+      "x": 268,
+      "y": 313,
+      "w": 1125,
+      "h": 49
+    }
+  ],
+  "smallButtons": [],
+  "horizontalOverflowElements": []
+}

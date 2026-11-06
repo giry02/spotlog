@@ -1,0 +1,32 @@
+{
+  "fromLibrary": {
+    "purpose": "PLAN",
+    "stage": "READY",
+    "reviewButton": 0
+  },
+  "fromSaved": {
+    "purpose": "PLAN",
+    "stage": "READY",
+    "candidates": 0,
+    "reviewButton": 0
+  },
+  "notificationShortcut": {
+    "menu": "운영 설정·이력",
+    "tab": "알림"
+  },
+  "mineShortcut": {
+    "assignee": "operator-admin",
+    "review": "NEEDS_CHECK"
+  },
+  "regionShortcut": {
+    "tab": "지역 관리"
+  },
+  "masterMigration": {
+    "baseline": 107,
+    "previous": 89,
+    "after": 107,
+    "newRegionRecords": 18,
+    "stillMissing": 0,
+    "editedPreserved": true
+  }
+}

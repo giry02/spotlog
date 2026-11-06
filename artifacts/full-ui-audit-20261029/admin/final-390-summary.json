@@ -1,0 +1,102 @@
+[
+  {
+    "page": "운영 현황",
+    "width": 390,
+    "overflow": 0,
+    "docOverflow": 0,
+    "tabs": [],
+    "shortTouch": [],
+    "small": 0,
+    "outside": 0
+  },
+  {
+    "page": "장소·업체",
+    "width": 390,
+    "overflow": 0,
+    "docOverflow": 0,
+    "tabs": [
+      {
+        "gap": "8px",
+        "height": 63
+      }
+    ],
+    "shortTouch": [],
+    "small": 0,
+    "outside": 0
+  },
+  {
+    "page": "노출·추천",
+    "width": 390,
+    "overflow": 0,
+    "docOverflow": 0,
+    "tabs": [
+      {
+        "gap": "8px",
+        "height": 73
+      }
+    ],
+    "shortTouch": [],
+    "small": 0,
+    "outside": 0
+  },
+  {
+    "page": "여행기·커뮤니티",
+    "width": 390,
+    "overflow": 0,
+    "docOverflow": 0,
+    "tabs": [
+      {
+        "gap": "8px",
+        "height": 63
+      }
+    ],
+    "shortTouch": [],
+    "small": 0,
+    "outside": 0
+  },
+  {
+    "page": "회원·문의",
+    "width": 390,
+    "overflow": 0,
+    "docOverflow": 0,
+    "tabs": [
+      {
+        "gap": "8px",
+        "height": 63
+      }
+    ],
+    "shortTouch": [],
+    "small": 0,
+    "outside": 0
+  },
+  {
+    "page": "AI·검색 운영",
+    "width": 390,
+    "overflow": 0,
+    "docOverflow": 0,
+    "tabs": [
+      {
+        "gap": "8px",
+        "height": 73
+      }
+    ],
+    "shortTouch": [],
+    "small": 0,
+    "outside": 0
+  },
+  {
+    "page": "운영 설정·이력",
+    "width": 390,
+    "overflow": 0,
+    "docOverflow": 0,
+    "tabs": [
+      {
+        "gap": "8px",
+        "height": 73
+      }
+    ],
+    "shortTouch": [],
+    "small": 0,
+    "outside": 0
+  }
+]

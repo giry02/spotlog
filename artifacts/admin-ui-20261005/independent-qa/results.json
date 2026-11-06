@@ -1,0 +1,2639 @@
+{
+  "createdAt": "2026-10-05T07:36:12.098Z",
+  "browser": "isolated Edge headless",
+  "widths": [
+    1440,
+    820,
+    390,
+    320
+  ],
+  "scenes": 60,
+  "errors": [],
+  "findings": [],
+  "results": [
+    {
+      "width": 1440,
+      "scene": "report-context",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "신고 목록",
+          "rect": {
+            "x": 268,
+            "y": 421.5,
+            "w": 401.8,
+            "h": 732,
+            "right": 669.8,
+            "bottom": 1153.6
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "신고 상세",
+          "rect": {
+            "x": 689.8,
+            "y": 421.5,
+            "w": 703.2,
+            "h": 1156.8,
+            "right": 1393,
+            "bottom": 1578.3
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-report-context.png"
+    },
+    {
+      "width": 1440,
+      "scene": "synthetic-journal",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록",
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 268,
+            "y": 421.5,
+            "w": 401.8,
+            "h": 1976.5,
+            "right": 669.8,
+            "bottom": 2398
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "샘플 여행기 · 바다 산책",
+          "rect": {
+            "x": 689.8,
+            "y": 421.5,
+            "w": 703.2,
+            "h": 1715.6,
+            "right": 1393,
+            "bottom": 2137.2
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-synthetic-journal.png"
+    },
+    {
+      "width": 1440,
+      "scene": "card-comments",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록",
+        "삭제 조치 기록",
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 268,
+            "y": -656.5,
+            "w": 401.8,
+            "h": 1976.5,
+            "right": 669.8,
+            "bottom": 1320
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "샘플 여행기 · 바다 산책",
+          "rect": {
+            "x": 689.8,
+            "y": -656.5,
+            "w": 703.2,
+            "h": 2255.8,
+            "right": 1393,
+            "bottom": 1599.3
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-card-comments.png"
+    },
+    {
+      "width": 1440,
+      "scene": "public-journal",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록",
+        "삭제 조치 기록",
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 268,
+            "y": -148.5,
+            "w": 401.8,
+            "h": 1976.5,
+            "right": 669.8,
+            "bottom": 1828
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "바람을 따라 걷는 제주 서쪽",
+          "rect": {
+            "x": 689.8,
+            "y": -148.5,
+            "w": 703.2,
+            "h": 10106.9,
+            "right": 1393,
+            "bottom": 9958.5
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-public-journal.png"
+    },
+    {
+      "width": 1440,
+      "scene": "public-card-likes",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 268,
+            "y": -8969.5,
+            "w": 401.8,
+            "h": 1976.5,
+            "right": 669.8,
+            "bottom": -6993
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "바람을 따라 걷는 제주 서쪽",
+          "rect": {
+            "x": 689.8,
+            "y": -8969.5,
+            "w": 703.2,
+            "h": 10202.7,
+            "right": 1393,
+            "bottom": 1233.2
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-public-card-likes.png"
+    },
+    {
+      "width": 1440,
+      "scene": "translation",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 268,
+            "y": 421.5,
+            "w": 401.8,
+            "h": 1976.5,
+            "right": 669.8,
+            "bottom": 2398
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "원문·번역 비교",
+          "rect": {
+            "x": 689.8,
+            "y": 421.5,
+            "w": 703.2,
+            "h": 586.7,
+            "right": 1393,
+            "bottom": 1008.2
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-translation.png"
+    },
+    {
+      "width": 1440,
+      "scene": "member-deletion",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "기간 정지 기록"
+      ],
+      "panels": [
+        {
+          "title": "회원 검색",
+          "rect": {
+            "x": 268,
+            "y": -129.5,
+            "w": 401.8,
+            "h": 1809.8,
+            "right": 669.8,
+            "bottom": 1680.3
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "검수 회원 B",
+          "rect": {
+            "x": 689.8,
+            "y": -129.5,
+            "w": 703.2,
+            "h": 1126,
+            "right": 1393,
+            "bottom": 996.6
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-member-deletion.png"
+    },
+    {
+      "width": 1440,
+      "scene": "inquiry",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "문의 처리 기록 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "접수 문의",
+          "rect": {
+            "x": 268,
+            "y": 421.5,
+            "w": 401.8,
+            "h": 252.6,
+            "right": 669.8,
+            "bottom": 674.1
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "샘플 문의 · 사진 사용 조건",
+          "rect": {
+            "x": 689.8,
+            "y": 421.5,
+            "w": 703.2,
+            "h": 514.1,
+            "right": 1393,
+            "bottom": 935.6
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-inquiry.png"
+    },
+    {
+      "width": 1440,
+      "scene": "settings-regions",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "지역 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "등록 지역",
+          "rect": {
+            "x": 268,
+            "y": 421.5,
+            "w": 401.8,
+            "h": 8674.3,
+            "right": 669.8,
+            "bottom": 9095.8
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "지역 편집",
+          "rect": {
+            "x": 689.8,
+            "y": 421.5,
+            "w": 703.2,
+            "h": 581.5,
+            "right": 1393,
+            "bottom": 1003
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-settings-regions.png"
+    },
+    {
+      "width": 1440,
+      "scene": "settings-references",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "기준 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "운영 기준 목록",
+          "rect": {
+            "x": 268,
+            "y": 421.5,
+            "w": 401.8,
+            "h": 287.5,
+            "right": 669.8,
+            "bottom": 709
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "등급 기준 편집",
+          "rect": {
+            "x": 689.8,
+            "y": 421.5,
+            "w": 703.2,
+            "h": 1895.1,
+            "right": 1393,
+            "bottom": 2316.7
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-settings-references.png"
+    },
+    {
+      "width": 1440,
+      "scene": "settings-operators",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "운영자 등록",
+          "type": "submit-default",
+          "disabled": true,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "운영자 계정·역할",
+          "rect": {
+            "x": 268,
+            "y": 421.5,
+            "w": 1125,
+            "h": 965.3,
+            "right": 1393,
+            "bottom": 1386.8
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-settings-operators.png"
+    },
+    {
+      "width": 1440,
+      "scene": "settings-notifications",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "템플릿 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "알림 템플릿",
+          "rect": {
+            "x": 268,
+            "y": 421.5,
+            "w": 1125,
+            "h": 561.4,
+            "right": 1393,
+            "bottom": 982.9
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "발송 실패·수신 거부·중복",
+          "rect": {
+            "x": 268,
+            "y": 1002.9,
+            "w": 1125,
+            "h": 687.2,
+            "right": 1393,
+            "bottom": 1690.1
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-settings-notifications.png"
+    },
+    {
+      "width": 1440,
+      "scene": "settings-connections",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "연결과 확인한 사용 한도",
+          "rect": {
+            "x": 268,
+            "y": 421.5,
+            "w": 1125,
+            "h": 2568.6,
+            "right": 1393,
+            "bottom": 2990.2
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "데이터 수급 작업",
+          "rect": {
+            "x": 268,
+            "y": 3010.2,
+            "w": 1125,
+            "h": 247.8,
+            "right": 1393,
+            "bottom": 3257.9
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-settings-connections.png"
+    },
+    {
+      "width": 1440,
+      "scene": "settings-cleanup",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "사용자 휴지통·만료",
+          "rect": {
+            "x": 268,
+            "y": 421.5,
+            "w": 1125,
+            "h": 713.1,
+            "right": 1393,
+            "bottom": 1134.6
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "파일 참조 확인·정리 작업",
+          "rect": {
+            "x": 268,
+            "y": 1154.6,
+            "w": 1125,
+            "h": 496.6,
+            "right": 1393,
+            "bottom": 1651.2
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-settings-cleanup.png"
+    },
+    {
+      "width": 1440,
+      "scene": "settings-audit",
+      "mainClient": 1189,
+      "mainScroll": 1189,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "모든 변경·조치 이력",
+          "rect": {
+            "x": 268,
+            "y": 421.5,
+            "w": 1125,
+            "h": 375.7,
+            "right": 1393,
+            "bottom": 797.2
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "1440-settings-audit.png"
+    },
+    {
+      "width": 820,
+      "scene": "report-context",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "신고 목록",
+          "rect": {
+            "x": 22,
+            "y": 415.5,
+            "w": 285,
+            "h": 809.6,
+            "right": 307,
+            "bottom": 1225.1
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "신고 상세",
+          "rect": {
+            "x": 327,
+            "y": 415.5,
+            "w": 456,
+            "h": 1192.4,
+            "right": 783,
+            "bottom": 1607.9
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-report-context.png"
+    },
+    {
+      "width": 820,
+      "scene": "synthetic-journal",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록",
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 22,
+            "y": 415.5,
+            "w": 285,
+            "h": 2163.2,
+            "right": 307,
+            "bottom": 2578.7
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "샘플 여행기 · 바다 산책",
+          "rect": {
+            "x": 327,
+            "y": 415.5,
+            "w": 456,
+            "h": 1877.4,
+            "right": 783,
+            "bottom": 2292.9
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-synthetic-journal.png"
+    },
+    {
+      "width": 820,
+      "scene": "card-comments",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록",
+        "삭제 조치 기록",
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 22,
+            "y": -745.5,
+            "w": 285,
+            "h": 2163.2,
+            "right": 307,
+            "bottom": 1417.7
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "샘플 여행기 · 바다 산책",
+          "rect": {
+            "x": 327,
+            "y": -745.5,
+            "w": 456,
+            "h": 2407.4,
+            "right": 783,
+            "bottom": 1661.9
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-card-comments.png"
+    },
+    {
+      "width": 820,
+      "scene": "public-journal",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록",
+        "삭제 조치 기록",
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 22,
+            "y": -140.5,
+            "w": 285,
+            "h": 2163.2,
+            "right": 307,
+            "bottom": 2022.7
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "바람을 따라 걷는 제주 서쪽",
+          "rect": {
+            "x": 327,
+            "y": -140.5,
+            "w": 456,
+            "h": 11691.1,
+            "right": 783,
+            "bottom": 11550.6
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-public-journal.png"
+    },
+    {
+      "width": 820,
+      "scene": "public-card-likes",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 22,
+            "y": -10793.5,
+            "w": 285,
+            "h": 2163.2,
+            "right": 307,
+            "bottom": -8630.3
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "바람을 따라 걷는 제주 서쪽",
+          "rect": {
+            "x": 327,
+            "y": -10793.5,
+            "w": 456,
+            "h": 11767.5,
+            "right": 783,
+            "bottom": 974
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-public-card-likes.png"
+    },
+    {
+      "width": 820,
+      "scene": "translation",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 22,
+            "y": 415.5,
+            "w": 285,
+            "h": 2163.2,
+            "right": 307,
+            "bottom": 2578.7
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "원문·번역 비교",
+          "rect": {
+            "x": 327,
+            "y": 415.5,
+            "w": 456,
+            "h": 574.7,
+            "right": 783,
+            "bottom": 990.2
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-translation.png"
+    },
+    {
+      "width": 820,
+      "scene": "member-deletion",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "기간 정지 기록"
+      ],
+      "panels": [
+        {
+          "title": "회원 검색",
+          "rect": {
+            "x": 22,
+            "y": -121.5,
+            "w": 285,
+            "h": 1814.6,
+            "right": 307,
+            "bottom": 1693.1
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "검수 회원 B",
+          "rect": {
+            "x": 327,
+            "y": -121.5,
+            "w": 456,
+            "h": 1114,
+            "right": 783,
+            "bottom": 992.6
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-member-deletion.png"
+    },
+    {
+      "width": 820,
+      "scene": "inquiry",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "문의 처리 기록 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "접수 문의",
+          "rect": {
+            "x": 22,
+            "y": 415.5,
+            "w": 285,
+            "h": 240.6,
+            "right": 307,
+            "bottom": 656.1
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "샘플 문의 · 사진 사용 조건",
+          "rect": {
+            "x": 327,
+            "y": 415.5,
+            "w": 456,
+            "h": 619.3,
+            "right": 783,
+            "bottom": 1034.8
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-inquiry.png"
+    },
+    {
+      "width": 820,
+      "scene": "settings-regions",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "지역 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "등록 지역",
+          "rect": {
+            "x": 22,
+            "y": 415.5,
+            "w": 285,
+            "h": 8710.3,
+            "right": 307,
+            "bottom": 9125.8
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "지역 편집",
+          "rect": {
+            "x": 327,
+            "y": 415.5,
+            "w": 456,
+            "h": 569.5,
+            "right": 783,
+            "bottom": 985
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-settings-regions.png"
+    },
+    {
+      "width": 820,
+      "scene": "settings-references",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "기준 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "운영 기준 목록",
+          "rect": {
+            "x": 22,
+            "y": 415.5,
+            "w": 285,
+            "h": 314.5,
+            "right": 307,
+            "bottom": 730
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "등급 기준 편집",
+          "rect": {
+            "x": 327,
+            "y": 415.5,
+            "w": 456,
+            "h": 2814.1,
+            "right": 783,
+            "bottom": 3229.6
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-settings-references.png"
+    },
+    {
+      "width": 820,
+      "scene": "settings-operators",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "운영자 등록",
+          "type": "submit-default",
+          "disabled": true,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "운영자 계정·역할",
+          "rect": {
+            "x": 22,
+            "y": 415.5,
+            "w": 761,
+            "h": 953.3,
+            "right": 783,
+            "bottom": 1368.8
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-settings-operators.png"
+    },
+    {
+      "width": 820,
+      "scene": "settings-notifications",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "템플릿 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "알림 템플릿",
+          "rect": {
+            "x": 22,
+            "y": 415.5,
+            "w": 761,
+            "h": 549.4,
+            "right": 783,
+            "bottom": 964.9
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "발송 실패·수신 거부·중복",
+          "rect": {
+            "x": 22,
+            "y": 984.9,
+            "w": 761,
+            "h": 675.2,
+            "right": 783,
+            "bottom": 1660.1
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-settings-notifications.png"
+    },
+    {
+      "width": 820,
+      "scene": "settings-connections",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "연결과 확인한 사용 한도",
+          "rect": {
+            "x": 22,
+            "y": 415.5,
+            "w": 761,
+            "h": 2556.6,
+            "right": 783,
+            "bottom": 2972.2
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "데이터 수급 작업",
+          "rect": {
+            "x": 22,
+            "y": 2992.2,
+            "w": 761,
+            "h": 235.8,
+            "right": 783,
+            "bottom": 3227.9
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-settings-connections.png"
+    },
+    {
+      "width": 820,
+      "scene": "settings-cleanup",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "사용자 휴지통·만료",
+          "rect": {
+            "x": 22,
+            "y": 415.5,
+            "w": 761,
+            "h": 701.1,
+            "right": 783,
+            "bottom": 1116.6
+          },
+          "bodyGap": "20px"
+        },
+        {
+          "title": "파일 참조 확인·정리 작업",
+          "rect": {
+            "x": 22,
+            "y": 1136.6,
+            "w": 761,
+            "h": 484.6,
+            "right": 783,
+            "bottom": 1621.2
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-settings-cleanup.png"
+    },
+    {
+      "width": 820,
+      "scene": "settings-audit",
+      "mainClient": 805,
+      "mainScroll": 805,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "모든 변경·조치 이력",
+          "rect": {
+            "x": 22,
+            "y": 415.5,
+            "w": 761,
+            "h": 363.7,
+            "right": 783,
+            "bottom": 779.2
+          },
+          "bodyGap": "20px"
+        }
+      ],
+      "screenshot": "820-settings-audit.png"
+    },
+    {
+      "width": 390,
+      "scene": "report-context",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "신고 목록",
+          "rect": {
+            "x": 16,
+            "y": -201.2,
+            "w": 343,
+            "h": 706.5,
+            "right": 359,
+            "bottom": 505.3
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "신고 상세",
+          "rect": {
+            "x": 16,
+            "y": 525.3,
+            "w": 343,
+            "h": 1317.5,
+            "right": 359,
+            "bottom": 1842.9
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-report-context.png"
+    },
+    {
+      "width": 390,
+      "scene": "synthetic-journal",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록",
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 16,
+            "y": -1497.2,
+            "w": 343,
+            "h": 2003.4,
+            "right": 359,
+            "bottom": 506.1
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "샘플 여행기 · 바다 산책",
+          "rect": {
+            "x": 16,
+            "y": 526.1,
+            "w": 343,
+            "h": 2291.5,
+            "right": 359,
+            "bottom": 2817.6
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-synthetic-journal.png"
+    },
+    {
+      "width": 390,
+      "scene": "card-comments",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록",
+        "삭제 조치 기록",
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 16,
+            "y": -3148.2,
+            "w": 343,
+            "h": 2003.4,
+            "right": 359,
+            "bottom": -1144.9
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "샘플 여행기 · 바다 산책",
+          "rect": {
+            "x": 16,
+            "y": -1124.9,
+            "w": 343,
+            "h": 3025.1,
+            "right": 359,
+            "bottom": 1900.2
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-card-comments.png"
+    },
+    {
+      "width": 390,
+      "scene": "public-journal",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록",
+        "삭제 조치 기록",
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 16,
+            "y": -7921.2,
+            "w": 343,
+            "h": 2003.4,
+            "right": 359,
+            "bottom": -5917.9
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "바람을 따라 걷는 제주 서쪽",
+          "rect": {
+            "x": 16,
+            "y": -5897.9,
+            "w": 343,
+            "h": 14040.7,
+            "right": 359,
+            "bottom": 8142.8
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-public-journal.png"
+    },
+    {
+      "width": 390,
+      "scene": "public-card-likes",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 16,
+            "y": -15144.2,
+            "w": 343,
+            "h": 2003.4,
+            "right": 359,
+            "bottom": -13140.9
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "바람을 따라 걷는 제주 서쪽",
+          "rect": {
+            "x": 16,
+            "y": -13120.9,
+            "w": 343,
+            "h": 14104.9,
+            "right": 359,
+            "bottom": 984.1
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-public-card-likes.png"
+    },
+    {
+      "width": 390,
+      "scene": "translation",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 16,
+            "y": -1497.2,
+            "w": 343,
+            "h": 2003.4,
+            "right": 359,
+            "bottom": 506.1
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "원문·번역 비교",
+          "rect": {
+            "x": 16,
+            "y": 526.1,
+            "w": 343,
+            "h": 559.2,
+            "right": 359,
+            "bottom": 1085.4
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-translation.png"
+    },
+    {
+      "width": 390,
+      "scene": "member-deletion",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "기간 정지 기록"
+      ],
+      "panels": [
+        {
+          "title": "회원 검색",
+          "rect": {
+            "x": 16,
+            "y": -1885.5,
+            "w": 343,
+            "h": 1786.3,
+            "right": 359,
+            "bottom": -99.3
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "검수 회원 B",
+          "rect": {
+            "x": 16,
+            "y": -79.3,
+            "w": 343,
+            "h": 1074.5,
+            "right": 359,
+            "bottom": 995.3
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-member-deletion.png"
+    },
+    {
+      "width": 390,
+      "scene": "inquiry",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "문의 처리 기록 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "접수 문의",
+          "rect": {
+            "x": 16,
+            "y": 82.5,
+            "w": 343,
+            "h": 229.1,
+            "right": 359,
+            "bottom": 311.6
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "샘플 문의 · 사진 사용 조건",
+          "rect": {
+            "x": 16,
+            "y": 331.6,
+            "w": 343,
+            "h": 628.2,
+            "right": 359,
+            "bottom": 959.8
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-inquiry.png"
+    },
+    {
+      "width": 390,
+      "scene": "settings-regions",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "지역 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "등록 지역",
+          "rect": {
+            "x": 16,
+            "y": 551.4,
+            "w": 343,
+            "h": 8650.8,
+            "right": 359,
+            "bottom": 9202.2
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "지역 편집",
+          "rect": {
+            "x": 16,
+            "y": 9222.2,
+            "w": 343,
+            "h": 572.1,
+            "right": 359,
+            "bottom": 9794.2
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-settings-regions.png"
+    },
+    {
+      "width": 390,
+      "scene": "settings-references",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "기준 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "운영 기준 목록",
+          "rect": {
+            "x": 16,
+            "y": 551.4,
+            "w": 343,
+            "h": 265.5,
+            "right": 359,
+            "bottom": 816.9
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "등급 기준 편집",
+          "rect": {
+            "x": 16,
+            "y": 836.9,
+            "w": 343,
+            "h": 2806.7,
+            "right": 359,
+            "bottom": 3643.5
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-settings-references.png"
+    },
+    {
+      "width": 390,
+      "scene": "settings-operators",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "운영자 등록",
+          "type": "submit-default",
+          "disabled": true,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "운영자 계정·역할",
+          "rect": {
+            "x": 16,
+            "y": 551.4,
+            "w": 343,
+            "h": 1034.6,
+            "right": 359,
+            "bottom": 1586
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-settings-operators.png"
+    },
+    {
+      "width": 390,
+      "scene": "settings-notifications",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "템플릿 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "알림 템플릿",
+          "rect": {
+            "x": 16,
+            "y": 551.4,
+            "w": 343,
+            "h": 531.9,
+            "right": 359,
+            "bottom": 1083.3
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "발송 실패·수신 거부·중복",
+          "rect": {
+            "x": 16,
+            "y": 1101.3,
+            "w": 343,
+            "h": 687.1,
+            "right": 359,
+            "bottom": 1788.4
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-settings-notifications.png"
+    },
+    {
+      "width": 390,
+      "scene": "settings-connections",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "연결과 확인한 사용 한도",
+          "rect": {
+            "x": 16,
+            "y": 525.4,
+            "w": 343,
+            "h": 3762.7,
+            "right": 359,
+            "bottom": 4288.1
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "데이터 수급 작업",
+          "rect": {
+            "x": 16,
+            "y": 4306.1,
+            "w": 343,
+            "h": 226.3,
+            "right": 359,
+            "bottom": 4532.4
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-settings-connections.png"
+    },
+    {
+      "width": 390,
+      "scene": "settings-cleanup",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "사용자 휴지통·만료",
+          "rect": {
+            "x": 16,
+            "y": 525.4,
+            "w": 343,
+            "h": 770.4,
+            "right": 359,
+            "bottom": 1295.8
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "파일 참조 확인·정리 작업",
+          "rect": {
+            "x": 16,
+            "y": 1313.8,
+            "w": 343,
+            "h": 542.7,
+            "right": 359,
+            "bottom": 1856.5
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-settings-cleanup.png"
+    },
+    {
+      "width": 390,
+      "scene": "settings-audit",
+      "mainClient": 375,
+      "mainScroll": 375,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "모든 변경·조치 이력",
+          "rect": {
+            "x": 16,
+            "y": 551.4,
+            "w": 343,
+            "h": 365.3,
+            "right": 359,
+            "bottom": 916.7
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "390-settings-audit.png"
+    },
+    {
+      "width": 320,
+      "scene": "report-context",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "신고 목록",
+          "rect": {
+            "x": 16,
+            "y": -268.1,
+            "w": 273,
+            "h": 796.1,
+            "right": 289,
+            "bottom": 528
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "신고 상세",
+          "rect": {
+            "x": 16,
+            "y": 548,
+            "w": 273,
+            "h": 1374.2,
+            "right": 289,
+            "bottom": 1922.2
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-report-context.png"
+    },
+    {
+      "width": 320,
+      "scene": "synthetic-journal",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록",
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 16,
+            "y": -1643.1,
+            "w": 273,
+            "h": 2171.3,
+            "right": 289,
+            "bottom": 528.2
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "샘플 여행기 · 바다 산책",
+          "rect": {
+            "x": 16,
+            "y": 548.2,
+            "w": 273,
+            "h": 2414.1,
+            "right": 289,
+            "bottom": 2962.3
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-synthetic-journal.png"
+    },
+    {
+      "width": 320,
+      "scene": "card-comments",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록",
+        "삭제 조치 기록",
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 16,
+            "y": -3389.1,
+            "w": 273,
+            "h": 2171.3,
+            "right": 289,
+            "bottom": -1217.8
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "샘플 여행기 · 바다 산책",
+          "rect": {
+            "x": 16,
+            "y": -1197.8,
+            "w": 273,
+            "h": 3154.2,
+            "right": 289,
+            "bottom": 1956.4
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-card-comments.png"
+    },
+    {
+      "width": 320,
+      "scene": "public-journal",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록",
+        "삭제 조치 기록",
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 16,
+            "y": -8543.1,
+            "w": 273,
+            "h": 2171.3,
+            "right": 289,
+            "bottom": -6371.8
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "바람을 따라 걷는 제주 서쪽",
+          "rect": {
+            "x": 16,
+            "y": -6351.8,
+            "w": 273,
+            "h": 15129.8,
+            "right": 289,
+            "bottom": 8778
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-public-journal.png"
+    },
+    {
+      "width": 320,
+      "scene": "public-card-likes",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "삭제 조치 기록"
+      ],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 16,
+            "y": -16352.1,
+            "w": 273,
+            "h": 2171.3,
+            "right": 289,
+            "bottom": -14180.8
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "바람을 따라 걷는 제주 서쪽",
+          "rect": {
+            "x": 16,
+            "y": -14160.8,
+            "w": 273,
+            "h": 15168.6,
+            "right": 289,
+            "bottom": 1007.8
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-public-card-likes.png"
+    },
+    {
+      "width": 320,
+      "scene": "translation",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "여행기 목록",
+          "rect": {
+            "x": 16,
+            "y": -1643.1,
+            "w": 273,
+            "h": 2171.3,
+            "right": 289,
+            "bottom": 528.2
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "원문·번역 비교",
+          "rect": {
+            "x": 16,
+            "y": 548.2,
+            "w": 273,
+            "h": 559.2,
+            "right": 289,
+            "bottom": 1107.4
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-translation.png"
+    },
+    {
+      "width": 320,
+      "scene": "member-deletion",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [
+        "기간 정지 기록"
+      ],
+      "panels": [
+        {
+          "title": "회원 검색",
+          "rect": {
+            "x": 16,
+            "y": -2011.1,
+            "w": 273,
+            "h": 1803.1,
+            "right": 289,
+            "bottom": -208.1
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "검수 회원 B",
+          "rect": {
+            "x": 16,
+            "y": -188.1,
+            "w": 273,
+            "h": 1205.1,
+            "right": 289,
+            "bottom": 1017.1
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-member-deletion.png"
+    },
+    {
+      "width": 320,
+      "scene": "inquiry",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "문의 처리 기록 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "접수 문의",
+          "rect": {
+            "x": 16,
+            "y": 60.9,
+            "w": 273,
+            "h": 229.1,
+            "right": 289,
+            "bottom": 290
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "샘플 문의 · 사진 사용 조건",
+          "rect": {
+            "x": 16,
+            "y": 310,
+            "w": 273,
+            "h": 650.3,
+            "right": 289,
+            "bottom": 960.3
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-inquiry.png"
+    },
+    {
+      "width": 320,
+      "scene": "settings-regions",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "지역 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "등록 지역",
+          "rect": {
+            "x": 16,
+            "y": 683.9,
+            "w": 273,
+            "h": 8698.8,
+            "right": 289,
+            "bottom": 9382.6
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "지역 편집",
+          "rect": {
+            "x": 16,
+            "y": 9402.6,
+            "w": 273,
+            "h": 572.1,
+            "right": 289,
+            "bottom": 9974.7
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-settings-regions.png"
+    },
+    {
+      "width": 320,
+      "scene": "settings-references",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "기준 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "운영 기준 목록",
+          "rect": {
+            "x": 16,
+            "y": 683.9,
+            "w": 273,
+            "h": 303,
+            "right": 289,
+            "bottom": 986.9
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "등급 기준 편집",
+          "rect": {
+            "x": 16,
+            "y": 1006.9,
+            "w": 273,
+            "h": 2828.8,
+            "right": 289,
+            "bottom": 3835.6
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-settings-references.png"
+    },
+    {
+      "width": 320,
+      "scene": "settings-operators",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "운영자 등록",
+          "type": "submit-default",
+          "disabled": true,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "운영자 계정·역할",
+          "rect": {
+            "x": 16,
+            "y": 683.9,
+            "w": 273,
+            "h": 1115.4,
+            "right": 289,
+            "bottom": 1799.3
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-settings-operators.png"
+    },
+    {
+      "width": 320,
+      "scene": "settings-notifications",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [
+        {
+          "name": "템플릿 저장",
+          "type": "submit-default",
+          "disabled": false,
+          "primary": true
+        }
+      ],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "알림 템플릿",
+          "rect": {
+            "x": 16,
+            "y": 683.9,
+            "w": 273,
+            "h": 531.9,
+            "right": 289,
+            "bottom": 1215.8
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "발송 실패·수신 거부·중복",
+          "rect": {
+            "x": 16,
+            "y": 1233.8,
+            "w": 273,
+            "h": 792.7,
+            "right": 289,
+            "bottom": 2026.4
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-settings-notifications.png"
+    },
+    {
+      "width": 320,
+      "scene": "settings-connections",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "연결과 확인한 사용 한도",
+          "rect": {
+            "x": 16,
+            "y": 547.9,
+            "w": 273,
+            "h": 4116.9,
+            "right": 289,
+            "bottom": 4664.8
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "데이터 수급 작업",
+          "rect": {
+            "x": 16,
+            "y": 4682.8,
+            "w": 273,
+            "h": 252.7,
+            "right": 289,
+            "bottom": 4935.4
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-settings-connections.png"
+    },
+    {
+      "width": 320,
+      "scene": "settings-cleanup",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "사용자 휴지통·만료",
+          "rect": {
+            "x": 16,
+            "y": 547.9,
+            "w": 273,
+            "h": 998.4,
+            "right": 289,
+            "bottom": 1546.3
+          },
+          "bodyGap": "18px"
+        },
+        {
+          "title": "파일 참조 확인·정리 작업",
+          "rect": {
+            "x": 16,
+            "y": 1564.3,
+            "w": 273,
+            "h": 624.5,
+            "right": 289,
+            "bottom": 2188.8
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-settings-cleanup.png"
+    },
+    {
+      "width": 320,
+      "scene": "settings-audit",
+      "mainClient": 305,
+      "mainScroll": 305,
+      "outside": [],
+      "clipped": [],
+      "photoOverflow": [],
+      "overlaps": [],
+      "unnamed": [],
+      "unlabelled": [],
+      "formSubmit": [],
+      "controlMinimum": 36,
+      "dangerNames": [],
+      "panels": [
+        {
+          "title": "모든 변경·조치 이력",
+          "rect": {
+            "x": 16,
+            "y": 572.9,
+            "w": 273,
+            "h": 386.8,
+            "right": 289,
+            "bottom": 959.6
+          },
+          "bodyGap": "18px"
+        }
+      ],
+      "screenshot": "320-settings-audit.png"
+    }
+  ]
+}

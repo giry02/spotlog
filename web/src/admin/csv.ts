@@ -36,7 +36,7 @@ export function previewImport(text: string, existing: PlaceContent[], selectedRe
     issues.push(...importRegionIssues(content.regionId,regions));
     content.visitDuration = item.visitDuration ?? ''; content.hook = item.hook ?? ''; content.creatorLabel = item.creatorLabel ?? '';
     content.provenance = { origin: 'CSV', sourceRecordId: item.sourceRecordId || undefined, note: item.note || undefined };
-    if (['LANDMARK', 'FOOD', 'CAFE', 'STAY', 'SHOP'].includes(item.kind)) content.kind = item.kind as PlaceContent['kind']; else issues.push('종류 확인 필요');
+    if (['LANDMARK', 'FOOD', 'CAFE', 'STAY', 'SHOP', 'LEISURE'].includes(item.kind)) content.kind = item.kind as PlaceContent['kind']; else issues.push('종류 확인 필요');
     for (const key of ['name', 'area', 'address'] as const) if (!content[key]) issues.push(key + ' 누락');
     for (const key of ['lat', 'lng'] as const) {
       const value = item[key]; content.location[key] = value ? Number(value) : null;

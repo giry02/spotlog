@@ -1,0 +1,81 @@
+{
+  "pass": true,
+  "states": 12,
+  "results": [
+    {
+      "width": 320,
+      "state": "photos-distance-features-missing-and-failure",
+      "metrics": {
+        "overflow": false,
+        "name": "16px",
+        "description": "14px",
+        "distance": "12px",
+        "trash": 44,
+        "photo": 64,
+        "broken": false
+      }
+    },
+    {
+      "width": 320,
+      "state": "one-tap-selection-close-reload"
+    },
+    {
+      "width": 320,
+      "state": "failed-save-keeps-choice-confirm-only-chosen-candidates"
+    },
+    {
+      "width": 390,
+      "state": "photos-distance-features-missing-and-failure",
+      "metrics": {
+        "overflow": false,
+        "name": "16px",
+        "description": "14px",
+        "distance": "12px",
+        "trash": 44,
+        "photo": 64,
+        "broken": false
+      }
+    },
+    {
+      "width": 390,
+      "state": "one-tap-selection-close-reload"
+    },
+    {
+      "width": 390,
+      "state": "failed-save-keeps-choice-confirm-only-chosen-candidates"
+    },
+    {
+      "width": 460,
+      "state": "photos-distance-features-missing-and-failure",
+      "metrics": {
+        "overflow": false,
+        "name": "16px",
+        "description": "14px",
+        "distance": "12px",
+        "trash": 44,
+        "photo": 64,
+        "broken": false
+      }
+    },
+    {
+      "width": 460,
+      "state": "one-tap-selection-close-reload"
+    },
+    {
+      "width": 460,
+      "state": "failed-save-keeps-choice-confirm-only-chosen-candidates"
+    },
+    {
+      "width": 390,
+      "state": "locked"
+    },
+    {
+      "width": 390,
+      "state": "empty"
+    },
+    {
+      "width": 390,
+      "state": "credit"
+    }
+  ]
+}

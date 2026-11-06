@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-30",
+  "localOnly": true,
+  "oldAppReplaced": false,
+  "oldCustomerAdminStoresUnchanged": true,
+  "gitOrDeploy": false,
+  "checks": {
+    "brokenImages": 0,
+    "newStates": 39,
+    "prototypeInputs": "16px",
+    "pageOverflow": 0,
+    "standaloneTypecheck": "passed",
+    "existingWebBuild": "passed, existing chunk-size advisory",
+    "currentStates": 24,
+    "widths": [
+      320,
+      390,
+      460
+    ],
+    "standalonePrototypeLogs": "no warnings/errors captured",
+    "prototypeActionTargets": "44px or larger, checkbox labels measured",
+    "comparisonIframeLogs": "1 MutationObserver error; no standalone reproduction; unresolved"
+  },
+  "purpose": "Zero-based direction and layout proposal; no actual member/AI/server integration",
+  "sources": [
+    "current-layout-matrix.json",
+    "new-layout-matrix.json",
+    "behavior.json",
+    "browser-logs.json"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "pass": true,
+  "date": "2026-10-12",
+  "hotel": {
+    "id": "catalog-busan-westin",
+    "name": "웨스틴 조선 부산",
+    "image": "",
+    "bookingFixed": true
+  },
+  "checks": [
+    "exact registered hotel with no photo",
+    "READY/edit/completion preserves fixed hotel",
+    "candidate confirmation preserves fixed hotel",
+    "read detail contains no fake image or editing form"
+  ]
+}

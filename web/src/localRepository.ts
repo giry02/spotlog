@@ -61,7 +61,7 @@ const hasStrings = (value: Record<string, unknown>, keys: string[]) => keys.ever
 
 function isPlace(value: unknown): boolean {
   if (!isObject(value) || !hasStrings(value, ['id', 'name', 'area', 'address', 'image', 'description', 'note', 'duration'])) return false;
-  if (!['LANDMARK', 'STAY', 'FOOD', 'CAFE', 'SHOP'].includes(String(value.kind))) return false;
+  if (!['LANDMARK', 'STAY', 'FOOD', 'CAFE', 'SHOP', 'LEISURE'].includes(String(value.kind))) return false;
   if(value.planningSlot!==undefined&&!['morning','lunch','afternoon','dinner','stay'].includes(String(value.planningSlot)))return false;
   if(!['visitId','anchorVisitId'].every(key=>optionalString(value[key]))||!['personal','locationVerified','bookingFixed'].every(key=>value[key]===undefined||typeof value[key]==='boolean')||(value.stayDayIds!==undefined&&!isStringArray(value.stayDayIds)))return false;
   if (value.photos !== undefined && (!Array.isArray(value.photos) || !value.photos.every((photo) => isObject(photo)

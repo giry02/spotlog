@@ -1,0 +1,12 @@
+{
+  "checks": [
+    "CSV table and searchable region popup fit desktop and three mobile widths",
+    "CSV invalid region blocks import and correction rechecks before draft registration",
+    "nearby recommendation up and down actions persist distinct ranks",
+    "media limit blocks additions and unpublished removal preserves published identity",
+    "nearby controls and custom distance dropdown fit three mobile widths",
+    "customer sentinel retained and no page exceptions",
+    "last-page deletion returns to the populated previous page and preserves the search"
+  ],
+  "errors": []
+}

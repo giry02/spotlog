@@ -1,0 +1,277 @@
+{
+  "date": "2026-10-12",
+  "checks": [
+    {
+      "width": 320,
+      "name": "empty guest home has no fictitious personal trip",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "one-action remembered DAY/visit continuation survives reload and home return",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "finished previous DAY opens next pending DAY and repeated place uses distinct visit IDs",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "all completed trip offers viewing and preserves last DAY",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "empty itinerary continuation opens existing place-add empty state",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "continuation never approves unresolved candidates",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "last opened private trip survives reload/backup and public journal browsing does not replace it",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "trashed recent-trip ID safely falls back to surviving private itinerary",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "candidate photo/straight distance/features/fallback, reload selection, one final visit and fixed-stay preservation",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "one-action journal includes only visited stops, preserves DAY dates, strips private data and leaves original trip unchanged",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "existing trip menu optionally includes planned visits while excluding skipped visits and preserving original",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "legacy itinerary without visit marks retains planned non-skipped places as private journal draft",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "all skipped visits do not generate an empty or falsely visited journal",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "visited DAY3 opens first content DAY without renumbering; later explicit empty DAY1 selection survives draft reload",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "guest/login/logout preserve explicit device-owned trip without falsely claiming account synchronization",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "completed trip remains readable under full storage without changing visit history or last DAY",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "failed resume save keeps home and original records without claiming continuation success",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "failed journal save keeps itinerary and creates no phantom journal",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "empty guest home has no fictitious personal trip",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "one-action remembered DAY/visit continuation survives reload and home return",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "finished previous DAY opens next pending DAY and repeated place uses distinct visit IDs",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "all completed trip offers viewing and preserves last DAY",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "empty itinerary continuation opens existing place-add empty state",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "continuation never approves unresolved candidates",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "last opened private trip survives reload/backup and public journal browsing does not replace it",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "trashed recent-trip ID safely falls back to surviving private itinerary",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "candidate photo/straight distance/features/fallback, reload selection, one final visit and fixed-stay preservation",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "one-action journal includes only visited stops, preserves DAY dates, strips private data and leaves original trip unchanged",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "existing trip menu optionally includes planned visits while excluding skipped visits and preserving original",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "legacy itinerary without visit marks retains planned non-skipped places as private journal draft",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "all skipped visits do not generate an empty or falsely visited journal",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "visited DAY3 opens first content DAY without renumbering; later explicit empty DAY1 selection survives draft reload",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "guest/login/logout preserve explicit device-owned trip without falsely claiming account synchronization",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "completed trip remains readable under full storage without changing visit history or last DAY",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "failed resume save keeps home and original records without claiming continuation success",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "failed journal save keeps itinerary and creates no phantom journal",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "empty guest home has no fictitious personal trip",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "one-action remembered DAY/visit continuation survives reload and home return",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "finished previous DAY opens next pending DAY and repeated place uses distinct visit IDs",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "all completed trip offers viewing and preserves last DAY",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "empty itinerary continuation opens existing place-add empty state",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "continuation never approves unresolved candidates",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "last opened private trip survives reload/backup and public journal browsing does not replace it",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "trashed recent-trip ID safely falls back to surviving private itinerary",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "candidate photo/straight distance/features/fallback, reload selection, one final visit and fixed-stay preservation",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "one-action journal includes only visited stops, preserves DAY dates, strips private data and leaves original trip unchanged",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "existing trip menu optionally includes planned visits while excluding skipped visits and preserving original",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "legacy itinerary without visit marks retains planned non-skipped places as private journal draft",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "all skipped visits do not generate an empty or falsely visited journal",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "visited DAY3 opens first content DAY without renumbering; later explicit empty DAY1 selection survives draft reload",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "guest/login/logout preserve explicit device-owned trip without falsely claiming account synchronization",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "completed trip remains readable under full storage without changing visit history or last DAY",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "failed resume save keeps home and original records without claiming continuation success",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "failed journal save keeps itinerary and creates no phantom journal",
+      "detail": "pass"
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

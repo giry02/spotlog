@@ -1,0 +1,27 @@
+{
+  "error": "locator.press: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('searchbox', { name: '기준 종류 검색', exact: true })\u001b[22m\n\n    at main (C:\\Users\\Giry\\Documents\\Spotlog\\web\\tests\\adminEasyWorkflowBrowser.cjs:165:70)",
+  "checks": [
+    {
+      "name": "overview begins with three primary actions; advanced operations are collapsed and seven menus remain"
+    },
+    {
+      "name": "Busan context is preserved in direct restaurant registration and incomplete content saves only as draft"
+    },
+    {
+      "name": "checklist jumps to location and rights; only complete verified data can be explicitly published"
+    },
+    {
+      "name": "published places lead directly to same-region recommendation draft with two days and private save"
+    },
+    {
+      "name": "recommendation publication and main placement are distinct actions with correct target and customer preview"
+    },
+    {
+      "name": "import keeps chosen region and review-needed status; quick review finds the item and preserves publication blockers"
+    },
+    {
+      "name": "unfinished input survives menu navigation and reload without changing published content"
+    }
+  ],
+  "errors": []
+}

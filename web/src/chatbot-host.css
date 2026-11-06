@@ -1,0 +1,26 @@
+/* Local bridge only. Existing customer screens keep their own layout and type roles. */
+.chatbot-host-panel { position: fixed; z-index: 100; inset: 0 auto 0 50%; transform: translateX(-50%); width: min(460px, 100%); height: 100dvh; display: flex; flex-direction: column; background: var(--paper); }
+.chatbot-host-panel[hidden] { display: none; }
+.chatbot-host-header { display: flex; align-items: center; gap: 12px; padding: max(10px, env(safe-area-inset-top)) 18px 10px; border-bottom: 1px solid var(--line); }
+.chatbot-host-header > span { font-size: var(--type-subhead); font-weight: 700; line-height: 1.5; }
+.chatbot-host-header > button { min-height: 44px; flex-shrink: 0; }
+.chatbot-host-panel iframe { flex: 1; width: 100%; min-height: 0; border: 0; background: var(--paper); }
+.chatbot-host-return { position: relative; z-index: 80; display: flex; justify-content: flex-end; min-height: 60px; padding: 8px 18px; border-bottom: 1px solid var(--line); background: var(--paper); }
+.chatbot-host-return > button { min-height: 44px; }
+.app-shell:has(> .chatbot-host-return) > .content { height: calc(100% - 60px - 74px - env(safe-area-inset-bottom)); }
+.app-shell.detail-open:has(> .chatbot-host-return) > .content, .app-shell.tab-discover:has(> .chatbot-host-return) > .content { height: calc(100% - 60px); }
+.chatbot-host-sheet .plan-help { font-size: var(--type-subhead); line-height: var(--leading-caption); color: #62625e; }
+.chatbot-host-place-choices { margin: 0; padding: 0; border: 0; min-width: 0; }
+.chatbot-host-place-choices legend { font-size: var(--type-subhead); font-weight: 700; margin-bottom: 8px; }
+.chatbot-host-place-choices label { display: flex; align-items: center; gap: 10px; min-height: 44px; margin: 0; font-size: var(--type-subhead); line-height: var(--leading-caption); font-weight: 400; }
+.chatbot-host-place-choices input[type="checkbox"] { flex: 0 0 auto; width: 18px; height: 18px; accent-color: var(--ink); }
+.chatbot-host-place-choices span { overflow-wrap: anywhere; }
+.chatbot-host-import-consent { display: flex !important; align-items: flex-start; gap: 10px; min-height: 44px; font-size: var(--type-subhead); line-height: var(--leading-caption); font-weight: 400; }
+.chatbot-host-import-consent input[type="checkbox"] { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 2px; }
+.chatbot-draft-day h3 { font-size: var(--type-body); margin: 0 0 10px; }
+.chatbot-draft-day ol { margin: 0; padding-left: 22px; }
+.chatbot-draft-day li { margin: 0 0 12px; font-size: var(--type-subhead); line-height: var(--leading-caption); }
+.chatbot-draft-day li strong, .chatbot-draft-day li span { display: block; overflow-wrap: anywhere; }
+.chatbot-draft-day li span { margin-top: 4px; color: #62625e; }
+.chatbot-journal-entry { margin: 14px 20px; padding: 14px; border: 1px solid var(--line); border-radius: 12px; scroll-margin-top: 84px; }
+.chatbot-journal-entry .plan-help { font-size: var(--type-subhead); line-height: var(--leading-caption); color: #62625e; }

@@ -1,0 +1,356 @@
+{
+  "date": "2026-11-05",
+  "scope": "local-only; mutations in isolated page-memory fixture",
+  "layouts": [
+    {
+      "bodyWidth": 320,
+      "brokenImages": 0,
+      "documentWidth": 320,
+      "firstRowHeight": 85,
+      "firstRowTop": 432,
+      "headings": [
+        "⭐추천 베스트 모임",
+        "💬활동이 이어지는 모임",
+        "🌱새로 생긴 모임",
+        "🧳아웃도어·여행",
+        "👋동네 친구·친목",
+        "☕맛집·카페",
+        "🏸운동을 함께",
+        "🎨문화·전시·사진",
+        "📚책과 이야기",
+        "🎲함께 즐기는 보드게임",
+        "🎵음악·악기",
+        "🧶손으로 만드는 취미",
+        "💬언어를 배우며",
+        "🐾반려동물과 함께",
+        "👨‍👩‍👧가족과 보내는 시간"
+      ],
+      "join": [
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        }
+      ],
+      "nestedButtons": 0,
+      "selected": "발견",
+      "width": 320
+    },
+    {
+      "bodyWidth": 320,
+      "brokenImages": 0,
+      "documentWidth": 320,
+      "firstRowHeight": 85,
+      "firstRowTop": 367,
+      "headings": [
+        "조건에 맞는 추천 모임20"
+      ],
+      "join": [
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        }
+      ],
+      "nestedButtons": 0,
+      "selected": "추천 모임",
+      "width": 320
+    },
+    {
+      "bodyWidth": 320,
+      "brokenImages": 0,
+      "documentWidth": 320,
+      "firstRowHeight": 104,
+      "firstRowTop": 327,
+      "headings": [
+        "다가오는 정모22"
+      ],
+      "join": [],
+      "nestedButtons": 0,
+      "selected": "정모 일정",
+      "width": 320
+    },
+    {
+      "bodyWidth": 320,
+      "brokenImages": 0,
+      "documentWidth": 320,
+      "firstRowHeight": 85,
+      "firstRowTop": 351,
+      "headings": [
+        "새로 생긴 모임14"
+      ],
+      "join": [
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        }
+      ],
+      "nestedButtons": 0,
+      "selected": "새 모임",
+      "width": 320
+    },
+    {
+      "bodyWidth": 390,
+      "brokenImages": 0,
+      "documentWidth": 390,
+      "firstRowHeight": 85,
+      "firstRowTop": 416,
+      "headings": [
+        "⭐추천 베스트 모임",
+        "💬활동이 이어지는 모임",
+        "🌱새로 생긴 모임",
+        "🧳아웃도어·여행",
+        "👋동네 친구·친목",
+        "☕맛집·카페",
+        "🏸운동을 함께",
+        "🎨문화·전시·사진",
+        "📚책과 이야기",
+        "🎲함께 즐기는 보드게임",
+        "🎵음악·악기",
+        "🧶손으로 만드는 취미",
+        "💬언어를 배우며",
+        "🐾반려동물과 함께",
+        "👨‍👩‍👧가족과 보내는 시간"
+      ],
+      "join": [
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        }
+      ],
+      "nestedButtons": 0,
+      "selected": "발견",
+      "width": 390
+    },
+    {
+      "bodyWidth": 390,
+      "brokenImages": 0,
+      "documentWidth": 390,
+      "firstRowHeight": 85,
+      "firstRowTop": 367,
+      "headings": [
+        "조건에 맞는 추천 모임20"
+      ],
+      "join": [
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        }
+      ],
+      "nestedButtons": 0,
+      "selected": "추천 모임",
+      "width": 390
+    },
+    {
+      "bodyWidth": 390,
+      "brokenImages": 0,
+      "documentWidth": 390,
+      "firstRowHeight": 104,
+      "firstRowTop": 327,
+      "headings": [
+        "다가오는 정모22"
+      ],
+      "join": [],
+      "nestedButtons": 0,
+      "selected": "정모 일정",
+      "width": 390
+    },
+    {
+      "bodyWidth": 390,
+      "brokenImages": 0,
+      "documentWidth": 390,
+      "firstRowHeight": 85,
+      "firstRowTop": 351,
+      "headings": [
+        "새로 생긴 모임14"
+      ],
+      "join": [
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        }
+      ],
+      "nestedButtons": 0,
+      "selected": "새 모임",
+      "width": 390
+    },
+    {
+      "bodyWidth": 460,
+      "brokenImages": 0,
+      "documentWidth": 460,
+      "firstRowHeight": 85,
+      "firstRowTop": 416,
+      "headings": [
+        "⭐추천 베스트 모임",
+        "💬활동이 이어지는 모임",
+        "🌱새로 생긴 모임",
+        "🧳아웃도어·여행",
+        "👋동네 친구·친목",
+        "☕맛집·카페",
+        "🏸운동을 함께",
+        "🎨문화·전시·사진",
+        "📚책과 이야기",
+        "🎲함께 즐기는 보드게임",
+        "🎵음악·악기",
+        "🧶손으로 만드는 취미",
+        "💬언어를 배우며",
+        "🐾반려동물과 함께",
+        "👨‍👩‍👧가족과 보내는 시간"
+      ],
+      "join": [
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        }
+      ],
+      "nestedButtons": 0,
+      "selected": "발견",
+      "width": 460
+    },
+    {
+      "bodyWidth": 460,
+      "brokenImages": 0,
+      "documentWidth": 460,
+      "firstRowHeight": 85,
+      "firstRowTop": 367,
+      "headings": [
+        "조건에 맞는 추천 모임20"
+      ],
+      "join": [
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        }
+      ],
+      "nestedButtons": 0,
+      "selected": "추천 모임",
+      "width": 460
+    },
+    {
+      "bodyWidth": 460,
+      "brokenImages": 0,
+      "documentWidth": 460,
+      "firstRowHeight": 104,
+      "firstRowTop": 327,
+      "headings": [
+        "다가오는 정모22"
+      ],
+      "join": [],
+      "nestedButtons": 0,
+      "selected": "정모 일정",
+      "width": 460
+    },
+    {
+      "bodyWidth": 460,
+      "brokenImages": 0,
+      "documentWidth": 460,
+      "firstRowHeight": 85,
+      "firstRowTop": 351,
+      "headings": [
+        "새로 생긴 모임14"
+      ],
+      "join": [
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        },
+        {
+          "h": 44,
+          "w": 74
+        }
+      ],
+      "nestedButtons": 0,
+      "selected": "새 모임",
+      "width": 460
+    }
+  ],
+  "flows": {
+    "directJoin": "PASS: list → short confirmation → member home; no checkbox/introduction required in DIRECT; Back returns list",
+    "approvalJoin": "PASS: application → pending → owner approve → applicant member view; RSVP remains unchanged",
+    "selectedPublicActivity": "PASS: chosen cafe meetup → join → exact activity; Back group then original events list",
+    "guest": "PASS: public discovery visible; quick join opens five-provider login; no membership without sign-in",
+    "regions": "PASS: basic area + two interest areas; save/reopen; district filtering; place-more scope preserved; travel destination independent",
+    "emptySearch": "PASS: no results then reset",
+    "category": "PASS: outdoor visible; 16-topic expansion; matching category list",
+    "responsive": "PASS: 320/390/460 no horizontal document overflow, zero nested buttons/broken images, quick join 74x44, search input16px"
+  },
+  "checks": {
+    "nodeTests": 869,
+    "failures": 0,
+    "webBuild": "PASS",
+    "webTypecheck": "PASS",
+    "nativeTypecheck": "PASS"
+  },
+  "limitations": [
+    "Actual service authentication/membership APIs remain unconnected.",
+    "User area settings persist per account on this device; no cross-device sync.",
+    "Best recommendations use region/interests/approved upcoming events, not invented popularity."
+  ],
+  "evidence": "local-discovery-final-390.png"
+}

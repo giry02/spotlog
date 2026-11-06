@@ -30,7 +30,7 @@ import { licensedPlaceSources } from './licensedPlaceSources';
 
 const cloudinaryVideo = (id: string) => `https://res.cloudinary.com/demo/video/upload/c_fill,g_center,h_1280,w_720,q_auto:eco/${id}.mp4`;
 
-export type PlaceKind = 'LANDMARK' | 'STAY' | 'FOOD' | 'CAFE' | 'SHOP';
+export type PlaceKind = 'LANDMARK' | 'STAY' | 'FOOD' | 'CAFE' | 'SHOP' | 'LEISURE';
 export type JourneyStatus = 'PLANNING' | 'TRAVELING' | 'PUBLISHED';
 export type VisitProgressStatus = 'done' | 'skipped';
 /** Private progress belongs to this trip's visit IDs, never the shared place. */
@@ -236,7 +236,7 @@ export const initialJourneys: Journey[] = [
 ];
 
 export const placeKindLabel: Record<PlaceKind, string> = {
-  LANDMARK: '랜드마크', STAY: '숙소', FOOD: '맛집', CAFE: '카페', SHOP: '로컬숍',
+  LANDMARK: '랜드마크', STAY: '숙소', FOOD: '음식점', CAFE: '카페', SHOP: '쇼핑', LEISURE: '레저',
 };
 
 const samplePlace = (

@@ -561,7 +561,8 @@
           "FOOD",
           "CAFE",
           "STAY",
-          "SHOP"
+          "SHOP",
+          "LEISURE"
         ]
       },
       "UsageRights": {
@@ -4892,7 +4893,8 @@
           "FOOD",
           "CAFE",
           "STAY",
-          "SHOP"
+          "SHOP",
+          "LEISURE"
         ]
       },
       "AiDocumentRef": {
@@ -6244,7 +6246,8 @@
               "FOOD",
               "CAFE",
               "STAY",
-              "SHOP"
+              "SHOP",
+              "LEISURE"
             ]
           },
           "name": {
@@ -6418,7 +6421,8 @@
               "FOOD",
               "CAFE",
               "STAY",
-              "SHOP"
+              "SHOP",
+              "LEISURE"
             ]
           },
           "address": {

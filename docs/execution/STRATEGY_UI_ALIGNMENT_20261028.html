@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Spotlog 전략·화면 정합성 검수 · 2026.10.28</title><style>body{max-width:960px;margin:36px auto;padding:0 22px;color:#202a35;font:16px/1.8 system-ui,'Malgun Gothic',sans-serif}h1{font-size:28px}h2{font-size:21px;margin-top:32px}a{color:#236d56}table{width:100%;border-collapse:collapse}th,td{border:1px solid #dce0e3;padding:12px;text-align:left;vertical-align:top}th{background:#f5f6f7}code{overflow-wrap:anywhere}</style></head><body>
+<h1>전략 문서와 앱 홈 정합성 검수</h1><p>2026.10.28 · 로컬 반영 · Git 업로드·배포 없음</p>
+<p><a href="../../deliverables/spotlog-triple-strategy-20261028.html">수정한 단일 HTML 전략 문서</a> · <a href="http://127.0.0.1:5210/#home">로컬 앱 홈</a></p>
+<h2>반영 내용</h2><ul>
+<li>문서의 옛 동네/여행지 구분을 최신 모임/번개·정모, 관심사 16개 기준으로 정정. 일반 정모는 날짜·시각·장소·정원·별도 참석을 기본으로 설명.</li>
+<li>모임장/운영진 초대 권한, 개인 원본·예약 보호, 공개 정보 사본과 내부 자료, 실제 서버·관리자 미완료 범위를 명확히 구분.</li>
+<li>소형 로컬 LLM 기본, 승인 DB/RAG, 조건부 외부 대형 보완 1회·시간·비용 한도를 명시. 공공자료 편집과 실제 AI 생성 구분.</li>
+<li>홈 첫 화면에 장소 찾기·모임 찾기·여행 만들기 3개 진입. 이전 AI 단독 카드 대체, 기존 추천·모임 홍보·5개 하단 메뉴 유지.</li>
+<li>홈과 관심 장소의 탐색은 사진/영상 선택 이력과 무관하게 장소 목록으로 진입. 전체 장소 보기에서 종류·지역·검색 모두 해제.</li>
+<li>AI 계약의 랜드마크 필수 문구 정정. 상점·레저의 기계 규격/평가 누락은 미완료로 명시.</li>
+<li>문서 조작부 44px, 목차 14px·닫기 고정, 강조 글자 대비·안전영역, 전체 보기 스크롤과 쪽수·해시·제목 동기화.</li></ul>
+<h2>검수</h2><table><thead><tr><th>범위</th><th>결과·한계</th></tr></thead><tbody>
+<tr><td>자동 검사</td><td>웹 타입검사 포함 프로덕션 빌드, 네이티브 타입검사 통과. 기존 타이포그래피 7개＋독립 장소 AI 8개, 총 15개 통과. 641개는 앞선 모임 개발 기록이며 이번 재실행 수치가 아님.</td></tr>
+<tr><td>앱 CUA 검수</td><td>홈 3개 진입, AI 폼 열기/닫기, 사진→홈→장소 목록, 한 번 뒤로가기, 맛집 조건＋없는 검색어→전체 장소 초기화 확인. 새로고침 뒤 JS 오류·경고 0, 로드 완료 이미지 깨짐 0. 새 여행 생성·가입·저장은 실행하지 않음.</td></tr>
+<tr><td>가독성·폭</td><td>실제 브라우저 iframe 320/390/460px 렌더 확인. 320px은 세로, 390/460px은 같은 폭 3열. DOM 실측 본문16px·행동14px·보조12px, 데스크톱 3개 버튼 각115px. 실제 휴대폰 검수는 별도임.</td></tr>
+<tr><td>보고서</td><td>38쪽·목차·방향키·전체 보기 쪽수 동기화 확인, 기존 공용 19쪽 보고서 회귀 확인. 인쇄 CSS를 화면에 적용한 1200×768px 시뮬레이션에서 38쪽 본문/푸터 넘침 0. 실제 PDF 출력과 모바일 보고서 실렌더는 별도 검수임.</td></tr>
+<tr><td>외부 사실</td><td>트리플·NOL 날짜와 이전 제한, 당근·소모임·카카오 기능을 공식 자료 대조. interpark Global→NOL World 공지의 대상 이름 명확화. 경쟁 앱 직접 참가·예약 비교 시험으로 표현하지 않음.</td></tr>
+</tbody></table>
+<h2>남은 범위</h2><p>공개 DAY 가져오기·우천 대안·읽기 전용 공유 URL·실제 AI/회원/모임 서버는 후속 제안 또는 연결 과제. 모임·정모·메시지 신고 및 홍보 선정용 관리자/API 확장 필요. SHOP·LEISURE를 포함한 AI 기계 규격·생성기·평가 정합성 확인 필요.</p>
+<p>소스는 <code>C:/Users/Giry/Documents/Spotlog</code> 기준. 수정 전 자료와 검사 로그는 <code>artifacts/strategy-review-20261028</code>에 보관. 고객 여행·찜·관리자 자료를 초기화하거나 대체하지 않음.</p>
+</body></html>

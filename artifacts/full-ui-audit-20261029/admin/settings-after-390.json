@@ -1,0 +1,54 @@
+{
+  "width": 390,
+  "page": "운영 설정·이력",
+  "docOverflow": 0,
+  "mainOverflow": 0,
+  "tables": [
+    {
+      "client": 309,
+      "scroll": 600,
+      "headers": [
+        {
+          "text": "시각·운영자",
+          "x": 33,
+          "y": 790,
+          "w": 132,
+          "h": 48
+        },
+        {
+          "text": "동작·대상",
+          "x": 165,
+          "y": 790,
+          "w": 168,
+          "h": 48
+        },
+        {
+          "text": "변경 전 → 후",
+          "x": 333,
+          "y": 790,
+          "w": 120,
+          "h": 48
+        },
+        {
+          "text": "사유",
+          "x": 453,
+          "y": 790,
+          "w": 180,
+          "h": 48
+        }
+      ]
+    }
+  ],
+  "tabs": [
+    {
+      "gap": "8px",
+      "x": 16,
+      "y": 523,
+      "w": 343,
+      "h": 73
+    }
+  ],
+  "shortTouchButtons": [],
+  "smallButtons": [],
+  "horizontalOverflowElements": []
+}

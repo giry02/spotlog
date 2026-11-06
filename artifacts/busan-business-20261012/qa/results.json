@@ -1,0 +1,546 @@
+{
+  "date": "2026-10-12",
+  "checks": [
+    {
+      "width": 320,
+      "name": "Busan business/catalog/source/3km regional coverage",
+      "detail": {
+        "businesses": 43,
+        "food": 25,
+        "cafe": 18,
+        "validIds": true,
+        "validCoordinates": true,
+        "detailed": 43,
+        "photos": 23,
+        "attributed": 23,
+        "branches": [
+          {
+            "brand": "모모스",
+            "count": 3,
+            "distinctIds": 3,
+            "distinctAddresses": 3,
+            "distinctCoordinates": 3
+          },
+          {
+            "brand": "블랙업",
+            "count": 2,
+            "distinctIds": 2,
+            "distinctAddresses": 2,
+            "distinctCoordinates": 2
+          }
+        ],
+        "zones": [
+          {
+            "name": "해운대",
+            "id": "public-busan-haeundae",
+            "landmark": "해운대해수욕장",
+            "food": 8,
+            "cafe": 1,
+            "cafe15": 11
+          },
+          {
+            "name": "광안리",
+            "id": "public-busan-gwangalli",
+            "landmark": "광안리해수욕장",
+            "food": 3,
+            "cafe": 3,
+            "cafe15": 14
+          },
+          {
+            "name": "남포",
+            "id": "public-busan-jagalchi",
+            "landmark": "자갈치시장",
+            "food": 10,
+            "cafe": 3,
+            "cafe15": 14
+          },
+          {
+            "name": "영도",
+            "id": "public-busan-huinnyeoul",
+            "landmark": "흰여울문화마을",
+            "food": 5,
+            "cafe": 2,
+            "cafe15": 12
+          },
+          {
+            "name": "송도",
+            "id": "public-busan-songdo",
+            "landmark": "송도해수욕장",
+            "food": 6,
+            "cafe": 2,
+            "cafe15": 12
+          },
+          {
+            "name": "기장",
+            "id": "busan-haedong-yonggungsa",
+            "landmark": "해동용궁사",
+            "food": 1,
+            "cafe": 0,
+            "cafe15": 8
+          }
+        ]
+      }
+    },
+    {
+      "width": 320,
+      "name": "food/cafe-only itinerary, independent lunch/dinner visits and ordering",
+      "detail": {
+        "name": "16px",
+        "description": "14px",
+        "metadata": "12px",
+        "search": "16px",
+        "action": 44,
+        "kindButtons": true
+      }
+    },
+    {
+      "width": 320,
+      "name": "DAY separation, reload/close/save-failure and original/customer/admin data protection",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "adding independent food protects locked overnight visit",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "independent restaurant can anchor nearby cafe shortlist and confirmation",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "해운대: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 8,
+        "foodImage": true,
+        "cafe": 1,
+        "cafe15": 11,
+        "expanded": false
+      }
+    },
+    {
+      "width": 320,
+      "name": "광안리: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 3,
+        "foodImage": true,
+        "cafe": 3,
+        "cafe15": 14,
+        "expanded": false
+      }
+    },
+    {
+      "width": 320,
+      "name": "남포: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 10,
+        "foodImage": true,
+        "cafe": 3,
+        "cafe15": 14,
+        "expanded": false
+      }
+    },
+    {
+      "width": 320,
+      "name": "영도: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 5,
+        "foodImage": true,
+        "cafe": 2,
+        "cafe15": 12,
+        "expanded": false
+      }
+    },
+    {
+      "width": 320,
+      "name": "송도: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 6,
+        "foodImage": true,
+        "cafe": 2,
+        "cafe15": 12,
+        "expanded": false
+      }
+    },
+    {
+      "width": 320,
+      "name": "기장: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 1,
+        "foodImage": false,
+        "cafe": 0,
+        "cafe15": 8,
+        "expanded": true
+      }
+    },
+    {
+      "width": 320,
+      "name": "trash footer and open/close in both library tabs",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "Busan business/catalog/source/3km regional coverage",
+      "detail": {
+        "businesses": 43,
+        "food": 25,
+        "cafe": 18,
+        "validIds": true,
+        "validCoordinates": true,
+        "detailed": 43,
+        "photos": 23,
+        "attributed": 23,
+        "branches": [
+          {
+            "brand": "모모스",
+            "count": 3,
+            "distinctIds": 3,
+            "distinctAddresses": 3,
+            "distinctCoordinates": 3
+          },
+          {
+            "brand": "블랙업",
+            "count": 2,
+            "distinctIds": 2,
+            "distinctAddresses": 2,
+            "distinctCoordinates": 2
+          }
+        ],
+        "zones": [
+          {
+            "name": "해운대",
+            "id": "public-busan-haeundae",
+            "landmark": "해운대해수욕장",
+            "food": 8,
+            "cafe": 1,
+            "cafe15": 11
+          },
+          {
+            "name": "광안리",
+            "id": "public-busan-gwangalli",
+            "landmark": "광안리해수욕장",
+            "food": 3,
+            "cafe": 3,
+            "cafe15": 14
+          },
+          {
+            "name": "남포",
+            "id": "public-busan-jagalchi",
+            "landmark": "자갈치시장",
+            "food": 10,
+            "cafe": 3,
+            "cafe15": 14
+          },
+          {
+            "name": "영도",
+            "id": "public-busan-huinnyeoul",
+            "landmark": "흰여울문화마을",
+            "food": 5,
+            "cafe": 2,
+            "cafe15": 12
+          },
+          {
+            "name": "송도",
+            "id": "public-busan-songdo",
+            "landmark": "송도해수욕장",
+            "food": 6,
+            "cafe": 2,
+            "cafe15": 12
+          },
+          {
+            "name": "기장",
+            "id": "busan-haedong-yonggungsa",
+            "landmark": "해동용궁사",
+            "food": 1,
+            "cafe": 0,
+            "cafe15": 8
+          }
+        ]
+      }
+    },
+    {
+      "width": 390,
+      "name": "food/cafe-only itinerary, independent lunch/dinner visits and ordering",
+      "detail": {
+        "name": "16px",
+        "description": "14px",
+        "metadata": "12px",
+        "search": "16px",
+        "action": 44,
+        "kindButtons": true
+      }
+    },
+    {
+      "width": 390,
+      "name": "DAY separation, reload/close/save-failure and original/customer/admin data protection",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "adding independent food protects locked overnight visit",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "independent restaurant can anchor nearby cafe shortlist and confirmation",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "해운대: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 8,
+        "foodImage": true,
+        "cafe": 1,
+        "cafe15": 11,
+        "expanded": false
+      }
+    },
+    {
+      "width": 390,
+      "name": "광안리: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 3,
+        "foodImage": true,
+        "cafe": 3,
+        "cafe15": 14,
+        "expanded": false
+      }
+    },
+    {
+      "width": 390,
+      "name": "남포: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 10,
+        "foodImage": true,
+        "cafe": 3,
+        "cafe15": 14,
+        "expanded": false
+      }
+    },
+    {
+      "width": 390,
+      "name": "영도: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 5,
+        "foodImage": true,
+        "cafe": 2,
+        "cafe15": 12,
+        "expanded": false
+      }
+    },
+    {
+      "width": 390,
+      "name": "송도: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 6,
+        "foodImage": true,
+        "cafe": 2,
+        "cafe15": 12,
+        "expanded": false
+      }
+    },
+    {
+      "width": 390,
+      "name": "기장: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 1,
+        "foodImage": false,
+        "cafe": 0,
+        "cafe15": 8,
+        "expanded": true
+      }
+    },
+    {
+      "width": 390,
+      "name": "trash footer and open/close in both library tabs",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "Busan business/catalog/source/3km regional coverage",
+      "detail": {
+        "businesses": 43,
+        "food": 25,
+        "cafe": 18,
+        "validIds": true,
+        "validCoordinates": true,
+        "detailed": 43,
+        "photos": 23,
+        "attributed": 23,
+        "branches": [
+          {
+            "brand": "모모스",
+            "count": 3,
+            "distinctIds": 3,
+            "distinctAddresses": 3,
+            "distinctCoordinates": 3
+          },
+          {
+            "brand": "블랙업",
+            "count": 2,
+            "distinctIds": 2,
+            "distinctAddresses": 2,
+            "distinctCoordinates": 2
+          }
+        ],
+        "zones": [
+          {
+            "name": "해운대",
+            "id": "public-busan-haeundae",
+            "landmark": "해운대해수욕장",
+            "food": 8,
+            "cafe": 1,
+            "cafe15": 11
+          },
+          {
+            "name": "광안리",
+            "id": "public-busan-gwangalli",
+            "landmark": "광안리해수욕장",
+            "food": 3,
+            "cafe": 3,
+            "cafe15": 14
+          },
+          {
+            "name": "남포",
+            "id": "public-busan-jagalchi",
+            "landmark": "자갈치시장",
+            "food": 10,
+            "cafe": 3,
+            "cafe15": 14
+          },
+          {
+            "name": "영도",
+            "id": "public-busan-huinnyeoul",
+            "landmark": "흰여울문화마을",
+            "food": 5,
+            "cafe": 2,
+            "cafe15": 12
+          },
+          {
+            "name": "송도",
+            "id": "public-busan-songdo",
+            "landmark": "송도해수욕장",
+            "food": 6,
+            "cafe": 2,
+            "cafe15": 12
+          },
+          {
+            "name": "기장",
+            "id": "busan-haedong-yonggungsa",
+            "landmark": "해동용궁사",
+            "food": 1,
+            "cafe": 0,
+            "cafe15": 8
+          }
+        ]
+      }
+    },
+    {
+      "width": 460,
+      "name": "food/cafe-only itinerary, independent lunch/dinner visits and ordering",
+      "detail": {
+        "name": "16px",
+        "description": "14px",
+        "metadata": "12px",
+        "search": "16px",
+        "action": 44,
+        "kindButtons": true
+      }
+    },
+    {
+      "width": 460,
+      "name": "DAY separation, reload/close/save-failure and original/customer/admin data protection",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "adding independent food protects locked overnight visit",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "independent restaurant can anchor nearby cafe shortlist and confirmation",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "해운대: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 8,
+        "foodImage": true,
+        "cafe": 1,
+        "cafe15": 11,
+        "expanded": false
+      }
+    },
+    {
+      "width": 460,
+      "name": "광안리: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 3,
+        "foodImage": true,
+        "cafe": 3,
+        "cafe15": 14,
+        "expanded": false
+      }
+    },
+    {
+      "width": 460,
+      "name": "남포: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 10,
+        "foodImage": true,
+        "cafe": 3,
+        "cafe15": 14,
+        "expanded": false
+      }
+    },
+    {
+      "width": 460,
+      "name": "영도: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 5,
+        "foodImage": true,
+        "cafe": 2,
+        "cafe15": 12,
+        "expanded": false
+      }
+    },
+    {
+      "width": 460,
+      "name": "송도: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 6,
+        "foodImage": true,
+        "cafe": 2,
+        "cafe15": 12,
+        "expanded": false
+      }
+    },
+    {
+      "width": 460,
+      "name": "기장: nearby photos/introduction/shortlist persists",
+      "detail": {
+        "food": 1,
+        "foodImage": false,
+        "cafe": 0,
+        "cafe15": 8,
+        "expanded": true
+      }
+    },
+    {
+      "width": 460,
+      "name": "trash footer and open/close in both library tabs",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "sequential standalone/Gwangalli/Yeongdo/Songdo links retain their own itinerary and reload state",
+      "detail": "pass"
+    }
+  ],
+  "errors": [],
+  "pass": true
+}

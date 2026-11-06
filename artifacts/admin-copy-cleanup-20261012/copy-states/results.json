@@ -1,0 +1,122 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "width": 390,
+      "name": "운영 현황"
+    },
+    {
+      "width": 390,
+      "name": "장소·업체"
+    },
+    {
+      "width": 390,
+      "name": "노출·추천"
+    },
+    {
+      "width": 390,
+      "name": "여행기·커뮤니티"
+    },
+    {
+      "width": 390,
+      "name": "회원·문의"
+    },
+    {
+      "width": 390,
+      "name": "AI·검색 운영"
+    },
+    {
+      "width": 390,
+      "name": "AI·검색 운영",
+      "tab": "검색 자료"
+    },
+    {
+      "width": 390,
+      "name": "AI·검색 운영",
+      "tab": "색인 작업"
+    },
+    {
+      "width": 390,
+      "name": "AI·검색 운영",
+      "tab": "품질 시험"
+    },
+    {
+      "width": 390,
+      "name": "AI·검색 운영",
+      "tab": "요청 현황"
+    },
+    {
+      "width": 390,
+      "name": "AI·검색 운영",
+      "tab": "실행 정책"
+    },
+    {
+      "width": 390,
+      "name": "AI·검색 운영",
+      "scenario": "test-result-metadata-remains-honest"
+    },
+    {
+      "width": 390,
+      "name": "운영 설정·이력"
+    },
+    {
+      "width": 1440,
+      "name": "운영 현황"
+    },
+    {
+      "width": 1440,
+      "name": "장소·업체"
+    },
+    {
+      "width": 1440,
+      "name": "노출·추천"
+    },
+    {
+      "width": 1440,
+      "name": "여행기·커뮤니티"
+    },
+    {
+      "width": 1440,
+      "name": "회원·문의"
+    },
+    {
+      "width": 1440,
+      "name": "AI·검색 운영"
+    },
+    {
+      "width": 1440,
+      "name": "AI·검색 운영",
+      "tab": "검색 자료"
+    },
+    {
+      "width": 1440,
+      "name": "AI·검색 운영",
+      "tab": "색인 작업"
+    },
+    {
+      "width": 1440,
+      "name": "AI·검색 운영",
+      "tab": "품질 시험"
+    },
+    {
+      "width": 1440,
+      "name": "AI·검색 운영",
+      "tab": "요청 현황"
+    },
+    {
+      "width": 1440,
+      "name": "AI·검색 운영",
+      "tab": "실행 정책"
+    },
+    {
+      "width": 1440,
+      "name": "AI·검색 운영",
+      "scenario": "test-result-metadata-remains-honest"
+    },
+    {
+      "width": 1440,
+      "name": "운영 설정·이력"
+    }
+  ],
+  "errors": []
+}

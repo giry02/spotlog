@@ -1,0 +1,26 @@
+.travel-discovery { min-width:0; color:var(--ink,#242421); }
+.travel-discovery * { box-sizing:border-box; }
+.travel-discovery button { font-family:inherit; cursor:pointer; }
+.travel-discovery button:focus-visible { outline:2px solid var(--accent,#ff624a); outline-offset:2px; }
+.travel-discovery__actions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:0; border-bottom:1px solid var(--line,#deded9); }
+.travel-discovery__actions button { display:flex; align-items:center; justify-content:center; gap:6px; min-width:0; min-height:44px; padding:8px 0; border:0; border-radius:0; background:transparent; color:var(--ink); font-size:14px; line-height:20px; }
+.travel-discovery__actions button>svg { flex:0 0 17px; }
+.travel-discovery__actions button>span { overflow-wrap:anywhere; }
+.travel-discovery__list-heading { display:flex; align-items:center; gap:8px; min-height:44px; margin:0; min-width:0; }
+.travel-discovery__list-heading h2 { margin:0; min-width:0; font-size:16px; line-height:22px; font-weight:600; overflow-wrap:anywhere; }
+.travel-discovery__list-heading>span { flex:0 0 auto; color:var(--muted); font-size:12px; line-height:16px; }
+.travel-discovery__list { min-width:0; }
+.travel-discovery__row { min-width:0; border-bottom:1px solid var(--line,#deded9); }
+.travel-discovery__row:last-child { border-bottom:0; }
+.travel-discovery__row>button { display:flex; align-items:center; gap:12px; width:100%; min-width:0; min-height:88px; padding:12px 0; border:0; background:transparent; color:var(--ink); text-align:left; }
+.travel-discovery__row>button>svg { flex:0 0 17px; color:var(--muted); }
+.travel-discovery__image { display:block; flex:0 0 64px; width:64px; height:64px; overflow:hidden; border-radius:12px; background:#eeeee9; }
+.travel-discovery__image img { display:block; width:100%; height:100%; object-fit:cover; }
+.travel-discovery__image-empty { display:grid; width:100%; height:100%; place-items:center; color:var(--muted); }
+.travel-discovery__copy { display:flex; flex:1 1 auto; flex-direction:column; min-width:0; gap:3px; }
+.travel-discovery__copy>strong { font-size:16px; line-height:22px; font-weight:600; letter-spacing:-.2px; overflow-wrap:anywhere; }
+.travel-discovery__meta { font-size:12px; line-height:16px; color:var(--muted); overflow-wrap:anywhere; }
+.travel-discovery__summary { display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; color:var(--muted); font-size:14px; line-height:20px; overflow-wrap:anywhere; }
+.travel-discovery__empty { display:grid; justify-items:start; gap:8px; padding:20px 0; color:var(--muted); }
+.travel-discovery__empty p { margin:0; font-size:14px; line-height:20px; }
+.travel-discovery__empty>span { font-size:12px; line-height:16px; }

@@ -1,0 +1,269 @@
+[
+  {
+    "width": 1440,
+    "height": 1000,
+    "baseline": {
+      "top": 672.375,
+      "fieldBottom": 714.375,
+      "mainWidth": 1189,
+      "mainScroll": 1189,
+      "saveTop": 884,
+      "saveBottom": 941,
+      "savePosition": "sticky"
+    },
+    "errors": [],
+    "cachePreserved": true,
+    "focus": [
+      {
+        "tag": "BUTTON",
+        "name": "등록 지역",
+        "top": 765.46875,
+        "bottom": 807.46875,
+        "overlap": false,
+        "inside": true,
+        "pointElement": "admin-select-trigger"
+      },
+      {
+        "tag": "INPUT",
+        "name": "",
+        "top": 765.46875,
+        "bottom": 807.46875,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "BUTTON",
+        "name": "영업 상태",
+        "top": 858.5625,
+        "bottom": 900.5625,
+        "overlap": true,
+        "inside": true,
+        "pointElement": "admin-select-trigger"
+      },
+      {
+        "tag": "TEXTAREA",
+        "name": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+        "top": 951.65625,
+        "bottom": 1065.65625,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "SUMMARY",
+        "name": "출처·사용 범위",
+        "top": 519.65625,
+        "bottom": 549.65625,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "SUMMARY",
+        "name": "추가 정보",
+        "top": 599.65625,
+        "bottom": 629.65625,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "SUMMARY",
+        "name": "담당 내부 관리자 · 검수 완료",
+        "top": 665.65625,
+        "bottom": 702.65625,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "BUTTON",
+        "name": "고객 화면 미리보기",
+        "top": 766.046875,
+        "bottom": 802.046875,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      }
+    ]
+  },
+  {
+    "width": 1024,
+    "height": 900,
+    "baseline": {
+      "top": 658.375,
+      "fieldBottom": 700.375,
+      "mainWidth": 1009,
+      "mainScroll": 1009,
+      "saveTop": 794,
+      "saveBottom": 851,
+      "savePosition": "sticky"
+    },
+    "errors": [],
+    "cachePreserved": true,
+    "focus": [
+      {
+        "tag": "BUTTON",
+        "name": "등록 지역",
+        "top": 751.46875,
+        "bottom": 793.46875,
+        "overlap": false,
+        "inside": true,
+        "pointElement": "admin-select-trigger"
+      },
+      {
+        "tag": "INPUT",
+        "name": "",
+        "top": 751.46875,
+        "bottom": 793.46875,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "BUTTON",
+        "name": "영업 상태",
+        "top": 844.5625,
+        "bottom": 886.5625,
+        "overlap": true,
+        "inside": true,
+        "pointElement": "admin-select-trigger"
+      },
+      {
+        "tag": "TEXTAREA",
+        "name": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+        "top": 463.65625,
+        "bottom": 577.65625,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "SUMMARY",
+        "name": "출처·사용 범위",
+        "top": 612.65625,
+        "bottom": 642.65625,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "SUMMARY",
+        "name": "추가 정보",
+        "top": 692.65625,
+        "bottom": 722.65625,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "SUMMARY",
+        "name": "담당 내부 관리자 · 검수 완료",
+        "top": 758.65625,
+        "bottom": 795.65625,
+        "overlap": true,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "BUTTON",
+        "name": "고객 화면 미리보기",
+        "top": 859.046875,
+        "bottom": 895.046875,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "height": 844,
+    "baseline": {
+      "top": 919.953125,
+      "fieldBottom": 961.953125,
+      "mainWidth": 375,
+      "mainScroll": 375,
+      "saveTop": 1752.109375,
+      "saveBottom": 1805.109375,
+      "savePosition": "static"
+    },
+    "errors": [],
+    "cachePreserved": true,
+    "focus": [
+      {
+        "tag": "BUTTON",
+        "name": "등록 지역",
+        "top": 455.65625,
+        "bottom": 497.65625,
+        "overlap": false,
+        "inside": true,
+        "pointElement": "admin-select-trigger"
+      },
+      {
+        "tag": "INPUT",
+        "name": "",
+        "top": 548.75,
+        "bottom": 590.75,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "BUTTON",
+        "name": "영업 상태",
+        "top": 641.84375,
+        "bottom": 683.84375,
+        "overlap": false,
+        "inside": true,
+        "pointElement": "admin-select-trigger"
+      },
+      {
+        "tag": "TEXTAREA",
+        "name": "관리자 등록·추천 흐름을 확인하는 가상 자료입니다.",
+        "top": 732.9375,
+        "bottom": 846.9375,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "SUMMARY",
+        "name": "출처·사용 범위",
+        "top": 461.9375,
+        "bottom": 491.9375,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "SUMMARY",
+        "name": "추가 정보",
+        "top": 539.9375,
+        "bottom": 569.9375,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "SUMMARY",
+        "name": "담당 내부 관리자 · 검수 완료",
+        "top": 603.9375,
+        "bottom": 640.9375,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      },
+      {
+        "tag": "BUTTON",
+        "name": "고객 화면 미리보기",
+        "top": 722.71875,
+        "bottom": 758.71875,
+        "overlap": false,
+        "inside": true,
+        "pointElement": ""
+      }
+    ]
+  }
+]

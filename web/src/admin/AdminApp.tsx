@@ -1,16 +1,15 @@
 import { Component, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { LayoutDashboard, MapPin, PanelsTopLeft, MessageSquare, Users, Sparkles, Settings, Menu, X, ChevronRight, ExternalLink, Plus, Upload, ClipboardCheck, ArrowRight } from 'lucide-react';
+import { LayoutDashboard, MapPin, PanelsTopLeft, MessageSquare, Users, Sparkles, Settings, Menu, X, ChevronRight, ExternalLink } from 'lucide-react';
 import type { AdminAdapter, AdminCommandInput, AdminMenu, AdminPageProps, AdminSession, AdminState } from './types';
 import './admin-preview.css';
 import { ADMIN_STORAGE_KEY, createApiAdminAdapter, createLocalAdminAdapter } from './repository';
 import { makeAdminSeed } from './seed';
 import { REVIEW_SERVICE_EVENT, REVIEW_SERVICE_KEY } from '../reviewServiceBridge';
-import { publicationIssues } from './selectors';
-import { AdminSelect, Badge, EmptyState, Notice, Panel } from './components';
-import { regionLabel } from './regions';
+import { AdminSelect, Badge, EmptyState, Notice, Panel, Tabs } from './components';
 import PlacesPage from './PlacesPage';
 import AIPage from './AIPage';
-import { CommunityPage, ExposurePage, MembersPage, SettingsPage } from './OperationsPages';
+import { CommunityPage, ExposurePage, MembersPage, RegionManager, SettingsPage } from './OperationsPages';
+import OverviewPage from './AdminOverview';
 
 const menus = [
   { id: 'overview', label: '운영 현황', icon: LayoutDashboard },
@@ -21,7 +20,7 @@ const menus = [
   { id: 'ai', label: 'AI·검색 운영', icon: Sparkles },
   { id: 'settings', label: '운영 설정·이력', icon: Settings },
 ] as const;
-const pageDescriptions: Record<AdminMenu, string> = { overview: '지역별 자료를 쌓고, 검수한 장소로 추천 여행을 만들어 보세요.', places: '지역과 담당자를 선택해 스팟·주변 업체 자료를 등록하고 검수하세요.', exposure: '추천 여행 초안을 만들고 고객에게 보여줄 콘텐츠를 골라 주세요.', community: '고객이 보는 여행기·사진·댓글의 문맥에서 신고를 처리하세요.', members: '공개 프로필과 활동 집계, 이용 상태를 확인하세요.', ai: '승인 자료와 검증한 버전으로 검색·생성을 운영하세요.', settings: '지역·권한·연결 설정과 작업 이력을 관리하세요.' };
+const pageDescriptions: Record<AdminMenu, string> = { overview: '지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.', places: '지역별 장소와 업체를 등록하고, 확인한 자료를 공개하세요.', exposure: '추천 여행을 만들고 공개한 콘텐츠를 메인 화면에 배치하세요.', community: '공개 여행기·댓글을 확인하고 신고를 처리하세요.', members: '회원 상태와 문의를 확인하세요.', ai: '검색에 반영된 정보와 추천 결과를 확인하세요.', settings: '운영자·분류·연결 설정과 변경 이력을 관리하세요.' };
 
 class ScreenBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
   state = { failed: false };
@@ -44,6 +43,7 @@ export default function AdminApp({ previewAdapter }: { previewAdapter?: AdminAda
   const [compact,setCompact] = useState(() => window.matchMedia('(max-width:1100px)').matches);
   const stateRef = useRef(state), running = useRef(false), scrollPositions = useRef<Partial<Record<AdminMenu, number>>>({}), currentMenu = useRef(menu);
   const main = useRef<HTMLElement>(null);
+  const placeListScrollTop = useRef(0);
   const sidebarPanel = useRef<HTMLElement>(null), menuOpener = useRef<HTMLButtonElement>(null);
   const acceptState = useCallback((next: AdminState) => { stateRef.current = next; setState(next); }, []);
   const load = useCallback(async () => {
@@ -75,12 +75,13 @@ export default function AdminApp({ previewAdapter }: { previewAdapter?: AdminAda
   }, [adapter, acceptState, previewAdapter]);
   useEffect(() => { if (!success) return; const timer = setTimeout(() => setSuccess(''), 6000); return () => clearTimeout(timer); }, [success]);
   const navigate = (next: AdminMenu, target?: string, requestedAction?: AdminPageProps['entryAction']) => {
+    if (currentMenu.current === 'places' && !pageTargets.places) placeListScrollTop.current = main.current?.scrollTop ?? 0;
     scrollPositions.current[currentMenu.current] = main.current?.scrollTop ?? 0;
     currentMenu.current = next; setMenu(next); setVisited(previous => previous.includes(next) ? previous : [...previous, next]);
     const action = requestedAction ?? (target?.startsWith('action:') ? target.slice(7) as AdminPageProps['entryAction'] : undefined);
     setPageTargets(previous => ({ ...previous, [next]: target?.startsWith('action:') ? undefined : target }));
     setEntityId(target?.startsWith('action:') ? undefined : target); setEntryAction(action); setSidebar(false); setSuccess(''); if (accessRef.current) setError('');
-    requestAnimationFrame(() => { if (main.current) main.current.scrollTop = scrollPositions.current[next] ?? 0; });
+    requestAnimationFrame(() => { if (main.current) main.current.scrollTop = next === 'places' && !target ? placeListScrollTop.current : scrollPositions.current[next] ?? 0; });
   };
   const run = async (input: AdminCommandInput): Promise<boolean> => {
     if (running.current || loading || !accessRef.current || !session || !stateRef.current) return false;
@@ -116,7 +117,7 @@ export default function AdminApp({ previewAdapter }: { previewAdapter?: AdminAda
         </div>
       </header>
       <main id="admin-main" ref={main} className="admin-main" tabIndex={-1}>
-        <div className="admin-page-heading"><p>SPOTLOG OPERATIONS</p><h1>{menus.find(item => item.id === menu)?.label}</h1><span>{pageDescriptions[menu]}</span></div>
+        <div className="admin-page-heading"><h1>{menus.find(item => item.id === menu)?.label}</h1><span>{pageDescriptions[menu]}</span></div>
         {previewAdapter && <section className="admin-preview-status" role="note"><div><strong>관리자 화면 미리보기</strong><p>예시 자료로 등록·수정·공개 흐름을 확인하세요. 저장한 수정은 이 탭의 예시에만 반영돼요.</p></div><a href={import.meta.env.BASE_URL + 'admin.html'}>서비스 관리자</a></section>}
         {!previewAdapter && !loading && !accessReady && <section className="admin-preview-entry"><div><h2>관리자 화면을 미리 확인해 보세요</h2><p>서버 연결 없이 예시 자료로 장소 등록, 추천 여행, 신고 처리 등 관리자 기능을 둘러볼 수 있어요.</p></div><div className="admin-preview-entry-actions"><a className="admin-preview-open" href={import.meta.env.BASE_URL + 'admin-preview.html'}>관리자 미리보기 열기 <ExternalLink size={16}/></a><a href={import.meta.env.BASE_URL + 'manual/admin/'}>사용 설명서</a></div></section>}
         {error && <div role="alert" className="admin-feedback"><Notice tone="danger">{error}</Notice></div>}
@@ -125,48 +126,19 @@ export default function AdminApp({ previewAdapter }: { previewAdapter?: AdminAda
         {!loading && (!props || !accessReady) && <Panel title="관리자 연결 대기"><EmptyState title="아직 관리자 자료를 불러오지 못했어요" description="인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요." action={<button onClick={() => void load()}>다시 연결</button>}/></Panel>}
         {props && <div hidden={!accessReady}><ScreenBoundary key={session!.operatorId}>{visited.map(id => {
           const pageProps = { ...props, entityId: pageTargets[id], entryAction: menu === id ? entryAction : undefined, clearEntryAction: menu === id ? props.clearEntryAction : undefined };
-          return <div key={id} hidden={menu !== id} className="admin-page-body">{id === 'overview' ? <OverviewPage {...pageProps}/> : id === 'places' ? <PlacesPage {...pageProps}/> : id === 'exposure' ? <ExposurePage {...pageProps}/> : id === 'community' ? <CommunityPage {...pageProps}/> : id === 'members' ? <MembersPage {...pageProps}/> : id === 'ai' ? <AIPage {...pageProps}/> : <SettingsPage {...pageProps}/>}</div>;
+          return <div key={id} hidden={menu !== id} className="admin-page-body">{id === 'overview' ? <OverviewPage {...pageProps}/> : id === 'places' ? <PlacesWorkspace {...pageProps}/> : id === 'exposure' ? <ExposurePage {...pageProps}/> : id === 'community' ? <CommunityPage {...pageProps}/> : id === 'members' ? <MembersPage {...pageProps}/> : id === 'ai' ? <AIPage {...pageProps}/> : <SettingsPage {...pageProps}/>}</div>;
         })}</ScreenBoundary></div>}
       </main>
     </div>
   </div>;
 }
 
-function OverviewPage({ state, navigate, mode, session, regionId = '', setRegionId }: AdminPageProps) {
-  const [scope, setScope] = useState('ALL');
-  const regions = state.regions ?? [];
-  const belongs = (place: AdminState['places'][number], selected: string) => {
-    if (!selected) return true;
-    let current = place.draft.regionId;
-    const visited = new Set<string>();
-    while (current && !visited.has(current)) { if (current === selected) return true; visited.add(current); current = regions.find(region => region.regionId === current)?.parentId; }
-    return false;
-  };
-  const scoped = state.places.filter(place => belongs(place, regionId) && (scope !== 'MINE' || place.meta?.assignedToId === session.operatorId));
-  const connections = state.ops.connections.filter(connection => !['팔로우', '받은 알림함'].includes(connection.name));
-  const metrics = mode === 'API' && state.metrics?.source === 'SERVER' && state.metrics.observedAt ? state.metrics : null;
-  const metricNames = [['members','회원'],['saves','장소 저장'],['generatedTrips','여행 생성'],['publicJournals','공개 여행기']] as const;
-  const missing = scoped.filter(p => publicationIssues(p.draft).length > 0), drafts = scoped.filter(p => p.state === 'DRAFT' || p.meta?.reviewStatus === 'NEEDS_CHECK'), reports = state.ops.reports.filter(r => r.status === 'OPEN'), failedJobs = state.ai.jobs.filter(job => job.state === 'FAILED');
-  const shortcuts = [
-    { title: '스팟·업체 등록', description: '선택한 지역에 새 장소 추가', icon: Plus, action: () => navigate('places', 'action:create-place') },
-    { title: '자료 가져오기', description: '출처를 보존해 초안으로 등록', icon: Upload, action: () => navigate('places', 'action:import') },
-    { title: '검수 이어하기', description: '담당 자료·사진·위치 확인', icon: ClipboardCheck, action: () => navigate('places', undefined, scope === 'MINE' ? 'review-mine' : 'review') },
-    { title: '추천 여행 만들기', description: '등록 장소로 DAY·여행기 초안', icon: Sparkles, action: () => navigate('exposure', 'action:generate') },
-  ];
-  const tasks = [
-    { label: '장소 초안 검수', count: drafts.length, help: '원본·출처·공개 요건', action: () => navigate('places', drafts[0]?.placeId) },
-    { label: '좌표·사용 범위 확인', count: missing.length, help: '좌표 검증과 자료 사용 허가', action: () => navigate('places', missing[0]?.placeId) },
-    { label: '미처리 신고', count: reports.length, help: '대상·문맥과 처리 사유', action: () => navigate('community') },
-    { label: '운영 정보 재확인', count: scoped.filter(p => p.draft.operation === 'CHECK' || p.draft.operation === 'TEMP_CLOSED').length, help: '영업·임시휴업 상태', action: () => navigate('places', scoped.find(p => p.draft.operation === 'CHECK' || p.draft.operation === 'TEMP_CLOSED')?.placeId) },
-    { label: 'RAG 갱신 실패', count: failedJobs.length, help: '실패 항목과 정상 버전', action: () => navigate('ai', undefined, 'failed-indices') },
-    { label: '알림 실패 검수', count: state.ops.notifications.filter(n => n.status === 'FAILED').length, help: '발송 실패·재시도 조건', action: () => navigate('settings', undefined, 'failed-notifications') },
-    { label: '수급 실패 검수', count: state.ops.supplyJobs.filter(j => j.status === 'FAILED').length, help: '자료 가져오기·재시도 조건', action: () => navigate('settings', undefined, 'failed-supply') },
-  ];
-  return <div className="admin-stack">
-    <Panel title="오늘의 운영 작업" description="지역 → 자료 등록·검수 → 추천 여행 → 고객 미리보기"><div className="admin-toolbar admin-work-filters"><label className="admin-field"><span>작업 지역</span><AdminSelect aria-label="운영 현황 작업 지역" value={regionId} onChange={e => setRegionId?.(e.target.value)}><option value="">전체 지역</option>{regions.filter(region => region.enabled && region.level !== 'COUNTRY').map(region => <option key={region.regionId} value={region.regionId}>{regionLabel(regions, region.regionId).replace('대한민국 · ', '')}</option>)}</AdminSelect></label><label className="admin-field"><span>담당 범위</span><AdminSelect aria-label="운영 현황 담당 범위" value={scope} onChange={e => setScope(e.target.value)}><option value="ALL">전체 담당</option><option value="MINE">내 담당 자료</option></AdminSelect></label></div><div className="admin-start-grid">{shortcuts.map(action => <button key={action.title} className="admin-start-action" onClick={action.action}><span className="admin-start-icon"><action.icon size={20}/></span><span><strong>{action.title}</strong><small>{action.description}</small></span><ArrowRight size={16}/></button>)}</div></Panel>
-    <Panel title="처리할 항목"><div className="admin-task-grid">{tasks.map(task => <button key={task.label} className="admin-task" onClick={task.action}><span>{task.label}<small>{task.help}</small></span><strong>{task.count}</strong><ChevronRight size={16}/></button>)}</div></Panel>
-    <Panel title="지역별 자료 현황" description="랜드마크와 주변 업체를 같은 지역 안에서 등록·검수합니다." actions={<button onClick={() => navigate('settings', undefined, 'regions')}>지역 관리</button>}><div className="admin-table-wrap"><table className="admin-table admin-region-table"><colgroup><col style={{width:"20%"}}/>{[1,2,3,4,5].map(column=><col key={column} style={{width:"16%"}}/>)}</colgroup><thead><tr><th scope="col">지역</th><th scope="col" className="admin-table-number">랜드마크</th><th scope="col" className="admin-table-number">업체</th><th scope="col" className="admin-table-number">검수 대기</th><th scope="col" className="admin-table-number">공개</th><th scope="col" className="admin-table-action">작업</th></tr></thead><tbody>{regions.filter(region => region.enabled && (regionId ? region.regionId === regionId : region.level === 'PROVINCE')).map(region => { const places = scoped.filter(place => belongs(place, region.regionId)); return <tr key={region.regionId}><td>{region.name}</td><td className="admin-table-number">{places.filter(place => place.draft.kind === 'LANDMARK').length}</td><td className="admin-table-number">{places.filter(place => place.draft.kind !== 'LANDMARK').length}</td><td className="admin-table-number">{places.filter(place => place.state === 'DRAFT').length}</td><td className="admin-table-number">{places.filter(place => place.state === 'PUBLISHED' && !place.revoked).length}</td><td className="admin-table-action"><button onClick={() => { setRegionId?.(region.regionId); navigate('places'); }}>{region.name} 자료 보기</button></td></tr>; })}</tbody></table>{!regions.length && <EmptyState title="지역 자료를 불러오지 못했어요" action={<button onClick={() => navigate('settings', undefined, 'regions')}>지역 기준 확인</button>}/>}</div></Panel>
-    {metrics && <Panel title="실제 서비스 집계" description={'서버 집계 기준 시각: ' + new Date(metrics.observedAt!).toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})}><div className="admin-metrics">{metricNames.map(([key,label]) => <article key={key}><span>{label}</span><strong>{metrics[key]?.toLocaleString('ko-KR') ?? '—'}</strong><Badge>{metrics[key] !== null && metrics[key] !== undefined ? '서버 집계' : '집계 미제공'}</Badge></article>)}</div></Panel>}
-    <div className="admin-health-summary">{mode === 'API' && <span>{`연결 확인 ${connections.filter(connection => connection.status === 'CONNECTED').length} · 장애 ${connections.filter(connection => connection.status === 'FAILED' || connection.status === 'DEGRADED').length}`}</span>}<button onClick={() => navigate('settings', 'action:connections')}>연결 설정 확인 <ChevronRight size={14}/></button></div>
-  </div>;
+function PlacesWorkspace(props: AdminPageProps) {
+  const [view, setView] = useState('places');
+  useEffect(() => {
+    if (props.entryAction === 'regions') { setView('regions'); props.clearEntryAction?.(); }
+    else if (props.entryAction === 'place-list') setView('places');
+    else if (props.entryAction || props.entityId) setView('places');
+  }, [props.entryAction, props.entityId]);
+  return <div className="admin-places-workspace"><Tabs items={[{ id: 'places', label: '장소 목록' }, { id: 'regions', label: '지역 설정' }]} value={view} onChange={setView}/><div hidden={view !== 'places'}><PlacesPage {...props}/></div><div hidden={view !== 'regions'}><RegionManager {...props}/></div></div>;
 }

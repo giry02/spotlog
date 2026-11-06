@@ -14,7 +14,7 @@ const integer = (value: unknown) => typeof value === 'number' && Number.isIntege
 
 /** Unfinished drafts may be incomplete; their nested shape must still be safe to edit. */
 export function isPlaceEditorContent(value: unknown): value is PlaceContent {
-  if (!record(value) || !['LANDMARK', 'FOOD', 'CAFE', 'STAY', 'SHOP'].includes(String(value.kind)) || !['OPEN', 'TEMP_CLOSED', 'CLOSED', 'CHECK'].includes(String(value.operation))) return false;
+  if (!record(value) || !['LANDMARK', 'FOOD', 'CAFE', 'STAY', 'SHOP', 'LEISURE'].includes(String(value.kind)) || !['OPEN', 'TEMP_CLOSED', 'CLOSED', 'CHECK'].includes(String(value.operation))) return false;
   if (!strings(value, ['name', 'companyId', 'area', 'address', 'description', 'provider', 'sourceUrl', 'checkedAt']) || !tags(value.tags) || !rights(value.rights)) return false;
   if (!optionalStrings(value,['regionId','visitDuration','hook','creatorLabel']) || !provenance(value.provenance,['sourcePlaceId','sourceRecordId','scope','note'])) return false;
   const location = value.location, guide = value.guide, ai = value.ai;

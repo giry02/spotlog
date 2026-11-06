@@ -1,0 +1,110 @@
+[
+  {
+    "width": "320",
+    "url": "http://127.0.0.1:5214/@fs/C:/Users/Giry/Documents/Spotlog/artifacts/navigation-spacing-20261029/together-review.html",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".tg-tabs",
+        "gap": "8px",
+        "client": 305,
+        "scroll": 305,
+        "buttons": [
+          {
+            "text": "홈",
+            "w": 44,
+            "h": 50
+          },
+          {
+            "text": "번개·정모",
+            "w": 81,
+            "h": 50
+          },
+          {
+            "text": "게시판",
+            "w": 64,
+            "h": 50
+          },
+          {
+            "text": "앨범",
+            "w": 52,
+            "h": 50
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": "390",
+    "url": "http://127.0.0.1:5214/@fs/C:/Users/Giry/Documents/Spotlog/artifacts/navigation-spacing-20261029/together-review.html",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".tg-tabs",
+        "gap": "8px",
+        "client": 375,
+        "scroll": 375,
+        "buttons": [
+          {
+            "text": "홈",
+            "w": 58,
+            "h": 50
+          },
+          {
+            "text": "번개·정모",
+            "w": 100,
+            "h": 50
+          },
+          {
+            "text": "게시판",
+            "w": 83,
+            "h": 50
+          },
+          {
+            "text": "앨범",
+            "w": 70,
+            "h": 50
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": "460",
+    "url": "http://127.0.0.1:5214/@fs/C:/Users/Giry/Documents/Spotlog/artifacts/navigation-spacing-20261029/together-review.html",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".tg-tabs",
+        "gap": "8px",
+        "client": 445,
+        "scroll": 445,
+        "buttons": [
+          {
+            "text": "홈",
+            "w": 75,
+            "h": 50
+          },
+          {
+            "text": "번개·정모",
+            "w": 117,
+            "h": 50
+          },
+          {
+            "text": "게시판",
+            "w": 101,
+            "h": 50
+          },
+          {
+            "text": "앨범",
+            "w": 88,
+            "h": 50
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,312 @@
+{
+  "initial": {
+    "inputs": [
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      }
+    ],
+    "pressed": [
+      "false",
+      "false",
+      "false"
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 1 · 입력 가능"
+  },
+  "pointerSelection": {
+    "inputs": [
+      {
+        "disabled": false,
+        "end": 7,
+        "focused": true,
+        "start": 3,
+        "type": "text"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      }
+    ],
+    "pressed": [
+      "true",
+      "false",
+      "false"
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 1 · 입력 가능"
+  },
+  "secondIndependent": {
+    "inputs": [
+      {
+        "disabled": false,
+        "end": 7,
+        "focused": false,
+        "start": 3,
+        "type": "text"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "text"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      }
+    ],
+    "pressed": [
+      "true",
+      "true",
+      "false"
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 1 · 입력 가능"
+  },
+  "thirdKeyboard": {
+    "inputs": [
+      {
+        "disabled": false,
+        "end": 7,
+        "focused": false,
+        "start": 3,
+        "type": "text"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "text"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "text"
+      }
+    ],
+    "pressed": [
+      "true",
+      "true",
+      "true"
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 1 · 입력 가능"
+  },
+  "locked": {
+    "inputs": [
+      {
+        "disabled": true,
+        "end": 0,
+        "focused": false,
+        "start": 0,
+        "type": "password"
+      },
+      {
+        "disabled": true,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      },
+      {
+        "disabled": true,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      }
+    ],
+    "pressed": [
+      "false",
+      "false",
+      "false"
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 1 · 잠김"
+  },
+  "unlocked": {
+    "inputs": [
+      {
+        "disabled": false,
+        "end": 0,
+        "focused": false,
+        "start": 0,
+        "type": "password"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      }
+    ],
+    "pressed": [
+      "false",
+      "false",
+      "false"
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 1 · 입력 가능"
+  },
+  "boundary": {
+    "inputs": [
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      }
+    ],
+    "pressed": [
+      "false",
+      "false",
+      "false"
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 2 · 입력 가능"
+  },
+  "reopened": {
+    "inputs": [
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      }
+    ],
+    "pressed": [
+      "false",
+      "false",
+      "false"
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 2 · 입력 가능"
+  },
+  "keyboardSpace": {
+    "inputs": [
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "text"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      },
+      {
+        "disabled": false,
+        "end": 20,
+        "focused": false,
+        "start": 20,
+        "type": "password"
+      }
+    ],
+    "pressed": [
+      "true",
+      "false",
+      "false"
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 2 · 입력 가능"
+  },
+  "cleared": {
+    "inputs": [
+      {
+        "disabled": false,
+        "end": 0,
+        "focused": false,
+        "start": 0,
+        "type": "password"
+      },
+      {
+        "disabled": false,
+        "end": 0,
+        "focused": false,
+        "start": 0,
+        "type": "password"
+      },
+      {
+        "disabled": false,
+        "end": 0,
+        "focused": false,
+        "start": 0,
+        "type": "password"
+      }
+    ],
+    "pressed": [
+      "false",
+      "false",
+      "false"
+    ],
+    "status": "폼 제출 횟수: 0 · 경계: 2 · 입력 가능"
+  }
+}

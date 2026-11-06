@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-12",
+  "checks": [
+    {
+      "width": 320,
+      "name": "READY opens for reading; explicit edit, manual order, completion and reload preserve private plan/DAY/booking",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "unfinished manual edits reload into editing with private draft memo retained",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "DRAFT starts in registration; failed completion stays editable; success becomes private read view without publishing/journal",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "empty plan cannot finish; direct food selection stays editing until explicit completion",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "registration completion resolves shortlist once; failed confirmation preserves choices; single dinner/locked stay retained",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "reading place sheet is informational; explicit edit reuses one sheet; map optional and travel guide retained in menu",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "route-warning time correction explicitly enters editing; only selected time changes; booking retained and completion returns read view",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "new planning view hides zero-progress toolbar; actual visits/traveling show one-touch progress and preserve completion after reload",
+      "detail": "pass"
+    },
+    {
+      "width": 320,
+      "name": "actual customer app completion stays PLAN/private; journal is explicit separate private record; other/admin records protected",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "READY opens for reading; explicit edit, manual order, completion and reload preserve private plan/DAY/booking",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "unfinished manual edits reload into editing with private draft memo retained",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "DRAFT starts in registration; failed completion stays editable; success becomes private read view without publishing/journal",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "empty plan cannot finish; direct food selection stays editing until explicit completion",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "registration completion resolves shortlist once; failed confirmation preserves choices; single dinner/locked stay retained",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "reading place sheet is informational; explicit edit reuses one sheet; map optional and travel guide retained in menu",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "route-warning time correction explicitly enters editing; only selected time changes; booking retained and completion returns read view",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "new planning view hides zero-progress toolbar; actual visits/traveling show one-touch progress and preserve completion after reload",
+      "detail": "pass"
+    },
+    {
+      "width": 390,
+      "name": "actual customer app completion stays PLAN/private; journal is explicit separate private record; other/admin records protected",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "READY opens for reading; explicit edit, manual order, completion and reload preserve private plan/DAY/booking",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "unfinished manual edits reload into editing with private draft memo retained",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "DRAFT starts in registration; failed completion stays editable; success becomes private read view without publishing/journal",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "empty plan cannot finish; direct food selection stays editing until explicit completion",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "registration completion resolves shortlist once; failed confirmation preserves choices; single dinner/locked stay retained",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "reading place sheet is informational; explicit edit reuses one sheet; map optional and travel guide retained in menu",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "route-warning time correction explicitly enters editing; only selected time changes; booking retained and completion returns read view",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "new planning view hides zero-progress toolbar; actual visits/traveling show one-touch progress and preserve completion after reload",
+      "detail": "pass"
+    },
+    {
+      "width": 460,
+      "name": "actual customer app completion stays PLAN/private; journal is explicit separate private record; other/admin records protected",
+      "detail": "pass"
+    }
+  ],
+  "errors": []
+}

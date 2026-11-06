@@ -4,7 +4,7 @@ import type { OpsState, OpsCommand } from './opsTypes';
 export type AdminMenu = 'overview' | 'places' | 'exposure' | 'community' | 'members' | 'ai' | 'settings';
 export type AdminRole = 'OPERATOR' | 'ADMIN';
 export interface AdminSession { operatorId: string; name: string; role: AdminRole }
-export type AdminKind = 'LANDMARK' | 'FOOD' | 'CAFE' | 'STAY' | 'SHOP';
+export type AdminKind = 'LANDMARK' | 'FOOD' | 'CAFE' | 'STAY' | 'SHOP' | 'LEISURE';
 export interface UsageRights { display: boolean; store: boolean; modify: boolean; ai: boolean }
 export type PlaceReviewStatus = 'DRAFT' | 'NEEDS_CHECK' | 'READY';
 export interface AdminRegion { regionId: string; name: string; parentId?: string; level: 'COUNTRY' | 'PROVINCE' | 'CITY' | 'DISTRICT'; enabled: boolean; revision: number }
@@ -63,7 +63,7 @@ export interface AdminAdapter {
   execute(command: AdminCommand, session: AdminSession): Promise<AdminCommandResult>;
 }
 export interface AdminPageProps {
-  entityId?: string; entryAction?: 'create-place' | 'import' | 'review' | 'review-mine' | 'generate' | 'connections' | 'regions' | 'media-review' | 'failed-notifications' | 'failed-supply' | 'failed-indices'; clearEntryAction?: () => void;
+  entityId?: string; entryAction?: 'create-place' | 'place-list' | 'import' | 'review' | 'review-mine' | 'generate' | 'connections' | 'regions' | 'media-review' | 'failed-notifications' | 'failed-supply' | 'failed-indices'; clearEntryAction?: () => void;
   regionId?: string; setRegionId?: (regionId: string) => void;
   mode: 'LOCAL' | 'API';
   adapter?: AdminAdapter;

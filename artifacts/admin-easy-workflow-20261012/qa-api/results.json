@@ -1,0 +1,19 @@
+{
+  "base": "http://127.0.0.1:5210",
+  "generatedAt": "2026-10-12T06:33:26.514Z",
+  "checks": [
+    {
+      "name": "API recommendation revision conflict preserves in-memory input without writing private contents to local storage"
+    },
+    {
+      "name": "successful delayed API save adopts the new revision and preserves text typed after the request"
+    },
+    {
+      "name": "API region revision conflict also retains the operator input and exposes an explicit reload"
+    },
+    {
+      "name": "new API draft-to-saved transition also preserves text and conditions typed while the save is pending"
+    }
+  ],
+  "errors": []
+}

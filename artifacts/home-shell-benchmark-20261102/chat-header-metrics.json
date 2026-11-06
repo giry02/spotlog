@@ -1,0 +1,59 @@
+[
+  {
+    "composer": null,
+    "header": {
+      "h": 64,
+      "w": 305,
+      "x": 0,
+      "y": 61
+    },
+    "measured": "64px",
+    "outerWidth": 320,
+    "previousClass": "screen-header screen-header--detail",
+    "tools": {
+      "h": 168,
+      "w": 305,
+      "x": 0,
+      "y": 125
+    },
+    "width": 320
+  },
+  {
+    "composer": null,
+    "header": {
+      "h": 64,
+      "w": 375,
+      "x": 0,
+      "y": 41
+    },
+    "measured": "64px",
+    "outerWidth": 390,
+    "previousClass": "screen-header screen-header--detail",
+    "tools": {
+      "h": 168,
+      "w": 375,
+      "x": 0,
+      "y": 105
+    },
+    "width": 390
+  },
+  {
+    "composer": null,
+    "header": {
+      "h": 64,
+      "w": 445,
+      "x": 0,
+      "y": 41
+    },
+    "measured": "64px",
+    "outerWidth": 460,
+    "previousClass": "screen-header screen-header--detail",
+    "tools": {
+      "h": 168,
+      "w": 445,
+      "x": 0,
+      "y": 105
+    },
+    "width": 460
+  }
+]

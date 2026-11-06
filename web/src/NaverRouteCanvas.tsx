@@ -3,16 +3,17 @@ import type { Place } from './data';
 import { loadNaverMap,watchNaverMapFailure } from './naverMap';
 import { useLocale } from './locale';
 
-export function NaverRouteCanvas({places,numbers,selectedVisitId,onSelectVisit,coordinates,clientId}:{places:Place[];numbers?:number[];selectedVisitId?:string;onSelectVisit?:(id:string)=>void;coordinates:Array<[number,number]>;clientId:string}) {
+export function NaverRouteCanvas({places,numbers,selectedVisitId,onSelectVisit,coordinates,clientId,onUnavailable}:{places:Place[];numbers?:number[];selectedVisitId?:string;onSelectVisit?:(id:string)=>void;coordinates:Array<[number,number]>;clientId:string;onUnavailable?:()=>void}) {
   const {locale}=useLocale(),en=locale==='en';
   const container=useRef<HTMLDivElement>(null);
   const nodes=useRef(new Map<string,HTMLElement>());
   const current=useRef({onSelectVisit,selectedVisitId});current.current={onSelectVisit,selectedVisitId};
+  const failureCallback=useRef(onUnavailable);failureCallback.current=onUnavailable;
   const [status,setStatus]=useState<'loading'|'ready'|'error'>('loading');
   const [attempt,setAttempt]=useState(0);
   useEffect(()=>{
     let disposed=false,cleanup=()=>{};setStatus('loading');nodes.current.clear();
-    const unwatch=watchNaverMapFailure(()=>{if(!disposed){cleanup();cleanup=()=>{};setStatus('error');}});
+    const unwatch=watchNaverMapFailure(()=>{if(!disposed){cleanup();cleanup=()=>{};setStatus('error');failureCallback.current?.();}});
     void loadNaverMap(clientId).then(maps=>{
       if(disposed||!container.current||!places.length)return;
       const target=container.current;
@@ -33,7 +34,7 @@ export function NaverRouteCanvas({places,numbers,selectedVisitId,onSelectVisit,c
       if(points.length>1)map.fitBounds(points,{top:34,right:34,bottom:34,left:34,maxZoom:15});
       observer=new ResizeObserver(()=>map.autoResize());observer.observe(target);
       setStatus('ready');
-    }).catch(()=>{if(!disposed){cleanup();cleanup=()=>{};setStatus('error');}});
+    }).catch(()=>{if(!disposed){cleanup();cleanup=()=>{};setStatus('error');failureCallback.current?.();}});
     return()=>{disposed=true;unwatch();cleanup();};
   },[places,numbers,coordinates,clientId,attempt]);
   useEffect(()=>{nodes.current.forEach((node,id)=>{node.dataset.selected=String(id===selectedVisitId);node.setAttribute('aria-pressed',String(id===selectedVisitId));});},[selectedVisitId]);

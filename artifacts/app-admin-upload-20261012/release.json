@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-12",
+  "repository": "giry02/spotlog",
+  "commit": "e534318cadb7bf92c7ea921b5df6e0c5cd26a101",
+  "branches": ["codex/mobile-foundation", "codex/app-admin-release-20261012"],
+  "changedFiles": 275,
+  "validation": {"automatedTests": 500, "webBuild": "passed", "nativeTypecheck": "passed", "productionStaticChecks": 41},
+  "deployment": {"runId": 38188090806, "status": "completed", "conclusion": "success", "url": "https://github.com/giry02/spotlog/actions/runs/38188090806"},
+  "publicApp": "https://giry02.github.io/spotlog/",
+  "publicAdmin": "https://giry02.github.io/spotlog/admin.html",
+  "adminMode": "API_AUTH_REQUIRED_BACKEND_UNCONNECTED",
+  "liveVerification": {"status": "passed", "checks": 41, "newBusanAssetHttpChecks": 54, "assetFailures": 0, "pageErrors": 0},
+  "bundles": {"customer": "customer-DAb3ixvv.js", "admin": "admin-BdFqIH-7.js", "mapWorker": "maplibre-gl-worker-5lTrTa-q.js"}
+}

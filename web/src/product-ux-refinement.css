@@ -68,7 +68,7 @@
 .personal-trip .phase-three-trip-tools button > svg { flex-shrink: 0; }
 .personal-trip .phase-three-trip-tools .plan-map-toggle { margin-bottom: 0; }
 .personal-trip .plan-stop-copy small.ai-planner-kind { color: var(--kind-ink); font-weight: 700; }
-.personal-trip .plan-travel-next .plan-next-complete { flex: none; min-height: 36px; padding: 0 8px; font-size: var(--type-caption); gap: 4px; }
+.personal-trip .plan-travel-next .plan-next-complete { flex: none; min-height: var(--touch-target,44px); padding: 6px 8px; font-size: var(--type-subhead); gap: 4px; }
 .personal-trip .plan-travel-next .plan-directions-link { padding-inline: 8px; gap: 4px; }
 .personal-trip .plan-journal-link { min-height: 44px; font-size: var(--type-subhead); line-height: 1.5; }
 .plan-form label.plan-journal-option { display: flex; align-items: center; gap: 8px; min-height: 44px; margin: 0; font-size: var(--type-subhead); font-weight: 400; }

@@ -1,0 +1,114 @@
+[
+  {
+    "path": "web/src/App.tsx",
+    "sha256": "B951CB0658C72273C581D1461965904CECD2D6ADD8FE1F5434E64666B7FA6733"
+  },
+  {
+    "path": "web/src/AppMenu.tsx",
+    "sha256": "FF03522313E246F1590EE50E72916E348AF8069F2E53468C284191D50E0CF530"
+  },
+  {
+    "path": "web/src/app-navigation.css",
+    "sha256": "F5E27E7EB48D10B1B1BBA4DB7701DC38603ADDE52E8652F6F949F8A8A90BE680"
+  },
+  {
+    "path": "web/src/community/DiscoveryHome.tsx",
+    "sha256": "A01B1A9EC7FB91DDD0B43BE9AB9BFCCD0B4BBC7545692055C04C14259F9F889C"
+  },
+  {
+    "path": "web/src/community/discoveryHomeModel.ts",
+    "sha256": "619CE17AFA14A801DEBD441AFF05BD7FBF00EDE4CD9A97C2299B889BEA883A7C"
+  },
+  {
+    "path": "web/src/community/discovery-home.css",
+    "sha256": "BF3C46D436CC67F7EA252EC668AB782DA57C93D2CC81646426373077BE090EB2"
+  },
+  {
+    "path": "web/src/community/PlaceDirectory.tsx",
+    "sha256": "91B41D8758BB182F1623DD0BC5D2C1A2DA5B9ED21A057272314786A9F9034EDD"
+  },
+  {
+    "path": "web/src/community/place-directory.css",
+    "sha256": "7D61126E5E852BAED4A06C3E6CDEB501BC506BF6D678AF7DEEFE18BF8A99F96F"
+  },
+  {
+    "path": "web/src/community/PlatformHubs.tsx",
+    "sha256": "87991F45886345A77ED3203DA3730407E293B554AE81FD3CC5EEB6CB28BB909A"
+  },
+  {
+    "path": "web/src/community/platformModel.ts",
+    "sha256": "56F7B0850DBECAA83CD55E04862773F3BE115D80ECC4A396FC0241DCD34F7813"
+  },
+  {
+    "path": "web/src/community/platform-hubs.css",
+    "sha256": "830765EE646D4DE93F98B688060F05F07F4477621A1AF26D6160BB172ADEC394"
+  },
+  {
+    "path": "web/src/together/model.ts",
+    "sha256": "9EBC719D60BB0F5AB741101182617978C7BAF3FA5C7EC501BB77589BBD02C60D"
+  },
+  {
+    "path": "web/src/together/repository.ts",
+    "sha256": "132816CD01A8E8ED6DE6ABE9D4C6A623DA68BDB621BE7CA3C4407504CEB07739"
+  },
+  {
+    "path": "web/src/together/discovery.ts",
+    "sha256": "B9DFD148E4C514C436DC9BEE01FBC6F1EE39431AF1C470E5A85069EC07612131"
+  },
+  {
+    "path": "web/src/together/TogetherApp.tsx",
+    "sha256": "1C9F1205943174E5EEDCB96F4763798346BF982BA9C79E31A980CC5F89262DF4"
+  },
+  {
+    "path": "web/src/together/together.css",
+    "sha256": "9082538C84B02D37CA36FDDF4416D0E0ADE9C73D3B2C07151459CDB3351282F4"
+  },
+  {
+    "path": "web/src/together/GroupDiscovery.tsx",
+    "sha256": "685B36088613B72F3D74700AD5927883C5D0CADAF7AF1F4B9CDCDBD0D65B343D"
+  },
+  {
+    "path": "web/src/together/group-discovery.css",
+    "sha256": "3500B3980BBCF40BC943E1CABCFE9187E1992C8EA63ED7E56ED4CDF3D3A41738"
+  },
+  {
+    "path": "web/src/together/ChatWorkspace.tsx",
+    "sha256": "92EDABA9626A6CB53742B1449016007CC5647B07EAD0C49A017CB939E9F556BA"
+  },
+  {
+    "path": "web/src/together/chat-workspace.css",
+    "sha256": "3DA728D22C5E778093BE62AB8647B8CFFA1191A4534945D2007C465EC77B4A37"
+  },
+  {
+    "path": "web/src/together/ActivityAssistantPanel.tsx",
+    "sha256": "57919017EB558A055CC0C2EF3C07DAE751EDC8746F9300A699B88DC51CFDDDB2"
+  },
+  {
+    "path": "web/src/together/activityAssistant.ts",
+    "sha256": "0BF43298DB7A3F5A85AD7E2E57ADE237A11AFF8560733929CC82211E4C3BE572"
+  },
+  {
+    "path": "web/src/together/activity-assistant.css",
+    "sha256": "2A1F4D89FAAFE0F41EA5A85B6156617224D4F388FBF0438AFDEDBD4A83D0D8D3"
+  },
+  {
+    "path": "web/tests/platformModel.test.mjs",
+    "sha256": "672CE3A9F5850A037915FAE9ECC6D37017E6A3E232150DDD709FC30A444A6516"
+  },
+  {
+    "path": "web/tests/discoveryHomeModel.test.mjs",
+    "sha256": "4DBA9EE0C2DAA7EBB10CA4BDD9C740DDD74641789A991F180454328C9FA7AEDD"
+  },
+  {
+    "path": "web/tests/activityAssistant.test.mjs",
+    "sha256": "EC67A269AA48C253903781942D2BEB12571EA8AA75E0771870331D5ED567A61D"
+  },
+  {
+    "path": "web/tests/platform-review.html",
+    "sha256": "0E00D3DFB4BD39C228313481D1C2A64545E954AA1BD80B2E72F9166DBAD26A67"
+  },
+  {
+    "path": "web/tests/platform-review.tsx",
+    "sha256": "E5395175A7087EF52B1B2A7CB84053798F87FA1116975DC7E5AFD317CF1D2575"
+  }
+]

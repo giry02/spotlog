@@ -1,0 +1,254 @@
+[
+  {
+    "width": "320",
+    "url": "http://127.0.0.1:5214/#home-groups",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".home-topic-tabs",
+        "gap": "8px",
+        "client": 284,
+        "scroll": 284,
+        "buttons": [
+          {
+            "text": "장소",
+            "w": 89,
+            "h": 50
+          },
+          {
+            "text": "모임",
+            "w": 89,
+            "h": 50
+          },
+          {
+            "text": "여행",
+            "w": 89,
+            "h": 50
+          }
+        ]
+      },
+      {
+        "selector": ".gd-categories",
+        "gap": "8px",
+        "client": 268,
+        "scroll": 674,
+        "buttons": [
+          {
+            "text": "👋이웃·친목",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🍚맛집",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "☕카페",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🚶산책",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🏸운동",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "📚독서",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🎨문화",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🎲보드게임",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "···더보기",
+            "w": 66,
+            "h": 69
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": "390",
+    "url": "http://127.0.0.1:5214/#home-groups",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".home-topic-tabs",
+        "gap": "8px",
+        "client": 354,
+        "scroll": 354,
+        "buttons": [
+          {
+            "text": "장소",
+            "w": 113,
+            "h": 50
+          },
+          {
+            "text": "모임",
+            "w": 113,
+            "h": 50
+          },
+          {
+            "text": "여행",
+            "w": 113,
+            "h": 50
+          }
+        ]
+      },
+      {
+        "selector": ".gd-categories",
+        "gap": "8px",
+        "client": 334,
+        "scroll": 678,
+        "buttons": [
+          {
+            "text": "👋이웃·친목",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🍚맛집",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "☕카페",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🚶산책",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🏸운동",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "📚독서",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🎨문화",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🎲보드게임",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "···더보기",
+            "w": 66,
+            "h": 69
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": "460",
+    "url": "http://127.0.0.1:5214/#home-groups",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".home-topic-tabs",
+        "gap": "8px",
+        "client": 424,
+        "scroll": 424,
+        "buttons": [
+          {
+            "text": "장소",
+            "w": 136,
+            "h": 50
+          },
+          {
+            "text": "모임",
+            "w": 136,
+            "h": 50
+          },
+          {
+            "text": "여행",
+            "w": 136,
+            "h": 50
+          }
+        ]
+      },
+      {
+        "selector": ".gd-categories",
+        "gap": "8px",
+        "client": 404,
+        "scroll": 678,
+        "buttons": [
+          {
+            "text": "👋이웃·친목",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🍚맛집",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "☕카페",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🚶산책",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🏸운동",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "📚독서",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🎨문화",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "🎲보드게임",
+            "w": 66,
+            "h": 69
+          },
+          {
+            "text": "···더보기",
+            "w": 66,
+            "h": 69
+          }
+        ]
+      }
+    ]
+  }
+]

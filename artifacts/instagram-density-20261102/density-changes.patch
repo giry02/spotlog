@@ -1,0 +1,743 @@
+--- before/docs/STYLE_GUIDE.md
++++ docs/STYLE_GUIDE.md
+@@ -1,4 +1,6 @@
+ # Spotlog 디자인 가이드 — 현재 사이트 전체 화면 기준
++
++2026-11-02 사용자 승인: Instagram 공개 웹의 밀도를 참고해 **고객 화면**의 일반 본문·설명14px/20px, 보조 정보12px/16px, 페이지 제목20px/26px, 섹션 제목18px/24px, 카드 제목16px/22px, 좌우 외곽16px로 조정. UI는 시스템 서체, 일반 제목600–700 사용. 카드 안 여백12–16px·카드 간12–16px로 중복 여백 축소. 입력은16px/24px, 주요 터치 영역44px 유지. 채팅은 기본14px/20px·메타12px/16px·메시지 사이12px로 적용하고, 메시지를 선택했을 때만 답장·반응·더보기 표시. 글자 선택은14/16/18/20px 유지. `consumer-density.css`와 `useConsumerDensity`의 고객 루트·포털 범위에서 적용하며 관리자와 공통 `--type-body:16px` 입력 기본값은 유지. 아래 과거16px 일반 본문 기록은 이번 변경 범위에서 대체. Instagram 전체 앱의 공식 규격을 복제한 것이 아닌 Spotlog 적용 기준. 메뉴 구조·데이터·권한 변경과 공개 배포는 포함하지 않음.
+ 
+ 2026-10-08 로그인 사용성 정정: 일반 이메일 로그인 입력을 기본으로 유지. Google/Apple은 ‘로그인’ 버튼으로 표시하고 미연결·실패 때 같은 화면에서 안내. 임의 가입 화면 전환 금지. 사용자 요청 검수 계정은 DEV에서만 미리 입력하며 작은 안내 영역의 ‘로컬 검수 계정’으로 구분. 입력16px·안내/행동14px·검수 채우기36px, 기존 소셜48px. 검수 로그인 성공 시 팝업을 닫고 프로필로 즉시 복귀. [수정·검수](execution/ACCOUNT_LOGIN_REVIEW_20261008.md).
+ 
+--- before/web/src/App.tsx
++++ web/src/App.tsx
+@@ -100,6 +100,7 @@
+ import { TripTrashSheet, MoveToTrashSheet } from './TripTrashSheet';
+ import './phase-three-integration.css';
+ import './strategy-home.css';
++import { useConsumerDensity } from './consumerDensity';
+ import { SavedLandmarkDetailSheet } from './SavedLandmarkDetailSheet';
+ import { publicTourismPlaces } from './publicTourismContent';
+ import { homeTripTemplates, publishedJourneySeeds, previewTemplateJourney, buildAiJourneyDraft, defaultComments, type JourneyComment, type HomeTripTemplate } from './consumerPublicSeed';
+@@ -566,7 +567,7 @@
+ 
+ const publicPlaceBaseline = placeCatalog.map(place => ({ ...place, photos: getPlacePhotos(place, true) }));
+ 
+-export default function App({ accountAdapter }: { accountAdapter?: SocialAccountAdapter } = {}) { return <LocaleProvider><AccountProvider adapter={accountAdapter}><CustomerErrorBoundary><PublicReviewProvider baseline={publicPlaceBaseline}><SpotlogApp /></PublicReviewProvider></CustomerErrorBoundary></AccountProvider></LocaleProvider>; }
++export default function App({ accountAdapter }: { accountAdapter?: SocialAccountAdapter } = {}) { useConsumerDensity(); return <LocaleProvider><AccountProvider adapter={accountAdapter}><CustomerErrorBoundary><PublicReviewProvider baseline={publicPlaceBaseline}><SpotlogApp /></PublicReviewProvider></CustomerErrorBoundary></AccountProvider></LocaleProvider>; }
+ 
+ function SpotlogApp() {
+   const account = useAccount()!;
+--- before/web/src/BottomSheet.tsx
++++ web/src/BottomSheet.tsx
+@@ -5,6 +5,7 @@
+ import { ArrowLeft, X } from 'lucide-react';
+ import { notifyNavigationState } from './nativeBridge';
+ import './phase-one.css';
++import { useConsumerDensity } from './consumerDensity';
+ import { IconButton } from './ui';
+ 
+ export const hasActiveSheet = () => Boolean(document.querySelector('[data-spotlog-sheet]'));
+@@ -19,6 +20,7 @@
+ export const useBottomSheetDetail = () => useContext(SheetDetailContext);
+ 
+ export function BottomSheet({ title, description, onClose, children }: { title: string; description?: string; onClose: () => void; children: ReactNode }) {
++  useConsumerDensity();
+   const copy=useUiCopy();
+   const { locale } = useLocale();
+   const titleId = useId();
+--- before/web/src/error-main.tsx
++++ web/src/error-main.tsx
+@@ -8,8 +8,10 @@
+ import { errorKindForType } from './errorStates';
+ import './styles.css';
+ import './theme.css';
++import { useConsumerDensity } from './consumerDensity';
+ 
+ function StandaloneError() {
++  useConsumerDensity();
+   const account = useAccount()!;
+   const kind = document.body.dataset.errorPage === 'missing' ? 404 : errorKindForType(new URLSearchParams(window.location.search).get('type'));
+   const root = new URL(import.meta.env.BASE_URL, window.location.origin).href;
+--- before/web/src/main.tsx
++++ web/src/main.tsx
+@@ -5,6 +5,7 @@
+ import './theme.css';
+ import './product-ux-refinement.css';
+ import './navigation-spacing.css';
++import './consumer-density.css';
+ 
+ createRoot(document.getElementById('root')!).render(
+   <StrictMode>
+--- before/web/src/together/TogetherApp.tsx
++++ web/src/together/TogetherApp.tsx
+@@ -18,6 +18,7 @@
+ import ConversationSummary from './ConversationSummary';
+ import { postTogetherMessage, toggleMessageReaction } from './chatActions';
+ import './together.css';
++import { useConsumerDensity } from '../consumerDensity';
+ 
+ interface Props {
+   /** Development-only fixture injection; normal account repositories stay independent. */
+@@ -65,6 +66,7 @@
+ }
+ 
+ export default function TogetherApp({ route, onNavigate, onBack, viewer, onLogin, places, journeys, onOpenJourney, onSavePlace, onCopyJourney, onCreateJournal, discoveryFilters, onDiscoveryFiltersChange, reviewRepository }: Props) {
++  useConsumerDensity();
+   const repository = useMemo(() => import.meta.env.DEV && reviewRepository ? reviewRepository : createTogetherRepository(viewer?.id ?? '', viewer?.name ?? '', places), [viewer?.id, reviewRepository]);
+   const [state, setState] = useState<TogetherState>(() => repository.getSnapshot());
+   const [groupTab, setGroupTab] = useState('home');
+--- before/web/src/together/together.css
++++ web/src/together/together.css
+@@ -6,47 +6,47 @@
+ .tg .tg-danger,.tg-sheet .tg-danger { color:#ba372d; }
+ .tg .tg-icon,.tg-sheet .tg-icon { width:44px; padding:10px; flex-shrink:0; }
+ .tg h1,.tg h2,.tg h3,.tg p,.tg-sheet p { margin:0; }
+-.tg h1 { font-size:var(--type-title); line-height:1.4; letter-spacing:-.7px; }
+-.tg h2 { font-size:18px; line-height:1.5; letter-spacing:-.4px; }
+-.tg h3 { font-size:16px; line-height:1.5; }
+-.tg p,.tg-sheet p { font-size:16px; line-height:1.7; overflow-wrap:anywhere; }
+-.tg small,.tg-sheet small { display:block; color:var(--muted); font-size:12px; line-height:1.5; }
+-.tg-head { padding:24px 20px 18px; display:flex; gap:12px; align-items:center; }
++.tg h1 { font-size:20px; line-height:26px; font-weight:700; letter-spacing:-.4px; }
++.tg h2 { font-size:18px; line-height:24px; font-weight:600; letter-spacing:-.3px; }
++.tg h3 { font-size:16px; line-height:22px; font-weight:600; }
++.tg p,.tg-sheet p { font-size:14px; line-height:20px; overflow-wrap:anywhere; }
++.tg small,.tg-sheet small { display:block; color:var(--muted); font-size:12px; line-height:16px; }
++.tg-head { padding:16px; display:flex; gap:12px; align-items:center; }
+ .tg-head>div { flex:1; min-width:0; }
+ .tg-head p { font-size:14px; color:var(--muted); margin-top:5px; }
+-.tg-kicker { display:block; font-size:12px; font-weight:800; color:var(--accent); margin-bottom:5px; }
++.tg-kicker { display:block; font-size:12px; line-height:16px; font-weight:600; color:var(--accent); margin-bottom:4px; }
+ .tg-bar { position:sticky; top:0; z-index:8; padding:12px 16px; display:flex; gap:10px; align-items:center; background:rgba(248,248,246,.97); border-bottom:1px solid var(--line); }
+ .tg-bar>div { flex:1; min-width:0; }
+-.tg-bar strong { display:block; font-size:16px; line-height:1.5; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+-.tg-pad { padding:20px; }
++.tg-bar strong { display:block; font-size:18px; line-height:24px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
++.tg-pad { padding:16px; }
+ .tg-stack { display:flex; flex-direction:column; gap:16px; }
+ .tg-row { display:flex; align-items:center; gap:10px; }
+ .tg-row>div:first-child { flex:1; min-width:0; }
+ .tg-between { display:flex; justify-content:space-between; align-items:center; gap:12px; }
+-.tg-tabs { display:flex; gap:0; padding:0 20px; background:var(--paper); border-bottom:1px solid var(--line); overflow:auto; }
++.tg-tabs { display:flex; gap:0; padding:0 16px; background:var(--paper); border-bottom:1px solid var(--line); overflow:auto; }
+ .tg .tg-tabs>button { border:0; border-radius:0; background:transparent; padding:12px 10px; flex:1; white-space:nowrap; color:var(--muted); border-bottom:2px solid transparent; }
+ .tg .tg-tabs>button[aria-selected=true] { color:var(--ink); border-bottom-color:var(--ink); }
+ .tg-segments { display:flex; gap:8px; }
+ .tg .tg-segments>button { flex:1; background:transparent; }
+ .tg .tg-segments>button[aria-pressed=true] { background:#232321; color:white; border-color:#232321; }
+-.tg-card { background:white; border:1px solid var(--line); border-radius:20px; padding:18px; overflow:hidden; }
++.tg-card { background:white; border:1px solid var(--line); border-radius:20px; padding:16px; overflow:hidden; }
+ .tg-card-link { width:100%; text-align:left; }
+ .tg .tg-card-link { display:block; padding:0; border-radius:20px; font-weight:400; overflow:hidden; }
+ .tg-card-link .tg-cover { width:100%; height:154px; object-fit:cover; display:block; }
+-.tg-card-copy { padding:18px; }
+-.tg-card-copy h2 { margin:8px 0 6px; }
++.tg-card-copy { padding:16px; }
++.tg-card-copy h2 { margin:8px 0 6px; font-size:16px; line-height:22px; font-weight:600; }
+ .tg-card-copy p { font-size:14px; color:#62625e; }
+ .tg-card-copy small { margin-top:12px; }
+ .tg-cover-fallback { height:140px; display:flex; align-items:center; justify-content:center; background:#f6e7df; color:#a96f56; }
+ .tg-tags { display:flex; gap:6px; flex-wrap:wrap; }
+-.tg-tag { display:inline-flex; align-items:center; gap:4px; padding:4px 8px; border-radius:7px; font-size:12px; line-height:1.5; font-weight:700; color:#62625e; background:#f1f1ee; }
++.tg-tag { display:inline-flex; align-items:center; gap:4px; padding:4px 8px; border-radius:7px; font-size:12px; line-height:16px; font-weight:600; color:#62625e; background:#f1f1ee; }
+ .tg-tag.coral { color:#b13e2c; background:#fff0eb; }
+ .tg-tag.green { color:#227769; background:#e9f5ef; }
+-.tg-summary { padding:18px; background:#eeeae2; border-radius:16px; }
++.tg-summary { padding:16px; background:#eeeae2; border-radius:16px; }
+ .tg-summary p { font-size:14px; color:#62625e; margin-top:7px; }
+ .tg-section { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:6px 0 0; }
+ .tg .tg-text-button,.tg-sheet .tg-text-button { background:transparent; border:0; padding:8px 0; color:#62625e; }
+-.tg-empty { text-align:center; padding:34px 16px; border:1px dashed #d9d9d4; border-radius:18px; }
++.tg-empty { text-align:center; padding:24px 16px; border:1px dashed #d9d9d4; border-radius:18px; }
+ .tg-empty>svg { color:#b8b8ae; margin-bottom:12px; }
+ .tg-empty h2 { margin-bottom:7px; }
+ .tg-empty p { font-size:14px; color:var(--muted); margin-bottom:18px; }
+@@ -58,7 +58,7 @@
+ .tg-date small { font-size:12px; font-weight:500; }
+ .tg-hero { position:relative; }
+ .tg-hero img { display:block; width:100%; height:190px; object-fit:cover; }
+-.tg-hero-copy { padding:24px 20px; }
++.tg-hero-copy { padding:16px; }
+ .tg-hero-copy h1 { margin:8px 0; }
+ .tg-hero-copy p { color:#62625e; font-size:14px; }
+ .tg-hero-copy .tg-tags { margin-top:14px; }
+@@ -70,25 +70,25 @@
+ .tg-place summary::-webkit-details-marker { display:none; }
+ .tg-place summary img { width:62px; height:62px; object-fit:cover; border-radius:12px; }
+ .tg-place summary>div { flex:1; min-width:0; }
+-.tg-place summary strong { display:block; font-size:16px; line-height:1.5; }
++.tg-place summary strong { display:block; font-size:16px; line-height:22px; font-weight:600; }
+ .tg-place-content { border-top:1px solid var(--line); padding:16px; display:flex; flex-direction:column; gap:12px; }
+ .tg-place-content>img { width:100%; height:180px; object-fit:cover; border-radius:12px; }
+-.tg-place-content p { font-size:16px; }
+-.tg-form { display:flex; flex-direction:column; gap:18px; }
++.tg-place-content p { font-size:14px; line-height:20px; }
++.tg-form { display:flex; flex-direction:column; gap:16px; }
+ .tg-form label { display:flex; flex-direction:column; gap:8px; color:var(--ink); font-size:14px; font-weight:700; }
+ .tg input,.tg select,.tg textarea,.tg-sheet input,.tg-sheet select,.tg-sheet textarea { width:100%; min-width:0; font-size:16px; font-weight:400; border:1px solid #deded8; border-radius:12px; background:white; color:var(--ink); padding:12px; min-height:46px; }
+ .tg textarea,.tg-sheet textarea { resize:vertical; min-height:100px; }
+ .tg-form .tg-check { display:flex; flex-direction:row; align-items:center; gap:10px; font-size:14px; font-weight:400; min-height:44px; }
+ .tg-form .tg-check input { width:20px; height:20px; min-height:20px; accent-color:var(--accent); flex-shrink:0; }
+ .tg-sheet { padding:4px 0 20px; }
+-.tg-sheet h3 { font-size:16px; margin:0; }
++.tg-sheet h3 { font-size:16px; line-height:22px; font-weight:600; margin:0; }
+ .tg-sheet .tg-stack { gap:16px; }
+-.tg-sheet .tg-form { gap:18px; }
+-.tg-error { background:#fff0eb; border:1px solid #ffd8ce; padding:12px 14px; border-radius:12px; color:#a43527; font-size:14px; line-height:1.6; }
+-.tg-toast { position:fixed; z-index:101; bottom:calc(88px + env(safe-area-inset-bottom)); left:50%; transform:translateX(-50%); width:calc(100% - 40px); max-width:420px; background:#232321; color:white; border-radius:14px; padding:14px 18px; font-size:14px; line-height:1.6; box-shadow:0 8px 28px #0002; }
++.tg-sheet .tg-form { gap:16px; }
++.tg-error { background:#fff0eb; border:1px solid #ffd8ce; padding:12px 14px; border-radius:12px; color:#a43527; font-size:14px; line-height:20px; }
++.tg-toast { position:fixed; z-index:101; bottom:calc(88px + env(safe-area-inset-bottom)); left:50%; transform:translateX(-50%); width:calc(100% - 32px); max-width:428px; background:#232321; color:white; border-radius:14px; padding:12px 16px; font-size:14px; line-height:20px; box-shadow:0 8px 28px #0002; }
+ .tg .tg-wide,.tg-sheet .tg-wide { width:100%; }
+ .tg-direction { display:inline-flex; align-items:center; min-height:44px; padding:10px 0; color:var(--ink); font-size:14px; font-weight:700; text-decoration:none; }
+-.tg-home-preview { min-height:0; padding:20px; margin:0 20px 20px; border:1px solid var(--line); border-radius:20px; background:white; }
++.tg-home-preview { min-height:0; padding:16px; margin:0 0 16px; border:1px solid var(--line); border-radius:20px; background:white; }
+ .tg-home-preview small { margin-top:5px; }
+ .tg-member { display:flex; align-items:center; gap:12px; }
+ .tg-avatar { width:38px; height:38px; border-radius:50%; background:#eee9df; color:#6a584a; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; flex-shrink:0; }
+@@ -101,15 +101,15 @@
+ .tg-checkrow { display:flex; gap:12px; align-items:flex-start; padding:14px 0; border-bottom:1px solid var(--line); }
+ .tg-checkrow input { margin:5px 0; width:20px; height:20px; min-height:20px; accent-color:var(--accent); flex-shrink:0; }
+ .tg-checkrow>div { flex:1; min-width:0; }
+-.tg-checkrow p { font-size:16px; }
++.tg-checkrow p { font-size:14px; line-height:20px; }
+ .tg-checkrow.done p { text-decoration:line-through; color:var(--muted); }
+-.tg-post { border-bottom:1px solid var(--line); padding:18px 0; }
++.tg-post { border-bottom:1px solid var(--line); padding:16px 0; }
+ .tg-post h3 { margin:8px 0; }
+ .tg-post p { white-space:pre-wrap; }
+ .tg-gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+ .tg-gallery figure { margin:0; min-width:0; }
+ .tg-gallery img,.tg-gallery video { width:100%; aspect-ratio:1; object-fit:cover; border-radius:12px; display:block; }
+-.tg-gallery figcaption { font-size:12px; color:var(--muted); margin-top:6px; }
++.tg-gallery figcaption { font-size:12px; line-height:16px; color:var(--muted); margin-top:6px; }
+ .tg-journal-image { display:block; width:100%; border-radius:12px; }
+ .tg .public-photo-credit .public-photo-credit-button,.tg-sheet .public-photo-credit .public-photo-credit-button { min-height:44px; }
+ .tg details>summary { min-height:44px; display:flex; align-items:center; font-size:14px; font-weight:700; cursor:pointer; }
+@@ -130,7 +130,7 @@
+ .tg-chat-tools button { font-size:14px; }
+ .tg-result { padding:16px; border:1px solid var(--line); border-radius:14px; background:white; }
+ .tg-result h3 { display:flex; gap:8px; align-items:center; }
+-.tg-result label { display:flex; align-items:flex-start; gap:10px; margin-top:12px; font-size:16px; }
++.tg-result label { display:flex; align-items:flex-start; gap:10px; margin-top:12px; font-size:14px; line-height:20px; }
+ .tg-result input { width:20px; height:20px; min-height:20px; margin-top:4px; accent-color:var(--accent); }
+ .tg-result p { margin-top:8px; }
+ .tg-sheet .tg-result small { margin-top:8px; }
+@@ -141,34 +141,34 @@
+ .tg-filter { display:flex; gap:8px; overflow:auto; padding:0 0 6px; }
+ .tg .tg-filter button { white-space:nowrap; border-radius:22px; }
+ .tg .tg-filter button.active { background:#232321; color:white; }
+-@media(max-width:350px) { .tg-pad,.tg-chat { padding:16px; } .tg-head { padding:20px 16px 16px; } .tg-bar { padding:10px 12px; gap:7px; } .tg-bar .tg-icon { width:40px; } .tg-card-copy { padding:16px; } .tg-row { flex-wrap:wrap; } }
++@media(max-width:350px) { .tg-pad,.tg-chat { padding:16px; } .tg-head { padding:16px; } .tg-bar { padding:10px 16px; gap:8px; } .tg-bar .tg-icon { width:44px; } .tg-card-copy { padding:16px; } .tg-row { flex-wrap:wrap; } }
+ 
+ /* Recruitment belongs to the public introduction, independent of private group records. */
+-.tg-home-groups { min-height:0; background:transparent; }
++.tg-home-groups { min-height:0; padding-bottom:0; background:transparent; }
+ .tg .tg-ai-entry { display:grid; grid-template-columns:20px minmax(0,1fr) 18px; width:100%; gap:12px; padding:14px 16px; text-align:left; background:#fff0eb; border-color:#ffd8ce; }
+ .tg-ai-entry>span { display:grid; min-width:0; gap:3px; }
+-.tg-ai-entry strong { font-size:var(--type-subhead); font-weight:700; line-height:var(--leading-caption); }
++.tg-ai-entry strong { font-size:14px; font-weight:600; line-height:20px; }
+ .tg-ai-entry small { font-size:var(--type-caption); color:#62625e; }
+-.tg-home-summary { display:flex; flex-direction:column; gap:12px; margin:0 20px 20px; padding:18px; border:1px solid var(--line); border-radius:20px; background:white; }
++.tg-home-summary { display:flex; flex-direction:column; gap:12px; margin:0 0 16px; padding:16px; border:1px solid var(--line); border-radius:20px; background:white; }
+ .tg-ai-heading { display:flex; align-items:center; gap:10px; }
+ .tg-ai-heading>svg { color:var(--accent); flex:none; }
+ .tg-home-summary label { font-size:var(--type-subhead); font-weight:700; line-height:var(--leading-caption); }
+ .tg-home-summary select { display:block; width:100%; min-width:0; min-height:48px; padding:10px 12px; border:1px solid var(--line); border-radius:12px; background:white; color:var(--ink); font-size:var(--type-body); font-weight:400; }
+ .tg-home-summary p { font-size:var(--type-subhead); color:#62625e; }
+ .tg-ai-context { display:grid; gap:4px; }
+-.tg-ai-context strong { font-size:var(--type-body); line-height:var(--leading-body); overflow-wrap:anywhere; }
++.tg-ai-context strong { font-size:14px; line-height:20px; overflow-wrap:anywhere; }
+ .tg-ai-status { padding:14px; border:1px solid var(--line); border-radius:12px; background:#f1f1ee; }
+-.tg-sheet .tg-ai-status p { margin-top:8px; font-size:var(--type-subhead); line-height:var(--leading-caption); color:#62625e; }
+-.tg-ai-results-title,.tg-ai-empty h3 { margin:0; font-size:var(--type-body); line-height:var(--leading-body); }
++.tg-sheet .tg-ai-status p { margin-top:8px; font-size:14px; line-height:20px; color:#62625e; }
++.tg-ai-results-title,.tg-ai-empty h3 { margin:0; font-size:16px; line-height:22px; font-weight:600; }
+ .tg-ai-empty { display:flex; flex-direction:column; gap:12px; padding:16px; border:1px dashed var(--line); border-radius:14px; }
+ .tg-ai-empty .tg-row { flex-wrap:wrap; }
+ .tg-public-location { display:flex; align-items:center; flex-wrap:wrap; gap:6px; font-size:14px; color:var(--muted); }
+-.tg-public-sections { gap:28px; }
+-.tg-public-welcome { display:flex; gap:14px; padding:20px; border-radius:18px; background:#f0f4ed; }
++.tg-public-sections { gap:16px; }
++.tg-public-welcome { display:flex; gap:14px; padding:16px; border-radius:18px; background:#f0f4ed; }
+ .tg-public-welcome>span { font-size:28px; flex-shrink:0; }
+ .tg-public-welcome h2 { font-size:18px; margin:0 0 8px; }
+-.tg-public-welcome p,.tg-public-event p { margin:8px 0 0; font-size:16px; white-space:pre-wrap; }
+-.tg-public-event { display:flex; gap:14px; padding:18px 0; border-bottom:1px solid var(--line); }
++.tg-public-welcome p,.tg-public-event p { margin:8px 0 0; font-size:14px; line-height:20px; white-space:pre-wrap; }
++.tg-public-event { display:flex; gap:14px; padding:16px 0; border-bottom:1px solid var(--line); }
+ .tg-public-event>div { flex:1; min-width:0; }
+ .tg-public-event h3 { margin-bottom:8px; }
+ .tg-public-host { display:flex; align-items:center; gap:12px; }
+@@ -176,7 +176,7 @@
+ .tg-join-steps { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px; font-size:14px; }
+ .tg-join-steps li { display:flex; align-items:center; gap:10px; }
+ .tg-join-steps li>span { display:grid; place-items:center; width:26px; height:26px; border-radius:50%; background:var(--paper); font-weight:800; }
+-.tg-public-join { position:sticky; bottom:0; z-index:7; padding:12px 20px calc(12px + env(safe-area-inset-bottom)); background:var(--paper); border-top:1px solid var(--line); text-align:center; }
++.tg-public-join { position:sticky; bottom:0; z-index:7; padding:12px 16px calc(12px + env(safe-area-inset-bottom)); background:var(--paper); border-top:1px solid var(--line); text-align:center; }
+ .tg-promotion-topics { margin:0; padding:0; border:0; }
+ .tg-promotion-topics legend { font-size:14px; font-weight:700; margin-bottom:10px; }
+ .tg-topic-choice.selected { border-color:var(--accent); color:#ae4834; background:#fff1eb; }
+@@ -198,23 +198,23 @@
+ .tg-chat-message.mine .tg-chat-sticker { margin-left:auto; }
+ 
+ .tg-composer-error { margin:10px 12px 0; }
+-.tg-hero-copy>h2 { font-size:24px; margin:12px 0; line-height:1.4; }
++.tg-hero-copy>h2 { font-size:20px; margin:12px 0; line-height:26px; font-weight:700; }
+ 
+ /* Membership and everyday meetups have their own primary actions. */
+ .tg-application-banner,.tg-application-row { display:flex; align-items:center; gap:12px; width:100%; text-align:left; }
+ .tg .tg-application-banner { padding:16px; background:#fff1e9; border-color:#f1dfd3; }
+ .tg-application-banner>span:nth-child(2),.tg-application-row>span:nth-child(2) { flex:1; min-width:0; }
+-.tg-application-banner strong,.tg-application-row strong { display:block; font-size:16px; }
++.tg-application-banner strong,.tg-application-row strong { display:block; font-size:16px; line-height:22px; font-weight:600; }
+ .tg-application-banner small,.tg-application-row small { display:block; margin-top:4px; }
+ .tg-sheet .tg-application-row { padding:16px 12px; background:white; border:1px solid var(--line); border-radius:14px; }
+ .tg-application-row p { margin:8px 0 0; font-size:14px; font-weight:400; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; white-space:pre-wrap; }
+-.tg-meetup-facts { display:flex; flex-direction:column; gap:16px; padding:18px; border:1px solid var(--line); border-radius:16px; background:white; }
++.tg-meetup-facts { display:flex; flex-direction:column; gap:16px; padding:16px; border:1px solid var(--line); border-radius:16px; background:white; }
+ .tg-meetup-facts>div { display:flex; align-items:center; gap:12px; }
+ .tg-meetup-facts svg { flex-shrink:0; color:#79796f; }
+-.tg-meetup-facts strong { display:block; font-size:16px; margin-top:4px; overflow-wrap:anywhere; }
++.tg-meetup-facts strong { display:block; font-size:16px; line-height:22px; font-weight:600; margin-top:4px; overflow-wrap:anywhere; }
+ .tg-meetup-options { border-top:1px solid var(--line); padding-top:8px; }
+ .tg-meetup-options>div { padding-top:8px; }
+ 
+-.tg-find-head { display:flex; align-items:center; gap:12px; padding:16px 20px; border-bottom:1px solid var(--line); background:var(--paper); }
++.tg-find-head { display:flex; align-items:center; gap:12px; padding:16px; border-bottom:1px solid var(--line); background:var(--paper); }
+ .tg-find-head>div { flex:1; min-width:0; }
+-.tg-find-head h1 { font-size:22px; margin:0 0 2px; }
++.tg-find-head h1 { font-size:20px; line-height:26px; font-weight:700; margin:0 0 2px; }
+--- before/web/src/together/group-discovery.css
++++ web/src/together/group-discovery.css
+@@ -1,93 +1,95 @@
+ .gd { color:var(--ink); min-width:0; }
+ .gd * { box-sizing:border-box; }
+-.gd button { font:inherit; font-size:14px; font-weight:700; min-height:44px; padding:10px 14px; border:1px solid var(--line); border-radius:12px; color:var(--ink); background:white; display:inline-flex; align-items:center; justify-content:center; gap:7px; }
++.gd button { font:inherit; font-size:14px; line-height:20px; font-weight:600; min-height:44px; padding:10px 14px; border:1px solid var(--line); border-radius:12px; color:var(--ink); background:white; display:inline-flex; align-items:center; justify-content:center; gap:7px; }
+ .gd button:focus-visible,.gd input:focus-visible,.gd select:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+ .gd h2,.gd h3,.gd p { margin:0; }
+-.gd h2 { font-size:18px; line-height:1.5; font-weight:800; letter-spacing:-.45px; }
+-.gd h3 { font-size:16px; line-height:1.5; font-weight:800; letter-spacing:-.25px; }
+-.gd p { font-size:16px; line-height:1.7; }
+-.gd small { font-size:12px; color:var(--muted); line-height:1.5; }
+-.gd-find-lead { display:flex; align-items:flex-start; gap:16px; margin:4px 0 20px; }
++.gd h2 { font-size:18px; line-height:24px; font-weight:600; letter-spacing:-.3px; }
++.gd h3 { font-size:16px; line-height:22px; font-weight:600; letter-spacing:-.2px; }
++.gd p { font-size:14px; line-height:20px; }
++.gd small { font-size:12px; color:var(--muted); line-height:16px; }
++.gd-find-lead { display:flex; align-items:flex-start; gap:16px; margin:4px 0 16px; }
+ .gd-find-lead>div { flex:1; min-width:0; }
+ .gd .gd-find-lead p { font-size:14px; color:#62625e; margin-top:6px; }
+ .gd .gd-create { flex-shrink:0; border:0; background:#232321; color:white; padding:10px 12px; }
+-.gd-styles { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px; }
++.gd-styles { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+ .gd .gd-styles>button { display:grid; justify-items:start; grid-template-columns:auto 1fr; column-gap:8px; row-gap:4px; padding:14px; text-align:left; background:#f0efeb; border:1px solid transparent; }
+ .gd-styles>button>span { grid-row:1 / 3; font-size:24px; }
+-.gd-styles strong { font-size:16px; }
++.gd-styles strong { font-size:16px; line-height:22px; font-weight:600; }
+ .gd .gd-styles>button.is-active { background:#fff2ec; border-color:#f3b7a5; }
+ .gd-location-select { min-height:48px; display:flex; align-items:center; gap:9px; border:1px solid #ddddd6; background:white; border-radius:12px; padding:0 12px; }
+ .gd-location-select>svg:first-child { color:var(--accent); flex-shrink:0; }
+ .gd-location-select>label { flex:1; min-width:0; }
+-.gd.gd select { font:inherit; font-size:14px; min-height:44px; color:var(--ink); background:transparent; border:0; padding:8px 18px 8px 0; width:100%; }
++.gd.gd select { font:inherit; font-size:16px; line-height:22px; min-height:44px; color:var(--ink); background:transparent; border:0; padding:8px 18px 8px 0; width:100%; }
+ .gd-select-divider { height:16px; width:1px; background:var(--line); }
+ .gd-select-hint { display:none; }
+ .gd .gd-manual-region { display:block; margin:8px 0 16px; }
+-.gd-categories { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-bottom:22px; }
++.gd-categories { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; margin-bottom:16px; }
+ .gd .gd-topic { display:flex; flex-direction:column; gap:5px; min-height:76px; padding:9px 3px; background:transparent; border:1px solid transparent; font-weight:500; }
+ .gd .gd-topic .gd-emoji { font-size:28px; line-height:1.25; display:flex; align-items:center; justify-content:center; height:36px; }
+-.gd .gd-topic.is-active { background:#fff0e9; border-color:#ffd0c0; font-weight:800; color:#a73d2a; }
++.gd .gd-topic.is-active { background:#fff0e9; border-color:#ffd0c0; font-weight:600; color:#a73d2a; }
+ .gd-search { display:flex; align-items:center; gap:10px; padding:0 12px; min-height:50px; border:1px solid #ddddd6; background:white; border-radius:12px; }
+ .gd-search>svg { color:var(--muted); flex-shrink:0; }
+ .gd .gd-search>input { width:100%; min-width:0; border:0; background:transparent; min-height:48px; padding:10px 0; border-radius:0; font-size:16px; }
+-.gd .gd-search>button { border:0; min-width:36px; padding:7px; }
++.gd .gd-search>button { border:0; min-width:44px; padding:7px; }
+ .gd-date-filters { display:flex; flex-wrap:wrap; gap:7px; margin-top:12px; }
+ .gd .gd-date-filters>button { background:transparent; padding:9px 12px; font-size:14px; border-radius:24px; }
+ .gd .gd-date-filters>button.is-active { background:#232321; border-color:#232321; color:white; }
+ .gd-filter-summary { display:flex; align-items:center; gap:12px; margin-top:12px; }
+-.gd-filter-summary>span { flex:1; min-width:0; color:#62625e; font-size:12px; }
++.gd-filter-summary>span { flex:1; min-width:0; color:#62625e; font-size:12px; line-height:16px; }
+ .gd .gd-filter-summary>button { border:0; padding:8px 0; color:var(--muted); background:transparent; flex-shrink:0; }
+-.gd-upcoming { margin-top:28px; padding:20px 16px; background:#f0eee7; border-radius:18px; }
++.gd-upcoming { margin-top:16px; padding:16px; background:#f0eee7; border-radius:18px; }
+ .gd-section-heading { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px; }
+-.gd-eyebrow { display:block; font-size:12px; line-height:1.5; font-weight:700; color:#a14a34; margin-bottom:4px; }
++.gd-eyebrow { display:block; font-size:12px; line-height:16px; font-weight:600; color:#a14a34; margin-bottom:4px; }
+ .gd .gd-icon { width:44px; min-width:44px; padding:10px; background:transparent; border:0; }
+ .gd-section-heading .is-open { transform:rotate(180deg); }
+-.gd-event-list { display:flex; flex-direction:column; gap:9px; }
++.gd-event-list { display:flex; flex-direction:column; gap:12px; }
+ .gd .gd-event { display:flex; align-items:center; width:100%; gap:12px; background:white; border:1px solid #e8e4da; border-radius:14px; text-align:left; padding:13px 12px; }
+ .gd-event-date { display:flex; flex-direction:column; align-items:center; justify-content:center; width:40px; flex-shrink:0; }
+-.gd-event-date strong { font-size:22px; line-height:1.25; }
++.gd-event-date strong { font-size:20px; line-height:24px; font-weight:600; }
+ .gd-event-date small { font-size:12px; }
+ .gd-event-copy { flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; }
+-.gd-event-copy>strong { font-size:16px; line-height:1.5; overflow-wrap:anywhere; }
+-.gd-event-copy>span { font-size:12px; font-weight:400; color:#62625e; line-height:1.5; }
++.gd-event-copy>strong { font-size:16px; line-height:22px; font-weight:600; overflow-wrap:anywhere; }
++.gd-event-copy>span { font-size:12px; font-weight:400; color:#62625e; line-height:16px; }
+ .gd-event>svg { flex-shrink:0; color:var(--muted); }
+ .gd-event-list>small { display:block; padding-top:5px; }
+-.gd-results { margin-top:28px; }
++.gd-results { margin-top:16px; }
+ .gd-results-heading { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+ .gd-results-heading>h2 { flex:1; min-width:0; }
+ .gd-results-heading h2>span { color:var(--accent); margin-left:3px; }
+ .gd-results-heading>label { display:flex; align-items:center; gap:5px; flex-shrink:0; }
+-.gd .gd-results-heading select { width:auto; padding:8px 0; font-size:14px; max-width:128px; }
+-.gd-result-list { display:flex; flex-direction:column; gap:20px; }
++.gd .gd-results-heading select { width:auto; padding:8px 0; font-size:16px; max-width:128px; }
++.gd-result-list { display:flex; flex-direction:column; gap:16px; }
+ .gd-group-card { min-width:0; }
+ .gd .gd-group-open { position:relative; width:100%; padding:0; display:flex; align-items:stretch; gap:14px; text-align:left; background:white; border:1px solid #e6e5df; border-radius:18px; overflow:hidden; font-weight:400; }
+ .gd-group-photo { position:relative; flex-shrink:0; width:112px; min-height:154px; background:#ebe7dc; overflow:hidden; }
+ .gd-group-photo>img { display:block; width:100%; height:100%; position:absolute; object-fit:cover; }
+ .gd-photo-fallback { height:100%; display:flex; align-items:center; justify-content:center; font-size:40px; }
+-.gd-recruitment { position:absolute; top:9px; left:8px; padding:4px 7px; background:#ffffffed; border-radius:7px; color:#52524c; font-size:12px; font-weight:700; line-height:1.5; }
++.gd-recruitment { position:absolute; top:9px; left:8px; padding:4px 7px; background:#ffffffed; border-radius:7px; color:#52524c; font-size:12px; font-weight:600; line-height:16px; }
+ .gd-group-copy { flex:1; min-width:0; padding:14px 12px 14px 0; }
+ .gd-card-topline { display:flex; justify-content:space-between; gap:8px; align-items:center; margin-bottom:4px; }
+-.gd-card-topline>span { color:#a34e35; font-size:12px; font-weight:700; }
++.gd-card-topline>span { color:#a34e35; font-size:12px; line-height:16px; font-weight:600; }
+ .gd-card-topline>small { font-size:12px; color:#777773; font-weight:400; white-space:nowrap; }
+ .gd-group-copy h3 { padding-right:4px; margin:3px 0 6px; overflow-wrap:anywhere; }
+-.gd-location { display:flex; align-items:center; gap:3px; font-size:12px; line-height:1.5; color:#777773; }
++.gd-location { display:flex; align-items:center; gap:3px; font-size:12px; line-height:16px; color:#777773; }
+ .gd-location>svg { flex-shrink:0; }
+-.gd .gd-group-copy>p { font-size:14px; font-weight:400; color:#62625e; line-height:1.6; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-top:8px; }
+-.gd-card-bottom { display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:12px; line-height:1.5; color:#777773; margin-top:10px; }
++.gd .gd-group-copy>p { font-size:14px; font-weight:400; color:#62625e; line-height:20px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin-top:8px; }
++.gd-card-bottom { display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:12px; line-height:16px; color:#777773; margin-top:10px; }
+ .gd-card-bottom>span { display:inline-flex; align-items:center; gap:4px; }
+-.gd-next-date { display:flex; align-items:center; gap:5px; font-size:12px; line-height:1.5; color:#55705c; margin-top:8px; }
++.gd-next-date { display:flex; align-items:center; gap:5px; font-size:12px; line-height:16px; color:#55705c; margin-top:8px; }
+ .gd-next-date>svg { flex-shrink:0; }
+ .gd-card-arrow { display:none; }
+ .gd-photo-credit { padding:0 5px; }
+ .gd .public-photo-credit .public-photo-credit-button { min-height:44px; }
+-.gd-empty { padding:30px 12px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px; border:1px dashed #d9d8d0; border-radius:18px; }
++.gd-empty { padding:24px 16px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px; border:1px dashed #d9d8d0; border-radius:18px; }
+ .gd-empty>span { font-size:34px; }
+ .gd-empty p { font-size:14px; color:var(--muted); margin-bottom:5px; }
+ .gd .gd-primary { background:#232321; color:white; border-color:#232321; }
+-.gd-home { margin:22px 0; padding:22px 20px; background:#f1eee7; border-top:1px solid #e8e3d8; border-bottom:1px solid #e8e3d8; }
++.gd-home { margin:16px 0; padding:16px; background:#f1eee7; border-top:1px solid #e8e3d8; border-bottom:1px solid #e8e3d8; }
++/* The home panel already provides the screen's outer inset. */
++.tg-home-groups .gd-home { padding-inline:0; }
+ .gd-home-title { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+ .gd-home-title>div { flex:1; min-width:0; }
+-.gd-home-title h2 { font-size:22px; }
++.gd-home-title h2 { font-size:18px; line-height:24px; font-weight:600; }
+ .gd .gd-home-title p { font-size:14px; color:#62625e; margin-top:5px; }
+ .gd-home-switch { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:12px; }
+ .gd-home-style { display:flex; flex:1; gap:5px; }
+@@ -95,11 +97,11 @@
+ .gd .gd-home-style>button.is-active { background:white; border-color:#e3ded3; }
+ .gd-home-region { display:flex; align-items:center; gap:4px; min-width:0; }
+ .gd .gd-home-region select { width:auto; max-width:112px; }
+-.gd-home .gd-categories { display:flex; gap:6px; overflow-x:auto; margin:0 -20px 14px 0; padding:0 20px 4px 0; scrollbar-width:none; }
++.gd-home .gd-categories { display:flex; gap:6px; overflow-x:auto; margin:0 -16px 14px 0; padding:0 16px 4px 0; scrollbar-width:none; }
+ .gd-home .gd-categories::-webkit-scrollbar { display:none; }
+ .gd-home .gd-topic { min-height:62px; width:66px; min-width:66px; padding:5px 3px; gap:2px; }
+ .gd-home .gd-topic .gd-emoji { font-size:25px; height:31px; }
+-.gd-home-showcase { display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding-bottom:4px; margin-right:-20px; padding-right:20px; }
++.gd-home-showcase { display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding-bottom:4px; margin-right:-16px; padding-right:16px; }
+ .gd-home-showcase::-webkit-scrollbar { display:none; }
+ .gd-home-showcase>.gd-group-card { width:82%; min-width:82%; flex-shrink:0; scroll-snap-align:start; }
+ .gd .gd-group-card--showcase .gd-group-open { flex-direction:column; gap:0; border-radius:18px; }
+--- before/web/src/together/ChatWorkspace.tsx
++++ web/src/together/ChatWorkspace.tsx
+@@ -39,10 +39,11 @@
+   const [searchOpen, setSearchOpen] = useState(false);
+   const [moreOpen, setMoreOpen] = useState(false);
+   const [mentionOpen, setMentionOpen] = useState(false);
+-  const [fontSize, setFontSize] = useState(16);
++  const [fontSize, setFontSize] = useState(14);
+   const [emojiOpen, setEmojiOpen] = useState(false);
+   const [reactionMessage, setReactionMessage] = useState('');
+   const [messageTools, setMessageTools] = useState('');
++  const [selectedMessage, setSelectedMessage] = useState('');
+   const input = useRef<HTMLTextAreaElement>(null);
+   const searchInput = useRef<HTMLInputElement>(null);
+   const stream = useRef<HTMLDivElement>(null);
+@@ -60,6 +61,22 @@
+   const shown = sorted.filter(item => (person === 'all' || item.authorId === person) && (!query.trim() || `${memberName(state, item.authorId)} ${item.body} ${getChatSticker(item.stickerId)?.label || ''}`.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase())));
+   const reply = messages.find(item => item.id === replyId && !item.deleted);
+   const sticker = getChatSticker(stickerId);
++  const preserveMessagePosition = (id: string) => {
++    const target = document.getElementById(`tg-message-${id}`);
++    anchor.current = target ? { id: target.id, top: target.getBoundingClientRect().top } : null;
++  };
++  const closeMessageActions = (restoreFocus = false) => {
++    if (!selectedMessage) return;
++    const id = selectedMessage;
++    preserveMessagePosition(id);
++    setSelectedMessage(''); setReactionMessage(''); setMessageTools('');
++    if (restoreFocus) requestAnimationFrame(() => document.getElementById(`tg-message-select-${id}`)?.focus({ preventScroll: true }));
++  };
++  const selectMessage = (id: string) => {
++    preserveMessagePosition(id);
++    setSelectedMessage(value => value === id ? '' : id);
++    setReactionMessage(''); setMessageTools('');
++  };
+   const roomOptions = [{ id: `groupchat-${group.id}`, label: '모임 전체 채팅' }, ...state.activities.filter(item => item.groupId === group.id).map(item => ({ id: `activitychat-${item.id}`, label: `${(item.kind || (item.journey ? 'TRIP' : 'MEETUP')) === 'TRIP' ? '여행' : '정모'} · ${item.title}` }))];
+   const roomRoute = activity ? `activitychat-${activity.id}` : `groupchat-${group.id}`;
+   const insert = (text: string) => {
+@@ -75,20 +92,27 @@
+   };
+   useEffect(() => { if (searchOpen) searchInput.current?.focus({ preventScroll: true }); }, [searchOpen]);
+   useEffect(() => { if (highlight) { setQuery(''); setPerson('all'); } }, [highlight]);
++  useEffect(() => {
++    if (selectedMessage && !shown.some(item => item.id === selectedMessage && !item.deleted)) {
++      setSelectedMessage(''); setReactionMessage(''); setMessageTools('');
++    }
++  }, [selectedMessage, shown]);
+   useLayoutEffect(() => {
+     if (!anchor.current) return;
+     const scroll = scrollRoot();
+     const target = document.getElementById(anchor.current.id);
+     if (scroll && target) scroll.scrollTop += target.getBoundingClientRect().top - anchor.current.top;
+     anchor.current = null;
+-  }, [fontSize]);
++  }, [fontSize, selectedMessage, reactionMessage, messageTools]);
+   const resizeText = (size: number) => {
+     const content = scrollRoot()?.getBoundingClientRect();
+     const target = Array.from(stream.current?.querySelectorAll<HTMLElement>('[data-message]') ?? []).find(el => el.getBoundingClientRect().bottom > (content?.top ?? 0) + 80);
+     anchor.current = target ? { id: target.id, top: target.getBoundingClientRect().top } : null;
+     setFontSize(size);
+   };
+-  return <div className="tg-chat-workspace" style={{ '--chat-text-size': `${fontSize}px` } as CSSProperties}>
++  return <div className="tg-chat-workspace" style={{ '--chat-text-size': `${fontSize}px` } as CSSProperties} onClick={event => {
++    if (!(event.target as Element).closest('[data-message]')) closeMessageActions();
++  }}>
+     <div className="tg-room-tools"><button type="button" className="tg-room-summary" onClick={() => onSummary(boundary)}><Sparkles size={17}/><span>대화 요약·정리</span></button><button type="button" className="tg-icon" aria-label="대화 검색 열기" aria-expanded={searchOpen} onClick={() => setSearchOpen(value => !value)}><Search size={20}/></button><button type="button" className="tg-icon" aria-label="채팅방 도구" onClick={() => setMoreOpen(true)}><MoreHorizontal size={22}/></button></div>
+     {unread.length > 0 && <button type="button" className="tg-unread-summary" onClick={() => onSummary(boundary)}><MessageCircle size={18}/><span>안 읽은 대화 <strong>{unread.length}개</strong></span><span>정리 보기 →</span></button>}
+     {searchOpen && <div className="tg-room-search"><label><span className="ui-sr-only">대화 검색</span><Search size={17}/><input ref={searchInput} aria-label="대화 검색" placeholder="대화 내용·사람 검색" value={query} onChange={event => setQuery(event.target.value)}/>{query && <button type="button" className="tg-icon" aria-label="대화 검색 지우기" onClick={() => setQuery('')}><X size={16}/></button>}</label><select aria-label="대화 검색 대상" value={person} onChange={event => setPerson(event.target.value)}><option value="all">모든 멤버</option>{group.memberIds.map(id => <option key={id} value={id}>{memberName(state, id)}</option>)}</select><span aria-live="polite">{shown.length}개 대화</span></div>}
+@@ -98,12 +122,37 @@
+       {shown.map(message => {
+         const original = message.replyToMessageId ? messages.find(item => item.id === message.replyToMessageId && !item.deleted) : null;
+         const reactions = Object.entries(message.reactions ?? {}).map(([emoji, ids]) => ({ emoji, ids: ids.filter(id => group.memberIds.includes(id)) })).filter(item => item.ids.length);
+-        return <div key={message.id}>{message.id === unread[0]?.id && <div className="tg-unread-divider">여기부터 안 읽은 대화</div>}<article data-message id={`tg-message-${message.id}`} className={`tg-chat-message ${message.authorId === userId ? 'mine' : ''} ${highlight === message.id ? 'tg-highlight' : ''}`}><span className="tg-avatar">{memberName(state, message.authorId).slice(0, 1)}</span><div><small>{memberName(state, message.authorId)}</small><div className="tg-message-content">{message.replyToMessageId && <button type="button" className="tg-quoted-message" disabled={!original} onClick={() => original && onSource(original.id)}><strong>{original ? `${memberName(state, original.authorId)}에게 답장` : '원문을 확인할 수 없는 답장'}</strong><span>{original?.body || (original ? '이모티콘' : '삭제되었거나 이 방에서 볼 수 없는 원문이에요.')}</span></button>}{message.body && <p>{message.body}</p>}{getChatSticker(message.stickerId) && <img className="tg-chat-sticker" src={getChatSticker(message.stickerId)!.src} alt={`이모티콘: ${getChatSticker(message.stickerId)!.label}`}/>}</div><small>{new Date(message.createdAt).toLocaleTimeString('ko-KR', { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit' })}</small>
+-          {reactions.length > 0 && <div className="tg-message-reactions" role="group" aria-label="메시지 반응">{reactions.map(item => <button type="button" key={item.emoji} aria-pressed={item.ids.includes(userId)} aria-label={`${item.emoji} 반응 ${item.ids.length}명`} disabled={group.archived} onClick={() => onReaction(message.id, item.emoji)}>{item.emoji} {item.ids.length}</button>)}</div>}
+-          <div className="tg-message-tools"><button type="button" aria-label={`${memberName(state, message.authorId)} 메시지에 답장`} title="답장" disabled={group.archived} onClick={() => { setReplyId(message.id); input.current?.focus(); }}><Reply size={18}/></button><button type="button" title="반응" aria-label={`${memberName(state, message.authorId)} 메시지에 반응`} aria-expanded={reactionMessage === message.id} disabled={group.archived} onClick={() => setReactionMessage(value => value === message.id ? '' : message.id)}><SmilePlus size={18}/></button>{(message.authorId !== userId || message.body.trim() && canManage) && <button type="button" title="더보기" aria-label={`${memberName(state, message.authorId)} 메시지 더보기`} aria-expanded={messageTools === message.id} onClick={() => setMessageTools(value => value === message.id ? '' : message.id)}><MoreHorizontal size={18}/></button>}</div>
+-          {messageTools === message.id && <div className="tg-message-menu">{message.authorId !== userId && <button type="button" onClick={() => { setMessageTools(''); onReport(message.id); }}>메시지 신고</button>}{message.body.trim() && canManage && <button type="button" onClick={() => { setMessageTools(''); onNotice(message.body); }}>공지로 편집</button>}</div>}
+-          {reactionMessage === message.id && <div className="tg-reaction-picker" role="group" aria-label="반응 고르기">{ALLOWED_MESSAGE_REACTIONS.map(emoji => <button type="button" key={emoji} aria-label={`${emoji} 반응 추가`} disabled={group.archived} onClick={() => { onReaction(message.id, emoji); setReactionMessage(''); }}>{emoji}</button>)}</div>}
+-        </div></article></div>;
++        const author = memberName(state, message.authorId);
++        const selected = selectedMessage === message.id;
++        const messageSticker = getChatSticker(message.stickerId);
++        return <div key={message.id}>
++          {message.id === unread[0]?.id && <div className="tg-unread-divider">여기부터 안 읽은 대화</div>}
++          <article data-message id={`tg-message-${message.id}`} className={`tg-chat-message ${message.authorId === userId ? 'mine' : ''} ${highlight === message.id ? 'tg-highlight' : ''} ${selected ? 'tg-message-selected' : ''}`} onKeyDown={event => {
++            if (event.key === 'Escape' && selected) { event.preventDefault(); event.stopPropagation(); closeMessageActions(true); }
++          }}>
++            <span className="tg-avatar" aria-hidden="true">{author.slice(0, 1)}</span>
++            <div>
++              <div className="tg-message-meta"><small>{author}</small><small><time dateTime={message.createdAt}>{new Date(message.createdAt).toLocaleTimeString('ko-KR', { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit' })}</time></small></div>
++              <div className="tg-message-content">
++                {message.replyToMessageId && <button type="button" className="tg-quoted-message" disabled={!original} onClick={() => original && onSource(original.id)}><strong>{original ? `${memberName(state, original.authorId)}에게 답장` : '원문을 확인할 수 없는 답장'}</strong><span>{original?.body || (original ? '이모티콘' : '삭제되었거나 이 방에서 볼 수 없는 원문이에요.')}</span></button>}
++                <button type="button" id={`tg-message-select-${message.id}`} className={`tg-message-select ${message.body ? '' : 'tg-message-select-sticker'}`} aria-label={`${author} 메시지 도구 ${selected ? '닫기' : '열기'}`} aria-describedby={`tg-message-body-${message.id}`} aria-expanded={selected} aria-controls={`tg-message-actions-${message.id}`} onClick={() => selectMessage(message.id)}>
++                  <span id={`tg-message-body-${message.id}`} className="tg-message-body">{message.body || <span className="ui-sr-only">{messageSticker?.label || '메시지'}</span>}</span>
++                  {messageSticker && <img className="tg-chat-sticker" src={messageSticker.src} alt={`이모티콘: ${messageSticker.label}`}/>}
++                </button>
++              </div>
++              {reactions.length > 0 && <div className="tg-message-reactions" role="group" aria-label="메시지 반응">{reactions.map(item => <button type="button" key={item.emoji} aria-pressed={item.ids.includes(userId)} aria-label={`${item.emoji} 반응 ${item.ids.length}명`} disabled={group.archived} onClick={() => onReaction(message.id, item.emoji)}>{item.emoji} {item.ids.length}</button>)}</div>}
++              {selected && <div id={`tg-message-actions-${message.id}`} className="tg-message-actions">
++                <div className="tg-message-tools" role="group" aria-label={`${author} 메시지 도구`}>
++                  <button type="button" aria-label={`${author} 메시지에 답장`} title="답장" disabled={group.archived} onClick={() => { setReplyId(message.id); closeMessageActions(); requestAnimationFrame(() => input.current?.focus()); }}><Reply size={18}/></button>
++                  <button type="button" title="반응" aria-label={`${author} 메시지에 반응`} aria-expanded={reactionMessage === message.id} aria-controls={`tg-message-reactions-${message.id}`} disabled={group.archived} onClick={() => { preserveMessagePosition(message.id); setMessageTools(''); setReactionMessage(value => value === message.id ? '' : message.id); }}><SmilePlus size={18}/></button>
++                  {(message.authorId !== userId || message.body.trim() && canManage) && <button type="button" title="더보기" aria-label={`${author} 메시지 더보기`} aria-expanded={messageTools === message.id} aria-controls={`tg-message-menu-${message.id}`} onClick={() => { preserveMessagePosition(message.id); setReactionMessage(''); setMessageTools(value => value === message.id ? '' : message.id); }}><MoreHorizontal size={18}/></button>}
++                </div>
++                {messageTools === message.id && <div id={`tg-message-menu-${message.id}`} className="tg-message-menu">{message.authorId !== userId && <button type="button" onClick={() => { setMessageTools(''); onReport(message.id); }}>메시지 신고</button>}{message.body.trim() && canManage && <button type="button" onClick={() => { setMessageTools(''); onNotice(message.body); }}>공지로 편집</button>}</div>}
++                {reactionMessage === message.id && <div id={`tg-message-reactions-${message.id}`} className="tg-reaction-picker" role="group" aria-label="반응 고르기">{ALLOWED_MESSAGE_REACTIONS.map(emoji => <button type="button" key={emoji} aria-label={`${emoji} 반응 추가`} disabled={group.archived} onClick={() => { preserveMessagePosition(message.id); onReaction(message.id, emoji); setReactionMessage(''); }}>{emoji}</button>)}</div>}
++              </div>}
++            </div>
++          </article>
++        </div>;
+       })}
+     </div>
+     {(highlight || sorted.length > 4) && <button type="button" className="tg-chat-latest" aria-label="최신 대화로 이동" title="최신 대화로 이동" onClick={latest}><ArrowDown size={20}/></button>}
+@@ -115,7 +164,7 @@
+         <button className="tg-icon" type="button" aria-label="이모티콘 선택" aria-expanded={emojiOpen} disabled={group.archived} onClick={() => setEmojiOpen(value => !value)}><Smile size={21}/></button><button className="tg-icon" type="button" aria-label="멤버 태그" disabled={group.archived} onClick={() => setMentionOpen(true)}>@</button><textarea ref={input} id="tg-chat-input" aria-label="메시지" placeholder={group.archived ? '보관된 모임이에요' : '함께 나눌 이야기를 적어주세요'} value={body} onChange={event => setBody(event.target.value)} maxLength={4000} disabled={group.archived} rows={1}/><button className="tg-primary tg-icon" type="submit" aria-label="메시지 보내기" disabled={(!body.trim() && !sticker) || group.archived || Boolean(replyId && !reply)}><Send size={18}/></button>
+       </form>
+     </div>
+-    {moreOpen && <BottomSheet title="채팅방 도구" onClose={() => setMoreOpen(false)}><div className="tg tg-room-options"><label>이 모임 안에서 대화방 이동<select value={roomRoute} onChange={event => { setMoreOpen(false); onNavigate(event.target.value); }}>{roomOptions.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label><div><strong>채팅 글자 크기</strong><div className="tg-font-options" role="group" aria-label="채팅 글자 크기">{[16, 18, 20].map(size => <button key={size} type="button" aria-pressed={fontSize === size} onClick={() => resizeText(size)}>{size}px</button>)}</div></div><button type="button" onClick={() => { if (onRead()) { setBoundary(sorted.at(-1)?.createdAt); setMoreOpen(false); } }}><Check size={17}/>여기까지 읽음으로 표시</button>{canManage && <button type="button" onClick={() => { setMoreOpen(false); onNotice(); }}><Bell size={17}/>공지 작성</button>}<button type="button" onClick={() => { setMoreOpen(false); onNavigate(`group-${group.id}`); }}><Users size={17}/>모임 홈으로</button>{activity && <button type="button" onClick={() => { setMoreOpen(false); onNavigate(`activity-${activity.id}`); }}><MessageCircle size={17}/>이 일정 상세 보기</button>}</div></BottomSheet>}
++    {moreOpen && <BottomSheet title="채팅방 도구" onClose={() => setMoreOpen(false)}><div className="tg tg-room-options"><label>이 모임 안에서 대화방 이동<select value={roomRoute} onChange={event => { setMoreOpen(false); onNavigate(event.target.value); }}>{roomOptions.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label><div><strong>채팅 글자 크기</strong><div className="tg-font-options" role="group" aria-label="채팅 글자 크기">{[14, 16, 18, 20].map(size => <button key={size} type="button" aria-pressed={fontSize === size} onClick={() => resizeText(size)}>{size}px</button>)}</div></div><button type="button" onClick={() => { if (onRead()) { setBoundary(sorted.at(-1)?.createdAt); setMoreOpen(false); } }}><Check size={17}/>여기까지 읽음으로 표시</button>{canManage && <button type="button" onClick={() => { setMoreOpen(false); onNotice(); }}><Bell size={17}/>공지 작성</button>}<button type="button" onClick={() => { setMoreOpen(false); onNavigate(`group-${group.id}`); }}><Users size={17}/>모임 홈으로</button>{activity && <button type="button" onClick={() => { setMoreOpen(false); onNavigate(`activity-${activity.id}`); }}><MessageCircle size={17}/>이 일정 상세 보기</button>}</div></BottomSheet>}
+     {mentionOpen && <BottomSheet title="누구를 부를까요?" description="이 방의 모임원 이름을 메시지에 넣어요." onClose={() => setMentionOpen(false)}><div className="tg tg-mention-picker">{group.memberIds.filter(id => id !== userId).map(id => <button type="button" key={id} onClick={() => { setMentionOpen(false); insert(`@${memberName(state, id)} `); }}><span className="tg-avatar">{memberName(state, id).slice(0, 1)}</span>{memberName(state, id)}</button>)}</div></BottomSheet>}
+   </div>;
+ }
+--- before/web/src/together/chat-workspace.css
++++ web/src/together/chat-workspace.css
+@@ -1,33 +1,46 @@
+-.tg-room-tools { display:flex; align-items:center; gap:8px; padding:12px 18px; }
++.tg-room-tools { display:flex; align-items:center; gap:8px; padding:8px 16px; }
+ .tg-room-tools .tg-room-summary { display:flex; align-items:center; gap:8px; margin-right:auto; min-height:44px; padding:10px 12px; color:#6b4d91; border-color:#e6dff1; background:#f7f3fc; font-size:14px; }
+-.tg .tg-unread-summary { display:flex; width:calc(100% - 36px); margin:0 18px 12px; align-items:center; gap:8px; padding:12px; border-color:#d8e8df; color:#285f50; background:#f0f7f3; text-align:left; font-size:14px; }
++.tg .tg-unread-summary { display:flex; width:calc(100% - 32px); margin:0 16px 8px; align-items:center; gap:8px; padding:8px 12px; border-color:#d8e8df; color:#285f50; background:#f0f7f3; text-align:left; font-size:14px; line-height:20px; }
+ .tg-unread-summary > span:last-child { margin-left:auto; white-space:nowrap; font-size:12px; }
+-.tg-room-search { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; margin:0 18px 12px; }
++.tg-room-search { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; margin:0 16px 8px; }
+ .tg-room-search label { display:flex; align-items:center; gap:8px; grid-column:1/-1; padding:0 10px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+ .tg-room-search label input { border:0; padding-inline:0; }
+ .tg-room-search > span { align-self:center; color:var(--muted); font-size:12px; }
+-.tg-chat-pinned { margin:0 18px 12px; border:1px solid #e9e5d9; border-radius:12px; background:#fffcf3; }
++.tg-chat-pinned { margin:0 16px 8px; border:1px solid #e9e5d9; border-radius:12px; background:#fffcf3; }
+ .tg-chat-pinned summary { display:flex; align-items:center; gap:8px; padding:12px; min-height:44px; cursor:pointer; list-style:none; }
+ .tg-chat-pinned summary span { min-width:0; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:14px; }
+ .tg-chat-pinned summary small { font-size:12px; white-space:nowrap; }
+ .tg-chat-pinned article { margin:0 12px; padding:12px 0; border-top:1px solid var(--line); }
+-.tg-chat-pinned p { white-space:pre-wrap; overflow-wrap:anywhere; }
+-.tg-room-stream .tg-message-content > p { font-size:var(--chat-text-size,16px); line-height:1.65; overflow-wrap:anywhere; white-space:pre-wrap; }
+-.tg-room-stream .tg-chat-message { margin-bottom:18px; }
++.tg-chat-workspace .tg-chat-pinned p { font-size:14px; line-height:20px; white-space:pre-wrap; overflow-wrap:anywhere; }
++.tg-chat-workspace .tg-room-stream { padding:12px 16px 16px; gap:12px; }
++.tg-chat-workspace .tg-room-stream .tg-chat-message { margin:0; gap:8px; }
++.tg-chat-workspace .tg-room-stream small { font-size:12px; line-height:16px; }
++.tg-message-meta { display:flex; align-items:baseline; gap:8px; margin-bottom:4px; }
++.tg-room-stream .tg-message-meta small { margin:0; min-width:0; }
++.tg-message-meta small:first-child { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
++.tg-message-meta time { white-space:nowrap; }
++.tg-chat-message.mine .tg-message-meta { justify-content:flex-end; }
++.tg .tg-chat-workspace .tg-message-select { display:block; min-width:44px; min-height:44px; max-width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:4px 16px 16px 16px; background:#fff; color:var(--ink); font-size:var(--chat-text-size,14px); line-height:calc(var(--chat-text-size,14px) + 6px); font-weight:400; text-align:left; }
++.tg-message-body { display:block; white-space:pre-wrap; overflow-wrap:anywhere; user-select:text; }
++.tg .tg-chat-workspace .mine .tg-message-select { margin-left:auto; background:#ffede6; border-color:#f7dfd3; border-radius:16px 4px 16px 16px; }
++.tg .tg-chat-workspace .tg-message-select-sticker { padding:0; border-color:transparent; background:transparent; }
++.tg .tg-chat-workspace .tg-message-select[aria-expanded=true] { outline:2px solid #c77b64; outline-offset:2px; }
++.tg .tg-chat-workspace .tg-message-select:focus-visible { outline:2px solid var(--ink); outline-offset:3px; }
++.tg-message-actions { margin-top:4px; }
+ .tg-room-stream .tg-message-tools button { min-width:44px; padding:8px; }
+ .tg-room-stream .tg-message-tools { gap:8px; }
+ .tg-room-stream .tg-message-tools button { width:44px; height:44px; border:0; background:transparent; color:#73756d; }
+ .tg-message-menu { display:flex; flex-wrap:wrap; gap:8px; padding:8px 0; }
+ .tg-message-menu button { min-height:44px; font-size:14px; }
+-.tg-unread-divider { display:flex; align-items:center; gap:12px; margin:6px 0 20px; color:#7a6550; font-size:12px; }
++.tg-unread-divider { display:flex; align-items:center; gap:12px; margin:4px 0 12px; color:#7a6550; font-size:12px; line-height:16px; }
+ .tg-unread-divider::before,.tg-unread-divider::after { content:''; height:1px; flex:1; background:#e5dbce; }
+ .tg-room-stream .tg-quoted-message { display:grid; width:100%; min-height:44px; gap:4px; padding:10px; margin:0 0 8px; border:0; border-left:3px solid #b6cbbf; border-radius:6px; background:#00000006; text-align:left; }
+-.tg-quoted-message strong { font-size:12px; color:#47695a; }
+-.tg-quoted-message span { font-size:14px; line-height:1.5; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; overflow-wrap:anywhere; }
++.tg-quoted-message strong { font-size:12px; line-height:16px; color:#47695a; }
++.tg-quoted-message span { font-size:14px; line-height:20px; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; overflow-wrap:anywhere; }
+ .tg-message-reactions,.tg-reaction-picker { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0; }
+ .tg-message-reactions button,.tg-reaction-picker button { min-width:44px; min-height:44px; padding:8px 10px; font-size:16px; }
+ .tg-message-reactions button[aria-pressed=true] { border-color:#6a8d7b; background:#eaf3ed; }
+-.tg .tg-chat-latest { position:sticky; bottom:calc(96px + env(safe-area-inset-bottom)); z-index:7; display:flex; align-items:center; justify-content:center; margin:0 18px 12px auto; width:44px; height:44px; padding:10px; border-radius:50%; background:#fff; box-shadow:0 3px 12px #00000014; }
++.tg .tg-chat-latest { position:sticky; bottom:calc(96px + env(safe-area-inset-bottom)); z-index:7; display:flex; align-items:center; justify-content:center; margin:0 16px 12px auto; width:44px; height:44px; padding:10px; border-radius:50%; background:#fff; box-shadow:0 3px 12px #00000014; }
+ .tg-reply-preview { display:flex; align-items:center; gap:8px; padding:12px 16px; border-bottom:1px solid var(--line); background:#f7f7f2; }
+ .tg-reply-preview > div { flex:1; min-width:0; }
+ .tg-reply-preview strong { font-size:12px; color:#47695a; }
+--- /dev/null
++++ web/src/consumer-density.css
+@@ -0,0 +1,83 @@
++/* Customer density, approved 2026-11-02. Legacy --type-body stays 16px for inputs. */
++body.spotlog-consumer {
++  --consumer-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
++  --consumer-body: 14px;
++  --consumer-meta: 12px;
++  --consumer-inset: 16px;
++  font-family: var(--consumer-font);
++  font-size: var(--consumer-body);
++  line-height: 20px;
++}
++body.spotlog-consumer :is(.app-shell, .phase-sheet) {
++  font-family: var(--consumer-font);
++  font-size: var(--consumer-body);
++  line-height: 20px;
++}
++body.spotlog-consumer :is(.app-shell, .phase-sheet) :where(h1,h2,h3,h4,p,li,dt,dd,blockquote,button,label,input,select,textarea) {
++  font-family: var(--consumer-font);
++}
++body.spotlog-consumer :is(.app-shell, .phase-sheet) :where(p,li,dt,dd,blockquote) { font-size:14px; line-height:20px; }
++body.spotlog-consumer :is(.app-shell, .phase-sheet) :where(small,time) { font-size:12px; line-height:16px; }
++body.spotlog-consumer :is(.app-shell, .phase-sheet) :where(h1) { font-size:20px; line-height:26px; font-weight:700; letter-spacing:-.4px; }
++body.spotlog-consumer :is(.app-shell, .phase-sheet) :where(h2) { font-size:18px; line-height:24px; font-weight:600; letter-spacing:-.3px; }
++body.spotlog-consumer :is(.app-shell, .phase-sheet) :where(h3,h4) { font-size:16px; line-height:22px; font-weight:600; letter-spacing:-.2px; }
++body.spotlog-consumer :is(.app-shell, .phase-sheet) :is(input:not([type=checkbox]):not([type=radio]),select,textarea) {
++  font-size:16px;
++  line-height:24px;
++  font-weight:400;
++}
++
++/* One outer inset; cards keep a single inner content inset. */
++body.spotlog-consumer .app-shell :is(.page,.home-page,.place-guide-content,.place-discover-header) { padding-inline:16px; }
++body.spotlog-consumer .app-shell :is(.home-topbar,.app-header) { min-height:80px; padding-top:max(16px,env(safe-area-inset-top)); padding-bottom:12px; }
++body.spotlog-consumer .app-shell :is(.home-topbar button,.header-action) { min-width:44px; min-height:44px; }
++body.spotlog-consumer .app-shell :is(.app-header h1,.home-lead h1,.place-guide-lead h1) { font-size:20px; line-height:26px; font-weight:700; }
++body.spotlog-consumer .app-shell .home-lead { padding:16px 0; }
++body.spotlog-consumer .app-shell .home-lead h1 { margin:6px 0 8px; }
++body.spotlog-consumer .app-shell .home-lead p { font-size:14px; line-height:20px; }
++body.spotlog-consumer .app-shell .home-section { margin-top:24px; }
++body.spotlog-consumer .app-shell :is(.promoted-track,.home-guide-list) { margin-right:-16px; padding-right:16px; }
++body.spotlog-consumer .app-shell .home-section-heading { gap:8px; margin-bottom:12px; }
++body.spotlog-consumer .app-shell .home-section-heading h2 { font-size:18px; line-height:24px; font-weight:600; }
++body.spotlog-consumer .app-shell .home-section-heading p { font-size:14px; line-height:20px; }
++body.spotlog-consumer .app-shell .home-topic-tabs [role=tab] { min-height:44px; padding:10px 8px; gap:8px; font-size:14px; line-height:20px; font-weight:600; }
++body.spotlog-consumer .app-shell .home-topic-primary { min-height:44px; padding:12px; gap:8px; font-size:14px; line-height:20px; font-weight:600; }
++body.spotlog-consumer .app-shell .home-place-kinds { gap:8px; margin-bottom:12px; }
++body.spotlog-consumer .app-shell .home-place-kinds button { padding:8px 12px; font-size:14px; line-height:20px; }
++body.spotlog-consumer .app-shell .home-place-preview { padding:12px; }
++body.spotlog-consumer .app-shell .home-place-preview-open { min-height:76px; }
++body.spotlog-consumer .app-shell .home-place-preview-open strong { font-size:16px; line-height:22px; font-weight:600; }
++body.spotlog-consumer .app-shell .home-place-preview-open small { font-size:12px; line-height:16px; }
++body.spotlog-consumer .app-shell .home-place-preview-open>span:last-child>span { font-size:14px; line-height:20px; }
++body.spotlog-consumer .app-shell .home-topic-more { margin-top:12px; font-size:14px; line-height:20px; font-weight:600; }
++body.spotlog-consumer .app-shell :is(.home-guide-card,.landmark-guide-copy) { padding:12px; gap:12px; }
++body.spotlog-consumer .app-shell :is(.landmark-guide-list,.saved-list,.saved-region-groups) { gap:12px; }
++body.spotlog-consumer .app-shell :is(.landmark-guide-copy h3,.saved-card-copy h3,.home-guide-copy h3) { font-size:16px; line-height:22px; font-weight:600; }
++body.spotlog-consumer .app-shell :is(.landmark-guide-copy>strong,.landmark-guide-copy>p,.landmark-guide-copy blockquote,.saved-card-copy p) { font-size:14px; line-height:20px; }
++body.spotlog-consumer .app-shell :is(.landmark-guide-copy>small,.landmark-guide-tags span,.saved-card-eyebrow>span,.saved-place-time) { font-size:12px; line-height:16px; }
++body.spotlog-consumer .app-shell .landmark-guide-actions { gap:8px; margin-top:12px; }
++body.spotlog-consumer .app-shell .landmark-guide-actions button { min-height:44px; font-size:14px; line-height:20px; font-weight:600; }
++body.spotlog-consumer .app-shell .place-guide-lead { padding:12px 0 16px; }
++body.spotlog-consumer .app-shell .place-guide-heading h2 { font-size:18px; line-height:24px; font-weight:600; }
++body.spotlog-consumer .app-shell .place-guide-search { padding:12px; }
++body.spotlog-consumer .app-shell .saved-region-heading { min-height:56px; padding:12px; }
++body.spotlog-consumer .app-shell .saved-region-heading small { font-size:12px; line-height:16px; }
++body.spotlog-consumer .app-shell .saved-card-copy { padding-block:12px; padding-left:12px; }
++body.spotlog-consumer .app-shell .journal-lead { padding:16px; }
++body.spotlog-consumer .app-shell .journal-lead .summary { margin:16px 0 8px; font-size:16px; line-height:22px; font-weight:600; }
++body.spotlog-consumer .app-shell :is(.journal-lead .story,.story-text-block p,.journey-comment p,.profile-feedback-list blockquote) { font-size:14px; line-height:20px; }
++body.spotlog-consumer .app-shell .story-text-block h3 { font-size:18px; line-height:24px; font-weight:600; }
++
++/* Body-mounted sheets belong to the same customer surface. */
++body.spotlog-consumer .phase-sheet>header { padding:16px; gap:12px; }
++body.spotlog-consumer .phase-sheet>header h2 { font-size:20px; line-height:26px; font-weight:600; }
++body.spotlog-consumer .phase-sheet>header p { font-size:14px; line-height:20px; }
++body.spotlog-consumer .phase-sheet-body { padding:16px 16px max(24px,env(safe-area-inset-bottom)); }
++body.spotlog-consumer .phase-sheet label { font-size:14px; line-height:20px; }
++body.spotlog-consumer .phase-sheet .phase-hint { font-size:12px; line-height:16px; }
++body.spotlog-consumer .phase-sheet .account-submit { margin-inline:-16px; padding-inline:16px; }
++body.spotlog-consumer .phase-sheet .ai-travel-day-options { top:-16px; }
++
++/* Brand/photographic covers and photo credits retain their separate roles. */
++body.spotlog-consumer .app-shell .promoted-copy h2 { font-size:22px; line-height:28px; font-weight:600; }
++body.spotlog-consumer :is(.app-shell,.phase-sheet) .public-photo-credit-button { font-size:11px; line-height:16px; }
+--- /dev/null
++++ web/src/consumerDensity.ts
+@@ -0,0 +1,21 @@
++import { useLayoutEffect } from 'react';
++import './consumer-density.css';
++
++let consumers = 0;
++let addedMarker = false;
++
++/** Includes body portals without applying customer typography to the admin root. */
++export function useConsumerDensity() {
++  useLayoutEffect(() => {
++    if (consumers++ === 0) {
++      addedMarker = !document.body.classList.contains('spotlog-consumer');
++      document.body.classList.add('spotlog-consumer');
++    }
++    return () => {
++      if (--consumers === 0 && addedMarker) {
++        document.body.classList.remove('spotlog-consumer');
++        addedMarker = false;
++      }
++    };
++  }, []);
++}

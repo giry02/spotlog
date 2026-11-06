@@ -8,7 +8,7 @@ export const plannerRegionOf = (place: Place) => place.area.trim().split(/\s+/)[
 export const isPlannerRegion = (place: Place, region: string) => place.area === region || place.area.startsWith(`${region} `);
 export const chosenPlannerRegion = (c: PlannerConditions, places: Place[]): string => {
   if (c.region && !['전체', '국내', '모든 지역'].includes(c.region)) return c.region;
-  const regions = [...new Set(places.filter(p => p.kind === 'LANDMARK' && !c.excludedIds.includes(p.id)).map(plannerRegionOf))];
+  const regions = [...new Set(places.filter(p => p.kind !== 'STAY' && !c.excludedIds.includes(p.id)).map(plannerRegionOf))];
   return regions.length === 1 ? regions[0] : '';
 };
 /** Nearest-neighbour ordering is a rough grouping only, not road routing or a time estimate. */
@@ -38,7 +38,7 @@ export function requestedDaySlots(c: PlannerConditions, intent: PlannerIntent, i
 /** Removing a visit must not leave a missing-meal row pointing to a deleted card. */
 export function reanchorPlannerGaps(day: JourneyDay): JourneyDay {
   if(!day.planningGaps)return day;
-  const landmarks=day.places.filter(p=>p.kind==='LANDMARK');
+  const landmarks=day.places.filter(p=>p.kind!=='STAY'&&!p.anchorVisitId);
   const gaps=day.planningGaps.map(gap=>{
     const after=landmarks.find(p=>p.visitId===gap.afterVisitId),before=landmarks.find(p=>p.visitId===gap.beforeVisitId);
     if((gap.afterVisitId===undefined||after)&&(gap.beforeVisitId===undefined||before))return gap;
@@ -55,11 +55,14 @@ export function composePlannerItinerary(journey: Journey, catalog: Place[], c: P
   const days = journey.days.map((day, dayIndex) => {
     const arrival = dayIndex === 0 && c.arrival ? c.arrival : '00:00';
     const departure = dayIndex === c.dayCount - 1 && c.departure ? c.departure : '23:59';
-    const landmarks = day.places.map((p, index, all): Place => ({ ...p, planningSlot: arrival >= '17:00' ? 'dinner' : arrival >= '12:00' ? 'afternoon' : departure <= '12:00' ? 'morning' : index < Math.ceil(all.length / 2) ? 'morning' : 'afternoon' }));
+    let foodIndex=0;
+    const landmarks = day.places.map((p, index, all): Place => ({ ...p, planningSlot: p.kind==='FOOD' ? (arrival>='15:00'||!intent.lunch ? 'dinner' : !intent.dinner||foodIndex++%2===0 ? 'lunch' : 'dinner') : p.kind==='CAFE' ? 'afternoon' : arrival >= '17:00' ? 'dinner' : arrival >= '12:00' ? 'afternoon' : departure <= '12:00' ? 'morning' : index < Math.ceil(all.length / 2) ? 'morning' : 'afternoon' }));
     const placed: Place[] = [...landmarks];
     const gaps: NonNullable<JourneyDay['planningGaps']> = [];
-    const used = new Set<string>();
+    const used = new Set<string>(landmarks.map(place=>place.id));
     for (const item of requestedDaySlots(c, intent, dayIndex)) {
+      // Explicit saved meals/cafes are independent visits, not new nearby candidates.
+      if(landmarks.some(place=>place.kind===item.kind&&place.planningSlot===item.slot))continue;
       const slotIndex = planningSlots.indexOf(item.slot);
       const before = landmarks.filter(p => planningSlots.indexOf(p.planningSlot!) < slotIndex || item.kind==='CAFE'&&p.planningSlot===item.slot).at(-1);
       const after = landmarks.find(p => planningSlots.indexOf(p.planningSlot!) > slotIndex || item.kind!=='CAFE'&&p.planningSlot===item.slot);

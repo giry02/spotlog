@@ -1,0 +1,77 @@
+/* This report only. Existing product and report styles remain unchanged. */
+.triple-strategy { --accent-text:#be422e; }
+.triple-strategy .slide-content { min-width:0; }
+.triple-strategy .eyebrow,
+.triple-strategy .flow small,
+.triple-strategy .example-label,
+.triple-strategy .contents-list a span { color:var(--accent-text); }
+.triple-strategy .cover .eyebrow { color:#ffab98; }
+.triple-strategy .table-scroll-hint { display:none; }
+.triple-strategy .sources, .triple-strategy .folio { font-size:12px; }
+.triple-strategy .report-tag { display:inline-block; padding:3px 9px; margin:0 5px 8px 0; font-size:12px; font-weight:750; background:#edf2f4; color:#334551; border-radius:3px; }
+.triple-strategy .report-tag.proposal { background:#fff0ec; color:#8b3626; }
+.triple-strategy .report-tag.local { background:#e8f3ef; color:#23634e; }
+.triple-strategy .section-block { margin-top:22px; }
+.triple-strategy .decision { margin:0 0 22px; font-size:28px; line-height:1.5; letter-spacing:-1px; font-weight:750; }
+.triple-strategy .matrix th:first-child { width:19%; }
+.triple-strategy .matrix th:nth-child(2) { width:30%; }
+.triple-strategy .matrix th:nth-child(3) { width:32%; }
+.triple-strategy .matrix th:nth-child(4) { width:19%; }
+.triple-strategy .local-evidence th, .triple-strategy .local-evidence td { padding-top:8px; padding-bottom:8px; }
+.triple-strategy .three-stage { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.triple-strategy .three-stage section { padding:22px; background:var(--soft); border-top:3px solid var(--accent); }
+.triple-strategy .three-stage h3 { margin-bottom:10px; }
+.triple-strategy .three-stage p { font-size:16px; }
+.triple-strategy .source-list a { font-weight:700; }
+.triple-strategy .source-list small { font-size:13px; margin-top:3px; }
+.triple-strategy .source-list li { margin-bottom:19px; }
+.triple-strategy .source-list { padding-left:20px; }
+.triple-strategy .flow { grid-template-columns:repeat(5,minmax(0,1fr)); }
+.triple-strategy .flow p { font-size:14px; }
+.triple-strategy .scope-line { border-top:1px solid var(--line); padding-top:16px; margin-top:22px!important; color:var(--sub); font-size:14px; }
+.triple-strategy .cover .decision { color:#fff; font-size:25px; max-width:880px; font-weight:500; }
+.triple-strategy .cover h1 { font-size:55px; }
+.triple-strategy .toolbar a,
+.triple-strategy .toolbar button,
+.triple-strategy .controls button,
+.triple-strategy .contents-dialog button { min-height:44px; min-width:44px; display:inline-flex; align-items:center; justify-content:center; }
+.triple-strategy .contents-dialog .contents-list a { min-height:44px; align-items:center; font-size:14px; }
+.triple-strategy .contents-dialog header { position:sticky; top:-28px; z-index:1; background:var(--paper); padding:8px 0; }
+.triple-strategy .shell { grid-template-rows:calc(54px + env(safe-area-inset-top,0px)) minmax(0,1fr) calc(62px + env(safe-area-inset-bottom,0px)); }
+.triple-strategy .toolbar { padding-top:env(safe-area-inset-top,0px); padding-left:max(25px,env(safe-area-inset-left,0px)); padding-right:max(25px,env(safe-area-inset-right,0px)); }
+.triple-strategy .controls { padding-bottom:env(safe-area-inset-bottom,0px); padding-left:max(25px,env(safe-area-inset-left,0px)); padding-right:max(25px,env(safe-area-inset-right,0px)); }
+.triple-strategy.all-view .toolbar { min-height:calc(54px + env(safe-area-inset-top,0px)); }
+.triple-strategy.all-view .controls { min-height:calc(62px + env(safe-area-inset-bottom,0px)); }
+.triple-strategy.all-view .slide { scroll-margin-top:calc(70px + env(safe-area-inset-top,0px)); }
+.triple-strategy .slide:focus-visible { outline-offset:-4px; }
+@media(max-width:760px) {
+  .triple-strategy .table-scroll-hint[data-scrollable="true"] { display:block; color:var(--sub); font-size:12px; margin:0 0 8px; }
+  .triple-strategy .three-stage { grid-template-columns:1fr; gap:16px; }
+  .triple-strategy .flow { grid-template-columns:1fr; }
+  .triple-strategy .flow>div { padding:16px 18px; }
+  .triple-strategy .flow small { margin-bottom:4px; }
+  .triple-strategy .flow strong { margin-bottom:5px; }
+  .triple-strategy .decision { font-size:23px; }
+  .triple-strategy .cover h1 { font-size:37px; }
+  .triple-strategy .cover .decision { font-size:20px; }
+  .triple-strategy .table-wrap { border:1px solid var(--line); }
+  .triple-strategy table { font-size:15px; min-width:650px; border:0; }
+  .triple-strategy .sources { max-width:80%; font-size:12px; }
+  .triple-strategy .toolbar .brand { max-width:100px; line-height:1.4; }
+  .triple-strategy .toolbar nav { margin-left:auto; }
+  .triple-strategy .controls { gap:8px; }
+  .triple-strategy .contents-dialog header { top:-20px; }
+  .triple-strategy .shell { grid-template-rows:calc(54px + env(safe-area-inset-top,0px)) minmax(0,1fr) calc(60px + env(safe-area-inset-bottom,0px)); }
+  .triple-strategy .toolbar,
+  .triple-strategy .controls { padding-left:max(12px,env(safe-area-inset-left,0px)); padding-right:max(12px,env(safe-area-inset-right,0px)); }
+  .triple-strategy.all-view .controls { min-height:calc(60px + env(safe-area-inset-bottom,0px)); }
+}
+@media print {
+  .triple-strategy .table-scroll-hint { display:none!important; }
+  .triple-strategy .sources,.triple-strategy .folio { font-size:11px; }
+  .triple-strategy .source-list small { font-size:12px; }
+  .triple-strategy .source-list li { margin-bottom:16px; }
+  .triple-strategy .three-stage p { font-size:15px; }
+  .triple-strategy .cover h1 { font-size:55px; }
+  .triple-strategy .cover .decision { font-size:25px; }
+}

@@ -23,3 +23,11 @@
 실제 관리자 서버는 연결 전. 이 변경은 연결·응답 안내 수정이며 실제 회원 인증·서비스 DB 연결을 완료하는 작업과 구분. GitHub Pages에서 운영 자료를 관리하려면 관리자 인증·자료 API를 제공할 서버 연결 필요.
 
 공개 재현과 검수 근거는 로컬 `artifacts/admin-json-20261017/`에 보관. Git·Pages 완료와 실제 공개 확인은 이후 실행 기록에 추가.
+
+## 업로드와 배포
+
+- 커밋 `18ddfc390e55220a9f7fc912358445966bd97023`·5파일, 기존 공개 브랜치와 `codex/admin-json-fix-20261017` 원격 HEAD 일치.
+- [Pages38982504167](https://github.com/giry02/spotlog/actions/runs/38982504167) 완료·성공.
+- 공개 `admin.html` HTTP200·`admin-DAVsUwCH.js`, 고객 HTTP200·기존 `customer-DS7NtBsI.js` 확인.
+- 실제 공개 환경214개 검수 통과, JS예외0. 오류 응답 모사 회귀와 실제 무가로채기 `/me`404 HTML의 연결 안내 확인 포함. 강제 로컬 모드 쿼리로도 실제 인증 요구 유지, 매뉴얼53이미지200 확인. 근거 `public-release/results.json`, `smoke.json`, `actual-public.png`.
+- 실제 회원 서버·DB·API 연결은 이번 수정과 별도. 기존 자료를 수정하거나 검수 권한으로 운영 인증을 대체하지 않음.

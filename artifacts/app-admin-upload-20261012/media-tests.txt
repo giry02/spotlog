@@ -1,0 +1,12 @@
+✔ registered Busan photos retain individual commercial reuse conditions, authors and exact sources (8.4132ms)
+✔ web photo assets are real optimized WebP files with preserved integrity and bounded transfer size (17.4597ms)
+✔ gallery identities match their exact branch and every displayed image has one attribution (74.5141ms)
+✔ excluded noncommercial media and coordinate conflicts stay outside the active asset registry (28.5509ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 379.9981

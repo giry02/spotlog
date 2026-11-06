@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-06",
+  "source": "C:/Users/Giry/Documents/Spotlog",
+  "scope": "local-only; naming deferred",
+  "automaticTests": { "passed": 928, "failed": 0, "log": "tests.log" },
+  "webTypecheck": { "exitCode": 0, "log": "typecheck-integration.log" },
+  "nativeTypecheck": { "exitCode": 0, "log": "native-typecheck.log" },
+  "productionWebBuild": { "exitCode": 0, "log": "build.log", "advisory": "Existing chunks over 500kB" },
+  "browserEvidence": "browser-qa.json",
+  "gitPublished": false,
+  "liveAuthenticationOrAiClaimed": false
+}

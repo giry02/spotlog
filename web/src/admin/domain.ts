@@ -9,7 +9,7 @@ export class AdminError extends Error { code: string; constructor(code: string, 
 const requireValue = (ok: unknown, message: string) => { if (!ok) throw new AdminError('VALIDATION', message); };
 const id = () => crypto.randomUUID();
 export function checkContent(content: PlaceContent) {
-  requireValue(content && ['LANDMARK', 'FOOD', 'CAFE', 'STAY', 'SHOP'].includes(content.kind), '장소 종류를 확인해 주세요.');
+  requireValue(content && ['LANDMARK', 'FOOD', 'CAFE', 'STAY', 'SHOP', 'LEISURE'].includes(content.kind), '장소 종류를 확인해 주세요.');
   requireValue(content.location && content.rights && content.guide && content.ai && Array.isArray(content.media), '장소 자료 형식이 올바르지 않아요.');
   for (const field of [content.name, content.area, content.address, content.description, content.provider, content.sourceUrl]) requireValue(typeof field === 'string', '장소 입력값을 확인해 주세요.');
   for (const field of [content.regionId,content.visitDuration,content.hook,content.creatorLabel]) requireValue(field === undefined || typeof field === 'string', '지역·방문 시간 입력값을 확인해 주세요.');

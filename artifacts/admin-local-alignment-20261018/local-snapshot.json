@@ -1,0 +1,347 @@
+{
+  "date": "2026-10-18",
+  "localOnly": true,
+  "baseline": "96bcf6568dbfa6c79f4f874b2747d3fbf7d273bf",
+  "branch": "codex/admin-local-alignment-20261018",
+  "sourceRoot": "C:\\Users\\Giry\\.codex\\worktrees\\account-methods-release-20261014\\Spotlog",
+  "mainRoot": "C:\\Users\\Giry\\Documents\\Spotlog",
+  "adminFiles": 40,
+  "automaticTests": 552,
+  "webBuild": "passed",
+  "typecheck": "passed",
+  "files": [
+    {
+      "file": "docs/contracts/admin-v1/build_contract.mjs",
+      "sha256": "a8a0178678b644b43e5a6c6fec614dd061c29a42290d79c7e3aec87e81357ac1"
+    },
+    {
+      "file": "docs/contracts/admin-v1/build_fixtures.mjs",
+      "sha256": "6bb74593ad2375926abc6ac2cd716d1534a88f7def6b5a4e6aa9c6eb4b8ddd48"
+    },
+    {
+      "file": "docs/contracts/admin-v1/CONSUMER_LINKS.md",
+      "sha256": "d08c1d8fb7994278e1257f154afe61c1b9dae5212579e8a00457ba55b43e2724"
+    },
+    {
+      "file": "docs/contracts/admin-v1/fixtures.json",
+      "sha256": "ca4a1421a1488ae2ff2824986fd9db5b16b51359bda1bece82d13359df40b7d9"
+    },
+    {
+      "file": "docs/contracts/admin-v1/HANDOFF.md",
+      "sha256": "227185fe78bca3229c7e0cd8746b946e9ccdab0bc3aba610cafca78ccd60c6a7"
+    },
+    {
+      "file": "docs/contracts/admin-v1/openapi.json",
+      "sha256": "622084d4b8e12c27a607578a9e9de370464bb6e685af35844f79b596bd05a5bf"
+    },
+    {
+      "file": "docs/contracts/admin-v1/README.md",
+      "sha256": "d0178ae908d8617ace26ea5fddb829c931f85db32e4ffeb4d01f704d78ec7ba2"
+    },
+    {
+      "file": "docs/contracts/admin-v1/schemas.json",
+      "sha256": "8515945450215d799484c926ef7ace70a9ee79cc2c11b3f49408e8fff5361e15"
+    },
+    {
+      "file": "docs/contracts/admin-v1/validate.py",
+      "sha256": "01a4e253f5ab54bfb32718f51984218ff45f343ce69d5e4a991fa496b2e0e311"
+    },
+    {
+      "file": "docs/execution/ADMIN_EASY_WORKFLOW_20261012.md",
+      "sha256": "51739e7aa38cfe293e24413b3ba2ebb333c847c090dbe115f7fcca2c65ac8421"
+    },
+    {
+      "file": "web/admin-preview.html",
+      "sha256": "a32aa73e7d26d540acb29f0508f4790c62b4aa5f77ca29e769b30bfc8c1b8fff"
+    },
+    {
+      "file": "web/admin.html",
+      "sha256": "e56fbf6c7f9007dbf28e0c2f619e3fcfd4c288250ae12f176deee14d44904ab9"
+    },
+    {
+      "file": "web/src/admin/admin-editorial-workflow.css",
+      "sha256": "6786740f5ae8316bcfa0ad8c74db636ab45e665270259ae70ba46acd7fb46e53"
+    },
+    {
+      "file": "web/src/admin/admin-place-workflow.css",
+      "sha256": "f9deb07679a14a7350fc45d8b107985fff8b279af4730e6feba00ac8747d97f6"
+    },
+    {
+      "file": "web/src/admin/admin-preview.css",
+      "sha256": "75363d9ec16dd380c8f9d16e73711cd2f7b07222a368411144b0f0939a791db8"
+    },
+    {
+      "file": "web/src/admin/admin-workflow.css",
+      "sha256": "2080cd43ba13899cc36cd82478ea3c9895e1d300a26aff39516c733291bb3a69"
+    },
+    {
+      "file": "web/src/admin/admin.css",
+      "sha256": "df1bcf4d10a08be41ca756b80e9d67a65155ec76bbe809f9c735eca22423e7aa"
+    },
+    {
+      "file": "web/src/admin/AdminApp.tsx",
+      "sha256": "9b9897aea4c450e47d48998275271a91e60de6a90b9da082b4bf002431368c83"
+    },
+    {
+      "file": "web/src/admin/AdminOverview.tsx",
+      "sha256": "fa6893743eaf3b98586834a3ccabbebebb9a3c3c662d1e05defe33e086bc09dc"
+    },
+    {
+      "file": "web/src/admin/AdminSelect.tsx",
+      "sha256": "de39a2e17d69c95ecdf2349617a996f9c296aa18b0979e204bfbf0609dd04dd8"
+    },
+    {
+      "file": "web/src/admin/aiDomain.ts",
+      "sha256": "3840fa53c45023ecb8f1cd74dea45660669060f4f6f2e786b35bcdec00ef41f8"
+    },
+    {
+      "file": "web/src/admin/AIPage.tsx",
+      "sha256": "2523b1b6a928aa2c0d2a7b6591dd369d0dc0ab4a5ee557fce2a4ec0caa99769f"
+    },
+    {
+      "file": "web/src/admin/aiSeed.ts",
+      "sha256": "06d1cf31156edd1a70ac0d026b7d9153466f3ae092af3f9036b0fb4a1d05a12a"
+    },
+    {
+      "file": "web/src/admin/aiTypes.ts",
+      "sha256": "8ed6e15cad17aa7e7d6219219683743f5d4af6f3cbc515905a6cda7df03a24fa"
+    },
+    {
+      "file": "web/src/admin/components.tsx",
+      "sha256": "1c14c4fde773fd5563bb5edcfa16a38fc6cef504dab99b7e1e31135999971868"
+    },
+    {
+      "file": "web/src/admin/content.ts",
+      "sha256": "a3ae668cf2b6070a1c6c7b5d63c4b354019da00602e344aba103f15f99a8573d"
+    },
+    {
+      "file": "web/src/admin/contractGuard.ts",
+      "sha256": "5d4afdc4ad81bf2d145ebf6d6d19237637ac8232e058461aa8fc4ad177ef14cb"
+    },
+    {
+      "file": "web/src/admin/csv.ts",
+      "sha256": "a2ba5841b5e67ea547ef1bd13572cd50a139fd8e2452e2220a1fd1b9554ef835"
+    },
+    {
+      "file": "web/src/admin/domain.ts",
+      "sha256": "558f3995a1a9c972fef11c8a3c36b9dabd680a5b8dc28eadf623fade8d7497eb"
+    },
+    {
+      "file": "web/src/admin/editorialDraft.ts",
+      "sha256": "34ffc6d95f70cdf20b63a678070b02bda317151e2cac722abff9685522e5c1c6"
+    },
+    {
+      "file": "web/src/admin/editorialSave.ts",
+      "sha256": "ace9d5482eca51eecf06033b3fad80e72db1be4b7d92a4ad9c670bb473fe22ba"
+    },
+    {
+      "file": "web/src/admin/editorialWorkflow.ts",
+      "sha256": "24f833fc38856d3e82094ea2e654498283f3842969e385bfd7c467402a5a96b6"
+    },
+    {
+      "file": "web/src/admin/main.tsx",
+      "sha256": "dc049a6bdb12b514b847b774b928e0a20e0149c41f34a24e48bcbf3a76d597b2"
+    },
+    {
+      "file": "web/src/admin/migration.ts",
+      "sha256": "cba7ba378aa33124858eff74a7a8fe422849f5c68735e1a40643d7c51554dd48"
+    },
+    {
+      "file": "web/src/admin/OperationsPages.tsx",
+      "sha256": "8b2d069a2d02c83225b99b22d5e9feb541c8fb9ede4f68837da7d2e3a0c281e5"
+    },
+    {
+      "file": "web/src/admin/opsDomain.ts",
+      "sha256": "e31993fd04bfe630a83358d8434d25238d379b088b34c1391f15ce7d4f830db7"
+    },
+    {
+      "file": "web/src/admin/opsSeed.ts",
+      "sha256": "f29714e36a8aa2b327d8aa13306651deb6a40a4572d4d45098dafbe19be30613"
+    },
+    {
+      "file": "web/src/admin/opsTime.ts",
+      "sha256": "a28e2140eb8c68aab1b4b0d318b01d9b8087e1c1a4da436255da6cf9b3c53b13"
+    },
+    {
+      "file": "web/src/admin/opsTypes.ts",
+      "sha256": "048a6b1a840e11d8ebf55a7c5b5b490c4f49f6b4ed6a18f5cd9b91011116713e"
+    },
+    {
+      "file": "web/src/admin/placeEditorCache.ts",
+      "sha256": "8ca60cfcbcefd360c7b73cc9ac35690e122e194bffa827497fd26ecfa3920e5d"
+    },
+    {
+      "file": "web/src/admin/PlacePreview.tsx",
+      "sha256": "f60a830a92da69160735503adc3f60d02f3972de70663acb2e7b71f820fcf6d3"
+    },
+    {
+      "file": "web/src/admin/PlacesPage.tsx",
+      "sha256": "a1e1cbf8bf271cdd043ef98a411d860b104f307f7c04fe115472300cee382016"
+    },
+    {
+      "file": "web/src/admin/placeWorkflow.ts",
+      "sha256": "bc3830e7860bd76030b1843684d4a39618c6460a40372ddcbd239f2aa91be34f"
+    },
+    {
+      "file": "web/src/admin/preview-main.tsx",
+      "sha256": "36abce9f315dfe22e6012a8918b119915f9f948bd43dac9e2ad16c1fec6ea169"
+    },
+    {
+      "file": "web/src/admin/previewAdapter.ts",
+      "sha256": "e8577e46b81069463ccb8a8f5655118e3f31e1a13457a9443dc1c9910401c0e8"
+    },
+    {
+      "file": "web/src/admin/previewDraftStorage.ts",
+      "sha256": "0de3aca374455c932cd8b4178950c1158e5a5b19ea0104a49959380ad8a6679d"
+    },
+    {
+      "file": "web/src/admin/regions.ts",
+      "sha256": "62d50b598ea46dc0482395c3d215130f8c1101583bf57770cedd5618662800ee"
+    },
+    {
+      "file": "web/src/admin/repository.ts",
+      "sha256": "6b3b9fbabbf39a10d7324cfaaaa5adbd8838b69b8d92f2b9b8d3bda3005be6d8"
+    },
+    {
+      "file": "web/src/admin/seed.ts",
+      "sha256": "c84788d76b4aaa99f9e4f650141a48e476810dddc22ca653a736799f763da1e3"
+    },
+    {
+      "file": "web/src/admin/selectors.ts",
+      "sha256": "d842c5c6c6759d10a97ca868f0aac30d6bce72e43c9e4069732a691968a3136a"
+    },
+    {
+      "file": "web/src/admin/types.ts",
+      "sha256": "8cd1c03544c123941cdded985bab0b0c37385c8b64d4665be8bbd81fb91e349e"
+    },
+    {
+      "file": "web/src/admin/useReviewDraft.ts",
+      "sha256": "d83f0e15a4976921a063637c884d897a959b5eb3b0de4c08a86a848b0a59d71b"
+    },
+    {
+      "file": "web/tests/admin-select.html",
+      "sha256": "275b6181d5c820c6f5c4359dd56de79f7fe17585edd421f24772e863792a77ea"
+    },
+    {
+      "file": "web/tests/admin-select.tsx",
+      "sha256": "d23a725d4b04b4540e9d450ef95b21a1647979c5683db16f2d67ebee543b056f"
+    },
+    {
+      "file": "web/tests/adminAccessBrowser.cjs",
+      "sha256": "2d8d8fef24fc79f8e310dda8fa58d8c09a2134aee673b42371399fc719f9f002"
+    },
+    {
+      "file": "web/tests/adminAi.test.mjs",
+      "sha256": "bd5646a0650e84f95b7ef3e8af06b5e2d89381f54dfa205544b43dbbb5e4b952"
+    },
+    {
+      "file": "web/tests/adminApiErrors.test.mjs",
+      "sha256": "3341911aacea6998d36822456202ded6af0476a9b948ba19ae8f59bb55000d75"
+    },
+    {
+      "file": "web/tests/adminBrowser.cjs",
+      "sha256": "e8c0c77684536ab45f21470a9e220d69150d0db3ee7e593a2790c426e6e3cf56"
+    },
+    {
+      "file": "web/tests/adminContract.test.mjs",
+      "sha256": "03a31e14beb377143b92961948867ec7e1cca30d3c5ecb4da999dc5bd0291919"
+    },
+    {
+      "file": "web/tests/adminCore.test.mjs",
+      "sha256": "59c0e3bb110f3e1eec0822e1ad04b3d45a9e9f52f72249fc47cbe25910a0285c"
+    },
+    {
+      "file": "web/tests/adminEasyWorkflowBrowser.cjs",
+      "sha256": "5588c4bc8d3a637e5348c86b154ba09250c0655ea05fe164be1998d691e4e99f"
+    },
+    {
+      "file": "web/tests/adminEditorCache.test.mjs",
+      "sha256": "640d74001f0b7a43d608c8af57b562d1c076e35dc2962fcbd8f068894fc4ce03"
+    },
+    {
+      "file": "web/tests/adminEditorial.test.mjs",
+      "sha256": "b488e393a7a59a15457f2d18e0ab6da50a3b016e1d3ba3d8af216fefb0815b60"
+    },
+    {
+      "file": "web/tests/adminEditorialBrowser.cjs",
+      "sha256": "b05056a5d19b071271eafab5ed3955912fafb6846df35fff8ac9c842648d1a19"
+    },
+    {
+      "file": "web/tests/adminEditorialWorkflow.test.mjs",
+      "sha256": "306bb088de5cf6586912c9f48777fbba711ef48e62fa7f58589f90859bd478c2"
+    },
+    {
+      "file": "web/tests/adminEditorSave.test.mjs",
+      "sha256": "3465321c5c27bd582361ba240ca4bd4855f30d17260bb034e7c0df85ae79a77c"
+    },
+    {
+      "file": "web/tests/adminLayoutBrowser.cjs",
+      "sha256": "71faaf109ad3953b8100dbc732f78ee9c3d37e0fb7d789863590678a9131a7fa"
+    },
+    {
+      "file": "web/tests/adminMasterWorkflow.test.mjs",
+      "sha256": "af050a1409adbe73981275cd781b1d384f7845c541781841cd5f7941621a152d"
+    },
+    {
+      "file": "web/tests/adminOperationsBrowser.cjs",
+      "sha256": "dc9f5bf550a5ab68f46ef08550d629b0080ad23f17f4df6e2e0b90ce0c6f91ab"
+    },
+    {
+      "file": "web/tests/adminOperationsRecheckBrowser.cjs",
+      "sha256": "94d20c322a1991f49d1133563db0a17bd3197ee0c45bdb81c22055e2db369956"
+    },
+    {
+      "file": "web/tests/adminOps.test.mjs",
+      "sha256": "e3e319b90d3f13d2dffa811b8a3367d21e94e35c3bad12c31f81ae42544dfa1b"
+    },
+    {
+      "file": "web/tests/adminOpsDraft.test.mjs",
+      "sha256": "f3adbaa023cd0116c8cd38604ffb7ae0ff05d5b5dcaac3ad1f84097b8191ffb0"
+    },
+    {
+      "file": "web/tests/adminOpsTime.test.mjs",
+      "sha256": "726f72deba8a054940195c61e9c499aac50059756ea929faca535d378fd2c8e4"
+    },
+    {
+      "file": "web/tests/adminPlaceEasyWorkflow.test.mjs",
+      "sha256": "3c41c298462b291632f1faae23f6285af209ed5723f9314177d6c37da4afafcf"
+    },
+    {
+      "file": "web/tests/adminPlaceRecheckBrowser.cjs",
+      "sha256": "b761083bbe17dc8fbcb2abb9fb985a441c1542f1e9368b65550fbdb964a189d5"
+    },
+    {
+      "file": "web/tests/adminPlaceWorkflowAudit.test.mjs",
+      "sha256": "1f511bdb9c545bf69a7bd22c5e039f76db6eb936990e7d83f7144c123699c544"
+    },
+    {
+      "file": "web/tests/adminPlaceWorkflowBrowser.cjs",
+      "sha256": "1daddbe780f566ae9d601d80598e10f0193d0341e0dc24efb0c5698bec5c4189"
+    },
+    {
+      "file": "web/tests/adminPopularity.test.mjs",
+      "sha256": "f6a39583ffe98ecc5cdb7411b2348c12bd3e052dceeb002791f196ba61a8b53d"
+    },
+    {
+      "file": "web/tests/adminPreview.test.mjs",
+      "sha256": "20b30f1a79e2001cf3db4f8256102028657605a1dbdd9b9aeea1d62a9694a7b3"
+    },
+    {
+      "file": "web/tests/adminSelectBrowser.cjs",
+      "sha256": "6887e0587e91adb3e7090a1295fefd18f94352624060e1d6a0968426b95abc79"
+    },
+    {
+      "file": "web/tests/adminSelectDriver.cjs",
+      "sha256": "5851680ff63c7b1eb206d398332233283c9f2d77af213d8af7d7035675b8e49b"
+    },
+    {
+      "file": "web/tests/adminServiceIntegration.test.mjs",
+      "sha256": "ea491ec4f8aca88aba7183812b8a62223acf6ea14ff27a718b56110118c914c2"
+    }
+  ],
+  "browserChecks": 120,
+  "regressionChecks": 46,
+  "legacyWorkflowChecks": 18,
+  "remoteCommitUnchanged": "96bcf6568dbfa6c79f4f874b2747d3fbf7d273bf",
+  "status": "completed-local-only"
+}

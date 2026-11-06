@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { ArrowLeft, X } from 'lucide-react';
 import { notifyNavigationState } from './nativeBridge';
 import './phase-one.css';
+import { useConsumerDensity } from './consumerDensity';
 import { IconButton } from './ui';
 
 export const hasActiveSheet = () => Boolean(document.querySelector('[data-spotlog-sheet]'));
@@ -19,6 +20,7 @@ const SheetDetailContext = createContext<OpenSheetDetail | null>(null);
 export const useBottomSheetDetail = () => useContext(SheetDetailContext);
 
 export function BottomSheet({ title, description, onClose, children }: { title: string; description?: string; onClose: () => void; children: ReactNode }) {
+  useConsumerDensity();
   const copy=useUiCopy();
   const { locale } = useLocale();
   const titleId = useId();

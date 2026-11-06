@@ -36,3 +36,9 @@
 이 수정은 앞서 승인받은 앱 GitHub·Pages 배포 흐름에 반영. 관리자 인증/연결 정책은 유지. 공개 사이트의 최종 커밋·배포·검수 결과는 현재 인수인계와 실행 기록 참고.
 
 확인: http://127.0.0.1:5210/#trips . 기존 기록과 별도인 확인용 일정: http://127.0.0.1:5210/tests/plan-view-edit.html?mode=ready .
+
+## 공개 반영 기록
+
+소스 커밋 `7ee7c9ff268606ca3653e345a852396b8a50f8a5`,16개 파일. 기존 공개 브랜치와 `codex/trip-ui-cleanup-20261012` 원격 HEAD 일치. Pages [run38190702495](https://github.com/giry02/spotlog/actions/runs/38190702495) 완료·성공. 공개 앱 https://giry02.github.io/spotlog/ . 새 고객 파일 `customer-C6MvrPEA.js`, 기존 관리자 `admin-BdFqIH-7.js` 유지. 업로드 후 로컬 완료 이력은 실행 기록에 보관.
+
+공개 최신 버전22검사 통과. 320/390/460px 보기→수정→DRAFT보존/새로고침→완료, 실제 식당 주변 카페2후보 저장/새로고침/1곳 확정, 예약 고정·별도 여행기/메모 보호·여행중 방문 기록 확인. 에셋 실패·JS예외·깨진 표시 이미지·가로 넘침 없음. `qa-live/results.json` 및 공개 스크립트로 기록.

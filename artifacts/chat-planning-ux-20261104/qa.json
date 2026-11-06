@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-04",
+  "scope": "local frontend only",
+  "tests": {
+    "passed": 815,
+    "failed": 0,
+    "log": "full-tests.txt"
+  },
+  "build": {
+    "passed": true,
+    "existingWarning": "large chunks > 500 kB",
+    "log": "build.txt"
+  },
+  "browser": "browser-qa.json",
+  "features": [
+    "prompt-first evergreen examples",
+    "16 multi-interest selection",
+    "explicit place-undecided draft",
+    "group home hierarchy",
+    "one room-scoped helper",
+    "live poll/task/activity/notice reference cards",
+    "precise group/activity room separation",
+    "same-object prep/chat synchronization",
+    "content-only card jump and fixed chrome"
+  ],
+  "limitations": [
+    "actual LLM and realtime data unconnected",
+    "cross-device synchronization unconnected",
+    "new-tab review fixtures reset their in-memory examples"
+  ],
+  "git": "no commit/push/deploy",
+  "customerAndAdminStores": "untouched"
+}

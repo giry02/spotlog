@@ -1,0 +1,222 @@
+{
+  "passed": true,
+  "checks": 57,
+  "results": [
+    {
+      "name": "five-signup-methods",
+      "width": 320
+    },
+    {
+      "name": "email-signup-terms",
+      "width": 320
+    },
+    {
+      "name": "email-signup-details",
+      "width": 320
+    },
+    {
+      "name": "wrong-email-code-stays-guest",
+      "width": 320
+    },
+    {
+      "name": "email-signup-complete",
+      "width": 320
+    },
+    {
+      "name": "email-server-session-auto",
+      "width": 320
+    },
+    {
+      "name": "five-login-methods",
+      "width": 320
+    },
+    {
+      "name": "email-login-error",
+      "width": 320
+    },
+    {
+      "name": "email-login-retry-and-storage-preserved",
+      "width": 320
+    },
+    {
+      "name": "five-signup-methods",
+      "width": 390
+    },
+    {
+      "name": "email-signup-terms",
+      "width": 390
+    },
+    {
+      "name": "email-signup-details",
+      "width": 390
+    },
+    {
+      "name": "wrong-email-code-stays-guest",
+      "width": 390
+    },
+    {
+      "name": "email-signup-complete",
+      "width": 390
+    },
+    {
+      "name": "email-server-session-auto",
+      "width": 390
+    },
+    {
+      "name": "five-login-methods",
+      "width": 390
+    },
+    {
+      "name": "email-login-error",
+      "width": 390
+    },
+    {
+      "name": "email-login-retry-and-storage-preserved",
+      "width": 390
+    },
+    {
+      "name": "five-signup-methods",
+      "width": 460
+    },
+    {
+      "name": "email-signup-terms",
+      "width": 460
+    },
+    {
+      "name": "email-signup-details",
+      "width": 460
+    },
+    {
+      "name": "wrong-email-code-stays-guest",
+      "width": 460
+    },
+    {
+      "name": "email-signup-complete",
+      "width": 460
+    },
+    {
+      "name": "email-server-session-auto",
+      "width": 460
+    },
+    {
+      "name": "five-login-methods",
+      "width": 460
+    },
+    {
+      "name": "email-login-error",
+      "width": 460
+    },
+    {
+      "name": "email-login-retry-and-storage-preserved",
+      "width": 460
+    },
+    {
+      "name": "kakao-new-social-consent",
+      "width": 390
+    },
+    {
+      "name": "kakao-new-social-signed-in",
+      "width": 390
+    },
+    {
+      "name": "kakao-existing-account-signup-enters-session"
+    },
+    {
+      "name": "naver-new-social-consent",
+      "width": 390
+    },
+    {
+      "name": "naver-new-social-signed-in",
+      "width": 390
+    },
+    {
+      "name": "naver-existing-account-signup-enters-session"
+    },
+    {
+      "name": "google-new-social-consent",
+      "width": 390
+    },
+    {
+      "name": "google-new-social-signed-in",
+      "width": 390
+    },
+    {
+      "name": "google-existing-account-signup-enters-session"
+    },
+    {
+      "name": "apple-new-social-consent",
+      "width": 390
+    },
+    {
+      "name": "apple-new-social-signed-in",
+      "width": 390
+    },
+    {
+      "name": "apple-existing-account-signup-enters-session"
+    },
+    {
+      "name": "kakao-login-authorized-session"
+    },
+    {
+      "name": "naver-login-authorized-session"
+    },
+    {
+      "name": "google-login-authorized-session"
+    },
+    {
+      "name": "apple-login-authorized-session"
+    },
+    {
+      "name": "failed-provider-guard-and-signup-preserved",
+      "width": 390
+    },
+    {
+      "name": "provider-cancellation-stays-guest"
+    },
+    {
+      "name": "unconfigured-social-no-fake-success",
+      "width": 390
+    },
+    {
+      "name": "unconfigured-email-signup-no-fake-success",
+      "width": 390
+    },
+    {
+      "name": "revisit-terms-preserves-signup-information"
+    },
+    {
+      "name": "short-viewport-email-form",
+      "width": 320
+    },
+    {
+      "name": "changing-login-method-clears-password"
+    },
+    {
+      "name": "password-reset-back-and-storage-preserved"
+    },
+    {
+      "name": "dev-prefilled-email-login",
+      "width": 390
+    },
+    {
+      "name": "actual-dev-review-login-and-reload"
+    },
+    {
+      "name": "actual-dev-five-signup-after-logout",
+      "width": 390
+    },
+    {
+      "name": "pending-provider-change-clears-old-consent",
+      "width": 390
+    },
+    {
+      "name": "cancel-pending-signup-returns-five-methods"
+    },
+    {
+      "name": "member-change-clears-old-delete-confirmation",
+      "width": 390
+    }
+  ],
+  "errors": [],
+  "disclaimer": "Isolated DEV fixture exercises real HTTP adapter against a fake server; no real provider credentials, mail delivery or service authentication claimed."
+}

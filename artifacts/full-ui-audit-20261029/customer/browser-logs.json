@@ -1,0 +1,15 @@
+{
+  "widthHarness": [
+    {
+      "level": "error",
+      "message": "Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+      "timestamp": "2026-10-29T06:06:58.735Z"
+    },
+    {
+      "level": "error",
+      "message": "Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+      "timestamp": "2026-10-29T06:19:52.612Z"
+    }
+  ],
+  "standaloneApp": []
+}

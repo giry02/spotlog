@@ -1,0 +1,302 @@
+[
+  {
+    "width": "320",
+    "url": "http://127.0.0.1:5214/#saved",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".interest-folder-strip",
+        "gap": "8px",
+        "client": 284,
+        "scroll": 284,
+        "buttons": [
+          {
+            "text": "전체 장소 0",
+            "w": 95,
+            "h": 44
+          },
+          {
+            "text": "새 목록",
+            "w": 91,
+            "h": 44
+          }
+        ]
+      },
+      {
+        "selector": ".interest-kind-filter",
+        "gap": "8px",
+        "client": 284,
+        "scroll": 284,
+        "buttons": [
+          {
+            "text": "전체0",
+            "w": 62,
+            "h": 44
+          },
+          {
+            "text": "랜드마크0",
+            "w": 88,
+            "h": 44
+          },
+          {
+            "text": "음식점0",
+            "w": 75,
+            "h": 44
+          },
+          {
+            "text": "카페0",
+            "w": 62,
+            "h": 44
+          },
+          {
+            "text": "숙소0",
+            "w": 62,
+            "h": 44
+          },
+          {
+            "text": "쇼핑0",
+            "w": 62,
+            "h": 44
+          },
+          {
+            "text": "레저0",
+            "w": 62,
+            "h": 44
+          }
+        ]
+      },
+      {
+        "selector": ".interest-view-toggle",
+        "gap": "8px",
+        "client": 164,
+        "scroll": 164,
+        "buttons": [
+          {
+            "text": "목록",
+            "w": 71,
+            "h": 46
+          },
+          {
+            "text": "지도",
+            "w": 71,
+            "h": 46
+          }
+        ]
+      },
+      {
+        "selector": ".saved-place-toolbar",
+        "gap": "8px",
+        "client": 284,
+        "scroll": 284,
+        "buttons": [
+          {
+            "text": "여행 만들기",
+            "w": 112,
+            "h": 46
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": "390",
+    "url": "http://127.0.0.1:5214/#saved",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".interest-folder-strip",
+        "gap": "8px",
+        "client": 354,
+        "scroll": 354,
+        "buttons": [
+          {
+            "text": "전체 장소 0",
+            "w": 95,
+            "h": 44
+          },
+          {
+            "text": "새 목록",
+            "w": 91,
+            "h": 44
+          }
+        ]
+      },
+      {
+        "selector": ".interest-kind-filter",
+        "gap": "8px",
+        "client": 354,
+        "scroll": 354,
+        "buttons": [
+          {
+            "text": "전체0",
+            "w": 62,
+            "h": 44
+          },
+          {
+            "text": "랜드마크0",
+            "w": 88,
+            "h": 44
+          },
+          {
+            "text": "음식점0",
+            "w": 75,
+            "h": 44
+          },
+          {
+            "text": "카페0",
+            "w": 62,
+            "h": 44
+          },
+          {
+            "text": "숙소0",
+            "w": 62,
+            "h": 44
+          },
+          {
+            "text": "쇼핑0",
+            "w": 62,
+            "h": 44
+          },
+          {
+            "text": "레저0",
+            "w": 62,
+            "h": 44
+          }
+        ]
+      },
+      {
+        "selector": ".interest-view-toggle",
+        "gap": "8px",
+        "client": 234,
+        "scroll": 234,
+        "buttons": [
+          {
+            "text": "목록",
+            "w": 71,
+            "h": 46
+          },
+          {
+            "text": "지도",
+            "w": 71,
+            "h": 46
+          }
+        ]
+      },
+      {
+        "selector": ".saved-place-toolbar",
+        "gap": "8px",
+        "client": 354,
+        "scroll": 354,
+        "buttons": [
+          {
+            "text": "여행 만들기",
+            "w": 112,
+            "h": 46
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "width": "460",
+    "url": "http://127.0.0.1:5214/#saved",
+    "pageOverflow": 0,
+    "photoHeader": null,
+    "strips": [
+      {
+        "selector": ".interest-folder-strip",
+        "gap": "8px",
+        "client": 424,
+        "scroll": 424,
+        "buttons": [
+          {
+            "text": "전체 장소 0",
+            "w": 95,
+            "h": 44
+          },
+          {
+            "text": "새 목록",
+            "w": 91,
+            "h": 44
+          }
+        ]
+      },
+      {
+        "selector": ".interest-kind-filter",
+        "gap": "8px",
+        "client": 424,
+        "scroll": 424,
+        "buttons": [
+          {
+            "text": "전체0",
+            "w": 62,
+            "h": 44
+          },
+          {
+            "text": "랜드마크0",
+            "w": 88,
+            "h": 44
+          },
+          {
+            "text": "음식점0",
+            "w": 75,
+            "h": 44
+          },
+          {
+            "text": "카페0",
+            "w": 62,
+            "h": 44
+          },
+          {
+            "text": "숙소0",
+            "w": 62,
+            "h": 44
+          },
+          {
+            "text": "쇼핑0",
+            "w": 62,
+            "h": 44
+          },
+          {
+            "text": "레저0",
+            "w": 62,
+            "h": 44
+          }
+        ]
+      },
+      {
+        "selector": ".interest-view-toggle",
+        "gap": "8px",
+        "client": 304,
+        "scroll": 304,
+        "buttons": [
+          {
+            "text": "목록",
+            "w": 71,
+            "h": 46
+          },
+          {
+            "text": "지도",
+            "w": 71,
+            "h": 46
+          }
+        ]
+      },
+      {
+        "selector": ".saved-place-toolbar",
+        "gap": "8px",
+        "client": 424,
+        "scroll": 424,
+        "buttons": [
+          {
+            "text": "여행 만들기",
+            "w": 112,
+            "h": 46
+          }
+        ]
+      }
+    ]
+  }
+]

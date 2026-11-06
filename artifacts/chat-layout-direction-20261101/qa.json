@@ -1,0 +1,68 @@
+{
+  "responsive": [
+    {
+      "headerHeight": 64,
+      "inputFont": "16px",
+      "noticeHeight": 44,
+      "overflow": 0,
+      "phoneWidth": 285,
+      "smallTargets": [],
+      "width": 320
+    },
+    {
+      "headerHeight": 64,
+      "inputFont": "16px",
+      "noticeHeight": 44,
+      "overflow": 0,
+      "phoneWidth": 355,
+      "smallTargets": [],
+      "width": 390
+    },
+    {
+      "headerHeight": 64,
+      "inputFont": "16px",
+      "noticeHeight": 44,
+      "overflow": 0,
+      "phoneWidth": 390,
+      "smallTargets": [],
+      "width": 460
+    },
+    {
+      "headerHeight": 64,
+      "inputFont": "16px",
+      "noticeHeight": 44,
+      "overflow": 0,
+      "phoneWidth": 390,
+      "smallTargets": [],
+      "width": 1440
+    }
+  ],
+  "innerScroll": {
+    "before": {
+      "composer": 690,
+      "header": 1,
+      "notice": 65,
+      "scroll": 508
+    },
+    "after": {
+      "composer": 690,
+      "header": 1,
+      "notice": 65,
+      "scroll": 1016
+    },
+    "headerAndNoticeStable": true
+  },
+  "checks": [
+    "summary categories and exact-source navigation",
+    "return to filtered summary",
+    "author filtering",
+    "explicit task addition",
+    "room-specific drafts",
+    "no automatic read acknowledgement"
+  ],
+  "consoleErrors": [],
+  "unitTests": "61/61 passed",
+  "webTypecheck": "passed",
+  "webBuild": "passed",
+  "integration": "Independent proposal; product layout not integrated. Only message action and latest-arrow icons applied locally."
+}

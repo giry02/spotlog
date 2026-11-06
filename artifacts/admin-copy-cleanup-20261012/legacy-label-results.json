@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "checks": [
+    "legacy default label rendering",
+    "custom policy name preserved",
+    "stored labels and versions unchanged",
+    "legacy default index label rendering"
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "date": "2026-10-05",
+  "fileKey": "8IageUvocd3SaddRKOoCGi",
+  "existingDiagramsUpdated": 13,
+  "newAdminDiagram": "112:1881",
+  "renderReviews": [
+    {
+      "number": "00",
+      "nodeId": "21:379",
+      "file": "after-00.png",
+      "width": 2200,
+      "height": 1992,
+      "format": "png",
+      "original_width": 3442,
+      "original_height": 3108
+    },
+    {
+      "number": "01",
+      "nodeId": "5:262",
+      "file": "after-01.png",
+      "width": 2200,
+      "height": 1529,
+      "format": "png",
+      "original_width": 3230,
+      "original_height": 2220
+    },
+    {
+      "number": "02",
+      "nodeId": "4:34",
+      "file": "after-02.png",
+      "width": 2079,
+      "height": 2200,
+      "format": "png",
+      "original_width": 4285,
+      "original_height": 4540
+    },
+    {
+      "number": "03",
+      "nodeId": "15:379",
+      "file": "after-03.png",
+      "width": 2200,
+      "height": 972,
+      "format": "png",
+      "original_width": 6150,
+      "original_height": 2670
+    },
+    {
+      "number": "04",
+      "nodeId": "34:1342",
+      "file": "after-04.png",
+      "width": 1420,
+      "height": 2200,
+      "format": "png",
+      "original_width": 1901,
+      "original_height": 2990
+    },
+    {
+      "number": "05",
+      "nodeId": "35:1342",
+      "file": "after-05.png",
+      "width": 1535,
+      "height": 1900,
+      "format": "png",
+      "original_width": 4056,
+      "original_height": 5040
+    },
+    {
+      "number": "06",
+      "nodeId": "35:1353",
+      "file": "after-06.png",
+      "width": 1561,
+      "height": 2200,
+      "format": "png",
+      "original_width": 1956,
+      "original_height": 2790
+    },
+    {
+      "number": "07",
+      "nodeId": "35:1364",
+      "file": "after-07.png",
+      "width": 2200,
+      "height": 1807,
+      "format": "png",
+      "original_width": 5115,
+      "original_height": 4185
+    },
+    {
+      "number": "08",
+      "nodeId": "33:1278",
+      "file": "after-08.png",
+      "width": 2200,
+      "height": 1957,
+      "format": "png",
+      "original_width": 3400,
+      "original_height": 3015
+    },
+    {
+      "number": "09",
+      "nodeId": "36:1342",
+      "file": "after-09.png",
+      "width": 1288,
+      "height": 1900,
+      "format": "png",
+      "original_width": 2196,
+      "original_height": 3280
+    },
+    {
+      "number": "10",
+      "nodeId": "77:1293",
+      "file": "after-10.png",
+      "width": 2200,
+      "height": 2015,
+      "format": "png",
+      "original_width": 3600,
+      "original_height": 3290
+    },
+    {
+      "number": "11",
+      "nodeId": "78:1343",
+      "file": "after-11.png",
+      "width": 1982,
+      "height": 2200,
+      "format": "png",
+      "original_width": 4000,
+      "original_height": 4450
+    },
+    {
+      "number": "12",
+      "nodeId": "79:1440",
+      "file": "after-12.png",
+      "width": 1900,
+      "height": 1677,
+      "format": "png",
+      "original_width": 4000,
+      "original_height": 3520
+    },
+    {
+      "number": "13",
+      "nodeId": "112:1881",
+      "file": "after-13.png",
+      "width": 2200,
+      "height": 1779,
+      "format": "png",
+      "original_width": 4200,
+      "original_height": 3380
+    }
+  ],
+  "layout": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"mutated\":[\"112:2005\",\"112:2028\"],\"overflow\":[]}"
+      }
+    ],
+    "isError": false
+  },
+  "wording": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"mutated\":[\"112:2028\",\"65:1450\"],\"admin\":\"112:1881\",\"title\":\"13 · 관리자 업무 흐름과 고객 연결\",\"noteBounds\":{\"x\":40419,\"y\":2082,\"width\":4010,\"height\":30}}"
+      }
+    ],
+    "isError": false
+  },
+  "verified": "Shape/text parent boundaries; screenshots; connector endpoints; native tables",
+  "productCodeChanged": false,
+  "gitPush": false,
+  "deployment": false
+}

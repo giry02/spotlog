@@ -1,0 +1,290 @@
+{
+  "results": [
+    {
+      "name": "ai-draft-close-reload-save-failure",
+      "width": 320,
+      "passed": true,
+      "facts": {
+        "originalPromptRecovered": true,
+        "previewRecovered": true,
+        "failedSavePreserved": true,
+        "explicitPrivateSave": true,
+        "noDuplicatePreview": true
+      },
+      "errors": []
+    },
+    {
+      "name": "multiple-candidates-and-independent-journal",
+      "width": 320,
+      "passed": true,
+      "facts": {
+        "multipleCandidates": true,
+        "onePerGroup": true,
+        "savedChoiceRecovered": true,
+        "accommodationOneTouch": true,
+        "independentJournal": true
+      },
+      "errors": []
+    },
+    {
+      "name": "same-restaurant-independent-meals",
+      "width": 320,
+      "passed": true,
+      "facts": {
+        "bothMealsPreserved": true,
+        "distinctVisits": true,
+        "chronologicalMeals": true,
+        "survivesReload": true
+      },
+      "errors": []
+    },
+    {
+      "name": "booked-night-protected",
+      "width": 320,
+      "passed": true,
+      "facts": {
+        "bookedNightPreserved": true,
+        "otherNightIndependent": true
+      },
+      "errors": []
+    },
+    {
+      "name": "new-trip-input-close-reload",
+      "width": 320,
+      "passed": true,
+      "facts": {
+        "inputRecovered": true,
+        "createsWithoutRedundantReview": true,
+        "datePreserved": true
+      },
+      "errors": []
+    },
+    {
+      "name": "saved-manual-days-and-auto-region",
+      "width": 320,
+      "passed": true,
+      "facts": {
+        "mixedAutoRequiresOneRegion": true,
+        "manualCrossRegionDays": true,
+        "assignmentReload": true,
+        "exactDayPreserved": true
+      },
+      "errors": []
+    },
+    {
+      "name": "trip-detail-edit-and-undo",
+      "width": 320,
+      "passed": true,
+      "facts": {
+        "editPersisted": true,
+        "invalidDurationPreservedRecord": true,
+        "skipUndo": true,
+        "metadataIndependent": true
+      },
+      "errors": []
+    },
+    {
+      "name": "trash-restore-keeps-other-records",
+      "width": 320,
+      "passed": true,
+      "facts": {
+        "trashHidden": true,
+        "restoredPrivate": true,
+        "exactVisitsPreserved": true,
+        "separateJournalAndBookmarksPreserved": true
+      },
+      "errors": []
+    },
+    {
+      "name": "ai-draft-close-reload-save-failure",
+      "width": 390,
+      "passed": true,
+      "facts": {
+        "originalPromptRecovered": true,
+        "previewRecovered": true,
+        "failedSavePreserved": true,
+        "explicitPrivateSave": true,
+        "noDuplicatePreview": true
+      },
+      "errors": []
+    },
+    {
+      "name": "multiple-candidates-and-independent-journal",
+      "width": 390,
+      "passed": true,
+      "facts": {
+        "multipleCandidates": true,
+        "onePerGroup": true,
+        "savedChoiceRecovered": true,
+        "accommodationOneTouch": true,
+        "independentJournal": true
+      },
+      "errors": []
+    },
+    {
+      "name": "same-restaurant-independent-meals",
+      "width": 390,
+      "passed": true,
+      "facts": {
+        "bothMealsPreserved": true,
+        "distinctVisits": true,
+        "chronologicalMeals": true,
+        "survivesReload": true
+      },
+      "errors": []
+    },
+    {
+      "name": "booked-night-protected",
+      "width": 390,
+      "passed": true,
+      "facts": {
+        "bookedNightPreserved": true,
+        "otherNightIndependent": true
+      },
+      "errors": []
+    },
+    {
+      "name": "new-trip-input-close-reload",
+      "width": 390,
+      "passed": true,
+      "facts": {
+        "inputRecovered": true,
+        "createsWithoutRedundantReview": true,
+        "datePreserved": true
+      },
+      "errors": []
+    },
+    {
+      "name": "saved-manual-days-and-auto-region",
+      "width": 390,
+      "passed": true,
+      "facts": {
+        "mixedAutoRequiresOneRegion": true,
+        "manualCrossRegionDays": true,
+        "assignmentReload": true,
+        "exactDayPreserved": true
+      },
+      "errors": []
+    },
+    {
+      "name": "trip-detail-edit-and-undo",
+      "width": 390,
+      "passed": true,
+      "facts": {
+        "editPersisted": true,
+        "invalidDurationPreservedRecord": true,
+        "skipUndo": true,
+        "metadataIndependent": true
+      },
+      "errors": []
+    },
+    {
+      "name": "trash-restore-keeps-other-records",
+      "width": 390,
+      "passed": true,
+      "facts": {
+        "trashHidden": true,
+        "restoredPrivate": true,
+        "exactVisitsPreserved": true,
+        "separateJournalAndBookmarksPreserved": true
+      },
+      "errors": []
+    },
+    {
+      "name": "ai-draft-close-reload-save-failure",
+      "width": 460,
+      "passed": true,
+      "facts": {
+        "originalPromptRecovered": true,
+        "previewRecovered": true,
+        "failedSavePreserved": true,
+        "explicitPrivateSave": true,
+        "noDuplicatePreview": true
+      },
+      "errors": []
+    },
+    {
+      "name": "multiple-candidates-and-independent-journal",
+      "width": 460,
+      "passed": true,
+      "facts": {
+        "multipleCandidates": true,
+        "onePerGroup": true,
+        "savedChoiceRecovered": true,
+        "accommodationOneTouch": true,
+        "independentJournal": true
+      },
+      "errors": []
+    },
+    {
+      "name": "same-restaurant-independent-meals",
+      "width": 460,
+      "passed": true,
+      "facts": {
+        "bothMealsPreserved": true,
+        "distinctVisits": true,
+        "chronologicalMeals": true,
+        "survivesReload": true
+      },
+      "errors": []
+    },
+    {
+      "name": "booked-night-protected",
+      "width": 460,
+      "passed": true,
+      "facts": {
+        "bookedNightPreserved": true,
+        "otherNightIndependent": true
+      },
+      "errors": []
+    },
+    {
+      "name": "new-trip-input-close-reload",
+      "width": 460,
+      "passed": true,
+      "facts": {
+        "inputRecovered": true,
+        "createsWithoutRedundantReview": true,
+        "datePreserved": true
+      },
+      "errors": []
+    },
+    {
+      "name": "saved-manual-days-and-auto-region",
+      "width": 460,
+      "passed": true,
+      "facts": {
+        "mixedAutoRequiresOneRegion": true,
+        "manualCrossRegionDays": true,
+        "assignmentReload": true,
+        "exactDayPreserved": true
+      },
+      "errors": []
+    },
+    {
+      "name": "trip-detail-edit-and-undo",
+      "width": 460,
+      "passed": true,
+      "facts": {
+        "editPersisted": true,
+        "invalidDurationPreservedRecord": true,
+        "skipUndo": true,
+        "metadataIndependent": true
+      },
+      "errors": []
+    },
+    {
+      "name": "trash-restore-keeps-other-records",
+      "width": 460,
+      "passed": true,
+      "facts": {
+        "trashHidden": true,
+        "restoredPrivate": true,
+        "exactVisitsPreserved": true,
+        "separateJournalAndBookmarksPreserved": true
+      },
+      "errors": []
+    }
+  ],
+  "failures": []
+}

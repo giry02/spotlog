@@ -1,0 +1,28 @@
+{
+  "base": "http://127.0.0.1:5210",
+  "generatedAt": "2026-10-12T06:38:41.075Z",
+  "checks": [
+    {
+      "name": "registration starts within first viewport, uses 16px input and keeps description clear of sticky actions",
+      "detail": {
+        "width": 1440,
+        "nameY": 672
+      }
+    },
+    {
+      "name": "registration starts within first viewport, uses 16px input and keeps description clear of sticky actions",
+      "detail": {
+        "width": 1024,
+        "nameY": 658
+      }
+    },
+    {
+      "name": "registration starts within first viewport, uses 16px input and keeps description clear of sticky actions",
+      "detail": {
+        "width": 390,
+        "nameY": 743
+      }
+    }
+  ],
+  "errors": []
+}

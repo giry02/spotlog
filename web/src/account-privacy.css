@@ -65,7 +65,7 @@
 .account-divider::before,.account-divider::after{content:'';flex:1;height:1px;background:var(--line);}
 .account-identity p,.member-account-card p{overflow-wrap:anywhere;}
 .guest-profile-page .profile-topbar{min-height:92px;}
-.guest-profile-card,.guest-device-card,.member-account-card{padding:24px 20px;background:white;border:1px solid var(--line);border-radius:18px;display:grid;gap:14px;margin-bottom:20px;}
+.guest-profile-card,.guest-device-card,.member-account-card{padding:16px;background:white;border:1px solid var(--line);border-radius:18px;display:grid;gap:12px;margin-bottom:16px;}
 .guest-profile-card>svg{color:var(--muted);}
 .guest-profile-card h2,.guest-device-card h2,.member-account-card h2{font-size:var(--type-headline);line-height:1.5;margin:0;}
 .guest-profile-card p,.guest-device-card p,.member-account-card p{font-size:var(--type-subhead);line-height:1.7;margin:0;color:var(--muted);}

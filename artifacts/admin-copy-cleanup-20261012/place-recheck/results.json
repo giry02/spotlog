@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "unsaved place input survives detail close and browser reload",
+    "saving public-place changes leaves the published content intact",
+    "explicit publication applies the saved content",
+    "two tabs editing separate places keep both unfinished inputs",
+    "same-place concurrent save holds stale input and only explicit discard adopts the newer draft",
+    "draft and repository storage failures retain input and do not announce success",
+    "malformed optional provenance is rejected without overwriting the cached source",
+    "CSV read rejection stays inline and preserves entered CSV",
+    "late CSV file completion cannot replace newer manual input",
+    "CSV duplicate address is held while another same-name branch retains a separate place ID",
+    "invalid media blocks publication and removing the new media preserves the published photo",
+    "immediate photo and place rights withdrawal prevents reuse and republishing",
+    "customer storage remains intact and no uncaught exceptions"
+  ],
+  "errors": []
+}

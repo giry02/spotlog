@@ -1,18 +1,17 @@
 import { useMemo, useState } from 'react';
-import { Bookmark, Check, Coffee, MapPin, Search, ShoppingBag, Utensils } from 'lucide-react';
+import { Bookmark, Check, Coffee, MapPin, Search, ShoppingBag, Utensils, Activity } from 'lucide-react';
 import type { Journey, Place, PlaceKind, PlanningSlot } from './data';
 import { BottomSheet } from './BottomSheet';
-import { PhotoCredit } from './PublicTourismCredit';
 import { candidatePhoto } from './tripCandidatePresentation';
 import { usePublicReview } from './publicReview';
 import { Button, Field } from './ui';
 import './trip-place-picker.css';
 
-const kinds = [{value:'ALL',name:'전체',Icon:MapPin},{value:'LANDMARK',name:'랜드마크',Icon:MapPin},{value:'FOOD',name:'음식점',Icon:Utensils},{value:'CAFE',name:'카페',Icon:Coffee},{value:'SHOP',name:'쇼핑',Icon:ShoppingBag}] as const;
+const kinds = [{value:'ALL',name:'전체',Icon:MapPin},{value:'LANDMARK',name:'랜드마크',Icon:MapPin},{value:'FOOD',name:'음식점',Icon:Utensils},{value:'CAFE',name:'카페',Icon:Coffee},{value:'SHOP',name:'쇼핑',Icon:ShoppingBag},{value:'LEISURE',name:'레저',Icon:Activity}] as const;
 function PlaceChoice({ place, added, label, onAdd }: {place:Place;added:boolean;label:string;onAdd:()=>void}) {
   const { state } = usePublicReview(), image = candidatePhoto(place, state.withdrawnImages), [failed,setFailed] = useState('');
-  const Icon = place.kind === 'FOOD' ? Utensils : place.kind === 'CAFE' ? Coffee : MapPin;
-  return <article className="trip-picker-place"><div className="trip-picker-main"><span className="trip-picker-photo">{image && failed !== image ? <img src={image} alt={place.name} onError={()=>setFailed(image)}/> : <Icon size={22}/>}</span><div className="trip-picker-copy"><strong>{place.name}</strong><small>{place.kind==='FOOD'?'음식점':place.kind==='CAFE'?'카페':place.kind==='SHOP'?'쇼핑':'랜드마크'} · {place.area}</small>{place.description && <p>{place.description}</p>}{place.tags?.length ? <div className="trip-picker-tags">{place.tags.slice(0,3).map(tag=><span key={tag}>{tag}</span>)}</div> : null}</div><Button variant="secondary" size="compact" aria-label={`${place.name} · ${added ? '담김' : label}`} disabled={added} onClick={onAdd}>{added?<Check size={15}/>:null}{added?'담김':'담기'}</Button></div>{image && <PhotoCredit image={image}/>}</article>;
+  const Icon = place.kind === 'FOOD' ? Utensils : place.kind === 'CAFE' ? Coffee : place.kind === 'LEISURE' ? Activity : MapPin;
+  return <article className="trip-picker-place"><div className="trip-picker-main"><span className="trip-picker-photo">{image && failed !== image ? <img src={image} alt={place.name} onError={()=>setFailed(image)}/> : <Icon size={22}/>}</span><div className="trip-picker-copy"><strong>{place.name}</strong><small>{place.kind==='FOOD'?'음식점':place.kind==='CAFE'?'카페':place.kind==='SHOP'?'쇼핑':place.kind==='LEISURE'?'레저':'랜드마크'} · {place.area}</small>{place.description && <p>{place.description}</p>}{place.tags?.length ? <div className="trip-picker-tags">{place.tags.slice(0,3).map(tag=><span key={tag}>{tag}</span>)}</div> : null}</div><Button variant="secondary" size="compact" aria-label={`${place.name} · ${added ? '담김' : label}`} disabled={added} onClick={onAdd}>{added?<Check size={15}/>:null}{added?'담김':'담기'}</Button></div></article>;
 }
 
 export function TripPlacePicker({journey,dayId,catalog,savedPlaces,onAdd,onClose,initialKind='ALL',initialSlot}: {journey:Journey;dayId:string;catalog:Place[];savedPlaces:Place[];onAdd:(place:Place,slot?:PlanningSlot)=>string|null;onClose:()=>void;initialKind?:'ALL'|PlaceKind;initialSlot?:PlanningSlot}) {

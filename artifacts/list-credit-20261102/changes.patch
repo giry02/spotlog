@@ -1,0 +1,241 @@
+--- artifacts\list-credit-20261102\root-before\App.tsx
++++ web\src\App.tsx
+@@ -1217,7 +1217,6 @@
+           return <article className="home-photo-place" key={place.id}>
+             <div className="home-photo-place-media"><button type="button" aria-label={`${place.name} 상세 보기`} onClick={() => setDetailPlaceId(place.id)}>{photo ? <img src={photo.image} alt="" loading="lazy"/> : <span className="home-photo-placeholder"><MapPin size={28}/></span>}</button><button type="button" className="home-photo-bookmark" aria-label={`${place.name} ${savedIds.includes(place.id) ? '저장 취소' : '저장'}`} aria-pressed={savedIds.includes(place.id)} onClick={() => onTogglePlace(place.id)}><Bookmark size={19} fill={savedIds.includes(place.id) ? 'currentColor' : 'none'}/></button></div>
+             <button type="button" className="home-photo-place-copy" aria-label={`${place.name} 정보 보기`} onClick={() => setDetailPlaceId(place.id)}><small>{placeKindLabel[place.kind]} · {publicPlaceRegion(place, reviewState.references)}</small><strong>{place.name}</strong><span>{place.hook || place.description}</span></button>
+-            {photo && <PhotoCredit image={photo.image} sourceId={photo.sourceId}/>}
+           </article>;
+         })}</div>
+         {!previewPlaces.length && <div className="home-hub-empty"><MapPin size={24}/><strong>조건에 맞는 장소가 없어요</strong><p>지역이나 종류, 검색어를 바꿔보세요.</p><button type="button" onClick={() => { changeRegion(''); setPlaceKind('ALL'); memory.placeKind = 'ALL'; setQuery(''); memory.query = ''; }}>전체 장소 보기</button></div>}
+@@ -1338,7 +1337,7 @@
+     </section>
+ 
+     <section className="community-results"><div className="community-results-heading"><div><small>PUBLIC TRAVEL LOG</small><h2>{aiCategory ? copy("AI 추천 여행") : filters.destination || tripDurationLabel(filters.duration) !== '전체 기간' ? copy("검색한 여행기") : copy("지금 많이 담는 여행기")}</h2></div><span>{aiCategory ? copy("공식 자료 기반") : copy("담김 많은 순")}</span></div>
+-      {filteredGuides.length ? <div className="community-list">{filteredGuides.map((journey) => <article className="community-card" key={journey.id}><button className="community-cover" onClick={() => onOpen(journey.id)}><img src={journey.cover} alt="" /><span>{journey.region} · {journey.duration}</span></button><div className="community-copy"><PhotoCredit image={journey.cover} /><div className="community-author">{journey.publicSourceKind === 'EDITORIAL' ? <span className="creator-tier-badge compact">{copy("운영 추천 여행기")}</span> : journey.recommendationKind === 'AI' ? <span className="creator-tier-badge compact"><Sparkles size={11} />{copy("AI 추천")}</span> : <CreatorBadge copyCount={authorCopyCount(journey.author)} compact />}<strong>{journey.author}</strong></div><h3>{journey.title}</h3><p>{journey.summary}</p><div className="community-meta"><span><MapPin size={12} />{journeyPlaceCount(journey)}{copy("곳")}</span>{journey.recommendationKind === 'AI' ? <span>{copy("공식 자료 기반 샘플")}</span> : <><span><Eye size={12} />{(journey.views ?? 0).toLocaleString()}</span><span><Copy size={12} />{journey.saves.toLocaleString()}{copy("명")}</span></>}</div><button onClick={() => onOpen(journey.id)}>{copy("여행기 먼저 보기")}<ChevronRight size={16} /></button></div></article>)}</div> : <div className="community-empty"><Search size={27} /><h2>{copy("조건에 맞는 여행기가 없어요")}</h2><p>{copy("지역을 전체로 넓히거나 여행 기간을 바꿔보세요.")}</p><button onClick={() => onFiltersChange({ destination: '', duration: 'ALL', category: filters.category })}>{copy("전체 여행기 보기")}</button></div>}
++      {filteredGuides.length ? <div className="community-list">{filteredGuides.map((journey) => <article className="community-card" key={journey.id}><button className="community-cover" onClick={() => onOpen(journey.id)}><img src={journey.cover} alt="" /><span>{journey.region} · {journey.duration}</span></button><div className="community-copy"><div className="community-author">{journey.publicSourceKind === 'EDITORIAL' ? <span className="creator-tier-badge compact">{copy("운영 추천 여행기")}</span> : journey.recommendationKind === 'AI' ? <span className="creator-tier-badge compact"><Sparkles size={11} />{copy("AI 추천")}</span> : <CreatorBadge copyCount={authorCopyCount(journey.author)} compact />}<strong>{journey.author}</strong></div><h3>{journey.title}</h3><p>{journey.summary}</p><div className="community-meta"><span><MapPin size={12} />{journeyPlaceCount(journey)}{copy("곳")}</span>{journey.recommendationKind === 'AI' ? <span>{copy("공식 자료 기반 샘플")}</span> : <><span><Eye size={12} />{(journey.views ?? 0).toLocaleString()}</span><span><Copy size={12} />{journey.saves.toLocaleString()}{copy("명")}</span></>}</div><button onClick={() => onOpen(journey.id)}>{copy("여행기 먼저 보기")}<ChevronRight size={16} /></button></div></article>)}</div> : <div className="community-empty"><Search size={27} /><h2>{copy("조건에 맞는 여행기가 없어요")}</h2><p>{copy("지역을 전체로 넓히거나 여행 기간을 바꿔보세요.")}</p><button onClick={() => onFiltersChange({ destination: '', duration: 'ALL', category: filters.category })}>{copy("전체 여행기 보기")}</button></div>}
+     </section>
+   </div>;
+ }
+@@ -1553,7 +1552,7 @@
+     <button className="journey-main" onClick={() => onOpen(journey.id)}><img src={journey.cover} alt="" /><span className={`status-badge status-${journey.status.toLowerCase()}`}>{journey.visibility === 'PUBLIC' ? <Globe2 size={11} /> : <Lock size={11} />}{journey.isMine ? `${journey.recommendationKind === 'AI' ? copy("AI 추천 · ") : ''}${isPersonalPlan(journey)?journey.planStage==='DRAFT'?'준비 중':'내 여행':copy(statusLabel[journey.status])}` : `${journey.author}의 가이드`}</span><span className="journey-gradient" /><span className="journey-copy"><small>{journey.region} · {journey.duration}</small><strong>{journey.title}</strong><em>{journey.summary}</em><span><CalendarDays size={13} />{journey.dateRange}<i />{journeyPlaceCount(journey)}{copy("곳")}</span></span></button>
+     {onDelete && journey.isMine && <button className="journey-share journey-trash" aria-label={`${journey.title} 휴지통으로 이동`} onClick={() => onDelete(journey.id)}><Trash2 size={16}/></button>}
+     <button className="journey-share" onClick={() => onShare(journey)} aria-label={`${journey.title} 공유`}><Share2 size={17} /></button>
+-  </article>{isPersonalPlan(journey) && journey.isMine && journey.visibility === 'PRIVATE' && !journey.trash && <OfflineSavedBadge journey={journey}/>}<PhotoCredit image={journey.cover} /></div>)}</div></section>;
++  </article>{isPersonalPlan(journey) && journey.isMine && journey.visibility === 'PRIVATE' && !journey.trash && <OfflineSavedBadge journey={journey}/>}</div>)}</div></section>;
+ }
+ 
+ function SavedPlaceCard({ place, placement, selection, onRemove, onAdd }: { selection?: { label: string; badge: string; included: boolean }; place: Place; placement?: { day: number; date: string; journeyTitle: string; count: number }; onRemove: (id: string) => void; onAdd: (place: Place) => void }) {
+@@ -1566,7 +1565,6 @@
+   return <><article className={`saved-card ${included ? 'is-added-to-trip' : ''}`}>
+     <div className="saved-card-media">
+       <>{place.image ? <img src={place.image} alt={`${place.name} 저장 사진`} /> : <div className="saved-place-no-photo" role="img" aria-label={`${place.name} 사진 미등록`}><MapPin size={24}/><span>사진 미등록</span></div>}</>
+-      <PhotoCredit image={place.image} />
+     </div>
+     <div className="saved-card-copy">
+       <div className="saved-card-eyebrow"><strong className={`saved-kind-badge saved-kind-${place.kind.toLowerCase()}`}>{placeKindLabel[place.kind]}</strong><span>{place.area}</span>{(selection?.badge || (!selection && placement)) && <em><Check size={12} />{selection ? selection.badge : placement!.count > 1 ? `${placement!.count}개 일정` : `DAY ${placement!.day}`}</em>}</div>
+@@ -1668,7 +1666,7 @@
+     <div className="detail-creator-kicker">CREATOR</div>
+     <div className="detail-creator-card"><CreatorAvatar name={name} image={avatar} size="large" /><div className="detail-creator-copy">{journey.publicSourceKind !== 'EDITORIAL' && <CreatorBadge copyCount={copyCount} />}<h2 id="detail-creator-title">{name}</h2><p>{journey.isMine ? profile.bio : `${journey.region}을 비롯한 국내 여행의 장면과 동선을 기록합니다.`}</p></div><div className="detail-creator-numbers"><span><strong>{copyCount.toLocaleString()}</strong>{copy("누적 담김")}</span><span><strong>{publicJourneys.length}</strong>{copy("공개 여행기")}</span></div></div>
+     <div className="creator-journey-heading"><strong>{copy("이 작성자의 여행기")}</strong><span>{publicJourneys.length}{copy("개")}</span></div>
+-    {publicJourneys.length ? <div className="creator-journey-list">{publicJourneys.slice(0, 4).map((item) => <button key={item.id} onClick={() => onOpenJourney(item.id)}><img src={item.cover} alt="" /><span><small>{item.region} · {item.duration}</small><strong>{item.title}</strong><PhotoCredit image={item.cover} plain /><em><Copy size={12} />{item.saves.toLocaleString()}{copy("명이 담아감")}</em></span><ChevronRight size={17} /></button>)}</div> : <div className="creator-journey-empty"><Globe2 size={22} /><strong>{copy("아직 공개한 여행기가 없어요")}</strong><p>{copy("여행기를 공개하면 담김 수와 응원을 받을 수 있습니다.")}</p></div>}
++    {publicJourneys.length ? <div className="creator-journey-list">{publicJourneys.slice(0, 4).map((item) => <button key={item.id} onClick={() => onOpenJourney(item.id)}><img src={item.cover} alt="" /><span><small>{item.region} · {item.duration}</small><strong>{item.title}</strong><em><Copy size={12} />{item.saves.toLocaleString()}{copy("명이 담아감")}</em></span><ChevronRight size={17} /></button>)}</div> : <div className="creator-journey-empty"><Globe2 size={22} /><strong>{copy("아직 공개한 여행기가 없어요")}</strong><p>{copy("여행기를 공개하면 담김 수와 응원을 받을 수 있습니다.")}</p></div>}
+   </section>;
+ }
+ 
+@@ -1895,7 +1893,7 @@
+       <label><span>{copy("정보 소개")}</span><textarea rows={2} value={custom.description} onChange={(event) => updateCustom('description', event.target.value)} placeholder={kind === 'STAY' ? copy("객실, 위치, 주변 동선 등 기본 정보를 적어주세요.") : copy("어떤 곳인지 간단히 소개해 주세요.")} /></label>
+       <label><span>{copy("내 경험과 추천 포인트")}</span><textarea rows={3} value={custom.note} onChange={(event) => updateCustom('note', event.target.value)} placeholder={kind === 'STAY' ? copy("실제로 묵어보니 좋았던 점, 체크인 팁 등을 적어주세요.") : copy("직접 다녀와서 알게 된 팁을 적어주세요.")} /></label>
+       {registrationError && <p className="ui-error" role="alert">{registrationError}</p>}<button className="primary custom-place-submit" type="submit"><Plus size={17} />{placeKindLabel[kind]}{' '}{interest ? "관심 장소에 저장" : copy("카드 추가")}</button>
+-    </form> : <><p>{copy("준비된 항목은 빠르게 고르는 보조 목록입니다. 없으면 직접 등록하세요.")}</p><div className="picker-list">{candidates.map((place) => <button key={place.id} onClick={() => onSelect(place)}><img src={place.image} alt="" /><span><strong>{place.name}</strong><small>{place.area} · {place.address}</small><PhotoCredit image={place.image} plain /></span><Plus size={17} /></button>)}</div></>}
++    </form> : <><p>{copy("준비된 항목은 빠르게 고르는 보조 목록입니다. 없으면 직접 등록하세요.")}</p><div className="picker-list">{candidates.map((place) => <button key={place.id} onClick={() => onSelect(place)}><img src={place.image} alt="" /><span><strong>{place.name}</strong><small>{place.area} · {place.address}</small></span><Plus size={17} /></button>)}</div></>}
+   </section></BottomSheet>;
+ }
+ 
+@@ -1991,7 +1989,7 @@
+ 
+     <section className="profile-reactions"><div className="profile-section-heading"><div><small>CREATOR BOOST</small><h2>{copy("받은 응원")}</h2></div><span>{reactionTotal + receivedComments.length}</span></div><div className="profile-reaction-chips">{cheerOptions.map(({ id, label, icon: Icon }) => <div key={id}><Icon size={16} /><span>{copy(label)}</span><strong>{reactionCounts[id].toLocaleString()}</strong></div>)}</div>{receivedComments.length ? <div className="profile-feedback-list">{receivedComments.slice(-3).reverse().map((comment) => <blockquote key={comment.id}>“{comment.body}”<span>{comment.author}</span></blockquote>)}</div> : <div className="profile-feedback-empty"><MessageCircle size={22} /><strong>{copy("공개 여행기에 응원이 쌓여요")}</strong><p>{copy("“너무 좋아요”, “최고예요” 같은 반응과 댓글을 이곳에서 한눈에 볼 수 있습니다.")}</p></div>}</section>
+ 
+-    <section className="profile-journeys"><div className="profile-section-heading"><div><small>MY TRAVEL STORIES</small><h2>{copy("내 여행기")}</h2></div><span>{mine.length}</span></div>{mine.length ? <div>{mine.map((journey) => <button key={journey.id} onClick={() => onOpen(journey.id)}><img src={journey.cover} alt="" /><span><small>{journey.visibility === 'PUBLIC' ? copy("공개 여행기") : copy("비공개 초안")} · {journey.region}</small><strong>{journey.title}</strong><PhotoCredit image={journey.cover} plain /><em><Eye size={12} />{(journey.views ?? 0).toLocaleString()} <i /> <Copy size={12} />{journey.saves.toLocaleString()}{copy("명")}{' '}<i /> <MessageCircle size={12} />{comments.filter((comment) => comment.journeyId === journey.id).length}</em></span><ChevronRight size={17} /></button>)}</div> : <div className="profile-feedback-empty"><MapIcon size={22} /><strong>{copy("첫 여행기를 만들어보세요")}</strong><p>{copy("여행을 공개하면 담김 수와 응원으로 창작 등급이 올라갑니다.")}</p></div>}</section>
++    <section className="profile-journeys"><div className="profile-section-heading"><div><small>MY TRAVEL STORIES</small><h2>{copy("내 여행기")}</h2></div><span>{mine.length}</span></div>{mine.length ? <div>{mine.map((journey) => <button key={journey.id} onClick={() => onOpen(journey.id)}><img src={journey.cover} alt="" /><span><small>{journey.visibility === 'PUBLIC' ? copy("공개 여행기") : copy("비공개 초안")} · {journey.region}</small><strong>{journey.title}</strong><em><Eye size={12} />{(journey.views ?? 0).toLocaleString()} <i /> <Copy size={12} />{journey.saves.toLocaleString()}{copy("명")}{' '}<i /> <MessageCircle size={12} />{comments.filter((comment) => comment.journeyId === journey.id).length}</em></span><ChevronRight size={17} /></button>)}</div> : <div className="profile-feedback-empty"><MapIcon size={22} /><strong>{copy("첫 여행기를 만들어보세요")}</strong><p>{copy("여행을 공개하면 담김 수와 응원으로 창작 등급이 올라갑니다.")}</p></div>}</section>
+ 
+     <button className="phase-three-profile-settings" onClick={() => setPreferencesOpen(true)}><Settings size={16}/>{locale === 'en' ? 'Profile & preferences' : copy("프로필 · 이용 설정")}</button>
+     </details>
+--- artifacts\list-credit-20261102\root-before\LandmarkGuideCard.tsx
++++ web\src\LandmarkGuideCard.tsx
+@@ -15,6 +15,8 @@
+   place: Place;
+   primaryAction?: ReactNode;
+   footer?: ReactNode;
++  /** Compact lists omit attribution controls; full detail explicitly opts in. */
++  showCredit?: boolean;
+ } & ({
+   saved: boolean;
+   onToggle: () => void;
+@@ -29,7 +31,7 @@
+ });
+ 
+ /** Large discovery/confirmation card. Saved's outer list keeps its small horizontal card. */
+-export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryAction, footer, actions }: LandmarkGuideCardProps) {
++export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryAction, footer, actions, showCredit = false }: LandmarkGuideCardProps) {
+   const copy=useUiCopy();
+   const photos = getPlacePhotos(place, true);
+   const [selectedId, setSelectedId] = useState<string | null>(null);
+@@ -88,7 +90,7 @@
+       <strong>{place.hook ?? `${place.area} 일정에 담기 좋은 장소`}</strong><TranslationText sourceId={`place:${place.id}:description`} sourceVersion={sourceVersion(place.description)} text={place.description} kind="journal"/>
+       {place.note && <blockquote>{place.tags?.includes('공공자료') ? copy("자료 안내") : copy("여행자 메모")} · {place.note}</blockquote>}
+       {photo?.caption && <p className="landmark-gallery-caption" aria-live="polite">{photo.caption}</p>}
+-      {photo && <PhotoCredit image={photo.image} sourceId={photo.sourceId} />}
++      {showCredit && photo && <PhotoCredit image={photo.image} sourceId={photo.sourceId} />}
+       <div className="landmark-guide-tags">{place.tags?.map(tag => <span key={tag}>#{tag}</span>)}</div>
+       <PlaceReportActions place={place} photo={photo} />
+       {actions !== null && <div className="landmark-guide-actions">{actions !== undefined ? actions : <>{primaryAction ?? <Button size="card" onClick={onToggle} aria-pressed={saved}><Bookmark size={16} fill={saved ? 'currentColor' : 'none'} />{saved ? copy("저장됨") : copy("이 장소 저장")}</Button>}<Button size="card" variant="secondary" onClick={onShare}><Share2 size={16} />{copy("공유")}</Button></>}</div>}
+--- artifacts\list-credit-20261102\root-before\SavedLandmarkDetailSheet.tsx
++++ web\src\SavedLandmarkDetailSheet.tsx
+@@ -9,7 +9,7 @@
+   const copy=useUiCopy();
+   return <BottomSheet title={place.name} description={`${place.area} · ${placeKindLabel[place.kind]}`} onClose={onClose}>
+     <section className="saved-landmark-detail" aria-label={`${place.name} 상세 정보`}>
+-      <LandmarkGuideCard place={place} actions={null} footer={
++      <LandmarkGuideCard place={place} showCredit actions={null} footer={
+         <dl className="saved-landmark-facts">
+           <dt>{copy("주소")}</dt><dd>{place.address?.trim() || copy("주소 확인 중")}</dd>
+           {place.duration?.trim() && <><dt>{copy("추천 체류")}</dt><dd>{place.duration}</dd></>}
+--- artifacts\list-credit-20261102\root-before\TripPlacePicker.tsx
++++ web\src\TripPlacePicker.tsx
+@@ -2,7 +2,6 @@
+ import { Bookmark, Check, Coffee, MapPin, Search, ShoppingBag, Utensils, Activity } from 'lucide-react';
+ import type { Journey, Place, PlaceKind, PlanningSlot } from './data';
+ import { BottomSheet } from './BottomSheet';
+-import { PhotoCredit } from './PublicTourismCredit';
+ import { candidatePhoto } from './tripCandidatePresentation';
+ import { usePublicReview } from './publicReview';
+ import { Button, Field } from './ui';
+@@ -12,7 +11,7 @@
+ function PlaceChoice({ place, added, label, onAdd }: {place:Place;added:boolean;label:string;onAdd:()=>void}) {
+   const { state } = usePublicReview(), image = candidatePhoto(place, state.withdrawnImages), [failed,setFailed] = useState('');
+   const Icon = place.kind === 'FOOD' ? Utensils : place.kind === 'CAFE' ? Coffee : place.kind === 'LEISURE' ? Activity : MapPin;
+-  return <article className="trip-picker-place"><div className="trip-picker-main"><span className="trip-picker-photo">{image && failed !== image ? <img src={image} alt={place.name} onError={()=>setFailed(image)}/> : <Icon size={22}/>}</span><div className="trip-picker-copy"><strong>{place.name}</strong><small>{place.kind==='FOOD'?'음식점':place.kind==='CAFE'?'카페':place.kind==='SHOP'?'쇼핑':place.kind==='LEISURE'?'레저':'랜드마크'} · {place.area}</small>{place.description && <p>{place.description}</p>}{place.tags?.length ? <div className="trip-picker-tags">{place.tags.slice(0,3).map(tag=><span key={tag}>{tag}</span>)}</div> : null}</div><Button variant="secondary" size="compact" aria-label={`${place.name} · ${added ? '담김' : label}`} disabled={added} onClick={onAdd}>{added?<Check size={15}/>:null}{added?'담김':'담기'}</Button></div>{image && <PhotoCredit image={image}/>}</article>;
++  return <article className="trip-picker-place"><div className="trip-picker-main"><span className="trip-picker-photo">{image && failed !== image ? <img src={image} alt={place.name} onError={()=>setFailed(image)}/> : <Icon size={22}/>}</span><div className="trip-picker-copy"><strong>{place.name}</strong><small>{place.kind==='FOOD'?'음식점':place.kind==='CAFE'?'카페':place.kind==='SHOP'?'쇼핑':place.kind==='LEISURE'?'레저':'랜드마크'} · {place.area}</small>{place.description && <p>{place.description}</p>}{place.tags?.length ? <div className="trip-picker-tags">{place.tags.slice(0,3).map(tag=><span key={tag}>{tag}</span>)}</div> : null}</div><Button variant="secondary" size="compact" aria-label={`${place.name} · ${added ? '담김' : label}`} disabled={added} onClick={onAdd}>{added?<Check size={15}/>:null}{added?'담김':'담기'}</Button></div></article>;
+ }
+ 
+ export function TripPlacePicker({journey,dayId,catalog,savedPlaces,onAdd,onClose,initialKind='ALL',initialSlot}: {journey:Journey;dayId:string;catalog:Place[];savedPlaces:Place[];onAdd:(place:Place,slot?:PlanningSlot)=>string|null;onClose:()=>void;initialKind?:'ALL'|PlaceKind;initialSlot?:PlanningSlot}) {
+--- artifacts\list-credit-20261102\root-before\together\GroupDiscovery.tsx
++++ web\src\together\GroupDiscovery.tsx
+@@ -1,6 +1,5 @@
+ import { useEffect, useMemo, useState, type ReactNode } from 'react';
+ import { ArrowRight, CalendarDays, ChevronDown, ChevronRight, MapPin, Plus, Search, SlidersHorizontal, Users, X } from 'lucide-react';
+-import { PhotoCredit } from '../PublicTourismCredit';
+ import type { GroupTopic, PublicActivityIntent, TogetherGroup, TogetherState } from './model';
+ import { discoveryProfile, filterDiscoveryGroups, isDiscoverableGroup, koreaDay, publicActivityTimeKey, shiftDay, topicOptions, upcomingPublicActivities, type DiscoveryFilters, type PublicDiscoveryActivity } from './discovery';
+ import './group-discovery.css';
+@@ -57,7 +56,6 @@
+       <div className="gd-group-copy"><div className="gd-card-topline"><span>{mainTopic?.label || '함께하기'}</span>{group.sourceKind === 'EXAMPLE' && <small>모임 예시</small>}</div><h3>{group.name}</h3><div className="gd-location"><MapPin size={13} /><span>{[group.region, profile.district].filter(Boolean).join(' · ')}</span></div><p>{profile.welcome}</p><div className="gd-card-bottom"><span><Users size={13} />{group.memberIds.length}명</span><span>{joined ? '우리 모임' : '가입 승인제'}</span></div>{next && <div className="gd-next-date"><CalendarDays size={13} />{eventDate(next)}</div>}</div>
+       {!showcase && <ChevronRight className="gd-card-arrow" size={16} />}
+     </button>
+-    {group.cover && <div className="gd-photo-credit"><PhotoCredit image={group.cover} /></div>}
+   </article>;
+ }
+ 
+--- artifacts\list-credit-20261102\root-before\together\HomeCommunity.tsx
++++ web\src\together\HomeCommunity.tsx
+@@ -1,7 +1,6 @@
+ import { useId, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+ import { ArrowRight, CalendarDays, ChevronRight, MessageCircle, Sparkles, Users } from 'lucide-react';
+ import type { Place } from '../data';
+-import { PhotoCredit } from '../PublicTourismCredit';
+ import type { GroupDiscoveryFilters } from './GroupDiscovery';
+ import { createTogetherRepository, type TogetherRepository } from './repository';
+ import { discoveryProfile, isDiscoverableGroup } from './discovery';
+@@ -69,10 +68,10 @@
+     </section>}
+     {noPublicContent ? <section className="hcm-empty"><Users size={26}/><h2>조건에 맞는 공개 모임이 없어요</h2><p>다른 지역이나 모임 이름·관심사로 찾아보세요.</p><div><button type="button" onClick={() => explore('GROUPS')}>조건 바꿔 찾기<ArrowRight size={16}/></button>{onResetFilters && <button type="button" onClick={onResetFilters}>조건 초기화</button>}</div></section> : <>
+       {mode === 'all' && <section className="hcm-section" aria-labelledby={`${id}-meetups`}><div className="hcm-section-heading"><h2 id={`${id}-meetups`}>다가오는 번개·정모</h2><button type="button" aria-label="같은 조건의 번개·정모 더 보기" onClick={() => explore('MEETUPS')}>더 보기<ChevronRight size={16}/></button></div>
+-        {projection.meetups.length ? <div className="hcm-meetup-list">{projection.meetups.map(({ group, activity }) => <article className="hcm-meetup-card" key={activity.id}><button type="button" className="hcm-meetup-open" onClick={() => openMeetup(group.id, activity.id)}><span className="hcm-meetup-image"><Cover group={group}/></span><span className="hcm-meetup-copy"><span className="hcm-card-kicker">{whenLabel(activity)}</span><strong>{activity.title}</strong><span className="hcm-card-meta">{areaLabel(group)} · {group.category}</span><span className="hcm-card-owner">{group.name}{group.example ? ' · 모임 예시' : ''}</span><span className="hcm-card-action">정모 안내 보기<ArrowRight size={14}/></span></span></button>{group.cover && <div className="hcm-photo-credit"><PhotoCredit image={group.cover}/></div>}</article>)}</div> : <p className="hcm-quiet-empty">조건에 맞는 공개 예정 정모가 없어요. 아래 모임의 소개를 먼저 살펴보세요.</p>}
++        {projection.meetups.length ? <div className="hcm-meetup-list">{projection.meetups.map(({ group, activity }) => <article className="hcm-meetup-card" key={activity.id}><button type="button" className="hcm-meetup-open" onClick={() => openMeetup(group.id, activity.id)}><span className="hcm-meetup-image"><Cover group={group}/></span><span className="hcm-meetup-copy"><span className="hcm-card-kicker">{whenLabel(activity)}</span><strong>{activity.title}</strong><span className="hcm-card-meta">{areaLabel(group)} · {group.category}</span><span className="hcm-card-owner">{group.name}{group.example ? ' · 모임 예시' : ''}</span><span className="hcm-card-action">정모 안내 보기<ArrowRight size={14}/></span></span></button></article>)}</div> : <p className="hcm-quiet-empty">조건에 맞는 공개 예정 정모가 없어요. 아래 모임의 소개를 먼저 살펴보세요.</p>}
+       </section>}
+       <section className="hcm-section" aria-labelledby={`${id}-groups`}><div className="hcm-section-heading"><h2 id={`${id}-groups`}>함께할 모임을 찾아보세요</h2><button type="button" aria-label="같은 조건의 모집 중인 모임 더 보기" onClick={() => explore('GROUPS')}>더 보기<ChevronRight size={16}/></button></div>
+-        <div className="hcm-group-list" role="list" aria-label="공개 모집 중인 모임">{projection.groups.map(group => <article className="hcm-group-card" role="listitem" key={group.id}><button type="button" className="hcm-group-open" onClick={() => openGroup(group.id)}><span className="hcm-group-image"><Cover group={group}/><span className="hcm-category">{group.category}</span></span><span className="hcm-group-copy"><span className="hcm-card-meta">{areaLabel(group)}{group.example ? ' · 모임 예시' : ''}</span><strong>{group.name}</strong><span className="hcm-group-welcome">{group.welcome}</span><span className="hcm-card-action">모임 소개·가입 안내<ArrowRight size={14}/></span></span></button>{group.cover && <div className="hcm-photo-credit"><PhotoCredit image={group.cover}/></div>}</article>)}</div>
++        <div className="hcm-group-list" role="list" aria-label="공개 모집 중인 모임">{projection.groups.map(group => <article className="hcm-group-card" role="listitem" key={group.id}><button type="button" className="hcm-group-open" onClick={() => openGroup(group.id)}><span className="hcm-group-image"><Cover group={group}/><span className="hcm-category">{group.category}</span></span><span className="hcm-group-copy"><span className="hcm-card-meta">{areaLabel(group)}{group.example ? ' · 모임 예시' : ''}</span><strong>{group.name}</strong><span className="hcm-group-welcome">{group.welcome}</span><span className="hcm-card-action">모임 소개·가입 안내<ArrowRight size={14}/></span></span></button></article>)}</div>
+       </section>
+     </>}
+   </div>;
+--- artifacts\list-credit-20261102\root-before\together\TogetherApp.tsx
++++ web\src\together\TogetherApp.tsx
+@@ -147,7 +147,7 @@
+     return <div className="tg-stack"><div className="tg-section"><h2>{activityOnly ? '함께 남긴 기록' : '모임 게시판'}</h2>{member && !group?.archived && <button onClick={() => open('post', { category: activityOnly ? 'REVIEW' : 'FREE' })}><Plus size={16} />글쓰기</button>}</div>{journals.map(item => <article className="tg-card" key={item.id}><small>공유 여행기 · {memberName(state, item.authorId)}</small><h3>{item.journey.title}</h3><p>{item.journey.summary}</p><details><summary>여행기 내용 보기</summary><div className="tg-stack">{item.journey.story && <p>{item.journey.story}</p>}{item.journey.days.map(day => <section className="tg-stack" key={day.dayId || day.day}><h3>DAY {day.day} · {day.title}</h3>{day.story && <p>{day.story}</p>}{day.blocks.filter(block => block.type !== 'PLACE').map(block => <div key={block.id}>{block.heading && <h3>{block.heading}</h3>}{block.body && <p>{block.body}</p>}{block.image && <><img className="tg-journal-image" src={block.image} alt={block.caption || ''} /><PhotoCredit image={block.image} /></>}{block.images?.map(image => <figure key={image.id}><img className="tg-journal-image" src={image.image} alt={image.caption || ''} /><figcaption>{image.caption}</figcaption><PhotoCredit image={image.image} /></figure>)}</div>)}</section>)}</div></details><details><summary>공유된 동선 보기</summary><div className="tg-stack">{item.journey.days.map(day => <div key={day.dayId || day.day}><h3>DAY {day.day}</h3>{day.places.map(place => <PlaceRow key={place.visitId || place.id} place={place} onSave={onSavePlace} />)}</div>)}</div></details><div className="tg-row"><button onClick={() => onCopyJourney(item.journey)}>내 여행으로 만들기</button>{(item.authorId === uid || manager) && <button className="tg-text-button" onClick={() => mutate(draft => { draft.sharedJournals = draft.sharedJournals.filter(value => value.id !== item.id); }, '모임 공유를 해제했어요.')}>공유 해제</button>}</div></article>)}{!posts.length && !journals.length && <Empty title="첫 이야기를 남겨보세요">질문이나 모임 후기, 함께 볼 내용을 나눌 수 있어요.</Empty>}{posts.map(post => <article className="tg-post" key={post.id}><div className="tg-between"><small>{memberName(state, post.authorId)} · {post.category === 'REVIEW' ? '후기' : post.category === 'QUESTION' ? '질문' : post.category === 'NOTICE' ? '공지' : '자유글'}</small>{post.authorId !== uid && <button className="tg-text-button" onClick={() => report('POST', post.id)}><Flag size={14} />신고</button>}</div><h3>{post.title}</h3><p>{post.body}</p><button className="tg-text-button" aria-pressed={post.likes.includes(uid)} disabled={group?.archived} onClick={() => mutate(draft => { const target = draft.posts.find(item => item.id === post.id)!; target.likes = target.likes.includes(uid) ? target.likes.filter(id => id !== uid) : [...target.likes, uid]; })}><Heart size={16} fill={post.likes.includes(uid) ? 'currentColor' : 'none'} />{post.likes.length} · 댓글 {post.comments.length}</button><details><summary>댓글 보기·남기기</summary><div className="tg-stack">{post.comments.map(comment => <div key={comment.id}><small>{memberName(state, comment.authorId)}</small><p>{comment.body}</p>{comment.authorId !== uid && <button className="tg-text-button" onClick={() => report('COMMENT', comment.id)}>댓글 신고</button>}</div>)}<form className="tg-row" onSubmit={event => { event.preventDefault(); const input = event.currentTarget.elements.namedItem('comment') as HTMLInputElement; const body = input.value.trim(); if (!body || group?.archived) return; if (mutate(draft => { draft.posts.find(item => item.id === post.id)!.comments.push({ id: togetherId('comment'), authorId: uid, body, createdAt: now() }); })) input.value = ''; }}><input name="comment" disabled={group?.archived} aria-label="댓글" placeholder="댓글을 남겨주세요" maxLength={1000} required /><button type="submit" disabled={group?.archived}>등록</button></form></div></details></article>)}</div>;
+   };
+ 
+-  const mainScreen = () => <><ScreenHeader title="함께하기" actions={<><button type="button" aria-label="모임 만들기" onClick={() => requireUser() && open('create-group', { kind: 'HOBBY', region: '부산' })}><Plus size={22} /></button><AppMenuButton /></>} /><ScreenTabs label="함께하기에서 볼 내용" idPrefix="together-root" items={[{ id: 'together', label: '내 모임' }, { id: 'together-find', label: '모임 찾기' }]} value={route === 'together-find' ? 'together-find' : 'together'} onChange={value => nav(value)} /><div className="tg-pad tg-stack">{route !== 'together-find' ? <>{!viewer ? <Empty title="취향이 맞는 사람들과 함께해요" action={<button className="tg-primary" onClick={onLogin}>로그인하고 내 모임 보기</button>}>맛집·카페·운동·독서, 좋아하는 일을 함께해 보세요.</Empty> : <><button className="tg-summary tg-card-link" onClick={() => nav('together-invites')}><div className="tg-between"><div><h3>초대와 가입 신청</h3><small>받은 초대와 진행 상태 확인</small></div><ChevronRight size={18} /></div></button>{myGroups.length ? myGroups.map(item => <div key={item.id} className="tg-stack"><button className="tg-card-link" onClick={() => nav(`group-${item.id}`)}>{item.cover ? <img className="tg-cover" src={item.cover} alt="" /> : <div className="tg-cover-fallback"><Users size={36} /></div>}<div className="tg-card-copy"><div className="tg-between"><span className="tg-tag">{kindNames[item.kind]} · {item.region}</span>{unread(roomIdForGroup(item.id)) > 0 && <span className="tg-tag coral">새 대화 {unread(roomIdForGroup(item.id))}</span>}</div><h2>{item.name}</h2><p>{item.introduction || '좋아하는 일을 함께하고 일상의 이야기를 나눠요.'}</p><small>{item.memberIds.length}명 · {item.archived ? '보관된 모임' : item.visibility === 'PRIVATE' ? '초대받은 사람만' : '공개 모집'}</small></div></button>{item.cover && <PhotoCredit image={item.cover} />}{state.activities.filter(value => value.groupId === item.id && value.status === 'PLANNED' && (!value.date || value.date >= dayKey())).slice(0, 1).map(value => activityCard(value))}</div>) : <Empty title="첫 모임을 만들어보세요" action={<button className="tg-primary" onClick={() => open('create-group', { kind: 'HOBBY' })}>모임 만들기</button>}>가까운 모임을 찾거나 직접 모임을 만들어 친구를 초대해 보세요.</Empty>}<div className="tg-row"><button onClick={() => nav('together-calendar')}><CalendarDays size={17} />전체 캘린더</button><button onClick={() => nav('together-tasks')}><ClipboardList size={17} />내 할 일</button></div></>}</> : <GroupDiscovery showCreate={false} state={state} viewerId={uid} onOpenGroup={(id, activityId) => nav(`group-${id}`, { ...discoveryFilters, publicActivityIntent: activityId ? createPublicActivityIntent(state, id, activityId) : undefined })} onCreate={() => requireUser() && open('create-group', { kind: 'HOBBY', region: discoveryFilters?.region || '부산' })} initialFilters={discoveryFilters} onFiltersChange={onDiscoveryFiltersChange} />}</div></>;
++  const mainScreen = () => <><ScreenHeader title="함께하기" actions={<><button type="button" aria-label="모임 만들기" onClick={() => requireUser() && open('create-group', { kind: 'HOBBY', region: '부산' })}><Plus size={22} /></button><AppMenuButton /></>} /><ScreenTabs label="함께하기에서 볼 내용" idPrefix="together-root" items={[{ id: 'together', label: '내 모임' }, { id: 'together-find', label: '모임 찾기' }]} value={route === 'together-find' ? 'together-find' : 'together'} onChange={value => nav(value)} /><div className="tg-pad tg-stack">{route !== 'together-find' ? <>{!viewer ? <Empty title="취향이 맞는 사람들과 함께해요" action={<button className="tg-primary" onClick={onLogin}>로그인하고 내 모임 보기</button>}>맛집·카페·운동·독서, 좋아하는 일을 함께해 보세요.</Empty> : <><button className="tg-summary tg-card-link" onClick={() => nav('together-invites')}><div className="tg-between"><div><h3>초대와 가입 신청</h3><small>받은 초대와 진행 상태 확인</small></div><ChevronRight size={18} /></div></button>{myGroups.length ? myGroups.map(item => <div key={item.id} className="tg-stack"><button className="tg-card-link" onClick={() => nav(`group-${item.id}`)}>{item.cover ? <img className="tg-cover" src={item.cover} alt="" /> : <div className="tg-cover-fallback"><Users size={36} /></div>}<div className="tg-card-copy"><div className="tg-between"><span className="tg-tag">{kindNames[item.kind]} · {item.region}</span>{unread(roomIdForGroup(item.id)) > 0 && <span className="tg-tag coral">새 대화 {unread(roomIdForGroup(item.id))}</span>}</div><h2>{item.name}</h2><p>{item.introduction || '좋아하는 일을 함께하고 일상의 이야기를 나눠요.'}</p><small>{item.memberIds.length}명 · {item.archived ? '보관된 모임' : item.visibility === 'PRIVATE' ? '초대받은 사람만' : '공개 모집'}</small></div></button>{state.activities.filter(value => value.groupId === item.id && value.status === 'PLANNED' && (!value.date || value.date >= dayKey())).slice(0, 1).map(value => activityCard(value))}</div>) : <Empty title="첫 모임을 만들어보세요" action={<button className="tg-primary" onClick={() => open('create-group', { kind: 'HOBBY' })}>모임 만들기</button>}>가까운 모임을 찾거나 직접 모임을 만들어 친구를 초대해 보세요.</Empty>}<div className="tg-row"><button onClick={() => nav('together-calendar')}><CalendarDays size={17} />전체 캘린더</button><button onClick={() => nav('together-tasks')}><ClipboardList size={17} />내 할 일</button></div></>}</> : <GroupDiscovery showCreate={false} state={state} viewerId={uid} onOpenGroup={(id, activityId) => nav(`group-${id}`, { ...discoveryFilters, publicActivityIntent: activityId ? createPublicActivityIntent(state, id, activityId) : undefined })} onCreate={() => requireUser() && open('create-group', { kind: 'HOBBY', region: discoveryFilters?.region || '부산' })} initialFilters={discoveryFilters} onFiltersChange={onDiscoveryFiltersChange} />}</div></>;
+ 
+   const intentForGroup = (id: string): PublicActivityIntent | undefined => {
+     const application = state.applications.find(item => item.groupId === id && item.userId === uid && item.status !== 'DECLINED');
+--- artifacts\list-credit-20261102\agent-before\AiPlannerSheet.tsx
++++ web\src\AiPlannerSheet.tsx
+@@ -13,7 +13,6 @@
+ import { plannerText } from './aiPlanner';
+ import { readQuickPlannerPrompt, normalizeQuickPlannerConditions, dayBusinessSuggestions } from './aiPlannerQuickStart';
+ import { travelRegionOptions } from './aiTravelDraft';
+-import { PhotoCredit } from './PublicTourismCredit';
+ import { createAiPlannerDraftStore } from './aiPlannerDraft';
+ import { plannerTimeline, plannerVisitContext, planningSlotLabel, planningGapLabel } from './plannerTimeline';
+ 
+@@ -44,7 +43,6 @@
+   const Icon = plannerKinds[place.kind].icon;
+   return <div className={className}>
+     {place.image ? <img src={place.image} alt=""/> : <span className="ai-planner-photo-empty" data-kind={place.kind} aria-hidden="true"><Icon size={25}/></span>}
+-    <PhotoCredit image={place.image}/>
+   </div>;
+ }
+ 
+--- artifacts\list-credit-20261102\agent-before\NearbyBusinessSheet.tsx
++++ web\src\NearbyBusinessSheet.tsx
+@@ -28,7 +28,7 @@
+   const [stay,setStay]=useState(false);
+   const [justAdded,setJustAdded]=useState(false);
+   const source = plannerBusinessSourceById.get(place.id);
+-  return <div className="plan-form">{replacing&&<p className="plan-help">{copy("DAY·순서·방문 시각은 유지해요. 이전 업체의 메모와 방문 상태는 초기화해요.")}</p>}{place.image&&<img className="nearby-detail-image" src={place.image} alt={place.name}/>}<p>{place.description||copy("등록된 상세 설명이 없어요.")}</p><p className="plan-help">{place.address||copy("주소 확인 필요")} · <Distance anchor={anchor} place={place}/></p><p className="plan-help">{copy("방문 전 운영 정보를 확인해 주세요.")}</p>{source&&<a className="nearby-source-link" href={source.sourceUrl} target="_blank" rel="noopener noreferrer">{copy("장소 정보 출처")} · {source.provider}<ExternalLink size={14}/></a>}<PlaceReportActions place={place}/>{stay?<StayForm candidateMode={candidateMode} journey={journey} dayId={dayId} onSubmit={choice=>{const error=onAdd(place,choice);if(!error)setJustAdded(true);return error;}}/>:<Button disabled={added||justAdded} onClick={()=>{if(place.kind==='STAY')setStay(true);else {const problem=onAdd(place);setError(problem||'');if(!problem)setJustAdded(true);}}}>{added||justAdded?candidateMode?"후보로 담김":copy("담긴 장소"):place.kind==='STAY'?copy("숙박일 선택"):replacing?copy("이곳으로 교체"):copy("이 장소 담기")}</Button>}{error&&<p className="ui-error" role="alert">{error}</p>}</div>;
++  return <div className="plan-form">{replacing&&<p className="plan-help">{copy("DAY·순서·방문 시각은 유지해요. 이전 업체의 메모와 방문 상태는 초기화해요.")}</p>}{place.image&&<><img className="nearby-detail-image" src={place.image} alt={place.name}/><PhotoCredit image={place.image}/></>}<p>{place.description||copy("등록된 상세 설명이 없어요.")}</p><p className="plan-help">{place.address||copy("주소 확인 필요")} · <Distance anchor={anchor} place={place}/></p><p className="plan-help">{copy("방문 전 운영 정보를 확인해 주세요.")}</p>{source&&<a className="nearby-source-link" href={source.sourceUrl} target="_blank" rel="noopener noreferrer">{copy("장소 정보 출처")} · {source.provider}<ExternalLink size={14}/></a>}<PlaceReportActions place={place}/>{stay?<StayForm candidateMode={candidateMode} journey={journey} dayId={dayId} onSubmit={choice=>{const error=onAdd(place,choice);if(!error)setJustAdded(true);return error;}}/>:<Button disabled={added||justAdded} onClick={()=>{if(place.kind==='STAY')setStay(true);else {const problem=onAdd(place);setError(problem||'');if(!problem)setJustAdded(true);}}}>{added||justAdded?candidateMode?"후보로 담김":copy("담긴 장소"):place.kind==='STAY'?copy("숙박일 선택"):replacing?copy("이곳으로 교체"):copy("이 장소 담기")}</Button>}{error&&<p className="ui-error" role="alert">{error}</p>}</div>;
+ }
+ export function StayForm({journey,dayId,onSubmit,candidateMode}:{candidateMode?:boolean;journey:Journey;dayId:string;onSubmit:(choice:StayChoice)=>string|null}) {
+   const copy=useUiCopy();
+@@ -43,7 +43,6 @@
+   const KindIcon = place.kind==='FOOD'?Utensils:place.kind==='CAFE'?Coffee:place.kind==='STAY'?BedDouble:MapPin;
+   return <article className="nearby-business">
+     <div className="nearby-row"><button className="nearby-open" aria-label={`${place.name} · ${copy("상세 보기")}`} onClick={() => detail?.({ title: place.name, children: <CandidateDetail place={place} anchor={anchor} added={added} journey={journey} dayId={dayId} onAdd={onAdd} replacing={replacing} candidateMode={candidateMode}/> })}>{place.image ? <img src={place.image} alt="" /> : <span className="plan-image-empty"><KindIcon size={22} /></span>}<span><strong>{place.name}</strong><small><Distance anchor={anchor} place={place} /></small><small>{place.address || copy("주소 확인 필요")}</small></span></button><button className="outline" aria-label={`${place.name} · ${added ? replacing?.id===place.id?copy("현재 장소"):candidateMode?"후보로 담김":copy("이 DAY에 담김") : replacing?copy("선택"):copy("담기")}`} disabled={added} onClick={() => onChoose(place)}>{added ? replacing?.id===place.id?copy("현재 장소"):candidateMode?"후보로 담김":copy("이 DAY에 담김") : replacing?copy("선택"):copy("담기")}</button></div>
+-    <PhotoCredit image={place.image} />
+   </article>;
+ }
+ export function NearbyBusinessSheet({ journey, dayId, anchor, catalog, savedPlaces, initialKind='FOOD', slotLabel, replacing, closerTo, onClose, onAdd, candidateMode=false, candidateSlot }: Props) {
+--- artifacts\list-credit-20261102\agent-before\PersonalTrip.tsx
++++ web\src\PersonalTrip.tsx
+@@ -167,7 +167,6 @@
+         <button className="plan-stop-main plan-select-stop" onClick={()=>{setEditing(structuredClone(place));setError('');}} aria-label={`${place.name} · ${isEditing?(en?'Edit place':'장소 수정'):(en?'Place information':'장소 정보')}`}><span className="plan-stop-number">{index+1+(!isEditing&&previousStay?1:0)}</span>{place.image?<img src={place.image} alt=""/>:<span className="plan-image-empty"><KindIcon size={22}/></span>}<span className="plan-stop-copy"><small className="ai-planner-kind" data-kind={place.kind}><KindIcon size={13} aria-hidden="true"/>{copy(placeKindLabel[place.kind])}{place.kind==='STAY'&&place.bookingFixed?copy(" · 예약 고정"):''}</small><strong>{place.name}</strong><small>{place.address||copy("주소 확인 필요")}{!hasLocation(place)&&(en?' · Location unverified':' · 위치 미확인')}</small></span></button>
+         {draggable && <button type="button" className="plan-drag-handle" aria-label={`${place.name} · ${en?'Drag to reorder':'끌어서 순서 변경'}`} aria-describedby="plan-drag-instructions" title={en?'Drag to reorder · Linked places move together':'끌어서 순서 변경 · 연결된 장소는 함께 이동'} onPointerDown={event=>dragOrder.start(event,place.visitId!)} onKeyDown={event=>dragOrder.keyboard(event,place.visitId!)} onClick={event=>{event.preventDefault();event.stopPropagation();}}><GripVertical size={20} aria-hidden="true"/></button>}
+         </div>
+-        <PhotoCredit image={place.image}/>
+         {isEditing && isCandidateAnchor(place) && journey.businessCandidates?.some(group=>group.anchorVisitId===place.visitId) && <button className="plan-shortlist-link" onClick={()=>setReviewOpen(true)}><CheckCircle2 size={14}/>담은 후보 {journey.businessCandidates.filter(group=>group.anchorVisitId===place.visitId).reduce((n,group)=>n+group.options.length,0)}곳 · 마지막 확인</button>}
+         {visitProgress(journey,place.visitId)!=='pending'&&<p className="plan-help plan-visit-state">{visitProgress(journey,place.visitId)==='done'?<CheckCircle2 size={14}/>:<SkipForward size={14}/>} {en ? visitProgress(journey,place.visitId)==='done'?'Visited':'Skipped' : visitProgress(journey,place.visitId)==='done'?'방문 완료':'건너뜀'}</p>}
+         {place.planningSlot&&<p className="plan-help plan-timeline-context">{planningSlotLabel(place.planningSlot,en)}{place.kind!=='LANDMARK'&&plannerVisitContext(day,entry,en)?` · ${plannerVisitContext(day,entry,en)}`:''}</p>}
+--- artifacts\list-credit-20261102\agent-before\TripCandidateReview.tsx
++++ web\src\TripCandidateReview.tsx
+@@ -5,7 +5,6 @@
+ import { candidateSelection, confirmTripCandidates, currentCandidateVisit, KEEP_CURRENT, removeTripCandidate, selectTripCandidate, SKIP_CANDIDATES } from './tripCandidates';
+ import { planningSlotLabel } from './plannerTimeline';
+ import { useState } from 'react';
+-import { PhotoCredit } from './PublicTourismCredit';
+ import { candidateComparison, candidatePhoto } from './tripCandidatePresentation';
+ import { usePublicReview } from './publicReview';
+ import './trip-candidates.css';
+@@ -46,8 +45,8 @@
+           const label = group.kind === 'STAY' ? `DAY ${day.day} 밤 · 숙소` : `${anchor?.name} 방문 후 · ${group.slot ? planningSlotLabel(group.slot, false) + ' · ' : ''}${group.kind === 'FOOD' ? '음식점' : '카페'}`;
+           return <fieldset key={group.id} className="candidate-choice-group"><legend><Icon size={16}/>{label}</legend>
+             <p className="candidate-distance-basis">{anchor ? `${anchor.name} 기준 직선거리 · 이동 시간과 달라요` : '기준 장소 위치를 확인하면 거리를 비교할 수 있어요'}</p>
+-            {current && <div className="candidate-option"><label className="candidate-radio"><input type="radio" name={group.id} value={KEEP_CURRENT} checked={selected === KEEP_CURRENT} onChange={() => update(() => selectTripCandidate(journey, group.id, KEEP_CURRENT))}/><CandidateInformation place={current} image={photo(current)} anchor={anchor} status={current.bookingFixed ? '예약 고정 · 변경하지 않음' : '현재 일정 유지'}/></label><PhotoCredit image={photo(current)}/></div>}
+-            {group.options.map(({ place, fixed }) => <div className="candidate-option" key={place.id}><div className="candidate-choice-row"><label className="candidate-radio"><input type="radio" name={group.id} value={place.id} checked={selected === place.id} disabled={current?.bookingFixed} onChange={() => update(() => selectTripCandidate(journey, group.id, place.id))}/><CandidateInformation place={place} image={photo(place)} anchor={anchor} status={fixed ? '선택하면 예약 고정' : undefined}/></label><IconButton aria-label={`${place.name} · 후보에서 빼기`} variant="ghost" onClick={() => update(() => removeTripCandidate(journey, group.id, place.id))}><Trash2 size={16}/></IconButton></div><PhotoCredit image={photo(place)}/></div>)}
++            {current && <div className="candidate-option"><label className="candidate-radio"><input type="radio" name={group.id} value={KEEP_CURRENT} checked={selected === KEEP_CURRENT} onChange={() => update(() => selectTripCandidate(journey, group.id, KEEP_CURRENT))}/><CandidateInformation place={current} image={photo(current)} anchor={anchor} status={current.bookingFixed ? '예약 고정 · 변경하지 않음' : '현재 일정 유지'}/></label></div>}
++            {group.options.map(({ place, fixed }) => <div className="candidate-option" key={place.id}><div className="candidate-choice-row"><label className="candidate-radio"><input type="radio" name={group.id} value={place.id} checked={selected === place.id} disabled={current?.bookingFixed} onChange={() => update(() => selectTripCandidate(journey, group.id, place.id))}/><CandidateInformation place={place} image={photo(place)} anchor={anchor} status={fixed ? '선택하면 예약 고정' : undefined}/></label><IconButton aria-label={`${place.name} · 후보에서 빼기`} variant="ghost" onClick={() => update(() => removeTripCandidate(journey, group.id, place.id))}><Trash2 size={16}/></IconButton></div></div>)}
+             {!current?.bookingFixed && <label className="candidate-radio candidate-skip"><input type="radio" name={group.id} value={SKIP_CANDIDATES} checked={selected === SKIP_CANDIDATES} onChange={() => update(() => selectTripCandidate(journey, group.id, SKIP_CANDIDATES))}/><span>이번 후보는 제외{current ? ' · 현재 일정 유지' : ''}</span></label>}
+           </fieldset>;
+         })}

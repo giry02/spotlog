@@ -1,0 +1,15 @@
+{
+  "checks": [
+    "ISO publication periods are visible in the local minute picker, unchanged instants stay intact and unfinished draft survives reload",
+    "admin customer preview removes a period-ended main place without interaction or reload",
+    "popular main status matches the current exposure period",
+    "popular main status changes from scheduled to posted at its start without interaction",
+    "inquiry conflict preserves the old reply draft and rejects overwriting newer answer history",
+    "external policy without time/cost limits stays a draft and does not replace the active policy",
+    "saved/tested policy activates explicitly and previous policy rollback restores the prior version",
+    "operator role cannot edit or activate AI execution policy",
+    "index failure/retry/validation keeps the active version until explicit apply and rollback restores it"
+  ],
+  "errors": [],
+  "generatedAt": "2026-10-11T23:18:00.207Z"
+}

@@ -1,0 +1,86 @@
+{
+  "scope": "Customer DOM typography and spacing only; menu IA unchanged; no Git/push/deploy",
+  "files": [
+    {
+      "path": "docs/STYLE_GUIDE.md",
+      "before": "0c8eee6512abacc9eacd7dd87c96134c4422b8a6d38364ceb4be89f0a280d35c",
+      "after": "03b2a55c3fa5427e79d51dd92759098568ac0d6f2be2381afd0fe093b0858bec"
+    },
+    {
+      "path": "web/src/App.tsx",
+      "before": "fd42282deb6351612e2164fe2a03149ce78156cac0ee79fee9473a9598fef143",
+      "after": "fc46fbc8f21bd0a9d38a8abd4b32505dbbf0fda8a9a4a998cdc5628067831f38"
+    },
+    {
+      "path": "web/src/BottomSheet.tsx",
+      "before": "4a09aea9c7f0c44bdb10e6fbff3348ecb7240959293a741f0178d838a5ae4a44",
+      "after": "b2c72e15dd554bdf1459f894ac894c0ce6dc50f6778afb481d4c04855e32f1b6"
+    },
+    {
+      "path": "web/src/error-main.tsx",
+      "before": "724cc1fe003f1388ae6ed75459293a30ad9395f459f70029332ccd7a34bea24f",
+      "after": "91774e39d8bff08609e31a530e7b119baa86a3f1f288d71ef23826cb9bebfc42"
+    },
+    {
+      "path": "web/src/main.tsx",
+      "before": "b229a189c83fb46ee8f0723058ccc34980d3b9bca39596b2dd87a80a4df2b480",
+      "after": "f102fdd0472c7d7bee76d187eb8064abe035c7701a02cf50ffd3fc2118b7a17f"
+    },
+    {
+      "path": "web/src/together/TogetherApp.tsx",
+      "before": "e1e6ca79fffae962ea5ae31d8c29d008cf3363b660fd8b8b9f09b6cb93fda324",
+      "after": "60a4b14582300724821bb4707eecd86f9d29346b4527a8f7070427946fb5abe6"
+    },
+    {
+      "path": "web/src/together/together.css",
+      "before": "fbfb5cb97ec59f94bbe4ed015ea522d3d9536b6961ac5a3387a19c99b71fa49a",
+      "after": "a675437d563ff94d8738e768146b6fd48e67906c617bcff186da853d1a155857"
+    },
+    {
+      "path": "web/src/together/group-discovery.css",
+      "before": "d0bd47d07d6dad58f6fd7b2ee424b8a98bce21d01a2a43623d5836a4f8438a1b",
+      "after": "96da89c306878861a29941a6688de9eb6814686459f396175bce367136c2faf0"
+    },
+    {
+      "path": "web/src/together/ChatWorkspace.tsx",
+      "before": "5ea8d6ceef90de09a829a1ba0d34d51e78e89e77466d3cbf2cdfad0bd62c9320",
+      "after": "f2d8e2d48a291a955ba210baba092ea59a906d7af5c1a5b5aa83f8c06c2a61bc"
+    },
+    {
+      "path": "web/src/together/chat-workspace.css",
+      "before": "9ed8f8fbb49dc1b1207af45e4877eb6f33e6abaa5025a5a90fea487f515ff8ec",
+      "after": "195e1ca70e604a35920a399e64856020e9ed05d93c7d2f4729a79a6e1e2d369c"
+    },
+    {
+      "path": "web/src/consumer-density.css",
+      "new": true,
+      "after": "d8e6f782f2682ae78c0437489b78b0bfeba6ddd62dcab824520eec2f4738c86f"
+    },
+    {
+      "path": "web/src/consumerDensity.ts",
+      "new": true,
+      "after": "312e45bb64e98ef4c60062203e8bfc92396e3de09e21e347aa2f780b3dd7a851"
+    }
+  ],
+  "checks": {
+    "build": "pass",
+    "legacyTypographyTests": 7,
+    "errorStateTests": 3,
+    "chatRelatedTests": 58,
+    "mobileWidths": [
+      320,
+      390,
+      460
+    ],
+    "horizontalOverflow": "none in checked home, group-discovery, chat surfaces",
+    "chat": "default14/20, meta12/16, stream gap12, selected actions44x44, 20px preference and reply/draft preservation checked",
+    "portal": "signup terms sticky footer fits320px, email/password16/24",
+    "admin": "no consumer marker and no density stylesheet loaded",
+    "standaloneError": "consumer marker remains after login sheet closes",
+    "console": "no warn/error in checked customer tabs"
+  },
+  "limitations": [
+    "Physical device virtual keyboard not tested",
+    "Instagram public-web reference; not official native app pixel specification"
+  ]
+}

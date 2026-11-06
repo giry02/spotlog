@@ -1,0 +1,11 @@
+{
+  "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.admin-page-body:not([hidden])').getByRole('button', { name: '로컬 규칙 검수', exact: true })\u001b[22m\n\n    at main (C:\\Users\\Giry\\Documents\\Spotlog\\web\\tests\\adminOperationsRecheckBrowser.cjs:101:79)",
+  "checks": [
+    "ISO publication periods are visible in the local minute picker, unchanged instants stay intact and unfinished draft survives reload",
+    "admin customer preview removes a period-ended main place without interaction or reload",
+    "popular main status matches the current exposure period",
+    "popular main status changes from scheduled to posted at its start without interaction",
+    "inquiry conflict preserves the old reply draft and rejects overwriting newer answer history"
+  ],
+  "errors": []
+}

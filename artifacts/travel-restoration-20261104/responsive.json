@@ -1,0 +1,26 @@
+[
+  {
+    "badImages": [],
+    "badTargets": [],
+    "overflow": false,
+    "tabOverflow": false,
+    "travelRows": 1,
+    "width": 320
+  },
+  {
+    "badImages": [],
+    "badTargets": [],
+    "overflow": false,
+    "tabOverflow": false,
+    "travelRows": 1,
+    "width": 390
+  },
+  {
+    "badImages": [],
+    "badTargets": [],
+    "overflow": false,
+    "tabOverflow": false,
+    "travelRows": 1,
+    "width": 460
+  }
+]

@@ -27,3 +27,9 @@
 320/390/460px 드래그19검수 묶음 통과. 마우스·키보드, 실제 CDP 터치, 자동 스크롤, 일반 본문 스와이프, 취소·저장 실패·되돌리기·새로고침·완료, 캡처 해제·동시 고정/시간 변경·헤더 밖 drop 확인. 기존 보기/등록/여행기27화면 흐름 통과. 가로 넘침·중첩 팝업·깨진 표시 이미지·JS 예외 없음. 실제 App/저장소를 사용한 배포 검수 스크립트의 로컬 예행37항목도 통과. 최종 공개 반영 기록은 현재 인수인계와 실행 결과 참고.
 
 로컬 검수: http://127.0.0.1:5210/#trips . 별도 검수 일정: http://127.0.0.1:5210/tests/plan-view-edit.html?mode=draft . 공개 앱: https://giry02.github.io/spotlog/#trips .
+
+## 공개 반영
+
+소스 `a26748a622464f7cb2df180efd97a88b37808e02`,10파일. 기존 공개 브랜치 `codex/mobile-foundation`과 체크포인트 `codex/trip-drag-order-20261012` 원격 HEAD 일치. 독립 체크아웃518검사·타입/빌드 통과. [Pages run38192231495](https://github.com/giry02/spotlog/actions/runs/38192231495) 완료·성공. 고객 파일 `customer-MHHzSzN0.js`, 관리자 `admin-BdFqIH-7.js` 유지. 서버 인증·고객/관리자 저장 자료 변경 없음. 실제 공개 UI 검수는 별도 실행 기록에 추가.
+
+실제 공개 앱37검사 완료·통과. 최신 고객 해시·HTTP200 확인 후 실제 App/저장소에서320/390/460px 드래그와390px 실제 터치 확인. 연결 업체/고정 숙소/후보/다른 DAY/개인 메모/별도 여행기/방문 기록/관리자 보존 표식 유지. DRAFT저장·새로고침·완료·방향키·정상 스크롤 확인. JS예외·에셋 실패·깨진 표시 이미지·팝업 겹침·가로 넘침 없음. DEV fixture·검수 인증정보는 production 제외 확인. 실행 파일 `artifacts/trip-drag-order-20261012/release-drag-qa.cjs`, 결과 `qa-live/results.json`. 릴리스 후 이력은 원본 로컬에 보존하며 제품 소스 커밋은 위 해시 유지.

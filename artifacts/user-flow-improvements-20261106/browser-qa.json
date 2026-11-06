@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-06",
+  "origin": "http://127.0.0.1:5210",
+  "fixture": "tests/platform-review.html",
+  "storage": "memory-only; fictional role-shared Together state",
+  "viewportWidths": [
+    320,
+    390,
+    460
+  ],
+  "checks": [
+    {
+      "case": "Compact home header; search expand, retained query, Escape focus return; no page horizontal overflow",
+      "status": "passed"
+    },
+    {
+      "case": "Member home shows two scoped return links; guest home has none",
+      "status": "passed"
+    },
+    {
+      "case": "Saved places use sheet; exact venue prefill; existing travel management remains available",
+      "status": "passed"
+    },
+    {
+      "case": "Saved places DAY one-touch add and transfer preserve counts and identity",
+      "status": "passed"
+    },
+    {
+      "case": "Proposal appears once in chosen activity room; header Back returns to saved list without dialog",
+      "status": "passed"
+    },
+    {
+      "case": "Appointment venue switch updates derived name, preserves manually entered meeting point; explicit create and Back to saved",
+      "status": "passed"
+    },
+    {
+      "case": "Guest place sharing requires login; cancel retains source and sends nothing",
+      "status": "passed"
+    },
+    {
+      "case": "Guest travel request → conditions → public catalog candidates → review → login; cancel retains preview; simulated login restores exact preview with confirmations unchecked",
+      "status": "passed"
+    },
+    {
+      "case": "Chat + opens place, date, task and creation tool directly in current room; summary label is explicit",
+      "status": "passed"
+    },
+    {
+      "case": "Group board → chat → Back restores board; activity preparation → source chat → Back restores prep and scroll",
+      "status": "passed"
+    },
+    {
+      "case": "Discovery header removes duplicate root tabs; preserves categories, direct and approval join choices",
+      "status": "passed"
+    },
+    {
+      "case": "Direct join shows welcome; next appointment switches group tab; no automatic attendance",
+      "status": "passed"
+    },
+    {
+      "case": "Approval request appears in My groups; owner approves; applicant sees welcome; greeting opens empty composer",
+      "status": "passed"
+    }
+  ],
+  "runtimeErrors": [],
+  "limits": [
+    "Authentication transition uses isolated fixture role switch, not live OAuth.",
+    "Native device keyboard and live backend/LLM integrations are not tested by these browser checks.",
+    "Page reload resets the isolated fixture and is not persistence evidence."
+  ]
+}

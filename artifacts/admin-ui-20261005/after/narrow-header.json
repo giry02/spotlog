@@ -1,0 +1,40 @@
+[
+  {
+    "width": 360,
+    "fields": [
+      {
+        "width": 160,
+        "text": "내부 관리자",
+        "font": "14px"
+      },
+      {
+        "width": 160,
+        "text": "최고관리자",
+        "font": "14px"
+      }
+    ],
+    "size": {
+      "client": 345,
+      "scroll": 345
+    }
+  },
+  {
+    "width": 320,
+    "fields": [
+      {
+        "width": 140,
+        "text": "내부 관리자",
+        "font": "14px"
+      },
+      {
+        "width": 140,
+        "text": "최고관리자",
+        "font": "14px"
+      }
+    ],
+    "size": {
+      "client": 305,
+      "scroll": 305
+    }
+  }
+]

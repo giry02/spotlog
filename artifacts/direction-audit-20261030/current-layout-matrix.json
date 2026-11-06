@@ -1,0 +1,593 @@
+[
+  {
+    "version": "current",
+    "screen": "home",
+    "persona": "new",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "오늘, 어디로 가볼까요?"
+    ],
+    "controlCount": 25,
+    "smallControls": [
+      {
+        "label": "전체 메뉴",
+        "height": 42
+      },
+      {
+        "label": "사진 출처",
+        "height": 28
+      }
+    ],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "home",
+    "persona": "new",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "오늘, 어디로 가볼까요?"
+    ],
+    "controlCount": 25,
+    "smallControls": [
+      {
+        "label": "전체 메뉴",
+        "height": 42
+      },
+      {
+        "label": "사진 출처",
+        "height": 28
+      }
+    ],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "home",
+    "persona": "new",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "오늘, 어디로 가볼까요?"
+    ],
+    "controlCount": 25,
+    "smallControls": [
+      {
+        "label": "전체 메뉴",
+        "height": 42
+      },
+      {
+        "label": "사진 출처",
+        "height": 28
+      }
+    ],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "home-groups",
+    "persona": "new",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "모임과 정모"
+    ],
+    "controlCount": 31,
+    "smallControls": [
+      {
+        "label": "전체 메뉴",
+        "height": 42
+      }
+    ],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "14px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "home-groups",
+    "persona": "new",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "모임과 정모"
+    ],
+    "controlCount": 31,
+    "smallControls": [
+      {
+        "label": "전체 메뉴",
+        "height": 42
+      }
+    ],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "14px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "home-groups",
+    "persona": "new",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "모임과 정모"
+    ],
+    "controlCount": 31,
+    "smallControls": [
+      {
+        "label": "전체 메뉴",
+        "height": 42
+      }
+    ],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "14px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "places-guide",
+    "persona": "new",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "가고 싶은 장소 찾기"
+    ],
+    "controlCount": 47,
+    "smallControls": [
+      {
+        "label": "사진 출처",
+        "height": 28
+      },
+      {
+        "label": "서울숲 · 신고",
+        "height": 36
+      },
+      {
+        "label": "성수연방 · 신고",
+        "height": 36
+      },
+      {
+        "label": "뚝섬한강공원 · 신고",
+        "height": 36
+      }
+    ],
+    "inputFonts": [
+      {
+        "type": "INPUT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "places-guide",
+    "persona": "new",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "가고 싶은 장소 찾기"
+    ],
+    "controlCount": 47,
+    "smallControls": [
+      {
+        "label": "사진 출처",
+        "height": 28
+      },
+      {
+        "label": "서울숲 · 신고",
+        "height": 36
+      },
+      {
+        "label": "성수연방 · 신고",
+        "height": 36
+      },
+      {
+        "label": "뚝섬한강공원 · 신고",
+        "height": 36
+      }
+    ],
+    "inputFonts": [
+      {
+        "type": "INPUT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "places-guide",
+    "persona": "new",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "가고 싶은 장소 찾기"
+    ],
+    "controlCount": 47,
+    "smallControls": [
+      {
+        "label": "사진 출처",
+        "height": 28
+      },
+      {
+        "label": "서울숲 · 신고",
+        "height": 36
+      },
+      {
+        "label": "성수연방 · 신고",
+        "height": 36
+      },
+      {
+        "label": "뚝섬한강공원 · 신고",
+        "height": 36
+      }
+    ],
+    "inputFonts": [
+      {
+        "type": "INPUT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "together",
+    "persona": "new",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "함께하기"
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "together",
+    "persona": "new",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "함께하기"
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "together",
+    "persona": "new",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "함께하기"
+    ],
+    "controlCount": 10,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "together-find",
+    "persona": "new",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "모임 찾기"
+    ],
+    "controlCount": 51,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "14px"
+      },
+      {
+        "type": "SELECT",
+        "font": "14px"
+      },
+      {
+        "type": "SELECT",
+        "font": "14px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "together-find",
+    "persona": "new",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "모임 찾기"
+    ],
+    "controlCount": 51,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "14px"
+      },
+      {
+        "type": "SELECT",
+        "font": "14px"
+      },
+      {
+        "type": "SELECT",
+        "font": "14px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "together-find",
+    "persona": "new",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "모임 찾기"
+    ],
+    "controlCount": 51,
+    "smallControls": [],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "14px"
+      },
+      {
+        "type": "SELECT",
+        "font": "14px"
+      },
+      {
+        "type": "SELECT",
+        "font": "14px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "saved",
+    "persona": "new",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "관심 장소"
+    ],
+    "controlCount": 26,
+    "smallControls": [
+      {
+        "label": "사진 출처",
+        "height": 28
+      }
+    ],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "saved",
+    "persona": "new",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "관심 장소"
+    ],
+    "controlCount": 26,
+    "smallControls": [
+      {
+        "label": "사진 출처",
+        "height": 28
+      }
+    ],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "saved",
+    "persona": "new",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "관심 장소"
+    ],
+    "controlCount": 26,
+    "smallControls": [
+      {
+        "label": "사진 출처",
+        "height": 28
+      }
+    ],
+    "inputFonts": [
+      {
+        "type": "SELECT",
+        "font": "16px"
+      }
+    ],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "trips",
+    "persona": "new",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "내 여행"
+    ],
+    "controlCount": 15,
+    "smallControls": [
+      {
+        "label": "사진 출처",
+        "height": 28
+      }
+    ],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "trips",
+    "persona": "new",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "내 여행"
+    ],
+    "controlCount": 15,
+    "smallControls": [
+      {
+        "label": "사진 출처",
+        "height": 28
+      }
+    ],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "trips",
+    "persona": "new",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "내 여행"
+    ],
+    "controlCount": 15,
+    "smallControls": [
+      {
+        "label": "사진 출처",
+        "height": 28
+      }
+    ],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "profile",
+    "persona": "new",
+    "requestedWidth": 320,
+    "actualWidth": 320,
+    "pageOverflow": 0,
+    "heading": [
+      "내 계정"
+    ],
+    "controlCount": 5,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "profile",
+    "persona": "new",
+    "requestedWidth": 390,
+    "actualWidth": 390,
+    "pageOverflow": 0,
+    "heading": [
+      "내 계정"
+    ],
+    "controlCount": 5,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  },
+  {
+    "version": "current",
+    "screen": "profile",
+    "persona": "new",
+    "requestedWidth": 460,
+    "actualWidth": 460,
+    "pageOverflow": 0,
+    "heading": [
+      "내 계정"
+    ],
+    "controlCount": 5,
+    "smallControls": [],
+    "inputFonts": [],
+    "brokenImages": 0,
+    "pendingImages": 0
+  }
+]

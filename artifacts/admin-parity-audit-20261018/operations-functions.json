@@ -1,0 +1,234 @@
+{
+  "file": "web/src/admin/OperationsPages.tsx",
+  "ref": "96bcf6568dbfa6c79f4f874b2747d3fbf7d273bf",
+  "results": [
+    {
+      "name": "runWithClear",
+      "status": "same",
+      "publicLine": 18,
+      "localLine": 24
+    },
+    {
+      "name": "withoutRevision",
+      "status": "same",
+      "publicLine": 19,
+      "localLine": 25
+    },
+    {
+      "name": "DraftConflict",
+      "status": "same",
+      "publicLine": 20,
+      "localLine": 26
+    },
+    {
+      "name": "Search",
+      "status": "same",
+      "publicLine": 21,
+      "localLine": 27
+    },
+    {
+      "name": "Reason",
+      "status": "same",
+      "publicLine": 24,
+      "localLine": 30
+    },
+    {
+      "name": "useExposureTime",
+      "status": "same",
+      "publicLine": 25,
+      "localLine": 31
+    },
+    {
+      "name": "ExposurePage",
+      "status": "changed",
+      "publicLine": 40,
+      "localLine": 46
+    },
+    {
+      "name": "PopularityPanel",
+      "status": "same",
+      "publicLine": 75,
+      "localLine": 104
+    },
+    {
+      "name": "ExposureEditor",
+      "status": "changed",
+      "publicLine": 97,
+      "localLine": 126
+    },
+    {
+      "name": "CuratedEditor",
+      "status": "changed",
+      "publicLine": 118,
+      "localLine": 147
+    },
+    {
+      "name": "CommunityPage",
+      "status": "same",
+      "publicLine": 141,
+      "localLine": 192
+    },
+    {
+      "name": "PhotoReportContext",
+      "status": "same",
+      "publicLine": 159,
+      "localLine": 210
+    },
+    {
+      "name": "ReportContext",
+      "status": "same",
+      "publicLine": 163,
+      "localLine": 214
+    },
+    {
+      "name": "SourceCredit",
+      "status": "same",
+      "publicLine": 171,
+      "localLine": 222
+    },
+    {
+      "name": "JournalPhoto",
+      "status": "same",
+      "publicLine": 176,
+      "localLine": 227
+    },
+    {
+      "name": "JournalCardContext",
+      "status": "same",
+      "publicLine": 179,
+      "localLine": 230
+    },
+    {
+      "name": "JournalReadingPreview",
+      "status": "same",
+      "publicLine": 196,
+      "localLine": 247
+    },
+    {
+      "name": "MemberAvatar",
+      "status": "same",
+      "publicLine": 207,
+      "localLine": 258
+    },
+    {
+      "name": "JournalDetail",
+      "status": "same",
+      "publicLine": 208,
+      "localLine": 259
+    },
+    {
+      "name": "TranslationEditor",
+      "status": "same",
+      "publicLine": 230,
+      "localLine": 281
+    },
+    {
+      "name": "MembersPage",
+      "status": "same",
+      "publicLine": 238,
+      "localLine": 289
+    },
+    {
+      "name": "MemberDetail",
+      "status": "same",
+      "publicLine": 247,
+      "localLine": 298
+    },
+    {
+      "name": "InquiryDetail",
+      "status": "same",
+      "publicLine": 257,
+      "localLine": 308
+    },
+    {
+      "name": "SettingsPage",
+      "status": "changed",
+      "publicLine": 264,
+      "localLine": 315
+    },
+    {
+      "name": "ReferenceSettings",
+      "status": "changed",
+      "publicLine": 281,
+      "localLine": 332
+    },
+    {
+      "name": "RegionManager",
+      "status": "changed",
+      "publicLine": 286,
+      "localLine": 338
+    },
+    {
+      "name": "RegionEditor",
+      "status": "changed",
+      "publicLine": 291,
+      "localLine": 345
+    },
+    {
+      "name": "ReferenceEditor",
+      "status": "same",
+      "publicLine": 297,
+      "localLine": 364
+    },
+    {
+      "name": "gradeRows",
+      "status": "same",
+      "publicLine": 306,
+      "localLine": 373
+    },
+    {
+      "name": "serializeGradeRows",
+      "status": "same",
+      "publicLine": 310,
+      "localLine": 377
+    },
+    {
+      "name": "GradeStageFields",
+      "status": "same",
+      "publicLine": 311,
+      "localLine": 378
+    },
+    {
+      "name": "OperatorSettings",
+      "status": "same",
+      "publicLine": 315,
+      "localLine": 382
+    },
+    {
+      "name": "NotificationSettings",
+      "status": "same",
+      "publicLine": 320,
+      "localLine": 387
+    },
+    {
+      "name": "TemplateEditor",
+      "status": "same",
+      "publicLine": 324,
+      "localLine": 391
+    },
+    {
+      "name": "ConnectionSettings",
+      "status": "same",
+      "publicLine": 328,
+      "localLine": 395
+    },
+    {
+      "name": "CleanupSettings",
+      "status": "same",
+      "publicLine": 333,
+      "localLine": 400
+    },
+    {
+      "name": "ConnectionLimitEditor",
+      "status": "same",
+      "publicLine": 337,
+      "localLine": 404
+    },
+    {
+      "name": "RecentAudit",
+      "status": "same",
+      "publicLine": 341,
+      "localLine": 408
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 export type AiChannel = 'SIMPLE' | 'SAVED' | 'REVISION' | 'GUIDE' | 'CHATBOT';
 export type AiStage = 'INTERPRET' | 'SEARCH' | 'COMPOSE' | 'EXPLAIN' | 'VALIDATE' | 'TOOL';
 export type AiErrorCode = 'NONE' | 'INPUT_MISSING' | 'DATA_MISSING' | 'COORDINATES_MISSING' | 'CONNECTION_FAILED' | 'MODEL_FORMAT' | 'MODEL_INTERPRETATION' | 'MODEL_EXPLANATION' | 'REVISION_CONFLICT' | 'RIGHTS_REVOKED';
-export type AiKind = 'LANDMARK' | 'FOOD' | 'CAFE' | 'STAY' | 'SHOP';
+export type AiKind = 'LANDMARK' | 'FOOD' | 'CAFE' | 'STAY' | 'SHOP' | 'LEISURE';
 
 export interface AiDocumentRef {
   placeId: string;

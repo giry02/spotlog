@@ -1,0 +1,103 @@
+{
+  "passed": true,
+  "states": 24,
+  "results": [
+    {
+      "width": 320,
+      "state": "terms-first"
+    },
+    {
+      "width": 320,
+      "state": "same-form-before-send-unconnected"
+    },
+    {
+      "width": 320,
+      "state": "details-with-email-verification"
+    },
+    {
+      "width": 320,
+      "state": "same-form-after-send"
+    },
+    {
+      "width": 320,
+      "state": "short-screen-inline-verification"
+    },
+    {
+      "width": 320,
+      "state": "incorrect-code-keeps-form"
+    },
+    {
+      "width": 320,
+      "state": "verified-member"
+    },
+    {
+      "width": 390,
+      "state": "terms-first"
+    },
+    {
+      "width": 390,
+      "state": "same-form-before-send-unconnected"
+    },
+    {
+      "width": 390,
+      "state": "details-with-email-verification"
+    },
+    {
+      "width": 390,
+      "state": "same-form-after-send"
+    },
+    {
+      "width": 390,
+      "state": "incorrect-code-keeps-form"
+    },
+    {
+      "width": 390,
+      "state": "verified-member"
+    },
+    {
+      "width": 460,
+      "state": "terms-first"
+    },
+    {
+      "width": 460,
+      "state": "same-form-before-send-unconnected"
+    },
+    {
+      "width": 460,
+      "state": "details-with-email-verification"
+    },
+    {
+      "width": 460,
+      "state": "same-form-after-send"
+    },
+    {
+      "width": 460,
+      "state": "incorrect-code-keeps-form"
+    },
+    {
+      "width": 460,
+      "state": "verified-member"
+    },
+    {
+      "width": 390,
+      "state": "send-failure-keeps-details"
+    },
+    {
+      "width": 390,
+      "state": "changed-email-needs-new-verification"
+    },
+    {
+      "width": 390,
+      "state": "changed-consent-invalidates-pending"
+    },
+    {
+      "width": 390,
+      "state": "stale-policy-returns-to-consent"
+    },
+    {
+      "width": 390,
+      "state": "social-signup-unchanged"
+    }
+  ],
+  "errors": []
+}

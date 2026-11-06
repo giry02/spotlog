@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-18",
+  "targets": [
+    {
+      "id": "main-admin",
+      "url": "http://127.0.0.1:5210/admin.html",
+      "initialSeed": 145,
+      "publishButtonHeight": 36
+    }
+  ],
+  "checks": [
+    {
+      "name": "main-admin: latest three-action overview, unfinished work and collapsed technical/global status",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: Busan context/type retained; compact four-tab editor and safe draft save; form16/action14+ with measured primary height",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: unfinished work opens the exact saved place",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: checklist jumps to coordinate/source fields and only complete verified data publishes",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: place → region-preserving two-day generation → PRIVATE save; optional explanations collapsed",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: PUBLIC → explicit main handoff auto-selects same trip; explicit activation → HOME_TRIP customer preview",
+      "detail": "pass"
+    },
+    {
+      "name": "main-admin: changing overview region to Seoul does not change the existing Busan trip conditions",
+      "detail": "pass"
+    }
+  ],
+  "errors": [
+    "Error: expect(locator).toHaveValue(expected) failed\n\nLocator: locator('.admin-page-body:not([hidden])').getByLabel('여행기 제목', { exact: true })\nExpected: \"\"\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toHaveValue\" locator('.admin-page-body:not([hidden])').getByLabel('여행기 제목', { exact: true }) with timeout 5000ms\n  - waiting for locator('.admin-page-body:not([hidden])').getByLabel('여행기 제목', { exact: true })\n\n    at captureRawStack (C:\\Users\\Giry\\.codex\\worktrees\\a125\\Spotlog\\node_modules\\playwright-core\\lib\\coreBundle.js:8588:17)\n    at callMatcherAsStep (C:\\Users\\Giry\\.codex\\worktrees\\a125\\Spotlog\\node_modules\\playwright\\lib\\matchers\\expect.js:13310:57)\n    at Object.toHaveValue (C:\\Users\\Giry\\.codex\\worktrees\\a125\\Spotlog\\node_modules\\playwright\\lib\\matchers\\expect.js:13302:23)\n    at workflow (C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\admin-local-alignment-20261018\\alignment-browser.cjs:38:771)\n    at async C:\\Users\\Giry\\Documents\\Spotlog\\artifacts\\admin-local-alignment-20261018\\alignment-browser.cjs:45:211"
+  ]
+}

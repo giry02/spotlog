@@ -1,0 +1,18 @@
+{
+  "commit": "96bcf6568dbfa6c79f4f874b2747d3fbf7d273bf",
+  "branch": "codex/mobile-foundation",
+  "checkpoint": "codex/admin-public-preview-20261018",
+  "pagesRun": 39088216493,
+  "preview": "https://giry02.github.io/spotlog/admin-preview.html",
+  "administrator": "https://giry02.github.io/spotlog/admin.html",
+  "unitTests": 536,
+  "previewTests": 11,
+  "staticChecks": 71,
+  "customerBundle": "customer-q6QkWfPW.js",
+  "adminBundle": "admin-B_qqV94P.js",
+  "previewBundle": "adminPreview-B2fvwJ5n.js",
+  "sharedAdminBundle": "admin-BypOLYrK.js",
+  "status": "deployed-and-public-verified",
+  "liveChecks": 78,
+  "pagesConclusion": "success"
+}

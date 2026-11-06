@@ -11,15 +11,17 @@ fs.mkdirSync(output,{recursive:true});
 const checks = [], errors = [];
 const record = name => { checks.push(name); console.log('PASS',name); };
 const snapshot = page => page.evaluate(key => JSON.parse(localStorage.getItem(key)),key);
-async function ready(page) { await page.goto(base+'/admin.html'); await expect(page.getByRole('heading',{name:'오늘의 운영 작업',exact:true})).toBeVisible(); }
+async function ready(page) { await page.goto(base+'/admin.html'); await expect(page.getByRole('heading',{name:'어떤 작업을 할까요?',exact:true})).toBeVisible(); }
 async function menu(page,name) {
   const open = page.getByRole('button',{name:'관리자 메뉴 열기',exact:true});
   if (await open.isVisible()) await open.click();
   await page.getByRole('navigation').getByRole('button',{name,exact:true}).click();
 }
 async function selectPlace(page,id) {
-  await menu(page,'장소·업체'); await page.getByRole('searchbox',{name:'장소 검색',exact:true}).fill(id);
-  await page.locator('.admin-place-row').filter({has:page.getByText(id,{exact:true})}).click();
+  await menu(page,'장소·업체'); await page.getByRole('tab',{name:'장소 목록',exact:true}).click();
+  const filters=page.locator('.admin-page-body:not([hidden]) .admin-place-filter-panel'); if(await filters.getAttribute('open')===null) await filters.locator(':scope > summary').click();
+  await page.getByRole('searchbox',{name:'장소 검색',exact:true}).fill(id);
+  await expect(page.locator('.admin-place-row')).toHaveCount(1); await page.locator('.admin-place-row').click();
   await page.getByRole('tab',{name:'기본 정보',exact:true}).click();
 }
 async function saved(page) { await expect(page.getByRole('status')).toBeVisible(); await expect(page.getByRole('alert')).toHaveCount(0); }
@@ -33,7 +35,7 @@ async function main() {
     const original = (await snapshot(page)).places.find(place => place.placeId === 'review-food').published;
     await page.getByLabel('장소명',{exact:true}).fill('검수용 음식점 미저장 입력');
     await page.getByRole('button',{name:'상세 닫기',exact:true}).click();
-    await page.locator('.admin-place-row').filter({has:page.getByText('review-food',{exact:true})}).click();
+    await expect(page.locator('.admin-place-row')).toHaveCount(1); await page.locator('.admin-place-row').click();
     await expect(page.getByLabel('장소명',{exact:true})).toHaveValue('검수용 음식점 미저장 입력');
     await page.reload(); await selectPlace(page,'review-food');
     await expect(page.getByLabel('장소명',{exact:true})).toHaveValue('검수용 음식점 미저장 입력');
@@ -42,7 +44,7 @@ async function main() {
     const draftSaved = (await snapshot(page)).places.find(place => place.placeId === 'review-food');
     assert.equal(draftSaved.draft.name,'검수용 음식점 미저장 입력'); assert.deepEqual(draftSaved.published,original);
     record('saving public-place changes leaves the published content intact');
-    await page.getByRole('button',{name:'공개',exact:true}).click(); await saved(page);
+    await page.getByRole('button',{name:'검수하고 공개',exact:true}).click(); await saved(page);
     assert.equal((await snapshot(page)).places.find(place => place.placeId === 'review-food').published.name,'검수용 음식점 미저장 입력');
     record('explicit publication applies the saved content');
 
@@ -67,7 +69,7 @@ async function main() {
     await expect(firstEditor.getByText(/입력을 유지했으며 저장·공개를 중단했어요/)).toBeVisible();
     await expect(firstEditor.getByLabel('장소명',{exact:true})).toHaveValue('첫 창 입력 유지');
     await expect(firstEditor.getByRole('button',{name:'초안 저장',exact:true})).toBeDisabled();
-    await expect(firstEditor.getByRole('button',{name:'공개',exact:true})).toBeDisabled();
+    await expect(firstEditor.getByRole('button',{name:'검수하고 공개',exact:true})).toBeDisabled();
     assert.equal((await snapshot(firstEditor)).places.find(place => place.placeId === 'review-food').draft.name,'둘째 창 저장본');
     await firstEditor.screenshot({path:path.join(output,'same-place-conflict.png')});
     await firstEditor.getByRole('button',{name:'기존 입력을 버리고 최신 초안 사용',exact:true}).click();
@@ -133,7 +135,7 @@ async function main() {
     await rightsPage.getByRole('tab',{name:'사진·영상',exact:true}).click();
     await rightsPage.getByRole('button',{name:'미디어 URL 등록',exact:true}).click();
     await rightsPage.getByLabel('파일 URL',{exact:true}).last().fill('javascript:alert(1)');
-    await expect(rightsPage.getByRole('button',{name:'공개',exact:true})).toBeDisabled();
+    await expect(rightsPage.getByRole('button',{name:'검수하고 공개',exact:true})).toBeDisabled();
     await rightsPage.getByRole('button',{name:'미공개 미디어 2 삭제',exact:true}).click();
     await expect(rightsPage.getByRole('button',{name:'초안 저장',exact:true})).toBeDisabled();
     assert.equal(await rightsPage.evaluate(cacheKey => JSON.parse(localStorage.getItem(cacheKey)).entries['review-food'],cacheKey),undefined);
@@ -150,7 +152,7 @@ async function main() {
     await rightsPage.getByRole('button',{name:'사용 철회',exact:true}).click(); await saved(rightsPage);
     rightsPlace = (await snapshot(rightsPage)).places.find(place => place.placeId === 'review-food');
     assert.equal(rightsPlace.revoked,true); assert.equal(rightsPlace.state,'INACTIVE');
-    await expect(rightsPage.getByRole('button',{name:'공개',exact:true})).toBeDisabled();
+    await expect(rightsPage.getByRole('button',{name:'검수하고 공개',exact:true})).toBeDisabled();
     const eligible = await rightsPage.evaluate(async key => { const {eligiblePublished} = await import('/src/admin/selectors.ts'); return Boolean(eligiblePublished(JSON.parse(localStorage.getItem(key)).places.find(place => place.placeId === 'review-food'))); },key);
     assert.equal(eligible,false); record('immediate photo and place rights withdrawal prevents reuse and republishing');
     await rightsContext.close();

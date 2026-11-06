@@ -8,8 +8,10 @@ import { ErrorPage } from './ErrorPage';
 import { errorKindForType } from './errorStates';
 import './styles.css';
 import './theme.css';
+import { useConsumerDensity } from './consumerDensity';
 
 function StandaloneError() {
+  useConsumerDensity();
   const account = useAccount()!;
   const kind = document.body.dataset.errorPage === 'missing' ? 404 : errorKindForType(new URLSearchParams(window.location.search).get('type'));
   const root = new URL(import.meta.env.BASE_URL, window.location.origin).href;

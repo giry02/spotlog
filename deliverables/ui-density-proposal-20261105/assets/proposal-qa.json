@@ -1,0 +1,226 @@
+{
+  "date": "2026-11-05",
+  "scope": "Standalone UI proposal only; application source and user stores unchanged",
+  "checks": [
+    {
+      "actualWidth": 320,
+      "broken": [],
+      "firstRowY": 160,
+      "height": 844,
+      "requestedWidth": 320,
+      "screen": "home",
+      "scrollWidth": 320,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 390,
+      "broken": [],
+      "firstRowY": 160,
+      "height": 844,
+      "requestedWidth": 390,
+      "screen": "home",
+      "scrollWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 460,
+      "broken": [],
+      "firstRowY": 160,
+      "height": 844,
+      "requestedWidth": 460,
+      "screen": "home",
+      "scrollWidth": 460,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 320,
+      "broken": [],
+      "firstRowY": 174,
+      "height": 844,
+      "requestedWidth": 320,
+      "screen": "find",
+      "scrollWidth": 320,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 390,
+      "broken": [],
+      "firstRowY": 174,
+      "height": 844,
+      "requestedWidth": 390,
+      "screen": "find",
+      "scrollWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 460,
+      "broken": [],
+      "firstRowY": 174,
+      "height": 844,
+      "requestedWidth": 460,
+      "screen": "find",
+      "scrollWidth": 460,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 320,
+      "broken": [],
+      "firstRowY": null,
+      "height": 844,
+      "requestedWidth": 320,
+      "screen": "group",
+      "scrollWidth": 320,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 390,
+      "broken": [],
+      "firstRowY": null,
+      "height": 844,
+      "requestedWidth": 390,
+      "screen": "group",
+      "scrollWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 460,
+      "broken": [],
+      "firstRowY": null,
+      "height": 844,
+      "requestedWidth": 460,
+      "screen": "group",
+      "scrollWidth": 460,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 320,
+      "broken": [],
+      "firstRowY": null,
+      "height": 844,
+      "requestedWidth": 320,
+      "screen": "chat",
+      "scrollWidth": 320,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 390,
+      "broken": [],
+      "firstRowY": null,
+      "height": 844,
+      "requestedWidth": 390,
+      "screen": "chat",
+      "scrollWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 460,
+      "broken": [],
+      "firstRowY": null,
+      "height": 844,
+      "requestedWidth": 460,
+      "screen": "chat",
+      "scrollWidth": 460,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 320,
+      "broken": [],
+      "firstRowY": 144,
+      "height": 844,
+      "requestedWidth": 320,
+      "screen": "places",
+      "scrollWidth": 320,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 390,
+      "broken": [],
+      "firstRowY": 144,
+      "height": 844,
+      "requestedWidth": 390,
+      "screen": "places",
+      "scrollWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 460,
+      "broken": [],
+      "firstRowY": 144,
+      "height": 844,
+      "requestedWidth": 460,
+      "screen": "places",
+      "scrollWidth": 460,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 320,
+      "broken": [],
+      "firstRowY": 188,
+      "height": 844,
+      "requestedWidth": 320,
+      "screen": "saved",
+      "scrollWidth": 320,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 390,
+      "broken": [],
+      "firstRowY": 188,
+      "height": 844,
+      "requestedWidth": 390,
+      "screen": "saved",
+      "scrollWidth": 390,
+      "smallTargets": []
+    },
+    {
+      "actualWidth": 460,
+      "broken": [],
+      "firstRowY": 188,
+      "height": 844,
+      "requestedWidth": 460,
+      "screen": "saved",
+      "scrollWidth": 460,
+      "smallTargets": []
+    },
+    {
+      "reading": 620,
+      "screen": "chat-B",
+      "top": 153
+    },
+    {
+      "reading": 673,
+      "screen": "chat-A",
+      "top": 100
+    },
+    {
+      "body": 765,
+      "check": "report-responsive",
+      "width": 780
+    },
+    {
+      "body": 375,
+      "check": "report-responsive",
+      "width": 390
+    }
+  ],
+  "interactionChecks": [
+    {
+      "name": "Context row opens existing notice, poll and preparation items",
+      "passed": true
+    },
+    {
+      "name": "Chat B home tab navigates to group preview",
+      "passed": true
+    },
+    {
+      "name": "Composer plus exposes summary, poll, preparation, travel, media and place tools",
+      "passed": true
+    },
+    {
+      "name": "Direct preview link selects chat and positions comparison section",
+      "passed": true
+    }
+  ],
+  "consoleWarningsAndErrors": [],
+  "screenshot": "comparison-chat.png"
+}

@@ -1,0 +1,298 @@
+{
+  "date": "2026-11-04",
+  "responsive": [
+    {
+      "label": "travel-intent",
+      "app": 320,
+      "document": 320,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 320,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "travel-intent",
+      "app": 460,
+      "document": 460,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 460,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "travel-conditions",
+      "app": 320,
+      "document": 320,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 320,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "travel-conditions",
+      "app": 460,
+      "document": 460,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 460,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "travel-candidates",
+      "app": 320,
+      "document": 320,
+      "inputFonts": [],
+      "smallButtons": [],
+      "width": 320,
+      "unloadedImageElementsAtMeasurement": 2
+    },
+    {
+      "label": "travel-candidates",
+      "app": 460,
+      "document": 460,
+      "inputFonts": [],
+      "smallButtons": [],
+      "width": 460,
+      "unloadedImageElementsAtMeasurement": 2
+    },
+    {
+      "label": "travel-review",
+      "app": 320,
+      "document": 320,
+      "inputFonts": [],
+      "smallButtons": [],
+      "width": 320,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "travel-review",
+      "app": 460,
+      "document": 460,
+      "inputFonts": [],
+      "smallButtons": [],
+      "width": 460,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "empty-nature",
+      "app": 390,
+      "document": 390,
+      "inputFonts": [],
+      "smallButtons": [],
+      "width": 390,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "empty-nature",
+      "app": 390,
+      "document": 390,
+      "inputFonts": [],
+      "smallButtons": [],
+      "width": 390,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "empty-nature",
+      "app": 320,
+      "document": 320,
+      "inputFonts": [],
+      "smallButtons": [],
+      "width": 320,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "empty-nature",
+      "app": 460,
+      "document": 460,
+      "inputFonts": [],
+      "smallButtons": [],
+      "width": 460,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "nature-candidates",
+      "app": 320,
+      "document": 320,
+      "inputFonts": [],
+      "smallButtons": [],
+      "width": 320,
+      "unloadedImageElementsAtMeasurement": 1
+    },
+    {
+      "label": "nature-candidates",
+      "app": 460,
+      "document": 460,
+      "inputFonts": [],
+      "smallButtons": [],
+      "width": 460,
+      "unloadedImageElementsAtMeasurement": 1
+    },
+    {
+      "label": "planning-장소 비교",
+      "app": 320,
+      "document": 320,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 320,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "planning-장소 비교",
+      "app": 390,
+      "document": 390,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 390,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "planning-장소 비교",
+      "app": 460,
+      "document": 460,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 460,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "planning-날짜 조율",
+      "app": 320,
+      "document": 320,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 320,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "planning-날짜 조율",
+      "app": 390,
+      "document": 390,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 390,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "planning-날짜 조율",
+      "app": 460,
+      "document": 460,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 460,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "planning-출발 전",
+      "app": 320,
+      "document": 320,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 320,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "planning-출발 전",
+      "app": 390,
+      "document": 390,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 390,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "planning-출발 전",
+      "app": 460,
+      "document": 460,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 460,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "planning-다음 활동",
+      "app": 320,
+      "document": 320,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 320,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "planning-다음 활동",
+      "app": 390,
+      "document": 390,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 390,
+      "unloadedImageElementsAtMeasurement": 0
+    },
+    {
+      "label": "planning-다음 활동",
+      "app": 460,
+      "document": 460,
+      "inputFonts": [
+        "16px"
+      ],
+      "smallButtons": [],
+      "width": 460,
+      "unloadedImageElementsAtMeasurement": 0
+    }
+  ],
+  "console": [
+    {
+      "name": "home-and-guest",
+      "errors": []
+    },
+    {
+      "name": "standalone-travel",
+      "errors": []
+    },
+    {
+      "name": "group-creation",
+      "errors": []
+    },
+    {
+      "name": "group-planning",
+      "errors": []
+    },
+    {
+      "name": "planning-responsive",
+      "errors": []
+    },
+    {
+      "name": "creation-final",
+      "errors": []
+    }
+  ],
+  "note": "not-loaded image measurements include offscreen lazy images, not observed network/image failures; loaded-image failures were checked separately and were zero."
+}

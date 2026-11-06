@@ -1,0 +1,11 @@
+{
+  "prototype": [],
+  "summary": [],
+  "overview": [
+    {
+      "level": "error",
+      "message": "Uncaught TypeError: Failed to execute 'observe' on 'MutationObserver': parameter 1 is not of type 'Node'.",
+      "timestamp": "2026-10-30T08:27:35.096Z"
+    }
+  ]
+}

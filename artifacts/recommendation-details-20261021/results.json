@@ -1,0 +1,173 @@
+{
+  "pass": 42,
+  "results": [
+    {
+      "label": "1440: 4 preview places",
+      "pass": true
+    },
+    {
+      "label": "1440: initially all collapsed",
+      "pass": true
+    },
+    {
+      "label": "1440: pointer opens first",
+      "pass": true
+    },
+    {
+      "label": "1440: multiple open independently",
+      "pass": true
+    },
+    {
+      "label": "1440: address shown",
+      "pass": true
+    },
+    {
+      "label": "1440: duration shown",
+      "pass": true
+    },
+    {
+      "label": "1440: description shown",
+      "pass": true
+    },
+    {
+      "label": "1440: source shown",
+      "pass": true
+    },
+    {
+      "label": "1440: photo loads",
+      "pass": true
+    },
+    {
+      "label": "1440: row>=76px text16px",
+      "pass": true
+    },
+    {
+      "label": "1440: Enter closes",
+      "pass": true
+    },
+    {
+      "label": "1440: Space opens",
+      "pass": true
+    },
+    {
+      "label": "1440: keyboard leaves sibling open",
+      "pass": true
+    },
+    {
+      "label": "1440: reopen no duplicates",
+      "pass": true
+    },
+    {
+      "label": "1440: document no horizontal overflow",
+      "pass": true
+    },
+    {
+      "label": "1440: parent preview collapse",
+      "pass": true
+    },
+    {
+      "label": "1440: parent reopen clean",
+      "pass": true
+    },
+    {
+      "label": "1440: community reading retained",
+      "pass": true
+    },
+    {
+      "label": "1440: community no recommendation disclosures",
+      "pass": true
+    },
+    {
+      "label": "1440: admin snapshot/customer sentinels unchanged",
+      "pass": true
+    },
+    {
+      "label": "1440: no JS errors",
+      "pass": true
+    },
+    {
+      "label": "390: 4 preview places",
+      "pass": true
+    },
+    {
+      "label": "390: initially all collapsed",
+      "pass": true
+    },
+    {
+      "label": "390: pointer opens first",
+      "pass": true
+    },
+    {
+      "label": "390: multiple open independently",
+      "pass": true
+    },
+    {
+      "label": "390: address shown",
+      "pass": true
+    },
+    {
+      "label": "390: duration shown",
+      "pass": true
+    },
+    {
+      "label": "390: description shown",
+      "pass": true
+    },
+    {
+      "label": "390: source shown",
+      "pass": true
+    },
+    {
+      "label": "390: photo loads",
+      "pass": true
+    },
+    {
+      "label": "390: row>=76px text16px",
+      "pass": true
+    },
+    {
+      "label": "390: Enter closes",
+      "pass": true
+    },
+    {
+      "label": "390: Space opens",
+      "pass": true
+    },
+    {
+      "label": "390: keyboard leaves sibling open",
+      "pass": true
+    },
+    {
+      "label": "390: reopen no duplicates",
+      "pass": true
+    },
+    {
+      "label": "390: document no horizontal overflow",
+      "pass": true
+    },
+    {
+      "label": "390: parent preview collapse",
+      "pass": true
+    },
+    {
+      "label": "390: parent reopen clean",
+      "pass": true
+    },
+    {
+      "label": "390: community reading retained",
+      "pass": true
+    },
+    {
+      "label": "390: community no recommendation disclosures",
+      "pass": true
+    },
+    {
+      "label": "390: admin snapshot/customer sentinels unchanged",
+      "pass": true
+    },
+    {
+      "label": "390: no JS errors",
+      "pass": true
+    }
+  ]
+}

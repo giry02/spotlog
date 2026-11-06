@@ -1,0 +1,116 @@
+{
+  "passed": true,
+  "states": 29,
+  "results": [
+    {
+      "width": 320,
+      "route": "home"
+    },
+    {
+      "width": 320,
+      "route": "community"
+    },
+    {
+      "width": 320,
+      "route": "places-photo"
+    },
+    {
+      "width": 320,
+      "route": "trips"
+    },
+    {
+      "width": 320,
+      "route": "saved"
+    },
+    {
+      "width": 320,
+      "route": "profile"
+    },
+    {
+      "width": 320,
+      "route": "production-login-no-demo-social-retains-fields"
+    },
+    {
+      "width": 390,
+      "route": "home"
+    },
+    {
+      "width": 390,
+      "route": "community"
+    },
+    {
+      "width": 390,
+      "route": "places-photo"
+    },
+    {
+      "width": 390,
+      "route": "trips"
+    },
+    {
+      "width": 390,
+      "route": "saved"
+    },
+    {
+      "width": 390,
+      "route": "profile"
+    },
+    {
+      "width": 390,
+      "route": "production-login-no-demo-social-retains-fields"
+    },
+    {
+      "width": 460,
+      "route": "home"
+    },
+    {
+      "width": 460,
+      "route": "community"
+    },
+    {
+      "width": 460,
+      "route": "places-photo"
+    },
+    {
+      "width": 460,
+      "route": "trips"
+    },
+    {
+      "width": 460,
+      "route": "saved"
+    },
+    {
+      "width": 460,
+      "route": "profile"
+    },
+    {
+      "width": 460,
+      "route": "production-login-no-demo-social-retains-fields"
+    },
+    {
+      "type": "validation"
+    },
+    {
+      "type": "session"
+    },
+    {
+      "type": "conditions"
+    },
+    {
+      "type": "forbidden"
+    },
+    {
+      "type": "missing"
+    },
+    {
+      "type": "server"
+    },
+    {
+      "type": "unavailable"
+    },
+    {
+      "type": "host-404-base-home"
+    }
+  ],
+  "errors": [],
+  "assetFailures": []
+}

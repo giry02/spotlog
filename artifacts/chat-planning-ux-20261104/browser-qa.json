@@ -1,0 +1,694 @@
+[
+  {
+    "check": "group-task-shared-and-completed",
+    "result": "준비할 일\n완료\n식당에 가족 좌석 문의하기\n담당\n플랫폼 검수 모임장\n완료했어요"
+  },
+  {
+    "bodyWidth": 320,
+    "cards": 2,
+    "check": "chat-layout",
+    "chromeY": 0,
+    "toolButtons": [
+      {
+        "height": 44,
+        "label": "대화 정리 · 안 읽은 대화 30개",
+        "right": 112.359375,
+        "width": 96.359375
+      },
+      {
+        "height": 44,
+        "label": "이 대화방의 도우미 열기",
+        "right": 200,
+        "width": 79.640625
+      },
+      {
+        "height": 44,
+        "label": "대화 검색 열기",
+        "right": 252,
+        "width": 44
+      },
+      {
+        "height": 44,
+        "label": "대화 도구",
+        "right": 304,
+        "width": 44
+      }
+    ],
+    "width": 320
+  },
+  {
+    "bodyWidth": 390,
+    "cards": 2,
+    "check": "chat-layout",
+    "chromeY": 0,
+    "toolButtons": [
+      {
+        "height": 44,
+        "label": "대화 정리 · 안 읽은 대화 30개",
+        "right": 182.359375,
+        "width": 166.359375
+      },
+      {
+        "height": 44,
+        "label": "이 대화방의 도우미 열기",
+        "right": 270,
+        "width": 79.640625
+      },
+      {
+        "height": 44,
+        "label": "대화 검색 열기",
+        "right": 322,
+        "width": 44
+      },
+      {
+        "height": 44,
+        "label": "대화 도구",
+        "right": 374,
+        "width": 44
+      }
+    ],
+    "width": 390
+  },
+  {
+    "bodyWidth": 460,
+    "cards": 2,
+    "check": "chat-layout",
+    "chromeY": 0,
+    "toolButtons": [
+      {
+        "height": 44,
+        "label": "대화 정리 · 안 읽은 대화 30개",
+        "right": 252.359375,
+        "width": 236.359375
+      },
+      {
+        "height": 44,
+        "label": "이 대화방의 도우미 열기",
+        "right": 340,
+        "width": 79.640625
+      },
+      {
+        "height": 44,
+        "label": "대화 검색 열기",
+        "right": 392,
+        "width": 44
+      },
+      {
+        "height": 44,
+        "label": "대화 도구",
+        "right": 444,
+        "width": 44
+      }
+    ],
+    "width": 460
+  },
+  {
+    "cards": 0,
+    "check": "activity-excludes-group-cards",
+    "url": "#activitychat-family-next"
+  },
+  {
+    "cards": 1,
+    "check": "activity-card-own-room",
+    "chromeTop": 0,
+    "url": "#activitychat-family-next"
+  },
+  {
+    "check": "poll-same-original-in-prep",
+    "selected": [
+      "해운대암소갈비집 · 부산 해운대구 중동2로10번길 32-10 · 1명"
+    ]
+  },
+  {
+    "cards": [
+      "준비할 일완료식당에 가족 좌석 문의하기담당플랫폼 검수 모임장완료했어요",
+      "투표진행 중함께할 날짜를 골라 주세요2026-11-14 · 시각 미정 (한국 시각)02026-11-15 · 시각 미정 (한국 시각)00명 참여 · 후보를 눌러 투표해요",
+      "약속예정부산 보드게임 · 장소 미정날짜 미정만날 장소 미정일정 보기"
+    ],
+    "check": "new-place-undecided-activity-shared",
+    "chromeY": 0,
+    "url": "#groupchat-family-busan"
+  },
+  {
+    "bodyWidth": 320,
+    "check": "creation-first-layout",
+    "inputs": [
+      "16px"
+    ],
+    "oldPurposeGrid": false,
+    "presetCollapsed": true,
+    "width": 320
+  },
+  {
+    "bodyWidth": 390,
+    "check": "creation-first-layout",
+    "inputs": [
+      "16px"
+    ],
+    "oldPurposeGrid": false,
+    "presetCollapsed": true,
+    "width": 390
+  },
+  {
+    "bodyWidth": 460,
+    "check": "creation-first-layout",
+    "inputs": [
+      "16px"
+    ],
+    "oldPurposeGrid": false,
+    "presetCollapsed": true,
+    "width": 460
+  },
+  {
+    "body": 320,
+    "check": "creation-conditions-topics-layout",
+    "overflow": 0,
+    "topicLabels": 16,
+    "width": 320
+  },
+  {
+    "body": 390,
+    "check": "creation-conditions-topics-layout",
+    "overflow": 0,
+    "topicLabels": 16,
+    "width": 390
+  },
+  {
+    "body": 460,
+    "check": "creation-conditions-topics-layout",
+    "overflow": 0,
+    "topicLabels": 16,
+    "width": 460
+  },
+  {
+    "brokenImages": 0,
+    "check": "personal-empty-plan-opens",
+    "title": "장소 찾기",
+    "url": "#journey-trip-8a3aade9-1a80-4a50-9447-78f55e1920cf"
+  },
+  {
+    "check": "planner-console",
+    "logs": []
+  },
+  {
+    "body": 320,
+    "brokenImages": 0,
+    "button": {
+      "bottom": 354,
+      "height": 44,
+      "left": 168.609375,
+      "right": 304,
+      "top": 310,
+      "width": 135.390625,
+      "x": 168.609375,
+      "y": 310
+    },
+    "check": "group-home-layout",
+    "infoRows": 2,
+    "sections": 3,
+    "width": 320
+  },
+  {
+    "body": 390,
+    "brokenImages": 0,
+    "button": {
+      "bottom": 338,
+      "height": 44,
+      "left": 226.609375,
+      "right": 374,
+      "top": 294,
+      "width": 147.390625,
+      "x": 226.609375,
+      "y": 294
+    },
+    "check": "group-home-layout",
+    "infoRows": 2,
+    "sections": 3,
+    "width": 390
+  },
+  {
+    "body": 460,
+    "brokenImages": 0,
+    "button": {
+      "bottom": 338,
+      "height": 44,
+      "left": 296.609375,
+      "right": 444,
+      "top": 294,
+      "width": 147.390625,
+      "x": 296.609375,
+      "y": 294
+    },
+    "check": "group-home-layout",
+    "infoRows": 2,
+    "sections": 3,
+    "width": 460
+  },
+  {
+    "body": 320,
+    "check": "helper-layout",
+    "inputs": [
+      "16px",
+      "16px",
+      "16px"
+    ],
+    "label": "장소 투표",
+    "tabs": [
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "true"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      }
+    ],
+    "width": 320
+  },
+  {
+    "body": 320,
+    "check": "helper-layout",
+    "inputs": [
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px"
+    ],
+    "label": "날짜 투표",
+    "tabs": [
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "true"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      }
+    ],
+    "width": 320
+  },
+  {
+    "body": 320,
+    "check": "helper-layout",
+    "inputs": [
+      "16px",
+      "16px"
+    ],
+    "label": "준비 확인",
+    "tabs": [
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "true"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      }
+    ],
+    "width": 320
+  },
+  {
+    "body": 320,
+    "check": "helper-layout",
+    "inputs": [
+      "16px",
+      "16px",
+      "16px",
+      "16px"
+    ],
+    "label": "다음 계획",
+    "tabs": [
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "true"
+      }
+    ],
+    "width": 320
+  },
+  {
+    "body": 390,
+    "check": "helper-layout",
+    "inputs": [
+      "16px",
+      "16px",
+      "16px"
+    ],
+    "label": "장소 투표",
+    "tabs": [
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "true"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      }
+    ],
+    "width": 390
+  },
+  {
+    "body": 390,
+    "check": "helper-layout",
+    "inputs": [
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px"
+    ],
+    "label": "날짜 투표",
+    "tabs": [
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "true"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      }
+    ],
+    "width": 390
+  },
+  {
+    "body": 390,
+    "check": "helper-layout",
+    "inputs": [
+      "16px",
+      "16px"
+    ],
+    "label": "준비 확인",
+    "tabs": [
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "true"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      }
+    ],
+    "width": 390
+  },
+  {
+    "body": 390,
+    "check": "helper-layout",
+    "inputs": [
+      "16px",
+      "16px",
+      "16px",
+      "16px"
+    ],
+    "label": "다음 계획",
+    "tabs": [
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "true"
+      }
+    ],
+    "width": 390
+  },
+  {
+    "body": 460,
+    "check": "helper-layout",
+    "inputs": [
+      "16px",
+      "16px",
+      "16px"
+    ],
+    "label": "장소 투표",
+    "tabs": [
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "true"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      }
+    ],
+    "width": 460
+  },
+  {
+    "body": 460,
+    "check": "helper-layout",
+    "inputs": [
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px",
+      "16px"
+    ],
+    "label": "날짜 투표",
+    "tabs": [
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "true"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      }
+    ],
+    "width": 460
+  },
+  {
+    "body": 460,
+    "check": "helper-layout",
+    "inputs": [
+      "16px",
+      "16px"
+    ],
+    "label": "준비 확인",
+    "tabs": [
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "true"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      }
+    ],
+    "width": 460
+  },
+  {
+    "body": 460,
+    "check": "helper-layout",
+    "inputs": [
+      "16px",
+      "16px",
+      "16px",
+      "16px"
+    ],
+    "label": "다음 계획",
+    "tabs": [
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "false"
+      },
+      {
+        "bg": "rgba(0, 0, 0, 0)",
+        "height": 44,
+        "selected": "true"
+      }
+    ],
+    "width": 460
+  },
+  {
+    "check": "helper-console",
+    "logs": []
+  },
+  {
+    "check": "chat-console",
+    "logs": []
+  },
+  {
+    "bodyWidth": 320,
+    "cards": 3,
+    "check": "final-chat-shell",
+    "chromeY": 0,
+    "overflow": "clip",
+    "shellScroll": 0,
+    "width": 320
+  },
+  {
+    "bodyWidth": 390,
+    "cards": 3,
+    "check": "final-chat-shell",
+    "chromeY": 0,
+    "overflow": "clip",
+    "shellScroll": 0,
+    "width": 390
+  },
+  {
+    "bodyWidth": 460,
+    "cards": 3,
+    "check": "final-chat-shell",
+    "chromeY": 0,
+    "overflow": "clip",
+    "shellScroll": 0,
+    "width": 460
+  },
+  {
+    "check": "final-console",
+    "logs": []
+  }
+]

@@ -1,0 +1,66 @@
+.admin-app .admin-places-page.has-detail > .admin-panel:first-child { display: flex; padding: 14px 20px; }
+.admin-app .admin-places-page.has-detail > .admin-panel:first-child > .admin-panel-head { margin-bottom: 0; }
+.admin-app .admin-places-page.has-detail > .admin-panel:first-child > .admin-panel-head > div:first-child { display: none; }
+.admin-place-workspace-filter-summary > summary { cursor: pointer; font-size: 14px; min-height: 36px; }
+.admin-place-workspace-filter-summary[open] > .admin-place-workspace-filters { margin-top: 12px; }
+.admin-place-workspace-filters { display: grid; gap: 14px; }
+.admin-place-region-row { display: grid; grid-template-columns: minmax(200px, 1fr) auto minmax(240px, 1.3fr); gap: 12px; align-items: end; }
+.admin-place-region-row .admin-field { margin: 0; min-width: 0; }
+.admin-app .admin-place-region-row > button { min-height: 44px; }
+.admin-place-quick-filters, .admin-place-kind-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.admin-place-kind-filters { border-top: 1px solid var(--admin-line); padding-top: 14px; }
+.admin-place-kind-filters button svg { width: 16px; height: 16px; }
+.admin-place-extra-filters { margin-top: 0; }
+.admin-place-extra-filters > summary { min-height: 36px; font-size: 14px; cursor: pointer; }
+.admin-place-extra-filters .admin-toolbar { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) auto; align-items: end; }
+.admin-place-check-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.admin-app .admin-place-check-steps > button { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 3px 6px; padding: 8px; justify-content: start; text-align: left; background: #f5faf7; min-height: 52px; align-items: center; }
+.admin-place-check-steps > button > span { border-radius: 50%; background: #e4efe9; width: 22px; height: 22px; display: grid; place-items: center; font-size: 12px; }
+.admin-place-check-steps > button > strong { font-size: 14px; line-height: 1.4; }
+.admin-place-check-steps > button > small { grid-column: 2; font-size: 12px; font-weight: 400; color: var(--admin-muted); }
+.admin-app .admin-place-check-steps > button.needs-check { background: #fff; }
+.admin-place-publish-checks { border: 1px solid var(--admin-line); border-radius: 10px; padding: 12px 14px; }
+.admin-place-publish-checks > summary { min-height: 28px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.admin-place-publish-checks > ul { display: grid; gap: 6px; margin: 12px 0 0; padding: 0; list-style: none; }
+.admin-app .admin-place-publish-checks li > button { width: 100%; justify-content: space-between; text-align: left; font-size: 14px; font-weight: 400; min-height: 44px; }
+.admin-place-publish-checks li > button > span { white-space: nowrap; color: #1b6b59; font-size: 12px; flex-shrink: 0; }
+.admin-place-publish-checks > p { margin: 10px 0 0; font-size: 14px; line-height: 1.6; }
+.admin-place-public-copy { margin: 0; color: var(--admin-muted); font-size: 14px; line-height: 1.6; }
+.admin-place-detail-tabs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.admin-place-detail-tabs .admin-tabs { margin: 0; }
+.admin-place-detail-tabs > details { margin-left: auto; }
+.admin-place-detail-tabs > details > summary { cursor: pointer; min-height: 36px; display: list-item; padding-top: 7px; font-size: 14px; color: var(--admin-muted); }
+.admin-place-detail-tabs > details[open] { flex-basis: 100%; margin-left: 0; }
+.admin-place-detail-tabs > details > .admin-tabs { margin-top: 8px; }
+.admin-place-publish-checks[open] > .admin-place-check-steps { margin-top: 12px; }
+.admin-place-basic-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.admin-place-source-fields, .admin-place-additional-fields { padding: 14px; border: 1px solid var(--admin-line); border-radius: 10px; }
+.admin-place-source-fields > summary, .admin-place-additional-fields > summary { cursor: pointer; font-size: 14px; font-weight: 600; min-height: 30px; }
+.admin-place-source-fields[open] > .admin-stack, .admin-place-additional-fields[open] > .admin-stack { margin-top: 16px; }
+.admin-place-preview-action { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.admin-place-preview-action small { color: var(--admin-muted); font-size: 12px; }
+.admin-places-page .admin-place-save-actions { position:static; justify-content:flex-end; }
+.admin-app .admin-place-save-actions > button { min-height: 44px; min-width: 114px; }
+.admin-place-next-action { display: flex; gap: 14px; padding: 16px; border: 1px solid #caddd2; border-radius: 10px; align-items: center; justify-content: space-between; background: #f5faf7; }
+.admin-place-next-action strong { display: block; font-size: 14px; }
+.admin-place-next-action small { display: block; font-size: 12px; color: var(--admin-muted); margin-top: 6px; }
+.admin-place-next-action button { flex-shrink: 0; }
+.admin-places-page .admin-place-row .admin-badge { max-width: 94px; white-space: normal; text-align: center; }
+@media (max-width: 1100px) {
+  .admin-place-check-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .admin-place-extra-filters .admin-toolbar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 800px) {
+  .admin-app .admin-places-page.has-detail > .admin-panel:first-child { display: flex; padding: 14px 16px; }
+  .admin-app .admin-places-page.has-detail > .admin-panel:first-child > .admin-panel-head { display:none; }
+  .admin-app .admin-places-page.has-detail > .admin-panel:first-child > .admin-panel-body { width:100%; flex-basis:100%; }
+  .admin-place-region-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .admin-place-region-row > .admin-field:last-child { grid-column: 1 / -1; }
+  .admin-place-next-action { align-items: flex-start; flex-direction: column; }
+  .admin-place-detail-tabs > details { margin-left: 0; }
+}
+@media (max-width: 460px) {
+  .admin-place-extra-filters .admin-toolbar, .admin-app .admin-places-page .admin-place-basic-fields { grid-template-columns: minmax(0, 1fr); }
+  .admin-place-publish-checks li > button { align-items: flex-start; flex-direction: column; gap: 6px; }
+  .admin-place-save-actions > button { flex: 1; min-width: 0; }
+}

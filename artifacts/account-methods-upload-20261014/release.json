@@ -1,0 +1,16 @@
+{
+  "commit": "156aa1b349527524b65604f603b0733adaafe1e3",
+  "branch": "codex/mobile-foundation",
+  "checkpoint": "codex/account-methods-release-20261014",
+  "workflowRun": 38494454712,
+  "workflowStatus": "completed",
+  "customerAsset": "customer-DS7NtBsI.js",
+  "adminAsset": "admin-BdFqIH-7.js",
+  "automatedChecks": 518,
+  "staticBrowserChecks": 61,
+  "scope": "five-method login/signup only; other local admin/offline changes excluded",
+  "mainWorkspacePreserved": true,
+  "realAuthConnected": false,
+  "workflowConclusion": "success",
+  "liveBrowserChecks": 61
+}

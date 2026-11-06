@@ -1,0 +1,85 @@
+/* Home entry actions reuse the existing home surface and typography roles. */
+.home-page .home-lead.strategy-home-lead {
+  padding-bottom: 16px;
+}
+.home-page .strategy-home-lead > span {
+  font-size: var(--type-caption);
+  line-height: var(--leading-caption);
+}
+.home-page .strategy-home-lead p {
+  color: #62625e;
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+}
+.home-start-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 4px 0 20px;
+}
+.home-start-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 9px;
+  min-width: 0;
+  min-height: 112px;
+  padding: 14px 10px;
+  border: 1px solid #e7e7e2;
+  border-radius: 17px;
+  color: var(--ink);
+  background: white;
+  text-align: center;
+}
+.home-start-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: #f1f1ee;
+}
+.home-start-copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+.home-start-copy strong {
+  font-size: var(--type-subhead);
+  font-weight: 700;
+  line-height: var(--leading-caption);
+  overflow-wrap: anywhere;
+}
+.home-start-copy small {
+  color: #62625e;
+  font-size: var(--type-caption);
+  line-height: var(--leading-caption);
+  overflow-wrap: anywhere;
+}
+.home-start-action .home-start-arrow {
+  display: none;
+}
+.home-page .home-shortcuts strong {
+  font-size: var(--type-subhead);
+  font-weight: 700;
+}
+@media (max-width: 359px) {
+  .home-start-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .home-start-action {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) 17px;
+    align-items: center;
+    gap: 12px;
+    min-height: 64px;
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .home-start-action .home-start-arrow {
+    display: block;
+    color: #62625e;
+  }
+}

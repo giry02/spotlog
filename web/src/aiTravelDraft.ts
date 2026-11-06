@@ -47,6 +47,7 @@ const kindWords: { kind: PlaceKind; label: string; words: string[] }[] = [
   { kind: 'FOOD', label: '음식', words: ['식당', '음식점', '음식', '맛집', '먹거리'] },
   { kind: 'STAY', label: '숙소', words: ['숙소', '숙박', '호텔'] },
   { kind: 'SHOP', label: '쇼핑', words: ['쇼핑', '상점', '로컬숍'] },
+  { kind: 'LEISURE', label: '레저', words: ['레저', '체험', '액티비티'] },
 ];
 const negative = (text: string, word: string) => new RegExp(`${word}(?:은|는|를|을|도)?\\s*(?:빼|제외|말고|안\\s*가|안\\s*넣|없이|싫|없었|없으면)`).test(text);
 const unique = <T,>(values: T[]): T[] => [...new Set(values)];

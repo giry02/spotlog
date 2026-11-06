@@ -1,0 +1,16 @@
+{
+  "saved": {
+    "existingPlace": "동백섬",
+    "searchMatches": 1,
+    "noMatch": 0,
+    "clearRestores": 1,
+    "sourceRecordsNotMutated": true
+  },
+  "emailLogin": {
+    "revealedType": "text",
+    "valuePreserved": true,
+    "autocomplete": "current-password",
+    "reopenedType": "password",
+    "formNotSubmitted": true
+  }
+}

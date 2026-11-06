@@ -1,0 +1,7 @@
+{
+  "web/src/App.tsx": "d5422332356a9bf6f268ff0875f0adbe3718dd39dd7bbfa562f7c6debaaa9522",
+  "web/src/AppMenu.tsx": "3185e4d9d6a7f4cf563a35522efd7aaf4bb277dd203fb005ce43a1257b00ff0c",
+  "web/src/together/model.ts": "dfa76e56dc7a5d2071adc654cc256f1b24392ec3b57892e22ff56a6f1804b33e",
+  "web/src/together/repository.ts": "d19ac6911b160d9ce83250f7d594da5790bc48f7fdfa5c6b77bff2754f5a86dc",
+  "web/src/together/discovery.ts": "9ed1ff4088ec2bd3bc935393f9f7b226a1855e53f6e21ae61ab38bb91ecb0e83"
+}

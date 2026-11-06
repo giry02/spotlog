@@ -2,11 +2,12 @@ import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { ArrowLeft, ChevronRight, LogOut, Mail, MapPin, ShieldCheck, Trash2, UserRound } from 'lucide-react';
 import { BottomSheet } from './BottomSheet';
 import { Button, Field } from './ui';
+import { PasswordField } from './PasswordField';
 import { PolicyLink } from './PolicyDocumentView';
 import { draftPolicies, emptySignupChoices, requiredSignupAccepted, type PolicyBundle, type PolicyId, type SignupChoices } from './accountPolicies';
 import { createSocialAccountAdapter, validEmail, validSignupPassword, type AccountIntent, type LoginProvider, type SocialAccountAdapter, type SocialAccountUser, type SocialSession } from './socialAccountService';
 import { ACCOUNT_METHODS, accountProviderName as providerName } from './accountMethods';
-import { useAccount, type AccountView } from './accountContext';
+import { useAccount, type AccountView, type AccountEntry } from './accountContext';
 import { ServiceError } from './serviceRequest';
 import { isNativeShell } from './nativeBridge';
 import './frontend-completion.css';
@@ -17,17 +18,18 @@ type SheetView = AccountView | 'email-login' | 'signup-terms' | 'signup-details'
 function ConsentRow({ name, label, checked, onChange, policy, bundle, disabled }: { name: keyof SignupChoices; label: string; checked: boolean; onChange: (checked: boolean) => void; policy?: PolicyId; bundle: PolicyBundle; disabled: boolean }) {
   return <div className="signup-consent-row"><label><input type="checkbox" name={name} checked={checked} disabled={disabled} onChange={e => onChange(e.target.checked)} /><span>{label}</span></label>{policy && <PolicyLink id={policy} bundle={bundle} />}</div>;
 }
-export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 'login', reason, onSignedIn, navigate = url => window.location.assign(url) }: { onClose: () => void; adapter?: SocialAccountAdapter; initialView?: AccountView; reason?: string; onSignedIn?: (user: SocialAccountUser) => void; navigate?: (url: string) => void }) {
+export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 'login', initialEntry, reason, onSignedIn, navigate = url => window.location.assign(url) }: { onClose: () => void; adapter?: SocialAccountAdapter; initialView?: AccountView; initialEntry?: AccountEntry; reason?: string; onSignedIn?: (user: SocialAccountUser) => void; navigate?: (url: string) => void }) {
   const account = useAccount(), adapter = suppliedAdapter ?? account?.adapter ?? defaultAdapter;
   const reviewAccount = adapter.reviewAccount;
   const [session, setSession] = useState<SocialSession>(account?.session ?? { state: 'GUEST' });
   const [bundle, setBundle] = useState<PolicyBundle>(draftPolicies);
-  const [view, setView] = useState<SheetView>(initialView === 'manage' && account?.session.state !== 'SIGNED_IN' ? 'login' : initialView);
+  const [view, setView] = useState<SheetView>(() => initialEntry === 'reset' ? 'reset' : initialEntry === 'email' && account?.session.state !== 'SIGNED_IN' ? 'email-login' : initialEntry === 'delete' && account?.session.state === 'SIGNED_IN' && !reviewAccount ? 'delete' : (initialView === 'manage' || initialEntry === 'logout' || initialEntry === 'delete') && account?.session.state !== 'SIGNED_IN' ? 'login' : initialView);
   const [intent, setIntent] = useState<AccountIntent>(initialView === 'signup' ? 'signup' : 'login');
   const [selected, setSelected] = useState<LoginProvider>('GOOGLE');
   const [choices, setChoices] = useState(emptySignupChoices);
-  const [email, setEmail] = useState(initialView === 'login' ? reviewAccount?.email ?? '' : ''), [password, setPassword] = useState(initialView === 'login' ? reviewAccount?.password ?? '' : ''), [confirmation, setConfirmation] = useState(''), [name, setName] = useState(''), [code, setCode] = useState('');
+  const [email, setEmail] = useState(initialEntry === 'reset' && account?.session.state === 'SIGNED_IN' ? account.session.user.email ?? '' : initialView === 'login' ? reviewAccount?.email ?? '' : ''), [password, setPassword] = useState(initialView === 'login' && !initialEntry ? reviewAccount?.password ?? '' : ''), [confirmation, setConfirmation] = useState(''), [name, setName] = useState(''), [code, setCode] = useState('');
   const [socialNotice, setSocialNotice] = useState('');
+  const [passwordResetVersion, setPasswordResetVersion] = useState(0);
   const [verificationEmail, setVerificationEmail] = useState('');
   const codeInput = useRef<HTMLInputElement>(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -35,16 +37,18 @@ export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 
   const pending = useRef<AbortController | null>(null), version = useRef(0), locked = useRef(false);
   const connected = adapter.configured;
   const member = session.state === 'SIGNED_IN' ? session.user : null;
+  const maskPasswords = () => setPasswordResetVersion(current => current + 1);
+  const close = () => { maskPasswords(); onClose(); };
   const clearVerification = () => { setVerificationEmail(''); setCode(''); };
   useEffect(() => { if (!busy && ((view === 'signup-details' && verificationEmail) || view === 'verify')) codeInput.current?.focus(); }, [view, verificationEmail, busy]);
   useEffect(() => { if (account?.adapter === adapter) { setSession(account.session); if (account.session.state === 'GUEST') setView(current => current === 'delete' || current === 'manage' ? 'login' : current); } }, [account?.session, adapter]);
   const updateSession = (next: SocialSession) => { setSession(next); if (account?.adapter === adapter) account.updateSession(next); };
-  const signedIn = (user: SocialAccountUser) => { updateSession({ state: 'SIGNED_IN', user }); setPassword(''); setConfirmation(''); clearVerification(); onSignedIn?.(user); onClose(); };
+  const signedIn = (user: SocialAccountUser) => { maskPasswords(); updateSession({ state: 'SIGNED_IN', user }); setPassword(''); setConfirmation(''); clearVerification(); onSignedIn?.(user); onClose(); };
   const load = async (signal: AbortSignal) => {
     const next = await adapter.session(signal);
     if (signal.aborted) return;
     updateSession(next);
-    if (next.state === 'SIGNED_IN' && initialView !== 'manage') { onClose(); return; }
+    if (next.state === 'SIGNED_IN' && initialView !== 'manage' && !['logout', 'delete', 'reset'].includes(initialEntry ?? '')) { onClose(); return; }
     const policies = await adapter.policies(signal);
     if (signal.aborted) return;
     setBundle(policies);
@@ -79,6 +83,7 @@ export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 
     } finally { if (v === version.current) { locked.current = false; setBusy(false); } }
   };
   const changeView = (next: SheetView) => {
+    maskPasswords();
     version.current++; pending.current?.abort(); locked.current = false; setBusy(false);
     const sameEmailSignup = ['signup-terms', 'signup-details'].includes(view) && ['signup-terms', 'signup-details'].includes(next);
     setView(next); if (next === 'signup' || next === 'login') setIntent(next);
@@ -107,16 +112,17 @@ export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 
     else if (view === 'verify' && /^\d{6}$/.test(code)) void run(async signal => { const user = await adapter.verifyEmail(email, code, signal); if (!signal.aborted) signedIn(user); });
     else if (view === 'reset' && validEmail(email)) void run(async signal => { await adapter.resetPassword(email, signal); if (!signal.aborted) setNotice('사용 가능한 계정이면 재설정 안내가 발송돼요. 이메일을 확인해 주세요.'); });
   };
-  const title = view === 'delete' ? '회원 탈퇴' : member ? '내 계정' : view === 'signup' ? '회원가입' : view === 'signup-terms' ? '이메일 회원가입 · 약관 동의' : view === 'signup-details' ? '회원가입 · 정보 입력' : view === 'consent' ? '가입 약관 확인' : view === 'social' ? providerName(selected) + (intent === 'signup' ? ' 회원가입' : ' 로그인') : view === 'email-login' ? '이메일 로그인' : view === 'verify' ? '이메일 인증' : view === 'reset' ? '비밀번호 찾기' : '로그인';
-  return <BottomSheet title={title} onClose={onClose}><div className="account-form">
+  const title = view === 'delete' ? '회원 탈퇴' : view === 'reset' ? '비밀번호 찾기' : member ? '내 계정' : view === 'signup' ? '회원가입' : view === 'signup-terms' ? '이메일 회원가입 · 약관 동의' : view === 'signup-details' ? '회원가입 · 정보 입력' : view === 'consent' ? '가입 약관 확인' : view === 'social' ? providerName(selected) + (intent === 'signup' ? ' 회원가입' : ' 로그인') : view === 'email-login' ? '이메일 로그인' : view === 'verify' ? '이메일 인증' : '로그인';
+  const passwordBoundary = `${view}:${intent}:${selected}:${session.state}:${member?.id ?? ''}:${account?.session.state === 'SIGNED_IN' ? account.session.user.id : account?.session.state ?? ''}:${passwordResetVersion}`;
+  return <BottomSheet title={title} onClose={close}><div className="account-form">
     {reason && !member && <p className="account-notice">{reason} 로그인 후 돌아와서 직접 완료해 주세요.</p>}
     {!connected && <p className="account-notice" role="status">인증 연결 전이에요. 화면을 확인할 수 있지만 실제 가입·이메일 발송·로그인은 아직 사용할 수 없어요.</p>}
-    {reviewAccount && view === 'email-login' && <div className="account-review-notice"><div className="account-review-heading"><strong>로컬 검수 계정</strong><Button variant="ghost" size="compact" disabled={busy} onClick={() => { setEmail(reviewAccount.email); setPassword(reviewAccount.password); setError(''); }}>검수 계정 채우기</Button></div><p>실제 서비스 회원과 별도의 검수용 로그인이에요.</p></div>}
+    {reviewAccount && view === 'email-login' && <div className="account-review-notice"><div className="account-review-heading"><strong>로컬 검수 계정</strong><Button variant="ghost" size="compact" disabled={busy} onClick={() => { maskPasswords(); setEmail(reviewAccount.email); setPassword(reviewAccount.password); setError(''); }}>검수 계정 채우기</Button></div><p>실제 서비스 회원과 별도의 검수용 로그인이에요.</p></div>}
     {notice && <p className="account-notice" role="status">{notice}</p>}
     {busy && !member && <p role="status">계정을 확인하고 있어요.</p>}
-    {member && view !== 'delete' ? <>
+    {member && view !== 'delete' && view !== 'reset' ? <>
       <div className="account-identity"><UserRound size={24} aria-hidden="true" /><div><strong>{member.displayName}</strong><p>{providerName(member.provider)} 계정 · {member.email ?? '이메일 미제공'}</p></div></div>
-      <Button onClick={onClose}>하던 작업으로 돌아가기</Button>
+      <Button onClick={close}>하던 작업으로 돌아가기</Button>
       <Button variant="secondary" loading={busy} onClick={() => void run(async signal => { await adapter.signOut(signal); if (!signal.aborted) { updateSession({ state: 'GUEST' }); changeView('login'); setNotice('로그아웃했어요. 이 기기의 여행은 유지돼요.'); } })}><LogOut size={16} />로그아웃</Button>
       {!reviewAccount && <Button variant="ghost" size="compact" disabled={busy} onClick={() => { setConfirmDelete(false); setView('delete'); }}><Trash2 size={16} />회원 탈퇴</Button>}
     </> : view === 'delete' ? <>
@@ -132,7 +138,7 @@ export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 
         <div className="account-method-buttons" aria-label={view === 'signup' ? '회원가입 방식' : '로그인 방식'}>{ACCOUNT_METHODS.map(provider => <Button key={provider} variant="secondary" className={'account-method account-method-' + provider.toLowerCase()} disabled={busy} onClick={() => provider === 'EMAIL' ? changeView(view === 'signup' ? 'signup-terms' : 'email-login') : begin(provider, view)}>{provider === 'EMAIL' ? <Mail size={20} aria-hidden="true" /> : <span className="account-method-symbol" aria-hidden="true">{provider === 'KAKAO' ? 'K' : provider === 'NAVER' ? 'N' : provider === 'GOOGLE' ? 'G' : 'A'}</span>}<span>{providerName(provider)}로 {view === 'signup' ? '회원가입' : '로그인'}</span><ChevronRight size={18} aria-hidden="true" /></Button>)}</div>
         <div className="account-method-switch"><span>{view === 'signup' ? '이미 계정이 있나요?' : '아직 계정이 없나요?'}</span><Button variant="ghost" size="compact" disabled={busy} onClick={() => changeView(view === 'signup' ? 'login' : 'signup')}>{view === 'signup' ? '로그인' : '회원가입'}</Button></div>
         <div className="account-policy-links"><PolicyLink id="terms" bundle={bundle} label="이용약관" /><PolicyLink id="privacy" bundle={bundle} label="개인정보 처리방침" /></div>
-        <Button variant="ghost" size="compact" onClick={onClose}>둘러보기 계속</Button>
+        <Button variant="ghost" size="compact" onClick={close}>둘러보기 계속</Button>
       </>}
       {view === 'social' && <>
         <div className="signup-provider-summary"><ShieldCheck size={24} aria-hidden="true" /><div><strong>{providerName(selected)}로 {intent === 'signup' ? '회원가입' : '로그인'}</strong><p>인증 후 기존 계정은 로그인하고, 처음 가입하는 경우에만 가입 동의를 확인해요.</p></div></div>
@@ -144,12 +150,12 @@ export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 
         <div className="account-welcome"><strong>이메일 계정으로 로그인</strong><p>{reviewAccount ? '미리 입력된 이메일로 바로 로그인할 수 있어요.' : '가입한 이메일과 비밀번호를 입력해 주세요.'}</p></div>
         <form className="account-email-form" onSubmit={submitEmail}>
           <Field label="이메일"><input type="email" autoComplete="username" value={email} maxLength={254} onChange={e => setEmail(e.target.value)} disabled={busy} required /></Field>
-          <Field label="비밀번호"><input type="password" autoComplete="current-password" value={password} maxLength={128} onChange={e => setPassword(e.target.value)} disabled={busy} required /></Field>
+          <PasswordField key={`login:${passwordBoundary}`} label="비밀번호" autoComplete="current-password" value={password} maxLength={128} onChange={e => setPassword(e.target.value)} disabled={busy} required />
           <Button type="submit" disabled={!connected || !validEmail(email) || !password} loading={busy}>이메일로 로그인</Button>
         </form>
         <div className="account-inline-actions"><Button variant="ghost" size="compact" disabled={busy} onClick={() => { setIntent('signup'); changeView('signup-terms'); }}>이메일 회원가입</Button><Button variant="ghost" size="compact" disabled={busy} onClick={() => changeView('reset')}>비밀번호 찾기</Button></div>
         <div className="account-policy-links"><PolicyLink id="terms" bundle={bundle} label="이용약관" /><PolicyLink id="privacy" bundle={bundle} label="개인정보 처리방침" /></div>
-        <Button variant="ghost" size="compact" disabled={busy} onClick={onClose}>둘러보기 계속</Button>
+        <Button variant="ghost" size="compact" disabled={busy} onClick={close}>둘러보기 계속</Button>
       </>}
       {(view === 'signup-terms' || view === 'consent') && <>
         {view === 'consent' && <div className="signup-provider-summary"><ShieldCheck size={20} aria-hidden="true" /><div><strong>{providerName(selected)}로 가입</strong><p>처음 가입할 때만 필수 약관을 확인해요.</p></div></div>}
@@ -172,8 +178,8 @@ export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 
         <form className="account-email-form" onSubmit={submitEmail}>
           <Field label="활동 이름"><input autoComplete="nickname" value={name} maxLength={40} onChange={e => setName(e.target.value)} disabled={busy || Boolean(verificationEmail)} required placeholder="여행기에서 사용할 이름" /></Field>
           <Field label="이메일"><input type="email" autoComplete="email" value={email} maxLength={254} onChange={e => setEmail(e.target.value)} disabled={busy || Boolean(verificationEmail)} required /></Field>
-          <Field label="비밀번호" hint="10~128자. 다른 서비스에서 쓰는 비밀번호는 피해주세요."><input type="password" autoComplete="new-password" value={password} minLength={10} maxLength={128} onChange={e => setPassword(e.target.value)} disabled={busy || Boolean(verificationEmail)} required /></Field>
-          <Field label="비밀번호 확인"><input type="password" autoComplete="new-password" value={confirmation} maxLength={128} onChange={e => setConfirmation(e.target.value)} disabled={busy || Boolean(verificationEmail)} required aria-invalid={Boolean(confirmation && password !== confirmation)} /></Field>
+          <PasswordField key={`signup:${passwordBoundary}`} label="비밀번호" hint="10~128자. 다른 서비스에서 쓰는 비밀번호는 피해주세요." autoComplete="new-password" value={password} minLength={10} maxLength={128} onChange={e => setPassword(e.target.value)} disabled={busy || Boolean(verificationEmail)} required />
+          <PasswordField key={`confirmation:${passwordBoundary}`} label="비밀번호 확인" autoComplete="new-password" value={confirmation} maxLength={128} onChange={e => setConfirmation(e.target.value)} disabled={busy || Boolean(verificationEmail)} required aria-invalid={Boolean(confirmation && password !== confirmation)} />
           {confirmation && password !== confirmation && <p className="ui-error">비밀번호가 서로 달라요.</p>}
           <section className="account-email-verification" aria-labelledby="signup-verification-title">
             <div className="account-verification-heading"><h3 id="signup-verification-title">이메일 인증</h3><Button variant="secondary" size="compact" disabled={busy || (!verificationEmail && !signupReady)} onClick={() => verificationEmail ? void run(async signal => { await adapter.resendVerification(verificationEmail, signal); if (!signal.aborted) { setCode(''); setNotice('이메일로 인증번호를 다시 보냈어요. 최신 번호를 확인하세요.'); codeInput.current?.focus(); } }) : requestSignupCode()}>{verificationEmail ? '인증번호 다시 받기' : '인증번호 받기'}</Button></div>

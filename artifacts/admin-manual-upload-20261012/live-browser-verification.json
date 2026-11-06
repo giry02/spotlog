@@ -1,0 +1,287 @@
+{
+  "url": "https://giry02.github.io/spotlog/manual/admin/",
+  "localRouteOnly": false,
+  "checks": [
+    {
+      "name": "standalone HTML HTTP 200",
+      "okay": true,
+      "detail": 200
+    },
+    {
+      "name": "HTTPS administrator link",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "local screenshot header",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "53 pages",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "310 numbered features",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "all 53 PNG decode",
+      "okay": true,
+      "detail": []
+    },
+    {
+      "name": "relative asset paths",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu 운영 현황",
+      "okay": true,
+      "detail": 2
+    },
+    {
+      "name": "desktop overflow overview",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu 장소·업체",
+      "okay": true,
+      "detail": 15
+    },
+    {
+      "name": "desktop overflow places",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu 노출·추천",
+      "okay": true,
+      "detail": 9
+    },
+    {
+      "name": "desktop overflow exposure",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu 여행기·커뮤니티",
+      "okay": true,
+      "detail": 6
+    },
+    {
+      "name": "desktop overflow community",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu 회원·문의",
+      "okay": true,
+      "detail": 3
+    },
+    {
+      "name": "desktop overflow members",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu AI·검색 운영",
+      "okay": true,
+      "detail": 9
+    },
+    {
+      "name": "desktop overflow ai",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "menu 운영 설정·이력",
+      "okay": true,
+      "detail": 9
+    },
+    {
+      "name": "desktop overflow settings",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "search main",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "search empty",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "search clear",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "number selects description",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer opens",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer number description",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer original",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer plus",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer minus",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer fit",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer escape closes",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer focus returns",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile start overflow",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow overview",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow places",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow exposure",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow community",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow members",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow ai",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile overflow settings",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile viewer overflow",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "no JS errors",
+      "okay": true,
+      "detail": []
+    },
+    {
+      "name": "no external or missing requests",
+      "okay": true,
+      "detail": []
+    },
+    {
+      "name": "53 actual network PNG HTTP 200",
+      "okay": true,
+      "detail": [
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-navigation.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-basic.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-overview-work.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-source.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-main-post.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-media-file.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-grades.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-popularity.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-curated-publish.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-csv.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-thread-actions.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-operators.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-nearby.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-guide.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-withdraw.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-exposure-start.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-tests.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-ai.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-workflow.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-main-post-save.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-indices.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-result-feedback.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-translation.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-cleanup.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-policies.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-location.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-documents.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-connections.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-media-rights.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-references.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-file-cleanup.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-inquiries.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-supply.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-report-decision.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-customer-preview.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-curated-conditions.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-requests.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-journal.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-card-replies.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-report.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-history.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-regions.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-curated-day.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-curated-visit-detail.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-list.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-policy-actions.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-notifications.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/data-place-checklist.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-member-deletion.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/service-members.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-settings-audit.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-policy-activation.png",
+        "https://giry02.github.io/spotlog/manual/admin/assets/technical-ai-test-results.png"
+      ]
+    }
+  ],
+  "errors": [],
+  "unexpected": []
+}

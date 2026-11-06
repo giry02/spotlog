@@ -1,0 +1,1655 @@
+
+
+
+
+
+
+
+
+ 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="keywords" content="부산 관광, 부산 아카이브, 부산 관광 사진, 부산 이미지, 부산 영상, 부산 관광 콘텐츠, Busan Tourism Archive, 부산시, 비비비당" />
+    <meta name="description" content="부산시 공식 관광 디지털 아카이브. 해운대, 광안리 등 부산의 주요 관광 사진, 이미지, 고화질 영상, 음원, 홍보 자료 등 다양한 디지털 관광 자원을 무료로 검색하고 다운로드하세요." />
+    <meta name="format-detection" content="telephone=no" />
+<meta name="author" content="부산광역시">
+<meta name="publisher" content="부산광역시">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="BUSAN TOURISM ARCHIVE | 부산 관광 아카이브: 공식 관광 사진, 자료, 이미지, 영상, 문서 자료,비비비당">
+<meta property="og:description" content="부산시 공식 관광 디지털 아카이브. 해운대, 광안리 등 부산의 주요 관광 사진, 고화질 영상, 음원, 홍보 자료 등 다양한 디지털 관광 자원을 무료로 검색하고 다운로드하세요.">
+
+
+    <title>부산 관광 아카이브 > 비비비당 </title>
+
+    
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/archive/images/common/favicon.ico">
+    <link rel="icon" href="/archive/images/common/favicon.ico;jsessionid=7B0590221AC2567AEB45C518581295B8">
+
+    <!-- Common JS -->
+    <script src="/archive/js/jquery.1.12.4.min.js;jsessionid=7B0590221AC2567AEB45C518581295B8" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.3/proj4.js"></script>
+
+    <script src="/archive/js/jquery-3.7.1.js"></script>
+    <script type="text/javascript" src="/archive/js/cms/29.js;jsessionid=7B0590221AC2567AEB45C518581295B8?ver=20250407112907"></script> 
+    <!-- common.js -->
+
+    <!-- Slick -->
+    <link href="/archive/css/slick.css;jsessionid=7B0590221AC2567AEB45C518581295B8" type="text/css" rel="stylesheet" />
+    <link href="/archive/css/slick-theme.css;jsessionid=7B0590221AC2567AEB45C518581295B8" type="text/css" rel="stylesheet" />
+    <script src="/archive/js/slick.js;jsessionid=7B0590221AC2567AEB45C518581295B8"></script>
+
+    <!-- Common CSS -->
+<link href="/archive/css/cms/25.css;jsessionid=7B0590221AC2567AEB45C518581295B8?ver=20250407112907" rel="stylesheet" type="text/css"> <!-- base.css -->
+<link href="/archive/css/cms/26.css;jsessionid=7B0590221AC2567AEB45C518581295B8?ver=20250407112907" rel="stylesheet" type="text/css"> <!-- common.css -->
+<link href="/archive/css/cms/45.css;jsessionid=7B0590221AC2567AEB45C518581295B8?ver=20250407112907" rel="stylesheet" type="text/css"> <!-- align.css -->
+
+    <!-- Sub -->
+<link href="/archive/css/cms/28.css;jsessionid=7B0590221AC2567AEB45C518581295B8?ver=20250407112907" rel="stylesheet" type="text/css"> <!-- sub.css -->
+<script type="text/javascript" src="/archive/js/cms/31.js;jsessionid=7B0590221AC2567AEB45C518581295B8?ver=20250407112907"></script>  <!-- sub.js-->
+
+    <meta name="google-site-verification" content="O7DOzG-eX_UECcPJ4VuYcMyCdI7aKw-mMOPNpM3JjOM" />
+
+<!-- Google tag (gtag.js) --> 
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-651502XQJM"></script> 
+<script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-651502XQJM'); </script> 
+</head>
+<body>
+    
+    <!-- Wrap -->
+    <div id="wrap" class="bgOn">
+        
+        <!-- Header -->
+        
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+//엔터로 검색 실행 추가 (여기에 넣어도 됨)
+const input = document.getElementById("keywordInput_2");
+if (input) {
+input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        e.preventDefault(); 
+        searchTotalPage();  
+    }
+});
+}
+
+
+// 인기 검색어 영역
+const popularArea = document.getElementById("popularKeywordsTwo");
+
+// API 호출
+fetch("https://archive.visitbusan.net/api/search/kr/popular")
+.then(res => res.json())
+.then(data => {
+    
+    if (!Array.isArray(data) || data.length === 0) {
+        popularArea.innerHTML = "<span>인기 검색어가 없습니다.</span>";
+        return;
+    }
+
+    // 최대 10개만 사용
+    const top10 = data.slice(0, 10);
+
+    // HTML 생성
+    popularArea.innerHTML = top10.map(item => {
+        const keyword = decodeURIComponent(item.keyword || "");
+        return `
+            <span>
+                <a href="javascript:keywordSearch2('${keyword}');" 
+                   target="_self" 
+                   title="페이지 이동">${keyword}</a>
+            </span>
+        `;
+    }).join("");
+})
+.catch(err => {
+    console.error("인기 검색어 오류:", err);
+    popularArea.innerHTML = "<span>인기 검색어</span>";
+});
+
+
+});
+
+function keywordSearch2(keyword) {
+const input = document.getElementById("keywordInput_2");
+if (!input) {
+console.error("검색 Input(#keywordInput_2) 요소가 없습니다.");
+return;
+}
+input.value = keyword;
+input.focus();
+
+// 자동 검색 실행하고 싶으면 이거 활성화
+// document.getElementById("searchForm").submit();
+}
+
+function submitSearch() {
+const keyword = document.getElementById("keywordInput_2").value;
+
+if (keyword === "") {
+alert("검색어를 입력해주세요.");
+return; 
+}
+
+const url = "/archive/dataSearch/mod.nm?menuCd=3&searchKeyword=" 
+      + encodeURIComponent(keyword);
+
+location.href = url;
+}
+
+    /* 페이징 함수*/
+    function fn_page2(page) {
+
+        serchLog2();
+
+        document.frm2.action = "/archive/dataSearch/list.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?";
+        document.frm2.page.value = page;
+        document.frm2.submit();
+     }
+
+    function serchLog2(){
+
+
+        var selectedDataCd = [];
+        $(".dataCdList_2:checked").each(function(){
+            selectedDataCd.push($(this).next("label").text());
+        });
+
+        var selectedGugun = [];
+        $(".gugunCdList_2:checked").each(function() {
+            selectedGugun.push($(this).next("label").text());
+        });
+
+        var selectedCopyrightLicense = [];
+        $(".copyrightLicenseList_2:checked").each(function() {
+            selectedCopyrightLicense.push($(this).next("label").text());
+        });
+
+        var tourTypeFirstCd = $("#tourTypeFirstCd_2 option:selected").text();  // 1차 선택값 (codeIdNm)
+        var tourTypeSecondCd = $("#tourTypeSecondCd_2 option:selected").text(); // 2차 선택값 (codeNm)
+        var tourTypeThirdCd = $("#tourTypeThirdCd_2 option:selected").text();  // 3차 선택값 (subCodeNm)
+
+        // 키워드 입력값
+        var kywdNm = $("#keywordInput_2").val().trim(); 
+
+        // 값이 특정 조건을 만족하면 null, 그렇지 않으면 값 유지
+        var dataCdList = (selectedDataCd.length === 0 || selectedDataCd.length === 4) ? null : selectedDataCd.join(",");
+        var gugunCdList = (selectedGugun.length === 0 || selectedGugun.length === 17) ? null : selectedGugun.join(",");
+        var copyrightLicenseList = (selectedCopyrightLicense.length === 0 || selectedCopyrightLicense.length === 5) ? null : selectedCopyrightLicense.join(",");
+        var tourTypeFirst = tourTypeFirstCd !== "전체" ? tourTypeFirstCd : null;
+        var tourTypeSecond = tourTypeSecondCd !== "전체" ? tourTypeSecondCd : null;
+        var tourTypeThird = tourTypeThirdCd !== "전체" ? tourTypeThirdCd : null;
+
+        // 모든 데이터를 하나의 문자열로 합치기
+        var searchKeyword = [dataCdList, tourTypeFirst, tourTypeSecond, tourTypeThird, gugunCdList, copyrightLicenseList]
+            .filter(value => value !== null && value !== "") 
+            .join(",");
+
+            // AJAX 요청
+
+
+        if(searchKeyword != "" || kywdNm != ""){
+        $.ajax({
+            url: '/archive/dataSearch/searchLog.nm', 
+            type: 'POST', 
+            data: { 
+                "searchKeyword": searchKeyword,
+                "kywdNm" : kywdNm
+            },
+            success: function(response) {
+                console.log('전송 완료', response);
+            },
+            error: function(xhr, status, error) {
+                console.error('전송 실패 - 상태 코드:', xhr.status);
+                console.error('응답 내용:', xhr.responseText);
+            }
+        });
+        }
+
+    }
+    
+ function chkClicked1_2() {
+    /* 체크박스 전체개수 */
+    const allCount = document.querySelectorAll(".dataCdList_2").length;
+    /* 체크된 체크박스 전체개수 */
+    const query = '.dataCdList_2:checked';
+    const selectedElementCnt = document.querySelectorAll(query).length;
+    /* 체크박스 전체개수와 체크된 체크박스 전체개수가 같으면 전체 체크박스 체크 */
+    if (allCount == selectedElementCnt) {
+        $("#dataTypeLabel1").prop("checked", true);
+    } else {
+        $("#dataTypeLabel1").prop("checked", false);
+    }
+}
+
+/* checkbox 전체 선택 */
+function dataCdList_All_2(el) {
+    if ($(el).prop("checked")) {  
+         $(".dataCdList_2").prop("checked", true);  // 전체 체크
+    } else {
+        $(".dataCdList_2").prop("checked", false);  // 전체 해제
+    }
+};
+
+
+function changeTourType_2(id,param){
+             
+
+               const secondSelect = document.getElementById(id); 
+               const thirdSelect = document.getElementById('tourTypeThirdCd_2'); 
+           
+                       secondSelect.innerHTML = "<option value=''>전체</option>";
+                       thirdSelect.innerHTML = "<option value=''>전체</option>";
+                   
+                   $.ajax({
+                       url: "/archive/user/archive/metaData/comboTourType.do;jsessionid=7B0590221AC2567AEB45C518581295B8",
+                       type: "GET",
+                       cache: false,
+                       dataType: "json",
+                       data: {"codeId" : param},
+                       success: function(data){
+                       
+                       var result = data.rows;
+                       var nSize = result.length;
+                       var html ="";
+                       document.getElementById(id).innerHTML ="";
+                       html += "<option value='' >전체</option>";
+                       for(var i=0; i < nSize;i++){
+                           html += "<option value=\""+ result[i].code +"\" >"+  result[i].codeNm +"</option>";
+                       }
+                       document.getElementById(id).innerHTML = html;
+                       
+                       },
+                       
+                       error: function (request, status, error){        
+                           var msg = "ERROR : " + request.status + "<br>"
+                       msg +=  + "내용 : " + request.responseText + "<br>" + error;
+                       alert(msg);              
+                       }
+                       });
+           }  
+
+
+function changeTourSubType_2(id,param3){
+
+const thirdSelect = document.getElementById(id); 
+    
+if (param3 === "") {
+        thirdSelect.innerHTML = "<option value=''>전체</option>";
+        return; // 초기화 후 함수 종료
+    }
+    
+    $.ajax({
+        url: "/archive/user/archive/metaData/comboTourSubType.do;jsessionid=7B0590221AC2567AEB45C518581295B8",
+        type: "GET",
+        cache: false,
+        dataType: "json",
+        data: {"code" : param3},
+        success: function(data){
+        
+        var result = data.rows;
+        var nSize = result.length;
+        var html ="";
+        document.getElementById(id).innerHTML ="";
+        html += "<option value='' >전체</option>";
+        for(var i=0; i < nSize;i++){
+            html += "<option value=\""+ result[i].subCode +"\" >"+  result[i].subCodeNm +"</option>";
+        }
+        document.getElementById(id).innerHTML = html;
+        
+        },
+        
+        error: function (request, status, error){        
+            var msg = "ERROR : " + request.status + "<br>"
+        msg +=  + "내용 : " + request.responseText + "<br>" + error;
+        alert(msg);              
+        }
+        });
+    }  
+
+
+
+/* checkbox 전체 선택 */
+function gugunCdList_All_2(el) {
+    if ($(el).prop("checked")) {  // prop을 사용하여 실제 체크 상태를 확인
+        $(".gugunCdList_2").prop("checked", true);  // 전체 체크
+    } else {
+        $(".gugunCdList_2").prop("checked", false);  // 전체 해제
+    }
+};
+
+
+ function chkClicked_2() {
+    /* 체크박스 전체개수 */
+    const allCount = document.querySelectorAll(".gugunCdList_2").length;
+    /* 체크된 체크박스 전체개수 */
+    const query = '.gugunCdList_2:checked';
+    const selectedElementCnt = document.querySelectorAll(query).length;
+    /* 체크박스 전체개수와 체크된 체크박스 전체개수가 같으면 전체 체크박스 체크 */
+    if (allCount == selectedElementCnt) {
+        $("#guLabel1").prop("checked", true);
+    } else {
+        $("#guLabel1").prop("checked", false);
+    }
+}
+
+
+/* checkbox 전체 선택 */
+function copyrightLicenseList_All_2(el) {
+    if ($(el).prop("checked")) {  
+        $(".copyrightLicenseList_2").prop("checked", true);  // 전체 체크
+    } else {
+        $(".copyrightLicenseList_2").prop("checked", false);  // 전체 해제
+    }
+};
+
+
+ function chkClicked2_2() {
+    /* 체크박스 전체개수 */
+    const allCount = document.querySelectorAll(".copyrightLicenseList_2").length;
+    /* 체크된 체크박스 전체개수 */
+    const query = '.copyrightLicenseList_2:checked';
+    const selectedElementCnt = document.querySelectorAll(query).length;
+    /* 체크박스 전체개수와 체크된 체크박스 전체개수가 같으면 전체 체크박스 체크 */
+    if (allCount == selectedElementCnt) {
+        $("#nuriLabel1").prop("checked", true);
+    } else {
+        $("#nuriLabel1").prop("checked", false);
+    }
+}
+
+
+
+function resetForm() {
+    // 체크박스 초기화
+    document.querySelectorAll('input[type="checkbox"]').forEach(function (checkbox) {
+        checkbox.checked = false;
+    });
+
+    // 셀렉트 박스 초기화
+    document.querySelectorAll('select').forEach(function (select) {
+        select.selectedIndex = 0;
+    });
+
+    // 텍스트 입력 초기화
+    const keywordInput = document.getElementById('keywordInput_2');
+    if (keywordInput) {
+        keywordInput.value = '';
+    }
+
+}
+
+function checkAllCheckboxes2() {
+        const allCheckbox = document.querySelector('#dataTypeLabel1');
+        const dataCheckboxes = document.querySelectorAll('.dataCdList_2');
+
+        const allCheckbox2 = document.querySelector('#guLabel1');
+        const dataCheckboxes2 = document.querySelectorAll('.gugunCdList_2');
+
+        const allCheckbox3 = document.querySelector('#nuriLabel1');
+        const dataCheckboxes3 = document.querySelectorAll('.copyrightLicenseList_2');
+        
+        // 모든 체크박스가 선택되었는지 확인
+        const allChecked = Array.from(dataCheckboxes).every(checkbox => checkbox.checked);
+        const allChecked2 = Array.from(dataCheckboxes2).every(checkbox => checkbox.checked);
+        const allChecked3= Array.from(dataCheckboxes3).every(checkbox => checkbox.checked);
+
+        // "전체" 체크박스 상태 변경
+        allCheckbox.checked = allChecked;
+        allCheckbox2.checked = allChecked2;
+        allCheckbox3.checked = allChecked3;
+    }
+
+</script>
+
+
+<!-- Skip -->
+<div id="accessibility">
+    <a href="#container">본문 바로가기</a>
+    <a href="#gnb">주메뉴 바로가기</a>
+</div>
+<!-- //Skip -->
+
+<!-- Header -->
+<div id="header" class="header-main-image">
+    <!-- masthead -->
+        <div id="krds-masthead">
+        <div class="toggle-wrap">
+            <div class="toggle-head">
+            <div class="inner">
+                <span class="nuri-txt">이 누리집은 대한민국 공식 전자정부 누리집입니다.</span>
+            </div>
+            </div>
+        </div>
+        </div>
+    <!-- //masthead -->
+
+    <div class="pcHeader">
+        <div class="pcWrap">
+            <div class="pcMenu">
+                <h1 class="logo">
+                    <a href="https://archive.visitbusan.net/">부산 관광 아카이브</a>
+                </h1>
+                <!--드롭다운메뉴11-->
+                <div id="gnb">
+                    <div class="gnbWrap" id="parent">
+                        <ul id="gnbMenu" class="child">
+                      
+                            <li id="menu01"><a href="/archive/index.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=1" class="dep01">아카이브 소개</a>
+                                <div id="dep02_01" class="dep02">
+                                    <div class="subNav">
+                                        <div class="subRtNav">
+                                            <ul class="dep02Nav">
+                                            
+                                                <li><a href="/archive/index.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=1">소개</a></li>
+                                            
+                                                <li><a href="/archive/dataStatus/list.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=2">자료현황</a></li>
+                                            
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                       
+                            <li id="menu01"><a href="/archive/dataSearch/list.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=3" class="dep01">자료검색</a>
+                                <div id="dep02_01" class="dep02">
+                                    <div class="subNav">
+                                        <div class="subRtNav">
+                                            <ul class="dep02Nav">
+                                            
+                                                <li><a href="/archive/dataSearch/mod.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=3">통합검색</a></li>
+                                            
+                                                <li><a href="/archive/dataSearch/list.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=34">주제별 검색</a></li>
+                                            
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                       
+                            <li id="menu01"><a href="/archive/recomdImage/list.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=8" class="dep01">추천자료</a>
+                                <div id="dep02_01" class="dep02">
+                                    <div class="subNav">
+                                        <div class="subRtNav">
+                                            <ul class="dep02Nav">
+                                            
+                                                <li><a href="/archive/recomdImage/list.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=4">이미지</a></li>
+                                            
+                                                <li><a href="/archive/recomdVideo/list.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=5">동영상</a></li>
+                                            
+                                                <li><a href="/archive/dataCollection/list.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=6">컬렉션</a></li>
+                                            
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                       
+                            <li id="menu01"><a href="/archive/article/list.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=7" class="dep01">이용안내</a>
+                                <div id="dep02_01" class="dep02">
+                                    <div class="subNav">
+                                        <div class="subRtNav">
+                                            <ul class="dep02Nav">
+                                            
+                                                <li><a href="/archive/article/list.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=7">공지사항</a></li>
+                                            
+                                                <li><a href="/archive/article/list.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=8">자주묻는질문</a></li>
+                                            
+                                                <li><a href="/archive/index.nm;jsessionid=7B0590221AC2567AEB45C518581295B8?menuCd=9">저작권안내</a></li>
+                                            
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                       
+                        </ul>
+                    </div>
+                </div>
+                <!--//드롭다운메뉴-->
+                <div class="headerRight">
+                    <span><button class="btnRight totalSearch"></button><span class="txt">자료검색</span></span>  
+                    <span><button class="btnRight earth" onclick="location.href='/archive/eng/index.nm';"></button><span class="txt">eng</span></span> 
+                    <span><button class="btnRight allMenu"></button><span class="txt">전체메뉴</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 통합검색 -->
+    <div class="searchArea">
+        <div class="scBg">
+            <form name="frm2" action="/dataSearch/list.nm" method="get" commandName="searchVO">
+                <input type="hidden" name="csrfToken" value="51382fed-22c0-4ad4-b85c-c059555a3043" />
+                <input type="hidden" name="lang" value="ko" />
+                <input type="hidden" name="menuCd" value="3" />
+                <input type="hidden" name="url" value="dataSearch" />
+                <input type="hidden" name="page" value="1" />
+                <input type="hidden" name="perPageNum" value="16" />
+                <input type="hidden" name="searchCondition" value="1" />
+
+                <div class="searchInner containerInner">
+                    <div class="searchCenter">
+                        <div class="scComment">
+                            찾고 싶은 모든 자료,<br>
+                            여기에서 시작하세요
+                        </div>
+                        <div class="input-field">
+                            <label class="blind" id="searchKeyword">검색어</label>
+                            <input type="text" id="keywordInput_2" value="" name="searchKeyword" placeholder="검색어를 검색해주세요">
+                            <button type="button" title="검색하기" class="btn-search" onclick="submitSearch()"><img src="https://visitbusan.net/archive/images/common/icon_search_b.svg" alt="검색하기 아이콘"></button>
+                        </div>
+                        <div class="search-word">
+                            <div>
+                                <div class="tit">인기검색어</div>
+                                <div class="search-tag" id="popularKeywordsTwo">
+                                    <span><a href="javascript:keywordSearch('역사');" target="_self" title="페이지 이동">역사</a></span>
+                                    <span><a href="javascript:keywordSearch('자연환경');" target="_self" title="페이지 이동">자연환경</a></span>
+                                    <span><a href="javascript:keywordSearch('문화');" target="_self" title="페이지 이동">문화</a></span>
+                                    <span><a href="javascript:keywordSearch('생산물');" target="_self" title="페이지 이동">생산물</a></span>
+                                    <span><a href="javascript:keywordSearch('음식');" target="_self" title="페이지 이동">음식</a></span>
+                                    <span><a href="javascript:keywordSearch('부산가볼만한곳');" target="_self" title="페이지 이동">부산가볼만한곳</a></span>
+                                    <span><a href="javascript:keywordSearch('축제');" target="_self" title="페이지 이동">축제</a></span>
+                                    <span><a href="javascript:keywordSearch('맛집');" target="_self" title="페이지 이동">맛집</a></span>
+                                    <span><a href="javascript:keywordSearch('특산물');" target="_self" title="페이지 이동">특산물</a></span>
+                                    <span><a href="javascript:keywordSearch('부산의 자연환경');" target="_self" title="페이지 이동">부산의 자연환경</a></span>
+                                    <span><a href="javascript:keywordSearch('부산의 자연환경');" target="_self" title="페이지 이동">부산의 자연환경</a></span>
+                                    <span><a href="javascript:keywordSearch('부산의 자연환경');" target="_self" title="페이지 이동">부산의 자연환경</a></span>
+                                    <span><a href="javascript:keywordSearch('부산의 자연환경');" target="_self" title="페이지 이동">부산의 자연환경</a></span>
+                                    <span><a href="javascript:keywordSearch('부산의 자연환경');" target="_self" title="페이지 이동">부산의 자연환경</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <button type="button" class="closeSearch">닫기</button>
+        </div>
+    </div>
+    <!--//통합검색 -->
+    <!-- 전체 메뉴 -->
+    <div class="allMenuArea">
+        <div class="scBg">
+            <div class="allMenuInner">
+
+                <div class="Menu1ndGroup">
+                    <ul>
+                
+                        <li>
+                            <a href="/index.nm?menuCd=1">아카이브 소개</a>
+                            <ul class="menu2ndList">
+                                
+                                <li><a href="/archive/index.nm?menuCd=1">소개</a></li>
+                               
+                                <li><a href="/archive/dataStatus/list.nm?menuCd=2">자료현황</a></li>
+                               
+
+                            </ul>
+                        </li>
+                      
+                        <li>
+                            <a href="/dataSearch/list.nm?menuCd=3">자료검색</a>
+                            <ul class="menu2ndList">
+                                
+                                <li><a href="/archive/dataSearch/mod.nm?menuCd=3">통합검색</a></li>
+                               
+                                <li><a href="/archive/dataSearch/list.nm?menuCd=34">주제별 검색</a></li>
+                               
+
+                            </ul>
+                        </li>
+                      
+                        <li>
+                            <a href="/recomdImage/list.nm?menuCd=8">추천자료</a>
+                            <ul class="menu2ndList">
+                                
+                                <li><a href="/archive/recomdImage/list.nm?menuCd=4">이미지</a></li>
+                               
+                                <li><a href="/archive/recomdVideo/list.nm?menuCd=5">동영상</a></li>
+                               
+                                <li><a href="/archive/dataCollection/list.nm?menuCd=6">컬렉션</a></li>
+                               
+
+                            </ul>
+                        </li>
+                      
+                        <li>
+                            <a href="/article/list.nm?menuCd=7">이용안내</a>
+                            <ul class="menu2ndList">
+                                
+                                <li><a href="/archive/article/list.nm?menuCd=7">공지사항</a></li>
+                               
+                                <li><a href="/archive/article/list.nm?menuCd=8">자주묻는질문</a></li>
+                               
+                                <li><a href="/archive/index.nm?menuCd=9">저작권안내</a></li>
+                               
+
+                            </ul>
+                        </li>
+                      
+                    </ul>
+                </div>
+                <div class="linkList">
+                    <ul>
+                        <li class="window"><a href="https://www.busan.go.kr/vprivacy1">개인정보처리방침</a></li>
+                        <li><a href="https://visitbusan.net/archive/index.nm?menuCd=9">저작권보호정책</a></li>
+                    </ul>
+                </div>
+            </div>
+            <button type="button" class="closeAllmenu">닫기</button>
+        </div>
+    </div>
+    <!--//전체 메뉴 -->
+</div>
+<!-- //Header -->
+        <!-- //Header -->
+        
+        <!-- Container -->
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css" />
+  <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+<script>
+window.alert = function(msg){
+  if(msg && msg.includes("ngiiMap")){
+    console.warn("NGII Map error blocked:", msg);
+    return;
+  }
+}
+</script>
+/**/
+<link rel="stylesheet" href="//map.ngii.go.kr/static/emap/css/map/OpenLayers-6.4.3.css" type="text/css">
+<script type="text/javascript" src="//map.ngii.go.kr/static/emap/js/map/OpenLayers-6.4.3.js"></script>
+<script type="text/javascript" src="//map.ngii.go.kr/static/nps/common/lib/proj4js/proj4.js"></script>
+<script type="text/javascript" src="//map.ngii.go.kr/openapi/wmts_ngiiMap_v6.4.3.js?apikey=F2882E8981428EE6EC6E9C5FAE87B5E8F6EC5F497E"></script>
+/**/
+<style>
+
+
+
+    .custom-marker {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #ff7e5f, #feb47b); /* 그라데이션 배경 */
+        border-radius: 50%; /* 원형 */
+        border: 3px solid white; /* 테두리 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 그림자 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 14px;
+        color: white;
+        font-weight: bold;
+        position: absolute;
+        transform: translate(-50%, -50%);
+    }
+    .custom-marker::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 10px solid #ff7e5f;
+    }
+
+
+
+
+/* 모달 기본 스타일 */
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 13%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* 배경을 반투명하게 */
+    justify-content: center;
+    align-items: center;
+}
+
+/* 모달 내부 이미지 컨테이너 */
+.modal-content {
+    max-width: 80%;
+    max-height: 88%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    background: white; /* 흰색 배경 */
+    padding: 10px;
+}
+
+/* 닫기 버튼 */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 30px;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#video-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+video {
+    cursor: pointer; /* 마우스 커서를 손가락 모양으로 변경 */
+}
+
+#vmap {
+    width: 100%;    /* 가로 폭을 100%로 지정 */
+    height: 400px;  /* 원하는 높이로 지정 (예: 600px) */
+}
+
+  #panorama {
+      width: 80vw;
+      height: 80vh;
+      border: 2px solid #666;
+      position: relative;
+    }
+
+    #controls {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      text-align: center;
+    }
+
+    .ctrl {
+      padding: 8px 5px;
+      width: 35px;
+      margin: 0 2px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 4px;
+      display: inline-block;
+      cursor: pointer;
+      user-select: none;
+      font-weight: bold;
+      font-size: 18px;
+      transition: background 0.2s;
+    }
+
+    .ctrl:hover {
+      background: rgba(255, 255, 255, 1);
+    }
+
+</style>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>  
+document.addEventListener("DOMContentLoaded", function () {
+
+  // ✅ metaData 좌표 정의
+  var metaData = {
+    lat: parseFloat('35.1624985'),
+    lot: parseFloat('129.1849976')
+  };
+  console.log("metaData:", metaData);
+
+  // ✅ 좌표 변환 (WGS84 → UTM-K)
+  var projectionSource = 'EPSG:4326';
+  var projectionDest = 'EPSG:5179';
+  var point5179 = proj4(projectionSource, projectionDest, [metaData.lot, metaData.lat]);
+
+  // ✅ 지도 생성
+  var map = new ol.Map({
+    target: 'map', // HTML 요소 id="map"
+    loadTilesWhileAnimating: true,
+    loadTilesWhileInteracting: true,
+    view: new ol.View({
+      projection: 'EPSG:5179',
+      center: point5179,
+      zoom: 9,
+      resolutions: [
+        2088.96, 1044.48, 522.24, 261.12,
+        130.56, 65.28, 32.64, 16.32,
+        8.16, 4.08, 2.04, 1.02, 0.51, 0.255
+      ],
+      constrainResolution: true,
+    }),
+    interactions: ol.interaction.defaults({ mouseWheelZoom: false }).extend([
+      new ol.interaction.MouseWheelZoom({ constrainResolution: true })
+    ]),
+    controls: ol.control.defaults({
+      attributionOptions: { collapsible: false }
+    }),
+  });
+
+  // ✅ 타일 레이어 (언어별)
+  var layers = [
+    new ol.layer.Tile(wmtEmapOption2('korean_map', true)),
+    new ol.layer.Tile(wmtEmapOption2('english_map', false)),
+    new ol.layer.Tile(wmtEmapOption2('chinese_map', false)),
+    new ol.layer.Tile(wmtEmapOption2('japanese_map', false)),
+    new ol.layer.Tile(wmtEmapOption2('white_map', false)),
+    new ol.layer.Tile(wmtEmapOption2('lowV_map', false)),
+    new ol.layer.Tile(wmtEmapOption2('night_map', false)),
+    new ol.layer.Tile(wmtEmapOption2('satellite_map', false)),
+    new ol.layer.Tile(wmtEmapOption2('color_map_red', false)),
+    new ol.layer.Tile(wmtEmapOption2('color_map_green', false)),
+    new ol.layer.Tile(wmtEmapOption2('color_map_blue', false)),
+    new ol.layer.Tile(wmtEmapOption2('white_edu_map', false)),
+  ];
+
+  layers.forEach((layer) => map.addLayer(layer));
+
+  // ✅ 마커 생성
+  var marker = new ol.Feature({
+    geometry: new ol.geom.Point(point5179),
+  });
+
+  marker.setStyle(
+    new ol.style.Style({
+      image: new ol.style.Icon({
+        anchor: [0.5, 1],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'fraction',
+        src: '/archive/images/icon/ico_pin@2x.svg',
+        scale: 1,
+      }),
+    })
+  );
+
+  // ✅ 마커 레이어 추가
+  var vectorSource = new ol.source.Vector({ features: [marker] });
+  var vectorLayer = new ol.layer.Vector({ source: vectorSource });
+  map.addLayer(vectorLayer);
+});
+
+function fileDown(sType,filename,modalname) {
+    
+    openModal(sType, filename,modalname);
+}
+
+
+
+function dsUsePurpClose(){
+        
+    $("#modal").hide();
+    
+    return false;
+}
+
+function updateTitle(selectedValue) {
+
+var titleBox = document.querySelector(".viewTitleBox");
+
+
+
+// 기본 제목을 한국어로 설정
+var title = "비비비당";
+
+
+// 제목을 업데이트
+titleBox.innerHTML = title;
+
+}
+
+function updateTitleTest(selectedValue) {
+
+var targetPage = '';
+
+// 선택된 값에 따라 이동할 페이지를 설정    
+if (selectedValue === "en") {
+    targetPage = "/archive/dataSearch/view.nm?dataSid=METADATA002464&lng=en";  // 영어 페이지로 이동
+} else if (selectedValue === "ja") {
+    targetPage = "/archive/dataSearch/view.nm?dataSid=METADATA002464&lng=ja";  // 일본어 페이지로 이동
+} else if (selectedValue === "zhCn") {
+    targetPage = "/archive/dataSearch/view.nm?dataSid=METADATA002464&lng=zhCn";  // 간체 중국어 페이지로 이동
+} else if (selectedValue === "zhTw") {
+    targetPage = "/archive/dataSearch/view.nm?dataSid=METADATA002464&lng=zhTw";  // 번체 중국어 페이지로 이동
+} else {
+    targetPage = "/archive/dataSearch/view.nm?dataSid=METADATA002464&lng=ko";  // 한국 페이지로 이동
+}
+
+// 페이지 이동
+window.location.href = targetPage;
+
+}
+    
+
+/* 첨부파일 다운로드 */
+function fn_egov_downFile(atchFileId, fileSn) {
+    //활용목적 저장 
+    var sType = 'file';
+    var filename = filename;
+    
+    var vCheck = $('input:radio[name=use]').is(':checked');
+    var vCheck2 = $('input:radio[name=useTo]').is(':checked');
+
+    var dataSid = "METADATA002464";
+    var dataTypeFirstCd = "202";
+    var dataTypeSecondCd = "202001";
+    var tourTypeFirstCd = "106";
+    var tourTypeSecondCd = "106005";
+    var tourTypeThirdCd = "106005002";
+    
+    if(!vCheck) {
+        alert("사용목적을 선택하세요.");       
+        return;      
+    }
+
+    if(!vCheck2) {
+        alert("사용자를 선택하세요.");       
+        return;      
+    }
+    
+    if(sType == 'file'){
+        var purpData = {
+            dwnldRsn : $("input:radio[name=use]:checked").val()
+                , pur_etc : $("input[name=dsUsePurps]").val()
+                , dnAgent : $("input:radio[name=useTo]:checked").val()
+                , dataSid : dataSid   
+                , dataTypeFirstCd : dataTypeFirstCd
+                , dataTypeSecondCd : dataTypeSecondCd
+                , tourTypeFirstCd : tourTypeFirstCd
+                , tourTypeSecondCd : tourTypeSecondCd         
+                , tourTypeThirdCd : tourTypeThirdCd                         
+        }
+        
+        $.ajax({
+            type : "post",
+            dataType : "json",
+            data : purpData,
+            url : "/archive/dataSearch/statistics.nm",
+            success : function() {
+                
+            },
+            error : function(request, status, error) {
+                $('.tarea_box').val("code:" + request.status + "\n" + "message:"
+                        + request.responseText + "\n" + "error:" + error);
+            } 
+
+        });
+
+    }
+   
+   window.open("/archive/cmm/fms/FileDown.do?atchFileId=" + atchFileId + "&fileSn=" + fileSn + "");   
+
+    const modal = document.querySelector('.modalCon.modal1');
+    if (modal) {
+    modal.style.display = 'none';
+    }
+
+    const modal2 = document.querySelector('.modal-overlay');
+    if (modal2) {
+    modal2.style.display = 'none';
+    }
+}
+
+var player;
+  
+  // 유튜브 API가 로드되면 실행됨
+  function onYouTubeIframeAPIReady() {
+    player = new YT.Player('youtubePlayer', {
+      events: {
+        'onReady': onPlayerReady
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    // 0.5초마다 현재 재생 시간을 체크하여 끝나기 1초 전에 처음으로 이동
+    setInterval(function () {
+      if (player && player.getPlayerState() === YT.PlayerState.PLAYING) {
+        var duration = player.getDuration();  // 총 영상 길이
+        var currentTime = player.getCurrentTime();  // 현재 재생 시간
+
+        if (duration - currentTime <= 1) { // 끝나기 1초 전에 실행
+          player.seekTo(0, true); // 처음으로 이동
+        }
+      }
+    }, 500);
+  }
+                    
+</script>
+            
+        <div class="subContainer">
+            <div class="contentInner">
+        
+                <div class="searchViewWrap">
+        
+                    <!-- 상세정보(왼쪽) -->
+                    <div class="svLeftWrap">
+                        <div class="viewContArea">
+                            <!-- 이미지일 때 
+                            <img src="" alt="이미지">
+                            -->
+                            <!-- 동영상일 때
+                            <video width="300" muted="" autoplay="" loop="">
+                                <source src="https://cdn.pixabay.com/video/2020/10/11/52051-478688111_large.mp4" type="video/mp4">
+                            </video>   
+                            -->
+                            
+                                
+                                
+                                
+                                
+                                
+                                    <img id="thumbnail" src="/archive/upload/2025/02/20/20250220125655869370_m.png" alt="이미지" onerror="this.src='/archive/images/icon/empty_5_con.png';">
+                                    <button class="btn-zoom btn_modal" type="button" data-modal="modal2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-zoom-in" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11M13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0" />
+                                            <path d="M10.344 11.742q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1 6.5 6.5 0 0 1-1.398 1.4z" />
+                                            <path fill-rule="evenodd" d="M6.5 3a.5.5 0 0 1 .5.5V6h2.5a.5.5 0 0 1 0 1H7v2.5a.5.5 0 0 1-1 0V7H3.5a.5.5 0 0 1 0-1H6V3.5a.5.5 0 0 1 .5-.5" />
+                                        </svg>
+                                    </button>
+                                    
+                                
+                                
+                            
+                        </div>
+                        
+                        <div class="vcSection">
+                            <div class="aricleText">연관자료</div>
+                            <div class="dataSlideWrap">
+                                <div class="sliderBtn">
+                                    <button class="prev"><img src="/archive/images/icon/btn_slide_prev.svg" alt="이전" /></button>
+                                    <button class="next"><img src="/archive/images/icon/btn_slide_next.svg" alt="다음" /></button>
+                                </div>
+                                <ul id="slider">
+                                    
+                                        <li class="slideItem">
+                                            <a href="/archive/dataSearch/view.nm?dataSid=METADATA012117&menuCd=36" target="_blank">
+                                                
+                                                    
+                                                    
+                                                    
+                                                        <img src="/archive/upload/2025/09/10/20250910110023211135_s.png" alt="이미지">
+                                                    
+                                                
+                                            </a>
+                                        </li>
+                                    
+                                        <li class="slideItem">
+                                            <a href="/archive/dataSearch/view.nm?dataSid=METADATA012116&menuCd=36" target="_blank">
+                                                
+                                                    
+                                                    
+                                                    
+                                                        <img src="/archive/upload/2025/09/10/20250910110023208795_s.png" alt="이미지">
+                                                    
+                                                
+                                            </a>
+                                        </li>
+                                    
+                                        <li class="slideItem">
+                                            <a href="/archive/dataSearch/view.nm?dataSid=METADATA012115&menuCd=36" target="_blank">
+                                                
+                                                    
+                                                    
+                                                    
+                                                        <img src="/archive/upload/2025/09/10/20250910110023206838_s.png" alt="이미지">
+                                                    
+                                                
+                                            </a>
+                                        </li>
+                                    
+                                        <li class="slideItem">
+                                            <a href="/archive/dataSearch/view.nm?dataSid=METADATA012114&menuCd=36" target="_blank">
+                                                
+                                                    
+                                                    
+                                                    
+                                                        <img src="/archive/upload/2025/09/10/20250910110023204661_s.png" alt="이미지">
+                                                    
+                                                
+                                            </a>
+                                        </li>
+                                    
+                                        <li class="slideItem">
+                                            <a href="/archive/dataSearch/view.nm?dataSid=METADATA012113&menuCd=36" target="_blank">
+                                                
+                                                    
+                                                    
+                                                    
+                                                        <img src="/archive/upload/2025/09/10/20250910110023202431_s.png" alt="이미지">
+                                                    
+                                                
+                                            </a>
+                                        </li>
+                                    
+                                        <li class="slideItem">
+                                            <a href="/archive/dataSearch/view.nm?dataSid=METADATA012112&menuCd=36" target="_blank">
+                                                
+                                                    
+                                                    
+                                                    
+                                                        <img src="/archive/upload/2025/09/10/20250910110023199830_s.png" alt="이미지">
+                                                    
+                                                
+                                            </a>
+                                        </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                    
+                        <div class="vcSection">
+                            <div class="aricleText">주제</div>
+                            <div class="tagList">
+                                
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        
+                                        
+                                        
+                                    
+                                
+                                
+                                <ul>
+                                    
+                                        <li>
+                                            <a href="/archive/dataSearch/mod.nm?menuCd=7&searchKeyword=비비비당" target="_blank">
+                                                #비비비당
+                                            </a>
+                                        </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="vcSection">
+                            <div class="aricleText">키워드</div>
+                            <div class="keywordList">
+                                
+                                    
+                                    
+                                    
+                                    
+                                    
+                                        
+                                        
+                                        
+                                    
+                                
+                                <ul>
+                                    
+                                        <li>
+                                            <a href="/archive/dataSearch/mod.nm?menuCd=7&searchKeyword=부산여행" target="_blank">#부산여행</a>
+                                        </li>
+                                    
+                                        <li>
+                                            <a href="/archive/dataSearch/mod.nm?menuCd=7&searchKeyword=비비비당" target="_blank">#비비비당</a>
+                                        </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="vcSection mb0">
+                            <div class="aricleText">장소</div>
+                            <div class="locaitionInfo">
+                                <div class="infoTextWrap">
+                                    <div class="lctInfoTxt">
+                                        <div class="lctAticle">구군</div>
+                                        <div class="lctTxt">해운대구</div>
+                                    </div>
+                                      
+                                    <div class="lctInfoTxt">
+                                        <div class="lctAticle">주소 </div>
+                                        <div class="lctTxt">
+                                            <div class="addressInfo">
+                                                <div class="adrsContWrap">
+                                                    <div>부산 해운대구 달맞이길 239-16 4층</div>
+                                                    <div class="addressType">도로명</div>
+                                                </div>
+                                               <!-- <div class="adrsContWrap">
+                                                    <div>부산 해운대구 달맞이길 239-16 4층</div>
+                                                    <div class="addressType">지번</div>
+                                                </div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <!--        <div class="map" id="vmap"></div> -->
+                                  <div id="map" style="width:700px;height:400px;"></div>  
+                            </div>
+                        </div>
+                
+                <div class="vcSection text-end">
+                    <a class="btnSearchIist" href="https://map.kakao.com/?q=부산 해운대구 달맞이길 239-16 4층" title="페이지 이동">카카오 지도보기</a>
+                </div>
+                
+                    </div>
+                    <!-- 상세정보(왼쪽) -->
+        
+                    <!-- 상세정보(오른쪽) -->
+                    <div class="svRightWrap">
+                        
+                        <div class="dataTypeInfo">
+                            <div class="viewTit">자료유형</div>
+                            <div class="typeCate">
+                                <ul>
+                                    <li>이미지</li>
+                                    <li>사진</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="viewTitleBox">
+                            
+                            
+                            비비비당
+                        </div>
+                        <div id="description">
+                            <div class="text showMoreHeight" id="descriptionText">
+                                
+                                
+                                부산여행, 비비비당
+                            </div>
+                            <div class="showMore">더보기 +</div>
+                        </div>
+                        <div class="contLineType">
+                            <ul>
+                                <li>
+                                    <div class="lineAticle">관광유형</div>
+                                    <div class="lineCont">
+                                        <ul>
+                                            <li>음식</li>
+                                            <li>카페/찻집</li>
+                                            <li>찻집</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="lineAticle">관광지</div>
+                                   <div class="lineCont">
+                                        
+                                            
+                                            
+                                                비비비당
+                                            
+                                        
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="lineAticle">관광지 설명</div>
+                                    <div class="lineCont">
+                                        
+                                            
+                                            
+                                                &apos;Non-non-non Hall&apos; (불교 &apos;비상비비상천&apos;에서 따온 이름)으로 번역하며, 한국 전통차와 디저트를 파는 독특한 콘셉트의 카페 이름
+                                            
+                                        
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="viewItemWrap">
+                            <div class="viewTit">파일정보</div>
+                            <div class="lineBox">
+                                <ul class="contInfoList">
+                                    <li>
+                                        <div class="cateName">형식</div>
+                                        <div class="cateCont">
+    
+        
+        JPG
+                   
+                                   </div>
+                                    </li>
+                                    <li>
+                                        <div class="cateName">용량</div>
+                                        <div class="cateCont">
+    
+        
+        
+        2.104 MB
+    
+    
+                                    </div>
+                                    </li>
+                                    <li>
+                                        <div class="cateName">제작자</div>
+                                        <div class="cateCont">(주)써머트리</div>
+                                    </li>
+                                    <li>
+                                        <div class="cateName">발행자</div>
+                                        <div class="cateCont">부산광역시, 부산관광공사</div>
+                                    </li>
+                                    <li>
+                                        <div class="cateName">생산일자</div>
+                                        <div class="cateCont">2022</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="viewItemWrap">
+                            <div class="viewTit">공공누리 유형</div>
+                            <div class="lineBox ggurBox">
+                                
+                                    
+                                        <div class="ggnrTxt">
+                                            <span>공공누리 제1유형 : 출처표시</span><br>부산관광아카이브에서 제공하는 공공누리 제1유형의 조건에 따라 이용 가능합니다. 
+                                        </div>
+                                        <div class="ggnrTypeImg">
+                                            <!-- 공공누리 유형별 이미지
+                                                * 제 1유형 : images/img/img_nuri1.png
+                                                * 제 2유형 : images/img/img_nuri2.png
+                                                * 제 3유형 : images/img/img_nuri3.png
+                                                * 제 4유형 : images/img/img_nuri4.png
+                                            -->
+                                            <img src="/archive/images/img/img_nuri1.png" alt="공공누리 제1유형">
+                                        </div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                
+                            </div>
+                        </div>
+                      <!--  <button class="btnGgnrDown" onclick="javascript:openModal('modal1');">다운로드</button>  -->
+                      <div class="btn_group">
+                        
+                        <button class="btnGgnrDown btn_modal" data-modal="modal1">다운로드</button>
+                        
+                        <a class="btnSearchIist" href="javascript:history.back()" title="페이지 이동">목록으로</a>
+                      </div>
+                    </div>
+                    <!-- 상세정보(오른쪽) -->
+        
+                    <!-- 다운로드 Modal -->
+                    <div class="modal-overlay"></div>
+                    <div class="modalCon modal1">
+                        <div class="con">
+                            <div class="tableBox">
+                                <div class="tableBox">
+                                    <form action="">
+                                        <table class="colTable horizontal downTable">
+                                            <form name="frmDsUsePurp" id="frmDsUsePurp" onsubmit="return false;" method="get">
+                                                <input type="hidden" name="csrfToken" value="51382fed-22c0-4ad4-b85c-c059555a3043" />
+                                                <input type="hidden" id="downldTpCd" name="downldTpCd" value="">
+                                                <input type="hidden" id="filename" name="filename" value="">
+        
+                                            <caption>사용목적에 관한 표</caption>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row" class="center">사용목적</th>
+                                                    <td>
+                                                        <div class="customRadioWrap">
+                                                            <label class="customRadio" for="useType1">
+                                                                <input type="radio" id="useType1" name="use" value="홈페이지/앱개발" />
+                                                                <span>홈페이지/앱개발</span>
+                                                            </label>
+                                                            <label class="customRadio" for="useType2">
+                                                                <input type="radio" id="useType2" name="use" value="전시" />
+                                                                <span>전시</span>
+                                                            </label>
+                                                            <label class="customRadio" for="useType3">
+                                                                <input type="radio" id="useType3" name="use" value="관광상품개발" />
+                                                                <span>관광상품개발</span>
+                                                            </label>
+                                                            <label class="customRadio" for="useType4">
+                                                                <input type="radio" id="useType4" name="use" value="홍보물 제작" />
+                                                                <span>홍보물 제작</span>
+                                                            </label>
+                                                            <label class="customRadio" for="useType5">
+                                                                <input type="radio" id="useType5" name="use" value="기타" />
+                                                                <span>기타</span>
+                                                            </label>
+                                                            <!-- disabled 상태(필요시 사용)
+                                                            <label class="customRadio" for="useType6">
+                                                                <input type="radio" id="useType6" name="use" value="" disabled />
+                                                                <span>관광상품개발</span>
+                                                            </label>
+                                                            -->
+                                                            <tr id="trDsUsePurps" style="display: none;">
+                                                                <td colspan="2" style="padding-top: 10px;">
+                                                                    <label for="dsUsePurps" class="hid"></label>
+                                                                    <input type="text" id="dsUsePurps" name="dsUsePurps" style="width:200px; border:1px solid #c7c7c7;">
+                                                                </td>
+                                                            </tr>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row" class="center">사용처</th>
+                                                    <td>
+                                                        <div class="customRadioWrap">
+                                                            <label class="customRadio" for="useTo1">
+                                                                <input type="radio" id="useTo1" name="useTo" value="공공기관" />
+                                                                <span>공공기관</span>
+                                                            </label>
+                                                            <label class="customRadio" for="useTo2">
+                                                                <input type="radio" id="useTo2" name="useTo" value="일반기업/단체" />
+                                                                <span>일반기업/단체</span>
+                                                            </label>
+                                                            <label class="customRadio" for="useTo3">
+                                                                <input type="radio" id="useTo3" name="useTo" value="개인" />
+                                                                <span>개인</span>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </form>
+                                        </table>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="modalBtnWrap mt mb">
+                                 <button class="modalBtn modalClose">닫기</button>
+                            
+                                
+                                    <button class="modalBtn btnDownload" onclick="javascript:fn_egov_downFile('FILE_000000000004486','1')">다운로드</button> 
+                                    
+                                <!-- <button class="modalBtn btnDownload" onclick="javascript:fileDown('file','http://211.57.200.202:28080/cmm/fms/FileDown.do?atchFileId=&fileSn=','modal1')">다운로드</button>-->
+                            </div>
+                            <div class="modalNuriInfo">
+                                <div class="ggnrTit">공공누리유형</div>
+                                
+                                    
+                                        <div class="ggnrTxt">
+                                            <span>공공누리 제1유형 : 출처표시</span><br>부산관광아카이브에서 제공하는 공공누리 제1유형의 조건에 따라 이용 가능합니다. 
+                                        </div>
+                                        <div class="ggnrTypeImg">
+                                            <!-- 공공누리 유형별 이미지
+                                                * 제 1유형 : images/img/img_nuri1.png
+                                                * 제 2유형 : images/img/img_nuri2.png
+                                                * 제 3유형 : images/img/img_nuri3.png
+                                                * 제 4유형 : images/img/img_nuri4.png
+                                            -->
+                                            <img src="/archive/images/img/img_nuri1.png" alt="공공누리 제1유형">
+                                        </div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- //다운로드 Modal -->
+
+                                <!-- 모달 2 -->
+            <div class="modalCon modal2 img-zoom">
+                <button class="modalBtn modalClose">
+                    <span class="blind">닫기</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                    </svg>
+                </button>
+                <div class="con-img-zoom">
+                    <img src="/archive/upload/2025/02/20/20250220125655869370_m.png" alt="이미지">
+                </div>
+            </div>
+
+                        <!-- 모달 3 -->
+            <div class="modalCon modal3 img-zoom">
+                <button class="modalBtn modalClose">
+                    <span class="blind">닫기</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" class="bi bi-x-lg" viewBox="0 0 16 16">
+                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                    </svg>
+                </button>
+                  <div id="panorama" class="con-img-zoom">
+                    <div id="controls">
+                    <div class="ctrl" id="pan-up">▲</div>
+                    <div class="ctrl" id="pan-down">▼</div>
+                    <div class="ctrl" id="pan-left">◀</div>
+                    <div class="ctrl" id="pan-right">▶</div>
+                    <div class="ctrl" id="zoom-in">＋</div>
+                    <div class="ctrl" id="zoom-out">－</div>
+                    <div class="ctrl" id="fullscreen">⛶</div>
+                    </div>
+                </div>
+              <!--  <div class="con-img-zoom">
+                    <img src="/upload/2025/02/20/20250220125655869370_m.png" alt="이미지">
+                </div> -->
+            </div>
+        
+                </div>
+        
+            </div>
+        </div>
+
+<!-- 모달 창 -->
+<div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="modalImage" class="modal-content">
+</div>
+
+
+  <script>
+   let viewer; 
+
+const modal3Btn = document.querySelector('[data-modal="modal3"]');
+
+if (modal3Btn) {
+  modal3Btn.addEventListener('click', () => {
+    const modal = document.querySelector('.modal3');
+    modal.style.display = 'block'; // 모달 보이기
+
+    // 약간의 딜레이 후 pannellum 초기화
+    setTimeout(() => {
+      if (!viewer) {
+        viewer = pannellum.viewer('panorama', {
+          type: 'equirectangular',
+          panorama: "/archive/upload/2025/02/20/20250220125655869370_xl.png",
+          autoLoad: true,
+          autoRotate: -2,
+          showControls: false,
+          hfov: 115,
+          minHfov: 50,
+          maxHfov: 130
+        });
+      } else {
+        viewer.resize(); // 이미 초기화된 경우 리사이즈만
+      }
+    }, 200);
+  });
+}
+
+// 닫기 버튼
+document.querySelector('.modal3 .modalClose').addEventListener('click', () => {
+  document.querySelector('.modal3').style.display = 'none';
+});
+
+    // ✅ 컨트롤 버튼 동작
+    document.getElementById('pan-up').onclick = () => viewer.setPitch(viewer.getPitch() + 10);
+    document.getElementById('pan-down').onclick = () => viewer.setPitch(viewer.getPitch() - 10);
+    document.getElementById('pan-left').onclick = () => viewer.setYaw(viewer.getYaw() - 10);
+    document.getElementById('pan-right').onclick = () => viewer.setYaw(viewer.getYaw() + 10);
+    document.getElementById('zoom-in').onclick = () => viewer.setHfov(viewer.getHfov() - 10);
+    document.getElementById('zoom-out').onclick = () => viewer.setHfov(viewer.getHfov() + 10);
+    document.getElementById('fullscreen').onclick = () => viewer.toggleFullscreen();
+  </script>
+        <!-- //Container -->
+        
+        <!-- Footer -->
+        
+
+<!-- Footer -->
+<div id="footer">
+    <div class="contentInner">
+        <div class="footBox">
+            <div class="footLogo">
+                <img src="/archive/images/common/logo_w.svg" alt="부산관광아카이브 로고" />
+            </div>
+            <div class="footSite">
+                <div class="dropdown">
+                    <button type="button" onclick="showMenu();" class="dropdownButton">
+                        관련사이트 바로가기
+                    </button>
+                    <div class="dropdownCont">
+                 <!--       <a href="https://www.busan.go.kr/relationsite#international" class="dropdownLink" target="_blank" title="새창으로 이동">국제자매도시</a>
+                        <a href="https://www.busan.go.kr/relationsite#public2" class="dropdownLink" target="_blank" title="새창으로 이동">부산소개 공공기관</a>
+                        <a href="https://council.busan.go.kr/council/index" class="dropdownLink" target="_blank" title="새창으로 이동">부산광역시의회</a>
+                        <a href="https://www.busan.go.kr/relationsite#si_direct" class="dropdownLink" target="_blank" title="새창으로 이동">시 관련 홈페이지</a>
+                        <a href="https://www.busan.go.kr/relationsite#sido_homepage" class="dropdownLink" target="_blank" title="새창으로 이동">시·도 홈페이지</a>
+                        <a href="https://www.busan.go.kr/relationsite#related" class="dropdownLink" target="_blank" title="새창으로 이동">유관기관 및 타기관</a> -->
+                        <a href="https://www.busan.go.kr" class="dropdownLink" target="_blank" title="새창으로 이동">부산광역시</a>
+                        <a href="https://www.visitbusan.net" class="dropdownLink" target="_blank" title="새창으로 이동">부산관광포털 비짓부산</a>
+                        <a href="https://www.bsmeditour.go.kr" class="dropdownLink" target="_blank" title="새창으로 이동">부산의료관광</a>
+                        <a href="https://busandabom.net" class="dropdownLink" target="_blank" title="새창으로 이동">부산문화포털 다봄</a>
+                        <a href="https://www.busanmice.or.kr" class="dropdownLink" target="_blank" title="새창으로 이동">부산MICE플랫폼</a>
+                        <a href="https://www.busaness.com" class="dropdownLink" target="_blank" title="새창으로 이동">부산워케이션</a>
+
+                    </div>
+                </div>
+                <script>
+                    /* Footer 바로가기 링크 */
+                    const dropdownContent = document.querySelector(".dropdown");
+
+                    function showMenu() {
+                        dropdownContent.classList.toggle("active");
+                    }
+
+                    window.onclick = (event) => {
+                        if (!event.target.matches(".dropdownButton")) {
+                            dropdownContent.classList.remove("active");
+                        }
+                    };
+                </script>
+            </div>
+        </div>
+        <div class="footCont">
+            <div class="copyRight">
+                    <p>(우 47545) 부산광역시 연제구 중앙대로 1001(연산동)</p>
+                    <p>Copyright © Busan Metropolitan City. All rights reserved.</p>
+                </div>
+                <div class="footMenu">
+                    <ul>
+                     <!--   <li>
+                            <a href="#">이용약관</a>
+                        </li> -->
+                        <li>
+                            <a class="vprivacy1" href="https://www.busan.go.kr/vprivacy1">개인정보처리방침</a>
+                        </li>
+                        <li>
+                            <a href="https://visitbusan.net/archive/index.nm?menuCd=9">저작권보호정책</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+</div>
+<!-- //Footer -->
+        <!-- //Footer -->
+    </div>
+    <!-- //Wrap -->
+
+</body>
+</html>

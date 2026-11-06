@@ -1,0 +1,12 @@
+{
+  "url": "https://giry02.github.io/spotlog/admin.html",
+  "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n\nSPOTLOG OPERATIONS\n\n운영 현황\n지역별 자료를 쌓고, 검수한 장소로 추천 여행을 만들어 보세요.\n관리자 서버 연결 주소를 찾지 못했어요. 서버 주소와 연결 설정을 확인해 주세요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+  "responses": [
+    {
+      "url": "https://giry02.github.io/api/admin/v1/me",
+      "status": 404,
+      "type": "text/html; charset=utf-8"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,46 @@
+{
+  "base": "https://giry02.github.io/spotlog/",
+  "results": [
+    {
+      "width": 320,
+      "journalUrl": "https://giry02.github.io/spotlog/#recommendation-curation-jeju-west",
+      "korean": true,
+      "languageControlsRemoved": true,
+      "journalSampleComments": 2,
+      "ownCommentPreserved": true,
+      "cardSampleCommentAndReply": true,
+      "oneReportSheet": true,
+      "draftPreserved": true,
+      "privateDataPreserved": true,
+      "noDuplicateOnReload": true
+    },
+    {
+      "width": 390,
+      "journalUrl": "https://giry02.github.io/spotlog/#recommendation-curation-jeju-west",
+      "korean": true,
+      "languageControlsRemoved": true,
+      "journalSampleComments": 2,
+      "ownCommentPreserved": true,
+      "cardSampleCommentAndReply": true,
+      "oneReportSheet": true,
+      "draftPreserved": true,
+      "privateDataPreserved": true,
+      "noDuplicateOnReload": true
+    },
+    {
+      "width": 460,
+      "journalUrl": "https://giry02.github.io/spotlog/#recommendation-curation-jeju-west",
+      "korean": true,
+      "languageControlsRemoved": true,
+      "journalSampleComments": 2,
+      "ownCommentPreserved": true,
+      "cardSampleCommentAndReply": true,
+      "oneReportSheet": true,
+      "draftPreserved": true,
+      "privateDataPreserved": true,
+      "noDuplicateOnReload": true
+    }
+  ],
+  "errors": [],
+  "note": "Bundled public samples plus isolated own/private fixtures only; no server writes."
+}

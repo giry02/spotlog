@@ -1,5 +1,23 @@
 # 공개 관리자 화면 미리보기 · 2026-10-18
 
+## 최신 관리자 정합본 · 로컬 보관 · 2026-10-18
+
+사용자 요청: 빠진 관리자 기능 전부 반영해 최신 로컬과 동일하게 맞춘 뒤 테스트하고, 일단 로컬에 보관. 이번 작업에서 commit·push·공개 배포 없음. 아래 공개 배포 기록은 기존 `96bcf65` 상태이며 이번 정합본이 아님.
+
+- 원본 `C:/Users/Giry/Documents/Spotlog`과 별도 후보 `C:/Users/Giry/.codex/worktrees/account-methods-release-20261014/Spotlog`의 관리자 소스40개 내용 동일. 로컬 후보 브랜치 `codex/admin-local-alignment-20261018`.
+- 감사에서 빠졌던11파일·관리자 계약 설명·관련 회귀8파일 반영. 업무 시작/미완료 이어하기, 장소 안 지역 설정, 빠른 필터와 단계별 입력 이동, 추가 관리 접기, 지역별/이전 초안 복구, 추천 여행 공개→HOME_TRIP 게시 자동 선택, 저장 중 추가 입력/충돌 보호 포함.
+- 미리보기 미저장 입력도 해당 탭의 `spotlog.admin.preview.drafts.v1` envelope에서 새로고침 후 복구. 예시 상태 키는 `spotlog.admin.preview.v1`. 기존 운영자·고객·검수 연결 저장소를 읽거나 변경하지 않음. 저장소 차단/용량 부족은 메모리 입력 유지·저장 실패 반환, 손상 원문 덮어쓰기 금지.
+- CSS 순서로 저장/공개·지역 이동 버튼이36px로 줄어들던 문제 수정. 양쪽 소스에 같은 제한된 선택자 적용, 주 행동44px 유지.
+- 자동552검사·원본 웹 타입·후보 production 빌드 통과. 일반 로컬/로컬 미리보기/production 후보3대상 통합98＋미디어/탭격리8＋고객14 =120검수 통과.
+- 기존 로컬 업무18개와 DEV23＋production23 저장/충돌 회귀 통과. 기존/신규 지역·추천 여행의 지연 저장 중 추가 입력 보존,409 충돌·401/403/503 접근 차단, production `mode=local` 우회 금지 확인.
+- PC1440/모바일390의7개 메뉴·입력16px/행동14px/주 행동44px·사진 정상. 새로고침·이전 초안의 명시적 복구·메인 게시 대상/표지 자동선택 확인. 기존 고객 자료 읽기/변경·예시 API 호출·연결 이벤트0, JS오류/넘침0.
+- 고객·네이티브·오프라인·Vite·배포 workflow 소스는 이번 후보에서 변경하지 않음. 기존 매뉴얼53화면 포함. 실제 서버/AI 연결 완료를 뜻하지 않음.
+- 확인: http://127.0.0.1:5210/admin.html / 격리 미리보기 http://127.0.0.1:5210/admin-preview.html . production 빌드는 후보 `web/dist`에 보관.
+- 증거는 원본 `artifacts/admin-local-alignment-20261018/`: `source-parity.json`, `unit-tests.log`, `build.log`, `final/`, `regression/`, `local-workflow/`. 소스82파일 보관본 `admin-source-local.zip`과 복원 manifest·tracked patch도 보관.
+- 공개 브랜치는 계속 `96bcf6568dbfa6c79f4f874b2747d3fbf7d273bf`. 현재 GitHub 화면에는 이번 정합 수정 미반영.
+
+
+
 사용자 확인 주소: https://giry02.github.io/spotlog/admin.html
 
 ## 문제와 수정
@@ -42,3 +60,15 @@
 ## 연결 전
 
 실제 운영 데이터·권한·인증·파일·AI 실행은 기존 `/api/admin/v1` 서버 계약으로 별도 연결. 공개 미리보기의 예시 변경을 실제 고객 데이터로 전달하지 않음.
+
+## 공개 반영 결과
+
+커밋 `96bcf6568dbfa6c79f4f874b2747d3fbf7d273bf`를 기존 `codex/mobile-foundation`과 `codex/admin-public-preview-20261018`에 push. [Pages39088216493](https://github.com/giry02/spotlog/actions/runs/39088216493) 완료·성공. 공개 HTML과 실제 실행 파일이 릴리스 빌드와 일치.
+
+- 공개 브라우저 78개 통과: 관리자49·사진/탭격리8·고객14·실제 진입7.
+- 사용자 제시 admin.html의 실제404 연결 대기에서 미리보기 버튼 클릭 → admin-preview.html 본문 진입 확인. PC/모바일7개 메뉴·장소 등록/저장/새로고침·지역·AI예시·노출초안 보호 정상.
+- 기존 자료 읽기/변경·고객연결 이벤트·미리보기 API호출0. 깨진 표시 사진·JS예외·가로넘침0. 실제 서비스 관리자 인증 차단 유지.
+- 앱·관리자·미리보기·설명서·placeholder HTTP200, 설명서53화면 유지. 고객 source 변경 없음.
+- 실행 파일: `adminPreview-B2fvwJ5n.js`, `admin-B_qqV94P.js`, 공유UI `admin-BypOLYrK.js`, 고객 `customer-q6QkWfPW.js`.
+- 근거: `artifacts/admin-preview-20261018/live/{results,media-results,customer-results,entry-results,root-public-smoke}.json`, PC/모바일 스크린샷, pages-run.json, release.json. 원본 로컬의 다른 변경과 사용자 저장자료 보존.
+

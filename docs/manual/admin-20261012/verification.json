@@ -1,0 +1,233 @@
+{
+  "verified": "2026-10-12T08:16:22.107Z",
+  "screenshots": 53,
+  "numberedFeatures": 310,
+  "checks": [
+    {
+      "name": "local HTML response",
+      "okay": true,
+      "detail": 200
+    },
+    {
+      "name": "default quick start",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "complete screenshots",
+      "okay": true,
+      "detail": "{\"pages\":53,\"markers\":310,\"rows\":310,\"missing\":0}"
+    },
+    {
+      "name": "number to description mapping",
+      "okay": true,
+      "detail": "{\"pages\":53,\"markers\":310,\"rows\":310,\"missing\":0}"
+    },
+    {
+      "name": "all image files decode with expected dimensions",
+      "okay": true,
+      "detail": "[]"
+    },
+    {
+      "name": "menu 운영 현황",
+      "okay": true,
+      "detail": "navigation,overview-work"
+    },
+    {
+      "name": "menu 장소·업체",
+      "okay": true,
+      "detail": "place-list,place-basic,place-checklist,place-source,place-location,place-media-file,place-media-rights,place-nearby,place-guide,place-ai,place-workflow,place-history,place-withdraw,place-csv,place-regions"
+    },
+    {
+      "name": "menu 노출·추천",
+      "okay": true,
+      "detail": "exposure-start,curated-conditions,curated-day,curated-visit-detail,curated-publish,main-post,main-post-save,popularity,customer-preview"
+    },
+    {
+      "name": "menu 여행기·커뮤니티",
+      "okay": true,
+      "detail": "report,report-decision,journal,thread-actions,card-replies,translation"
+    },
+    {
+      "name": "menu 회원·문의",
+      "okay": true,
+      "detail": "members,member-deletion,inquiries"
+    },
+    {
+      "name": "menu AI·검색 운영",
+      "okay": true,
+      "detail": "ai-documents,ai-indices,ai-tests,ai-test-results,ai-result-feedback,ai-requests,ai-policies,ai-policy-actions,ai-policy-activation"
+    },
+    {
+      "name": "menu 운영 설정·이력",
+      "okay": true,
+      "detail": "settings-references,settings-grades,settings-operators,settings-notifications,settings-connections,settings-supply,settings-cleanup,settings-file-cleanup,settings-audit"
+    },
+    {
+      "name": "search 메인",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "search hides quick start 메인",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "search 좌표",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "search hides quick start 좌표",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "search 색인",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "search hides quick start 색인",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "empty search feedback",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "clear search",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "number highlights definition",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "screenshot viewer opens",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer number explains feature",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "original screenshot size",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "zoom in",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "zoom out",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "Escape closes viewer",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "viewer returns keyboard focus",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "desktop no horizontal overflow",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "wide screenshot remains readable",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "deep link selects correct menu",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "deep link screenshot visible",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "invalid deep link recovers",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "wide no horizontal overflow",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile no horizontal overflow",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile toolbar labels stay on one line",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile screenshot no horizontal overflow",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile zoom scroll contained",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "offline search works",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "offline screenshot works",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "offline requires no network",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "single HTML embeds real screenshot",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "single HTML zoom uses embedded screenshot",
+      "okay": true,
+      "detail": ""
+    },
+    {
+      "name": "single HTML loads no sibling files",
+      "okay": true,
+      "detail": "[\"file:///C:/Users/Giry/Documents/Spotlog/docs/manual/admin-20261012/spotlog-admin-manual.html\"]"
+    },
+    {
+      "name": "browser errors",
+      "okay": true,
+      "detail": ""
+    }
+  ],
+  "errors": []
+}

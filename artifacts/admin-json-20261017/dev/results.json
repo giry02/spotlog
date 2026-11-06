@@ -1,0 +1,1362 @@
+{
+  "url": "http://127.0.0.1:5210/admin.html?mode=api",
+  "date": "2026-10-17",
+  "checks": [
+    {
+      "name": "1440-session-404-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-404-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-404-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-404-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-404-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-404-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-404-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-404-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-404-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-404-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-404-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-404-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-404-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-404-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-404-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-404-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-404-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-404-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-503-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-503-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-503-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-503-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-503-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-503-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-503-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-503-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-503-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-503-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-503-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-503-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-503-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-503-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-503-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-503-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-503-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-503-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-malformed-json: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-malformed-json: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-malformed-json: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-malformed-json: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-malformed-json: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-malformed-json-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-malformed-json-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-malformed-json-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-200-malformed-json-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-malformed-json: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-malformed-json: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-malformed-json: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-malformed-json: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-malformed-json: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-malformed-json-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-malformed-json-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-malformed-json-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-200-malformed-json-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-401-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-401-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-401-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-401-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-401-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-401-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-401-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-401-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-401-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-401-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-401-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-401-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-401-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-401-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-401-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-401-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-401-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-401-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-403-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-403-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-403-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-403-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-403-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-403-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-403-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-403-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-403-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-403-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-403-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-403-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-403-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-403-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-403-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-403-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-403-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-403-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-204-empty: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-204-empty: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-204-empty: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-204-empty: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-204-empty: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-204-empty-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-204-empty-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-204-empty-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-204-empty-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-204-empty: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-204-empty: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-204-empty: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-204-empty: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-204-empty: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-204-empty-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-204-empty-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-204-empty-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-204-empty-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-500-json: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-500-json: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-500-json: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-500-json: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-500-json: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-500-json-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-500-json-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-500-json-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-session-500-json-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-500-json: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-500-json: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-500-json: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-500-json: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-500-json: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-500-json-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-500-json-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-500-json-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "1440-snapshot-500-json-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-404-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-404-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-404-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-404-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-404-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-404-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-404-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-404-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-404-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-503-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-503-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-503-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-503-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-503-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-503-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-503-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-503-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-503-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-malformed-json: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-malformed-json: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-malformed-json: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-malformed-json: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-malformed-json: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-malformed-json-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-malformed-json-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-malformed-json-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-200-malformed-json-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-401-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-401-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-401-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-401-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-401-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-401-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-401-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-401-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-401-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-403-html: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-403-html: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-403-html: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-403-html: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-403-html: requests stop safely with no mutation or JS exception",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-403-html-retry: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-403-html-retry: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-403-html-retry: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "390-session-403-html-retry: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "recovery-failed: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "recovery-failed: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "recovery-failed: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "recovery-failed: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "recovery: valid session plus validated snapshot enables API workspace",
+      "detail": "pass"
+    },
+    {
+      "name": "recovery-refresh-failed: readable error, no JSON/parser/raw HTML",
+      "detail": "pass"
+    },
+    {
+      "name": "recovery-refresh-failed: authorized server state required; no local role/edit fallback",
+      "detail": "pass"
+    },
+    {
+      "name": "recovery-refresh-failed: private trip and admin sentinels preserved",
+      "detail": "pass"
+    },
+    {
+      "name": "recovery-refresh-failed: retry available and no horizontal overflow",
+      "detail": "pass"
+    },
+    {
+      "name": "recovery: subsequent failed authorization reload hides old editing",
+      "detail": "pass"
+    },
+    {
+      "name": "complete",
+      "detail": {
+        "scenes": 22,
+        "checks": 209
+      }
+    }
+  ],
+  "scenes": [
+    {
+      "label": "1440-session-404-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 서버 연결 주소를 찾지 못했어요. 서버 주소와 연결 설정을 확인해 주세요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-snapshot-404-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 서버 연결 주소를 찾지 못했어요. 서버 주소와 연결 설정을 확인해 주세요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-session-503-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 서버가 일시적으로 응답하지 못하고 있어요. 잠시 후 다시 시도해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-snapshot-503-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 서버가 일시적으로 응답하지 못하고 있어요. 잠시 후 다시 시도해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-session-200-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 자료를 읽지 못했어요. 서버 연결 주소와 응답을 확인해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-snapshot-200-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 자료를 읽지 못했어요. 서버 연결 주소와 응답을 확인해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-session-200-malformed-json",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 자료를 읽지 못했어요. 서버 연결 주소와 응답을 확인해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-snapshot-200-malformed-json",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 자료를 읽지 못했어요. 서버 연결 주소와 응답을 확인해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-session-401-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 인증이 만료됐어요. 다시 연결해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-snapshot-401-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 인증이 만료됐어요. 다시 연결해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-session-403-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 접근 권한을 확인해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-snapshot-403-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 접근 권한을 확인해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-session-204-empty",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 세션 응답을 확인해 주세요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-snapshot-204-empty",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 자료 형식이 맞지 않아요. 원본을 덮어쓰지 않고 중단했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-session-500-json",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 서버에서 처리하지 못했어요. 잠시 후 다시 시도해 주세요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "1440-snapshot-500-json",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 서버에서 처리하지 못했어요. 잠시 후 다시 시도해 주세요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/snapshot",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "390-session-404-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 서버 연결 주소를 찾지 못했어요. 서버 주소와 연결 설정을 확인해 주세요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "390-session-503-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 서버가 일시적으로 응답하지 못하고 있어요. 잠시 후 다시 시도해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "390-session-200-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 자료를 읽지 못했어요. 서버 연결 주소와 응답을 확인해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "390-session-200-malformed-json",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 자료를 읽지 못했어요. 서버 연결 주소와 응답을 확인해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "390-session-401-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 인증이 만료됐어요. 다시 연결해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "label": "390-session-403-html",
+      "body": "본문으로 이동\nspotlog관리자\n\n자료 등록부터 운영까지\n\n운영 현황\n장소·업체\n노출·추천\n여행기·커뮤니티\n회원·문의\nAI·검색 운영\n운영 설정·이력\n서비스고객 화면 열기\n운영 콘솔\n새로 조회\n운영 현황\n지역을 선택하고 등록·검수·추천 여행 작업을 시작하세요.\n관리자 접근 권한을 확인해 주세요. 입력은 유지했어요.\n관리자 연결 대기\n아직 관리자 자료를 불러오지 못했어요\n\n인증과 자료 조회를 확인한 뒤 작업을 이어갈 수 있어요. 작성 중인 입력은 유지했어요.\n\n다시 연결",
+      "requests": [
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        },
+        {
+          "path": "/api/admin/v1/me",
+          "method": "GET"
+        }
+      ],
+      "errors": []
+    }
+  ],
+  "errors": []
+}

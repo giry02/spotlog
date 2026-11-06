@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "testFileCount": 76,
+  "tests": 672,
+  "passed": 672,
+  "failed": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "todo": 0,
+  "browserScriptsRun": 0,
+  "webTypecheck": "passed",
+  "nativeTypecheck": "passed",
+  "testCommand": "node --test --test-reporter=spec <all 76 web/tests/**/*.test.mjs and *.test.cjs files>",
+  "failureList": [],
+  "productFilesChanged": [],
+  "scope": "Automated logic, contracts and static typography checks only; no browser UI, live backend or live AI execution"
+}

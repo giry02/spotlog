@@ -1,0 +1,137 @@
+{
+  "base": "https://giry02.github.io/spotlog/",
+  "journalUrl": "https://giry02.github.io/spotlog/#journey-southern-road-five-days",
+  "routes": [
+    {
+      "width": 320,
+      "route": "home",
+      "client": 320,
+      "scroll": 320,
+      "images": 15,
+      "broken": []
+    },
+    {
+      "width": 320,
+      "route": "community",
+      "client": 320,
+      "scroll": 320,
+      "images": 8,
+      "broken": []
+    },
+    {
+      "width": 320,
+      "route": "places-photo",
+      "client": 320,
+      "scroll": 320,
+      "images": 5,
+      "broken": []
+    },
+    {
+      "width": 320,
+      "route": "trips",
+      "client": 320,
+      "scroll": 320,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "width": 320,
+      "route": "saved",
+      "client": 320,
+      "scroll": 320,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "width": 390,
+      "route": "home",
+      "client": 390,
+      "scroll": 390,
+      "images": 15,
+      "broken": []
+    },
+    {
+      "width": 390,
+      "route": "community",
+      "client": 390,
+      "scroll": 390,
+      "images": 8,
+      "broken": []
+    },
+    {
+      "width": 390,
+      "route": "places-photo",
+      "client": 390,
+      "scroll": 390,
+      "images": 5,
+      "broken": []
+    },
+    {
+      "width": 390,
+      "route": "trips",
+      "client": 390,
+      "scroll": 390,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "width": 390,
+      "route": "saved",
+      "client": 390,
+      "scroll": 390,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "width": 460,
+      "route": "home",
+      "client": 460,
+      "scroll": 460,
+      "images": 15,
+      "broken": []
+    },
+    {
+      "width": 460,
+      "route": "community",
+      "client": 460,
+      "scroll": 460,
+      "images": 8,
+      "broken": []
+    },
+    {
+      "width": 460,
+      "route": "places-photo",
+      "client": 460,
+      "scroll": 460,
+      "images": 5,
+      "broken": []
+    },
+    {
+      "width": 460,
+      "route": "trips",
+      "client": 460,
+      "scroll": 460,
+      "images": 0,
+      "broken": []
+    },
+    {
+      "width": 460,
+      "route": "saved",
+      "client": 460,
+      "scroll": 460,
+      "images": 0,
+      "broken": []
+    }
+  ],
+  "cardLike": true,
+  "cardComment": true,
+  "reply": true,
+  "reloadPersistence": true,
+  "mapWorker": {
+    "url": "https://giry02.github.io/spotlog/assets/maplibre-gl-worker-5lTrTa-q.js",
+    "status": 200
+  },
+  "errors": [],
+  "badRequests": [],
+  "note": "Isolated browser storage; no live service data submitted."
+}

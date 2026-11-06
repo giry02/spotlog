@@ -1,0 +1,46 @@
+{
+  "sourceSha256": "26947b213cdb406c9a7deb8e5a496d56d65412511932e884eaded3e4b1a8cb7a",
+  "publishedHtmlSha256": "a7dc9fa11129c0b63ba1230122912010f483d0c17540be6b2348c16797c917ea",
+  "slides": [
+    "cover",
+    "conclusion",
+    "nol",
+    "position",
+    "benchmark",
+    "loop",
+    "menus",
+    "layout",
+    "homes",
+    "structure",
+    "flows",
+    "ai-plan",
+    "preserve",
+    "desktop",
+    "roadmap",
+    "operations",
+    "status",
+    "metrics",
+    "decisions",
+    "questions",
+    "sources"
+  ],
+  "images": [
+    {
+      "path": "assets/existing-groups-home.jpg",
+      "bytes": 43949,
+      "sha256": "4d88a021d9ae233d9858dc37a439de1a6e1cd61b48755d035c3b6a406fa2b869"
+    },
+    {
+      "path": "assets/proposed-role-homes.jpg",
+      "bytes": 143281,
+      "sha256": "248b7b685077b9e37132779c1ab6ee4305de615ecb79308d73e62c024ca78b14"
+    }
+  ],
+  "localLinksDisabled": 3,
+  "externalReferences": 16,
+  "files": [
+    "web/public/reports/direction-20261103/index.html",
+    "web/public/reports/direction-20261103/assets/existing-groups-home.jpg",
+    "web/public/reports/direction-20261103/assets/proposed-role-homes.jpg"
+  ]
+}

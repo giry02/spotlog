@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>Spotlog 플랫폼 화면 · 메모리 검수</title>
+    <style>
+      html,body { margin:0; height:100%; }
+      body.platform-review { height:100dvh; overflow:hidden; }
+      .platform-review #root { display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:auto minmax(0,1fr); min-height:0; height:100%; }
+      .platform-review-shell { height:100%; display:contents; }
+      .platform-review-toolbar { box-sizing:border-box; width:100%; max-width:460px; margin:0 auto; padding:0 16px; background:#fff3e7; color:#38322b; border-bottom:1px solid #e5d9cd; font:14px/20px system-ui,sans-serif; }
+      .platform-review-toolbar summary { display:flex; align-items:center; min-height:44px; font-weight:600; cursor:pointer; }
+      .platform-review-toolbar p { margin:0 0 12px; overflow-wrap:anywhere; }
+      .platform-review-toolbar small { display:block; margin-bottom:12px; font-size:12px; line-height:16px; }
+      .platform-review-toolbar nav { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0; }
+      .platform-review-toolbar a,.platform-review-toolbar select { box-sizing:border-box; min-height:44px; padding:8px 10px; border:1px solid #d6c9bb; border-radius:8px; background:#fff; color:inherit; font:inherit; }
+      .platform-review-toolbar a { display:inline-flex; align-items:center; text-decoration:none; }
+      .platform-review-toolbar label { display:grid; gap:8px; }
+      .platform-review-app { min-width:0; min-height:0; width:100%; height:100%; }
+      body.platform-review[data-embed="true"] #root { grid-template-rows:minmax(0,1fr); }
+      body.platform-review[data-embed="true"] .platform-review-toolbar { display:none; }
+    </style>
+  </head>
+  <body class="platform-review">
+    <div id="root"><p style="padding:16px">실제 저장소와 분리하는 중…</p></div>
+    <script type="module" src="/tests/platform-review.tsx"></script>
+  </body>
+</html>

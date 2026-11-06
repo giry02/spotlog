@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "states": 10,
+  "results": [
+    "validation",
+    "session",
+    "conditions",
+    "forbidden",
+    "missing",
+    "server",
+    "unavailable",
+    "host-404-nested-base-return",
+    "malformed-hash",
+    "dev-catalog-disabled"
+  ],
+  "errors": [],
+  "assetFailures": []
+}

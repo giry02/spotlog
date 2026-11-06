@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-29",
+  "sourceRoot": "C:/Users/Giry/Documents/Spotlog",
+  "localOnly": true,
+  "automated": {
+    "nativeTypecheck": "passed",
+    "tests": 695,
+    "testFiles": 78,
+    "webBuild": "passed",
+    "buildNotice": "Existing Vite chunk size warning; build completed",
+    "passed": 695,
+    "failed": 0
+  },
+  "browser": {
+    "savedSearch": [
+      "name/address",
+      "folder + region + kind intersection",
+      "list/map same IDs",
+      "clear preserves filters",
+      "Escape preserves result and returns focus",
+      "actual saved-page existing record restored"
+    ],
+    "featureTabWarningsAndErrors": 0,
+    "searchOpenStates": 3,
+    "publicMeetup": [
+      "second meetup retained",
+      "applicant -> owner approval -> applicant",
+      "explicit return opens exact selected activity",
+      "return from My Applications",
+      "RSVP remains unselected"
+    ],
+    "widths": [
+      320,
+      390,
+      460
+    ],
+    "pageOverflow": 0,
+    "baseStates": 9,
+    "password": [
+      "three independent visibility toggles",
+      "value/cursor/focus preserved",
+      "no accidental submit",
+      "disabled masks",
+      "view/account boundary masks",
+      "close/reopen masks",
+      "actual AccountSheet email login integration"
+    ]
+  },
+  "limits": [
+    "Browser QA; physical mobile keyboard not tested in this task",
+    "Live server cross-device application/approval requires backend persistence of optional publicActivityIntent",
+    "No commit, push or deployment"
+  ]
+}

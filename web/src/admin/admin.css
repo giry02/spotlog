@@ -222,3 +222,31 @@ dl.admin-meta dd { margin: 0; overflow-wrap: anywhere; }
 @media(max-width:480px){.admin-topbar .admin-select{width:126px}.admin-work-filters>.admin-field,.admin-work-filters>.admin-field:first-child{min-width:0;flex-basis:100%}.admin-select-popup{font-size:14px}.admin-topbar .admin-select-trigger{font-size:14px}.admin-topbar .admin-actions>button:not(.admin-icon-button),.admin-app .admin-tabs button{font-size:14px}}
 .admin-notice,.admin-panel-head p{font-size:14px}.admin-pagination button{font-size:14px!important;min-height:36px!important}
 .admin-table th.admin-table-actions,.admin-table td.admin-table-actions{text-align:right}.admin-table td.admin-table-actions .admin-actions{justify-content:flex-end}
+
+/* 2026-10-29 layout audit: separate navigation choices and preserve touch access on compact screens. */
+.admin-tabs { gap: 8px; }
+@media (max-width: 800px) {
+  .admin-app button { min-height: 44px; }
+  .admin-app .admin-icon-button { width: 44px; min-width: 44px; height: 44px; }
+  .admin-app .admin-list-button,
+  .admin-app .admin-select-trigger { min-height: 44px; }
+  .admin-app input:not([type=checkbox]):not([type=radio]),
+  .admin-app select { min-height: 44px; }
+  .admin-topbar .admin-actions { gap: 8px; }
+  .admin-app .admin-topbar .admin-select-trigger { min-height: 44px; }
+  .admin-pagination button { min-height: 44px!important; }
+  .admin-select-options button { min-height: 44px; }
+  .admin-select-search input { min-height: 44px; }
+}
+@media (max-width: 600px) {
+  .admin-tabs {
+    flex-wrap: nowrap;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 6px 6px 12px;
+    scroll-padding-inline: 6px;
+    scrollbar-width: thin;
+    overscroll-behavior-x: contain;
+  }
+  .admin-app .admin-tabs > button { flex: 0 0 auto; white-space: nowrap; }
+}

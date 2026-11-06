@@ -3,7 +3,7 @@ import type { AdminKind } from './types';
 import { AdminSelect } from './AdminSelect';
 export { AdminSelect } from './AdminSelect';
 
-export const kindLabel: Record<AdminKind, string> = { LANDMARK: '랜드마크', FOOD: '음식점', CAFE: '카페', STAY: '숙소', SHOP: '쇼핑' };
+export const kindLabel: Record<AdminKind, string> = { LANDMARK: '랜드마크', FOOD: '음식점', CAFE: '카페', STAY: '숙소', SHOP: '쇼핑', LEISURE: '레저' };
 export function formatTime(value: string) { return value ? new Date(value).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', hour12: false }) : '미확인'; }
 export function Panel({ title, description, actions, children }: { title: ReactNode; description?: ReactNode; actions?: ReactNode; children: ReactNode }) { return <section className="admin-panel"><header className="admin-panel-head"><div><h2>{title}</h2>{description && <p>{description}</p>}</div>{actions && <div className="admin-actions">{actions}</div>}</header><div className="admin-panel-body">{children}</div></section>; }
 export function Badge({ children, tone = 'neutral' }: { children: ReactNode; tone?: string }) { return <span className={'admin-badge ' + tone}>{children}</span>; }

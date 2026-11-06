@@ -5,7 +5,7 @@ import { contentInRegion, regionLabel } from './regions.ts';
 import { creatorGradeRules, currentCreatorGrade } from '../creatorGrade.ts';
 
 export const editorialSlotLabels: Record<CuratedVisit['slot'], string> = { morning: '오전', lunch: '점심', afternoon: '오후', dinner: '저녁', stay: '숙박' };
-export const editorialKindLabels: Record<PlaceContent['kind'], string> = { LANDMARK: '랜드마크', FOOD: '음식점', CAFE: '카페', STAY: '숙소', SHOP: '쇼핑' };
+export const editorialKindLabels: Record<PlaceContent['kind'], string> = { LANDMARK: '랜드마크', FOOD: '음식점', CAFE: '카페', STAY: '숙소', SHOP: '쇼핑', LEISURE: '레저' };
 export function curatedPlaceIds(days: CuratedDay[]): string[] { return [...new Set(days.flatMap(day => day.visits.map(visit => visit.placeId)))]; }
 export function publicPlaceMedia(record: AdminPlace | undefined) {
   return (record ? eligiblePublished(record)?.media ?? [] : []).filter(media => media.type === 'PHOTO' && !media.withdrawn && !record?.revokedMediaIds?.includes(media.mediaId) && media.rights.display && media.rights.store);

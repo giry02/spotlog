@@ -15,6 +15,8 @@ type LandmarkGuideCardProps = {
   place: Place;
   primaryAction?: ReactNode;
   footer?: ReactNode;
+  /** Compact lists omit attribution controls; full detail explicitly opts in. */
+  showCredit?: boolean;
 } & ({
   saved: boolean;
   onToggle: () => void;
@@ -29,7 +31,7 @@ type LandmarkGuideCardProps = {
 });
 
 /** Large discovery/confirmation card. Saved's outer list keeps its small horizontal card. */
-export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryAction, footer, actions }: LandmarkGuideCardProps) {
+export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryAction, footer, actions, showCredit = false }: LandmarkGuideCardProps) {
   const copy=useUiCopy();
   const photos = getPlacePhotos(place, true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -88,7 +90,7 @@ export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryActi
       <strong>{place.hook ?? `${place.area} 일정에 담기 좋은 장소`}</strong><TranslationText sourceId={`place:${place.id}:description`} sourceVersion={sourceVersion(place.description)} text={place.description} kind="journal"/>
       {place.note && <blockquote>{place.tags?.includes('공공자료') ? copy("자료 안내") : copy("여행자 메모")} · {place.note}</blockquote>}
       {photo?.caption && <p className="landmark-gallery-caption" aria-live="polite">{photo.caption}</p>}
-      {photo && <PhotoCredit image={photo.image} sourceId={photo.sourceId} />}
+      {showCredit && photo && <PhotoCredit image={photo.image} sourceId={photo.sourceId} />}
       <div className="landmark-guide-tags">{place.tags?.map(tag => <span key={tag}>#{tag}</span>)}</div>
       <PlaceReportActions place={place} photo={photo} />
       {actions !== null && <div className="landmark-guide-actions">{actions !== undefined ? actions : <>{primaryAction ?? <Button size="card" onClick={onToggle} aria-pressed={saved}><Bookmark size={16} fill={saved ? 'currentColor' : 'none'} />{saved ? copy("저장됨") : copy("이 장소 저장")}</Button>}<Button size="card" variant="secondary" onClick={onShare}><Share2 size={16} />{copy("공유")}</Button></>}</div>}

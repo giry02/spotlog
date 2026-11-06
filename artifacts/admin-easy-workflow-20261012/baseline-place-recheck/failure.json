@@ -1,0 +1,5 @@
+{
+  "checks": [],
+  "errors": [],
+  "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('heading', { name: '오늘의 운영 작업', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('heading', { name: '오늘의 운영 작업', exact: true }) with timeout 5000ms\n  - waiting for getByRole('heading', { name: '오늘의 운영 작업', exact: true })\n"
+}

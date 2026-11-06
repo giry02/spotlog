@@ -24,7 +24,9 @@ const hooks = registerHooks({
 const { ADMIN_PREVIEW_STORAGE_KEY, createPreviewAdminAdapter } = await import('../src/admin/previewAdapter.ts');
 const { ADMIN_STORAGE_KEY, assertAdminState } = await import('../src/admin/repository.ts');
 const { REVIEW_SERVICE_KEY } = await import('../src/reviewServiceBridge.ts');
-const { activatePreviewDraftStorage, getPreviewDraftStorage } = await import('../src/admin/previewDraftStorage.ts');
+const { ADMIN_PREVIEW_DRAFT_STORAGE_KEY, activatePreviewDraftStorage, getPreviewDraftStorage } = await import('../src/admin/previewDraftStorage.ts');
+const { clearReviewDraft, readReviewDraft, reviewDraftKey, writeReviewDraft } = await import('../src/admin/useReviewDraft.ts');
+const { readPlaceEditor, writePlaceEditor } = await import('../src/admin/placeEditorCache.ts');
 hooks.deregister();
 
 const memory = () => {
@@ -140,16 +142,16 @@ test('preview load/query/mutation dispatch no customer bridge events and perform
   } finally { global.window = priorWindow; global.fetch = priorFetch; }
 });
 
-test('preview editor draft scope uses page memory and restores the previous boundary', () => {
+test('preview editor draft scopes remain independent and restore the previous boundary', () => {
   const priorWindow = global.window;
   let browserReads = 0;
   global.window = { get localStorage() { browserReads++; throw new Error('no operating drafts'); }, get sessionStorage() { browserReads++; throw new Error('no browser drafts'); } };
   try {
     assert.equal(getPreviewDraftStorage(), null);
-    const restore = activatePreviewDraftStorage(), drafts = getPreviewDraftStorage();
+    const restore = activatePreviewDraftStorage(memory()), drafts = getPreviewDraftStorage();
     drafts.setItem('spotlog.admin.editor.draft', 'preview-input');
     assert.equal(drafts.getItem('spotlog.admin.editor.draft'), 'preview-input');
-    const restoreNested = activatePreviewDraftStorage();
+    const restoreNested = activatePreviewDraftStorage(memory());
     assert.equal(getPreviewDraftStorage().getItem('spotlog.admin.editor.draft'), null);
     getPreviewDraftStorage().setItem('nested', 'isolated'); restoreNested();
     assert.equal(getPreviewDraftStorage(), drafts); assert.equal(drafts.getItem('nested'), null);
@@ -157,6 +159,93 @@ test('preview editor draft scope uses page memory and restores the previous boun
     assert.equal(drafts.getItem('spotlog.admin.editor.draft'), null);
     restore(); assert.equal(getPreviewDraftStorage(), null); assert.equal(browserReads, 0);
   } finally { global.window = priorWindow; }
+});
+
+test('preview draft reload restores existing operator/editor keys without reading operating data', () => {
+  const priorWindow = global.window, store = memory();
+  let localReads = 0;
+  const sentinelKeys = [ADMIN_STORAGE_KEY, REVIEW_SERVICE_KEY, 'spotlog-customer-private', 'spotlog.admin.place-editor.v2.LOCAL.operator-admin'];
+  for (const key of sentinelKeys) store.values.set(key, 'PRIVATE:' + key);
+  global.window = { sessionStorage: store, get localStorage() { localReads++; throw new Error('no operating drafts'); } };
+  const firstKey = reviewDraftKey('operator-admin', 'curated', 'new:kr-busan'), secondKey = reviewDraftKey('operator-two', 'curated', 'new:kr-busan');
+  try {
+    let restore = activatePreviewDraftStorage();
+    assert.equal(writeReviewDraft('LOCAL', firstKey, { title: '부산 미저장 추천 여행' }), true);
+    assert.equal(writeReviewDraft('LOCAL', secondKey, { title: '다른 작업자 입력' }), true);
+    restore(); restore = activatePreviewDraftStorage();
+    assert.deepEqual(readReviewDraft('LOCAL', firstKey, { title: '' }), { title: '부산 미저장 추천 여행' });
+    assert.deepEqual(readReviewDraft('LOCAL', secondKey, { title: '' }), { title: '다른 작업자 입력' });
+    clearReviewDraft('LOCAL', firstKey); restore(); restore = activatePreviewDraftStorage();
+    assert.deepEqual(readReviewDraft('LOCAL', firstKey, { title: '' }), { title: '' });
+    assert.deepEqual(readReviewDraft('LOCAL', secondKey, { title: '' }), { title: '다른 작업자 입력' }); restore();
+    assert.deepEqual([...new Set([...store.reads, ...store.writes])], [ADMIN_PREVIEW_DRAFT_STORAGE_KEY]);
+    for (const key of sentinelKeys) assert.equal(store.values.get(key), 'PRIVATE:' + key);
+    assert.equal(localReads, 0);
+  } finally { global.window = priorWindow; }
+});
+
+test('different tab draft envelopes never share edits or clears', () => {
+  const first = memory(), second = memory(), key = reviewDraftKey('operator-admin', 'region', 'new');
+  let restore = activatePreviewDraftStorage(first);
+  assert.equal(writeReviewDraft('LOCAL', key, 'first tab'), true); restore();
+  restore = activatePreviewDraftStorage(second);
+  assert.equal(readReviewDraft('LOCAL', key, ''), '');
+  assert.equal(writeReviewDraft('LOCAL', key, 'second tab'), true); restore();
+  restore = activatePreviewDraftStorage(first);
+  assert.equal(readReviewDraft('LOCAL', key, ''), 'first tab'); clearReviewDraft('LOCAL', key); restore();
+  restore = activatePreviewDraftStorage(second); assert.equal(readReviewDraft('LOCAL', key, ''), 'second tab'); restore();
+});
+
+test('blocked or quota-limited draft persistence reports failure while retaining current input in memory', async () => {
+  const key = reviewDraftKey('operator-admin', 'curated', 'new');
+  const state = await createPreviewAdminAdapter(null).load(), content = state.places[0].draft;
+  for (const failure of ['getItem', 'setItem', 'unavailable']) {
+    const store = failure === 'unavailable' ? null : memory();
+    if (store) store[failure] = () => { throw new Error('blocked'); };
+    const restore = activatePreviewDraftStorage(store);
+    try {
+      assert.equal(writeReviewDraft('LOCAL', key, { title: 'current-page input' }), false);
+      assert.deepEqual(readReviewDraft('LOCAL', key, { title: '' }), { title: 'current-page input' });
+      assert.equal(writePlaceEditor('LOCAL', 'operator-admin', { 'review-landmark': { baseRevision: 1, content } }), false);
+      assert.equal(readPlaceEditor('LOCAL', 'operator-admin').entries['review-landmark'].content.name, content.name);
+      clearReviewDraft('LOCAL', key); assert.deepEqual(readReviewDraft('LOCAL', key, { title: '' }), { title: '' });
+    } finally { restore(); }
+  }
+});
+
+test('draft persistence failure preserves the last saved envelope and only the open page sees later input', () => {
+  const store = memory(), key = reviewDraftKey('operator-admin', 'region', 'kr-busan');
+  let restore = activatePreviewDraftStorage(store); assert.equal(writeReviewDraft('LOCAL', key, 'saved'), true);
+  const original = store.values.get(ADMIN_PREVIEW_DRAFT_STORAGE_KEY), originalWrite = store.setItem;
+  store.setItem = () => { throw new Error('quota'); };
+  assert.equal(writeReviewDraft('LOCAL', key, 'typed later'), false); assert.equal(readReviewDraft('LOCAL', key, ''), 'typed later');
+  assert.equal(store.values.get(ADMIN_PREVIEW_DRAFT_STORAGE_KEY), original); restore();
+  store.setItem = originalWrite; restore = activatePreviewDraftStorage(store);
+  assert.equal(readReviewDraft('LOCAL', key, ''), 'saved'); restore();
+});
+
+test('corrupt or prototype-bearing draft envelopes are protected without contaminating live objects', () => {
+  const invalid = [
+    '{broken',
+    JSON.stringify({ schemaVersion: 2, entries: {} }),
+    JSON.stringify({ schemaVersion: 1, entries: [] }),
+    JSON.stringify({ schemaVersion: 1, entries: { safe: 7 } }),
+    '{"schemaVersion":1,"entries":{"__proto__":"polluted"}}',
+    '{"schemaVersion":1,"entries":{"constructor":"polluted"}}',
+    '{"schemaVersion":1,"entries":{},"__proto__":{"polluted":true}}',
+  ];
+  for (const original of invalid) {
+    const store = memory(); store.values.set(ADMIN_PREVIEW_DRAFT_STORAGE_KEY, original);
+    const restore = activatePreviewDraftStorage(store), key = reviewDraftKey('operator-admin', 'region', 'new');
+    try {
+      assert.equal(readReviewDraft('LOCAL', key, ''), '');
+      assert.equal(writeReviewDraft('LOCAL', key, 'current input'), false);
+      assert.equal(readReviewDraft('LOCAL', key, ''), 'current input');
+      assert.equal(store.values.get(ADMIN_PREVIEW_DRAFT_STORAGE_KEY), original); assert.equal(store.writes.length, 0);
+      for (const unsafe of ['__proto__', 'constructor', 'prototype']) assert.throws(() => getPreviewDraftStorage().setItem(unsafe, 'unsafe'));
+      assert.equal(Object.prototype.polluted, undefined);
+    } finally { restore(); }
+  }
 });
 
 test('project-path preview rebases all nested example placeholders while preserving real assets and source data', async () => {
