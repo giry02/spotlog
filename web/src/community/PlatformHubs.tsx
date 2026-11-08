@@ -19,22 +19,22 @@ interface HubProps {
   onInvites: () => void;
 }
 
-function DateTile({ date }: { date: string }) {
-  return <span className="platform-date">{date ? <><small>{new Date(`${date}T12:00:00+09:00`).toLocaleDateString('ko-KR', { month: 'short', weekday: 'short', timeZone: 'Asia/Seoul' })}</small><strong>{Number(date.slice(8, 10))}</strong></> : <><CalendarDays size={22}/><small>날짜 미정</small></>}</span>;
+export function DateTile({ date }: { date: string }) {
+  return <span className="platform-date" title={date || '날짜 미정'}>{date ? <><small>{Number(date.slice(5, 7))}월</small><strong>{Number(date.slice(8, 10))}</strong></> : <><CalendarDays size={22}/><small>날짜 미정</small></>}</span>;
 }
 
-function ActivityRow({ activity, state, onOpen }: { activity: TogetherActivity; state: TogetherState; onOpen: () => void }) {
+export function ActivityRow({ activity, state, onOpen }: { activity: TogetherActivity; state: TogetherState; onOpen: () => void }) {
   const group = state.groups.find(item => item.id === activity.groupId);
   const travel = activity.kind === 'TRIP' || !activity.kind && Boolean(activity.journey);
   return <button type="button" className="platform-activity-row" onClick={onOpen}>
     <DateTile date={activity.date}/><span className="platform-row-copy"><strong>{activity.title}</strong>
-      <span>{[activity.startTime, activity.meetingPoint || (travel ? activity.journey?.region : '')].filter(Boolean).join(' · ') || '시간·장소를 함께 정해요'}</span>
+      <span>{[activity.startTime && !activity.meetingPoint.includes(activity.startTime) ? activity.startTime : '', activity.meetingPoint || (travel ? activity.journey?.region : '')].filter(Boolean).join(' · ') || '시간·장소를 함께 정해요'}</span>
       <small>{group?.spaceType === 'ACTIVITY' ? '친구·가족 약속' : group?.name}{travel && ' · 여행'}{activity.status === 'CANCELLED' ? ' · 취소됨' : activity.status === 'COMPLETED' ? ' · 완료' : ''}</small>
     </span><ChevronRight size={18}/>
   </button>;
 }
 
-function PlanRow({ plan, onOpen }: { plan: Journey; onOpen: () => void }) {
+export function PlanRow({ plan, onOpen }: { plan: Journey; onOpen: () => void }) {
   return <button type="button" className="platform-activity-row" onClick={onOpen}><DateTile date={plan.startDate || plan.days.find(day => day.date)?.date || ''}/>
     <span className="platform-row-copy"><strong>{plan.title}</strong><span>{plan.region || '지역 미정'} · {plan.duration || `${plan.days.length}일`}</span><small>개인 여행 · {plan.planStage === 'DRAFT' ? '작성 중' : '비공개 일정'}</small></span><ChevronRight size={18}/></button>;
 }

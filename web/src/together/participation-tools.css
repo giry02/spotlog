@@ -1,0 +1,13 @@
+.tg-room-participation { width:100%; margin:0 0 12px; }
+.tg-room-participation h3 { margin:0 0 12px; font-size:14px; line-height:20px; }
+.tg-room-participation > div { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.tg .tg-room-participation button { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; min-width:0; min-height:84px; padding:12px 4px; border:1px solid var(--line,#e8e6e1); border-radius:12px; background:var(--card,#fff); color:var(--text,#222320); font-size:14px; line-height:20px; }
+.tg-room-participation button svg { color:var(--accent,#fa654c); }
+.tg-participation-links { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.tg .tg-participation-links button { min-height:44px; min-width:0; display:flex; gap:6px; align-items:center; justify-content:center; padding:8px 4px; font-size:14px; }
+.tg-room-scope { margin:0 0 12px; color:var(--muted,#71716c); font-size:12px; line-height:18px; overflow-wrap:anywhere; }
+.tg .tg-challenge-preview { display:flex; align-items:center; gap:12px; width:100%; min-height:60px; text-align:left; padding:12px 0; border:0; border-bottom:1px solid var(--line,#e8e6e1); border-radius:0; background:transparent; }
+.tg-challenge-preview > span { flex:1; min-width:0; display:grid; gap:4px; }
+.tg-challenge-preview strong { font-size:14px; line-height:20px; overflow-wrap:anywhere; }
+.tg-challenge-preview small { font-size:12px; line-height:18px; color:var(--muted,#71716c); }
+.tg-participation-list { display:grid; gap:16px; }

@@ -2,6 +2,7 @@ import { memberAppointments } from './platformModel.ts';
 import { koreaDay, publicActivityTimeKey } from '../together/discovery.ts';
 import { buildMyGroupDirectory } from '../together/myGroupDirectory.ts';
 import { roomIdForActivity, roomIdForGroup, type TogetherState } from '../together/model.ts';
+import type { Journey } from '../data.ts';
 
 export interface MemberReturnActivity {
   id: string;
@@ -26,10 +27,54 @@ export interface MemberHomeReturn {
   unreadChat: MemberReturnChat | null;
 }
 
+export interface MemberReturnPlan {
+  id: string;
+  title: string;
+  date: string;
+  endDate: string;
+}
+
+export type MemberHomeSchedule = ({ kind: 'ACTIVITY' } & MemberReturnActivity) | ({ kind: 'PLAN' } & MemberReturnPlan);
+
 const validDay = (value: string): boolean => /^\d{4}-\d{2}-\d{2}$/.test(value)
   && Number.isFinite(Date.parse(`${value}T12:00:00+09:00`))
   && koreaDay(new Date(`${value}T12:00:00+09:00`)) === value;
 const validTime = (value: string | undefined): value is string => Boolean(value && /^([01]\d|2[0-3]):[0-5]\d$/.test(value));
+
+function selectNextActivity(state: TogetherState, viewerId: string, at: Date): MemberReturnActivity | null {
+  const today = koreaDay(at);
+  const next = memberAppointments(state, viewerId, 'upcoming', today)
+    .filter(activity => activity.status === 'PLANNED' && validDay(activity.date)
+      && activity.participants[viewerId] !== 'DECLINED'
+      && (validDay(activity.endDate) && activity.endDate >= activity.date ? activity.endDate : activity.date) >= today)
+    .sort((a, b) => publicActivityTimeKey(a.date, a.startTime).localeCompare(publicActivityTimeKey(b.date, b.startTime)) || a.id.localeCompare(b.id))[0];
+  const group = next && state.groups.find(item => item.id === next.groupId);
+  return next && group ? {
+    id: next.id, groupId: next.groupId, groupName: group.name, title: next.title, date: next.date,
+    endDate: validDay(next.endDate) && next.endDate >= next.date ? next.endDate : next.date,
+    ...(validTime(next.startTime) ? { startTime: next.startTime } : {}),
+  } : null;
+}
+
+/** One current calendar destination. Personal plans must already come from the caller's authorized device/account scope. */
+export function selectMemberHomeSchedule(state: TogetherState, viewerId = '', personalPlans: ReadonlyArray<Journey> = [], at = new Date()): MemberHomeSchedule | null {
+  if (!viewerId || !state.members.some(member => member.id === viewerId)) return null;
+  if (!Number.isFinite(at.getTime())) throw new RangeError('이어보기의 기준 날짜를 확인해 주세요.');
+  const today = koreaDay(at);
+  const nextActivity = selectNextActivity(state, viewerId, at);
+  const schedules: MemberHomeSchedule[] = nextActivity ? [{ kind: 'ACTIVITY', ...nextActivity }] : [];
+  for (const plan of personalPlans) {
+    if (!plan.isMine || plan.trash || plan.purpose !== 'PLAN' || plan.visibility !== 'PRIVATE'
+      || (plan.planStage !== undefined && plan.planStage !== 'READY') || !['PLANNING', 'TRAVELING'].includes(plan.status)) continue;
+    const dates = [...new Set([plan.startDate, ...plan.days.map(day => day.date)].filter((date): date is string => Boolean(date && validDay(date))))].sort();
+    const date = dates[0]; const endDate = dates.at(-1);
+    if (!date || !endDate || endDate < today) continue;
+    schedules.push({ kind: 'PLAN', id: plan.id, title: plan.title, date, endDate });
+  }
+  return schedules.sort((a, b) => publicActivityTimeKey(a.date, a.kind === 'ACTIVITY' ? a.startTime : undefined)
+    .localeCompare(publicActivityTimeKey(b.date, b.kind === 'ACTIVITY' ? b.startTime : undefined))
+    || a.kind.localeCompare(b.kind) || a.id.localeCompare(b.id))[0] ?? null;
+}
 
 /**
  * Member-only return destinations, intentionally separate from the public home
@@ -40,18 +85,7 @@ export function selectMemberHomeReturn(state: TogetherState, viewerId = '', at =
   const empty: MemberHomeReturn = { nextActivity: null, unreadChat: null };
   if (!viewerId || !state.members.some(member => member.id === viewerId)) return empty;
   if (!Number.isFinite(at.getTime())) throw new RangeError('이어보기의 기준 날짜를 확인해 주세요.');
-  const today = koreaDay(at);
-  const next = memberAppointments(state, viewerId, 'upcoming', today)
-    .filter(activity => activity.status === 'PLANNED' && validDay(activity.date)
-      && activity.participants[viewerId] !== 'DECLINED'
-      && (validDay(activity.endDate) && activity.endDate >= activity.date ? activity.endDate : activity.date) >= today)
-    .sort((a, b) => publicActivityTimeKey(a.date, a.startTime).localeCompare(publicActivityTimeKey(b.date, b.startTime)) || a.id.localeCompare(b.id))[0];
-  const nextGroup = next && state.groups.find(group => group.id === next.groupId);
-  const nextActivity: MemberReturnActivity | null = next && nextGroup ? {
-    id: next.id, groupId: next.groupId, groupName: nextGroup.name, title: next.title, date: next.date,
-    endDate: validDay(next.endDate) && next.endDate >= next.date ? next.endDate : next.date,
-    ...(validTime(next.startTime) ? { startTime: next.startTime } : {}),
-  } : null;
+  const nextActivity = selectNextActivity(state, viewerId, at);
 
   // Reuse the current persistent-membership gate, then constrain each room.
   // The directory's historical unread total also includes cancelled activities;

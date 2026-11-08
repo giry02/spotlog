@@ -1,0 +1,40 @@
+.room-poll-composer,.room-poll-view{min-width:0;color:var(--ink);font-size:var(--consumer-body,14px);line-height:20px}
+.room-poll-composer{display:grid;gap:16px}
+.room-poll-composer>label,.room-poll-settings>label:not(.room-poll-check),.room-poll-option-edit label{display:grid;gap:6px;font-size:14px;line-height:20px;min-width:0}
+.room-poll-composer :is(input:not([type=checkbox]),select),.room-poll-view select{box-sizing:border-box;min-width:0;width:100%;min-height:44px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;font-size:16px;line-height:24px;background:white;color:var(--ink)}
+.room-poll-kind{display:flex;gap:8px;border-bottom:1px solid var(--line)}
+.room-poll-kind button{display:flex;justify-content:center;align-items:center;gap:8px;min-height:44px;flex:1;padding:8px;border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;color:var(--muted);font:inherit}
+.room-poll-kind button[aria-pressed=true]{color:var(--ink);border-bottom-color:currentColor;font-weight:600}
+.room-poll-options{min-width:0;display:grid;gap:12px;padding:0;border:0;margin:0}
+.room-poll-options legend{font-size:14px;font-weight:600;padding:0 0 8px}
+.room-poll-option-edit{display:flex;align-items:flex-end;gap:8px;min-width:0}
+.room-poll-option-edit>div{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;min-width:0;flex:1}
+.room-poll-icon{display:grid;place-items:center;flex:0 0 44px;min-height:44px;border:0;background:transparent;color:var(--ink)}
+.room-poll-add{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;border:1px solid var(--line);border-radius:10px;background:transparent;color:var(--ink);font:inherit}
+.room-poll-add span{font-size:12px;color:var(--muted)}
+.room-poll-settings{display:grid;gap:12px;padding-top:12px;border-top:1px solid var(--line)}
+.room-poll-settings .room-poll-check{display:flex;align-items:center;gap:10px;min-height:44px;margin:0;font-size:14px;line-height:20px}
+.room-poll-composer .room-poll-check input{width:20px;height:20px;min-height:20px;padding:0;flex:0 0 20px;accent-color:var(--ink);margin:0}
+.room-poll-check>span{display:grid;gap:2px}.room-poll-check small,.room-poll-note{font-size:12px;line-height:16px;color:var(--muted)}
+.room-poll-note{margin:4px 0;overflow-wrap:anywhere}
+.room-poll-primary,.room-poll-cancel{min-height:44px;padding:10px 12px;border:0;border-radius:10px;background:var(--ink);color:white;font:inherit;font-weight:600}
+.room-poll-cancel{background:transparent;color:var(--ink)}
+.room-poll-error{margin:0;color:#a63525;font-size:14px;line-height:20px}
+.room-poll-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;line-height:16px;color:var(--muted)}
+.room-poll-heading small{margin-left:auto;font-size:12px}
+.room-poll-view h3{font-size:16px;line-height:22px;font-weight:600;margin:10px 0;overflow-wrap:anywhere}
+.room-poll-answers{display:grid;gap:8px;margin-top:12px}
+.room-poll-answers>button{display:flex;align-items:center;gap:8px;text-align:left;min-height:44px;width:100%;padding:10px 12px;background:white;border:1px solid var(--line);border-radius:10px;color:var(--ink);font:inherit}
+.room-poll-answers>button>svg{flex:0 0 18px}.room-poll-answers>button>span{flex:1;min-width:0;overflow-wrap:anywhere}.room-poll-answers>button strong{font-size:14px;flex:0 0 auto}.room-poll-answers>button small{display:block;font-size:12px}
+.room-poll-answers>button.is-selected,.room-poll-answers>button.is-confirmed{border-color:var(--ink);background:var(--paper)}
+.room-poll-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;color:var(--muted);font-size:12px;line-height:16px}
+.room-poll-foot button,.room-poll-manage>button,.room-poll-close-check button,.room-poll-confirm>button{min-height:44px;border:0;background:transparent;color:var(--ink);padding:8px;font:inherit;font-size:14px;line-height:20px}
+.room-poll-manage{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:4px}
+.room-poll-close-check{display:flex;align-items:center;gap:8px;flex-wrap:wrap;width:100%;font-size:14px}
+.room-poll-confirm{display:flex;align-items:center;gap:8px;width:100%;min-width:0}.room-poll-confirm>label{flex:1;min-width:0}.room-poll-confirm>button{flex:0 0 auto}
+.room-poll-composer button:disabled,.room-poll-view button:disabled{cursor:default;opacity:.55}
+.room-poll-view .room-poll-answers>button:disabled{opacity:1}
+.room-poll-composer :is(button,input,select):focus-visible,.room-poll-view :is(button,select):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.room-poll-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.room-poll-view.is-compact h3{font-size:14px;line-height:20px}.room-poll-view.is-compact .room-poll-confirm{flex-wrap:wrap}.room-poll-view.is-compact .room-poll-confirm>label{flex-basis:100%}
+@media(min-width:390px){.room-poll-option-edit>div:has(input[type=date]){grid-template-columns:minmax(0,1fr) minmax(0,.8fr)}}

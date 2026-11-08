@@ -1,8 +1,9 @@
-import { StrictMode, useEffect, useMemo, useState } from 'react';
+import { StrictMode, useCallback, useEffect, useMemo, useState } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import type { Journey } from '../src/data';
 import type { PolicyBundle } from '../src/accountPolicies';
 import type { SocialAccountAdapter, SocialAccountUser, SocialSession } from '../src/socialAccountService';
+import { isPlatformReviewRole, readPlatformReviewRoleMessage, PLATFORM_REVIEW_PROTOCOL } from './platform-review-protocol';
 
 const ownerId = 'spotlog-local-review-member';
 const memberId = 'example-sibling';
@@ -16,16 +17,16 @@ const roles: Record<ReviewRole, SocialAccountUser | null> = {
   guest: null,
 };
 const routes: Record<string, string> = {
-  create: 'together-plan', travelcreate: 'together-plan-trip', home: 'home', appointments: 'appointments', together: 'together', records: 'records', profile: 'profile',
+  create: 'together-plan', travelcreate: 'together-plan-trip', home: 'home', travel: 'travel', appointments: 'appointments', together: 'together', records: 'records', profile: 'profile',
   saved: 'saved', directory: 'places-guide', activity: `activity-${ids.activity}`,
   group: `group-${ids.group}`, groupchat: `groupchat-${ids.group}`, chat: `activitychat-${ids.activity}`,
-  assistant: `activitychat-${ids.activity}`, find: 'together-find',
+  assistant: `activitychat-${ids.activity}`, find: 'together-find', groupcreate: 'together-find',
   public: `group-${ids.publicGroup}`, plan: `journey-${ids.plan}`, journal: `journey-${ids.journal}`,
 };
 const labels: Record<string, string> = {
-  create: 'AI 계획 만들기', travelcreate: '여행 초안 만들기', home: '발견', appointments: '약속', together: '모임', records: '내 기록', profile: '프로필', saved: '저장 장소',
+  create: 'AI 계획 만들기', travelcreate: '여행 초안 만들기', home: '발견', travel: '여행', appointments: '약속', together: '모임', records: '내 기록', profile: '프로필', saved: '저장 장소',
   directory: '장소 찾기', activity: '개별 약속', group: '가족 모임', groupchat: '모임 전체 대화', chat: '약속 대화',
-  assistant: '약속 도우미', find: '모임 찾기', public: '가입 신청·승인', plan: '개인 일정', journal: '개인 여행기',
+  assistant: '약속 도우미', find: '모임 찾기', groupcreate: '모임 만들기', public: '가입 신청·승인', plan: '개인 일정', journal: '개인 여행기',
 };
 
 /** The fixture roles share ONLY their fictional Together state, simulating one server in page memory. */
@@ -79,7 +80,7 @@ async function boot() {
   const params = new URLSearchParams(location.search);
   document.body.dataset.embed = params.get('embed') === '1' ? 'true' : 'false';
   const requestedRole = params.get('role');
-  const initialRole: ReviewRole = params.get('mode') === 'guest' ? 'guest' : requestedRole && requestedRole in roles ? requestedRole as ReviewRole : 'owner';
+  const initialRole: ReviewRole = params.get('mode') === 'guest' ? 'guest' : isPlatformReviewRole(requestedRole) ? requestedRole : 'owner';
   const requestedScreen = params.get('screen') || 'home';
   const route = routes[requestedScreen] || routes.home;
   const [{ placeCatalog }, { createLocalRepository }, { draftPolicies }, { createSeedState }, { togetherStorageKey, isTogetherState }, { installMoaChatExamples }, { createMembershipReviewState }, { interestStorageKey }] = await Promise.all([
@@ -99,6 +100,10 @@ async function boot() {
   activity.startTime = '10:30'; activity.kind = 'TRIP';
   const family = state.groups.find(item => item.id === ids.group)!;
   family.interestPlaceIds = [...new Set([...(family.interestPlaceIds ?? []), ...placeCatalog.filter(place => place.area.startsWith('부산') && ['CAFE', 'FOOD'].includes(place.kind)).slice(0, 4).map(place => place.id)])];
+  if (params.get('tools') === '1') {
+    const { installParticipationExamples } = await import('./participation-review-fixture'); installParticipationExamples(state, ownerId);
+    const { installGroupBenchmarkExamples } = await import('./group-benchmark-fixture'); installGroupBenchmarkExamples(state, ownerId, placeCatalog);
+  }
   if (!isTogetherState(state)) throw new Error('검수 모임 자료의 형식을 확인하지 못했어요.');
   local.setItem(togetherStorageKey(ownerId), JSON.stringify(state));
   if (local.getItem(togetherStorageKey(memberId)) !== local.getItem(togetherStorageKey(ownerId))) throw new Error('검수 역할 자료를 분리된 페이지 안에서 연결하지 못했어요.');
@@ -125,12 +130,34 @@ async function boot() {
   function Review() {
     const [role, setRole] = useState<ReviewRole>(initialRole);
     const adapter = useMemo(() => makeAdapter(role), [role]);
+    const changeRole = useCallback((value: unknown) => {
+      if (!isPlatformReviewRole(value)) return;
+      const target = new URL(location.href);
+      target.searchParams.set('role', value); target.searchParams.set('mode', value === 'guest' ? 'guest' : 'member');
+      target.hash = location.hash.slice(1) || route;
+      history.replaceState(null, '', target);
+      setRole(value);
+    }, []);
+    useEffect(() => {
+      if (window.parent === window) return;
+      const receive = (event: MessageEvent) => {
+        const next = readPlatformReviewRoleMessage(event, location.origin, window.parent);
+        if (next) changeRole(next);
+      };
+      window.addEventListener('message', receive);
+      return () => window.removeEventListener('message', receive);
+    }, [changeRole]);
+    useEffect(() => {
+      if (window.parent !== window) window.parent.postMessage({ protocol: PLATFORM_REVIEW_PROTOCOL, type: 'ROLE_CHANGED', role }, location.origin);
+    }, [role]);
     useEffect(() => {
       document.body.dataset.qaRole = role;
-      if (requestedScreen !== 'assistant' || role === 'guest' || role === 'applicant') return;
+      if (!['assistant', 'groupcreate'].includes(requestedScreen) || role === 'guest' || requestedScreen === 'assistant' && role === 'applicant') return;
+      const appRoot = document.getElementById('platform-review-app');
+      if (!appRoot?.isConnected) return;
       let opened = false, scheduled = false, cancelled = false;
       let firstFrame = 0, secondFrame = 0;
-      const findTrigger = () => [...document.querySelectorAll<HTMLButtonElement>('.platform-review-app .tg-room-assistant')]
+      const findTrigger = () => [...appRoot.querySelectorAll<HTMLButtonElement>(requestedScreen === 'groupcreate' ? '[aria-label="모임 만들기"]' : '.tg-room-assistant')]
         .find(button => button.getClientRects().length > 0);
       const open = () => {
         if (opened || scheduled || cancelled || !findTrigger()) return;
@@ -141,16 +168,16 @@ async function boot() {
           scheduled = false;
           if (cancelled) return;
           const target = findTrigger();
-          if (target) { opened = true; observer.disconnect(); target.click(); document.body.dataset.qaAssistant = 'opened-existing-action'; }
+          if (target) { opened = true; observer.disconnect(); target.click(); if (requestedScreen === 'groupcreate') document.body.dataset.qaGroupCreate = 'opened-existing-action'; else document.body.dataset.qaAssistant = 'opened-existing-action'; }
         }); });
       };
       const observer = new MutationObserver(open);
-      observer.observe(document.getElementById('platform-review-app')!, { childList: true, subtree: true });
+      observer.observe(appRoot, { childList: true, subtree: true });
       open();
       const timeout = window.setTimeout(() => { observer.disconnect(); if (!opened) document.body.dataset.qaAssistant = 'open-from-activity'; }, 8000);
       return () => { cancelled = true; observer.disconnect(); cancelAnimationFrame(firstFrame); cancelAnimationFrame(secondFrame); window.clearTimeout(timeout); };
     }, [role]);
-    return <><details className="platform-review-toolbar"><summary>플랫폼 검수 · 이 페이지 메모리만 사용</summary><p>실제 앱 화면. 고객·관리자·오프라인 저장소와 분리. 실제 인증·가입·메일·AI 연결·전송은 실행하지 않아요.</p><label>검수 역할<select aria-label="플랫폼 검수 역할" value={role} onChange={event => { setRole(event.target.value as ReviewRole); history.replaceState(null, '', `${location.pathname}${location.search}#${location.hash.slice(1) || route}`); }}><option value="owner">모임장 · 가족·가입 승인 확인</option><option value="member">모임원 · 준비·대화·투표 확인</option><option value="applicant">가입 신청자 · 공개 소개 확인</option><option value="guest">비로그인 · 공개 발견 확인</option></select></label><nav aria-label="플랫폼 검수 시작 화면">{Object.entries(labels).map(([screen, label]) => { const target = new URL(location.href); target.searchParams.set('screen', screen); target.searchParams.set('role', role); target.searchParams.set('mode', role === 'guest' ? 'guest' : 'member'); target.hash = ''; return <a href={target.href} key={screen}>{label}</a>; })}</nav><small>역할을 바꾸면 가상 모임 자료만 이 페이지에서 이어져 신청→승인을 확인할 수 있어요. 링크로 새로 열면 초기 자료로 시작해요. 단독 화면은 embed=1 사용.</small></details><div className="platform-review-app" id="platform-review-app"><App key={role} accountAdapter={adapter}/></div></>;
+    return <><details className="platform-review-toolbar"><summary>플랫폼 검수 · 이 페이지 메모리만 사용</summary><p>실제 앱 화면. 고객·관리자·오프라인 저장소와 분리. 실제 인증·가입·메일·AI 연결·전송은 실행하지 않아요.</p><label>검수 역할<select aria-label="플랫폼 검수 역할" value={role} onChange={event => changeRole(event.target.value)}><option value="owner">모임장 · 가족·가입 승인 확인</option><option value="member">모임원 · 준비·대화·투표 확인</option><option value="applicant">가입 신청자 · 공개 소개 확인</option><option value="guest">비로그인 · 공개 발견 확인</option></select></label><nav aria-label="플랫폼 검수 시작 화면">{Object.entries(labels).map(([screen, label]) => { const target = new URL(location.href); target.searchParams.set('screen', screen); target.searchParams.set('role', role); target.searchParams.set('mode', role === 'guest' ? 'guest' : 'member'); target.hash = ''; return <a href={target.href} key={screen}>{label}</a>; })}</nav><small>역할을 바꾸면 가상 모임 자료만 이 페이지에서 이어져 신청→승인을 확인할 수 있어요. 링크로 새로 열면 초기 자료로 시작해요. 단독 화면은 embed=1 사용.</small></details><div className="platform-review-app" id="platform-review-app"><App key={role} accountAdapter={adapter}/></div></>;
   }
   const root = (import.meta.hot?.data.platformReviewRoot as Root | undefined) ?? createRoot(document.getElementById('root')!);
   if (import.meta.hot) import.meta.hot.dispose(data => { data.platformReviewRoot = root; });

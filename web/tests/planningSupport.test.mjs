@@ -110,7 +110,9 @@ test('next-plan brief carries only actor-entered feedback and wish; it copies no
   assert.match(buildPlanningFeedback(input), /다음에 하고 싶은 일: 실내 전시와 카페/);
 });
 
-test('explicit place-vote/task handoff uses existing latest-version domain and never edits itinerary, RSVP or private source', () => {
+test('explicit place-vote/task handoff uses existing latest-version domain and never edits itinerary, RSVP or private source', t => {
+  // The chat-share boundary reads its own clock; keep it aligned with this fixed fixture.
+  t.mock.timers.enable({ apis: ['Date'], now: at.getTime() });
   const state = fixture(), original = structuredClone(state.activities[0]);
   applyActivityAssistantAction(state, 'me', { ...scope, id: 'poll', expectedRevision: 4, type: 'CREATE_POLL', question: '식당 선택', placeIds: ['a', 'b'] }, places);
   applyActivityAssistantAction(state, 'me', { ...scope, id: 'task', expectedRevision: 4, type: 'CREATE_TASK', title: '영업 시간 확인', sourceMessageIds: [], sourceVersions: {}, assignee: 'SELF' }, places);

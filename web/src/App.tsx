@@ -80,7 +80,11 @@ import HomeCommunity from './together/HomeCommunity';
 import DiscoveryHome from './community/DiscoveryHome';
 import TravelDiscovery from './community/TravelDiscovery';
 import PlaceDirectory, { type PlaceDirectorySearch } from './community/PlaceDirectory';
-import { AppointmentsHub, CreateAppointmentSheet, RecordsHub } from './community/PlatformHubs';
+import { CreateAppointmentSheet } from './community/PlatformHubs';
+import { MyHub } from './community/MyHub';
+import { detailScreen, isTravelRootRoute, legacyMyHashMatches, legacyMySection, myRoute, mySectionForRoute, primaryTabForScreen, primaryTabs, type MySection } from './primaryNavigation';
+import { selectMemberHomeSchedule } from './community/memberHomeReturn';
+import { validCalendarDay } from './together/calendarPlans';
 import { createStandaloneAppointment, memberAppointments, type AppointmentInput, type AppointmentRange } from './community/platformModel';
 import type { DiscoveryHomeView, DiscoveryPurpose } from './community/discoveryHomeModel';
 import { createTogetherRepository } from './together/repository';
@@ -162,7 +166,7 @@ import {
 } from './data';
 import { isNativeShell, notifyNavigationState, notifyReady, openExternal, previewCreatorNotification, shareContent, subscribeNavigationCommands, subscribeNotificationStatus, subscribePreviewNotificationResult, updateNotificationPreferences } from './nativeBridge';
 
-type Tab = 'home' | 'appointments' | 'records' | 'community' | 'discover' | 'together' | 'offline' | 'trips' | 'saved' | 'profile' | 'photo-stories' | 'style-guide' | 'error' | 'errors';
+type Tab = 'home' | 'travel' | 'my' | 'appointments' | 'records' | 'community' | 'discover' | 'together' | 'offline' | 'trips' | 'saved' | 'profile' | 'photo-stories' | 'style-guide' | 'error' | 'errors';
 type PlaceView = 'VIDEO' | 'GUIDE' | 'PHOTO';
 type BrowsePlaceKind = PlaceKind | 'ALL';
 const browsePlaceKinds: BrowsePlaceKind[] = ['ALL', 'LANDMARK', 'FOOD', 'CAFE', 'STAY', 'SHOP', 'LEISURE'];
@@ -194,7 +198,7 @@ interface PhotoStorySample {
 }
 
 type HomeTopic = 'recommended' | 'places' | 'groups' | 'trips';
-interface DiscoveryMemory { region: string; query: string; view: DiscoveryHomeView; purpose?: DiscoveryPurpose; useMyRegion?: boolean; travelRegion?: string }
+interface DiscoveryMemory { region: string; query: string; view: DiscoveryHomeView; purpose?: DiscoveryPurpose; useMyRegion?: boolean; travelRegion?: string; travelQuery?: string }
 function myRegionsStorage() { try { return window.localStorage; } catch { return null; } }
 interface HomeViewMemory { placeKind: PlaceKind | 'ALL'; region?: string; query?: string; groupRegion: { value: string }; recommendationId?: string; guideId?: string }
 
@@ -215,6 +219,8 @@ interface SpotlogNavigationState {
   discoveryHome?: DiscoveryMemory;
   appointmentRange?: AppointmentRange;
   recordsSection?: string;
+  mySection?: MySection;
+  calendarView?: { month: string; date: string };
   placeKind?: BrowsePlaceKind;
   placeRegion?: string;
   placeDistrict?: string;
@@ -265,13 +271,8 @@ const creatorGradeIcons = { SPARKLES: Sparkles, AWARD: Award, STAR: Star, ROUTE:
 const getCreatorTier = (copyCount: number, references?: Parameters<typeof creatorGradeRules>[0]) => { const tier = currentCreatorGrade(copyCount, creatorGradeRules(references)); return { ...tier, icon: creatorGradeIcons[tier.icon] }; };
 const getNextCreatorTier = (copyCount: number, references?: Parameters<typeof creatorGradeRules>[0]) => creatorGradeRules(references).find(tier => tier.min > copyCount) ?? null;
 
-const tabItems: Array<{ id: Tab; icon: LucideIcon; label: string }> = [
-  { id: 'home', icon: Compass, label: '발견' },
-  { id: 'appointments', icon: CalendarDays, label: '약속' },
-  { id: 'together', icon: Users, label: '모임' },
-  { id: 'saved', icon: Bookmark, label: '저장 장소' },
-  { id: 'records', icon: BookOpen, label: '내 기록' },
-];
+const primaryIcons: Record<string, LucideIcon> = { home: House, together: Users, travel: Route, saved: Bookmark, my: CircleUserRound };
+const tabItems = primaryTabs.map(item => ({ ...item, icon: primaryIcons[item.id] }));
 
 const statusLabel = { PLANNING: '계획 중', TRAVELING: '여행 중', PUBLISHED: '여행일기' } as const;
 const storageKeys = {
@@ -466,7 +467,7 @@ const isSpotlogNavigationState = (value: unknown): value is SpotlogNavigationSta
   const state = value as Partial<SpotlogNavigationState>;
   return state.spotlog === true
     && typeof state.depth === 'number'
-    && ['home', 'appointments', 'records', 'community', 'discover', 'together', 'offline', 'trips', 'saved', 'profile', 'photo-stories', 'error', ...(import.meta.env.DEV ? ['style-guide', 'errors'] : [])].includes(String(state.tab))
+    && ['home', 'travel', 'my', 'appointments', 'records', 'community', 'discover', 'together', 'offline', 'trips', 'saved', 'profile', 'photo-stories', 'error', ...(import.meta.env.DEV ? ['style-guide', 'errors'] : [])].includes(String(state.tab))
     && (state.tab !== 'error' || isErrorKind(state.errorKind))
     && (state.tab !== 'together' || state.togetherRoute == null || isTogetherRoute(state.togetherRoute))
     && ['VIDEO', 'GUIDE', 'PHOTO'].includes(String(state.placeView))
@@ -475,9 +476,14 @@ const isSpotlogNavigationState = (value: unknown): value is SpotlogNavigationSta
       && ['recommended', 'meetups', 'groups', 'places', 'trips'].includes(state.discoveryHome.view)
       && (state.discoveryHome.purpose === undefined || ['FOOD','CAFE','WALK','CULTURE','FAMILY','TRAVEL'].includes(state.discoveryHome.purpose))
       && (state.discoveryHome.useMyRegion === undefined || typeof state.discoveryHome.useMyRegion === 'boolean')
-      && (state.discoveryHome.travelRegion === undefined || typeof state.discoveryHome.travelRegion === 'string'))
+      && (state.discoveryHome.travelRegion === undefined || typeof state.discoveryHome.travelRegion === 'string')
+      && (state.discoveryHome.travelQuery === undefined || typeof state.discoveryHome.travelQuery === 'string'))
     && (state.appointmentRange === undefined || ['upcoming','undated','past'].includes(state.appointmentRange))
     && (state.recordsSection === undefined || ['activities','journals'].includes(state.recordsSection))
+    && (state.mySection === undefined || ['schedule','travel','records'].includes(state.mySection))
+    && (state.calendarView === undefined || Boolean(state.calendarView && typeof state.calendarView.month === 'string'
+      && /^\d{4}-(0[1-9]|1[0-2])$/.test(state.calendarView.month) && typeof state.calendarView.date === 'string'
+      && (state.calendarView.date === '' || validCalendarDay(state.calendarView.date) && state.calendarView.date.startsWith(`${state.calendarView.month}-`))))
     && (state.placeKind == null || browsePlaceKinds.includes(state.placeKind))
     && (state.placeRegion == null || typeof state.placeRegion === 'string')
     && (state.placeDistrict == null || typeof state.placeDistrict === 'string')
@@ -485,22 +491,22 @@ const isSpotlogNavigationState = (value: unknown): value is SpotlogNavigationSta
     && (state.detailDay == null || (Number.isInteger(state.detailDay) && state.detailDay > 0));
 };
 const spotlogNavigationUrl = (state: SpotlogNavigationState) => {
-  const screen = state.tab === 'together' ? state.togetherRoute ?? 'together' : state.tab === 'error' ? `error-${state.errorKind ?? 500}` : state.editorId
-    ? `edit-${state.editorId}`
-    : state.journeyId
-      ? `journey-${state.journeyId}`
-      : state.templateId
-        ? `recommendation-${state.templateId}`
+  const screen = state.tab === 'error' ? `error-${state.errorKind ?? 500}` : detailScreen(state)
+    ?? (state.tab === 'together' ? state.togetherRoute ?? 'together'
         : state.tab === 'discover'
           ? `places-${state.placeView.toLowerCase()}${state.placeView === 'GUIDE' && state.placeKind && state.placeKind !== 'ALL' ? `-${state.placeKind.toLowerCase()}` : ''}`
+          : state.tab === 'my' || legacyMySection(state.tab, state.appointmentRange) ? myRoute(state.mySection ?? legacyMySection(state.tab, state.appointmentRange) ?? 'schedule')
           : state.tab === 'home' && state.discoveryHome ? state.discoveryHome.view === 'recommended' ? 'home' : `home-${state.discoveryHome.view}`
-            : state.tab === 'home' && state.homeTopic && state.homeTopic !== 'recommended' ? `home-${state.homeTopic}` : state.tab;
+            : state.tab === 'home' && state.homeTopic && state.homeTopic !== 'recommended' ? `home-${state.homeTopic}` : state.tab);
   return `${window.location.pathname}${window.location.search}#${encodeURIComponent(screen)}`;
 };
 const navigationStateFromHash = (): SpotlogNavigationState => {
   const { screen, error } = readErrorRoute(window.location.hash);
   const base: SpotlogNavigationState = { spotlog: true, depth: 0, tab: 'home', placeView: 'GUIDE', placeKind: 'ALL', journeyId: null, templateId: null, editorId: null };
   if (error !== undefined) return { ...base, tab: 'error', errorKind: error };
+  if (isTravelRootRoute(screen)) return { ...base, tab: 'travel' };
+  const section = mySectionForRoute(screen);
+  if (section) return { ...base, tab: 'my', mySection: section };
   if (isTogetherRoute(screen)) return { ...base, tab: 'together', togetherRoute: screen };
   if (/^home-(recommended|places|groups|trips|meetups)$/.test(screen)) return { ...base, homeTopic: screen === 'home-meetups' ? 'recommended' : screen.slice(5) as HomeTopic, discoveryHome: { region: '', query: '', view: screen.slice(5) as DiscoveryHomeView, useMyRegion: true } };
   if (screen === 'places-guide') return { ...base, tab: 'discover', placeView: 'GUIDE' };
@@ -519,7 +525,15 @@ const navigationStateFromHash = (): SpotlogNavigationState => {
   if (screen.startsWith('edit-') && screen.length > 'edit-'.length) return { ...base, tab: 'trips', editorId: screen.slice('edit-'.length) };
   return { ...base, tab: 'error', errorKind: 404 };
 };
-const navigationStateMatchesHash = (state: SpotlogNavigationState) => spotlogNavigationUrl(state).endsWith(window.location.hash || '#home');
+const navigationStateMatchesHash = (state: SpotlogNavigationState) => spotlogNavigationUrl(state).endsWith(window.location.hash || '#home')
+  || legacyMyHashMatches(state.tab, window.location.hash, Boolean(state.journeyId || state.templateId || state.editorId));
+const canonicalNavigationState = (state: SpotlogNavigationState): SpotlogNavigationState => {
+  const section = legacyMySection(state.tab, state.appointmentRange);
+  if (state.tab === 'home' && state.discoveryHome?.view === 'trips' && !detailScreen(state)) {
+    return { ...state, tab: 'travel', discoveryHome: { ...state.discoveryHome, view: 'recommended', travelQuery: state.discoveryHome.travelQuery ?? state.discoveryHome.query } };
+  }
+  return section ? { ...state, tab: 'my', mySection: section } : state;
+};
 
 const resizeImageFile = (file: File, maxWidth = 1600, quality = 0.82) => new Promise<string>((resolve, reject) => {
   const reader = new FileReader();
@@ -629,11 +643,10 @@ function SpotlogApp() {
     window.addEventListener('storage', reload); return () => window.removeEventListener('storage', reload);
   }, [regionOwner]);
   const [discoveryHome, setDiscoveryHome] = useState<DiscoveryMemory>({ region: '', query: '', view: 'recommended', useMyRegion: true });
-  const homeIsTravel = discoveryHome.view === 'trips';
-  const homeRegion = homeIsTravel ? (discoveryHome.travelRegion ?? (discoveryHome.useMyRegion === undefined ? discoveryHome.region : '')) : discoveryHome.useMyRegion === true ? myRegion?.region ?? '' : discoveryHome.region;
-  const homeDistrict = !homeIsTravel && discoveryHome.useMyRegion === true ? myRegion?.district ?? '' : '';
   const [appointmentRange, setAppointmentRange] = useState<AppointmentRange>('upcoming');
   const [recordsSection, setRecordsSection] = useState('activities');
+  const [mySection, setMySection] = useState<MySection>('schedule');
+  const [calendarView, setCalendarView] = useState<{ month: string; date: string }>();
   const [appointmentCreating, setAppointmentCreating] = useState(false);
   const [appointmentDraft, setAppointmentDraft] = useState<AppointmentInput>({ title: '', date: '', kind: 'FRIENDS' });
   const [discoveryPlace, setDiscoveryPlace] = useState<Place | null>(null);
@@ -642,6 +655,9 @@ function SpotlogApp() {
   const liveTemplates = useMemo(() => [...new Map([...homeTripTemplates, ...publicReview.operatingTemplates].map(t => [t.id,t])).values()].map(template => ({ ...template, cover: publicReview.state.withdrawnImages.includes(template.cover) ? '' : template.cover, places: template.places.flatMap(place => { const current = placeCatalog.find(p => p.id === place.id); return current ? [current] : []; }) })).filter(t => t.places.length > 0), [placeCatalog, publicReview]);
   const aiPlaceCandidates = useMemo(() => { const official = placeCatalog.filter(p => publicTourismPlaces.some(o => o.id === p.id)); const keys = new Set(official.map(aiCandidateKey)); return [...official, ...placeCatalog.filter(p => !keys.has(aiCandidateKey(p)))]; }, [placeCatalog]);
   const [tab, setTab] = useState<Tab>('home');
+  const homeIsTravel = tab === 'travel';
+  const homeRegion = homeIsTravel ? (discoveryHome.travelRegion ?? (discoveryHome.useMyRegion === undefined ? discoveryHome.region : '')) : discoveryHome.useMyRegion === true ? myRegion?.region ?? '' : discoveryHome.region;
+  const homeDistrict = !homeIsTravel && discoveryHome.useMyRegion === true ? myRegion?.district ?? '' : '';
   const [homeTopic, setHomeTopic] = useState<HomeTopic>('recommended');
   const homeScrollTop = useRef<Record<HomeTopic, number>>({ recommended: 0, places: 0, groups: 0, trips: 0 });
   const homeMemory = useRef<HomeViewMemory>({ placeKind: 'ALL', groupRegion: { value: '' } });
@@ -692,6 +708,7 @@ function SpotlogApp() {
   const [chatbotPersonalPlace, setChatbotPersonalPlace] = useState<{ journeyId: string; day: number; kind: PlaceKind } | null>(null);
   const [creating, setCreating] = useState(false);
   const [planCreating, setPlanCreating] = useState(false);
+  const [tripCreationOpen, setTripCreationOpen] = useState(false);
   const [planCreationDraft, setPlanCreationDraft] = useLocalState<PlanCreationDraft | null>(PLAN_CREATION_KEY, () => JSON.parse(localRepository.getItem(PLAN_CREATION_KEY) ?? 'null'));
   const [planChoices, setPlanChoices] = useState<Place[] | null>(null);
   const [placementPlaces, setPlacementPlaces] = useState<Place[] | null>(null);
@@ -737,7 +754,10 @@ function SpotlogApp() {
 
   const applyNavigationState = useCallback((state: SpotlogNavigationState) => {
     clearToast();
-    setTab(state.tab);
+    const legacySection = legacyMySection(state.tab, state.appointmentRange);
+    setTab(legacySection ? 'my' : state.tab);
+    setMySection(state.mySection ?? legacySection ?? 'schedule');
+    setCalendarView(state.calendarView);
     setHomeTopic(state.homeTopic ?? 'recommended');
     const restoredDiscovery = state.discoveryHome ?? { region: '', query: '', view: 'recommended' as const, useMyRegion: true };
     // Older history used region for travel as well; preserve that destination before adopting a home area.
@@ -761,6 +781,7 @@ function SpotlogApp() {
     setEditingJourneyId(state.editorId);
     setCreating(false);
     setPlanCreating(false);
+    setTripCreationOpen(false);
     setPlacementPlaces(null);
     setAiTravelOpen(false);
     setTrashOpen(false);
@@ -794,6 +815,8 @@ function SpotlogApp() {
       discoveryHome: next.discoveryHome ?? discoveryHome,
       appointmentRange: next.appointmentRange ?? appointmentRange,
       recordsSection: next.recordsSection ?? recordsSection,
+      mySection: next.mySection ?? mySection,
+      calendarView: next.calendarView ?? calendarView,
       placeKind: next.placeKind ?? guideKind,
       placeRegion: next.placeRegion ?? guideSearch.region,
       placeDistrict: Object.prototype.hasOwnProperty.call(next, 'placeDistrict') ? next.placeDistrict : guideSearch.district,
@@ -817,9 +840,9 @@ function SpotlogApp() {
   };
 
   useEffect(() => {
-    const initial: SpotlogNavigationState = isSpotlogNavigationState(window.history.state) && navigationStateMatchesHash(window.history.state)
+    const initial = canonicalNavigationState(isSpotlogNavigationState(window.history.state) && navigationStateMatchesHash(window.history.state)
       ? window.history.state
-      : navigationStateFromHash();
+      : navigationStateFromHash());
     window.history.replaceState(initial, '', spotlogNavigationUrl(initial));
     applyNavigationState(initial);
     notifyNavigationState(initial.depth > 0);
@@ -827,10 +850,10 @@ function SpotlogApp() {
       // A sheet's internal disclosure owns its back/forward transition. Applying
       // page navigation here would discard the still-open trip/AI form.
       if (event.state?.spotlogSheet && hasActiveSheet()) return;
-      const state: SpotlogNavigationState = isSpotlogNavigationState(event.state)
+      const state = canonicalNavigationState(isSpotlogNavigationState(event.state)
         ? event.state
-        : navigationStateFromHash();
-      if (!isSpotlogNavigationState(event.state)) window.history.replaceState(state, '', spotlogNavigationUrl(state));
+        : navigationStateFromHash());
+      if (!isSpotlogNavigationState(event.state) || state !== event.state) window.history.replaceState(state, '', spotlogNavigationUrl(state));
       applyNavigationState(state);
       notifyNavigationState(state.depth > 0);
     };
@@ -863,7 +886,7 @@ function SpotlogApp() {
   useEffect(() => {
     const frame = requestAnimationFrame(() => document.querySelector<HTMLElement>('.content')?.scrollTo({ top: window.history.state?.scrollTop ?? 0, behavior: 'instant' }));
     return () => cancelAnimationFrame(frame);
-  }, [tab, homeTopic, selectedJourneyId, selectedTemplate, editingJourneyId, placeView, togetherRoute]);
+  }, [tab, homeTopic, mySection, selectedJourneyId, selectedTemplate, editingJourneyId, placeView, togetherRoute]);
 
   const showToast = (message: string) => {
     window.clearTimeout(toastTimer.current);
@@ -1085,6 +1108,8 @@ function SpotlogApp() {
   };
 
   const selectTab = (next: Tab) => {
+    const legacySection = legacyMySection(next);
+    if (legacySection) { openMySection(legacySection); return; }
     if (next === tab && !selectedJourney && !editingJourney && !(next === 'together' && togetherRoute !== 'together')) return;
     setSelectedJourneyId(null);
     setSelectedTemplate(null);
@@ -1093,6 +1118,12 @@ function SpotlogApp() {
     setTab(next);
     if (next === 'together') setTogetherRoute('together');
     writeNavigationState({ tab: next, togetherRoute: next === 'together' ? 'together' : undefined, journeyId: null, templateId: null, editorId: null, scrollTop: next === 'discover' && placeView === 'GUIDE' ? guideScrollTop.current : 0 });
+  };
+  const openMySection = (section: MySection) => {
+    if (tab === 'my' && mySection === section && !selectedJourney && !editingJourney) return;
+    setSelectedJourneyId(null); setSelectedTemplate(null); setRequestedTemplateId(null); setEditingJourneyId(null);
+    setTab('my'); setMySection(section);
+    writeNavigationState({ tab: 'my', mySection: section, journeyId: null, templateId: null, editorId: null, scrollTop: 0 });
   };
   const changeHomeTopic = (next: HomeTopic) => {
     if (next === homeTopic) return;
@@ -1125,7 +1156,9 @@ function SpotlogApp() {
     document.querySelector('.content')?.scrollTo({ top: 0, behavior: 'instant' });
   };
   const navigateTogether = (route: string, filters?: GroupDiscoveryFilters) => {
-    if (['home', 'appointments', 'records', 'trips', 'profile', 'saved', 'community', 'discover', 'offline'].includes(route)) { selectTab(route as Tab); return; }
+    const section = mySectionForRoute(route);
+    if (section) { openMySection(section); return; }
+    if (['home', 'travel', 'appointments', 'records', 'trips', 'profile', 'saved', 'community', 'discover', 'offline'].includes(route)) { selectTab(route as Tab); return; }
     if (!isTogetherRoute(route)) return;
     const state = { tab: 'together' as const, togetherRoute: route, discoveryFilters: filters ?? discoveryFilters, journeyId: null, templateId: null, editorId: null, scrollTop: 0 };
     setSelectedJourneyId(null); setSelectedTemplate(null); setRequestedTemplateId(null); setEditingJourneyId(null);
@@ -1141,17 +1174,18 @@ function SpotlogApp() {
   };
   const goTogetherBack = (fallback: string) => {
     if (isSpotlogNavigationState(window.history.state) && window.history.state.depth > 0) { window.history.back(); return; }
-    const fallbackTab: Tab = ['home', 'appointments', 'records', 'trips', 'saved'].includes(fallback) ? fallback as Tab : 'together';
-    const state: SpotlogNavigationState = { spotlog: true, depth: 0, tab: fallbackTab, placeView, togetherRoute: isTogetherRoute(fallback) ? fallback : 'together', discoveryFilters, journeyId: null, templateId: null, editorId: null };
+    const section = mySectionForRoute(fallback);
+    const fallbackTab: Tab = section ? 'my' : ['home', 'trips', 'saved'].includes(fallback) ? fallback as Tab : 'together';
+    const state: SpotlogNavigationState = { spotlog: true, depth: 0, tab: fallbackTab, mySection: section, placeView, togetherRoute: isTogetherRoute(fallback) ? fallback : 'together', discoveryFilters, journeyId: null, templateId: null, editorId: null };
     window.history.replaceState(state, '', spotlogNavigationUrl(state));
     applyNavigationState(state); notifyNavigationState(false);
   };
   const navigateMenu = (route: string) => {
     if (route === 'my-regions') setMyRegionsOpen(true);
-    else if (route === 'create-trip') { setPlanChoices(null); setPlanCreating(true); }
+    else if (route === 'create-trip') setTripCreationOpen(true);
     else if (route === 'ai-trip') navigateTogether('together-plan-trip', { region: homeRegion });
     else if (route === 'recommended-trips') { selectTab('community'); setTravelRecommendationsOpen(true); }
-    else if (['profile', 'saved', 'offline'].includes(route)) selectTab(route as Tab);
+    else if (['profile', 'saved', 'offline', 'my', 'travel'].includes(route)) selectTab(route as Tab);
     else navigateTogether(route);
   };
   const updateDiscoveryHome = (patch: Partial<DiscoveryMemory>) => {
@@ -1171,7 +1205,7 @@ function SpotlogApp() {
     const owner = regionOwnerRef.current, origin = window.history.state;
     const locationKey = (value: unknown) => {
       const state = value && typeof value === 'object' ? value as Partial<SpotlogNavigationState> : {};
-      return JSON.stringify([state.tab, state.togetherRoute, state.journeyId, state.templateId, state.editorId, state.placeView]);
+      return JSON.stringify([state.tab, state.mySection, state.togetherRoute, state.journeyId, state.templateId, state.editorId, state.placeView]);
     };
     pendingSheetNavigation.current = afterSheetClose(window, state => regionOwnerRef.current === owner && locationKey(state) === locationKey(origin), () => { pendingSheetNavigation.current = null; navigate(); });
   };
@@ -1195,6 +1229,11 @@ function SpotlogApp() {
     if (!togetherViewer || !group || group.archived || !group.memberIds.includes(togetherViewer.id) || group.blockedMemberIds?.includes(togetherViewer.id)) return;
     if (activityId && !current.activities.some(item => item.id === activityId && item.groupId === groupId && item.status === 'PLANNED')) return;
     navigateTogether(activityId ? `activitychat-${activityId}` : `groupchat-${groupId}`);
+  };
+  const openMyPlan = (id: string) => {
+    const target = togetherViewer && selectMemberHomeSchedule(togetherRepository.getSnapshot(), togetherViewer.id, ownPlans);
+    if (target && target.kind === 'PLAN' && target.id === id) openJourney(id);
+    else showToast('현재 여행 일정을 다시 확인해 주세요.');
   };
   const startPlaceAppointment = (place: Place) => {
     setPlaceUse(null);
@@ -1275,11 +1314,11 @@ function SpotlogApp() {
           <JourneyDetail key={`${selectedJourney.id}:${detailDay ?? 1}`} onTogether={selectedJourney.isMine ? () => navigateTogether(`together-share-${selectedJourney.id}`) : undefined} initialDay={detailDay ?? 1} socialRequestId={chatbotSocialEntry?.requestId} initialSocialEntry={chatbotSocialEntry?.journeyId === selectedJourney.id ? chatbotSocialEntry.entry : undefined} onCloseSocialEntry={() => setChatbotSocialEntry(null)} journey={selectedJourney} profile={profile} comments={comments.filter((comment) => comment.journeyId === selectedJourney.id)} cheers={cheers[selectedJourney.id] ?? { LOVE: 0, BEST: 0, HELPFUL: 0 }} authorJourneys={selectedJourney.isMine ? journeys.filter((journey) => journey.isMine && !isPersonalPlan(journey)) : journeys.filter((journey) => !journey.isMine && journey.author === selectedJourney.author)} onBack={goBack} onShare={() => void shareJourney(selectedJourney)} onSharePlace={(place) => void sharePlace(place)} onEdit={() => editJourney(selectedJourney.id)} onCopy={() => selectedTemplate ? startRecommendedJourney(selectedTemplate) : copyJourney(selectedJourney)} onComment={(body) => addJourneyComment(selectedJourney.id, body)} onCheer={(cheer) => toggleJourneyCheer(selectedJourney.id, cheer)} onOpenJourney={openJourney} copyLabel={selectedTemplateJourney ? copy("이 일정 내 여행에 담기") : undefined} />
         ) : (
           <>
-            {tab === 'home' && <DiscoveryHome onOpenMyActivity={openMyActivity} onOpenMyChat={openMyChat} onPlan={() => navigateTogether('together-plan', { region: homeRegion })} places={reviewExposureOrder(placeCatalog, 'REGION_GUIDE', publicReview.state, publicReview.now)} references={publicReview.state.references} state={togetherState} viewerId={togetherViewer?.id} region={homeRegion} district={homeDistrict} myRegionLabel={myRegionLabel} onManageMyRegions={homeIsTravel ? undefined : () => setMyRegionsOpen(true)} onUseMyRegion={() => updateDiscoveryHome({ useMyRegion: true })} query={discoveryHome.query} view={discoveryHome.view} purpose={discoveryHome.purpose} onRegionChange={region => updateDiscoveryHome(homeIsTravel ? { travelRegion: region } : { region, useMyRegion: false })} onQueryChange={query => updateDiscoveryHome({ query })} onViewChange={view => updateDiscoveryHome({ view })} onPurposeChange={purpose => updateDiscoveryHome({ purpose })} travelContent={<TravelDiscovery templates={reviewExposureOrder(liveTemplates, 'HOME_TRIP', publicReview.state, publicReview.now)} region={homeRegion} query={discoveryHome.query} onOpen={openTemplate} onMyTrips={() => selectTab('trips')} onCreateTrip={() => navigateTogether('together-plan-trip', { region: homeRegion })} onJournals={() => selectTab('community')}/>} onOpenGroup={openPublicGroup} onFindGroups={filters => navigateTogether('together-find', filters)} onOpenPlace={setDiscoveryPlace} onOpenPlaces={filters => openPlaceGuide(filters.kind ?? 'ALL', filters)} headerActions={<AppMenuButton/>}/>}
-            {tab === 'appointments' && <AppointmentsHub onExplore={() => navigateTogether('together-find', { section: 'MEETUPS', view: 'MEETUPS', useMyRegion: true })} state={togetherState} userId={togetherViewer?.id ?? ''} plans={ownPlans} range={appointmentRange} onRangeChange={range => { setAppointmentRange(range); writeNavigationState({ appointmentRange: range }, 'replace'); }} onActivity={id => navigateTogether(`activity-${id}`)} onPlan={openJourney} onLogin={() => account.openAccount('login')} onInvites={() => navigateTogether('together-invites')} onCreate={openAppointmentCreation} onCreateTrip={() => { setPlanChoices(null); setPlanCreating(true); }}/>}
-            {tab === 'records' && <RecordsHub state={togetherState} userId={togetherViewer?.id ?? ''} plans={ownPlans} journals={ownJourneys.filter(item => !isPersonalPlan(item))} section={recordsSection} onSectionChange={section => { setRecordsSection(section); writeNavigationState({ recordsSection: section }, 'replace'); }} onActivity={id => navigateTogether(`activity-${id}`)} onPlan={openJourney} onJournal={openJourney} onLogin={() => account.openAccount('login')} onInvites={() => navigateTogether('together-invites')} onTrash={() => setTrashOpen(true)} onPersonalLibrary={() => selectTab('trips')}/>}
+            {tab === 'home' && <DiscoveryHome personalPlans={ownPlans} onOpenMyPlan={openMyPlan} onOpenMyActivity={openMyActivity} onOpenMyChat={openMyChat} onPlan={() => navigateTogether('together-plan', { region: homeRegion })} places={reviewExposureOrder(placeCatalog, 'REGION_GUIDE', publicReview.state, publicReview.now)} references={publicReview.state.references} state={togetherState} viewerId={togetherViewer?.id} region={homeRegion} district={homeDistrict} myRegionLabel={myRegionLabel} onManageMyRegions={() => setMyRegionsOpen(true)} onUseMyRegion={() => updateDiscoveryHome({ useMyRegion: true })} query={discoveryHome.query} view={discoveryHome.view === 'trips' ? 'recommended' : discoveryHome.view} purpose={discoveryHome.purpose} onRegionChange={region => updateDiscoveryHome({ region, useMyRegion: false })} onQueryChange={query => updateDiscoveryHome({ query })} onViewChange={view => view === 'trips' ? selectTab('travel') : updateDiscoveryHome({ view })} onPurposeChange={purpose => updateDiscoveryHome({ purpose })} onOpenGroup={openPublicGroup} onFindGroups={filters => navigateTogether('together-find', filters)} onOpenPlace={setDiscoveryPlace} onOpenPlaces={filters => openPlaceGuide(filters.kind ?? 'ALL', filters)} headerActions={<AppMenuButton/>}/>}
+            {tab === 'travel' && <DiscoveryHome mode="travel" view="trips" places={placeCatalog} references={publicReview.state.references} state={togetherState} region={homeRegion} query={discoveryHome.travelQuery ?? ''} onRegionChange={travelRegion => updateDiscoveryHome({ travelRegion })} onQueryChange={travelQuery => updateDiscoveryHome({ travelQuery })} onOpenGroup={openPublicGroup} onFindGroups={filters => navigateTogether('together-find', filters)} onOpenPlace={setDiscoveryPlace} onOpenPlaces={filters => openPlaceGuide(filters.kind ?? 'ALL', filters)} headerActions={<AppMenuButton/>} travelContent={<TravelDiscovery templates={reviewExposureOrder(liveTemplates, 'HOME_TRIP', publicReview.state, publicReview.now)} region={homeRegion} query={discoveryHome.travelQuery ?? ''} onOpen={openTemplate} onMyTrips={() => openMySection('travel')} onCreateTrip={() => navigateTogether('together-plan-trip', { region: homeRegion })} onJournals={() => selectTab('community')}/>}/>}
+            {tab === 'my' && <MyHub key={togetherViewer?.id ?? 'guest-device'} state={togetherState} userId={togetherViewer?.id ?? ''} userName={togetherViewer?.name} plans={ownPlans} journals={ownJourneys.filter(item => !isPersonalPlan(item))} section={mySection} onSectionChange={section => { setMySection(section); writeNavigationState({ mySection: section, scrollTop: 0 }, 'replace'); }} onActivity={id => navigateTogether(`activity-${id}`)} onPlan={openJourney} onJournal={openJourney} onLogin={() => account.openAccount('login')} onInvites={() => navigateTogether('together-invites')} onTrash={() => setTrashOpen(true)} onPersonalLibrary={() => selectTab('trips')} onAccount={() => selectTab('profile')} onCalendar={() => navigateTogether('together-calendar')} onCreateAppointment={openAppointmentCreation} onCreateTravel={() => setTripCreationOpen(true)}/>}
             {tab === 'community' && <Community journeys={journeys} filters={searchDraft} onFiltersChange={setSearchDraft} onOpen={openJourney} />}
-            {tab === 'together' && <TogetherApp repository={togetherRepository} key={togetherViewer?.id ?? 'guest'} route={togetherRoute} discoveryFilters={effectiveDiscoveryFilters} myRegionLabel={myRegionLabel} onManageMyRegions={() => setMyRegionsOpen(true)} onUseMyRegion={() => changeDiscoveryFilters({ ...discoveryFilters, useMyRegion: true })} onDiscoveryFiltersChange={changeDiscoveryFilters} onBack={goTogetherBack} onNavigate={navigateTogether} viewer={togetherViewer} onLogin={() => account.openAccount('login', togetherRoute.startsWith('together-plan') ? '로그인하고 만든 계획을 저장해 주세요.' : '로그인하고 모임에 함께해 주세요.')} places={placeCatalog} journeys={ownJourneys} onOpenJourney={openJourney} onSavePlace={place => {
+            {tab === 'together' && <TogetherApp calendarView={calendarView} onCalendarViewChange={view => { setCalendarView(view); writeNavigationState({ calendarView: view }, 'replace'); }} repository={togetherRepository} key={togetherViewer?.id ?? 'guest'} route={togetherRoute} discoveryFilters={effectiveDiscoveryFilters} myRegionLabel={myRegionLabel} onManageMyRegions={() => setMyRegionsOpen(true)} onUseMyRegion={() => changeDiscoveryFilters({ ...discoveryFilters, useMyRegion: true })} onDiscoveryFiltersChange={changeDiscoveryFilters} onBack={goTogetherBack} onNavigate={navigateTogether} viewer={togetherViewer} onLogin={() => account.openAccount('login', togetherRoute.startsWith('together-plan') ? '로그인하고 만든 계획을 저장해 주세요.' : '로그인하고 모임에 함께해 주세요.')} places={placeCatalog} journeys={ownJourneys} onOpenJourney={openJourney} onSavePlace={place => {
               const saved = saveBusiness({ ...place, personal: place.personal || !placeCatalog.some(item => item.id === place.id) });
               if (!saved) showToast('장소를 저장하지 못했어요. 기존 저장 장소는 그대로예요.');
             }} onCopyJourney={copyJourney} onCreatePersonalPlan={source => { const owned = copyPersonalPlan(source, togetherViewer?.name ?? profile.displayName); if (!setJourneys(current => [owned, ...current])) return false; openMyJourney(owned.id); showToast('내 일정으로 만들었어요.'); return true; }} onCreateJournal={source => {
@@ -1303,11 +1342,12 @@ function SpotlogApp() {
       {!selectedJourney && !editingJourney && !togetherDetail && tab !== 'offline' && tab !== 'profile' && tab !== 'photo-stories' && tab !== 'style-guide' && <nav className="tabbar" aria-label={copy("주요 메뉴")}>
         {tabItems.map((item) => {
           const Icon = item.icon;
-          const active = tab === item.id || item.id === 'home' && tab === 'community' || item.id === 'saved' && tab === 'discover' || item.id === 'records' && tab === 'trips';
-          return <button key={item.id} className={active ? 'active' : ''} aria-current={active ? 'page' : undefined} onClick={() => selectTab(item.id)}><Icon size={21} strokeWidth={active ? 2.3 : 1.8} /><span>{locale === 'en' ? ({home:'Discover',appointments:'Plans',together:'Groups',records:'Records',saved:'Saved places'} as Record<string,string>)[item.id] : item.label}</span></button>;
+          const active = primaryTabForScreen(tab) === item.id;
+          return <button key={item.id} className={active ? 'active' : ''} aria-current={active ? 'page' : undefined} onClick={() => selectTab(item.id)}><Icon size={21} strokeWidth={active ? 2.3 : 1.8} /><span>{locale === 'en' ? item.english : item.label}</span></button>;
         })}
       </nav>}
       {creating && <CreateJourneySheet onClose={() => setCreating(false)} onCreate={createJourney} />}
+      {tripCreationOpen && <BottomSheet title="여행 만들기" onClose={() => setTripCreationOpen(false)}><div className="my-trip-create-choices"><button type="button" onClick={() => { setTripCreationOpen(false); setPlanChoices(null); setPlanCreating(true); }}><Bookmark size={21}/><span><strong>저장한 장소로 만들기</strong><small>모아 둔 장소를 골라 DAY 일정으로 담아요.</small></span><ChevronRight size={18}/></button><button type="button" onClick={() => { afterPlaceSheet(() => navigateTogether('together-plan-trip', { region: homeRegion })); setTripCreationOpen(false); }}><Route size={21}/><span><strong>조건으로 계획하기</strong><small>가고 싶은 지역과 활동을 적고 후보를 비교해요.</small></span><ChevronRight size={18}/></button></div></BottomSheet>}
       {appointmentCreating && <CreateAppointmentSheet places={savedPlaces} initial={appointmentDraft} onChange={setAppointmentDraft} onClose={() => setAppointmentCreating(false)} onCreate={createAppointment}/>}
       {discoveryPlace && <BottomSheet title={discoveryPlace.name} onClose={() => setDiscoveryPlace(null)}><LandmarkGuideCard place={discoveryPlace} showCredit saved={savedIds.includes(discoveryPlace.id)} onToggle={() => toggleSaved(discoveryPlace.id)} onShare={() => void sharePlace(discoveryPlace)}/></BottomSheet>}
       {travelRecommendationsOpen && <BottomSheet title="추천 여행 일정" onClose={() => setTravelRecommendationsOpen(false)}><div className="platform-hub-body">{reviewExposureOrder(liveTemplates, 'HOME_TRIP', publicReview.state, publicReview.now).map(template => <button type="button" key={template.id} className="platform-journal-row" onClick={() => { setTravelRecommendationsOpen(false); openTemplate(template); }}><Route size={24}/><span className="platform-row-copy"><strong>{template.title}</strong><span>{template.region} · {template.duration}</span><small>{template.summary}</small></span><ChevronRight size={18}/></button>)}</div></BottomSheet>}

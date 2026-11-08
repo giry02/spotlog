@@ -35,6 +35,19 @@ const specs: ExampleSpec[] = [
   { id: 'discovery-busan-pets', joinMode: 'APPROVAL', name: '부산 배려하는 반려 생활', kind: 'HOBBY', region: '부산', district: '해운대구', topics: ['PETS', 'WALK'], style: 'NEIGHBORHOOD', scene: '', ownerName: '서로의 간격', general: true, startTime: '10:00', capacity: 8, introduction: '반려 생활 이야기를 나누고 조건이 맞는 날 짧은 산책을 준비해요. 사람과 동물 모두 편안한 거리를 지켜요.', welcome: '다른 반려동물의 성향과 보호자 선택을 존중하는 분.', joinGuide: '동반 여부와 성향을 미리 알려 주세요. 목줄·배변 용품을 챙기고 원치 않는 접촉이나 간식 제공은 피해주세요.', next: '반려 생활 이야기와 짧은 산책', past: '서로 배려한 산책 기록', offset: 4 },
 ];
 const generalExampleIds = new Set(specs.filter(spec => spec.general).map(spec => spec.id));
+// Authored taxonomy for these fictional catalogue records only. Never infer tags for saved groups.
+const exampleSubtopics: Record<string, string[]> = {
+  'public-busan-food': ['FOOD_KOREAN', 'WALK_CITY'], 'public-busan-guide': ['TRAVEL_DOMESTIC', 'WALK_COAST'],
+  'discovery-gwangan-cafe': ['CAFE_COFFEE', 'PHOTO_LANDSCAPE'], 'discovery-yeongdo-photo': ['PHOTO_SNAP', 'WALK_CITY'],
+  'discovery-gijang-outdoor': ['OUTDOOR_PICNIC', 'TRAVEL_DAY'], 'discovery-seomyeon-culture': ['CULTURE_EXHIBITION', 'FOOD_GLOBAL'],
+  'discovery-seoul-forest': ['WALK_PARK', 'PHOTO_SNAP'], 'discovery-seoul-culture': ['CULTURE_EXHIBITION', 'CAFE_CHAT'],
+  'discovery-jeju-slow': ['TRAVEL_SLOW', 'CAFE_COFFEE'], 'discovery-gangneung-photo': ['PHOTO_LANDSCAPE', 'TRAVEL_DOMESTIC'],
+  'discovery-family-weekend': ['FAMILY_OUTING', 'WALK_COAST'], 'discovery-incheon-taste': ['FOOD_MARKET', 'CULTURE_HISTORY'],
+  'discovery-busan-books': ['BOOK_FREE', 'SOCIAL_AFTERWORK'], 'discovery-busan-boardgame': ['GAME_BOARD', 'SOCIAL_WELCOME'],
+  'discovery-busan-badminton': ['SPORTS_RACKET'], 'discovery-busan-running': ['SPORTS_RUNNING', 'WALK_PARK'],
+  'discovery-busan-craft': ['CRAFT_KNIT', 'CAFE_WORK'], 'discovery-busan-music': ['MUSIC_LISTEN', 'CULTURE_PERFORMANCE'],
+  'discovery-busan-language': ['LANGUAGE_EXCHANGE', 'SOCIAL_TALK'], 'discovery-busan-pets': ['PETS_WALK', 'WALK_NEIGHBORHOOD'],
+};
 const activityDescriptions: Record<string, { next: string; past: string }> = {
   'public-busan-food': { next: '먹고 싶은 점심 후보를 함께 고른 뒤, 식사하고 골목을 짧게 걸어요. 식사비는 각자 부담해요.', past: '시장 구경과 한 끼를 묶어 다녀온 동선을 나누고 다음에 먹고 싶은 메뉴를 모았어요.' },
   'public-busan-guide': { next: '해변을 오래 걷기보다 중간에 쉬는 동선을 함께 정해요. 집합 시간과 이동수단은 일정 공지에서 확인해요.', past: '바다를 보고 쉬어 갔던 곳을 기록했어요. 다음 여행에 참고할 이동·휴식 팁을 나눠요.' },
@@ -69,7 +82,8 @@ export function createDiscoveryCatalog(places: Place[], at = new Date()): { grou
     members.push({ id: ownerId, name: spec.ownerName });
     groups.push({ id: spec.id, name: spec.name, kind: spec.kind, region: spec.region, introduction: spec.introduction, cover: scene?.image ?? '',
       createdAt: `2026-10-${String(1 + index % 28).padStart(2, '0')}T00:00:00.000Z`, ownerId, memberIds: [ownerId], managerIds: [], archived: false, visibility: 'PUBLIC', promotionPublished: true, promotionActivityIds: ids, sourceKind: 'EXAMPLE',
-      discovery: { joinMode: spec.joinMode ?? 'DIRECT', topics: [...spec.topics], district: spec.district, style: spec.style, recruitment: spec.paused ? 'PAUSED' : 'OPEN', welcome: spec.welcome, joinGuide: spec.joinGuide } });
+      ...(spec.id === 'public-busan-guide' ? { joinFields: { welcome: '서로의 속도를 존중해 주세요.', questions: [{ id: 'preferred-day', label: '어떤 여행을 함께하고 싶나요?' }, { id: 'walking-pace', label: '걷는 양과 쉬는 시간은 어느 정도가 편한가요?' }], availableTimes: ['WEEKEND_DAY' as const] } } : {}),
+      discovery: { joinMode: spec.joinMode ?? 'DIRECT', topics: [...spec.topics], subtopics: [...exampleSubtopics[spec.id]], district: spec.district, style: spec.style, recruitment: spec.paused ? 'PAUSED' : 'OPEN', welcome: spec.welcome, joinGuide: spec.joinGuide } });
     ids.forEach((id, position) => {
       const date = shiftDay(today, position === 0 ? spec.offset : -7 - index);
       activities.push({ id, groupId: spec.id, title: position === 0 ? spec.next : spec.past, date, endDate: date, meetingPoint: '',

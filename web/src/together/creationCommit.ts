@@ -5,6 +5,7 @@ import { getPlanningSupportContext } from './planningSupport.ts';
 import { resolvePlacePhotos } from '../placePhotos.ts';
 import { topicOptions } from './discovery.ts';
 import { shareChatEntity } from './chatEntities.ts';
+import { createRoomPoll } from './polls.ts';
 
 export interface CreationCommitInput {
   requestId: string;
@@ -150,19 +151,25 @@ function planningWriteContext(state: TogetherState, actorId: string, scope: Plan
 }
 
 /** Polling never confirms a time or RSVPs on behalf of any member. */
-export function createPlanningPoll(state: TogetherState, actorId: string, input: PlanningWriteScope & { question: string; options: string[] }): string {
+export function createPlanningPoll(state: TogetherState, actorId: string, input: PlanningWriteScope & { question: string; options: string[]; dates?: { date: string; time?: string }[] }): string {
   planningWriteContext(state, actorId, input);
   const question = bounded(input.question, 160, '투표 제목', true);
   if (!Array.isArray(input.options) || input.options.length < 2 || input.options.length > 8) throw new Error('후보를 2~8개 선택해 주세요.');
   const labels = input.options.map(option => bounded(option, 200, '후보', true));
   if (new Set(labels).size !== labels.length) throw new Error('같은 후보가 중복됐어요.');
+  if (input.dates) {
+    if (input.dates.length !== input.options.length || input.dates.some((row, index) => `${row.date}${row.time ? ` ${row.time}` : ' · 시각 미정'} (한국 시각)` !== labels[index])) throw new Error('날짜 후보가 바뀌었어요. 다시 확인해 주세요.');
+    const poll = createRoomPoll(state, actorId, input, { id: input.id, question, kind: 'DATE', options: input.dates, multiple: true });
+    shareChatEntity(state, actorId, { type: 'POLL', id: poll.id });
+    return poll.id;
+  }
   const matches = (poll: TogetherState['polls'][number]) => poll.groupId === input.groupId && poll.activityId === input.activityId && poll.question === question && poll.options.map(option => option.label).join('\n') === labels.join('\n');
   const previous = state.polls.find(poll => poll.id === input.id);
   if (previous) { if (!matches(previous)) throw new Error('다른 투표에 사용한 요청이에요.'); shareChatEntity(state, actorId, { type: 'POLL', id: previous.id }); return previous.id; }
   const duplicate = state.polls.find(poll => !poll.closed && matches(poll));
   if (duplicate) { shareChatEntity(state, actorId, { type: 'POLL', id: duplicate.id }); return duplicate.id; }
   state.polls.push({ id: input.id, groupId: input.groupId, activityId: input.activityId, question,
-    options: labels.map((label, index) => ({ id: `${input.id}-${index}`, label, voterIds: [] })), closed: false });
+    options: labels.map((label, index) => ({ id: `${input.id}-${index}`, label, voterIds: [] })), closed: false, creatorId: actorId, createdAt: new Date().toISOString(), revision: 1 });
   shareChatEntity(state, actorId, { type: 'POLL', id: input.id });
   return input.id;
 }

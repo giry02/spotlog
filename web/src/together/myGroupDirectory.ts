@@ -13,6 +13,7 @@ export interface MyGroupDirectoryItem {
   group: TogetherGroup;
   nextActivity: TogetherActivity | null;
   unreadCount: number;
+  lastMessage?: { body: string; authorId: string; createdAt: string };
 }
 export interface MyGroupDirectoryResult {
   groups: MyGroupDirectoryItem[];
@@ -72,10 +73,16 @@ export function buildMyGroupDirectory(
     activities.set(activity.groupId, groupActivities);
   }
   const unread = new Map<string, number>();
+  const latest = new Map<string, { body: string; authorId: string; createdAt: string }>();
   for (const message of state.messages) {
     const groupId = roomGroups.get(message.roomId);
-    if (!groupId || message.deleted || message.authorId === userId) continue;
+    if (!groupId || message.deleted) continue;
     const created = Date.parse(message.createdAt);
+    if (Number.isFinite(created) && created <= at.getTime() && message.roomId === roomIdForGroup(groupId)
+      && (!latest.has(groupId) || created > Date.parse(latest.get(groupId)!.createdAt))) {
+      latest.set(groupId, { body: message.entity ? ({ POLL:'투표를 공유했어요', TASK:'준비할 일을 공유했어요', ACTIVITY:'약속을 공유했어요', NOTICE:'공지를 공유했어요', GAME:'놀이 결과를 공유했어요', CHALLENGE:'챌린지를 공유했어요' }[message.entity.type]) : message.body || (message.stickerId ? '이모티콘' : '메시지'), authorId: message.authorId, createdAt: message.createdAt });
+    }
+    if (message.authorId === userId) continue;
     const cursor = state.readCursors[message.roomId];
     const after = cursor ? Date.parse(cursor) : -Infinity;
     // Malformed cursor/date is not evidence that the customer has unread messages.
@@ -90,7 +97,7 @@ export function buildMyGroupDirectory(
     if (isKnownKind(group.kind)) counts[group.kind] += 1;
     if (selectedKind !== 'ALL' && group.kind !== selectedKind) continue;
     if (query && !textKey(`${group.name}\n${group.region}\n${group.introduction}`).includes(query)) continue;
-    groups.push({ group, nextActivity: activities.get(group.id)?.sort(byActivity)[0] ?? null, unreadCount: unread.get(group.id) ?? 0 });
+    groups.push({ group, nextActivity: activities.get(group.id)?.sort(byActivity)[0] ?? null, unreadCount: unread.get(group.id) ?? 0, ...(latest.has(group.id) ? { lastMessage: latest.get(group.id) } : {}) });
   }
   groups.sort((a, b) => {
     if (options.sort === 'NAME') return byName(a, b);

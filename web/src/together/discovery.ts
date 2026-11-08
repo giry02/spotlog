@@ -1,4 +1,5 @@
 import type { GroupDiscoveryProfile, GroupPublicActivitySnapshot, GroupTopic, TogetherGroup, TogetherState } from './model';
+import { getGroupSubtopic, normalizeGroupSubtopics } from './groupTaxonomy.ts';
 
 export const topicOptions: { id: GroupTopic; label: string; emoji: string; description: string }[] = [
   { id: 'SOCIAL', label: '이웃·친목', emoji: '👋', description: '동네에서 편하게 만나 이야기 나누기' },
@@ -21,8 +22,8 @@ export const topicOptions: { id: GroupTopic; label: string; emoji: string; descr
 const topicIds = new Set(topicOptions.map(option => option.id));
 export type DiscoveryDateFilter = 'ALL' | 'TODAY' | 'WEEK' | 'THISWEEK' | 'WEEKEND' | 'UPCOMING' | 'THIS_MONTH';
 export interface DiscoveryFilters {
-  query?: string; region?: string; district?: string; topic?: GroupTopic | 'ALL'; style?: 'ALL' | 'NEIGHBORHOOD' | 'DESTINATION';
-  recruitment?: 'OPEN' | 'ALL'; dateFilter?: DiscoveryDateFilter; sort?: 'EDITORIAL' | 'SOONEST' | 'NAME';
+  query?: string; region?: string; district?: string; topic?: GroupTopic | 'ALL'; subtopic?: string | 'ALL'; style?: 'ALL' | 'NEIGHBORHOOD' | 'DESTINATION';
+  recruitment?: 'OPEN' | 'ALL'; dateFilter?: DiscoveryDateFilter; sort?: 'EDITORIAL' | 'SOONEST' | 'NAME' | 'NEWEST';
 }
 export type PublicDiscoveryActivity = GroupPublicActivitySnapshot;
 
@@ -30,8 +31,9 @@ export type PublicDiscoveryActivity = GroupPublicActivitySnapshot;
 export function discoveryProfile(group: TogetherGroup): GroupDiscoveryProfile {
   const profile = group.discovery;
   const joinMode = profile?.joinMode === 'DIRECT' ? 'DIRECT' : 'APPROVAL';
+  const topics = profile?.topics?.filter(topic => topicIds.has(topic)) || [];
   return {
-    topics: profile?.topics?.filter(topic => topicIds.has(topic)) || [], district: profile?.district ?? '',
+    topics, ...(profile?.subtopics !== undefined ? { subtopics: normalizeGroupSubtopics(topics, profile.subtopics) } : {}), district: profile?.district ?? '',
     style: profile?.style === 'DESTINATION' ? 'DESTINATION' : 'NEIGHBORHOOD',
     recruitment: profile?.recruitment === 'PAUSED' ? 'PAUSED' : 'OPEN',
     joinMode,
@@ -100,13 +102,23 @@ export function filterDiscoveryGroups(state: TogetherState, filters: DiscoveryFi
     if (filters.region && !['ALL', '전체', '전체 지역'].includes(filters.region) && group.region !== filters.region) return false;
     if (filters.district && !['ALL', '전체', '전체 동네'].includes(filters.district) && profile.district !== filters.district) return false;
     if (filters.topic && filters.topic !== 'ALL' && !profile.topics.includes(filters.topic)) return false;
+    if (filters.subtopic && filters.subtopic !== 'ALL') {
+      const subtopic = getGroupSubtopic(filters.subtopic);
+      if (!subtopic || filters.topic && filters.topic !== 'ALL' && subtopic.parent !== filters.topic || !profile.subtopics?.includes(subtopic.id)) return false;
+    }
     if (filters.style && filters.style !== 'ALL' && profile.style !== filters.style) return false;
-    if (query && !`${group.name} ${group.region} ${group.introduction} ${profile.district} ${profile.welcome} ${profile.topics.map(topic => topicOptions.find(option => option.id === topic)?.label).join(' ')}`.toLocaleLowerCase('ko-KR').includes(query)) return false;
+    const subtopicText = profile.subtopics?.flatMap(id => { const item = getGroupSubtopic(id); return item ? [item.label, ...item.keywords] : []; }).join(' ') || '';
+    if (query && !`${group.name} ${group.region} ${group.introduction} ${profile.district} ${profile.welcome} ${profile.topics.map(topic => topicOptions.find(option => option.id === topic)?.label).join(' ')} ${subtopicText}`.toLocaleLowerCase('ko-KR').includes(query)) return false;
     if (range && !upcomingPublicActivities(state, group, at).some(activity => overlaps(activity, range[0], range[1]))) return false;
     if (filters.dateFilter === 'UPCOMING' && !upcomingPublicActivities(state, group, at).length) return false;
     return true;
   });
   if (filters.sort === 'NAME') return groups.sort((a, b) => a.name.localeCompare(b.name, 'ko'));
+  if (filters.sort === 'NEWEST') return groups.sort((a, b) => {
+    const known = (value?: string) => value && /^\d{4}-\d{2}-\d{2}T/.test(value) && Number.isFinite(Date.parse(value)) && Date.parse(value) <= at.getTime() ? Date.parse(value) : null;
+    const left = known(a.createdAt), right = known(b.createdAt);
+    return left === null ? right === null ? 0 : 1 : right === null ? -1 : right - left;
+  });
   if (filters.sort === 'SOONEST') return groups.sort((a, b) => {
     const left = upcomingPublicActivities(state, a, at)[0], right = upcomingPublicActivities(state, b, at)[0];
     return publicActivityTimeKey(left?.date ?? '', left?.startTime).localeCompare(publicActivityTimeKey(right?.date ?? '', right?.startTime));

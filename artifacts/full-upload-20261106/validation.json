@@ -1,0 +1,87 @@
+{
+  "date": "2026-11-06",
+  "backupCommit": "241bf37061229ec21a2fe776af1b1ccfaca28572",
+  "publicCommit": "d972ea69bbb4c1c8a7f987b853918068ec15dd6b",
+  "pagesRun": {
+    "id": 42178197258,
+    "url": "https://github.com/giry02/spotlog/actions/runs/42178197258",
+    "conclusion": "success"
+  },
+  "isolatedRelease": {
+    "tests": 928,
+    "failed": 0,
+    "webBuild": "pass",
+    "nativeTypecheck": "pass",
+    "manualScreens": 53,
+    "customerBundle": "customer-D2QnimOd.js"
+  },
+  "public": {
+    "home": "https://giry02.github.io/spotlog/",
+    "admin": "https://giry02.github.io/spotlog/admin.html",
+    "preview": "https://giry02.github.io/spotlog/admin-preview.html",
+    "manual": "https://giry02.github.io/spotlog/manual/admin/",
+    "report": "https://giry02.github.io/spotlog/reports/direction-20261103/",
+    "allHttp200": true,
+    "customerBrokenImages": 0,
+    "customerOverflow": false,
+    "adminMenus": [
+      {
+        "menu": "장소·업체",
+        "heading": "장소·업체",
+        "overflow": false
+      },
+      {
+        "menu": "노출·추천",
+        "heading": "노출·추천",
+        "overflow": false
+      },
+      {
+        "menu": "여행기·커뮤니티",
+        "heading": "여행기·커뮤니티",
+        "overflow": false
+      },
+      {
+        "menu": "회원·문의",
+        "heading": "회원·문의",
+        "overflow": false
+      },
+      {
+        "menu": "AI·검색 운영",
+        "heading": "AI·검색 운영",
+        "overflow": false
+      },
+      {
+        "menu": "운영 설정·이력",
+        "heading": "운영 설정·이력",
+        "overflow": false
+      },
+      {
+        "menu": "운영 현황",
+        "heading": "운영 현황",
+        "overflow": false
+      }
+    ],
+    "runtimeErrors": []
+  },
+  "sanitizedArtifacts": 5,
+  "menuReview": {
+    "applied": false,
+    "proposal": [
+      "홈",
+      "모임",
+      "저장",
+      "마이"
+    ],
+    "appointments": [
+      "홈 다음 일정",
+      "모임 일정",
+      "마이 내 일정"
+    ],
+    "travelRetained": true,
+    "roomHierarchyRetained": true
+  },
+  "limits": [
+    "Public administrator QA used the isolated preview; actual admin backend remains separate.",
+    "Actual OAuth, realtime, LLM and physical-device behavior are not newly certified by this release."
+  ]
+}

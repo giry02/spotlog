@@ -19,6 +19,12 @@
 .app-menu-links button:hover { background:var(--paper); }
 .app-menu-help { font-size:var(--type-body); line-height:1.7; }
 .app-menu-help p { margin:0 0 20px; }
+.my-trip-create-choices { display:grid; gap:8px; }
+.my-trip-create-choices>button { display:flex; align-items:center; gap:12px; min-height:72px; padding:12px; border:1px solid var(--line); border-radius:12px; background:#fff; color:var(--ink); text-align:left; }
+.my-trip-create-choices>button>span { display:grid; flex:1; min-width:0; gap:4px; }
+.my-trip-create-choices>button>svg { flex-shrink:0; }
+.my-trip-create-choices strong { font-size:14px; line-height:20px; }
+.my-trip-create-choices small { color:var(--muted); font-size:12px; line-height:16px; }
 .browse-switch { display:flex; align-items:center; gap:4px; margin:16px 18px 0; padding:4px; background:#eeeee9; border-radius:14px; }
 .browse-switch button { flex:1; min-height:44px; display:flex; align-items:center; justify-content:center; gap:7px; border:0; border-radius:11px; background:transparent; color:var(--muted); font-size:var(--type-subhead); font-weight:700; }
 .browse-switch button.active { background:#fff; color:var(--ink); box-shadow:0 2px 6px #00000008; }
