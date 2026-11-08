@@ -36,7 +36,7 @@ test('recommendations use selected conditions and public upcoming dates rather t
   state.activities.push(activity('later-event', 'later', '2026-11-09'), activity('earlier-event', 'earlier', '2026-11-06'));
   for (let i = 0; i < 20; i++) state.messages.push({ id: `secret${i}`, roomId: 'group:later', authorId: 'host-secret-id', body: 'secret', createdAt: at.toISOString() });
   const result = select(state);
-  assert.equal(result.sections[0].id, 'recommended'); assert.equal(result.sections[0].title, '추천 베스트 모임');
+  assert.equal(result.sections[0].id, 'recommended'); assert.equal(result.sections[0].title, '지역·관심사 추천');
   assert.deepEqual(result.sections[0].groups.map(item => item.id), result.recommended.map(item => item.id));
   assert.deepEqual(result.recommended.map(item => item.id), ['earlier', 'later', 'no-event']);
   assert.deepEqual(result.upcoming.map(item => item.id), ['earlier', 'later']);

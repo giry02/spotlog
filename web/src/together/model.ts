@@ -1,10 +1,15 @@
 import type { Journey } from '../data';
+import type { TogetherGame } from './gameTypes';
+import type { TogetherChallenge } from './challengeTypes';
+import type { GroupJoinDraft, GroupJoinFields, GroupJoinQuestion } from './groupJoining';
 
 export type GroupKind = 'FAMILY' | 'FRIENDS' | 'HOBBY' | 'GUIDE';
 export type GroupJoinMode = 'DIRECT' | 'APPROVAL';
 export type GroupTopic = 'TRAVEL' | 'FOOD' | 'CAFE' | 'WALK' | 'PHOTO' | 'OUTDOOR' | 'CULTURE' | 'FAMILY' | 'SOCIAL' | 'SPORTS' | 'BOOK' | 'GAME' | 'MUSIC' | 'LANGUAGE' | 'CRAFT' | 'PETS';
 export interface GroupDiscoveryProfile {
   topics: GroupTopic[]; district: string; style: 'NEIGHBORHOOD' | 'DESTINATION'; recruitment: 'OPEN' | 'PAUSED'; welcome: string; joinGuide: string;
+  /** Additive selected child IDs; legacy broad interests stay unclassified. */
+  subtopics?: string[];
   /** Missing on existing records means APPROVAL; never silently expand an existing group's access. */
   joinMode?: GroupJoinMode;
 }
@@ -18,6 +23,9 @@ export interface TogetherGroup {
   visibility: 'PRIVATE' | 'PUBLIC'; ownerId: string; memberIds: string[]; managerIds: string[];
   archived: boolean; promotionPublished: boolean; promotionActivityIds?: string[]; interestPlaceIds?: string[]; blockedMemberIds?: string[];
   discovery?: GroupDiscoveryProfile; sourceKind?: 'EXAMPLE' | 'LOCAL' | 'SERVER';
+  /** Voluntary, group-scoped onboarding. Never changes the account profile. */
+  joinFields?: GroupJoinFields;
+  memberProfiles?: Record<string, GroupJoinDraft>;
   promotionActivitySnapshots?: GroupPublicActivitySnapshot[];
   createdAt?: string;
 }
@@ -29,17 +37,25 @@ export interface TogetherActivity {
 }
 /** Approved public text only. Internal route, attendance and precise meeting details never belong here. */
 export type GroupPublicActivitySnapshot = Pick<TogetherActivity, 'id' | 'groupId' | 'title' | 'date' | 'endDate' | 'description' | 'status' | 'kind' | 'startTime'>;
-export interface ChatEntityReference { type: 'POLL' | 'TASK' | 'ACTIVITY' | 'NOTICE'; id: string }
+export interface ChatEntityReference { type: 'POLL' | 'TASK' | 'ACTIVITY' | 'NOTICE' | 'GAME' | 'CHALLENGE'; id: string }
 export interface TogetherMessage { id: string; roomId: string; authorId: string; body: string; createdAt: string; deleted?: boolean; stickerId?: string; replyToMessageId?: string; reactions?: Record<string, string[]>; entity?: ChatEntityReference }
 export interface TogetherNotice { id: string; groupId: string; activityId?: string; title: string; body: string; createdAt: string }
 export interface TogetherTask { id: string; groupId: string; activityId?: string; title: string; assigneeId?: string; dueDate?: string; completed: boolean; sourceMessageIds?: string[] }
-export interface TogetherPoll { id: string; groupId: string; activityId?: string; question: string; options: { id: string; label: string; voterIds: string[] }[]; closed: boolean; confirmedOptionId?: string }
+export interface TogetherPoll {
+  id: string; groupId: string; activityId?: string; question: string;
+  options: { id: string; label: string; voterIds: string[]; date?: string; time?: string }[];
+  closed: boolean; confirmedOptionId?: string;
+  /** Missing on legacy records means ordinary, single-choice voting. */
+  kind?: 'TEXT' | 'DATE'; multiple?: boolean; closesAt?: string;
+  /** A display preference; local vote records still contain account IDs. */
+  anonymous?: boolean; creatorId?: string; createdAt?: string; revision?: number;
+}
 export interface TogetherPost { id: string; groupId: string; activityId?: string; authorId: string; title: string; body: string; category: 'NOTICE' | 'REVIEW' | 'QUESTION' | 'FREE'; createdAt: string; likes: string[]; comments: { id: string; authorId: string; body: string; createdAt: string }[] }
 export interface TogetherMedia { id: string; groupId: string; activityId?: string; authorId: string; url: string; kind: 'PHOTO' | 'VIDEO'; caption: string; createdAt: string }
 export interface TogetherInvite { id: string; intentId: string; sourceTripId?: string; sourceJourney?: Journey; groupId?: string; senderId: string; name: string; kind: GroupKind; region: string; acceptedBy: string[]; expiresAt: string; revoked: boolean }
 /** Public card context only; never contains the private meeting point, route or messages. */
 export interface PublicActivityIntent { groupId: string; activityId: string; date: string }
-export interface TogetherApplication { id: string; groupId: string; userId: string; status: 'PENDING' | 'APPROVED' | 'DECLINED'; message?: string; createdAt?: string; decidedAt?: string; decidedBy?: string; publicActivityIntent?: PublicActivityIntent; joinMode?: GroupJoinMode }
+export interface TogetherApplication { id: string; groupId: string; userId: string; status: 'PENDING' | 'APPROVED' | 'DECLINED'; message?: string; createdAt?: string; decidedAt?: string; decidedBy?: string; publicActivityIntent?: PublicActivityIntent; joinMode?: GroupJoinMode; joinProfile?: GroupJoinDraft; joinQuestions?: GroupJoinQuestion[] }
 export interface TogetherSharedJournal { id: string; groupId: string; activityId?: string; authorId: string; sourceJourneyId?: string; journey: Journey }
 export interface TogetherReport { id: string; targetType: 'MESSAGE' | 'POST' | 'COMMENT' | 'MEDIA'; targetId: string; groupId: string; reporterId: string; reason: string; createdAt: string }
 export interface TogetherState {
@@ -49,11 +65,14 @@ export interface TogetherState {
   messages: TogetherMessage[]; notices: TogetherNotice[]; tasks: TogetherTask[]; polls: TogetherPoll[];
   posts: TogetherPost[]; media: TogetherMedia[]; invites: TogetherInvite[]; applications: TogetherApplication[];
   sharedJournals: TogetherSharedJournal[]; readCursors: Record<string, string>; mutedRooms: string[]; reports?: TogetherReport[];
+  /** Optional additions keep existing schema-v1 records readable without rewriting their data. */
+  games?: TogetherGame[];
+  challenges?: TogetherChallenge[];
 }
 
 export const roomIdForGroup = (id: string) => `group:${id}`;
 export const roomIdForActivity = (id: string) => `activity:${id}`;
-export const memberName = (state: TogetherState, userId: string) => state.members.find(member => member.id === userId)?.name ?? '모임원';
+export const memberName = (state: TogetherState, userId: string, groupId?: string) => (groupId ? state.groups.find(group => group.id === groupId)?.memberProfiles?.[userId]?.nickname.trim() : '') || state.members.find(member => member.id === userId)?.name || '모임원';
 export const isMember = (state: TogetherState, userId: string, groupId: string) => Boolean(userId && state.groups.find(group => group.id === groupId)?.memberIds.includes(userId));
 export function canEditActivity(state: TogetherState, userId: string, activity: TogetherActivity): boolean {
   const group = state.groups.find(item => item.id === activity.groupId);

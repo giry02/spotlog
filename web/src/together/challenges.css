@@ -1,0 +1,50 @@
+.challenge-panel { display:grid; gap:16px; min-width:0; color:var(--ink); font-size:14px; line-height:20px; }
+.challenge-panel :is(p,h2,h3) { margin:0; overflow-wrap:anywhere; }
+.challenge-panel h2 { font-size:16px; line-height:22px; font-weight:700; }
+.challenge-panel h3 { font-size:14px; line-height:20px; font-weight:700; }
+.challenge-panel small,.challenge-hint { color:var(--muted); font-size:12px; line-height:16px; }
+.challenge-title { display:flex; gap:8px; align-items:center; min-width:0; }
+.challenge-title h2 { flex:1; min-width:0; }
+.challenge-panel button { min-height:44px; font-size:14px; line-height:20px; }
+.challenge-panel .challenge-back { flex:0 0 44px; width:44px; padding:0; border:0; background:transparent; }
+.challenge-new { display:flex; align-items:center; gap:6px; }
+.challenge-tabs { display:flex; gap:8px; }
+.challenge-tabs>button { flex:1; background:transparent; }
+.challenge-tabs>button[aria-pressed=true] { color:var(--ink); border-color:var(--ink); font-weight:700; }
+.challenge-form { display:grid; gap:16px; min-width:0; }
+.challenge-form label { display:grid; gap:6px; margin:0; min-width:0; font-size:14px; line-height:20px; font-weight:600; }
+.challenge-form :is(input,textarea,select) { width:100%; min-width:0; box-sizing:border-box; min-height:44px; padding:10px 12px; border:1px solid var(--line); border-radius:12px; background:var(--paper,#fff); color:var(--ink); font-size:16px; line-height:24px; font-weight:400; }
+.challenge-form fieldset { margin:0; padding:0; border:0; min-width:0; }
+.challenge-form legend { margin-bottom:8px; font-weight:600; }
+.challenge-templates { display:flex; flex-wrap:wrap; gap:8px; }
+.challenge-templates>button { display:flex; align-items:center; gap:6px; min-width:0; font-weight:400; }
+.challenge-templates>button[aria-pressed=true] { background:var(--ink); color:white; border-color:var(--ink); }
+.challenge-dates { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; min-width:0; }
+.challenge-progress { display:grid; gap:8px; padding:12px; background:var(--surface,#f5f4f0); border-radius:12px; }
+.challenge-progress>span { font-size:14px; line-height:20px; }
+.challenge-progress progress { width:100%; height:8px; accent-color:var(--accent,#ff5c44); }
+.challenge-membership { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+.challenge-membership>span { display:flex; align-items:center; gap:6px; }
+.challenge-certify { border-top:1px solid var(--line); padding-top:16px; }
+.challenge-photo-input>span { display:flex; align-items:center; gap:6px; }
+.challenge-form input[type=file] { padding:8px; font-size:14px; line-height:20px; }
+.challenge-photo-preview { position:relative; }
+.challenge-photo-preview>img { display:block; max-width:100%; max-height:240px; border-radius:12px; object-fit:contain; }
+.challenge-photo-preview>button { position:absolute; top:4px; right:4px; width:44px; background:var(--paper,#fff); }
+.challenge-records { display:grid; gap:12px; border-top:1px solid var(--line); padding-top:16px; }
+.challenge-records article { display:grid; gap:8px; padding-bottom:12px; border-bottom:1px solid var(--line); }
+.challenge-records article>div { display:flex; justify-content:space-between; gap:8px; }
+.challenge-records article>img { display:block; width:100%; max-height:320px; object-fit:contain; border-radius:12px; }
+.challenge-records article>p { white-space:pre-wrap; }
+.challenge-close { display:flex; flex-wrap:wrap; gap:8px; padding-top:8px; }
+.challenge-close>p { flex-basis:100%; }
+.challenge-feedback { padding:12px; border-radius:12px; background:var(--surface,#f5f4f0); }
+.challenge-feedback.error { color:#943b2f; background:#fff0eb; }
+.challenge-empty { display:grid; gap:8px; padding:16px 0; }
+.challenge-list { border-top:1px solid var(--line); }
+.challenge-list>button { display:flex; width:100%; gap:12px; align-items:center; padding:14px 0; border:0; border-bottom:1px solid var(--line); border-radius:0; background:transparent; text-align:left; }
+.challenge-list>button>span:not(.challenge-emoji) { display:grid; gap:4px; flex:1; min-width:0; }
+.challenge-list strong { font-size:16px; line-height:22px; overflow-wrap:anywhere; }
+.challenge-emoji { display:grid; place-items:center; flex:0 0 44px; height:44px; background:var(--surface,#f5f4f0); border-radius:12px; font-size:22px; }
+.challenge-list>button>svg { flex-shrink:0; }
+@media(max-width:359px) { .challenge-dates { grid-template-columns:minmax(0,1fr); } }

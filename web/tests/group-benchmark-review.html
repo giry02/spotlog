@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Spotlog · 모임 발견·가입·운영 화면</title><style>
+*{box-sizing:border-box}body{margin:0;background:#eeefec;color:#222320;font:14px/1.5 system-ui,sans-serif}header{padding:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #dedfd9;background:white}h1{font-size:18px;margin:0}nav{display:flex;gap:8px;flex-wrap:wrap}a,select{min-height:44px;padding:10px 12px;border:1px solid #dedfd9;border-radius:10px;background:white;color:inherit;text-decoration:none;font:inherit}main{display:grid;justify-items:center;padding:20px;gap:12px}p{margin:0;color:#64655e;max-width:760px}iframe{max-width:100%;height:min(840px,calc(100dvh - 225px));min-height:440px;border:0;background:#faf9f6;box-shadow:0 4px 24px #0001;border-radius:16px}a[aria-current=page]{background:#222320;color:white}@media(max-width:500px){main{padding:8px}header{padding:12px}}
+</style></head><body><header><h1>모임 발견·가입·운영</h1><nav><a href="?screen=find">모임 찾기</a><a href="?screen=groupcreate">모임 만들기</a><a href="?screen=public">공개 소개·가입</a><a href="?screen=group">모임 홈</a><a href="?screen=groupchat">전체 대화</a><a href="?screen=chat">일정 대화</a></nav><label>화면 폭 <select id="width"><option>320</option><option>360</option><option selected>390</option><option>460</option></select></label><label>역할 <select id="role"><option value="owner">모임장</option><option value="member">모임원</option><option value="applicant">가입 신청자</option><option value="guest">비로그인</option></select></label></header><main><p>대분류와 세부 관심사를 고르고 지역·동네 조건을 함께 확인해 보세요. 공개 소개에서는 가입 질문을, 대화방 메뉴에서는 해당 방의 자료를 볼 수 있어요. 모든 조작은 실제 계정과 분리된 페이지 메모리에만 남아요.</p><iframe id="review" title="Spotlog 모임 화면" src="about:blank"></iframe></main><script>
+const protocol='spotlog.platform-review.v1';
+const roleNames=['owner','member','applicant','guest'];
+const params=new URLSearchParams(location.search);
+const screens=['find','groupcreate','public','group','groupchat','chat'];
+const screen=screens.includes(params.get('screen'))?params.get('screen'):'find';
+const frame=document.getElementById('review'),width=document.getElementById('width'),role=document.getElementById('role');
+width.value=['320','360','390','460'].includes(params.get('width'))?params.get('width'):'390';
+role.value=roleNames.includes(params.get('role'))?params.get('role'):(screen==='public'?'applicant':'owner');
+frame.style.width=width.value+'px';
+frame.src='platform-review.html?screen='+screen+'&role='+role.value+'&embed=1&tools=1';
+function rememberRole(){const next=new URL(location.href);next.searchParams.set('role',role.value);history.replaceState(null,'',next);syncLinks();}
+width.addEventListener('change',()=>{frame.style.width=width.value+'px';const next=new URL(location.href);next.searchParams.set('width',width.value);history.replaceState(null,'',next);syncLinks();});
+role.addEventListener('change',()=>{if(!roleNames.includes(role.value))return;frame.contentWindow?.postMessage({protocol,type:'SET_ROLE',role:role.value},location.origin);rememberRole();});
+window.addEventListener('message',event=>{const value=event.data;if(event.source!==frame.contentWindow||event.origin!==location.origin||!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length!==3||!Object.keys(value).every(key=>['protocol','type','role'].includes(key))||value.protocol!==protocol||value.type!=='ROLE_CHANGED'||!roleNames.includes(value.role))return;role.value=value.role;rememberRole();});
+function syncLinks(){for(const link of document.querySelectorAll('nav a')){const url=new URL(link.href);url.searchParams.set('width',width.value);url.searchParams.set('role',role.value);link.href=url;if(url.searchParams.get('screen')===screen)link.setAttribute('aria-current','page');}}
+syncLinks();
+</script></body></html>

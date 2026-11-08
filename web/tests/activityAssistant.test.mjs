@@ -46,7 +46,8 @@ test('manual 15:00 proposal never changes current 14:00, voting or participation
   assert.deepEqual(state, before);
   assert.throws(() => compareAssistantTime(state, 'host', base(), '25:00'));
 });
-test('creating a place vote is explicit, branch names remain distinguishable, retry is idempotent', () => {
+test('creating a place vote is explicit, branch names remain distinguishable, retry is idempotent', t => {
+  t.mock.timers.enable({ apis: ['Date'], now: new Date('2026-11-04T12:00:00+09:00').getTime() });
   const state = fixture(), oldActivity = structuredClone(state.activities);
   const action = { ...base(), type: 'CREATE_POLL', question: '어디서 만날까요?', placeIds: ['a', 'b'] };
   applyActivityAssistantAction(state, 'alice', action, places);
@@ -56,7 +57,8 @@ test('creating a place vote is explicit, branch names remain distinguishable, re
   assert.equal(isTogetherState(state), true);
   rejected(state, { ...action, id: 'bad', placeIds: ['a', 'unshared'] });
 });
-test('preparation keeps only source IDs, never treats a question as an assigned task', () => {
+test('preparation keeps only source IDs, never treats a question as an assigned task', t => {
+  t.mock.timers.enable({ apis: ['Date'], now: new Date('2026-11-04T12:00:00+09:00').getTime() });
   const state = fixture(), message = structuredClone(state.messages[0]);
   applyActivityAssistantAction(state, 'alice', task(), places);
   assert.equal(state.tasks[0].assigneeId, undefined); assert.deepEqual(state.tasks[0].sourceMessageIds, ['m']);
@@ -65,7 +67,8 @@ test('preparation keeps only source IDs, never treats a question as an assigned 
   applyActivityAssistantAction(state, 'alice', task({ id: 'retry' }), places); assert.equal(state.tasks.length, 1);
   assert.equal(isTogetherState(state), true);
 });
-test('self acceptance may assign only actor; old body/deleted/cross-room sources are rejected atomically', () => {
+test('self acceptance may assign only actor; old body/deleted/cross-room sources are rejected atomically', t => {
+  t.mock.timers.enable({ apis: ['Date'], now: new Date('2026-11-04T12:00:00+09:00').getTime() });
   const state = fixture(); applyActivityAssistantAction(state, 'alice', task({ assignee: 'SELF' }), places);
   assert.equal(state.tasks[0].assigneeId, 'alice');
   rejected(state, task({ id: 'bad', assignee: 'host' }), 'alice');

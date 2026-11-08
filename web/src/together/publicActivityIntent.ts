@@ -1,4 +1,4 @@
-import type { PublicActivityIntent, TogetherGroup, TogetherState } from './model';
+import type { PublicActivityIntent, TogetherApplication, TogetherGroup, TogetherState } from './model';
 import { togetherId } from './model.ts';
 import { discoveryProfile, isDiscoverableGroup, koreaDay, upcomingPublicActivities } from './discovery.ts';
 
@@ -35,7 +35,8 @@ export function createPublicActivityIntent(state: TogetherState, groupId: string
 export function publicGroupJoinVersion(group: TogetherGroup): string {
   const profile = discoveryProfile(group);
   return JSON.stringify([group.id, group.name, group.introduction, group.visibility, group.promotionPublished, group.archived,
-    group.region, profile.district, profile.joinMode, profile.recruitment, profile.joinGuide, profile.welcome, profile.topics, profile.style]);
+    group.region, profile.district, profile.joinMode, profile.recruitment, profile.joinGuide, profile.welcome, profile.topics, profile.style,
+    profile.subtopics || [], group.joinFields || null]);
 }
 
 function joinableGroup(state: TogetherState, groupId: string, userId: string, intent: PublicActivityIntent | undefined, at: Date, expectedVersion?: string) {
@@ -61,7 +62,7 @@ export function joinPublicGroup(state: TogetherState, groupId: string, userId: s
 }
 
 /** Saves the selected public card with the applicant, without joining or changing any RSVP. */
-export function requestGroupApplication(state: TogetherState, groupId: string, userId: string, message = '', intent?: PublicActivityIntent, at = new Date(), expectedVersion?: string) {
+export function requestGroupApplication(state: TogetherState, groupId: string, userId: string, message = '', intent?: PublicActivityIntent, at = new Date(), expectedVersion?: string): TogetherApplication {
   const group = joinableGroup(state, groupId, userId, intent, at, expectedVersion);
   if (discoveryProfile(group).joinMode !== 'APPROVAL') throw new Error('바로 가입할 수 있는 모임이에요. 가입 안내를 다시 확인해 주세요.');
   if (group.memberIds.includes(userId)) throw new Error('이미 가입한 모임이에요. 모임 홈에서 확인해 주세요.');

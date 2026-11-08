@@ -5,6 +5,7 @@
 .discovery-home__header .discovery-home__search-area { flex:1; padding:0; }
 .discovery-home__header .discovery-home__region { flex:1 1 0; max-width:none; }
 .discovery-home__wordmark { flex:0 0 auto; color:var(--ink); font-size:20px; line-height:26px; font-weight:700; letter-spacing:-.8px; white-space:nowrap; }
+.discovery-home--travel .discovery-home__wordmark { font-size:16px; line-height:22px; letter-spacing:-.2px; }
 .discovery-home__search-toggle { position:relative; display:grid; place-items:center; flex:0 0 44px; width:44px; min-width:44px; height:44px; padding:0; border:0; border-radius:8px; background:transparent; color:var(--ink); }
 .discovery-home__query-dot { position:absolute; top:8px; right:8px; width:6px; height:6px; border-radius:50%; background:var(--accent); }
 .discovery-home__header-actions { flex:0 0 44px; }

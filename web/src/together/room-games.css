@@ -1,0 +1,59 @@
+.room-games { display:flex; flex-direction:column; gap:16px; min-width:0; color:var(--ink,#171716); font-size:14px; line-height:20px; }
+.room-games :is(h3,p,fieldset,ul) { margin:0; }
+.room-games fieldset { border:0; padding:0; min-width:0; }
+.room-games legend { padding:0; margin-bottom:8px; font-size:14px; line-height:20px; font-weight:600; }
+.room-games button { display:flex; align-items:center; justify-content:center; gap:8px; min-height:44px; min-width:44px; border:1px solid var(--line,#deded9); border-radius:10px; padding:10px 12px; background:transparent; color:inherit; font:inherit; cursor:pointer; }
+.room-games button:disabled { opacity:.45; cursor:default; }
+.room-games button>svg { flex-shrink:0; }
+.room-games .room-games__hint { color:var(--muted,#777773); font-size:12px; line-height:16px; overflow-wrap:anywhere; }
+.room-games .room-games__error { color:var(--danger,#b33e32); overflow-wrap:anywhere; }
+.room-games__heading { display:flex; align-items:center; justify-content:space-between; gap:12px; min-width:0; }
+.room-games__heading h3,.room-games .room-games__title { font-size:16px; line-height:22px; font-weight:600; overflow-wrap:anywhere; }
+.room-games .room-games__back { padding:0; border:0; justify-content:flex-start; font-size:14px; }
+.room-games__picker { display:grid; gap:0; border-bottom:1px solid var(--line,#deded9); }
+.room-games .room-games__picker>button { justify-content:flex-start; border:0; border-top:1px solid var(--line,#deded9); border-radius:0; padding:12px 0; gap:12px; }
+.room-games__picker>button>span:not(.room-games__wheel-icon),.room-games__history>button>span { flex:1; min-width:0; display:grid; gap:3px; text-align:left; }
+.room-games__picker strong,.room-games__history strong { font-size:14px; line-height:20px; font-weight:600; overflow-wrap:anywhere; }
+.room-games :is(.room-games__picker,.room-games__history) small { color:var(--muted,#777773); font-size:12px; line-height:16px; }
+.room-games__wheel-icon { flex:0 0 22px; width:22px; height:22px; border:1px solid var(--accent,#ff5a3d); border-radius:50%; background:conic-gradient(var(--accent,#ff5a3d) 0 90deg,transparent 90deg 180deg,var(--accent,#ff5a3d) 180deg 270deg,transparent 270deg); }
+.room-games .room-games__field { display:grid; gap:8px; min-width:0; font-size:14px; line-height:20px; font-weight:600; }
+.room-games input:not([type=checkbox]) { width:100%; box-sizing:border-box; min-width:0; min-height:44px; border:1px solid var(--line,#deded9); border-radius:10px; padding:10px 12px; background:var(--surface,#fff); color:var(--ink,#171716); font-family:inherit; font-size:16px; line-height:24px; font-weight:400; }
+.room-games__source { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.room-games__source [aria-pressed=true] { border-color:var(--ink,#171716); background:var(--ink,#171716); color:#fff; }
+.room-games__members { display:grid; gap:0; }
+.room-games__members>label { display:flex; align-items:center; gap:12px; min-height:44px; padding:4px 0; border-bottom:1px solid var(--line,#deded9); font-size:14px; line-height:20px; font-weight:400; }
+.room-games .room-games__members input[type=checkbox] { flex:0 0 20px; width:20px; height:20px; min-height:20px; padding:0; margin:0; accent-color:var(--accent,#ff5a3d); }
+.room-games__members>label>span { flex:1; min-width:0; overflow-wrap:anywhere; }
+.room-games__members small { color:var(--muted,#777773); font-size:12px; line-height:16px; }
+.room-games__options { display:grid; gap:12px; }
+.room-games__option { display:flex; align-items:flex-end; gap:8px; min-width:0; }
+.room-games__option>label { flex:1; }
+.room-games .room-games__option>button { width:44px; height:44px; flex:0 0 44px; padding:0; margin-bottom:2px; }
+.room-games .room-games__add { width:100%; }
+.room-games .room-games__primary { justify-content:space-between; width:100%; background:var(--ink,#171716); color:#fff; border-color:var(--ink,#171716); font-weight:600; }
+.room-games__history { display:grid; }
+.room-games .room-games__history>button { justify-content:space-between; border:0; border-top:1px solid var(--line,#deded9); border-radius:0; padding:12px 0; text-align:left; }
+.room-games__result { display:flex; align-items:center; flex-direction:column; gap:12px; min-width:0; text-align:center; }
+.room-games__result>svg:not(.room-games__wheel) { color:var(--accent,#ff5a3d); }
+.room-games__result>strong { font-size:20px; line-height:26px; font-weight:600; overflow-wrap:anywhere; max-width:100%; }
+.room-games details { width:100%; border-top:1px solid var(--line,#deded9); border-bottom:1px solid var(--line,#deded9); text-align:left; }
+.room-games summary { cursor:pointer; min-height:44px; padding:12px 0; box-sizing:border-box; font-size:14px; line-height:20px; }
+.room-games ul { list-style:none; padding:0 0 12px; }
+.room-games li { display:flex; align-items:center; gap:8px; padding:4px 0; min-width:0; overflow-wrap:anywhere; }
+.room-games li>svg { color:var(--accent,#ff5a3d); flex-shrink:0; }
+.room-games__wheel { width:min(200px,100%); height:auto; }
+.room-games__wheel path { stroke:var(--surface,#fff); stroke-width:2px; fill:var(--line,#deded9); }
+.room-games__wheel path.is-even { fill:var(--soft,#f2f2ee); }
+.room-games__wheel path.is-picked,.room-games__wheel path.room-games__pointer { fill:var(--accent,#ff5a3d); }
+.room-games__wheel circle { fill:var(--surface,#fff); }
+.room-games__wheel text { fill:var(--ink,#171716); font:14px sans-serif; }
+.room-games__ladder-result { display:grid; gap:12px; min-width:0; }
+.room-games__ladder { display:block; width:100%; max-height:260px; min-height:90px; }
+.room-games__ladder path { fill:none; stroke:var(--line,#deded9); stroke-width:2; stroke-linejoin:round; stroke-linecap:round; }
+.room-games__ladder .is-picked { stroke:var(--accent,#ff5a3d); stroke-width:3; }
+.room-games__assignments { display:grid; }
+.room-games .room-games__assignments>button { width:100%; justify-content:space-between; padding:10px 4px; border:0; border-bottom:1px solid var(--line,#deded9); border-radius:0; gap:8px; text-align:left; }
+.room-games__assignments>button>span,.room-games__assignments>button>strong { flex:1; min-width:0; overflow-wrap:anywhere; }
+.room-games__assignments strong { font-size:14px; line-height:20px; font-weight:600; }
+.room-games__assignments [aria-pressed=true] { color:var(--accent,#ff5a3d); }
+.room-games__rerun { width:100%; }

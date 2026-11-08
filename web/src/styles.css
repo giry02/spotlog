@@ -44,7 +44,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
 .tab-discover.place-video .content { background: #080808; }
 
 /* Navigation */
-.tabbar { position: absolute; z-index: 50; left: 0; right: 0; bottom: 0; height: calc(70px + env(safe-area-inset-bottom)); padding: 7px 10px env(safe-area-inset-bottom); display: grid; grid-template-columns: repeat(5, 1fr); background: rgba(252,252,250,.97); border-top: 1px solid rgba(17,17,17,.08); backdrop-filter: blur(20px); }
+.tabbar { position: absolute; z-index: 50; left: 0; right: 0; bottom: 0; height: calc(70px + env(safe-area-inset-bottom)); padding: 7px 10px env(safe-area-inset-bottom); display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); background: rgba(252,252,250,.97); border-top: 1px solid rgba(17,17,17,.08); backdrop-filter: blur(20px); }
 .tabbar button { min-width: 0; border: 0; background: transparent; color: #92928e; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
 .tabbar button span { font-size: 10px; font-weight: 600; }
 .tabbar button.active { color: var(--ink); }

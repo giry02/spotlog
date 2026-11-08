@@ -1,15 +1,20 @@
 import { canEditActivity, roomIdForActivity, roomIdForGroup, type ChatEntityReference, type TogetherActivity, type TogetherGroup, type TogetherMessage, type TogetherNotice, type TogetherPoll, type TogetherState, type TogetherTask } from './model.ts';
+import type { TogetherGame } from './gameTypes.ts';
+import type { TogetherChallenge } from './challengeTypes.ts';
+import { isPollClosed, voteRoomPoll } from './polls.ts';
 
 export type ChatEntityProjection =
   | { type: 'POLL'; value: TogetherPoll; canInteract: boolean }
   | { type: 'TASK'; value: TogetherTask; canInteract: boolean }
   | { type: 'ACTIVITY'; value: TogetherActivity; canInteract: boolean }
-  | { type: 'NOTICE'; value: TogetherNotice; canInteract: boolean };
+  | { type: 'NOTICE'; value: TogetherNotice; canInteract: boolean }
+  | { type: 'GAME'; value: TogetherGame; canInteract: boolean }
+  | { type: 'CHALLENGE'; value: TogetherChallenge; canInteract: boolean };
 
 export function isChatEntityReference(value: unknown): value is ChatEntityReference {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
   const ref = value as Record<string, unknown>;
-  return ['POLL', 'TASK', 'ACTIVITY', 'NOTICE'].includes(String(ref.type)) && typeof ref.id === 'string' && ref.id.trim().length > 0
+  return ['POLL', 'TASK', 'ACTIVITY', 'NOTICE', 'GAME', 'CHALLENGE'].includes(String(ref.type)) && typeof ref.id === 'string' && ref.id.trim().length > 0
     && Object.keys(ref).every(key => key === 'type' || key === 'id');
 }
 
@@ -18,6 +23,8 @@ function resolveReference(state: TogetherState, ref: ChatEntityReference) {
   if (ref.type === 'POLL') { const value = state.polls.find(item => item.id === ref.id); return value ? { type: ref.type, value } as const : null; }
   if (ref.type === 'TASK') { const value = state.tasks.find(item => item.id === ref.id); return value ? { type: ref.type, value } as const : null; }
   if (ref.type === 'NOTICE') { const value = state.notices.find(item => item.id === ref.id); return value ? { type: ref.type, value } as const : null; }
+  if (ref.type === 'GAME') { const value = state.games?.find(item => item.id === ref.id); return value ? { type: ref.type, value } as const : null; }
+  if (ref.type === 'CHALLENGE') { const value = state.challenges?.find(item => item.id === ref.id); return value ? { type: ref.type, value } as const : null; }
   const value = state.activities.find(item => item.id === ref.id); return value ? { type: ref.type, value } as const : null;
 }
 
@@ -43,8 +50,9 @@ export function readChatEntity(state: TogetherState, actorId: string, roomId: st
   const groupActivityLink = found.type === 'ACTIVITY' && group.spaceType !== 'ACTIVITY' && roomId === roomIdForGroup(group.id);
   if (roomId !== owningRoom && !groupActivityLink) return null;
   const active = !group.archived && activityOpen(activity);
-  if (found.type === 'POLL') return { ...found, canInteract: active && !found.value.closed };
+  if (found.type === 'POLL') return { ...found, canInteract: active && !isPollClosed(found.value) };
   if (found.type === 'TASK') return { ...found, canInteract: active && (found.value.assigneeId === actorId || (activity ? canEditActivity(state, actorId, activity) : groupManager(group, actorId))) };
+  if (found.type === 'CHALLENGE') return { ...found, canInteract: active && !found.value.closed && found.value.endDate >= today() };
   return { ...found, canInteract: false };
 }
 
@@ -73,7 +81,7 @@ export function shareChatEntity(state: TogetherState, actorId: string, ref: Chat
   const message: TogetherMessage = { id, roomId, authorId: actorId, body, createdAt: new Date().toISOString(), entity: { type: ref.type, id: ref.id } };
   const projection = readChatEntity(state, actorId, roomId, message);
   if (!projection) throw new Error('이 항목은 선택한 대화방에 올릴 수 없어요.');
-  if ((projection.type === 'POLL' || projection.type === 'TASK') && !activityOpen(activityId ? state.activities.find(item => item.id === activityId && item.groupId === group.id) : undefined)) throw new Error('지난 약속의 준비와 투표는 새로 공유할 수 없어요.');
+  if (['POLL', 'TASK', 'GAME', 'CHALLENGE'].includes(projection.type) && !activityOpen(activityId ? state.activities.find(item => item.id === activityId && item.groupId === group.id) : undefined)) throw new Error('지난 약속에는 진행 항목을 새로 공유할 수 없어요.');
   const previous = state.messages.find(item => item.id === id);
   if (previous) {
     if (previous.roomId !== roomId || previous.entity?.type !== ref.type || previous.entity.id !== ref.id || previous.body !== body) throw new Error('다른 공유에 사용된 요청이에요.');
@@ -93,14 +101,10 @@ function liveCard(state: TogetherState, actorId: string, roomId: string, type: C
 }
 
 /** Casting a vote changes this actor's selection only. It never applies a time, venue or RSVP. */
-export function voteChatPoll(state: TogetherState, actorId: string, roomId: string, pollId: string, optionId: string): TogetherPoll {
+export function voteChatPoll(state: TogetherState, actorId: string, roomId: string, pollId: string, optionId: string | null): TogetherPoll {
   const projection = liveCard(state, actorId, roomId, 'POLL', pollId);
   if (projection.type !== 'POLL' || !projection.canInteract) throw new Error('현재 이 투표에 응답할 수 없어요.');
-  const poll = projection.value;
-  if (!poll.options.some(option => option.id === optionId)) throw new Error('현재 투표 후보를 다시 확인해 주세요.');
-  poll.options.forEach(option => { option.voterIds = option.voterIds.filter(id => id !== actorId); });
-  poll.options.find(option => option.id === optionId)!.voterIds.push(actorId);
-  return poll;
+  return voteRoomPoll(state, actorId, pollId, optionId);
 }
 
 export function toggleChatTask(state: TogetherState, actorId: string, roomId: string, taskId: string): TogetherTask {
