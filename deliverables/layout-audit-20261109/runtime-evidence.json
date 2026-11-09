@@ -1,0 +1,38 @@
+{
+  "date": "2026-11-09",
+  "release": "07adbae353d5d411c258e3cae0735160ef795c97",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "confirmed": [
+    {
+      "id": "M08",
+      "selector": ".detail-footer.owner-footer",
+      "actual": {
+        "display": "grid",
+        "gridTemplateColumns": "86px 259px",
+        "width": 390,
+        "buttonWidth": 86,
+        "buttonHeight": 62
+      },
+      "result": "Single owner action occupies stale first grid column."
+    },
+    {
+      "id": "G01",
+      "selector": ".group-rule-check input",
+      "actual": {
+        "width": 20,
+        "height": 46,
+        "minHeight": 46,
+        "padding": 0
+      },
+      "result": "Inherited sheet input min-height stretches checkbox."
+    }
+  ],
+  "limits": [
+    "Isolated fixture states, no customer/admin production data modified.",
+    "Desktop admin screenshots use the memory preview adapter.",
+    "Actual mobile keyboard, safe-area, native font rendering and installed-app behavior need device verification."
+  ]
+}

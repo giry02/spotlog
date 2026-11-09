@@ -1,0 +1,20 @@
+{
+  "Date": "2026-11-09",
+  "Release": "07adbae353d5d411c258e3cae0735160ef795c97",
+  "Issues": 21,
+  "Captures": 60,
+  "MissingCaptureFiles": 0,
+  "BrowserChecks": {
+    "RoleColorPrimary": "rgb(198, 61, 36)",
+    "AdminResults": 3,
+    "Search86pxResults": 1,
+    "Gallery1440Results": 8,
+    "ScreenshotDialog": "journal-owner-390.png",
+    "ConsoleErrors": 0,
+    "Width390Overflow": false,
+    "Width1440Overflow": false,
+    "P1Results": 9
+  },
+  "ProductCodeChangesDuringAudit": 0,
+  "Screenshot": "report-overview.png"
+}

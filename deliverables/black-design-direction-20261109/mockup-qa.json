@@ -1,0 +1,42 @@
+[
+  {
+    "view": "home",
+    "bodyFont": "14px",
+    "broken": 0,
+    "clientHeight": 724,
+    "height": 844,
+    "scrollHeight": 724,
+    "scrollWidth": 390,
+    "width": 390
+  },
+  {
+    "view": "find",
+    "bodyFont": "14px",
+    "broken": 0,
+    "clientHeight": 680,
+    "height": 844,
+    "scrollHeight": 681,
+    "scrollWidth": 390,
+    "width": 390
+  },
+  {
+    "view": "chat",
+    "bodyFont": "14px",
+    "broken": 0,
+    "clientHeight": 646,
+    "height": 844,
+    "scrollHeight": 667,
+    "scrollWidth": 390,
+    "width": 390
+  },
+  {
+    "view": "trip",
+    "bodyFont": "14px",
+    "broken": 0,
+    "clientHeight": 676,
+    "height": 844,
+    "scrollHeight": 702,
+    "scrollWidth": 390,
+    "width": 390
+  }
+]

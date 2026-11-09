@@ -7,6 +7,7 @@ import { PolicyLink } from './PolicyDocumentView';
 import { draftPolicies, emptySignupChoices, requiredSignupAccepted, type PolicyBundle, type PolicyId, type SignupChoices } from './accountPolicies';
 import { createSocialAccountAdapter, validEmail, validSignupPassword, type AccountIntent, type LoginProvider, type SocialAccountAdapter, type SocialAccountUser, type SocialSession } from './socialAccountService';
 import { ACCOUNT_METHODS, accountProviderName as providerName } from './accountMethods';
+import { initialEmailLoginCredentials } from './accountEntry';
 import { useAccount, type AccountView, type AccountEntry } from './accountContext';
 import { ServiceError } from './serviceRequest';
 import { isNativeShell } from './nativeBridge';
@@ -27,7 +28,8 @@ export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 
   const [intent, setIntent] = useState<AccountIntent>(initialView === 'signup' ? 'signup' : 'login');
   const [selected, setSelected] = useState<LoginProvider>('GOOGLE');
   const [choices, setChoices] = useState(emptySignupChoices);
-  const [email, setEmail] = useState(initialEntry === 'reset' && account?.session.state === 'SIGNED_IN' ? account.session.user.email ?? '' : initialView === 'login' ? reviewAccount?.email ?? '' : ''), [password, setPassword] = useState(initialView === 'login' && !initialEntry ? reviewAccount?.password ?? '' : ''), [confirmation, setConfirmation] = useState(''), [name, setName] = useState(''), [code, setCode] = useState('');
+  const initialCredentials = initialEmailLoginCredentials({ initialView, initialEntry, reviewAccount, memberEmail: account?.session.state === 'SIGNED_IN' ? account.session.user.email : undefined });
+  const [email, setEmail] = useState(initialCredentials.email), [password, setPassword] = useState(initialCredentials.password), [confirmation, setConfirmation] = useState(''), [name, setName] = useState(''), [code, setCode] = useState('');
   const [socialNotice, setSocialNotice] = useState('');
   const [passwordResetVersion, setPasswordResetVersion] = useState(0);
   const [verificationEmail, setVerificationEmail] = useState('');
@@ -117,7 +119,7 @@ export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 
   return <BottomSheet title={title} onClose={close}><div className="account-form">
     {reason && !member && <p className="account-notice">{reason} 로그인 후 돌아와서 직접 완료해 주세요.</p>}
     {!connected && <p className="account-notice" role="status">인증 연결 전이에요. 화면을 확인할 수 있지만 실제 가입·이메일 발송·로그인은 아직 사용할 수 없어요.</p>}
-    {reviewAccount && view === 'email-login' && <div className="account-review-notice"><div className="account-review-heading"><strong>로컬 검수 계정</strong><Button variant="ghost" size="compact" disabled={busy} onClick={() => { maskPasswords(); setEmail(reviewAccount.email); setPassword(reviewAccount.password); setError(''); }}>검수 계정 채우기</Button></div><p>실제 서비스 회원과 별도의 검수용 로그인이에요.</p></div>}
+    {reviewAccount && view === 'email-login' && <div className="account-review-notice"><div className="account-review-heading"><strong>화면 확인용 계정</strong><Button variant="ghost" size="compact" disabled={busy} onClick={() => { maskPasswords(); setEmail(reviewAccount.email); setPassword(reviewAccount.password); setError(''); }}>검수 계정 채우기</Button></div><p>실제 서비스 회원과 별도의 검수용 로그인이에요. 입력된 계정으로 화면을 확인할 수 있어요.</p></div>}
     {notice && <p className="account-notice" role="status">{notice}</p>}
     {busy && !member && <p role="status">계정을 확인하고 있어요.</p>}
     {member && view !== 'delete' && view !== 'reset' ? <>

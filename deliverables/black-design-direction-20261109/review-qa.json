@@ -1,0 +1,39 @@
+{
+  "Date": "2026-11-09",
+  "Scope": "Local design proposals and research; product source unchanged",
+  "Preference": "Black point color, white/neutral backgrounds; no coral theme expansion",
+  "Images": [
+    "screens/proposed-home.png",
+    "screens/proposed-find.png",
+    "screens/proposed-chat.png",
+    "screens/proposed-trip.png",
+    "proposal-board.png"
+  ],
+  "PrototypeWidths": [
+    320,
+    390,
+    460
+  ],
+  "PrototypeOverflow": 0,
+  "BrokenVisibleImages": 0,
+  "ReportWidths": [
+    390,
+    1440
+  ],
+  "ReportOverflow": 0,
+  "ReportTabs": [
+    "home",
+    "find",
+    "chat",
+    "trip"
+  ],
+  "ImageDialog": "PASS",
+  "ConsoleErrors": 0,
+  "PublicVisualBenchmarks": [
+    "https://www.somoim.co.kr/groups/rcmd",
+    "https://www.meetup.com/find/",
+    "https://wanderlog.com/home"
+  ],
+  "Evidence": "comparison-measurements.json",
+  "Method": "HTML/CSS proposals rendered in browser; exact Korean text and layout, not production changes"
+}

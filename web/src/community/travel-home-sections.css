@@ -1,0 +1,34 @@
+.travel-home { display:grid; gap:20px; min-width:0; }
+.travel-home__section { min-width:0; }
+.travel-home__heading { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:44px; }
+.travel-home__heading h2,.travel-home__empty h2 { margin:0; font-size:16px; line-height:22px; font-weight:700; letter-spacing:-.2px; }
+.travel-home__heading>button { display:flex; align-items:center; justify-content:center; gap:2px; flex:none; min-height:44px; padding:0 0 0 8px; border:0; border-radius:0; background:transparent; color:var(--muted); font-size:14px; line-height:20px; }
+.travel-home__courses { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.travel-home__course { min-width:0; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:white; }
+.travel-home__course>button { display:flex; flex-direction:column; width:100%; min-width:0; height:100%; padding:0; border:0; border-radius:0; background:transparent; text-align:left; color:var(--ink); }
+.travel-home__course-photo { display:block; position:relative; width:100%; aspect-ratio:1.65; overflow:hidden; background:var(--line); }
+.travel-home :is(img,.travel-home__no-photo) { display:block; width:100%; height:100%; object-fit:cover; }
+.travel-home .travel-home__no-photo { display:grid; place-items:center; color:var(--muted); }
+.travel-home__duration { position:absolute; left:8px; bottom:8px; padding:3px 6px; border-radius:5px; color:var(--ink); background:#fffffff0; font-size:12px; line-height:16px; font-weight:600; }
+.travel-home__course-copy { display:flex; flex:1; flex-direction:column; gap:4px; width:100%; min-width:0; padding:10px 12px 8px; }
+.travel-home :is(.travel-home__course-copy,.travel-home__journal-copy,.travel-home__place-copy)>strong { color:var(--ink); font-size:16px; line-height:22px; font-weight:600; letter-spacing:-.2px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; overflow-wrap:anywhere; }
+.travel-home__course-copy>strong { min-height:44px; }
+.travel-home__meta { color:var(--muted); font-size:12px; line-height:16px; font-weight:400; overflow-wrap:anywhere; }
+.travel-home__course-action { display:flex; align-items:center; justify-content:space-between; gap:4px; min-height:32px; margin-top:auto; color:var(--ink); font-size:14px; line-height:20px; font-weight:600; }
+.travel-home__course-action>svg { flex:none; }
+.travel-home__courses.is-single { grid-template-columns:minmax(0,1fr); }
+.travel-home__courses.is-single .travel-home__course>button { flex-direction:row; min-height:124px; }
+.travel-home__courses.is-single .travel-home__course-photo { flex:0 0 112px; width:112px; aspect-ratio:auto; align-self:stretch; }
+.travel-home__courses.is-single .travel-home__course-photo>img,.travel-home__courses.is-single .travel-home__course-photo>.travel-home__no-photo { position:absolute; inset:0; }
+.travel-home__courses.is-single .travel-home__course-copy { flex:1; width:auto; }
+.travel-home__courses.is-single .travel-home__course-copy>strong { min-height:0; }
+.travel-home :is(.travel-home__journal,.travel-home__place) { min-width:0; border-bottom:1px solid var(--line); }
+.travel-home :is(.travel-home__journal,.travel-home__place)>button { display:flex; align-items:center; gap:12px; width:100%; min-height:88px; border:0; border-radius:0; padding:12px 0; background:transparent; color:var(--ink); text-align:left; }
+.travel-home :is(.travel-home__journal,.travel-home__place)>button>svg { flex:none; color:var(--muted); }
+.travel-home__journal-photo,.travel-home__place-photo { display:block; flex:0 0 64px; width:64px; height:64px; overflow:hidden; border-radius:10px; background:var(--line); }
+.travel-home__journal-copy,.travel-home__place-copy { display:flex; flex:1; flex-direction:column; min-width:0; gap:3px; }
+.travel-home__place-summary { display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; overflow-wrap:anywhere; color:var(--muted); font-size:14px; line-height:20px; font-weight:400; }
+.travel-home__none { display:flex; align-items:center; gap:6px; margin:0; padding:12px 0; color:var(--muted); font-size:14px; line-height:20px; }
+.travel-home__empty { justify-items:start; gap:8px; padding:24px 0; color:var(--muted); }
+.travel-home__empty p { margin:0; font-size:14px; line-height:20px; }
+.travel-home__empty>button { display:flex; align-items:center; gap:8px; min-height:44px; padding:8px 12px; border:1px solid var(--line); border-radius:10px; background:white; color:var(--ink); font-size:14px; line-height:20px; }

@@ -1,0 +1,42 @@
+{
+  "checkedDate": "2026-11-09",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "somoim": {
+    "url": "https://www.somoim.co.kr/groups/rcmd",
+    "surface": "Public mobile web, not native app",
+    "heading": {
+      "fontSize": 17,
+      "lineHeight": 25.5,
+      "fontWeight": 700
+    },
+    "thumbnail": {
+      "width": 80,
+      "height": 80
+    },
+    "firstThumbnailTop": 180,
+    "rowStartDelta": 104
+  },
+  "spotlog": {
+    "url": "http://127.0.0.1:5210/tests/platform-review.html?screen=find&role=owner&embed=1&tools=1",
+    "surface": "Current isolated group discovery fixture",
+    "heading": {
+      "fontSize": 16,
+      "lineHeight": 22,
+      "fontWeight": 600
+    },
+    "thumbnail": {
+      "width": 64,
+      "height": 64
+    },
+    "firstThumbnailTop": 357,
+    "rowStartDelta": 85
+  },
+  "interpretation": "Spotlog already uses smaller titles and denser rows. The main difference is space before the first list and the visual roles of controls, not a need to shrink all text.",
+  "limits": [
+    "Specific public web and fixture states; do not generalize to every Somoim native screen.",
+    "Different content/category state. Ranking, preferences and real user behavior are not measured."
+  ]
+}

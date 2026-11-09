@@ -1,0 +1,81 @@
+[
+  {
+    "id": "A01",
+    "priority": "P2",
+    "area": "관리자 PC · 표 열 배분",
+    "title": "명시적 열 배분은 유지하되 고정 표의 긴 자료·작업 열을 확인해야 함",
+    "observed": "2026-11-09 소스 기준 감사이며 관리자7개 메뉴의 실제 화면 배치가 깨졌다고 단정한 결과는 아니다. 지역 현황은20%+16%×5, 인기 자료는8/44/14/14/20%, 이력은22/28/20/30%로 열이 명시되어 있다. 숫자 중앙·작업 오른쪽 정렬도 있어 과거의 오른쪽 여백 쏠림을 줄이는 방향은 유지할 만하다. 다만 모든 admin-table에 table-layout:fixed가 적용되므로 긴 ID·복수 작업 버튼·CSV 지역 선택이 좁은 열에 들어갈 때 줄바꿈으로 행 높이가 커질 위험이 있다.",
+    "cause": "전역 고정 표와 overflow-wrap:anywhere, 셀14px 좌우 padding, 작업 버튼 nowrap이 함께 적용된다. 표별 colgroup은 있으나 내용의 최소 유효 폭은 다르다. CSV는 고정5rem·6rem과30%·24%를 먼저 배정해 남은 장소 열이 좁아질 수 있다.",
+    "recommendation": "기존 colgroup·숫자 정렬·작업 오른쪽 정렬은 유지한다. 지역·인기·CSV·이력 표를 동일 비율로 통일하지 말고 긴 제목/지역 선택/작업 수를 기준으로 표별 최소 폭과 열 비율을 검토한다. 내용이 긴 경우에만 요약과 상세 또는 표 내부 스크롤을 사용하고 페이지 전체를 넓히지 않는다.",
+    "reference": "사용자의 기존 관리자 요청인 '좌우 균형과 오른쪽 불필요한 여백 제거'를 기준으로 한 PC 업무 표 검토다. 소모임 모바일 목록을 관리자 표에 복제하지 않는다.",
+    "screens": [],
+    "sources": [
+      { "path": "web/src/admin/admin.css", "line": 14 },
+      { "path": "web/src/admin/admin.css", "line": 220 },
+      { "path": "web/src/admin/AdminOverview.tsx", "line": 38 },
+      { "path": "web/src/admin/OperationsPages.tsx", "line": 119 },
+      { "path": "web/src/admin/OperationsPages.tsx", "line": 355 },
+      { "path": "web/src/admin/PlacesPage.tsx", "line": 170 }
+    ],
+    "acceptance": [
+      "PC1280/1440/1920px에서 지역 현황·인기 자료·이력·CSV 표의 열 폭과 행 높이를 각각 확인한다.",
+      "긴 지역명·제목·ID와 복수 작업 버튼을 넣어도 의미 없는 한 글자 세로 줄바꿈이나 버튼 겹침이 없다.",
+      "숫자는 일관된 정렬과 tabular-nums를 유지하고 작업은 해당 행의 오른쪽에서 찾을 수 있다.",
+      "필요한 가로 스크롤은 표 내부에만 생기며 페이지 전체 가로 넘침으로 확장되지 않는다."
+    ]
+  },
+  {
+    "id": "A02",
+    "priority": "P2",
+    "area": "관리자 PC · 장소 목록의 상단 공간",
+    "title": "중복 제목·큰 미리보기 안내·펼친 필터가 실제 목록을 첫 화면 밖으로 밀어냄",
+    "observed": "2026-11-09 소스 감사 후 1440×900 장소 화면 캡처를 직접 확인했다. 페이지 제목·설명, 약100px 미리보기 배너, 탭, 약438px 필터 패널이 이어지며 등록 자료 제목이 약y872에 나타나 실제 장소 행은 첫 화면에서 보이지 않는다. 치수는 브라우저 캡처에 따른 대략값이며 관리자7개 메뉴 전체의 computed 측정을 수행한 결과는 아니다.",
+    "cause": "AdminApp의 페이지 제목 아래에 미리보기 상태 블록이 있고 PlacesPage 패널이 다시 같은 장소·업체 제목과 설명을 반복한다. 최초 목록은 filtersOpen=!entityId로 전체 필터를 펼친다. 지역/검색, 작업 상태, 종류, 상세 검색이 여러 줄이며 패널24px padding·제목 아래24px·조건14px 간격이 누적된다.",
+    "recommendation": "미리보기 자료와 실제 서비스의 구분은 유지하되 한 줄 상태 도구로 축약한다. 중복 제목·설명을 정리하고 목록 검색·지역·주요 상태만 기본 도구줄에 두며 나머지 조건은 현재 선택 요약을 가진 펼침으로 묶는다. 등록과 CSV 가져오기 진입은 유지한다. PC의 표 보조 버튼36px과 주요 행동44px은 역할에 따라 구분하고, 빈 공간을 없애려고 입력을 무조건 가로 전체로 늘리지 않는다.",
+    "reference": "사용자의 관리자 사용성·상단 여백 개선 요청을 기준으로 한다. 소모임·당근의 간결한 조건/행동 구분만 참고하고 모바일 카드 구조나 색상을 관리자에 복제하지 않는다.",
+    "screens": ["admin-places-1440"],
+    "sources": [
+      { "path": "web/src/admin/AdminApp.tsx", "line": 121 },
+      { "path": "web/src/admin/admin-preview.css", "line": 1 },
+      { "path": "web/src/admin/admin.css", "line": 34 },
+      { "path": "web/src/admin/admin.css", "line": 39 },
+      { "path": "web/src/admin/PlacesPage.tsx", "line": 47 },
+      { "path": "web/src/admin/PlacesPage.tsx", "line": 153 },
+      { "path": "web/src/admin/PlacesPage.tsx", "line": 154 },
+      { "path": "web/src/admin/PlacesPage.tsx", "line": 160 },
+      { "path": "web/src/admin/PlacesPage.tsx", "line": 161 },
+      { "path": "web/src/admin/admin-place-workflow.css", "line": 6 }
+    ],
+    "acceptance": [
+      "1440×900px 장소 목록 최초 진입 시 스크롤 없이 실제 장소 행이 최소1개 보인다.",
+      "미리보기와 실제 서비스의 자료·저장 범위를 한 줄 상태에서 계속 구별할 수 있다.",
+      "접힌 조건에도 현재 지역·검색·작업 상태·종류를 요약하고 개별 변경 또는 초기화할 수 있다.",
+      "같은 역할의 필터 행동 높이를 맞추되 표 보조 버튼의36px 크기와 주요 작업의 큰 크기를 불필요하게 통일하지 않는다.",
+      "1280/1440/1920px PC에서 장소 등록·CSV 가져오기와 기존 AdminSelect 검색·키보드 이동을 보존한다."
+    ]
+  },
+  {
+    "id": "A03",
+    "priority": "P2",
+    "area": "관리자 PC · 포인트 색과 수치 대비",
+    "title": "관리자 녹색 체계는 명확하지만 집계 숫자 색은 대비가 약함",
+    "observed": "2026-11-09 소스 기준 감사다. 실제 화면의 픽셀 색상을 채취한 결과는 아니며 CSS 선언색을 계산했다. 관리자 기본 포인트 #197767와 흰색의 대비는 약5.42:1로 주요 버튼에 적합한 방향이다. 반면 .admin-metrics strong의 #98a89e는 흰색과 약2.49:1로, 선언된28px 집계 숫자의 큰 텍스트 기준3:1보다 낮다. 회원 상세의 공개 집계 영역이 이 선택자를 사용한다.",
+    "cause": "관리자 accent/primary/선택/성공 상태는 녹색 계열로 통일되어 있지만 집계 숫자에 별도 연한 하드코딩 색을 사용한다. 집계는 실제 값과 미제공 표시가 모두 같은 연한 색에 놓일 수 있다. 상태 배지에는 문구와 다른 톤이 있으므로 색상 체계 전체를 바꿀 이유는 없다.",
+    "recommendation": "관리자는 기존 녹색 포인트와 경고·오류·성공 배지를 유지하고 고객 앱의 코랄로 일괄 치환하지 않는다. 실제 집계 숫자는 대비를 충족하는 진한 텍스트/관리자 포인트 역할로 조정하는 방안을 검토하고, 미제공·예시·비활성은 숫자와 별도 문구로 구별한다.",
+    "reference": "당근·소모임에서 가져올 것은 실행·현재 위치·상태의 역할 구분이다. 관리자의 기존 #197767를 보존하며 해당 서비스의 주황·파랑 또는 고객용 코랄을 복제하지 않는다.",
+    "screens": [],
+    "sources": [
+      { "path": "web/src/admin/admin.css", "line": 3 },
+      { "path": "web/src/admin/admin.css", "line": 7 },
+      { "path": "web/src/admin/admin.css", "line": 12 },
+      { "path": "web/src/admin/admin.css", "line": 14 },
+      { "path": "web/src/admin/OperationsPages.tsx", "line": 327 }
+    ],
+    "acceptance": [
+      "회원 상세와 다른 집계 영역의 실제 computed 색·배경·글자 크기를 확인한다.",
+      "큰 집계 숫자는 최소3:1, 일반 크기 정보 텍스트는 최소4.5:1 대비를 충족한다.",
+      "주요 녹색 행동과 위험·경고·성공 상태가 문구와 함께 구별되고 관리자 고유 포인트가 유지된다.",
+      "실제 숫자·미제공 표시·예시 집계를 색상에만 의존하지 않고 구별한다."
+    ]
+  }
+]

@@ -1,0 +1,200 @@
+[
+  {
+    "id": "G01",
+    "priority": "P1",
+    "area": "모임 가입 · 동의",
+    "title": "가입 동의 체크박스에 일반 입력 높이가 적용됨",
+    "observed": "2026-11-09 로컬 가입 화면에서 체크박스의 실제 크기 20×46px, computed height/min-height 46px, padding 0px을 확인했다. 체크박스 자체와 동의 문장 사이의 비율이 맞지 않는다.",
+    "cause": ".group-rule-check > input은 width/height 20px만 설정한다. .tg-sheet input의 min-height:46px이 남아 height를 늘린다. 라벨의 44px 터치 영역과 입력 도형의 크기를 분리하지 못했다.",
+    "recommendation": "해당 체크박스에만 min-height:20px과 필요한 padding 초기화를 적용한다. 동의 문장을 포함하는 라벨은 최소44px 터치 영역을 유지하고, 다른 일반 입력의 높이는 변경하지 않는다.",
+    "reference": "사용자가 제공한 소모임 화면의 간결한 입력·행동 구분을 참고한다. 이 항목은 벤치마크 추정이 아닌 Spotlog 실제 computed 크기로 확인된 결함이다.",
+    "screens": ["group-join-390"],
+    "sources": [
+      { "path": "web/src/together/group-creation.css", "line": 47 },
+      { "path": "web/src/together/group-creation.css", "line": 48 },
+      { "path": "web/src/together/together.css", "line": 92 },
+      { "path": "web/src/together/GroupJoinForm.tsx", "line": 40 }
+    ],
+    "acceptance": [
+      "320/390/460px 가입 화면에서 체크박스 실제 도형은20×20px이며 computed min-height는20px이다.",
+      "문장을 포함한 동의 라벨의 터치 높이는44px 이상이다.",
+      "라벨 클릭과 키보드 Space로 동의를 변경할 수 있고, 미동의 시 기존 검증이 유지된다."
+    ]
+  },
+  {
+    "id": "G02",
+    "priority": "P1",
+    "area": "모임 생성 · 공통 폼",
+    "title": "중첩 라벨의 잔여 여백과 보조 문구가 폼 정렬을 깨뜨림",
+    "observed": "2026-11-09 390px 생성 캡처에서 모임 관계·가입 방식 다음에 주요 관심사까지의 간격이 다른 필드보다 넓다. 함께할 지역과 동네·구·군은 '선택' 보조 문구 유무에 따라 입력 위치가 어긋난다. 소개 작성 단계에서도 보조 문구가 독립 행을 차지한다.",
+    "cause": ".group-form-two > label에는 margin 초기화가 없어 .phase-sheet label의 margin-bottom:18px이 남는다. 부모 .group-form-fields의 gap:16px과 합쳐 중첩 행 다음에34px 간격이 생긴다. grid 라벨 안의 small은 추가 행이 되므로 같은 두 열의 필드 구조가 다르면 입력 기준선도 달라진다.",
+    "recommendation": "생성·가입 폼의 모든 필드 라벨에 한 가지 margin 규칙을 적용한다. 라벨 제목과 선택 표시는 같은 제목 슬롯에 묶고, 두 열 입력은 같은 기준선에 배치한다. 필드 간격은16px을 기본으로 두고 의도적인 섹션 간격만 별도로 둔다.",
+    "reference": "사용자가 제공한 소모임 모임 개설 화면의 이름·지역·정원 입력 정렬과 필드 묶음을 참고한다. 필드 수를 그대로 복제하지 않고 Spotlog 관계·가입 방식은 유지한다.",
+    "screens": ["groupcreate-owner-390", "group-create-introduction-390"],
+    "sources": [
+      { "path": "web/src/phase-one.css", "line": 8 },
+      { "path": "web/src/together/group-creation.css", "line": 10 },
+      { "path": "web/src/together/group-creation.css", "line": 18 },
+      { "path": "web/src/together/GroupCreationForm.tsx", "line": 47 },
+      { "path": "web/src/together/GroupCreationForm.tsx", "line": 50 }
+    ],
+    "acceptance": [
+      "중첩된 두 열 필드 라벨에도 computed margin-bottom:0px이 적용된다.",
+      "390/460px에서 같은 행의 두 select 상단이 정렬되고, 320px 단일 열 전환에서 여백이 중복되지 않는다.",
+      "'선택' 표시는 제목과 구별되지만 별도 빈 행이나 다른 입력의 수직 어긋남을 만들지 않는다.",
+      "입력16px, 본문14px, 메타12px 규격을 줄이지 않는다."
+    ]
+  },
+  {
+    "id": "G03",
+    "priority": "P2",
+    "area": "모임 가입 · 정보 우선순위",
+    "title": "선택 프로필 전체가 펼쳐져 가입이 긴 설문처럼 보임",
+    "observed": "2026-11-09 승인제 가입 캡처는 별명, 자기소개, 선택 질문2개, 활동 시간까지 길게 이어진다. 첫 화면에서 동의·최종 신청은 보이지 않는다. 별명 안내 아래의 선택 항목 summary는 주변 문구와 간격·위계가 약해 촘촘하게 보인다. 최종 버튼은 문서상 약y1300에 위치한다.",
+    "cause": "GroupJoinForm이 승인제일 때 선택 프로필 details를 open={!direct}로 모두 펼친다. 각 질문의 '선택' small은 독립 grid 행이다. 최종 행동은 전체 내용 뒤에만 있고 선택 입력과 실제 가입 요건의 위계가 약하다.",
+    "recommendation": "가입 방식, 모임 안내, 최종 동의를 먼저 읽히게 하고 선택 프로필은 질문 수와 작성 상태로 요약해 펼치게 한다. 운영진 질문은 선택이라는 현재 계약을 유지한다. 최종 신청 영역은 내용과 구별하고, 고정할 경우 입력·오류·안내를 가리지 않게 한다.",
+    "reference": "소모임의 간결한 목록·행동 구조와 당근 벤치마킹의 가입 안내·프로필 구분을 참고한 개선안이다. 이 캡처로 다른 서비스의 가입 전체 흐름까지 검증했다고 주장하지 않는다.",
+    "screens": ["group-join-390"],
+    "sources": [
+      { "path": "web/src/together/GroupJoinForm.tsx", "line": 36 },
+      { "path": "web/src/together/GroupJoinForm.tsx", "line": 37 },
+      { "path": "web/src/together/GroupJoinForm.tsx", "line": 38 },
+      { "path": "web/src/together/GroupJoinForm.tsx", "line": 40 },
+      { "path": "web/src/together/group-creation.css", "line": 55 }
+    ],
+    "acceptance": [
+      "바로 가입·승인제 모두 선택 프로필을 작성하지 않고 안내 확인과 동의 후 제출할 수 있다.",
+      "접힌 선택 영역에도 질문 수·선택 여부가 표시되고, 펼치기44px 터치 영역을 유지한다.",
+      "키보드를 연 상태에서도 최종 행동이 입력이나 오류를 가리지 않는다.",
+      "필수 요건과 선택 항목을 색상에만 의존하지 않고 문구로 구별한다."
+    ]
+  },
+  {
+    "id": "G04",
+    "priority": "P2",
+    "area": "모임 약속 · 탐색과 행동 구분",
+    "title": "목록 필터와 참가 응답이 같은 큰 버튼 형태를 사용함",
+    "observed": "2026-11-09 약속 목록 캡처에서 '예정/지난 약속'이 큰 두 칸으로 표시되고 '지난 약속'은 두 줄로 꺾인다. 오른쪽에는 넓은 빈 공간과 추가 버튼이 있다. 같은 검정 선택 형태가 일정의 참가·미정·불참 및 기록 종류 전환에도 사용된다.",
+    "cause": "범용 .tg-segments와 선택 검정 채움 규칙을 목록 필터, 참가 응답, 기록 전환에 재사용한다. 약속 목록에서 컨테이너 폭·줄바꿈을 별도로 설계하지 않아 탐색이 주요 행동처럼 보인다.",
+    "recommendation": "목록의 예정/지난 약속은 한 줄44px 탐색 탭 또는 가벼운 필터로 분리한다. 참가 응답은 상태 선택 컴포넌트로 유지하고, 새 약속 생성은 별도 행동 슬롯에 둔다. 글자 크기 축소로 줄바꿈을 해결하지 않는다.",
+    "reference": "사용자가 제공한 소모임의 홈/게시판/사진첩/채팅 탭과 하위 분류 칩의 서로 다른 위계를 참고한다.",
+    "screens": ["group-activities-390", "activity-schedule-390", "activity-record-390"],
+    "sources": [
+      { "path": "web/src/together/together.css", "line": 36 },
+      { "path": "web/src/together/together.css", "line": 37 },
+      { "path": "web/src/together/together.css", "line": 38 },
+      { "path": "web/src/together/TogetherApp.tsx", "line": 536 },
+      { "path": "web/src/together/TogetherApp.tsx", "line": 553 },
+      { "path": "web/src/together/TogetherApp.tsx", "line": 561 }
+    ],
+    "acceptance": [
+      "320/390/460px에서 예정·지난 약속은 각각 한 줄이며 선택 전후 높이가 변하지 않는다.",
+      "목록 필터, 참가 응답, 새 약속 생성의 시각 역할을 서로 구별할 수 있다.",
+      "각 조작의 최소44px 터치와 현재 선택의 접근성 속성을 유지한다.",
+      "목록 전환이 참가 상태나 실제 일정을 변경하지 않는다."
+    ]
+  },
+  {
+    "id": "G05",
+    "priority": "P2",
+    "area": "모임 홈 · 상단 공간",
+    "title": "보조 도구와 관리 안내가 다음 일정보다 먼저 큰 공간을 차지함",
+    "observed": "2026-11-09 모임장 홈 캡처에서 공지, 투표·함께 놀기·챌린지3개 버튼, 가입 신청 배너를 지나야 다음 약속이 나온다. 모든 블록에 비슷한 간격이 들어가 실제 모임 일정과 최근 이야기를 첫 화면에서 충분히 보기 어렵다.",
+    "cause": "TogetherApp의 홈 순서가 공지→참여 도구→가입 관리→다음 약속이다. .tg .tg-group-content의 gap:24px이 각 블록에 일괄 적용되고, 일정 섹션 내부에는 별도12px 간격이 있다. 콘텐츠 중요도에 따른 묶음이 부족하다.",
+    "recommendation": "다음 일정·최근 대화를 우선 읽히게 하고 참여 도구는 한 묶음의 보조 영역으로 배치한다. 관리자의 가입 신청 상태는 작은 개수 표시와 명확한 진입으로 유지한다. 큰 섹션 사이24px은 살리되 같은 묶음의 도구 사이에는8~12px을 사용한다.",
+    "reference": "소모임 내모임 화면의 최근 대화·다가오는 정모 중심 목록과 당근 모임 안의 간결한 도구 진입을 참고한다. 관리 기능 자체를 제거하는 제안은 아니다.",
+    "screens": ["group-home-owner-390"],
+    "sources": [
+      { "path": "web/src/together/TogetherApp.tsx", "line": 519 },
+      { "path": "web/src/together/TogetherApp.tsx", "line": 522 },
+      { "path": "web/src/together/TogetherApp.tsx", "line": 523 },
+      { "path": "web/src/together/TogetherApp.tsx", "line": 524 },
+      { "path": "web/src/together/group-workspace.css", "line": 3 },
+      { "path": "web/src/together/group-workspace.css", "line": 4 }
+    ],
+    "acceptance": [
+      "390px 모임 홈에서 일정 정보가 보조 도구·관리 안내에 밀려 불필요하게 아래로 내려가지 않는다.",
+      "모임원과 모임장 모두 다음 일정·대화·공지에 바로 접근할 수 있다.",
+      "관리자의 대기 신청 수와 승인 진입, 투표·게임·챌린지 기능이 유지된다.",
+      "일정이 없을 때 큰 빈 카드나 가짜 일정으로 공간을 채우지 않는다."
+    ]
+  },
+  {
+    "id": "G06",
+    "priority": "P2",
+    "area": "모임 찾기 · 행의 좌우 배분",
+    "title": "고정 사진·가입 버튼이 좁은 폭에서 모임 정보를 압축함",
+    "observed": "2026-11-09 390px 찾기 캡처에서 이름·소개·지역이 한 줄 말줄임으로 표시된다. 현재 CSS를 계산하면320px 화면은 좌우16px을 제외한288px 중 사진64px, 사진 간격10px, 가입 버튼74px, 버튼 간격8px을 사용해 텍스트에132px만 남는다. 이320px 수치는 캡처 실측이 아니라 코드 기반 계산이다.",
+    "cause": ".gd-group-photo와 .gd-card-join의 고정 폭에 비해 모든 정보 행이 nowrap/ellipsis다. 350px 이하 사진56px 대응 규칙은 뒤의64px 재선언에 덮인다. 빠른 가입과 모임 비교에 필요한 정보량의 배분이 맞지 않는다.",
+    "recommendation": "좁은 화면의 사진·가입 시각 폭 배분을 명시적으로 설계하고 모임명은 필요한 경우2줄을 허용한다. 소개·지역은 짧은 메타로 유지한다. 바로 가입/승인제 구별과44px 터치 크기는 보존하고 본문을 더 작게 줄이지 않는다.",
+    "reference": "사용자가 제공한 소모임 추천·최근 본 모임 목록의 작은 사진과 충분한 이름·지역 공간을 참고한다. Spotlog의 빠른 가입은 유지하면서 배분을 조정한다.",
+    "screens": ["find-owner-390"],
+    "sources": [
+      { "path": "web/src/together/group-discovery.css", "line": 229 },
+      { "path": "web/src/together/group-discovery.css", "line": 230 },
+      { "path": "web/src/together/group-discovery.css", "line": 233 },
+      { "path": "web/src/together/group-discovery.css", "line": 239 },
+      { "path": "web/src/together/group-discovery.css", "line": 250 },
+      { "path": "web/src/together/group-discovery.css", "line": 274 },
+      { "path": "web/src/together/GroupDiscovery.tsx", "line": 59 }
+    ],
+    "acceptance": [
+      "320/390/460px에서 긴 모임명과 지역 조합을 확인하고 가입 버튼이 텍스트와 겹치거나 눌리지 않는다.",
+      "320px 전용 폭 조정이 뒤의 공통 선언에 덮이지 않는지 computed 값으로 확인한다.",
+      "바로 가입·가입 신청·승인 대기·가입 중 상태가 문구로 구별된다.",
+      "사진을 제외한 정보의 우선순위를 이름→짧은 소개→지역·관심사·인원으로 읽을 수 있다."
+    ]
+  },
+  {
+    "id": "G07",
+    "priority": "P2",
+    "area": "준비 목록 · 앨범 그리드",
+    "title": "반복 보조 행동과 설명이 목록의 정보 밀도를 무너뜨림",
+    "observed": "2026-11-09 준비 캡처는 할 일마다 '관련 대화 보기'가 별도 줄을 차지해2개 할 일만으로도 큰 높이를 사용한다. 앨범 캡처는3열 사진마다 긴 설명과 사진 출처가 반복되어 사진 사이에 큰 텍스트 영역이 생긴다. 화면이 넘치지 않아도 스캔 효율은 낮다.",
+    "cause": "준비 목록은 각 할 일의 위아래14px padding, 별도44px 출처 행동, 부모16px gap이 누적된다. 앨범은 제한 없는 figcaption과44px 출처 버튼을3열 figure마다 배치한다. 사진/할 일과 부속 정보를 같은 목록 단위로 묶지 않았다.",
+    "recommendation": "관련 대화는 할 일 행 우측의44px 아이콘 또는 행 상세에 묶고 담당·기한을 같은 행 메타로 둔다. 앨범은 사진 중심3열을 유지하면서 설명2줄 요약과 미디어 상세의 전체 설명·출처·신고로 구분한다. 출처와 신고 접근 자체를 없애지 않는다.",
+    "reference": "사용자가 제공한 소모임 사진첩의 사진 중심3열과 게시판·알림의 짧은 반복 행을 참고한다. 라이선스·신고 기능을 복제하거나 제거하는 제안이 아니다.",
+    "screens": ["activity-prep-390", "group-album-390"],
+    "sources": [
+      { "path": "web/src/together/TogetherApp.tsx", "line": 541 },
+      { "path": "web/src/together/together.css", "line": 22 },
+      { "path": "web/src/together/together.css", "line": 114 },
+      { "path": "web/src/together/TogetherApp.tsx", "line": 438 },
+      { "path": "web/src/together/together.css", "line": 125 },
+      { "path": "web/src/together/together.css", "line": 127 },
+      { "path": "web/src/together/together.css", "line": 311 }
+    ],
+    "acceptance": [
+      "준비물5개를 넣었을 때 본문·담당·기한을 빠르게 비교할 수 있고, 같은 역할의 출처 버튼이 매번 별도44px 줄을 만들지 않는다.",
+      "관련 대화의44px 터치·접근성 이름과 정확한 대화 이동을 유지한다.",
+      "앨범의 긴 설명은 목록에서2줄 이내로 요약되고 전체 내용과 출처를 상세에서 열 수 있다.",
+      "320/390/460px 사진 그리드에서 행 정렬이 유지되고 사용자 미디어의 신고 기능이 보존된다."
+    ]
+  },
+  {
+    "id": "G08",
+    "priority": "P2",
+    "area": "공통 시각 위계 · 브랜드 포인트",
+    "title": "선택·생성·가입의 역할이 검정과 흰 윤곽에 집중됨",
+    "observed": "2026-11-09 모임 찾기·내모임·모임 홈·게시판·생성 확인 캡처에서 활성 탭, 선택 칩, 주요 생성 행동은 대부분 검정이며 가입·글쓰기·도구는 비슷한 흰 윤곽 버튼이다. 브랜드 코랄은 안 읽음 배지·작은 표시·진행선 등 일부에만 나타나 기능의 위계를 충분히 돕지 못한다. 비활성 채팅 전송의 회색은 정상 상태로 보며 이 문제에 포함하지 않는다.",
+    "cause": "공통 primary는 검정, 공통 탭은 검정 밑줄, 필터/생성 칩도 검정 채움이다. 빠른 가입은 흰색 윤곽이고 보조 도구도 같은 계열이다. 브랜드 코랄 #ff5a3d 토큰은 있으나 현재 위치·주요 행동·새 소식에 대한 일관된 역할 규칙이 부족하다.",
+    "recommendation": "현재 위치·주요 행동·새 소식의3개 역할을 먼저 정하고 기존 코랄을 밑줄·아이콘·배지 등에서 제한적으로 사용한다. 탐색은 탭, 조건은 칩, 실행은 명확한 주요 버튼으로 구별한다. 모든 버튼을 코랄로 채우거나 다른 서비스의 주황·파랑을 복사하지 않는다. 코랄 위 흰 작은 글자는 대비를 검증하기 전 사용하지 않는다.",
+    "reference": "소모임의 탐색 탭·파란 실행 버튼 구분과 당근의 주황 포인트 사용 방식에서 '역할 구별'만 참고한다. Spotlog의 코랄·밀키 배경·검정 브랜드는 유지한다.",
+    "screens": ["find-owner-390", "together-owner-390", "group-home-owner-390", "group-board-390", "group-create-review-390"],
+    "sources": [
+      { "path": "web/src/styles.css", "line": 8 },
+      { "path": "web/src/screen-header.css", "line": 105 },
+      { "path": "web/src/together/together.css", "line": 4 },
+      { "path": "web/src/together/together.css", "line": 250 },
+      { "path": "web/src/together/group-discovery.css", "line": 217 },
+      { "path": "web/src/together/group-discovery.css", "line": 239 },
+      { "path": "web/src/together/group-creation.css", "line": 21 }
+    ],
+    "acceptance": [
+      "같은 역할은 홈·모임·생성·가입에서 같은 표현을 사용하고, 탐색·조건·실행을 모양과 문구로 구별한다.",
+      "브랜드 기본 포인트는 기존 #ff5a3d이며 소모임 파랑이나 당근 주황으로 치환하지 않는다.",
+      "일반 텍스트 대비4.5:1, 의미 있는 비텍스트 표시 대비3:1을 확인하고 색상만으로 상태를 전달하지 않는다.",
+      "비활성·완료·취소 상태는 주요 행동의 포인트 색상과 혼동되지 않는다."
+    ]
+  }
+]

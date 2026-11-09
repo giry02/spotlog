@@ -1,0 +1,50 @@
+[
+  {
+    "view": "home",
+    "broken": 0,
+    "scroll": 320,
+    "w": 320
+  },
+  {
+    "view": "find",
+    "broken": 0,
+    "scroll": 320,
+    "w": 320
+  },
+  {
+    "view": "chat",
+    "broken": 0,
+    "scroll": 320,
+    "w": 320
+  },
+  {
+    "view": "trip",
+    "broken": 0,
+    "scroll": 320,
+    "w": 320
+  },
+  {
+    "view": "home",
+    "broken": 0,
+    "scroll": 460,
+    "w": 460
+  },
+  {
+    "view": "find",
+    "broken": 0,
+    "scroll": 460,
+    "w": 460
+  },
+  {
+    "view": "chat",
+    "broken": 0,
+    "scroll": 460,
+    "w": 460
+  },
+  {
+    "view": "trip",
+    "broken": 0,
+    "scroll": 460,
+    "w": 460
+  }
+]

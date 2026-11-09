@@ -4,7 +4,7 @@ import type { SocialAccountAdapter, SocialSession } from './socialAccountService
 
 const sessionKey = 'spotlog.review.account.session.v1';
 type ReviewStorage = Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
-/** Imported only by the DEV fallback. This is not production authentication. */
+/** DEV or explicitly enabled static preview only. This is not service authentication. */
 export function createReviewAccountAdapter(suppliedStorage?: ReviewStorage | null): SocialAccountAdapter {
   const reviewAccount = { email: 'demo@spotlog.test', password: 'SpotlogDemo123!' };
   const user = { id: 'spotlog-local-review-member', displayName: '검수 여행자', email: reviewAccount.email, provider: 'EMAIL' as const };

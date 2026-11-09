@@ -35,6 +35,8 @@ jobs:
         run: npm ci
 
       - name: Build mobile web
+        env:
+          VITE_ACCOUNT_REVIEW_MODE: '1'
         run: npm run web:build
 
       - name: Include administrator manual

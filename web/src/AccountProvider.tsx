@@ -5,9 +5,14 @@ import { createSocialAccountAdapter, type SocialAccountAdapter, type SocialSessi
 import { createReviewAccountAdapter } from './reviewAccountService';
 import { ACCOUNT_EXPIRED_EVENT } from './serviceRequest';
 import { errorKindForFailure, type ErrorKind } from './errorStates';
+import { selectAccountAdapterMode } from './accountEntry';
 
 const endpoint = import.meta.env.VITE_ACCOUNT_ENDPOINT ?? '';
-const defaultAdapter = import.meta.env.DEV && !endpoint ? createReviewAccountAdapter() : createSocialAccountAdapter(endpoint);
+// Public static previews opt in explicitly; a configured service always wins,
+// including when its requests fail. An ordinary production build stays disabled.
+// Keep the compile-time gate outside the helper so ordinary production bundles
+// can remove the review adapter and its public credentials entirely.
+const defaultAdapter = (import.meta.env.DEV || import.meta.env.VITE_ACCOUNT_REVIEW_MODE === '1') && selectAccountAdapterMode({ endpoint, development: import.meta.env.DEV, reviewMode: import.meta.env.VITE_ACCOUNT_REVIEW_MODE }) === 'REVIEW' ? createReviewAccountAdapter() : createSocialAccountAdapter(endpoint);
 export function AccountProvider({ children, adapter = defaultAdapter }: { children: ReactNode; adapter?: SocialAccountAdapter }) {
   const [session, setSession] = useState<SocialSession>({ state: 'GUEST' });
   const [status, setStatus] = useState<'CHECKING' | 'READY' | 'ERROR'>(adapter.configured ? 'CHECKING' : 'READY');

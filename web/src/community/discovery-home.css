@@ -87,3 +87,5 @@
 @media(max-width:350px) {
   .discovery-home__region { max-width:116px; }
 }
+
+.discovery-home__manage-region { display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; min-height:44px; padding:8px 0; border:0; border-radius:0; background:transparent; color:var(--muted); font-size:14px; line-height:20px; text-align:left; }
