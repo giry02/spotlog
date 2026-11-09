@@ -46,7 +46,7 @@ export default function TravelDiscovery({ templates, region, query, onOpen, onMy
       <button type="button" aria-label="여행 만들기" onClick={onCreateTrip}><Plus size={17} aria-hidden="true"/><span>새 여행</span></button>
       <button type="button" aria-label="여행기 보기" onClick={onJournals}><BookOpen size={17} aria-hidden="true"/><span>여행기</span></button>
     </div>
-    {onDurationChange && <div className="discovery-home__durations" role="group" aria-label="여행 일정 기간">{homeTravelDurations.map(item => <button key={item.id} type="button" aria-pressed={item.id === duration} onClick={() => onDurationChange(item.id)}>{item.label}</button>)}</div>}
+    {onDurationChange && <div className="travel-discovery__durations" role="group" aria-label="여행 일정 기간">{homeTravelDurations.map(item => <button key={item.id} type="button" aria-pressed={item.id === duration} onClick={() => onDurationChange(item.id)}>{item.label}</button>)}</div>}
     <div className="travel-discovery__list-heading"><h2 id={`${uid}-title`}>{region.trim() ? `${region.trim()}의 추천 여행` : '추천 여행 일정'}</h2><span>{visible.length}개</span></div>
     {visible.length ? <div className="travel-discovery__list">{visible.map(template => <article className="travel-discovery__row" key={template.id}>
       <button type="button" onClick={() => onOpen(template)} aria-label={`${template.title} 여행 일정 미리보기`}>

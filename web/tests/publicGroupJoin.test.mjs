@@ -248,7 +248,7 @@ test('v3 unedited generated examples receive explicit catalog policy once while 
   state.readCursors['group:public-busan-food'] = 'existing-message';
   const before = structuredClone(state), expected = createDiscoveryCatalog([], at);
   const hydrated = hydrateDiscoveryCatalog(state, [], at);
-  assert.equal(DISCOVERY_CATALOG_VERSION, 4);
+  assert.ok(DISCOVERY_CATALOG_VERSION > before.discoveryCatalogVersion);
   assert.equal(hydrated.discoveryCatalogVersion, DISCOVERY_CATALOG_VERSION);
   assert.deepEqual(state, before, 'hydration must not mutate its input');
   assert.equal(hydrated.groups.length, before.groups.length);
@@ -297,7 +297,7 @@ test('edited example names, introductions and joining guidance are not mistaken 
   }
 });
 
-test('migration preserves explicit operator policy and does not restore deleted examples or rerun after version four', () => {
+test('migration preserves explicit operator policy and does not restore deleted examples or rerun at the current catalog version', () => {
   const state = oldVersionThreeCatalog();
   const directCatalogGroup = state.groups.find(item => item.id === 'discovery-busan-books');
   const approvalCatalogGroup = state.groups.find(item => item.id === 'public-busan-guide');

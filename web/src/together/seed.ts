@@ -1,9 +1,10 @@
 import type { Journey, Place } from '../data';
 import { copyJourneyForGroup, createEmptyState, roomIdForActivity, roomIdForGroup, type TogetherState } from './model.ts';
 import { createDiscoveryCatalog, DISCOVERY_CATALOG_VERSION } from './discoveryExamples.ts';
+import { exampleGroupPhoto } from './groupPhotoAssets.ts';
 
 export const TOGETHER_REVIEW_MEMBER_ID = 'spotlog-local-review-member';
-/** Fictional review members and conversations; images reuse the approved existing place catalogue. */
+/** Fictional review members and conversations; group covers use synthetic activity photographs. */
 export function createSeedState(viewerId: string, name: string, places: Place[]): TogetherState {
   const state = createEmptyState(viewerId, name);
   const now = new Date();
@@ -18,9 +19,9 @@ export function createSeedState(viewerId: string, name: string, places: Place[])
   if (viewerId !== TOGETHER_REVIEW_MEMBER_ID) return state;
   state.members.push({ id: 'example-parent', name: '엄마' }, { id: 'example-sibling', name: '지우' }, { id: 'example-friend', name: '도윤' }, { id: 'example-applicant', name: '여행 친구' });
   state.groups.push(
-    { id: 'family-busan', name: '우리 가족 여행', kind: 'FAMILY', region: '부산', introduction: '다음 여행도 지난 여행도 함께 모아 두는 우리 가족 공간.', cover,
+    { id: 'family-busan', name: '우리 가족 여행', kind: 'FAMILY', region: '부산', introduction: '다음 여행도 지난 여행도 함께 모아 두는 우리 가족 공간.', cover: exampleGroupPhoto('family-busan'),
       visibility: 'PRIVATE', ownerId: viewerId, memberIds: [viewerId, 'example-parent', 'example-sibling'], managerIds: [], archived: false, promotionPublished: false },
-    { id: 'weekend-walk', name: '우리 동네 취향 모임', kind: 'FRIENDS', region: '부산', introduction: '커피 한 잔부터 책 이야기까지, 편하게 만나 서로의 취향을 나눠요.', cover: '', sourceKind: 'EXAMPLE', createdAt: '2026-10-01T00:00:00.000Z', discovery: { joinMode: 'APPROVAL', topics: ['SOCIAL', 'BOOK', 'CAFE'], district: '부산진구', style: 'NEIGHBORHOOD', recruitment: 'PAUSED', welcome: '친구끼리 가볍게 이야기 나누는 모임이에요.', joinGuide: '초대받은 사람만 들어올 수 있어요.' },
+    { id: 'weekend-walk', name: '우리 동네 취향 모임', kind: 'FRIENDS', region: '부산', introduction: '커피 한 잔부터 책 이야기까지, 편하게 만나 서로의 취향을 나눠요.', cover: exampleGroupPhoto('weekend-walk'), sourceKind: 'EXAMPLE', createdAt: '2026-10-01T00:00:00.000Z', discovery: { joinMode: 'APPROVAL', topics: ['SOCIAL', 'BOOK', 'CAFE'], district: '부산진구', style: 'NEIGHBORHOOD', recruitment: 'PAUSED', welcome: '친구끼리 가볍게 이야기 나누는 모임이에요.', joinGuide: '초대받은 사람만 들어올 수 있어요.' },
       visibility: 'PRIVATE', ownerId: 'example-friend', memberIds: [viewerId, 'example-friend', 'example-guide'], managerIds: [], archived: false, promotionPublished: false }
   );
   const selected = [busan.find(place => place.kind === 'LANDMARK' && place.name.includes('해운대')) ?? busan.find(place => place.kind === 'LANDMARK'), busan.find(place => place.kind === 'FOOD'), busan.find(place => place.kind === 'CAFE' && place.area.includes('해운대')) ?? busan.find(place => place.kind === 'CAFE'), busan.find(place => place.kind === 'STAY')].filter((place): place is Place => Boolean(place));

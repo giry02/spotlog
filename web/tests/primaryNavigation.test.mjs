@@ -31,7 +31,9 @@ test('old appointment and record links resolve without treating record IDs as me
   assert.equal(mySectionForRoute('journey-my-record'), undefined);
 });
 test('My sections roundtrip their canonical deep links and reject unknown sections', () => {
-  for (const section of ['schedule','travel','records']) assert.equal(mySectionForRoute(myRoute(section)), section);
+  for (const section of ['schedule','groups','travel','records']) assert.equal(mySectionForRoute(myRoute(section)), section);
+  assert.equal(myRoute('groups'), 'my-groups');
+  assert.equal(mySectionForRoute('group-my-groups'), undefined);
   assert.equal(mySectionForRoute('my-private'), undefined);
   assert.equal(mySectionForRoute('my-travel-extra'), undefined);
 });

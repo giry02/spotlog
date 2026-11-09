@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createEmptyState } from '../src/together/model.ts';
 import { createStandaloneAppointment } from '../src/community/platformModel.ts';
-import { myHubContent, myHubSection } from '../src/community/myHubModel.ts';
+import { myHubContent, myHubGroups, myHubSection } from '../src/community/myHubModel.ts';
 
 const plan=(id,dates,purpose='PLAN')=>({id,title:id,isMine:true,purpose,days:dates.map(date=>({date})),startDate:'',visibility:'PRIVATE'});
 test('My groups dated appointments and personal travel chronologically without changing source identity or attendance',()=>{
@@ -57,8 +57,41 @@ test('past and cancelled membership activities belong to records and undated dra
   assert.deepEqual(new Set(content.pastActivities.map(item=>item.id)),new Set([past.id,cancelled.id]));
 });
 test('unknown destination sections resolve safely to schedule without changing persisted data',()=>{
-  assert.equal(myHubSection('travel'),'travel');assert.equal(myHubSection('records'),'records');
+  assert.equal(myHubSection('groups'),'groups');assert.equal(myHubSection('travel'),'travel');assert.equal(myHubSection('records'),'records');
   for(const value of ['appointments','__proto__',null,{},undefined]) assert.equal(myHubSection(value),'schedule');
+});
+
+const group=(id,extra={})=>({id,name:id,kind:'FAMILY',region:'부산',introduction:'',cover:'',visibility:'PRIVATE',ownerId:'actor',memberIds:['actor'],managerIds:[],archived:false,promotionPublished:false,...extra});
+const at=new Date('2026-11-09T12:00:00+09:00');
+test('My memberships reuse the current directory and never expose removed accounts, blocked, former or archived groups',()=>{
+  const state=createEmptyState('actor','나');
+  state.groups=[group('family'),group('friends',{kind:'FRIENDS'}),group('hobby',{kind:'HOBBY',visibility:'PUBLIC',promotionPublished:true}),
+    group('blocked',{blockedMemberIds:['actor']}),group('archived',{archived:true}),group('former',{memberIds:['other']}),group('one-off',{spaceType:'ACTIVITY'})];
+  const before=JSON.stringify(state);
+  const result=myHubGroups(state,'actor',at);
+  assert.deepEqual(result.groups.map(item=>item.group.id),['family','friends','hobby']);
+  assert.deepEqual(result.counts,{ALL:3,FAMILY:1,FRIENDS:1,HOBBY:1,GUIDE:0});
+  assert.equal(result.groups[0].group,state.groups[0]);
+  assert.equal(JSON.stringify(state),before);
+  for(const id of ['', 'unknown']) assert.deepEqual(myHubGroups(state,id,at).groups,[]);
+  state.members=[];
+  assert.deepEqual(myHubGroups(state,'actor',at).groups,[]);
+  assert.equal(myHubGroups(state,'actor',at).pendingApplicationCount,0);
+});
+test('My application status counts only the current actor’s pending available group once without treating it as membership',()=>{
+  const state=createEmptyState('actor','나');
+  state.groups=[group('public',{memberIds:['other'],visibility:'PUBLIC',promotionPublished:true}),
+    group('private',{memberIds:['other']}),group('ended',{memberIds:['other'],visibility:'PUBLIC',promotionPublished:false}),
+    group('blocked',{memberIds:['other'],visibility:'PUBLIC',promotionPublished:true,blockedMemberIds:['actor']}),group('joined')];
+  state.applications=[['a','public','actor','PENDING'],['duplicate','public','actor','PENDING'],['other','public','other','PENDING'],
+    ['done','public','actor','APPROVED'],['private','private','actor','PENDING'],['ended','ended','actor','PENDING'],
+    ['blocked','blocked','actor','PENDING'],['joined','joined','actor','PENDING'],['removed','removed','actor','PENDING']]
+    .map(([id,groupId,userId,status])=>({id,groupId,userId,status}));
+  const before=JSON.stringify(state),result=myHubGroups(state,'actor',at);
+  assert.equal(result.pendingApplicationCount,1);
+  assert.deepEqual(result.groups.map(item=>item.group.id),['joined']);
+  assert.equal(JSON.stringify(state),before);
+  assert.equal(myHubGroups(state,'unknown',at).pendingApplicationCount,0);
 });
 test('schedule sorting uses only real calendar dates and keeps invalid or undated drafts out of upcoming rows',()=>{
   const state=createEmptyState('actor','나');

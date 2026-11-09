@@ -1,0 +1,21 @@
+/* My memberships keep compact image rows distinct from navigation and utility actions. */
+.my-hub-group-invites{display:flex;align-items:center;gap:12px;width:100%;min-width:0;min-height:64px;margin:4px 0 8px;padding:12px;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:12px;color:var(--ink)}
+.my-hub-group-invites>span{display:grid;gap:4px;min-width:0;flex:1}
+.my-hub-group-invites strong{font-size:14px;line-height:20px;font-weight:600}
+.my-hub-group-invites small{font-size:12px;line-height:16px;color:var(--muted)}
+.my-hub-group-invites>svg{flex:0 0 auto}
+.my-hub-group-list{display:grid;min-width:0}
+.my-hub-group-row{display:flex;align-items:center;gap:12px;width:100%;min-width:0;min-height:104px;padding:12px 0;text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink)}
+.my-hub-group-cover{display:grid;place-items:center;flex:0 0 64px;width:64px;height:64px;overflow:hidden;border-radius:10px;background:var(--paper);color:var(--muted)}
+.my-hub-group-cover img{width:100%;height:100%;object-fit:cover}
+.my-hub-group-copy{display:grid;gap:4px;min-width:0;flex:1}
+.my-hub-group-copy>strong{font-size:16px;line-height:22px;font-weight:600;overflow-wrap:anywhere}
+.my-hub-group-copy>small{font-size:12px;line-height:16px;color:var(--muted);overflow-wrap:anywhere}
+.my-hub-group-next,.my-hub-group-preview{font-size:14px;line-height:20px;min-width:0}
+.my-hub-group-next{display:flex;align-items:baseline;gap:4px}
+.my-hub-group-next>svg{flex:0 0 auto}
+.my-hub-group-next>span,.my-hub-group-preview{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow-wrap:anywhere}
+.my-hub-group-role{color:var(--muted)}
+.my-hub-group-row>svg{flex:0 0 auto}
+.my-hub-group-unread{display:grid;place-items:center;flex:0 0 auto;min-width:22px;min-height:22px;padding:2px 5px;border-radius:12px;background:var(--ink);color:white;font-size:12px;line-height:16px;font-weight:600}
+.my-hub-group-login{min-height:44px;max-width:100%;padding:10px 16px;border:0;border-radius:10px;background:var(--ink);color:white;font-size:14px;line-height:20px}

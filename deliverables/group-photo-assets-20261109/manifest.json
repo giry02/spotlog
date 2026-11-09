@@ -1,0 +1,189 @@
+{
+  "createdAt": "2026-11-09",
+  "mode": "built-in image_gen",
+  "useCase": "photorealistic-natural",
+  "purpose": "Fictional synthetic group-activity cover assets for Spotlog frontend seed data",
+  "provenance": "Each asset generated from its own prompt using built-in image_gen__imagegen. No external photos, real member likenesses, or real-event claims. Originals retained under CODEX_HOME/generated_images.",
+  "assets": [
+    {
+      "slug": "cafe-conversation",
+      "prompt": "Use case: photorealistic-natural. Asset type: square cover photograph for a Korean community meetup app, clear at 64px thumbnail and in a wide center crop. Primary request: a candid neighborhood cafe conversation, five Korean adults ages 25–50 sharing coffee and smiling naturally while one person tells a story. Contemporary unbranded neighborhood cafe, warm wood table, simple everyday clothing, natural daylight. Authentic editorial lifestyle photography, realistic skin texture, unposed gestures, eye-level medium-wide composition. Keep the people and their activity clustered in the central middle of the square; faces and coffee visible together. No advertising polish, no illustration, no text, logos, readable signage, watermark, borders or collage. This is a fictional synthetic scene, not any identifiable real person or event. Generate one 1024x1024 square image.",
+      "sourcePath": "C:\\Users\\Giry\\.codex\\generated_images\\01a1be28-4972-7160-b23c-bcdf48f8e39b\\exec-316299f5-2ef1-4a38-a655-b05e255add7b.png",
+      "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/cafe-conversation-20261109.png",
+      "delivery": {
+        "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/cafe-conversation-20261109.jpg",
+        "publicPath": "/media/groups/cafe-conversation-20261109.jpg",
+        "format": "JPEG",
+        "quality": 85,
+        "width": 1254,
+        "height": 1254,
+        "bytes": 253777,
+        "sha256": "a1c9385d1eb7c1a01f3ab6f6c3745aec598108dffe60be703b1147cf34656b45",
+        "sourcePngPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/cafe-conversation-20261109.png",
+        "provenance": "Encoded from the unchanged generated PNG with System.Drawing JPEG codec quality 85; no crop, resizing, retouching or image content edit."
+      }
+    },
+    {
+      "slug": "coastal-walking",
+      "prompt": "Use case: photorealistic-natural. Asset type: square group-activity cover photograph for a Korean community app, legible at 64px and wide center crop. Primary request: five adult friends, mixed women and men in their 30s to 50s, casually walking together on a green coastal trail in Korea, seen from behind and partly in profile, sea visible beside the path. Light daypacks and ordinary walking clothes, gentle movement and casual conversation, small group gathered centrally rather than spread across the frame. Authentic candid editorial photograph, soft bright overcast daylight, realistic trees, trail and ocean, relaxed local outing rather than an extreme expedition. Keep the people and action in the central middle of the square. No text, logos, signage, watermark, borders, illustration or collage. Fictional synthetic people, not any identifiable actual person or event. Generate one 1024x1024 square image.",
+      "sourcePath": "C:\\Users\\Giry\\.codex\\generated_images\\01a1be28-4972-7160-b23c-bcdf48f8e39b\\exec-15f8d0fd-85b1-4b52-9fd9-e4082ba80f88.png",
+      "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/coastal-walking-20261109.png",
+      "delivery": {
+        "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/coastal-walking-20261109.jpg",
+        "publicPath": "/media/groups/coastal-walking-20261109.jpg",
+        "format": "JPEG",
+        "quality": 85,
+        "width": 1254,
+        "height": 1254,
+        "bytes": 354508,
+        "sha256": "cbca363536c631ac5ce2c41eec3c5932959b8d6ab869b4ac6ff1ae244dd6f3e1",
+        "sourcePngPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/coastal-walking-20261109.png",
+        "provenance": "Encoded from the unchanged generated PNG with System.Drawing JPEG codec quality 85; no crop, resizing, retouching or image content edit."
+      }
+    },
+    {
+      "slug": "friends-shared-meal",
+      "prompt": "Use case: photorealistic-natural. Asset type: square cover image for a Korean social meetup app, clear at 64px and wide center crop. Primary request: four Korean adult friends in their late 20s to 40s enjoying a shared Korean restaurant meal, candid conversation around a small wooden table with colorful shared dishes and bowls, everyone seated close together. Simple contemporary neighborhood restaurant interior, natural daylight from the side. Eye-level medium composition shows their expressions and the food together in the center of the image, realistic editorial lifestyle photography, unposed and warm without looking like an advertisement. No alcohol emphasis; cups of water and tea. No text, logos, readable signs, watermark, border, illustration or collage. Fictional synthetic scene, no recognizable actual person's likeness. Generate one 1024x1024 square image.",
+      "sourcePath": "C:\\Users\\Giry\\.codex\\generated_images\\01a1be28-4972-7160-b23c-bcdf48f8e39b\\exec-fc85621e-7d4f-45ec-b0ec-5e23727ed06d.png",
+      "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/friends-shared-meal-20261109.png",
+      "delivery": {
+        "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/friends-shared-meal-20261109.jpg",
+        "publicPath": "/media/groups/friends-shared-meal-20261109.jpg",
+        "format": "JPEG",
+        "quality": 85,
+        "width": 1254,
+        "height": 1254,
+        "bytes": 294214,
+        "sha256": "aab468a5511c48a13cb45791ea0dc1430d8978871882f81ee6cfad33edc4ea40",
+        "sourcePngPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/friends-shared-meal-20261109.png",
+        "provenance": "Encoded from the unchanged generated PNG with System.Drawing JPEG codec quality 85; no crop, resizing, retouching or image content edit."
+      }
+    },
+    {
+      "slug": "neighborhood-bookclub",
+      "prompt": "Use case: photorealistic-natural. Asset type: square group cover photograph for a Korean community app, clear at 64px and in a wide center crop. Primary request: a neighborhood book club of five adults ages 28–55, mixed women and men, mostly Korean with one international member, discussing open books around a cafe/library table. A participant is speaking thoughtfully while others listen; calm and welcoming candid interaction, ordinary clothing, daylight and bookshelves softly behind. Authentic editorial lifestyle photograph with natural skin texture, realistic hands and books. Central group composition with books and faces visible together; avoid placing faces at the far image edges. Unbranded book covers, no legible words or text, logos, signs, watermark, borders, illustration, collage or posed corporate stock-photo gestures. Fictional synthetic people, not any identifiable actual person or event. Generate one 1024x1024 square image.",
+      "sourcePath": "C:\\Users\\Giry\\.codex\\generated_images\\01a1be28-4972-7160-b23c-bcdf48f8e39b\\exec-76ef0fc7-662a-42c9-a0c7-1a012dea0f39.png",
+      "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/neighborhood-bookclub-20261109.png",
+      "delivery": {
+        "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/neighborhood-bookclub-20261109.jpg",
+        "publicPath": "/media/groups/neighborhood-bookclub-20261109.jpg",
+        "format": "JPEG",
+        "quality": 85,
+        "width": 1254,
+        "height": 1254,
+        "bytes": 272676,
+        "sha256": "dff8f99780035e53d11ff748137ec2ab594781be69a04e7a132e9bfecf6ae261",
+        "sourcePngPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/neighborhood-bookclub-20261109.png",
+        "provenance": "Encoded from the unchanged generated PNG with System.Drawing JPEG codec quality 85; no crop, resizing, retouching or image content edit."
+      }
+    },
+    {
+      "slug": "indoor-badminton",
+      "prompt": "Use case: photorealistic-natural. Asset type: square group-activity cover photograph for a Korean community app, readable at 64px and wide center crop. Primary request: a casual adult doubles badminton rally at a bright community sports hall in Korea. Four adult club members in colorful athletic shirts and shorts on an indoor badminton court, racket and shuttlecock clearly visible, one foreground player and two opposite players central, realistic athletic movements, candid documentary sports photography. Natural overhead hall lighting, proper court markings and net, camera courtside medium-wide view, subjects in central horizontal band. Not posed, not a tournament advertisement. No text, numbers, logos, readable signage, watermark, borders, illustration or collage. Fictional synthetic adults, no recognizable real athlete or real event. Generate one 1024x1024 square image.",
+      "sourcePath": "C:\\Users\\Giry\\.codex\\generated_images\\01a1be28-4972-7160-b23c-bcdf48f8e39b\\exec-c5fa9d2e-15cf-42ed-aade-e303240c781e.png",
+      "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/badminton-club-20261109.png",
+      "delivery": {
+        "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/badminton-club-20261109.jpg",
+        "publicPath": "/media/groups/badminton-club-20261109.jpg",
+        "format": "JPEG",
+        "quality": 85,
+        "width": 1254,
+        "height": 1254,
+        "bytes": 253602,
+        "sha256": "8900e0c7c5145f2f19fbe2e8be1cbf0404b6689452c60b7e7a192656c1aed392",
+        "sourcePngPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/badminton-club-20261109.png",
+        "provenance": "Encoded from the unchanged generated PNG with System.Drawing JPEG codec quality 85; no crop, resizing, retouching or image content edit."
+      }
+    },
+    {
+      "slug": "riverside-running",
+      "prompt": "Use case: photorealistic-natural. Asset type: square local running-club cover for a Korean community app, clear at 64px and in a wide center crop. Primary request: six adult neighborhood runners in their 20s to 40s, women and men, jogging together along a riverside park path in Korea on a crisp morning, viewed partly from behind and in profile. Light colorful running tops, simple shorts and leggings, relaxed moderate pace, river and city park greenery softly visible. Authentic candid editorial sports photography, realistic movement, natural soft daylight, central group composition, no extreme athletic bodies. No text, logos, race numbers, readable signs, watermark, border, illustration, collage. Fictional synthetic people, not an identifiable real running club or actual event. Generate one 1024x1024 square image.",
+      "sourcePath": "C:\\Users\\Giry\\.codex\\generated_images\\01a1be28-4972-7160-b23c-bcdf48f8e39b\\exec-b5d09278-160e-4c2a-90c4-8b0062da4819.png",
+      "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/riverside-running-20261109.png",
+      "delivery": {
+        "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/riverside-running-20261109.jpg",
+        "publicPath": "/media/groups/riverside-running-20261109.jpg",
+        "format": "JPEG",
+        "quality": 85,
+        "width": 1254,
+        "height": 1254,
+        "bytes": 281880,
+        "sha256": "17a502aea51cfc241df50db72dcef34618e52b944515155bd4e65b9e7f870ec4",
+        "sourcePngPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/riverside-running-20261109.png",
+        "provenance": "Encoded from the unchanged generated PNG with System.Drawing JPEG codec quality 85; no crop, resizing, retouching or image content edit."
+      }
+    },
+    {
+      "slug": "boardgame-table",
+      "prompt": "Use case: photorealistic-natural. Asset type: square board-game meetup cover photograph for a Korean community app, clear at 64px and in a wide center crop. Primary request: five Korean adult friends in their 20s and 30s playing a colorful tabletop board game in a neighborhood game cafe. Camera slightly above table level, composition centered on the game pieces, dice, cards and players' natural smiling reactions. Casual contemporary clothing, real wood table, warm indoor lighting, relaxed candid editorial photograph with realistic hands. Clearly a board game rather than gambling: no money, betting, casino objects or alcohol. Unbranded game board with no readable words. Keep activity in the central horizontal area. No text, logos, readable signage, watermark, border, illustration or collage. Fictional synthetic people, no actual club or event claims. Generate one 1024x1024 square image.",
+      "sourcePath": "C:\\Users\\Giry\\.codex\\generated_images\\01a1be28-4972-7160-b23c-bcdf48f8e39b\\exec-e0f00b08-7509-48a6-9557-17eed5e38340.png",
+      "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/boardgame-friends-20261109.png",
+      "delivery": {
+        "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/boardgame-friends-20261109.jpg",
+        "publicPath": "/media/groups/boardgame-friends-20261109.jpg",
+        "format": "JPEG",
+        "quality": 85,
+        "width": 1254,
+        "height": 1254,
+        "bytes": 320044,
+        "sha256": "be8b09bfd18e04d02dcc2c67a3cbc94f3e19e52fcb05a50693480450bfd44b61",
+        "sourcePngPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/boardgame-friends-20261109.png",
+        "provenance": "Encoded from the unchanged generated PNG with System.Drawing JPEG codec quality 85; no crop, resizing, retouching or image content edit."
+      }
+    },
+    {
+      "slug": "cafe-craft-circle",
+      "prompt": "Use case: photorealistic-natural. Asset type: square hobby meetup cover photograph for a Korean community app, clear at 64px and wide center crop. Primary request: four adult women and one man from a neighborhood handcraft group working on knitting and simple yarn crafts around a cafe table, focus on real hands, colorful yarn balls, knitting needles and small unfinished projects. Their faces partly visible above the work, natural focused conversation, casual everyday clothing, bright airy cafe corner. Candid editorial lifestyle photograph, side-window daylight, realistic materials and hand positions, central working table composition. No text, logos, readable signs, watermark, border, illustration or collage. Fictional synthetic adults, not any identifiable real person or event. Generate one 1024x1024 square image.",
+      "sourcePath": "C:\\Users\\Giry\\.codex\\generated_images\\01a1be28-4972-7160-b23c-bcdf48f8e39b\\exec-3bf76161-8fc2-44ce-ad3f-475738b0046d.png",
+      "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/cafe-handcraft-20261109.png",
+      "delivery": {
+        "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/cafe-handcraft-20261109.jpg",
+        "publicPath": "/media/groups/cafe-handcraft-20261109.jpg",
+        "format": "JPEG",
+        "quality": 85,
+        "width": 1254,
+        "height": 1254,
+        "bytes": 388894,
+        "sha256": "a84e899eb3cf909126052ba7c4180b097654b8548d4edd30fb0096c9acaf4e74",
+        "sourcePngPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/cafe-handcraft-20261109.png",
+        "provenance": "Encoded from the unchanged generated PNG with System.Drawing JPEG codec quality 85; no crop, resizing, retouching or image content edit."
+      }
+    },
+    {
+      "slug": "music-listening-circle",
+      "prompt": "Use case: photorealistic-natural. Asset type: square local music-appreciation group cover photograph for a Korean community app, clear at 64px and wide center crop. Primary request: four Korean adults in their 30s and 40s sitting together in a cozy small listening room, enjoying music from a vinyl record player and two bookshelf speakers, one person looking over an unbranded record sleeve while others listen and talk quietly. A pair of over-ear headphones rests beside the turntable. Candid everyday evening scene, warm lamp light, natural relaxed expressions, eye-level medium-wide editorial photograph. Record player and people together in the central band, realistic equipment, no performance stage. No readable text, album titles, logos, signage, watermark, borders, illustration or collage. Fictional synthetic adults, no identifiable real person or event. Generate one 1024x1024 square image.",
+      "sourcePath": "C:\\Users\\Giry\\.codex\\generated_images\\01a1be28-4972-7160-b23c-bcdf48f8e39b\\exec-34f0340e-a90c-4ae4-8813-47ec51a2f294.png",
+      "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/music-listening-20261109.png",
+      "delivery": {
+        "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/music-listening-20261109.jpg",
+        "publicPath": "/media/groups/music-listening-20261109.jpg",
+        "format": "JPEG",
+        "quality": 85,
+        "width": 1254,
+        "height": 1254,
+        "bytes": 259668,
+        "sha256": "a6dd88d08de94a2af802fa6571ab4f220aae375e9fb74fdd4c923370afdea5a3",
+        "sourcePngPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/music-listening-20261109.png",
+        "provenance": "Encoded from the unchanged generated PNG with System.Drawing JPEG codec quality 85; no crop, resizing, retouching or image content edit."
+      }
+    },
+    {
+      "slug": "neighborhood-dogwalk",
+      "prompt": "Use case: photorealistic-natural. Asset type: square neighborhood dog-walking group cover photograph for a Korean community app, readable at 64px and in a wide center crop. Primary request: three Korean adult neighbors in casual outdoor clothes strolling together through a local green park with three friendly dogs of different medium and small breeds, each dog safely wearing a harness or collar with its own leash held by its adult guardian. Dogs and people central, camera at waist level, candid mid-walk conversation, realistic leashes and paws, gentle sunny daylight, documentary lifestyle photography. Local everyday outing, not pet advertising. No text, logos, signs, watermark, borders, illustration or collage. Fictional synthetic scene, no identifiable real people or real event. Generate one 1024x1024 square image.",
+      "sourcePath": "C:\\Users\\Giry\\.codex\\generated_images\\01a1be28-4972-7160-b23c-bcdf48f8e39b\\exec-66bd0be5-bb5c-4b1c-9dc9-40157c84a458.png",
+      "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/neighborhood-dog-walk-20261109.png",
+      "delivery": {
+        "targetPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/neighborhood-dog-walk-20261109.jpg",
+        "publicPath": "/media/groups/neighborhood-dog-walk-20261109.jpg",
+        "format": "JPEG",
+        "quality": 85,
+        "width": 1254,
+        "height": 1254,
+        "bytes": 365434,
+        "sha256": "de930569e03e9074796fa03490ce62b96582354ff0d11cf87dd5c42fe8f6768c",
+        "sourcePngPath": "C:/Users/Giry/Documents/Spotlog/web/public/media/groups/neighborhood-dog-walk-20261109.png",
+        "provenance": "Encoded from the unchanged generated PNG with System.Drawing JPEG codec quality 85; no crop, resizing, retouching or image content edit."
+      }
+    }
+  ]
+}

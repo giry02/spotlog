@@ -111,7 +111,7 @@ async function boot() {
   const sharedJourney = activity.journey;
   if (!sharedJourney) throw new Error('검수 개인 일정을 준비하지 못했어요.');
   const plan: Journey = { ...structuredClone(sharedJourney), id: ids.plan, isMine: true, visibility: 'PRIVATE', author: roles.owner!.displayName, title: '개인으로 준비하는 부산 1박 2일', purpose: 'PLAN', planStage: 'READY' };
-  const journal: Journey = { ...structuredClone(plan), id: ids.journal, title: '지난 만남을 남긴 개인 여행기', purpose: 'JOURNAL', status: 'PLANNING', summary: '공개하지 않은 페이지 메모리 기록.', story: '실제 고객 자료와 분리된 검수용 글.', planStage: undefined };
+  const journal: Journey = { ...structuredClone(plan), id: ids.journal, title: '지난 만남을 남긴 개인 여행기', purpose: 'JOURNAL', status: params.get('records') === '1' ? 'PUBLISHED' : 'PLANNING', summary: '공개하지 않은 페이지 메모리 기록.', story: '실제 고객 자료와 분리된 검수용 글.', planStage: undefined };
   const repository = createLocalRepository(local);
   const saved = (['LANDMARK', 'FOOD', 'CAFE', 'STAY'] as const).flatMap(kind => placeCatalog.filter(place => place.area.startsWith('부산') && place.kind === kind).slice(0, 2));
   if (!repository.setItems({ 'spotlog.web.saved.v3': JSON.stringify(saved.map(place => place.id)), 'spotlog.web.journeys.v4': JSON.stringify([plan, journal]), 'spotlog.web.profile.v1': JSON.stringify({ displayName: roles.owner!.displayName, bio: '페이지 메모리 검수' }) })) throw new Error(repository.getIssue() || '개인 검수 자료를 만들지 못했어요.');

@@ -1,8 +1,9 @@
 import type { Place } from '../data';
 import type { GroupTopic, TogetherActivity, TogetherGroup, TogetherMember, TogetherState } from './model';
 import { koreaDay, shiftDay } from './discovery.ts';
+import { exampleGroupPhoto } from './groupPhotoAssets.ts';
 
-export const DISCOVERY_CATALOG_VERSION = 4;
+export const DISCOVERY_CATALOG_VERSION = 5;
 const legacyExampleIds = new Set(['public-busan-food', 'public-busan-guide']);
 const legacyOwners: Record<string, string> = { 'public-busan-food': 'example-walker', 'public-busan-guide': 'example-guide' };
 const needsLegacyOrigin = (group: TogetherGroup) => group.sourceKind === undefined && legacyOwners[group.id] === group.ownerId;
@@ -80,7 +81,7 @@ export function createDiscoveryCatalog(places: Place[], at = new Date()): { grou
     const scene = spec.general ? undefined : regional.find(place => `${place.name} ${place.area}`.includes(spec.scene)) ?? regional.find(place => place.kind === 'LANDMARK') ?? regional[0];
     const ids = [`${spec.id}-next`, `${spec.id}-past`];
     members.push({ id: ownerId, name: spec.ownerName });
-    groups.push({ id: spec.id, name: spec.name, kind: spec.kind, region: spec.region, introduction: spec.introduction, cover: scene?.image ?? '',
+    groups.push({ id: spec.id, name: spec.name, kind: spec.kind, region: spec.region, introduction: spec.introduction, cover: exampleGroupPhoto(spec.id) || scene?.image || '',
       createdAt: `2026-10-${String(1 + index % 28).padStart(2, '0')}T00:00:00.000Z`, ownerId, memberIds: [ownerId], managerIds: [], archived: false, visibility: 'PUBLIC', promotionPublished: true, promotionActivityIds: ids, sourceKind: 'EXAMPLE',
       ...(spec.id === 'public-busan-guide' ? { joinFields: { welcome: '서로의 속도를 존중해 주세요.', questions: [{ id: 'preferred-day', label: '어떤 여행을 함께하고 싶나요?' }, { id: 'walking-pace', label: '걷는 양과 쉬는 시간은 어느 정도가 편한가요?' }], availableTimes: ['WEEKEND_DAY' as const] } } : {}),
       discovery: { joinMode: spec.joinMode ?? 'DIRECT', topics: [...spec.topics], subtopics: [...exampleSubtopics[spec.id]], district: spec.district, style: spec.style, recruitment: spec.paused ? 'PAUSED' : 'OPEN', welcome: spec.welcome, joinGuide: spec.joinGuide } });
@@ -102,7 +103,8 @@ export function hydrateDiscoveryCatalog(state: TogetherState, places: Place[], a
   const needsDescriptionUpgrade = version < 2;
   const needsGeneralCatalogue = version < 3;
   const needsJoinModeUpgrade = version < 4;
-  if (!needsGeneralCatalogue && !needsJoinModeUpgrade && !state.groups.some(needsLegacyOrigin)) return state;
+  const needsPhotoUpgrade = version < 5;
+  if (!needsGeneralCatalogue && !needsJoinModeUpgrade && !needsPhotoUpgrade && !state.groups.some(needsLegacyOrigin)) return state;
   const next = structuredClone(state), catalogue = createDiscoveryCatalog(places, at);
   next.groups.forEach(group => { if (needsLegacyOrigin(group)) group.sourceKind = 'EXAMPLE'; });
   if (needsInitialCatalogue) {
@@ -148,6 +150,23 @@ export function hydrateDiscoveryCatalog(state: TogetherState, places: Place[], a
       group.createdAt ??= original.createdAt;
     });
   }
-  if (needsGeneralCatalogue || needsJoinModeUpgrade) next.discoveryCatalogVersion = DISCOVERY_CATALOG_VERSION;
+  if (needsPhotoUpgrade) {
+    next.groups.forEach(group => {
+      const spec = specs.find(item => item.id === group.id);
+      const original = catalogue.groups.find(item => item.id === group.id);
+      // Only replace the catalogue's untouched old cover, preserving user photographs and operational groups.
+      if (group.sourceKind !== 'EXAMPLE' || !spec || !original || group.ownerId !== original.ownerId
+        || group.name !== original.name || group.introduction !== original.introduction) return;
+      const regional = places.filter(place => place.area.startsWith(spec.region) && place.image);
+      const scene = spec.general ? undefined : regional.find(place => `${place.name} ${place.area}`.includes(spec.scene)) ?? regional.find(place => place.kind === 'LANDMARK') ?? regional[0];
+      if (!group.cover || group.cover === scene?.image) group.cover = original.cover;
+    });
+    // The private review fixture is identified by its original owner and text; never rewrite a visitor's own group.
+    const friends = next.groups.find(group => group.id === 'weekend-walk' && group.sourceKind === 'EXAMPLE'
+      && group.ownerId === 'example-friend' && group.name === '우리 동네 취향 모임'
+      && group.introduction === '커피 한 잔부터 책 이야기까지, 편하게 만나 서로의 취향을 나눠요.' && !group.cover);
+    if (friends) friends.cover = exampleGroupPhoto(friends.id);
+  }
+  if (needsGeneralCatalogue || needsJoinModeUpgrade || needsPhotoUpgrade) next.discoveryCatalogVersion = DISCOVERY_CATALOG_VERSION;
   return next;
 }

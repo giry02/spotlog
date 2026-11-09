@@ -24,7 +24,7 @@ test('discovery examples cover multiple interests and places without autojoining
   }
   assert.ok(catalog.activities.every(activity => activity.description.length > 20 && Object.keys(activity.participants).length === 0));
   assert.equal(new Set(catalog.activities.map(activity => activity.description)).size, 40);
-  assert.equal(catalog.groups.filter(group => group.id.startsWith('discovery-busan-') && !group.cover).length, 8);
+  assert.ok(catalog.groups.every(group => group.cover.includes('/media/groups/')));
   assert.ok(catalog.activities.filter(activity => activity.groupId.startsWith('discovery-busan-')).every(activity => activity.kind === 'MEETUP' && activity.startTime && [8, 12].includes(activity.capacity)));
   assert.ok(catalog.activities.every(activity => !activity.description.includes('실제 모임 촬영')));
   const real = createSeedState('real-user', '실제 계정', [place]);

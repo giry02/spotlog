@@ -1,5 +1,5 @@
 export type PrimaryTab = 'home' | 'together' | 'travel' | 'saved' | 'my';
-export type MySection = 'schedule' | 'travel' | 'records';
+export type MySection = 'schedule' | 'groups' | 'travel' | 'records';
 export const primaryTabs: ReadonlyArray<{ id: PrimaryTab; label: string; english: string }> = [
   { id: 'home', label: '홈', english: 'Home' },
   { id: 'together', label: '모임', english: 'Groups' },
@@ -10,6 +10,7 @@ export const primaryTabs: ReadonlyArray<{ id: PrimaryTab; label: string; english
 /** Old public links remain readable; no customer records are migrated. */
 export function mySectionForRoute(route: string): MySection | undefined {
   if (['my', 'my-schedule', 'appointments'].includes(route)) return 'schedule';
+  if (route === 'my-groups') return 'groups';
   if (route === 'my-travel') return 'travel';
   if (['my-records', 'records'].includes(route)) return 'records';
   return undefined;

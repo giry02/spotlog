@@ -1,9 +1,11 @@
 import type { Journey } from '../data';
+import type { MySection } from '../primaryNavigation.ts';
 import type { TogetherActivity, TogetherState } from '../together/model';
-import { koreaDay } from '../together/discovery.ts';
+import { isDiscoverableGroup, koreaDay } from '../together/discovery.ts';
+import { buildMyGroupDirectory } from '../together/myGroupDirectory.ts';
 import { memberAppointments, personalPlansForRange } from './platformModel.ts';
 
-export type MySection = 'schedule' | 'travel' | 'records';
+export type { MySection } from '../primaryNavigation.ts';
 export interface MyScheduleItem {
   type: 'activity' | 'plan';
   id: string;
@@ -15,7 +17,19 @@ export interface MyScheduleItem {
 
 /** No persisted migration: the destination only reorganizes existing exact IDs. */
 export function myHubSection(value: unknown): MySection {
-  return value === 'travel' || value === 'records' ? value : 'schedule';
+  return value === 'groups' || value === 'travel' || value === 'records' ? value : 'schedule';
+}
+
+/** A My list is account-scoped, including when a stale local group still names a removed actor. */
+export function myHubGroups(state: TogetherState, userId: string, at = new Date()) {
+  const actorId = userId && state.members.some(member => member.id === userId) ? userId : '';
+  const directory = buildMyGroupDirectory(state, actorId, {}, at);
+  const pendingApplicationCount = actorId ? new Set(state.applications.filter(application => {
+    if (application.userId !== actorId || application.status !== 'PENDING') return false;
+    const group = state.groups.find(item => item.id === application.groupId);
+    return group && isDiscoverableGroup(group) && !group.blockedMemberIds?.includes(actorId) && !group.memberIds.includes(actorId);
+  }).map(application => application.groupId)).size : 0;
+  return { ...directory, pendingApplicationCount };
 }
 
 function uniqueOwnJourneys(journeys: ReadonlyArray<Journey>, plans: boolean): Journey[] {

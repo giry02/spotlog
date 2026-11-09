@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
-import { BookOpen, CalendarDays, ChevronRight, FolderOpen, Plus, Settings, Trash2, UserRound } from 'lucide-react';
+import { BookOpen, CalendarDays, ChevronRight, FolderOpen, Plus, Settings, Trash2, UserRound, Users } from 'lucide-react';
 import type { Journey } from '../data';
 import { ScreenHeader, ScreenTabs } from '../ScreenHeader';
 import { AppMenuButton } from '../AppMenu';
 import type { TogetherState } from '../together/model';
+import { discoveryProfile, topicOptions } from '../together/discovery';
+import type { MyGroupDirectoryItem } from '../together/myGroupDirectory';
 import { ActivityRow, PlanRow } from './PlatformHubs';
-import { myHubContent, myHubSection, type MySection } from './myHubModel';
+import { myHubContent, myHubGroups, myHubSection, type MySection } from './myHubModel';
 import './platform-hubs.css';
+import './my-hub-groups.css';
 
 export type { MySection } from './myHubModel';
 export interface MyHubProps {
@@ -16,6 +19,8 @@ export interface MyHubProps {
   plans: Journey[];
   journals: Journey[];
   onActivity: (id: string) => void;
+  onGroup: (id: string) => void;
+  onFindGroups: () => void;
   onPlan: (id: string) => void;
   onJournal: (id: string) => void;
   onLogin: () => void;
@@ -30,8 +35,27 @@ export interface MyHubProps {
   onSectionChange?: (section: MySection) => void;
 }
 
+const groupKindNames = { FAMILY: '가족', FRIENDS: '친구', HOBBY: '취미·지역', GUIDE: '가이드' };
+
+function MyGroupRow({ item, userId, onOpen }: { item: MyGroupDirectoryItem; userId: string; onOpen: () => void }) {
+  const [failedCover, setFailedCover] = useState('');
+  const { group, nextActivity, lastMessage, unreadCount } = item;
+  const profile = discoveryProfile(group);
+  const topics = profile.topics.map(topic => topicOptions.find(option => option.id === topic)?.label).filter(Boolean);
+  const location = [group.region, profile.district].filter(Boolean).join(' ');
+  const role = group.ownerId === userId ? '모임장' : group.managerIds.includes(userId) ? '운영진' : '모임원';
+  return <button type="button" className="my-hub-group-row" onClick={onOpen}>
+    <span className="my-hub-group-cover">{group.cover && failedCover !== group.cover ? <img src={group.cover} alt="" loading="lazy" onError={() => setFailedCover(group.cover)}/> : <Users size={26} aria-hidden="true"/>}</span>
+    <span className="my-hub-group-copy"><strong>{group.name}</strong><small>{[groupKindNames[group.kind] || '기타', location, topics[0]].filter(Boolean).join(' · ')}</small>
+      {nextActivity ? <span className="my-hub-group-next"><CalendarDays size={13} aria-hidden="true"/><span>{Number(nextActivity.date.slice(5, 7))}/{Number(nextActivity.date.slice(8, 10))}{nextActivity.startTime ? ` ${nextActivity.startTime}` : ''} · {nextActivity.title}</span></span> : <span className="my-hub-group-preview">{lastMessage?.body || `${group.memberIds.length}명과 함께하는 모임`}</span>}
+      <small className="my-hub-group-role">{role}{nextActivity || lastMessage ? ` · ${group.memberIds.length}명` : ''}</small>
+    </span>
+    {unreadCount > 0 ? <span className="my-hub-group-unread" aria-label={`안 읽은 대화 ${unreadCount}개`}>{unreadCount > 99 ? '99+' : unreadCount}</span> : <ChevronRight size={18} aria-hidden="true"/>}
+  </button>;
+}
+
 /** One personal root; account, calendar and existing editors keep their own detail screens. */
-export function MyHub({ state, userId, userName, plans, journals, onActivity, onPlan, onJournal, onLogin, onInvites, onTrash, onPersonalLibrary, onAccount, onCalendar, onCreateAppointment, onCreateTravel, section: suppliedSection, onSectionChange }: MyHubProps) {
+export function MyHub({ state, userId, userName, plans, journals, onActivity, onGroup, onFindGroups, onPlan, onJournal, onLogin, onInvites, onTrash, onPersonalLibrary, onAccount, onCalendar, onCreateAppointment, onCreateTravel, section: suppliedSection, onSectionChange }: MyHubProps) {
   const [localSelection, setLocalSelection] = useState<{ owner: string; section: MySection }>({ owner: userId, section: 'schedule' });
   useEffect(() => { setLocalSelection({ owner: userId, section: 'schedule' }); }, [userId]);
   const section = myHubSection(suppliedSection ?? (localSelection.owner === userId ? localSelection.section : 'schedule'));
@@ -39,10 +63,11 @@ export function MyHub({ state, userId, userName, plans, journals, onActivity, on
   const member = state.members.find(item => item.id === userId);
   const authenticated = Boolean(userId && member);
   const content = myHubContent(state, userId, plans, journals);
+  const groups = myHubGroups(state, userId);
   return <div className="platform-hub my-hub">
     <ScreenHeader title="마이" actions={<><button type="button" aria-label={authenticated ? '계정·프로필 관리' : '로그인·회원가입'} onClick={authenticated ? onAccount : onLogin}><Settings size={22}/></button><AppMenuButton/></>}/>
     <div className="my-hub-identity-wrap">{authenticated ? <button className="my-hub-identity" type="button" onClick={onAccount}><span className="my-hub-avatar" aria-hidden="true"><UserRound size={22}/></span><span><strong>{userName || member?.name || '내 계정'}</strong><small>계정·프로필 관리</small></span><ChevronRight size={18}/></button> : <div className="my-hub-guest"><span><strong>로그인하고 함께해요</strong><small>내 모임과 초대받은 일정을 이어볼 수 있어요.</small></span><button type="button" onClick={onLogin}>로그인</button></div>}</div>
-    <ScreenTabs label="마이 구분" idPrefix="my-hub" value={section} onChange={setSection} items={[{ id: 'schedule', label: '내 일정', panelId: 'my-hub-panel' }, { id: 'travel', label: '내 여행', panelId: 'my-hub-panel' }, { id: 'records', label: '기록', panelId: 'my-hub-panel' }]}/>
+    <ScreenTabs label="마이 구분" idPrefix="my-hub" value={section} onChange={setSection} items={[{ id: 'schedule', label: '내 일정', panelId: 'my-hub-panel' }, { id: 'groups', label: '내 모임', panelId: 'my-hub-panel' }, { id: 'travel', label: '내 여행', panelId: 'my-hub-panel' }, { id: 'records', label: '기록', panelId: 'my-hub-panel' }]}/>
     <div className="platform-hub-body my-hub-body" id="my-hub-panel" role="tabpanel" aria-labelledby={`my-hub-${section}`}>
       {section === 'schedule' ? <>
         <div className="my-hub-tools"><button type="button" onClick={authenticated ? onCalendar : onLogin}><CalendarDays size={18}/>캘린더</button><button type="button" onClick={onCreateAppointment}><Plus size={18}/>약속 만들기</button></div>
@@ -51,6 +76,12 @@ export function MyHub({ state, userId, userName, plans, journals, onActivity, on
           {content.undatedActivities.length > 0 && <><div className="my-hub-section-heading"><h2>날짜를 정할 약속</h2></div>{content.undatedActivities.map(activity => <ActivityRow key={activity.id} activity={activity} state={state} onOpen={() => onActivity(activity.id)}/>)}</>}
           <button type="button" className="my-hub-utility" onClick={onInvites}>초대·가입 신청 확인<ChevronRight size={16}/></button>
         </>}
+      </> : section === 'groups' ? <>
+        <div className="my-hub-section-heading"><h2>가입한 모임{authenticated ? ` ${groups.counts.ALL}` : ''}</h2><button type="button" onClick={onFindGroups}><Plus size={16}/>모임 찾기</button></div>
+        {authenticated ? <>
+          <button type="button" className="my-hub-group-invites" onClick={onInvites}><Users size={19}/><span><strong>초대·가입 신청</strong><small>{groups.pendingApplicationCount > 0 ? `가입 승인 대기 ${groups.pendingApplicationCount}건` : '초대 링크와 신청 상태 확인'}</small></span><ChevronRight size={18}/></button>
+          {groups.groups.length ? <div className="my-hub-group-list" aria-label="가입한 모임 목록">{groups.groups.map(item => <MyGroupRow key={item.group.id} item={item} userId={userId} onOpen={() => onGroup(item.group.id)}/>)}</div> : <div className="my-hub-empty"><Users size={26}/><strong>아직 가입한 모임이 없어요</strong><p>가족·친구와 함께하거나 관심사가 맞는 모임을 찾아보세요.</p><button type="button" className="outline" onClick={onFindGroups}>모임 둘러보기</button></div>}
+        </> : <div className="my-hub-empty"><Users size={26}/><strong>내가 가입한 모임을 모아봐요</strong><p>로그인하면 내 모임과 다음 약속, 초대를 확인할 수 있어요.</p><button type="button" className="my-hub-group-login" onClick={onLogin}>로그인하고 내 모임 보기</button><button type="button" className="my-hub-text-action" onClick={onFindGroups}>가입할 모임 둘러보기<ChevronRight size={16}/></button></div>}
       </> : section === 'travel' ? <>
         <div className="my-hub-section-heading"><h2>내 여행</h2><button type="button" onClick={onCreateTravel}><Plus size={16}/>여행 만들기</button></div>
         <p className="my-hub-device-note">이 기기에 저장한 개인 일정이에요. 계정·모임 일정과 자동으로 합쳐지지 않아요.</p>
