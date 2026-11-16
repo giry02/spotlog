@@ -8,11 +8,11 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import mapWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import './interest-places-map.css';
 
-export interface InterestPlacesMapProps { places: Place[]; onSelectPlace: (place: Place) => void }
+export interface InterestPlacesMapProps { places: Place[]; onSelectPlace: (place: Place) => void; heading?: string; ariaLabel?: string; mapLabel?: string; interactiveMarkers?: boolean }
 const pinText: Record<Place['kind'], string> = { LANDMARK: '장소', FOOD: '식당', CAFE: '카페', STAY: '숙소', SHOP: '쇼핑', LEISURE: '레저' };
 
 /** Saved positions only: no ordering, route requests, GPS, or map tile caching. */
-export default function InterestPlacesMap({ places, onSelectPlace }: InterestPlacesMapProps) {
+export default function InterestPlacesMap({ places, onSelectPlace, heading = '저장한 장소 위치', ariaLabel = '관심 장소 지도', mapLabel = '저장한 장소 위치 지도', interactiveMarkers = true }: InterestPlacesMapProps) {
   const container = useRef<HTMLDivElement>(null);
   const current = useRef({ places, onSelectPlace }); current.current = { places, onSelectPlace };
   const noteId = useId();
@@ -61,19 +61,25 @@ export default function InterestPlacesMap({ places, onSelectPlace }: InterestPla
       const samePosition = new Map<string, number>();
       for (const place of mappable) {
         bounds.extend([place.lng, place.lat]);
-        const button = document.createElement('button');
-        button.type = 'button'; button.className = 'interest-map-pin'; button.dataset.kind = place.kind;
-        button.textContent = pinText[place.kind]; button.title = place.name;
-        button.setAttribute('aria-label', `${place.name} · ${interestKindLabels[place.kind]} 상세보기`);
-        button.addEventListener('click', () => {
-          const latest = current.current.places.find(item => item.id === place.id);
-          if (latest) current.current.onSelectPlace(latest);
-        });
+        const pin = document.createElement(interactiveMarkers ? 'button' : 'span');
+        pin.className = 'interest-map-pin'; pin.dataset.kind = place.kind;
+        pin.textContent = pinText[place.kind]; pin.title = place.name;
+        if (pin instanceof HTMLButtonElement) {
+          pin.type = 'button';
+          pin.setAttribute('aria-label', `${place.name} · ${interestKindLabels[place.kind]} 상세보기`);
+          pin.addEventListener('click', () => {
+            const latest = current.current.places.find(item => item.id === place.id);
+            if (latest) current.current.onSelectPlace(latest);
+          });
+        } else {
+          pin.setAttribute('role', 'img');
+          pin.setAttribute('aria-label', `${place.name} · ${interestKindLabels[place.kind]} 위치`);
+        }
         const position = `${place.lat}:${place.lng}`, offsetIndex = samePosition.get(position) ?? 0;
         samePosition.set(position, offsetIndex + 1);
         // Small visual offsets avoid hiding identical-coordinate pins; the source position stays unchanged.
         const offset: [number, number] = offsetIndex ? [offsetIndex % 2 ? 22 : -22, -Math.ceil(offsetIndex / 2) * 20] : [0, 0];
-        markers.push(new Marker({ element: button, anchor: 'bottom', offset }).setLngLat([place.lng, place.lat]).addTo(map));
+        markers.push(new Marker({ element: pin, anchor: 'bottom', offset }).setLngLat([place.lng, place.lat]).addTo(map));
       }
       map.on('load', () => {
         if (disposed) return;
@@ -90,15 +96,17 @@ export default function InterestPlacesMap({ places, onSelectPlace }: InterestPla
       if (frame !== null) cancelAnimationFrame(frame);
       markers.forEach(marker => marker.remove()); instance?.remove();
     };
-  }, [mappable, online, error, attempt]);
+  }, [mappable, online, error, attempt, interactiveMarkers]);
   const unavailable = !online || error || !mappable.length;
-  const placeButton = (place: Place) => <button type="button" key={place.id} onClick={() => onSelectPlace(place)}><MapPin size={16} aria-hidden="true" /><span><strong>{place.name}</strong><small>{interestKindLabels[place.kind]} · {place.area}</small></span><span>상세</span></button>;
-  return <section className="interest-places-map" aria-label="관심 장소 지도">
-    <div className="interest-map-heading"><strong>저장한 장소 위치</strong><span>{mappable.length}곳 표시</span></div>
-    <p className="interest-map-note" id={noteId}>장소를 누르면 상세정보가 열려요. 방문 순서와 이동 경로는 표시하지 않아요.</p>
-    {unavailable ? <div className="interest-map-fallback"><MapPin size={28} aria-hidden="true" /><strong>{!mappable.length ? '위치가 확인된 장소가 없어요' : !online ? '인터넷 연결 후 지도를 볼 수 있어요' : '지도를 불러오지 못했어요'}</strong><p>아래 목록에서 사진과 상세정보를 확인할 수 있어요.</p>{online && error && <button type="button" onClick={() => { setError(false); setAttempt(value => value + 1); }}><RefreshCw size={16} />지도 다시 연결</button>}</div> : <div className="interest-map-surface" aria-describedby={noteId}><div ref={container} className="interest-map-canvas" aria-label="저장한 장소 위치 지도" />{!loaded && <p className="interest-map-loading" role="status">지도 불러오는 중</p>}</div>}
-    {!!mappable.length && <details className="interest-map-list" open={unavailable}><summary>지도에 표시한 장소 · {mappable.length}곳</summary><div>{mappable.map(placeButton)}</div></details>}
-    {!!unknown.length && <details className="interest-map-list interest-map-unknown"><summary>위치 확인이 필요한 장소 · {unknown.length}곳</summary><p>주소·좌표가 확인되지 않아 지도에서 제외했어요.</p><div>{unknown.map(placeButton)}</div></details>}
+  const placeRow = (place: Place) => interactiveMarkers
+    ? <button type="button" key={place.id} onClick={() => onSelectPlace(place)}><MapPin size={16} aria-hidden="true" /><span><strong>{place.name}</strong><small>{interestKindLabels[place.kind]} · {place.area}</small></span><span>상세</span></button>
+    : <div className="interest-map-static-place" key={place.id}><MapPin size={16} aria-hidden="true"/><span><strong>{place.name}</strong><small>{interestKindLabels[place.kind]} · {place.area}</small></span></div>;
+  return <section className="interest-places-map" aria-label={ariaLabel}>
+    <div className="interest-map-heading"><strong>{heading}</strong><span>{mappable.length}곳 표시</span></div>
+    <p className="interest-map-note" id={noteId}>{interactiveMarkers ? '장소를 누르면 상세정보가 열려요. 방문 순서와 이동 경로는 표시하지 않아요.' : '등록된 장소의 위치예요. 방문 순서와 이동 경로는 표시하지 않아요.'}</p>
+    {unavailable ? <div className="interest-map-fallback"><MapPin size={28} aria-hidden="true" /><strong>{!mappable.length ? '위치가 확인된 장소가 없어요' : !online ? '인터넷 연결 후 지도를 볼 수 있어요' : '지도를 불러오지 못했어요'}</strong><p>{interactiveMarkers ? '아래 목록에서 사진과 상세정보를 확인할 수 있어요.' : '장소 주소와 길찾기는 상세 화면에서 확인해 주세요.'}</p>{online && error && <button type="button" onClick={() => { setError(false); setAttempt(value => value + 1); }}><RefreshCw size={16} />지도 다시 연결</button>}</div> : <div className="interest-map-surface" aria-describedby={noteId}><div ref={container} className="interest-map-canvas" aria-label={mapLabel} />{!loaded && <p className="interest-map-loading" role="status">지도 불러오는 중</p>}</div>}
+    {!!mappable.length && <details className="interest-map-list" open={unavailable}><summary>지도에 표시한 장소 · {mappable.length}곳</summary><div>{mappable.map(placeRow)}</div></details>}
+    {!!unknown.length && <details className="interest-map-list interest-map-unknown"><summary>위치 확인이 필요한 장소 · {unknown.length}곳</summary><p>주소·좌표가 확인되지 않아 지도에서 제외했어요.</p><div>{unknown.map(placeRow)}</div></details>}
     {!unique.length && <p className="interest-map-empty">조건에 맞는 저장 장소가 없어요. 목록이나 필터를 바꿔보세요.</p>}
   </section>;
 }

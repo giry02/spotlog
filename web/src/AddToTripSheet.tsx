@@ -1,8 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, useState, type FormEvent } from 'react';
-import { Check, Plus } from 'lucide-react';
+import { Check, ImageOff, Plus } from 'lucide-react';
 import { BottomSheet } from './BottomSheet';
 import { Button, Field } from './ui';
-import { LandmarkGuideCard } from './LandmarkGuideCard';
 import type { Journey, Place } from './data';
 import { tripPeriodLabel, type TripPlacementRequest } from './tripPlacement';
 import './trip-placement.css';
@@ -71,16 +70,6 @@ export function AddToTripSheet({ places, journeys, initialJourneyId, initialDay 
 
   return <BottomSheet title="내 여행에 담기" description={uniquePlaces.length === 1 ? uniquePlaces[0].name : `선택한 ${uniquePlaces.length}곳을 담아요`} onClose={onClose}>
     <form className="trip-placement-form" onSubmit={submit}>
-      <div className="landmark-guide-list trip-placement-places" aria-label="담을 장소 확인">
-        {uniquePlaces.map((place) => {
-          const visits = includedVisits.filter((visit) => visit.id === place.id);
-          const otherPlacements = mine.flatMap((journey) => journey.days.filter((day) => !(journey.id === selected?.id && day.day === targetDay) && day.places.some((visit) => visit.id === place.id)).map((day) => `${journey.title} DAY ${day.day}`));
-          return <LandmarkGuideCard key={place.id} place={place}
-            actions={onRemove && selected && visits.some((visit) => visit.visitId) ? <>{visits.filter((visit) => visit.visitId).map((visit) => <Button key={visit.visitId} size="card" className="trip-placement-card-remove" onClick={() => setError(onRemove(selected.id, targetDay, visit.visitId!) ?? '')} aria-label={`${place.name} DAY ${targetDay} 담김 해제`}><Check size={16} />DAY {targetDay} 담김 해제</Button>)}</> : null}
-            footer={<div className="trip-placement-card-state" aria-live="polite"><p className={visits.length ? 'is-included' : ''}>{visits.length ? <><Check size={14} />선택한 여행 DAY {targetDay}에 담김</> : <>DAY {targetDay}에 담을 장소</>}</p>{otherPlacements.length > 0 && <small>다른 일정에도 담김 · {otherPlacements.join(' · ')}</small>}</div>} />;
-        })}
-        {!uniquePlaces.length && <p className="phase-hint">담을 장소가 없어요. 장소를 선택한 뒤 다시 열어 주세요.</p>}
-      </div>
       {mine.length > 0 && <Field label="담을 여행"><select value={journeyId} onChange={(event) => selectJourney(event.target.value)}>
         {mine.map((journey) => { const included = journey.days.filter((day) => day.places.some((place) => uniquePlaces.some((selectedPlace) => selectedPlace.id === place.id))); return <option key={journey.id} value={journey.id}>{journey.title}{included.length ? ` · DAY ${included.map((day) => day.day).join(', ')} 담김` : ''}</option>; })}
         <option value="">＋ 새 여행 만들기</option>
@@ -102,6 +91,15 @@ export function AddToTripSheet({ places, journeys, initialJourneyId, initialDay 
         {!days.length && <p className="phase-hint">내 여행에서 날짜를 추가한 뒤 담아 주세요.</p>}
         {alreadyCount > 0 && <p className="trip-placement-included"><Check size={14} />{alreadyCount === uniquePlaces.length ? `이미 DAY ${targetDay}에 담겨 있어요.` : `${alreadyCount}곳은 이미 담겨 있어 나머지 장소만 추가해요.`}</p>}
       </div>
+      <section className="trip-placement-result" aria-label="담기 결과 미리보기" aria-live="polite"><strong>{isNew ? title.trim() || '새 여행' : selected?.title} · DAY {targetDay}</strong><p>{uniquePlaces.length ? alreadyCount === uniquePlaces.length ? '선택한 장소가 모두 담겨 있어요. 추가 없이 이 DAY를 열어요.' : `${uniquePlaces.length - alreadyCount}곳을 방문 순서의 마지막에 추가해요.${alreadyCount ? ` 이미 담긴 ${alreadyCount}곳은 유지해요.` : ''}` : '담을 장소를 먼저 선택해 주세요.'}</p></section>
+      <details className="trip-placement-places" open={uniquePlaces.length === 1}>
+        <summary>담을 장소 확인 · {uniquePlaces.length}곳</summary>
+        <div aria-label="담을 장소 확인">{uniquePlaces.map(place => {
+          const visits = includedVisits.filter(visit => visit.id === place.id);
+          const otherPlacements = mine.flatMap(journey => journey.days.filter(day => !(journey.id === selected?.id && day.day === targetDay) && day.places.some(visit => visit.id === place.id)).map(day => `${journey.title} DAY ${day.day}`));
+          return <article className="trip-placement-place" key={place.id}><div className="trip-placement-place__identity"><span>{place.image ? <img src={place.image} alt=""/> : <ImageOff size={22}/>}</span><div><strong>{place.name}</strong><small>{place.address || place.area}</small><small>{visits.length ? `DAY ${targetDay}에 이미 담김` : `DAY ${targetDay}에 추가`}</small></div></div>{otherPlacements.length > 0 && <p className="trip-placement-other">다른 일정에도 담김 · {otherPlacements.join(' · ')}</p>}{onRemove && selected && visits.filter(visit => visit.visitId).map(visit => <Button key={visit.visitId} size="card" variant="secondary" className="trip-placement-card-remove" onClick={() => setError(onRemove(selected.id,targetDay,visit.visitId!) ?? '')} aria-label={`${place.name} DAY ${targetDay} 담김 해제`}><Check size={16}/>이 DAY에서 담김 해제</Button>)}</article>;
+        })}</div>
+      </details>
       <p className="phase-hint trip-placement-note">{isNew ? '만들면 내 여행에서 이어서 일정을 수정할 수 있어요.' : '담은 뒤 내 여행의 선택한 DAY로 이동해요.'}</p>
       {error && <p className="ui-error" role="alert">{error}</p>}
       <Button type="submit" disabled={!canConfirm}>

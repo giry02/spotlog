@@ -2,6 +2,7 @@ import type { Journey, Place } from '../data';
 import { copyJourneyForGroup, createEmptyState, roomIdForActivity, roomIdForGroup, type TogetherState } from './model.ts';
 import { createDiscoveryCatalog, DISCOVERY_CATALOG_VERSION } from './discoveryExamples.ts';
 import { exampleGroupPhoto } from './groupPhotoAssets.ts';
+import { exampleMemberAvatar } from './exampleMemberAvatars.ts';
 
 export const TOGETHER_REVIEW_MEMBER_ID = 'spotlog-local-review-member';
 /** Fictional review members and conversations; group covers use synthetic activity photographs. */
@@ -17,7 +18,8 @@ export function createSeedState(viewerId: string, name: string, places: Place[])
   state.discoveryCatalogVersion = DISCOVERY_CATALOG_VERSION;
   // Real account IDs receive no synthetic memberships or private sample conversations.
   if (viewerId !== TOGETHER_REVIEW_MEMBER_ID) return state;
-  state.members.push({ id: 'example-parent', name: '엄마' }, { id: 'example-sibling', name: '지우' }, { id: 'example-friend', name: '도윤' }, { id: 'example-applicant', name: '여행 친구' });
+  state.members.push(...[{ id: 'example-parent', name: '엄마' }, { id: 'example-sibling', name: '지우' }, { id: 'example-friend', name: '도윤' }, { id: 'example-applicant', name: '여행 친구' }].map(member => ({ ...member, avatar: exampleMemberAvatar(member.id) })));
+  state.exampleMemberAvatarVersion = 1;
   state.groups.push(
     { id: 'family-busan', name: '우리 가족 여행', kind: 'FAMILY', region: '부산', introduction: '다음 여행도 지난 여행도 함께 모아 두는 우리 가족 공간.', cover: exampleGroupPhoto('family-busan'),
       visibility: 'PRIVATE', ownerId: viewerId, memberIds: [viewerId, 'example-parent', 'example-sibling'], managerIds: [], archived: false, promotionPublished: false },

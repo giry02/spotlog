@@ -1,4 +1,4 @@
-import { canEditActivity, roomIdForActivity, roomIdForGroup, type ChatEntityReference, type TogetherActivity, type TogetherGroup, type TogetherMessage, type TogetherNotice, type TogetherPoll, type TogetherState, type TogetherTask } from './model.ts';
+import { canEditActivity, isMember, roomIdForActivity, roomIdForGroup, type ChatEntityReference, type TogetherActivity, type TogetherGroup, type TogetherMessage, type TogetherNotice, type TogetherPoll, type TogetherState, type TogetherTask } from './model.ts';
 import type { TogetherGame } from './gameTypes.ts';
 import type { TogetherChallenge } from './challengeTypes.ts';
 import { isPollClosed, voteRoomPoll } from './polls.ts';
@@ -30,11 +30,37 @@ function resolveReference(state: TogetherState, ref: ChatEntityReference) {
 
 function memberGroup(state: TogetherState, actorId: string, groupId: string): TogetherGroup | undefined {
   const group = state.groups.find(item => item.id === groupId);
-  return group && actorId && group.memberIds.includes(actorId) && !group.blockedMemberIds?.includes(actorId) ? group : undefined;
+  return group && actorId && isMember(state, actorId, groupId) && !group.blockedMemberIds?.includes(actorId) ? group : undefined;
 }
 const today = () => new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Seoul' }).format(new Date());
 const activityOpen = (activity?: TogetherActivity) => !activity || activity.status === 'PLANNED' && (!(activity.endDate || activity.date) || (activity.endDate || activity.date) >= today());
 const groupManager = (group: TogetherGroup, actorId: string) => group.ownerId === actorId || group.managerIds.includes(actorId);
+type TaskProjection = Extract<ChatEntityProjection, { type: 'TASK' }>;
+const projectTask = (state: TogetherState, actorId: string, group: TogetherGroup, activity: TogetherActivity | undefined, task: TogetherTask): TaskProjection => ({
+  type: 'TASK', value: task,
+  canInteract: !group.archived && activityOpen(activity)
+    && (task.assigneeId === actorId || (activity ? canEditActivity(state, actorId, activity) : groupManager(group, actorId))),
+});
+
+/** Preparation lists read the original task directly; a previous chat share is not required. */
+export function readRoomTask(state: TogetherState, actorId: string, roomId: string, taskId: string): TaskProjection | null {
+  const task = state.tasks.find(item => item.id === taskId);
+  if (!task || !state.members.some(item => item.id === actorId)) return null;
+  const group = memberGroup(state, actorId, task.groupId);
+  if (!group) return null;
+  const activity = task.activityId ? state.activities.find(item => item.id === task.activityId && item.groupId === group.id) : undefined;
+  if (task.activityId !== undefined && !activity || group.spaceType === 'ACTIVITY' && !activity) return null;
+  if (roomId !== (activity ? roomIdForActivity(activity.id) : roomIdForGroup(group.id))) return null;
+  return projectTask(state, actorId, group, activity, task);
+}
+
+/** Rechecks current scope and permissions without creating, restoring or backfilling chat cards. */
+export function toggleRoomTask(state: TogetherState, actorId: string, roomId: string, taskId: string): TogetherTask {
+  const projection = readRoomTask(state, actorId, roomId, taskId);
+  if (!projection?.canInteract) throw new Error('담당자나 일정 운영자만 현재 준비 상태를 바꿀 수 있어요.');
+  projection.value.completed = !projection.value.completed;
+  return projection.value;
+}
 
 /** One original entity, projected only into its owning room. Activity links may also live in their persistent group's room. */
 export function readChatEntity(state: TogetherState, actorId: string, roomId: string, message: TogetherMessage): ChatEntityProjection | null {
@@ -51,7 +77,7 @@ export function readChatEntity(state: TogetherState, actorId: string, roomId: st
   if (roomId !== owningRoom && !groupActivityLink) return null;
   const active = !group.archived && activityOpen(activity);
   if (found.type === 'POLL') return { ...found, canInteract: active && !isPollClosed(found.value) };
-  if (found.type === 'TASK') return { ...found, canInteract: active && (found.value.assigneeId === actorId || (activity ? canEditActivity(state, actorId, activity) : groupManager(group, actorId))) };
+  if (found.type === 'TASK') return projectTask(state, actorId, group, activity, found.value);
   if (found.type === 'CHALLENGE') return { ...found, canInteract: active && !found.value.closed && found.value.endDate >= today() };
   return { ...found, canInteract: false };
 }

@@ -1,10 +1,10 @@
-export type PrimaryTab = 'home' | 'together' | 'travel' | 'saved' | 'my';
+export type PrimaryTab = 'home' | 'together' | 'travel' | 'chats' | 'my';
 export type MySection = 'schedule' | 'groups' | 'travel' | 'records';
 export const primaryTabs: ReadonlyArray<{ id: PrimaryTab; label: string; english: string }> = [
   { id: 'home', label: '홈', english: 'Home' },
   { id: 'together', label: '모임', english: 'Groups' },
   { id: 'travel', label: '여행', english: 'Travel' },
-  { id: 'saved', label: '저장', english: 'Saved' },
+  { id: 'chats', label: '대화함', english: 'Chats' },
   { id: 'my', label: '마이', english: 'My' },
 ];
 /** Old public links remain readable; no customer records are migrated. */
@@ -24,9 +24,9 @@ export function detailScreen(state: { editorId?: string | null; journeyId?: stri
   if (state.templateId) return `recommendation-${state.templateId}`;
   return undefined;
 }
-/** Only the user's saved catalogue activates Saved; public discovery belongs to Home. */
+/** Saved places remain an accessible discovery tool; conversations have their own primary index. */
 export function primaryTabForScreen(tab: string): PrimaryTab {
-  if (tab === 'saved') return 'saved';
+  if (tab === 'chats') return 'chats';
   if (tab === 'together') return 'together';
   if (tab === 'travel' || tab === 'community') return 'travel';
   if (['my', 'appointments', 'records', 'trips', 'profile', 'offline'].includes(tab)) return 'my';

@@ -1,6 +1,10 @@
 /* Placement is an existing BottomSheet/Field/day-options composition, not a Saved toolbar. */
 .trip-placement-form { display: grid; gap: 18px; }
 .trip-placement-places { min-width: 0; }
+.trip-placement-places>summary{display:flex;align-items:center;min-height:44px;cursor:pointer;font-size:14px;font-weight:600;color:var(--ink)}
+.trip-placement-place{padding:12px 0;border-bottom:1px solid var(--line);min-width:0}
+.trip-placement-place__identity{display:flex;gap:10px;align-items:center;min-width:0}.trip-placement-place__identity>span{display:grid;place-items:center;flex:none;width:48px;height:48px;overflow:hidden;border-radius:8px;background:#f1f1ed}.trip-placement-place__identity img{width:100%;height:100%;object-fit:cover}.trip-placement-place__identity>div{display:grid;gap:3px;min-width:0}.trip-placement-place__identity strong{font-size:14px;line-height:1.5;overflow-wrap:anywhere}.trip-placement-place__identity small,.trip-placement-other{font-size:12px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}.trip-placement-other{margin:8px 0 0}.trip-placement-place>.trip-placement-card-remove{margin-top:8px;min-height:44px;font-size:14px}
+.trip-placement-result{border-left:3px solid var(--ink);padding:10px 12px;background:#f3f3f0;min-width:0}.trip-placement-result strong{font-size:14px;line-height:1.5;overflow-wrap:anywhere}.trip-placement-result p{font-size:12px;line-height:1.5;margin:4px 0 0;color:var(--muted)}
 .trip-placement-card-state { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
 .trip-placement-card-state p { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
 .trip-placement-card-state p.is-included { color: #176759; }

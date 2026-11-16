@@ -32,6 +32,11 @@ export function isPublicHomeJournal(journey: Journey): boolean {
     && !journey.trash && journey.purpose !== 'PLAN' && journey.recommendationKind !== 'AI';
 }
 
+/** An approved snapshot cannot bring a withdrawn route stop back through a public course. */
+export function isCurrentPublicTravelJournal(journey: Journey, currentPlaces: ReadonlyMap<string, Place>): boolean {
+  return isPublicHomeJournal(journey) && journey.days.every(day => day.places.every(place => currentPlaces.has(place.id)));
+}
+
 /** This projection accepts approved catalogues from App; it never reads personal libraries or storage. */
 export function selectTravelHomeContent(templates: ReadonlyArray<HomeTripTemplate>, journals: ReadonlyArray<Journey>,
   places: ReadonlyArray<Place>, references: ReadonlyArray<HomeRegionReference>, filters: TravelHomeFilters) {
@@ -45,7 +50,7 @@ export function selectTravelHomeContent(templates: ReadonlyArray<HomeTripTemplat
   const courses: HomeTravelCourseCard[] = [];
   const seenCourses = new Set<string>();
   for (const template of templates) {
-    if (seenCourses.has(template.id) || template.publicJourney && !isPublicHomeJournal(template.publicJourney)) continue;
+    if (seenCourses.has(template.id) || template.publicJourney && !isCurrentPublicTravelJournal(template.publicJourney, approvedPlaces)) continue;
     const currentPlaces = template.places.flatMap(place => { const current = approvedPlaces.get(place.id); return current ? [current] : []; });
     if (!currentPlaces.length || !matchesHomeTravelDuration(template.dayCount, filters.duration) || !inScope(template.region, currentPlaces)) continue;
     if (!matchesQuery(query, [template.title, template.summary, template.region, template.duration, template.eyebrow,
@@ -58,7 +63,7 @@ export function selectTravelHomeContent(templates: ReadonlyArray<HomeTripTemplat
   const publicJournals: HomeTravelJournalCard[] = [];
   const seenJournals = new Set<string>();
   for (const journal of journals) {
-    if (!isPublicHomeJournal(journal) || seenJournals.has(journal.id)) continue;
+    if (!isCurrentPublicTravelJournal(journal, approvedPlaces) || seenJournals.has(journal.id)) continue;
     const publishedPlaces = journal.days.flatMap(day => day.places);
     const journalPlaces = publishedPlaces.flatMap(place => { const current = approvedPlaces.get(place.id); return current ? [current] : []; });
     // A withdrawn place cannot reappear through a stale published journey snapshot.

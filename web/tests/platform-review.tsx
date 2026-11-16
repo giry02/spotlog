@@ -17,15 +17,19 @@ const roles: Record<ReviewRole, SocialAccountUser | null> = {
   guest: null,
 };
 const routes: Record<string, string> = {
-  create: 'together-plan', travelcreate: 'together-plan-trip', home: 'home', travel: 'travel', appointments: 'appointments', together: 'together', records: 'records', profile: 'profile',
-  saved: 'saved', directory: 'places-guide', activity: `activity-${ids.activity}`,
+  'shared-route': `activity-${ids.activity}`, 'route-changes': `activity-${ids.activity}`, 'visit-guide': `activity-${ids.activity}`, 'guide-guest': `activity-${ids.activity}`,
+  decision: `activity-${ids.activity}`, taste: `group-${ids.group}`,
+  oneoff: 'together-oneoff', create: 'together-plan', travelcreate: 'together-plan-trip', home: 'home', travel: 'travel', appointments: 'appointments', together: 'together', records: 'records', profile: 'profile',
+  saved: 'saved', directory: 'places-guide', activity: `activity-${ids.activity}`, undated: 'activity-family-undated', past: `activity-${ids.past}`,
   group: `group-${ids.group}`, groupchat: `groupchat-${ids.group}`, chat: `activitychat-${ids.activity}`,
   assistant: `activitychat-${ids.activity}`, find: 'together-find', groupcreate: 'together-find',
   public: `group-${ids.publicGroup}`, plan: `journey-${ids.plan}`, journal: `journey-${ids.journal}`,
 };
 const labels: Record<string, string> = {
-  create: 'AI 계획 만들기', travelcreate: '여행 초안 만들기', home: '발견', travel: '여행', appointments: '약속', together: '모임', records: '내 기록', profile: '프로필', saved: '저장 장소',
-  directory: '장소 찾기', activity: '개별 약속', group: '가족 모임', groupchat: '모임 전체 대화', chat: '약속 대화',
+  'shared-route': '내 참여 구간', 'route-changes': '일정 변경 확인', 'visit-guide': '방문 안내 작성', 'guide-guest': '가입 없는 방문 안내',
+  decision: '함께 결정하기', taste: '우리 취향 지도',
+  oneoff: '일회성 모임', create: 'AI 계획 만들기', travelcreate: '여행 초안 만들기', home: '발견', travel: '여행', appointments: '약속', together: '모임', records: '내 기록', profile: '프로필', saved: '저장 장소',
+  directory: '장소 찾기', activity: '개별 약속', undated: '날짜 미정 약속', past: '지난 약속', group: '가족 모임', groupchat: '모임 전체 대화', chat: '약속 대화',
   assistant: '약속 도우미', find: '모임 찾기', groupcreate: '모임 만들기', public: '가입 신청·승인', plan: '개인 일정', journal: '개인 여행기',
 };
 
@@ -82,7 +86,7 @@ async function boot() {
   const requestedRole = params.get('role');
   const initialRole: ReviewRole = params.get('mode') === 'guest' ? 'guest' : isPlatformReviewRole(requestedRole) ? requestedRole : 'owner';
   const requestedScreen = params.get('screen') || 'home';
-  const route = routes[requestedScreen] || routes.home;
+  let route = routes[requestedScreen] || routes.home;
   const [{ placeCatalog }, { createLocalRepository }, { draftPolicies }, { createSeedState }, { togetherStorageKey, isTogetherState }, { installMoaChatExamples }, { createMembershipReviewState }, { interestStorageKey }] = await Promise.all([
     import('../src/data'), import('../src/localRepository'), import('../src/accountPolicies'), import('../src/together/seed'),
     import('../src/together/repository'), import('./moa-chat-examples'), import('./membershipReviewFixture'), import('../src/interestCollectionStore'),
@@ -99,10 +103,82 @@ async function boot() {
   const activity = state.activities.find(item => item.id === ids.activity)!;
   activity.startTime = '10:30'; activity.kind = 'TRIP';
   const family = state.groups.find(item => item.id === ids.group)!;
+  if (['shared-route', 'route-changes', 'visit-guide', 'guide-guest'].includes(requestedScreen)) {
+    const [{ selectPersonalRoutes, savePersonalRoute }, { previewVisitGuide, publishVisitGuide, selectVisitGuide }, { createVisitGuidePublicStore, reconcileVisitGuidePublicStore }] = await Promise.all([
+      import('../src/together/personalRoutes'), import('../src/together/visitGuides'), import('../src/together/visitGuideStorage'),
+    ]);
+    const nextDate = (offset: number) => new Date(Date.now() + offset * 86400000).toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
+    activity.date = nextDate(3); activity.endDate = nextDate(3 + Math.max(1, activity.journey!.days.length) - 1);
+    activity.journey!.days.forEach((day, index) => { day.date = nextDate(3 + index); day.places.forEach((place, placeIndex) => { place.time = ['10:30', '12:00', '15:00'][placeIndex] || '16:00'; }); });
+    activity.participants[memberId] = 'MAYBE';
+    const scope = { groupId: ids.group, activityId: ids.activity };
+    const stops = selectPersonalRoutes(state, ownerId, scope, placeCatalog).route.stops;
+    for (const [index, userId] of family.memberIds.entries()) {
+      const current = selectPersonalRoutes(state, userId, scope, placeCatalog);
+      savePersonalRoute(state, userId, scope, { startKey: stops[index ? 1 : 0].key, endKey: stops[index === 1 ? 1 : index > 1 ? stops.length - 1 : Math.min(2, stops.length - 1)].key, joinTime: index ? '12:00' : '10:30', expectedRevision: 0, routeVersion: current.route.version }, placeCatalog);
+    }
+    if (requestedScreen === 'route-changes') {
+      activity.startTime = '11:00'; activity.journey!.days[0].places[1].time = '13:00'; activity.revision++;
+    }
+    if (requestedScreen === 'guide-guest') {
+      const preview = previewVisitGuide(state, ownerId, scope, { title: '함께 만나는 날 안내', meetingText: '첫 방문 장소의 공개 입구에서 만나요. 검수용 안내입니다.', entry: '도착하면 입구 안내판을 먼저 확인해 주세요.', parking: '주차 가능 여부와 요금은 방문 전에 업체에 확인해 주세요.', preparations: '편한 신발, 개인 물, 예약 확인 메시지를 챙겨 주세요.', selectedStopKeys: selectVisitGuide(state, ownerId, scope, placeCatalog).sourceStops.filter(stop => stop.publicStop).map(stop => stop.key), expectedActivityRevision: activity.revision, expectedGuideRevision: 0, validityHours: 24 }, placeCatalog);
+      const token = publishVisitGuide(state, ownerId, preview, placeCatalog);
+      reconcileVisitGuidePublicStore(state, placeCatalog, createVisitGuidePublicStore(local));
+      route = `visit-guide-${token}`;
+    }
+  }
+  if (requestedScreen === 'decision' || requestedScreen === 'taste') {
+    const [{ createMeetingDecision, submitDecisionResponse }, { upsertPlaceFeedback }] = await Promise.all([
+      import('../src/together/meetingDecision'), import('../src/together/businessAssessments'),
+    ]);
+    const options = placeCatalog.filter(place => !place.personal && place.kind === 'FOOD' && place.area.startsWith('부산')).slice(0, 3);
+    const nextDay = (offset: number) => new Date(Date.now() + offset * 86400000).toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
+    activity.date = nextDay(3); activity.endDate = nextDay(3 + Math.max(1, activity.journey?.days.length || 1) - 1);
+    const decisionId = createMeetingDecision(state, ownerId, { groupId: ids.group, activityId: ids.activity }, {
+      title: '이번 식사는 어디서 만날까요?', candidates: options.map((place, index) => ({ placeId: place.id, referenceCostKrw: [30000, 20000, 40000][index] })),
+      dateOptions: [{ id: 'review-friday', date: nextDay(3), time: '12:30' }, { id: 'review-saturday', date: nextDay(4), time: '12:30' }], expectedActivityRevision: activity.revision,
+    }, placeCatalog);
+    for (const member of family.memberIds.filter(id => id !== roles[initialRole]?.id)) {
+      const revision = state.decisions!.find(item => item.id === decisionId)!.revision;
+      submitDecisionResponse(state, member, { groupId: ids.group, activityId: ids.activity }, decisionId, {
+        availablePlaceIds: options.slice(0, 2).map(place => place.id), preferredPlaceId: options[0].id,
+        availableDateIds: ['review-friday'], budgetMaxKrw: 30000, originPlaceId: options[1].id, expectedRevision: revision,
+      }, placeCatalog);
+    }
+    upsertPlaceFeedback(state, ownerId, { groupId: ids.group, activityId: ids.past, placeId: options[0].id }, {
+      rating: 4, note: '기능 확인용 가상 후기입니다. 실제 방문 평가가 아닙니다.', recommended: true, purposes: ['FAMILY'], experienceTags: ['QUIET', 'RETURN_VISIT'],
+    }, placeCatalog);
+    upsertPlaceFeedback(state, memberId, { groupId: ids.group, placeId: options[1].id }, {
+      rating: 5, note: '취향 지도 필터를 확인하기 위한 가상 기록입니다.', recommended: true, purposes: ['TEAM_DINNER'], experienceTags: ['PARKING', 'GROUP_FRIENDLY'],
+    }, placeCatalog);
+  }
   family.interestPlaceIds = [...new Set([...(family.interestPlaceIds ?? []), ...placeCatalog.filter(place => place.area.startsWith('부산') && ['CAFE', 'FOOD'].includes(place.kind)).slice(0, 4).map(place => place.id)])];
+  if (params.get('long') === '1') {
+    family.name = '가족과친구가함께사진과동선을공유하며준비하는우리의긴이름모임';
+    family.memberPresentations = Object.fromEntries(family.memberIds.map(id => [id, { nickname: '아주긴닉네임과영문ABCDEFGHIJKLMNOPQRSTUVWXYZ123', introduction: '긴 이름과 소개를 사용해 좁은 화면을 검수합니다.' }]));
+    activity.title = '가족과친구가함께하는긴이름의부산여행과맛집카페산책일정';
+  }
   if (params.get('tools') === '1') {
     const { installParticipationExamples } = await import('./participation-review-fixture'); installParticipationExamples(state, ownerId);
     const { installGroupBenchmarkExamples } = await import('./group-benchmark-fixture'); installGroupBenchmarkExamples(state, ownerId, placeCatalog);
+  }
+  // Explicit visual states stay inside the existing page-memory fixture.
+  const visualPhase = params.get('phase');
+  if (visualPhase && ['today','past','upcoming','undated','cancelled','archived'].includes(visualPhase)) {
+    const offset = visualPhase === 'past' ? -4 : visualPhase === 'upcoming' ? 3 : 0;
+    const date = new Date(Date.now() + offset * 86400000).toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' });
+    activity.date = visualPhase === 'undated' ? '' : date;
+    activity.endDate = activity.date;
+    if (activity.journey) {
+      activity.journey.days.forEach((day,index) => { day.date = visualPhase === 'undated' ? '' : new Date(Date.now() + (offset + index) * 86400000).toLocaleDateString('sv-SE', { timeZone: 'Asia/Seoul' }); });
+      activity.endDate = activity.date ? activity.journey.days.at(-1)?.date || activity.date : '';
+    }
+    activity.status = visualPhase === 'past' ? 'COMPLETED' : visualPhase === 'cancelled' ? 'CANCELLED' : 'PLANNED';
+    if (visualPhase === 'archived') family.archived = true;
+    if (visualPhase === 'past' || params.get('records') === '1') {
+      const photos = placeCatalog.filter(place => place.area.startsWith('부산') && place.image).slice(0,3);
+      photos.forEach((place,index) => state.media.push({id:`hierarchy-photo-${index}`,groupId:ids.group,activityId:ids.activity,authorId:index ? memberId : ownerId,kind:'PHOTO',url:place.image,caption:`검수용 공유 사진 · ${place.name}`,createdAt:new Date().toISOString()}));
+    }
   }
   if (!isTogetherState(state)) throw new Error('검수 모임 자료의 형식을 확인하지 못했어요.');
   local.setItem(togetherStorageKey(ownerId), JSON.stringify(state));

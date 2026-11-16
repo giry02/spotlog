@@ -9,6 +9,8 @@ import { PlaceReportActions } from './ReportSheet';
 import { realSlot, wrapPlace } from './photoFeedNavigation';
 import { usePhotoFeedGesture } from './usePhotoFeedGesture';
 import { MediaRegionButton } from './MediaRegionButton';
+import { LandmarkGuideCard } from './LandmarkGuideCard';
+import PublicPlaceFacts from './community/PublicPlaceFacts';
 import './photo-landmark-feed.css';
 
 // Discovery position is ephemeral UI state, separate from saved places and journeys.
@@ -22,11 +24,12 @@ interface PhotoLandmarkFeedProps {
   savedIds: string[];
   onToggle: (id: string) => void;
   onShare: (place: Place) => void;
+  onUsePlace?: (place: Place) => void;
   region?: string;
   onChooseRegion?: (trigger: HTMLButtonElement) => void;
 }
 
-export function PhotoLandmarkFeed({ places, savedIds, onToggle, onShare, region = '', onChooseRegion }: PhotoLandmarkFeedProps) {
+export function PhotoLandmarkFeed({ places, savedIds, onToggle, onShare, onUsePlace, region = '', onChooseRegion }: PhotoLandmarkFeedProps) {
   const entries = useMemo(() => places.map((place) => ({ place, photos: getPlacePhotos(place) })).filter((entry) => entry.photos.length > 0), [places]);
   const [activeIndex, setActiveIndex] = useState(() => Math.max(0, entries.findIndex(({ place }) => place.id === rememberedPlaceId)));
   const [photoIds, setPhotoIds] = useState(() => new Map(rememberedPhotoIds));
@@ -155,11 +158,9 @@ export function PhotoLandmarkFeed({ places, savedIds, onToggle, onShare, region 
     </div>
     {storyPlace && <BottomSheet title={storyPlace.name} description={storyPlace.area} onClose={() => setStoryPlace(null)}>
       <div className="photo-reel-story">
-        <p>{storyPlace.description}</p>
-        {storyPlace.note && <blockquote>{storyPlace.note}</blockquote>}
-        <dl><dt>주소</dt><dd>{storyPlace.address || '주소 확인 중'}</dd><dt>추천 체류</dt><dd>{storyPlace.duration || '방문 계획에 맞게 조정'}</dd>{storyPlace.bestTime && <><dt>방문 참고</dt><dd>{storyPlace.bestTime}</dd></>}</dl>
+        <LandmarkGuideCard place={storyPlace} variant="detail" facts={<PublicPlaceFacts key={storyPlace.id} place={storyPlace}/>} showCredit saved={savedIds.includes(storyPlace.id)} onToggle={() => onToggle(storyPlace.id)} onShare={() => onShare(storyPlace)}/>
         <p className="photo-reel-disclaimer">{getPlacePhotos(storyPlace).some((photo) => photo.sourceId) ? '사진 출처와 운영 정보는 방문 전에 확인해 주세요.' : '장소를 소개하기 위한 샘플 이미지입니다. 운영 정보는 방문 전에 확인해 주세요.'}</p>
-        <button type="button" className="primary wide" aria-pressed={savedIds.includes(storyPlace.id)} onClick={() => onToggle(storyPlace.id)}><Bookmark size={18} fill={savedIds.includes(storyPlace.id) ? 'currentColor' : 'none'} />{savedIds.includes(storyPlace.id) ? '저장 해제' : '빠른 저장'}</button>
+        {onUsePlace && <button type="button" className="primary wide place-use-action" onClick={() => { const place = storyPlace; setStoryPlace(null); onUsePlace(place); }}><MapPin size={18}/>여행·약속에 담기</button>}
       </div>
     </BottomSheet>}
   </>;

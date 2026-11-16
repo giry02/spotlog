@@ -6,6 +6,11 @@
 .tg-home-section>.tg-activity-list { display:flex; flex-direction:column; gap:8px; }
 .tg .tg-create-action { min-height:44px; padding:10px 12px; border-radius:10px; font-weight:600; white-space:nowrap; }
 .tg .tg-home-section .tg-activity { background:var(--card,#fff); border:1px solid var(--line); border-radius:12px; }
+.tg .tg-activity-list>.tg-activity { display:grid; grid-template-columns:44px minmax(0,1fr) 18px; align-items:center; min-width:0; }
+.tg .tg-activity-list>.tg-activity>.tg-date { width:44px; min-width:0; }
+.tg .tg-activity-list>.tg-activity>div { grid-template-columns:minmax(0,1fr); min-width:0; }
+.tg .tg-activity-list>.tg-activity>div>:is(small,span) { min-width:0; overflow-wrap:anywhere; }
+.tg .tg-activity-list>.tg-activity>svg { width:18px; }
 .tg .tg-room-assistant-link { justify-content:flex-start; padding:8px 0; border:0; border-radius:0; background:transparent; color:var(--muted); font-weight:500; }
 .tg-room-assistant-link>span { flex:1; text-align:left; }
 .tg-room-assistant-link>svg { flex-shrink:0; }

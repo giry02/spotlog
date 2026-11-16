@@ -1,0 +1,37 @@
+/* Browse is a visual overview; filtered results remain compact comparable rows. */
+.gd.gd-browse .gd-discover-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;overflow:visible}
+.gd.gd-browse .gd-discover-nav>button{min-width:0;padding:10px 3px;white-space:normal;font-size:14px;line-height:20px}
+.gd-parent-choice{display:flex;align-items:center;gap:8px;min-width:0;min-height:52px;border-bottom:1px solid var(--line)}
+.gd-parent-choice>strong{flex:1;min-width:0;font-size:14px;line-height:20px;overflow-wrap:anywhere}
+.gd .gd-parent-choice>button{flex:none;min-height:44px;border:0;background:none;padding:8px 0;font-size:14px;font-weight:400}
+.gd .gd-parent-choice>button:last-child{display:grid;place-items:center;width:44px}
+.gd .gd-parent-choice>button[aria-expanded=true]>svg{transform:rotate(180deg)}
+.gd.gd-browse .gd-visible-interests .gd-topic[aria-pressed=true]{background:var(--ink,#222);color:#fff;border-radius:10px}
+.gd.gd-browse .gd-subtopics>button[aria-pressed=true]{color:#fff;border-color:var(--ink,#222);background:var(--ink,#222)}
+.gd.gd-browse .gd-browse-sections{gap:28px;padding-top:12px}
+.gd.gd-browse .gd-browse-section>header{margin-bottom:10px}
+.gd.gd-browse .gd-browse-section>header h2{font-size:16px;line-height:24px}
+/* One editorial introduction, then comparable rows; joining remains an explicit action. */
+.gd.gd-browse .gd-group-open { min-height:72px; padding:8px 0; }
+.gd.gd-browse .gd-group-photo { flex:0 0 56px; width:56px; height:56px; min-height:56px; }
+.gd.gd-browse .gd-group-copy { gap:2px; }
+.gd.gd-browse .gd-next-date { margin:0; }
+.gd-next-date>span { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.gd.gd-browse .gd-card-join--compact { flex:0 0 44px; width:44px; min-width:44px; height:44px; padding:0; border:1px solid var(--line); border-radius:8px; background:transparent; }
+.gd.gd-browse .gd-card-join.is-joined,.gd.gd-browse .gd-card-join:disabled { flex-basis:auto; min-width:44px; max-width:64px; white-space:normal; font-size:12px; line-height:18px; }
+.gd.gd-browse .gd-group-card--featured { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; min-width:0; margin-bottom:8px; padding:12px; border:1px solid var(--line); border-radius:12px; background:var(--card,#fff); }
+.gd.gd-browse .gd-group-card--featured .gd-group-open { grid-column:1/-1; display:flex; align-items:flex-start; gap:12px; padding:0; }
+.gd.gd-browse .gd-group-card--featured .gd-group-photo { flex:0 0 88px; width:88px; height:104px; min-height:104px; overflow:hidden; border-radius:8px; }
+.gd.gd-browse .gd-group-card--featured .gd-group-photo>img { width:100%; height:100%; object-fit:cover; }
+.gd.gd-browse .gd-group-card--featured .gd-group-copy { gap:4px; }
+.gd-featured-label { font-size:12px; line-height:18px; color:var(--muted); }
+.gd.gd-browse .gd-group-card--featured .gd-group-copy>strong { white-space:normal; overflow-wrap:anywhere; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.gd.gd-browse .gd-group-card--featured .gd-welcome { white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.gd.gd-browse .gd-group-card--featured .gd-row-meta { white-space:normal; overflow-wrap:anywhere; }
+.gd.gd-browse .gd-group-card--featured .gd-card-join { grid-column:1/-1; width:100%; max-width:none; min-width:0; min-height:44px; margin:0; border-color:var(--ink); background:var(--ink); color:#fff; }
+.gd.gd-browse .gd-group-card--featured .gd-card-join:disabled,.gd.gd-browse .gd-group-card--featured .gd-card-join.is-joined { border-color:var(--line); background:var(--paper); color:var(--muted); }
+.gd.gd-browse .gd-group-card--featured .gd-join-mode { grid-column:1/-1; font-size:12px; line-height:18px; }
+.gd-meetup-agenda { display:grid; min-width:0; border-top:1px solid var(--line); }
+.gd-meetup-agenda .gd-event-copy>span:last-child { display:none; }
+.gd.gd-browse .gd-meetup-agenda .gd-event { gap:10px; padding:12px 0; }
+.gd.gd-browse .gd-meetup-agenda .gd-event-date { min-height:48px; background:var(--soft,#f2f2ee); }

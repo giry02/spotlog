@@ -2,7 +2,7 @@ import { canEditActivity, togetherId, type TogetherActivity, type TogetherGroup,
 import { koreaDay } from './discovery.ts';
 
 export interface PollScope { groupId: string; activityId?: string }
-export interface PollOptionInput { label?: string; date?: string; time?: string }
+export interface PollOptionInput { label?: string; date?: string; time?: string; placeId?: string }
 export interface PollInput {
   id?: string; question: string; kind?: 'TEXT' | 'DATE'; options: PollOptionInput[];
   multiple?: boolean; anonymous?: boolean; closesAt?: string;
@@ -27,6 +27,7 @@ export function isTogetherPollFields(value: unknown): boolean {
   return poll.options.every(value => {
     if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
     const option = value as Record<string, unknown>;
+    if (option.placeId !== undefined && (typeof option.placeId !== 'string' || !option.placeId.trim() || option.placeId.length > 200 || poll.kind === 'DATE')) return false;
     if (poll.kind === 'DATE' && (typeof option.date !== 'string' || !validDay(option.date))) return false;
     if (option.date !== undefined && (typeof option.date !== 'string' || !validDay(option.date))) return false;
     if (option.time !== undefined && (typeof option.time !== 'string' || !validTime(option.time) || !option.date)) return false;
@@ -71,7 +72,8 @@ function normalizedInput(input: PollInput, at: Date) {
     }
     const label = (option.label || '').trim();
     if (!label || label.length > 160) throw new Error('각 후보를 160자 이내로 적어 주세요.');
-    return { label };
+    if (option.placeId !== undefined && (typeof option.placeId !== 'string' || !option.placeId.trim() || option.placeId.length > 200)) throw new Error('장소 후보의 ID를 다시 확인해 주세요.');
+    return { label, ...(option.placeId ? { placeId: option.placeId } : {}) };
   });
   if (new Set(options.map(item => item.label.normalize('NFKC').toLocaleLowerCase('ko-KR'))).size !== options.length) throw new Error('같은 후보가 중복됐어요.');
   let closesAt: string | undefined;
@@ -95,7 +97,7 @@ export function canVotePoll(state: TogetherState, actorId: string, poll: Togethe
 }
 export function pollInputFrom(poll: TogetherPoll): PollInput {
   return { id: poll.id, question: poll.question, kind: poll.kind ?? 'TEXT', multiple: poll.multiple === true, anonymous: poll.anonymous === true, closesAt: poll.closesAt,
-    options: poll.options.map(({ label, date, time }) => ({ label, ...(date ? { date } : {}), ...(time ? { time } : {}) })) };
+    options: poll.options.map(({ label, date, time, placeId }) => ({ label, ...(date ? { date } : {}), ...(time ? { time } : {}), ...(placeId ? { placeId } : {}) })) };
 }
 export function createRoomPoll(state: TogetherState, actorId: string, scope: PollScope, input: PollInput, at = new Date()): TogetherPoll {
   context(state, actorId, scope, at);
@@ -106,7 +108,7 @@ export function createRoomPoll(state: TogetherState, actorId: string, scope: Pol
     const same = previous.groupId === scope.groupId && previous.activityId === scope.activityId && previous.creatorId === actorId
       && previous.question === clean.question && (previous.kind ?? 'TEXT') === clean.kind && Boolean(previous.multiple) === clean.multiple
       && Boolean(previous.anonymous) === clean.anonymous && previous.closesAt === clean.closesAt
-      && JSON.stringify(previous.options.map(({ label, date, time }) => ({ label, ...(date ? { date } : {}), ...(time ? { time } : {}) }))) === JSON.stringify(clean.options);
+      && JSON.stringify(previous.options.map(({ label, date, time, placeId }) => ({ label, ...(date ? { date } : {}), ...(time ? { time } : {}), ...(placeId ? { placeId } : {}) }))) === JSON.stringify(clean.options);
     if (!same) throw new Error('다른 내용으로 사용한 투표 요청이에요. 다시 확인해 주세요.');
     return previous;
   }

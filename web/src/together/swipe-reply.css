@@ -1,0 +1,7 @@
+.tg-swipe-reply{position:relative;display:inline-grid;grid-template-columns:minmax(0,1fr);min-width:0;max-width:100%;padding:2px;overflow:clip;touch-action:pan-y;isolation:isolate;vertical-align:top}
+.tg-swipe-reply-content{position:relative;z-index:1;min-width:0;max-width:100%;transform:translateX(var(--swipe-reply-offset,0px));transition:transform 320ms cubic-bezier(.22,1.15,.36,1);transform-origin:center}
+.tg-swipe-reply[data-swiping=true]>.tg-swipe-reply-content{transition:none}
+.tg-swipe-reply[data-held=true]>.tg-swipe-reply-content{transform:scale(.985)}
+.tg-swipe-reply-indicator{position:absolute;left:8px;top:50%;display:grid;place-items:center;width:28px;height:28px;transform:translateY(-50%) scale(calc(.65 + var(--swipe-reply-progress,0)*.35));border-radius:50%;background:var(--paper,#f5f5f1);color:var(--muted,#666);opacity:0;pointer-events:none;transition:opacity 160ms ease,background-color 160ms ease,color 160ms ease}
+.tg-swipe-reply[data-swiping=true]>.tg-swipe-reply-indicator{opacity:calc(.3 + var(--swipe-reply-progress,0)*.4)}.tg-swipe-reply[data-reply-ready=true]>.tg-swipe-reply-indicator{opacity:1;background:var(--ink,#191919);color:#fff}
+@media(prefers-reduced-motion:reduce){.tg-swipe-reply-content,.tg-swipe-reply-indicator{transition:none}.tg-swipe-reply[data-held=true]>.tg-swipe-reply-content{transform:none}.tg-swipe-reply-indicator{transform:translateY(-50%)}}

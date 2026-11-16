@@ -7,6 +7,7 @@ import { filterHomePlaces, publicPlaceRegion, type HomeRegionReference } from '.
 import { interestKindLabels } from '../interestCollectionStore';
 import { LandmarkGuideCard } from '../LandmarkGuideCard';
 import { ScreenHeader } from '../ScreenHeader';
+import PublicPlaceFacts from './PublicPlaceFacts';
 import './place-directory.css';
 
 export interface PlaceDirectorySearch { region: string; district?: string; query: string }
@@ -22,6 +23,7 @@ export interface PlaceDirectoryProps {
   onReset: () => void;
   onToggle: (id: string) => void;
   onShare: (place: Place) => void;
+  onUsePlace?: (place: Place) => void;
   onBack: () => void;
   onViewChange: (view: 'GUIDE' | 'PHOTO' | 'VIDEO') => void;
 }
@@ -37,7 +39,7 @@ function Thumbnail({ place }: { place: Place }) {
 }
 
 /** Compact public list. Rich photos, attribution and existing actions belong to one detail sheet. */
-export default function PlaceDirectory({ places, references = emptyReferences, search, kind, savedIds, onSearchChange, onKindChange, onApplyFilters, onReset, onToggle, onShare, onBack, onViewChange }: PlaceDirectoryProps) {
+export default function PlaceDirectory({ places, references = emptyReferences, search, kind, savedIds, onSearchChange, onKindChange, onApplyFilters, onReset, onToggle, onShare, onUsePlace, onBack, onViewChange }: PlaceDirectoryProps) {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [draftRegion, setDraftRegion] = useState(search.region);
   const [draftKind, setDraftKind] = useState<PlaceKind | 'ALL'>(kind);
@@ -68,6 +70,6 @@ export default function PlaceDirectory({ places, references = emptyReferences, s
       })}</div>{visibleCount < results.length && <button type="button" className="community-place-directory__load" onClick={() => setVisibleCount(current => current + pageSize)}>장소 더 불러오기<ChevronRight size={17}/><span>{Math.min(visibleCount, results.length)} / {results.length}</span></button>}</> : <section className="community-place-directory__empty"><MapPin size={26} aria-hidden="true"/><h3>조건에 맞는 장소가 없어요</h3><p>다른 지역이나 종류로 찾아보세요.</p><button type="button" onClick={onReset}>전체 장소 보기</button></section>}
     </div>
     {filtersOpen && <BottomSheet title="장소 찾기 조건" onClose={() => setFiltersOpen(false)}><div className="community-place-directory-filters"><label><span>활동 지역</span><select aria-label="장소 필터 지역" value={draftRegion} onChange={event => setDraftRegion(event.target.value)}><option value="">전체 지역</option>{regions.map(region => <option key={region} value={region}>{region}</option>)}</select></label>{search.district && draftRegion === search.region && <button type="button" onClick={() => { onSearchChange({ region: search.region, query: search.query }); setFiltersOpen(false); }}>{search.district} 동네 조건 해제<X size={16}/></button>}<fieldset><legend>장소 종류</legend><div className="community-place-directory-filters__kinds">{placeKinds.map(value => <button type="button" key={value} aria-pressed={draftKind === value} onClick={() => setDraftKind(value)}><span>{kindName(value)}</span>{draftKind === value && <Check size={16}/>}</button>)}</div></fieldset><button type="button" className="community-place-directory-filters__apply" onClick={applyFilters}>이 조건으로 보기</button></div></BottomSheet>}
-    {selected && <BottomSheet title={selected.name} description={`${interestKindLabels[selected.kind]} · ${selected.area}`} onClose={() => setSelectedId(null)}><LandmarkGuideCard place={selected} saved={savedIds.includes(selected.id)} onToggle={() => onToggle(selected.id)} onShare={() => onShare(selected)} showCredit/></BottomSheet>}
+    {selected && <BottomSheet title={selected.name} description={`${interestKindLabels[selected.kind]} · ${selected.area}`} onClose={() => setSelectedId(null)}><LandmarkGuideCard place={selected} variant="detail" facts={<PublicPlaceFacts key={selected.id} place={selected}/>} saved={savedIds.includes(selected.id)} onToggle={() => onToggle(selected.id)} onShare={() => onShare(selected)} showCredit/>{onUsePlace && <button type="button" className="primary wide place-use-action" onClick={() => { setSelectedId(null); onUsePlace(selected); }}><MapPin size={18}/>여행·약속에 담기</button>}</BottomSheet>}
   </div>;
 }

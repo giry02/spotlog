@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createEmptyState } from '../src/together/model.ts';
-import { chatViewOptions, selectChatChromeContext } from '../src/together/chatChrome.ts';
+import { chatComposerLayout, chatViewOptions, selectChatChromeContext } from '../src/together/chatChrome.ts';
 
 function fixture() {
   const state = createEmptyState('me', '나');
@@ -56,4 +56,32 @@ test('revoked/blocked membership, foreign activity and a standalone group room e
   state.groups[0].spaceType = 'ACTIVITY';
   assert.deepEqual(selectChatChromeContext(state, 'me', 'family').notices, []);
   assert.deepEqual(selectChatChromeContext(state, 'me', 'family', 'trip').notices.map(item => item.id), ['trip-notice']);
+});
+
+test('short keyboard-height viewports give the preview selectable space before reserving room for messages', () => {
+  for (const height of [240, 260, 300]) {
+    const layout = chatComposerLayout(height, 56, 76, true);
+    assert.equal(layout.compactExtras, true);
+    assert.ok(layout.previewHeight >= 96, `${height}px must fit the preview's controls`);
+    assert.ok(layout.reserve < 92, `${height}px cannot keep a fixed 92px conversation reserve`);
+    assert.ok(56 + layout.dockHeight + layout.reserve <= height);
+  }
+});
+
+test('very small available heights preserve at least one 44px preview target whenever it can fit with the header and composer', () => {
+  for (const height of [176, 200, 220]) {
+    const layout = chatComposerLayout(height, 56, 76, true);
+    assert.ok(layout.previewHeight >= 44);
+    assert.ok(56 + layout.dockHeight <= height);
+    assert.equal(layout.reserve, 0);
+  }
+});
+
+test('ordinary chat heights keep the existing reserve and compact chrome returns after previews close', () => {
+  const ordinary = chatComposerLayout(844, 56, 76, true);
+  assert.equal(ordinary.reserve, 120); assert.equal(ordinary.compactExtras, false);
+  const short = chatComposerLayout(400, 56, 76, true);
+  assert.equal(short.reserve, 92); assert.equal(short.compactExtras, true);
+  const closed = chatComposerLayout(240, 56, 76, false);
+  assert.equal(closed.compactExtras, false); assert.equal(closed.previewHeight, 0);
 });

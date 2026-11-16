@@ -1,0 +1,8 @@
+.deferred-screen {
+  display: grid;
+  min-height: 180px;
+  place-items: center;
+  padding: 24px 16px;
+  color: var(--muted, #73736e);
+  font-size: 14px;
+}

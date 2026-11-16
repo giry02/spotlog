@@ -4,22 +4,26 @@ import { memberName, type TogetherState } from './model';
 import type { ChatEntityProjection } from './chatEntities';
 import PollView from './PollView';
 import { challengeIsFinished } from './challenges';
+import type { Place } from '../data';
 
 interface Props {
   entity: ChatEntityProjection | null;
   state: TogetherState;
   userId: string;
+  places?: Place[];
+  onOpenPlace?: (place: Place) => void;
   onVotePoll?: (pollId: string, optionId: string | null) => boolean;
   onClosePoll?: (pollId: string) => boolean;
   onConfirmPoll?: (pollId: string, optionId: string) => boolean;
   onEditPoll?: (pollId: string) => void;
+  onApplyPollToActivity?: (pollId: string) => void;
   onToggleTask?: (taskId: string) => boolean;
   onOpenEntity?: (type: 'GAME' | 'CHALLENGE', id: string) => void;
   onNavigate: (route: string) => void;
 }
 
 /** Live references only: the room selector checks visibility before anything is rendered. */
-export default function ChatEntityCard({ entity, state, userId, onVotePoll, onClosePoll, onConfirmPoll, onEditPoll, onToggleTask, onOpenEntity, onNavigate }: Props) {
+export default function ChatEntityCard({ entity, state, userId, places, onOpenPlace, onVotePoll, onClosePoll, onConfirmPoll, onEditPoll, onApplyPollToActivity, onToggleTask, onOpenEntity, onNavigate }: Props) {
   const [error, setError] = useState('');
   const apply = (action: () => boolean) => {
     try { setError(action() ? '' : '반영하지 못했어요. 현재 상태를 확인한 뒤 다시 시도해 주세요.'); }
@@ -31,7 +35,7 @@ export default function ChatEntityCard({ entity, state, userId, onVotePoll, onCl
   let content;
   if (entity.type === 'POLL') {
     const poll = entity.value;
-    content = <PollView state={state} userId={userId} poll={poll} compact onVote={optionId => onVotePoll ? onVotePoll(poll.id, optionId) : false} onClosePoll={onClosePoll ? () => onClosePoll(poll.id) : undefined} onConfirm={onConfirmPoll ? optionId => onConfirmPoll(poll.id, optionId) : undefined} onEdit={onEditPoll ? () => onEditPoll(poll.id) : undefined}/>;
+    content = <PollView state={state} userId={userId} poll={poll} places={places} onOpenPlace={onOpenPlace} compact onVote={optionId => onVotePoll ? onVotePoll(poll.id, optionId) : false} onClosePoll={onClosePoll ? () => onClosePoll(poll.id) : undefined} onConfirm={onConfirmPoll ? optionId => onConfirmPoll(poll.id, optionId) : undefined} onEdit={onEditPoll ? () => onEditPoll(poll.id) : undefined} onApplyToActivity={onApplyPollToActivity}/>;
   } else if (entity.type === 'TASK') {
     const task = entity.value;
     content = <>

@@ -1,5 +1,5 @@
 import type { TogetherState } from './model.ts';
-import { togetherId } from './model.ts';
+import { isMember, togetherId } from './model.ts';
 import { validCalendarDay } from './calendarPlans.ts';
 import type { ChallengeCertification, ChallengeCertifyInput, ChallengeCreateInput, ChallengePhoto, ChallengeScope, ChallengeTemplate, TogetherChallenge } from './challengeTypes.ts';
 export type { ChallengeCertification, ChallengeCertifyInput, ChallengeCreateInput, ChallengePhoto, ChallengeScope, ChallengeTemplate, TogetherChallenge } from './challengeTypes.ts';
@@ -56,7 +56,7 @@ const sameScope = (value: ChallengeScope, scope: ChallengeScope) => value.groupI
 export function getChallengeContext(state: TogetherState, actorId: string, scope: ChallengeScope, at = new Date()) {
   const today = challengeToday(at);
   const group = state.groups.find(item => item.id === scope.groupId);
-  if (!actorId || !state.members.some(item => item.id === actorId) || !group || !group.memberIds.includes(actorId) || group.blockedMemberIds?.includes(actorId)) throw new Error('현재 모임원만 챌린지를 볼 수 있어요.');
+  if (!actorId || !state.members.some(item => item.id === actorId) || !group || !isMember(state, actorId, group.id) || group.blockedMemberIds?.includes(actorId)) throw new Error('현재 모임원만 챌린지를 볼 수 있어요.');
   const activity = scope.activityId ? state.activities.find(item => item.id === scope.activityId && item.groupId === group.id) : undefined;
   if (scope.activityId && !activity || !scope.activityId && group.spaceType === 'ACTIVITY') throw new Error('챌린지가 속한 약속을 확인해 주세요.');
   const finalDate = activity && validCalendarDay(activity.endDate) && activity.endDate >= activity.date ? activity.endDate : activity?.date;

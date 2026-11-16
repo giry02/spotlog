@@ -1,0 +1,19 @@
+.gd-discovery-calendar{container:gd-calendar / inline-size;display:grid;gap:10px;min-width:0;padding:12px 0;border-bottom:1px solid var(--line)}
+.gd-calendar-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
+.gd-calendar-heading>strong{font-size:16px;line-height:22px}.gd-calendar-heading>span{font-size:12px;line-height:16px;color:var(--muted)}
+.gd-calendar-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;min-width:0}
+.gd .gd-calendar-days>button{display:grid;justify-items:center;align-content:center;gap:3px;min-width:0;min-height:56px;padding:5px 1px;background:transparent;border:1px solid var(--line);border-radius:10px;color:var(--ink)}
+.gd .gd-calendar-days>button small{font-size:12px;line-height:16px}.gd .gd-calendar-days>button strong{font-size:16px;line-height:22px}
+.gd .gd-calendar-days>button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.gd .gd-calendar-days>button[aria-pressed=true] small{color:inherit}
+.gd-calendar-direct{display:flex;align-items:flex-end;gap:8px;min-width:0}
+.gd-calendar-direct>label{display:grid;gap:4px;flex:1;min-width:0;margin:0;font-size:14px;line-height:20px}
+.gd .gd-calendar-direct input{box-sizing:border-box;min-width:0;width:100%;max-width:100%;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card,#fff);color:var(--ink);font:inherit;font-size:16px;line-height:24px}
+.gd .gd-calendar-direct>button{flex:0 0 auto;min-height:44px;padding:8px;border:0;background:transparent;font-size:14px;line-height:20px;color:var(--ink)}
+.gd .gd-calendar-direct>button:disabled{color:var(--muted);opacity:.6}.gd-discovery-calendar>p{margin:0;font-size:14px;line-height:20px}
+.gd-calendar-schedule{display:grid;gap:20px;min-width:0}.gd-calendar-schedule-day{display:grid;gap:6px;min-width:0}
+.gd-calendar-schedule-day>header{display:flex;align-items:center;gap:8px;min-height:36px;padding:0 0 4px;border-bottom:1px solid var(--line)}
+.gd-calendar-schedule-day>header h3{margin:0;font-size:16px;line-height:22px}.gd-calendar-schedule-day>header>span{font-size:12px;line-height:16px;color:var(--muted)}
+.gd .gd-compact-category{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;padding:8px 0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;text-align:left;font-size:14px;line-height:20px}
+.gd-compact-category>strong{flex:1;min-width:0;font-weight:600}.gd-compact-category>span{color:var(--muted);font-weight:400}.gd-compact-category>svg{flex:none}.gd-compact-category[aria-expanded=true]>svg{transform:rotate(180deg)}
+@container gd-calendar (max-width:331px){.gd-calendar-days{grid-template-columns:repeat(4,minmax(0,1fr))}}

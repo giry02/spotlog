@@ -21,7 +21,7 @@ test('explicit sharing copies only venue facts, targets one room and preserves a
  assert.equal(state.messages[0].body,placeProposalBody(place));
  for(const secret of ['개인 비밀','private-visit','private-anchor','private-tag','09:00','bookingFixed']) assert.equal(state.messages[0].body.includes(secret),false);
  assert.deepEqual(Object.keys(placeProposalPreview(place)),['id','name','kind','area','address','description']);
- assert.deepEqual(state.activities,activities); assert.deepEqual(place,source);
+ assert.deepEqual(state.activities,[{...activities[0],placeCandidateIds:['branch-a'],revision:5}]); assert.deepEqual(place,source);
  assert.equal(state.groups.find(g=>g.id==='g').interestPlaceIds,undefined);
  assert.equal(state.groups.find(g=>g.id==='foreign').interestPlaceIds,undefined);
  assert.equal(isTogetherState(state),true);
@@ -38,6 +38,16 @@ test('duplicate request is idempotent and cannot be repurposed for another room 
  assert.equal(state.messages.length,1); assert.deepEqual(state.groups[0].interestPlaceIds,['branch-a']);
  assert.throws(()=>propose(state,{groupId:'g',activityId:'a'}),/다른 제안/);
  assert.throws(()=>propose(state,{groupId:'g'},{...place,name:'다른 이름'}),/다른 제안/);
+});
+test('explicit appointment proposal holds the exact public candidate only once and preserves sibling appointments, venue, route and RSVP',()=>{
+ const state=fixture(); state.activities.push({...structuredClone(state.activities[0]),id:'sibling'});
+ const original=structuredClone(state.activities), source=structuredClone(place);
+ propose(state,{groupId:'g',activityId:'a'}); propose(state,{groupId:'g',activityId:'a'});
+ assert.equal(state.messages.length,1); assert.equal(state.messages[0].roomId,'activity:a');
+ assert.deepEqual(state.activities[0],{...original[0],placeCandidateIds:['branch-a'],revision:5}); assert.deepEqual(state.activities[1],original[1]);
+ assert.deepEqual(place,source); assert.equal(state.groups[0].interestPlaceIds,undefined);
+ const personal={...place,id:'personal-place',personal:true}; propose(state,{groupId:'g',activityId:'a'},personal,'personal-request');
+ assert.deepEqual(state.activities[0],{...original[0],placeCandidateIds:['branch-a'],revision:5});
 });
 test('current membership, block, archive and activity ownership/status/date are checked again before mutation',()=>{
  for(const change of [s=>s.groups[0].memberIds=[],s=>s.groups[0].blockedMemberIds=['me'],s=>s.groups[0].archived=true,s=>s.activities[0].groupId='foreign',s=>s.activities[0].status='CANCELLED',s=>s.activities[0].endDate='2026-11-05']){

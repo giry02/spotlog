@@ -94,3 +94,5 @@
 .cplan-topic-tags>span { padding:4px 8px; background:#eeeae2; border-radius:7px; font-size:12px; line-height:16px; }
 @media(max-width:359px) { .cplan-two { grid-template-columns:minmax(0,1fr); } }
 @media(prefers-reduced-motion:reduce) { .creation-planner details>summary svg { transition:none; } }
+
+.cplan-place-tools>.cplan-place-options{width:100%;min-width:0}.cplan-place-options>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;font-size:12px;cursor:pointer;list-style:none}.cplan-place-options>div{display:flex;gap:8px;align-items:center}.cplan-review-days{list-style:none;padding:0;margin:0;display:grid;gap:12px}.cplan-review-days li{border-left:2px solid var(--ink,#171717);padding:4px 0 4px 12px}.cplan-review-days strong{font-size:14px}.cplan-review-days p{font-size:14px;line-height:21px;margin:6px 0 0;overflow-wrap:anywhere}

@@ -1,6 +1,8 @@
 /* Personal itinerary actions use 44px touch targets and the 14px action role.
    Keep page actions, form inputs, and other card types on their own styles. */
 .personal-trip .plan-stops { gap: 10px; }
+.personal-trip .plan-day-tools { display: flex; align-items: center; gap: 8px; min-width: 0; flex-shrink: 0; }
+.place-use-action { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; min-height: 44px; font-size: 14px; }
 .personal-trip .plan-stop { padding: 12px; }
 .personal-trip .plan-stop-main > div { display: flex; flex-direction: column; gap: 2px; }
 .personal-trip .plan-stop-main h3 { margin: 0; }

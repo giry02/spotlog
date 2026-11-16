@@ -22,7 +22,7 @@
 .challenge-dates { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; min-width:0; }
 .challenge-progress { display:grid; gap:8px; padding:12px; background:var(--surface,#f5f4f0); border-radius:12px; }
 .challenge-progress>span { font-size:14px; line-height:20px; }
-.challenge-progress progress { width:100%; height:8px; accent-color:var(--accent,#ff5c44); }
+.challenge-progress progress { width:100%; height:8px; accent-color:var(--ink); }
 .challenge-membership { display:flex; justify-content:space-between; align-items:center; gap:8px; }
 .challenge-membership>span { display:flex; align-items:center; gap:6px; }
 .challenge-certify { border-top:1px solid var(--line); padding-top:16px; }
@@ -48,3 +48,17 @@
 .challenge-emoji { display:grid; place-items:center; flex:0 0 44px; height:44px; background:var(--surface,#f5f4f0); border-radius:12px; font-size:22px; }
 .challenge-list>button>svg { flex-shrink:0; }
 @media(max-width:359px) { .challenge-dates { grid-template-columns:minmax(0,1fr); } }
+
+/* Join, do today's action, then revisit the record; operations are secondary. */
+.challenge-state { display:grid; gap:4px; min-width:0; }
+.challenge-state>strong { font-size:16px; line-height:24px; }
+.challenge-state>small { font-size:12px; line-height:18px; }
+.challenge-rule-preview { padding:12px; border-radius:8px; background:var(--soft,#f2f2ee); font-size:14px; line-height:22px; }
+.challenge-rules,.challenge-management { min-width:0; border-top:1px solid var(--line); }
+.challenge-rules>summary,.challenge-management>summary { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:44px; list-style:none; cursor:pointer; font-size:14px; line-height:20px; }
+.challenge-rules>summary::-webkit-details-marker,.challenge-management>summary::-webkit-details-marker { display:none; }
+.challenge-rules[open]>summary>svg,.challenge-management[open]>summary>svg { transform:rotate(180deg); }
+.challenge-rules>div,.challenge-management>div { display:grid; gap:12px; padding:8px 0 12px; min-width:0; }
+.challenge-rules>div>p { white-space:pre-wrap; }
+.challenge-panel .challenge-record-more { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:8px; border:1px solid var(--line); border-radius:8px; background:transparent; }
+.challenge-panel :is(button,summary,input,textarea,select):focus-visible { outline:2px solid var(--ink); outline-offset:3px; }

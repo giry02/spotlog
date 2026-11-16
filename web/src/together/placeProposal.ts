@@ -1,6 +1,7 @@
 import type { Place } from '../data';
 import { roomIdForActivity, roomIdForGroup, type TogetherState } from './model.ts';
 import { koreaDay } from './discovery.ts';
+import { applyActivityPlaceAction } from './activityPlaces.ts';
 
 export interface PlaceProposalTarget { groupId: string; activityId?: string }
 export interface PlaceProposalDestination extends PlaceProposalTarget { label: string }
@@ -32,7 +33,7 @@ export function placeProposalDestinations(state: TogetherState, actorId: string,
   });
 }
 
-/** An explicit proposal is one idempotent message. It never changes attendance, venue, routes or personal saves. */
+/** An explicit public proposal also holds its exact ID in the chosen space. Venue, visits and RSVP need separate confirmation. */
 export function proposeSavedPlace(state: TogetherState, actorId: string, target: PlaceProposalTarget, place: Place,
   expectedPlaceVersion: string, requestId: string, publicPlaceIds: ReadonlyArray<string>, at = new Date()): string {
   if (!requestId || requestId.length > 160 || !/^[A-Za-z0-9_-]+$/.test(requestId)) throw new Error('공유 요청을 다시 확인해 주세요.');
@@ -46,11 +47,16 @@ export function proposeSavedPlace(state: TogetherState, actorId: string, target:
     if (previous.authorId !== actorId || previous.roomId !== roomId || previous.body !== body || previous.deleted) throw new Error('다른 제안에 사용된 요청이에요. 다시 열어 주세요.');
     return roomId;
   }
-  state.messages.push({ id, roomId, authorId: actorId, body, createdAt: at.toISOString() });
   // Only current public catalogue IDs become reusable common candidates. Personal venue facts stay in this explicit message.
-  if (!target.activityId && !place.personal && publicPlaceIds.includes(place.id)) {
-    const group = state.groups.find(item => item.id === target.groupId)!;
-    group.interestPlaceIds = [...new Set([...(group.interestPlaceIds ?? []), place.id])];
+  if (!place.personal && publicPlaceIds.includes(place.id)) {
+    if (target.activityId) {
+      const activity = state.activities.find(item => item.id === target.activityId && item.groupId === target.groupId)!;
+      applyActivityPlaceAction(state, actorId, { groupId: target.groupId, activityId: activity.id, expectedRevision: activity.revision, type: 'ADD_CANDIDATE', placeId: place.id }, [place], at);
+    } else {
+      const group = state.groups.find(item => item.id === target.groupId)!;
+      group.interestPlaceIds = [...new Set([...(group.interestPlaceIds ?? []), place.id])];
+    }
   }
+  state.messages.push({ id, roomId, authorId: actorId, body, createdAt: at.toISOString() });
   return roomId;
 }

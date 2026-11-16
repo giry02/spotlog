@@ -1,0 +1,34 @@
+.planning-place-picker { display:flex; flex-direction:column; gap:16px; min-width:0; color:var(--ink); font-size:14px; line-height:20px; }
+.planning-place-picker :is(p,h3) { margin:0; overflow-wrap:anywhere; }
+.planning-place-picker header { display:grid; gap:8px; }
+.planning-place-picker h3 { font-size:16px; line-height:22px; }
+.planning-place-picker small { display:block; font-size:12px; line-height:16px; color:var(--muted); overflow-wrap:anywhere; }
+.planning-place-picker button { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-width:0; min-height:44px; max-width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:var(--card,#fff); color:var(--ink); font-size:14px; line-height:20px; font-weight:600; overflow-wrap:anywhere; }
+.planning-place-picker button:disabled { opacity:.5; }
+.planning-place-picker :is(button,summary,input,select):focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+.planning-place-picker .planning-picker-search { display:flex; align-items:center; gap:8px; min-width:0; border:1px solid var(--line); border-radius:10px; padding:0 12px; margin:0; }
+.planning-place-picker .planning-picker-search:focus-within { outline:2px solid var(--ink); outline-offset:2px; }
+.planning-place-picker .planning-picker-search input:focus-visible { outline:none; }
+.planning-place-picker .planning-picker-search input { flex:1; min-width:0; width:100%; min-height:44px; border:0; padding:10px 0; background:transparent; color:var(--ink); font-size:16px; line-height:24px; }
+.planning-place-picker .planning-picker-region { display:flex; align-items:center; gap:12px; min-width:0; font-size:14px; margin:0; }
+.planning-picker-region select { flex:1; min-width:0; min-height:44px; max-width:100%; box-sizing:border-box; border:1px solid var(--line); border-radius:10px; padding:10px 12px; background:var(--card,#fff); color:var(--ink); font-size:16px; line-height:24px; }
+.planning-picker-kinds { display:flex; flex-wrap:wrap; gap:8px; min-width:0; }
+.planning-picker-kinds button[aria-pressed=true] { color:var(--card,#fff); border-color:var(--ink); background:var(--ink); }
+.planning-picker-results-count { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+.planning-picker-results-count>span { color:var(--muted); font-size:12px; white-space:nowrap; }
+.planning-picker-results { display:grid; min-width:0; border-top:1px solid var(--line); }
+.planning-picker-result { position:relative; min-width:0; padding:12px 0; border-bottom:1px solid var(--line); }
+.planning-picker-result details { min-width:0; }
+.planning-picker-result summary { display:flex; align-items:center; gap:8px; min-height:60px; padding-right:80px; list-style:none; cursor:pointer; }
+.planning-picker-result summary::-webkit-details-marker { display:none; }
+.planning-picker-result summary>span { display:grid; gap:4px; min-width:0; }
+.planning-picker-result summary strong { font-size:14px; line-height:20px; overflow-wrap:anywhere; }
+.planning-picker-result summary>span>span { color:var(--muted); font-size:12px; line-height:16px; overflow-wrap:anywhere; }
+.planning-picker-result summary>svg { flex:0 0 17px; }
+.planning-place-picker .planning-picker-add { position:absolute; top:20px; right:0; min-width:72px; padding-inline:8px; }
+.planning-picker-detail { padding-top:12px; }
+.planning-picker-empty { display:grid; gap:8px; padding:16px; border:1px solid var(--line); border-radius:12px; background:var(--soft,#f6f6f3); }
+.planning-place-picker footer { position:sticky; bottom:0; display:grid; gap:8px; padding-block:12px; background:var(--card,#fff); border-top:1px solid var(--line); }
+.planning-place-picker .planning-picker-return { width:100%; color:var(--card,#fff); background:var(--ink); border-color:var(--ink); }
+.planning-picker-error { color:var(--danger,#b33e32); }
+.planning-picker-status { color:var(--green,var(--ink)); }

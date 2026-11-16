@@ -13,6 +13,9 @@ import './landmark-guide-card.css';
 
 type LandmarkGuideCardProps = {
   place: Place;
+  /** Explicit full-detail role; discovery/list cards keep their existing visual contract. */
+  variant?: 'discovery' | 'detail';
+  facts?: ReactNode;
   primaryAction?: ReactNode;
   footer?: ReactNode;
   /** Compact lists omit attribution controls; full detail explicitly opts in. */
@@ -31,7 +34,7 @@ type LandmarkGuideCardProps = {
 });
 
 /** Large discovery/confirmation card. Saved's outer list keeps its small horizontal card. */
-export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryAction, footer, actions, showCredit = false }: LandmarkGuideCardProps) {
+export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryAction, footer, actions, showCredit = false, variant = 'discovery', facts }: LandmarkGuideCardProps) {
   const copy=useUiCopy();
   const photos = getPlacePhotos(place, true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -56,7 +59,8 @@ export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryActi
     setSelectedId(photos[next]?.mediaId ?? null);
     trackRef.current?.scrollTo({ left: next * trackRef.current.clientWidth, behavior: 'instant' });
   };
-  return <article className="landmark-guide-card" data-place-id={place.id}>
+  return <article className={`landmark-guide-card${variant === 'detail' ? ' landmark-guide-card--detail' : ''}`} data-place-id={place.id}>
+    {variant === 'detail' && <header className="landmark-detail-heading"><small>{placeKindLabel[place.kind]} · {place.area}</small><h2>{place.name}</h2>{facts}</header>}
     <div className="landmark-guide-image">
       {photos.length ? <div ref={trackRef} className="landmark-gallery-track" role="group" aria-roledescription="사진 슬라이드" aria-label={`${place.name} 사진 ${photos.length}장`} tabIndex={photos.length > 1 ? 0 : undefined}
         onKeyDown={(event) => {
@@ -86,8 +90,8 @@ export function LandmarkGuideCard({ place, saved, onToggle, onShare, primaryActi
       </>}
     </div>
     <div className="landmark-guide-copy">
-      <small>{place.area} · {place.bestTime ?? place.duration}</small><h3>{place.name}</h3>
-      <strong>{place.hook ?? `${place.area} 일정에 담기 좋은 장소`}</strong><TranslationText sourceId={`place:${place.id}:description`} sourceVersion={sourceVersion(place.description)} text={place.description} kind="journal"/>
+      {variant !== 'detail' && <><small>{place.area} · {place.bestTime ?? place.duration}</small><h3>{place.name}</h3></>}
+      {(variant !== 'detail' || place.hook) && <strong>{place.hook ?? `${place.area} 일정에 담기 좋은 장소`}</strong>}<TranslationText sourceId={`place:${place.id}:description`} sourceVersion={sourceVersion(place.description)} text={place.description} kind="journal"/>
       {place.note && <blockquote>{place.tags?.includes('공공자료') ? copy("자료 안내") : copy("여행자 메모")} · {place.note}</blockquote>}
       {photo?.caption && <p className="landmark-gallery-caption" aria-live="polite">{photo.caption}</p>}
       {showCredit && photo && <PhotoCredit image={photo.image} sourceId={photo.sourceId} />}

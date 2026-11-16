@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createEmptyState } from '../src/together/model.ts';
 import { createStandaloneAppointment } from '../src/community/platformModel.ts';
-import { myHubContent, myHubGroups, myHubSection } from '../src/community/myHubModel.ts';
+import { myHubContent, myHubGroups, myHubOwnGroupRecords, myHubOwnRecordFeed, resolveMyOwnRecordDestination, myHubSection } from '../src/community/myHubModel.ts';
 
 const plan=(id,dates,purpose='PLAN')=>({id,title:id,isMine:true,purpose,days:dates.map(date=>({date})),startDate:'',visibility:'PRIVATE'});
 test('My groups dated appointments and personal travel chronologically without changing source identity or attendance',()=>{
@@ -100,4 +100,96 @@ test('schedule sorting uses only real calendar dates and keeps invalid or undate
   const content=myHubContent(state,'actor',[bad,dated],[],'2026-11-08');
   assert.deepEqual(content.schedule.map(item=>[item.id,item.date]),[['dated','2026-11-11']]);
   assert.deepEqual(content.ownPlans.map(item=>item.id),['invalid','dated']);
+});
+
+const recordPost=(id,groupId,authorId='actor',extra={})=>({id,groupId,authorId,title:id,body:'공유한 본문',category:'FREE',createdAt:'2026-11-09T10:00:00+09:00',likes:[],comments:[],...extra});
+const recordActivity=(id,groupId,extra={})=>({id,groupId,title:id,date:'2026-11-08',endDate:'',meetingPoint:'',description:'',status:'COMPLETED',leadId:'actor',editorIds:[],participants:{actor:'JOINED'},arrivedIds:[],revision:1,...extra});
+
+test('own group record entries keep exact group and activity scopes and count only the current author',()=>{
+  const state=createEmptyState('actor','나');state.members.push({id:'other',name:'다른 사람'});
+  state.groups=[group('family',{memberIds:['actor','other']}),group('friends')];
+  state.activities=[recordActivity('outing','family'),recordActivity('empty-activity','family'),recordActivity('friend-outing','friends')];
+  state.posts=[recordPost('group-post','family'),recordPost('outing-post','family','actor',{activityId:'outing',attachments:[{id:'photo',url:'/safe-photo.webp',caption:''},{id:'bad',url:'javascript:bad',caption:''}]}),
+    recordPost('other-post','family','other',{activityId:'outing',comments:[{id:'own-comment',authorId:'actor',body:'내 댓글',createdAt:'2026-11-09T10:00:00+09:00'}]}),recordPost('friend-post','friends','actor',{activityId:'friend-outing'})];
+  state.media=[{id:'album',groupId:'family',activityId:'outing',authorId:'actor',kind:'PHOTO',url:'/album.webp',caption:'',createdAt:'2026-11-09T10:00:00+09:00'}];
+  state.sharedJournals=[{id:'journal',groupId:'family',activityId:'outing',authorId:'actor',journey:plan('journal',[],'JOURNAL')}];
+  state.sharedJournals[0].journey.status='PUBLISHED';
+  const before=JSON.stringify(state),result=myHubOwnGroupRecords(state,'actor',at);
+  const family=result.find(item=>item.groupId==='family');
+  assert.deepEqual(family.scopes.map(scope=>[scope.activityId,scope.counts]),[
+    [undefined,{journals:0,media:0,posts:1,comments:0}],['outing',{journals:1,media:2,posts:1,comments:1}]]);
+  assert.equal(family.hasRecords,true);assert.equal(family.scopes[1].title,'outing');
+  assert.deepEqual(result.find(item=>item.groupId==='friends').scopes.map(scope=>[scope.activityId,scope.counts.posts]),[[undefined,0],['friend-outing',1]]);
+  assert.equal(JSON.stringify(result).includes('공유한 본문'),false);
+  assert.equal(JSON.stringify(result).includes('내 댓글'),false);
+  assert.equal(JSON.stringify(state),before);
+});
+
+test('own record directory excludes inaccessible memberships and unknown actors even when stale records remain',()=>{
+  const state=createEmptyState('actor','나');
+  state.groups=[group('joined'),group('blocked',{blockedMemberIds:['actor']}),group('former',{memberIds:['other']}),group('archived',{archived:true}),group('one-off',{spaceType:'ACTIVITY'})];
+  state.posts=state.groups.map(item=>recordPost(`post-${item.id}`,item.id));
+  const before=JSON.stringify(state);
+  assert.deepEqual(myHubOwnGroupRecords(state,'actor',at).map(item=>item.groupId),['joined']);
+  for(const id of ['', 'unknown']) assert.deepEqual(myHubOwnGroupRecords(state,id,at),[]);
+  state.members=[];assert.deepEqual(myHubOwnGroupRecords(state,'actor',at),[]);
+  state.members=[{id:'actor',name:'나'}];assert.equal(JSON.stringify(state),before);
+});
+
+test('empty shared scope stays visibly empty instead of treating participation or another member content as own records',()=>{
+  const state=createEmptyState('actor','나');state.members.push({id:'other',name:'다른 사람'});
+  state.groups=[group('family',{memberIds:['actor','other']})];state.activities=[recordActivity('joined-only','family')];
+  state.posts=[recordPost('other-post','family','other')];
+  const result=myHubOwnGroupRecords(state,'actor',at);
+  assert.equal(result[0].hasRecords,false);
+  assert.deepEqual(result[0].scopes,[{title:'모임 전체',counts:{journals:0,media:0,posts:0,comments:0},hasRecords:false}]);
+});
+
+test('incomplete or trashed journal shares do not make an activity appear to contain completed own records',()=>{
+  const state=createEmptyState('actor','나');state.groups=[group('family')];state.activities=[recordActivity('outing','family')];
+  state.sharedJournals=[{id:'draft',groupId:'family',activityId:'outing',authorId:'actor',journey:{...plan('draft',[],'JOURNAL'),status:'PLANNING'}},
+    {id:'trash',groupId:'family',activityId:'outing',authorId:'actor',journey:{...plan('trash',[],'JOURNAL'),status:'PUBLISHED',trash:{deletedAt:'2026-11-09'}}}];
+  const result=myHubOwnGroupRecords(state,'actor',at);
+  assert.equal(result[0].hasRecords,false);assert.equal(result[0].scopes.length,1);
+});
+
+test('own content feed starts from actual authored records and safe photos, not empty memberships or participation',()=>{
+  const state=createEmptyState('actor','나');state.members.push({id:'other',name:'다른 사람'});
+  state.groups=[group('family',{memberIds:['actor','other']}),group('empty')];
+  state.activities=[recordActivity('outing','family'),recordActivity('participation-only','empty')];
+  state.posts=[recordPost('my-post','family','actor',{activityId:'outing',createdAt:'2026-11-09T10:00:00+09:00',attachments:[{id:'safe',url:'/my-photo.webp',caption:'내 사진'},{id:'bad',url:'javascript:alert(1)',caption:'잘못된 사진'}]}),
+    recordPost('their-post','family','other',{activityId:'outing',comments:[{id:'my-comment',authorId:'actor',body:'내가 남긴 댓글',createdAt:'2026-11-09T11:00:00+09:00'}]})];
+  state.media=[{id:'my-media',groupId:'family',activityId:'outing',authorId:'actor',kind:'PHOTO',url:'/album.webp',caption:'사진첩',createdAt:'2026-11-09T12:00:00+09:00'},
+    {id:'their-media',groupId:'family',activityId:'outing',authorId:'other',kind:'PHOTO',url:'/theirs.webp',caption:'다른 사람 사진',createdAt:'2026-11-09T13:00:00+09:00'}];
+  state.sharedJournals=[{id:'shared',groupId:'family',activityId:'outing',authorId:'actor',journey:{...plan('journal',[],'JOURNAL'),status:'PUBLISHED',summary:'공유한 요약'}}];
+  const before=JSON.stringify(state),feed=myHubOwnRecordFeed(state,'actor',at);
+  assert.deepEqual(feed.map(item=>item.key),['media:my-media','comment:their-post:my-comment','post:my-post','journal:shared']);
+  assert.deepEqual(feed.flatMap(item=>item.photos.map(photo=>photo.url)),['/album.webp','/my-photo.webp']);
+  assert.equal(feed.some(item=>item.groupId==='empty'),false);
+  assert.equal(feed.find(item=>item.type==='COMMENT').id,'their-post');
+  assert.equal(feed.find(item=>item.type==='COMMENT').commentId,'my-comment');
+  assert.equal(feed.find(item=>item.type==='JOURNAL').createdAt,'');
+  assert.ok(feed.every(item=>item.activityId==='outing'));
+  assert.equal(JSON.stringify(state),before);
+});
+
+test('own record original links recheck author, exact scope and current access without changing state',()=>{
+  const state=createEmptyState('actor','나');state.groups=[group('family')];state.activities=[recordActivity('outing','family')];
+  state.posts=[recordPost('post','family','actor',{activityId:'outing'})];
+  const target={groupId:'family',activityId:'outing',type:'POST',id:'post'};
+  assert.equal(resolveMyOwnRecordDestination(state,'actor',target)?.tab,'posts');
+  assert.equal(resolveMyOwnRecordDestination(state,'actor',{...target,activityId:undefined}),null);
+  for(const actor of ['', 'unknown'])assert.equal(resolveMyOwnRecordDestination(state,actor,target),null);
+  state.posts[0].authorId='other';assert.equal(resolveMyOwnRecordDestination(state,'actor',target),null);
+  state.posts[0].authorId='actor';state.groups[0].blockedMemberIds=['actor'];assert.equal(resolveMyOwnRecordDestination(state,'actor',target),null);
+  state.groups[0].blockedMemberIds=[];state.posts=[];assert.equal(resolveMyOwnRecordDestination(state,'actor',target),null);
+});
+
+test('own collection keeps inactive scopes and unrelated records out of the content projection',()=>{
+  const state=createEmptyState('actor','나');state.groups=[group('joined'),group('archived',{archived:true}),group('blocked',{blockedMemberIds:['actor']}),group('gone',{memberIds:[]}),group('one-off',{spaceType:'ACTIVITY',temporaryRoom:{disposition:'TRASH'}})];
+  state.posts=state.groups.map(item=>recordPost(item.id,item.id));
+  const before=JSON.stringify(state);
+  assert.deepEqual(myHubOwnRecordFeed(state,'actor',at).map(item=>item.groupId),['joined']);
+  state.members=[];assert.deepEqual(myHubOwnRecordFeed(state,'actor',at),[]);
+  state.members=[{id:'actor',name:'나'}];assert.equal(JSON.stringify(state),before);
 });

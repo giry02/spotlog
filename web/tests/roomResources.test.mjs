@@ -22,3 +22,24 @@ test('archived, completed and cancelled scopes remain readable for current membe
 test('standalone appointment backing spaces have only their exact activity room and never expose a manufactured group resource view',()=>{
  const state=fixture();state.groups[0].spaceType='ACTIVITY';state.activities=state.activities.filter(item=>item.id==='a');assert.equal(selectRoomResources(state,'me','g'),null);assert.equal(selectRoomResources(state,'me','g','a').roomId,'activity:a');
 });
+
+test('room participant preview uses only actual JOINED current members and distinguishes the full member list',()=>{
+ const state=fixture();state.groups[0].memberIds.push('blocked','ghost','declined','pending');state.groups[0].blockedMemberIds=['blocked'];
+ state.members.push({id:'blocked',name:'차단'},{id:'declined',name:'불참'},{id:'pending',name:'미정'});
+ state.activities[0].participants={owner:'JOINED',me:'JOINED',blocked:'JOINED',ghost:'JOINED',outsider:'JOINED',declined:'DECLINED',pending:'UNDECIDED'};
+ const before=structuredClone(state),child=selectRoomResources(state,'me','g','a'),root=selectRoomResources(state,'me','g');
+ assert.deepEqual(child.participantIds,['owner','me']);assert.deepEqual(child.memberIds,['owner','me','declined','pending']);assert.deepEqual(root.participantIds,[]);
+ assert.deepEqual(state,before);
+});
+
+test('media overview includes safe same-room post photos with exact source IDs and never child/sibling/private-room photos',()=>{
+ const state=fixture();
+ state.media=[{id:'m1',groupId:'g',activityId:'a',kind:'PHOTO',url:'/media/a.jpg',caption:'앨범',createdAt:'2026-11-10T04:00:00Z'},
+ {id:'m-root',groupId:'g',kind:'PHOTO',url:'/media/root.jpg',caption:'전체방',createdAt:'2026-11-10T04:00:00Z'}];
+ const post=(id,activityId,attachments)=>({id,groupId:'g',activityId,authorId:'me',title:id,body:'',category:'FREE',attachments,likes:[],comments:[],createdAt:'2026-11-10T03:00:00Z'});
+ state.posts=[post('p1','a',[{id:'ph1',url:'/media/post.jpg',caption:'글 사진'},{id:'dup',url:'/media/a.jpg',caption:'중복'},{id:'bad',url:'javascript:alert(1)',caption:'잘못된 주소'}]),post('sibling','b',[{id:'ph2',url:'/media/b.jpg',caption:'다른약속'}]),post('root',undefined,[{id:'ph3',url:'/media/root-post.jpg',caption:'전체방'}])];
+ const before=structuredClone(state),child=selectRoomResources(state,'me','g','a'),root=selectRoomResources(state,'me','g');
+ assert.deepEqual(child.posts.map(item=>item.id),['p1']);assert.deepEqual(child.photos.map(item=>[item.source,item.recordId,item.url]),[['MEDIA','m1','/media/a.jpg'],['POST','p1','/media/post.jpg']]);
+ assert.deepEqual(root.photos.map(item=>item.url),['/media/root.jpg','/media/root-post.jpg']);assert.deepEqual(state,before);
+ state.groups[0].blockedMemberIds=['me'];assert.equal(selectRoomResources(state,'me','g','a'),null);
+});

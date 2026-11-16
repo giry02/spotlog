@@ -3,10 +3,11 @@ import assert from 'node:assert/strict';
 import { detailScreen, isTravelRootRoute, primaryTabs, primaryTabForScreen, mySectionForRoute, myRoute, legacyMySection, legacyMyHashMatches } from '../src/primaryNavigation.ts';
 test('public place and journal discovery do not select the private saved catalogue', () => {
   for (const screen of ['home','discover','photo-stories']) assert.equal(primaryTabForScreen(screen), 'home');
-  assert.equal(primaryTabForScreen('saved'), 'saved');
+  assert.equal(primaryTabForScreen('saved'), 'home');
 });
 test('travel is a primary destination while private trips keep their My parent', () => {
-  assert.deepEqual(primaryTabs.map(item => item.id), ['home','together','travel','saved','my']);
+  assert.deepEqual(primaryTabs.map(item => item.id), ['home','together','travel','chats','my']);
+  assert.equal(primaryTabForScreen('chats'), 'chats');
   assert.equal(primaryTabForScreen('travel'), 'travel');
   assert.equal(primaryTabForScreen('community'), 'travel');
   assert.equal(primaryTabForScreen('trips'), 'my');

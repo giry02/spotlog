@@ -1,6 +1,32 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { spawnSync } from 'node:child_process';
 import { chatStickerPacks, packs, chatStickers, getChatSticker, isChatStickerId, emojiCategories } from '../src/together/chatExpressions.ts';
+import { chatStickerIds, isChatStickerId as validateStoredSticker } from '../src/together/chatExpressionContract.ts';
+
+test('stored sticker contract accepts exactly the current immutable artwork IDs', () => {
+  assert.deepEqual(chatStickerIds, chatStickers.map(sticker => sticker.id));
+  assert.equal(isChatStickerId, validateStoredSticker);
+  assert.equal(Object.isFrozen(chatStickerIds), true);
+  assert.throws(() => { chatStickerIds[0] = 'unknown'; }, TypeError);
+  for (const value of [...chatStickerIds, 'bunny-unknown', 'cat-love', 'duck-nope', '__proto__', ' cat-hi', 'cat-hi ', new String('cat-hi'), null, {}, 42]) {
+    assert.equal(validateStoredSticker(value), getChatSticker(value) !== null);
+  }
+});
+
+test('repository and draft/message validation load without initializing chat artwork', () => {
+  const entries = ['repository.ts', 'chatActions.ts', 'chatDrafts.ts'].map(name => new URL(`../src/together/${name}`, import.meta.url).href);
+  const result = spawnSync(process.execPath, ['--input-type=module', '-e', `
+    import { registerHooks } from 'node:module';
+    registerHooks({ resolve(specifier, context, nextResolve) {
+      if (/chatExpressions(?:\\.ts)?$/.test(specifier)) throw new Error('Validation loaded chat artwork');
+      return nextResolve(specifier, context);
+    } });
+    for (const entry of ${JSON.stringify(entries)}) await import(entry);
+  `], { encoding: 'utf8', timeout: 10000 });
+  assert.equal(result.error, undefined, result.error?.message);
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+});
 
 test('four original character packs expose exactly 34 stable, unique sticker IDs',()=>{
   assert.equal(packs,chatStickerPacks);

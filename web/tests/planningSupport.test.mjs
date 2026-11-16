@@ -12,7 +12,7 @@ function fixture() {
   const state = createEmptyState('me', '나');
   state.members.push({ id: 'host', name: '모임장' });
   state.groups.push({ id: 'g', name: '가족 모임', kind: 'FAMILY', region: '부산', introduction: '', cover: '', visibility: 'PRIVATE', ownerId: 'host', memberIds: ['me', 'host'], managerIds: [], archived: false, promotionPublished: false, interestPlaceIds: ['a', 'b', 'personal', 'withdrawn'] });
-  state.activities.push({ id: 'activity', groupId: 'g', title: '가족 식사', date: '2026-11-07', endDate: '', meetingPoint: '', startTime: '', description: '', status: 'PLANNED', leadId: 'host', editorIds: [], participants: { me: 'MAYBE' }, arrivedIds: [], revision: 4 });
+  state.activities.push({ id: 'activity', groupId: 'g', title: '가족 식사', date: '2026-11-07', endDate: '', meetingPoint: '', startTime: '', description: '', status: 'PLANNED', leadId: 'host', editorIds: [], participants: { me: 'MAYBE' }, arrivedIds: [], placeCandidateIds: ['a', 'b', 'personal', 'withdrawn'], revision: 4 });
   return state;
 }
 

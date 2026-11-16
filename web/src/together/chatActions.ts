@@ -1,5 +1,6 @@
-import { isChatStickerId } from './chatExpressions.ts';
-import { roomIdForActivity, roomIdForGroup, togetherId, type TogetherGroup, type TogetherMessage, type TogetherState } from './model.ts';
+import { isChatStickerId } from './chatExpressionContract.ts';
+import { prepareChatMentionsForSend, type ChatMemberMention } from './chatMentions.ts';
+import { isMember, roomIdForActivity, roomIdForGroup, togetherId, type TogetherGroup, type TogetherMessage, type TogetherState } from './model.ts';
 
 export const ALLOWED_MESSAGE_REACTIONS = Object.freeze(['👍', '❤️', '😂', '✅', '❓'] as const);
 export type MessageReactionEmoji = typeof ALLOWED_MESSAGE_REACTIONS[number];
@@ -10,8 +11,9 @@ function writableRoom(state: TogetherState, actorId: string, roomId: string): To
   const group = activity
     ? state.groups.find(item => item.id === activity.groupId)
     : state.groups.find(item => roomIdForGroup(item.id) === roomId);
-  if (!group || !actorId || !group.memberIds.includes(actorId) || group.blockedMemberIds?.includes(actorId)) throw new Error('현재 모임원만 이 채팅을 이용할 수 있어요.');
-  if (group.archived) throw new Error('보관된 모임에서는 메시지와 반응을 보낼 수 없어요.');
+  if (!group || !actorId || !state.members.some(item => item.id === actorId) || !isMember(state, actorId, group.id)
+    || group.blockedMemberIds?.includes(actorId) || group.spaceType === 'ACTIVITY' && !activity) throw new Error('현재 모임원만 이 채팅을 이용할 수 있어요.');
+  if (group.archived || group.temporaryRoom?.closedAt || group.temporaryRoom?.expiresAt && Date.parse(group.temporaryRoom.expiresAt) <= Date.now()) throw new Error('보관된 모임에서는 메시지와 반응을 보낼 수 없어요.');
   return group;
 }
 
@@ -21,8 +23,17 @@ function currentMessage(state: TogetherState, roomId: string, messageId: string)
   return message;
 }
 
+/** Gesture/button preparation is read-only; sending rechecks the same current original. */
+export function canReplyToMessage(state: TogetherState, actorId: string, roomId: string, messageId: string): boolean {
+  try {
+    writableRoom(state, actorId, roomId);
+    currentMessage(state, roomId, messageId);
+    return true;
+  } catch { return false; }
+}
+
 /** Store a reference to the original, never a copied original body or another room's message. */
-export function postTogetherMessage(state: TogetherState, actorId: string, roomId: string, body: string, stickerId?: string, replyToMessageId?: string): TogetherMessage {
+export function postTogetherMessage(state: TogetherState, actorId: string, roomId: string, body: string, stickerId?: string, replyToMessageId?: string, mentions?: readonly ChatMemberMention[]): TogetherMessage {
   writableRoom(state, actorId, roomId);
   if (typeof body !== 'string') throw new Error('메시지 내용을 확인해 주세요.');
   const text = body.trim();
@@ -33,10 +44,12 @@ export function postTogetherMessage(state: TogetherState, actorId: string, roomI
     if (typeof replyToMessageId !== 'string' || !replyToMessageId.trim()) throw new Error('답장할 원문을 다시 선택해 주세요.');
     currentMessage(state, roomId, replyToMessageId);
   }
+  const validMentions = prepareChatMentionsForSend(state, actorId, roomId, body, mentions);
   const message: TogetherMessage = {
     id: togetherId('message'), roomId, authorId: actorId, body: text, createdAt: new Date().toISOString(),
     ...(stickerId !== undefined ? { stickerId } : {}),
     ...(replyToMessageId !== undefined ? { replyToMessageId } : {}),
+    ...(validMentions.length ? { mentions: validMentions } : {}),
   };
   state.messages.push(message);
   return message;

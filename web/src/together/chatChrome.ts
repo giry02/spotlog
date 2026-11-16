@@ -1,6 +1,17 @@
 import { readChatEntity } from './chatEntities.ts';
-import { roomIdForActivity, roomIdForGroup, type TogetherActivity, type TogetherMessage, type TogetherState } from './model.ts';
+import { isMember, roomIdForActivity, roomIdForGroup, type TogetherActivity, type TogetherMessage, type TogetherState } from './model.ts';
 import { isPollClosed } from './polls.ts';
+
+/** Reserve conversation space only after the header, composer and selectable preview can fit. */
+export function chatComposerLayout(availableHeight: number, headerHeight: number, composerHeight: number, hasExtras: boolean) {
+  const dimension = (value: number) => Number.isFinite(value) ? Math.max(0, value) : 0;
+  const height = dimension(availableHeight), header = dimension(headerHeight), composer = dimension(composerHeight);
+  const compactExtras = hasExtras && height < 500;
+  const preferredReserve = compactExtras ? 92 : 120;
+  const reserve = hasExtras ? Math.min(preferredReserve, Math.max(0, height - header - composer - 96)) : preferredReserve;
+  const dockHeight = Math.max(composer, height - header - reserve);
+  return { compactExtras, reserve, dockHeight, previewHeight: hasExtras ? Math.max(0, dockHeight - composer) : 0 };
+}
 
 /** Navigation stays inside the current persistent group or its own private appointment. */
 export function chatViewOptions(activity?: TogetherActivity) {
@@ -14,7 +25,7 @@ export function selectChatChromeContext(state: TogetherState, userId: string, gr
   const empty = { notices: [] as TogetherState['notices'], messages: [] as TogetherMessage[], pollCount: 0, taskCount: 0, challengeCount: 0 };
   const group = state.groups.find(item => item.id === groupId);
   const activity = activityId ? state.activities.find(item => item.id === activityId && item.groupId === groupId) : undefined;
-  if (!group || !userId || !group.memberIds.includes(userId) || group.blockedMemberIds?.includes(userId) || activityId && !activity) return empty;
+  if (!group || !userId || !isMember(state, userId, groupId) || group.blockedMemberIds?.includes(userId) || activityId && !activity) return empty;
   // Standalone spaces never acquire a second, group-wide room.
   if (group.spaceType === 'ACTIVITY' && !activity) return empty;
   const roomId = activity ? roomIdForActivity(activity.id) : roomIdForGroup(group.id);

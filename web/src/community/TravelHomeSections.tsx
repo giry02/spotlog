@@ -1,11 +1,12 @@
 import { useId, useState } from 'react';
-import { ArrowRight, ChevronRight, ImageOff } from 'lucide-react';
+import { ArrowRight, ChevronRight, ImageOff, Users } from 'lucide-react';
 import { homeJournalSourceLabel, type HomeTravelCourseCard, type HomeTravelJournalCard } from './travelHomeModel';
 import './travel-home-sections.css';
 
 interface Props {
   courses: HomeTravelCourseCard[]; journals: HomeTravelJournalCard[];
   onOpenCourse: (id: string) => void; onOpenJournal: (id: string) => void;
+  onTryCourse?: (id: string) => void;
   onMoreCourses: () => void; onMoreJournals: () => void;
 }
 
@@ -16,7 +17,7 @@ function Photo({ src }: { src: string }) {
 }
 
 /** Public presentation DTOs only. Opening a card uses the caller's current approved catalogue. */
-export default function TravelHomeSections({ courses, journals, onOpenCourse, onOpenJournal, onMoreCourses, onMoreJournals }: Props) {
+export default function TravelHomeSections({ courses, journals, onOpenCourse, onOpenJournal, onMoreCourses, onMoreJournals, onTryCourse }: Props) {
   const uid = useId(), shownCourses = courses.slice(0, 2);
   const courseCovers = new Set(shownCourses.map(item => item.cover).filter(Boolean));
   // Avoid repeating the same lead photograph when other approved records exist; retain source order.
@@ -31,6 +32,7 @@ export default function TravelHomeSections({ courses, journals, onOpenCourse, on
           <span className="travel-home__course-photo"><Photo src={course.cover}/><span className="travel-home__duration">{course.duration}</span></span>
           <span className="travel-home__course-copy"><span className="travel-home__meta">{course.region} · {course.placeCount}곳</span><strong>{course.title}</strong><span className="travel-home__course-action">코스 미리보기<ArrowRight size={16}/></span></span>
         </button>
+        {onTryCourse && <button type="button" className="recipe-card-action" onClick={() => onTryCourse(course.id)} aria-label={`${course.title} 우리끼리 해보기`}><Users size={16}/>우리끼리 해보기</button>}
       </article>)}</div> : <p className="travel-home__none">선택한 조건의 공개 여행 코스가 없어요.</p>}
     </section>}
     {shownJournals.length > 0 && <section className="travel-home__section" aria-labelledby={`${uid}-journals`}>

@@ -44,7 +44,7 @@ export default function SavedPlaceUseSheet({ place, state, actorId, hasPlacement
           <div className="saved-place-proposal-preview"><MapPin size={18}/><div><strong>공유할 장소 정보</strong><p>{placeProposalBody(place)}</p></div></div>
           {sourceChanged && <div role="status"><p>장소 정보가 변경됐어요. 위 내용을 확인해 주세요.</p><button type="button" className="saved-place-use-back" onClick={() => { setExpectedVersion(placeProposalVersion(place)); requestId.current = togetherId('proposal'); setError(''); }}>변경된 장소 정보 확인</button></div>}
           <p className="saved-place-use-note">선택한 대화방 멤버에게 장소명·주소·소개를 제안해요. 약속 장소와 참석 여부는 바뀌지 않아요.</p>
-          {selected && !selected.activityId && !place.personal && <p className="saved-place-use-note">등록된 장소는 이 모임의 함께 고를 장소에도 추가돼요.</p>}
+          {selected && !place.personal && <p className="saved-place-use-note">등록된 장소는 {selected.activityId ? '이 약속의 장소 후보' : '이 모임의 함께 고를 장소'}에도 추가돼요.</p>}
           {error && <p className="saved-place-use-error" role="alert">{error}</p>}
           <button type="button" className="saved-place-use-primary" disabled={!selected || sourceChanged} onClick={share}>이 대화에 장소 제안하기</button>
         </> : <div className="saved-place-use-empty"><Users size={24}/><h3>제안할 모임이나 약속이 없어요</h3><p>이 장소에서 새 약속을 만들고 친구를 초대할 수 있어요.</p><button type="button" className="saved-place-use-primary" onClick={onAppointment}>여기서 약속 만들기</button></div>}

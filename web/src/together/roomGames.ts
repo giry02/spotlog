@@ -1,4 +1,4 @@
-import type { TogetherState } from './model.ts';
+import { isMember, type TogetherState } from './model.ts';
 import { koreaDay } from './discovery.ts';
 import type { RoomGameBar, RoomGameInput, RoomGameMember, RoomGameOption, RoomGameScope, TogetherGame } from './gameTypes.ts';
 export type { GameCreateInput, RoomGameInput, RoomGameScope, TogetherGame } from './gameTypes.ts';
@@ -17,7 +17,7 @@ const scopeEqual = (a: RoomGameScope, b: RoomGameScope) => a.groupId === b.group
 export function getRoomGameContext(state: GameState, actorId: string, scope: RoomGameScope, at = new Date()) {
   if (!Number.isFinite(at.getTime())) throw new Error('기준 시간을 다시 확인해 주세요.');
   const group = state.groups.find(item => item.id === scope.groupId);
-  if (!group || !actorId || !state.members.some(member => member.id === actorId) || !group.memberIds.includes(actorId) || group.blockedMemberIds?.includes(actorId)) throw new Error('현재 모임원만 이 방의 놀이를 확인할 수 있어요.');
+  if (!group || !actorId || !state.members.some(member => member.id === actorId) || !isMember(state, actorId, group.id) || group.blockedMemberIds?.includes(actorId)) throw new Error('현재 모임원만 이 방의 놀이를 확인할 수 있어요.');
   const activity = scope.activityId ? state.activities.find(item => item.id === scope.activityId && item.groupId === group.id) : undefined;
   if (scope.activityId && !activity || group.spaceType === 'ACTIVITY' && !activity) throw new Error('놀이가 속한 약속을 다시 확인해 주세요.');
   const lastDate = activity && (activity.endDate || activity.date);

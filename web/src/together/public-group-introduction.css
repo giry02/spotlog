@@ -1,0 +1,30 @@
+/* Joining is a decision page: identity, actual next activity, conditions, then evidence. */
+.tg-public-intro--decision { display:grid; gap:20px; min-width:0; color:var(--ink); }
+.tg-public-intro--decision .tg-public-intro__identity { display:flex; align-items:flex-start; gap:12px; min-width:0; }
+.tg-public-intro--decision .tg-public-intro__cover { position:relative; display:grid; place-items:center; flex:0 0 80px; width:80px; height:80px; overflow:hidden; border-radius:10px; background:var(--soft,#f1f1ec); color:var(--muted); }
+.tg-public-intro__cover>img { position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:cover; }
+.tg-public-intro__cover>.public-photo-credit { position:absolute; right:0; bottom:0; margin:0; }
+.tg-public-intro__cover .public-photo-credit-button { min-height:44px; padding:4px; border:0; border-radius:4px 0 0; background:#fffffff0; color:var(--ink); font-size:12px; line-height:18px; }
+.tg-public-intro--decision .tg-public-intro__identity-copy { display:grid; gap:4px; flex:1; min-width:0; }
+.tg-public-intro--decision .tg-public-intro__identity-copy h2 { margin:0; font-size:16px; line-height:24px; overflow-wrap:anywhere; }
+.tg-public-intro--decision .tg-public-intro__identity-copy small { font-size:12px; line-height:18px; color:var(--muted); overflow-wrap:anywhere; }
+.tg-public-intro--decision .tg-public-intro__tags { gap:4px 8px; margin:0; }
+.tg-public-intro--decision .tg-public-intro__tags>span { padding:0; background:none; border:0; color:var(--muted); font-size:12px; line-height:18px; }
+.tg-public-intro__activity-preview { display:grid; gap:12px; min-width:0; }
+.tg-public-intro--decision .tg-public-intro__activity-preview>.tg-public-intro__section { margin:0; padding:0; border:0; }
+.tg-public-intro__joining { display:grid; gap:8px; min-width:0; padding:12px; border-radius:10px; background:var(--soft,#f1f1ec); }
+.tg-public-intro__joining details { min-width:0; }
+.tg-public-intro__joining summary { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:44px; list-style:none; cursor:pointer; font-size:14px; line-height:20px; }
+.tg-public-intro__joining summary::-webkit-details-marker { display:none; }
+.tg-public-intro__joining summary>svg { flex:none; }
+.tg-public-intro__joining details[open] summary>svg { transform:rotate(180deg); }
+.tg-public-intro__joining p { margin:0; font-size:12px; line-height:18px; color:var(--muted); overflow-wrap:anywhere; }
+.tg-public-intro__joining details>p { padding-bottom:8px; color:var(--ink); font-size:14px; line-height:22px; white-space:pre-wrap; }
+.tg-public-intro--decision .tg-public-intro__join { display:flex; align-items:center; justify-content:center; gap:8px; width:100%; min-height:44px; margin:0; padding:10px 12px; border:1px solid var(--ink); border-radius:8px; background:var(--ink); color:#fff; font-size:14px; line-height:20px; }
+.tg-public-intro--decision .tg-public-intro__join:disabled { border-color:var(--line); background:var(--line); color:var(--muted); }
+.tg-public-intro--decision .tg-public-intro__section { margin:0; padding-top:16px; border-top:1px solid var(--line); }
+.tg-public-intro--decision .tg-public-intro__section h3 { margin:0 0 8px; font-size:16px; line-height:24px; }
+.tg-public-intro--decision .tg-public-intro__section h3 small { color:var(--muted); font-size:12px; line-height:18px; font-weight:400; }
+.tg-public-intro--decision .tg-public-intro__section p { font-size:14px; line-height:22px; }
+.tg-public-intro--decision .tg-public-intro__section blockquote { margin:12px 0 0; padding:0 0 0 12px; border-left:2px solid var(--ink); background:transparent; font-size:14px; line-height:22px; }
+.tg-public-intro--decision :is(button,summary):focus-visible { outline:2px solid var(--ink); outline-offset:3px; }

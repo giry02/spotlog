@@ -1,5 +1,5 @@
 import type { Place } from '../data';
-import { canEditActivity, roomIdForActivity, roomIdForGroup, unpublishActivityFromGroup, type TogetherState } from './model.ts';
+import { canEditActivity, isMember, roomIdForActivity, roomIdForGroup, unpublishActivityFromGroup, type TogetherState } from './model.ts';
 import { shareChatEntity } from './chatEntities.ts';
 
 export const activityAssistantFeatures = [
@@ -16,7 +16,7 @@ export type ActivityAssistantFeature = typeof activityAssistantFeatures[number][
 export interface ActivityAssistantScope { groupId: string; activityId?: string }
 export function getAssistantContext(state: TogetherState, userId: string, scope: ActivityAssistantScope, writable = false) {
   const group = state.groups.find(item => item.id === scope.groupId);
-  if (!userId || !group || !group.memberIds.includes(userId) || group.blockedMemberIds?.includes(userId)) throw new Error('현재 모임원만 이 내용을 볼 수 있어요.');
+  if (!userId || !group || !isMember(state, userId, group.id) || group.blockedMemberIds?.includes(userId)) throw new Error('현재 모임원만 이 내용을 볼 수 있어요.');
   const activity = scope.activityId ? state.activities.find(item => item.id === scope.activityId && item.groupId === group.id) : undefined;
   if (scope.activityId && !activity) throw new Error('이 모임의 약속을 다시 선택해 주세요.');
   if (writable && (group.archived || activity?.status === 'CANCELLED')) throw new Error('보관·취소된 공간에는 반영할 수 없어요.');
@@ -26,7 +26,9 @@ export interface AssistantPlace { id: string; name: string; kind: Place['kind'];
 /** Only IDs explicitly shared to this group/route, intersected with the current caller's public catalog. */
 export function selectAssistantPlaces(state: TogetherState, userId: string, scope: ActivityAssistantScope, places: Place[]): AssistantPlace[] {
   const { group, activity } = getAssistantContext(state, userId, scope);
-  const ids = new Set([...(group.interestPlaceIds ?? []), ...(activity?.journey?.days.flatMap(day => day.places.map(place => place.id)) ?? [])]);
+  const ids = new Set(activity
+    ? [...(activity.placeCandidateIds ?? []), ...(activity.venuePlaceId ? [activity.venuePlaceId] : []), ...(activity.journey?.days.flatMap(day => day.places.map(place => place.id)) ?? [])]
+    : group.interestPlaceIds ?? []);
   return [...new Map(places.filter(place => ids.has(place.id) && !place.personal).map(place => [place.id,
     { id: place.id, name: place.name, kind: place.kind, area: place.area, address: place.address, lat: place.lat, lng: place.lng }])).values()];
 }
@@ -82,11 +84,12 @@ export function applyActivityAssistantAction(state: TogetherState, userId: strin
     if (ids.length < 2 || ids.length > 8 || ids.some(id => !candidates.some(place => place.id === id))) throw new Error('현재 공유된 장소에서 2~8곳을 선택해 주세요.');
     const labels = ids.map(id => { const place = candidates.find(place => place.id === id)!; return `${place.name} · ${place.address || place.area}`; });
     const previous = state.polls.find(item => item.id === action.id);
-    if (previous) { if (previous.groupId !== group.id || previous.activityId !== action.activityId || previous.question !== question || previous.options.map(option => option.label).join('\n') !== labels.join('\n')) throw new Error('요청 ID가 다른 항목에 사용됐어요.'); shareChatEntity(state, userId, { type: 'POLL', id: previous.id }); return previous.id; }
-    const existing = state.polls.find(item => item.groupId === group.id && item.activityId === action.activityId && !item.closed && item.question === question && item.options.map(option => option.label).join('\n') === labels.join('\n'));
+    const sameOptions = (poll: TogetherState['polls'][number]) => poll.options.map(option => option.label).join('\n') === labels.join('\n') && poll.options.every((option, index) => option.placeId === ids[index]);
+    if (previous) { if (previous.groupId !== group.id || previous.activityId !== action.activityId || previous.question !== question || !sameOptions(previous)) throw new Error('요청 ID가 다른 항목에 사용됐어요.'); shareChatEntity(state, userId, { type: 'POLL', id: previous.id }); return previous.id; }
+    const existing = state.polls.find(item => item.groupId === group.id && item.activityId === action.activityId && !item.closed && item.question === question && sameOptions(item));
     if (existing) { shareChatEntity(state, userId, { type: 'POLL', id: existing.id }); return existing.id; }
     state.polls.push({ id: action.id, groupId: group.id, activityId: action.activityId, question,
-      options: labels.map((label, index) => ({ id: `${action.id}-option-${index}`, label, voterIds: [] })), closed: false });
+      options: labels.map((label, index) => ({ id: `${action.id}-option-${index}`, label, placeId: ids[index], voterIds: [] })), closed: false, creatorId: userId, createdAt: new Date().toISOString(), revision: 1 });
     shareChatEntity(state, userId, { type: 'POLL', id: action.id });
   } else if (action.type === 'CREATE_TASK') {
     const title = bounded(action.title, 200, '준비할 일');

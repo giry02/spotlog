@@ -2,8 +2,8 @@
  * Adapted for Spotlog's local immutable sticker catalog; no third-party sticker art.
  * SVG builders are private and use only constant labels/poses, never user markup.
  */
-export type ChatStickerPackId = 'bunny'|'cat'|'bear'|'duck';
-export type ChatStickerId = `bunny-${'hi'|'love'|'cheer'|'thanks'|'laugh'|'tears'|'sleep'|'coffee'|'okay'|'nope'}` | `${'cat'|'bear'|'duck'}-${'hi'|'thanks'|'okay'|'cheer'|'laugh'|'sorry'|'coffee'|'sleep'}`;
+import { isChatStickerId, type ChatStickerId, type ChatStickerPackId } from './chatExpressionContract.ts';
+export { isChatStickerId, type ChatStickerId, type ChatStickerPackId } from './chatExpressionContract.ts';
 export interface ChatSticker { readonly id:ChatStickerId; readonly name:string; readonly label:string; readonly pack:ChatStickerPackId; readonly svg:string; readonly src:string }
   const ink='#514d47', cream='#fff9e7', mint='#adc9b6', coral='#ef9b91';
   const entries=[
@@ -92,7 +92,6 @@ export interface ChatSticker { readonly id:ChatStickerId; readonly name:string; 
 export const packs = chatStickerPacks;
 export const chatStickers:readonly ChatSticker[] = Object.freeze(stickers);
 const stickerIndex = new Map(chatStickers.map(sticker=>[sticker.id,sticker]));
-export function isChatStickerId(value:unknown):value is ChatStickerId { return typeof value==='string' && stickerIndex.has(value as ChatStickerId); }
 export function getChatSticker(id:unknown):ChatSticker|null { return isChatStickerId(id) ? stickerIndex.get(id)! : null; }
 export interface ChatEmoji { readonly emoji:string; readonly label:string }
 export interface ChatEmojiCategory { readonly id:string; readonly label:string; readonly emoji:string; readonly items:readonly ChatEmoji[] }

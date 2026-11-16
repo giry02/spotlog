@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
-import { ArrowDown, ArrowUp, CalendarDays, ChevronRight, Sparkles, X } from 'lucide-react';
+import { ArrowDown, ArrowUp, CalendarDays, ChevronRight, Route, X } from 'lucide-react';
 import type { Journey, Place } from './data';
 import { BottomSheet } from './BottomSheet';
 import { DayNavigation } from './DayNavigation';
@@ -18,14 +18,13 @@ export function SavedTripControls({ draft, places, automaticPlaces, onChange, on
   const period = (days: number) => locale === 'en' ? days === 1 ? '1 day' : `${days} days` : savedTripPeriod(days);
   const [setup, setSetup] = useState<SavedTripMode | null>(null);
   const [modeChoice, setModeChoice] = useState(false);
-  const [more, setMore] = useState(draft.dayCount > 4);
   const [error, setError] = useState('');
   const [automaticRegion, setAutomaticRegion] = useState('');
   const saving = useRef(false);
   const toolbar = useRef<HTMLDivElement>(null);
   const periodPanel = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
-    if (setup) periodPanel.current?.querySelector<HTMLButtonElement>('button:not(:disabled)')?.focus({ preventScroll: true });
+    if (setup) periodPanel.current?.querySelector<HTMLElement>('select,button:not(:disabled)')?.focus({ preventScroll: true });
   }, [setup]);
   const unplaced = draft.assignments.filter(item => item.day === null);
   const selectedDay = draft.assignments.filter(item => item.day === draft.activeDay);
@@ -33,7 +32,7 @@ export function SavedTripControls({ draft, places, automaticPlaces, onChange, on
   const chosenRegion = automaticRegions.length === 1 ? automaticRegions[0] : automaticRegions.includes(automaticRegion) ? automaticRegion : '';
   const scopedPlaces = automaticPlaces.filter(place => savedTripRegion(place) === chosenRegion);
   const update = (next: SavedTripDraft) => { setError(''); onChange(next); };
-  const openSetup = (mode: SavedTripMode) => { setError(''); setMore(draft.dayCount > 4); setModeChoice(false); setSetup(mode); };
+  const openSetup = (mode: SavedTripMode) => { setError(''); setModeChoice(false); setSetup(mode); };
   const save = (next: SavedTripDraft) => {
     if (saving.current) return;
     saving.current = true;
@@ -77,23 +76,19 @@ export function SavedTripControls({ draft, places, automaticPlaces, onChange, on
       <div className="saved-trip-status"><span>{s('currentDay', { day: draft.activeDay })}</span><button type="button" onClick={() => update({ ...draft, active: false })}>{s('collapse')}</button></div>
       {error && !setup && <p className="ui-error" role="alert">{error}</p>}
       {unplaced.length > 0 && <div className="saved-trip-unplaced" role="status"><p>{s('unplaced', { count: unplaced.length })}</p>{unplaced.map(item => <div key={item.placeId}><span>{places.find(place => place.id === item.placeId)?.name ?? s('unsaved')}</span><button type="button" onClick={() => update({ ...draft, assignments: draft.assignments.map(entry => entry.placeId === item.placeId ? { ...entry, day: draft.activeDay } : entry) })}>{s('addToDay', { day: draft.activeDay })}</button><button type="button" aria-label={(places.find(place => place.id === item.placeId)?.name ?? '') + ' ' + s('remove')} onClick={() => update(forgetSavedTripPlace(draft,item.placeId))}><X size={15} /></button></div>)}</div>}
-      {selectedDay.length > 0 && <details className="saved-trip-order"><summary>{s('order', { day: draft.activeDay, count: selectedDay.length })}</summary><ol>{selectedDay.map((item,index) => <li key={item.placeId}><span>{index + 1}. {places.find(place => place.id === item.placeId)?.name}</span><button type="button" disabled={index === 0} aria-label={places.find(place => place.id === item.placeId)?.name + ' ' + s('up')} onClick={() => update(reorderSavedTripPlace(draft,item.placeId,-1))}><ArrowUp size={15} /></button><button type="button" disabled={index === selectedDay.length - 1} aria-label={places.find(place => place.id === item.placeId)?.name + ' ' + s('down')} onClick={() => update(reorderSavedTripPlace(draft,item.placeId,1))}><ArrowDown size={15} /></button><button type="button" aria-label={places.find(place => place.id === item.placeId)?.name + ' ' + s('remove')} onClick={() => update(forgetSavedTripPlace(draft,item.placeId))}><X size={15} /></button></li>)}</ol></details>}
+      {selectedDay.length > 0 ? <details key={draft.activeDay} open className="saved-trip-order"><summary>{s('order', { day: draft.activeDay, count: selectedDay.length })}</summary><ol>{selectedDay.map((item,index) => <li key={item.placeId}><span>{index + 1}. {places.find(place => place.id === item.placeId)?.name}</span><button type="button" disabled={index === 0} aria-label={places.find(place => place.id === item.placeId)?.name + ' ' + s('up')} onClick={() => update(reorderSavedTripPlace(draft,item.placeId,-1))}><ArrowUp size={15} /></button><button type="button" disabled={index === selectedDay.length - 1} aria-label={places.find(place => place.id === item.placeId)?.name + ' ' + s('down')} onClick={() => update(reorderSavedTripPlace(draft,item.placeId,1))}><ArrowDown size={15} /></button><button type="button" aria-label={places.find(place => place.id === item.placeId)?.name + ' ' + s('remove')} onClick={() => update(forgetSavedTripPlace(draft,item.placeId))}><X size={15} /></button></li>)}</ol></details> : <p className="saved-trip-empty-day">{locale === 'en' ? `DAY ${draft.activeDay} has no places yet. Add them from your saved list below.` : `DAY ${draft.activeDay}에 담은 곳이 없어요. 아래 저장한 장소에서 담아주세요.`}</p>}
     </>}
     {(modeChoice || setup) && <BottomSheet title={setup ? s('periodTitle') : s('title')} description={setup ? setup === 'manual' ? s('manualHint') : chosenRegion ? s('autoHint', { region: chosenRegion, count: scopedPlaces.length }) : s('autoRegionHint') : locale === 'en' ? 'Choose how to use your saved places.' : '저장한 장소를 일정으로 담는 방법을 골라보세요.'} onClose={() => { setModeChoice(false); setSetup(null); }}>
       {!setup ? <div className="saved-trip-methods" role="group" aria-label={s('modes')}>
         <button type="button" disabled={!places.length} onClick={() => openSetup('manual')}><CalendarDays size={21} aria-hidden="true"/><span><strong>{s('manual')}</strong><small>{locale === 'en' ? 'Pick saved places for each day.' : '저장한 장소를 DAY별로 직접 담아요.'}</small></span><ChevronRight size={18} aria-hidden="true"/></button>
-        <button type="button" disabled={!automaticPlaces.length} onClick={() => openSetup('auto')}><Sparkles size={21} aria-hidden="true"/><span><strong>{s('auto')}</strong><small>{locale === 'en' ? `Use ${automaticPlaces.length} places in the current list.` : `현재 목록 ${automaticPlaces.length}곳으로 일정을 만들어요.`}</small></span><ChevronRight size={18} aria-hidden="true"/></button>
+        <button type="button" disabled={!automaticPlaces.length} onClick={() => openSetup('auto')}><Route size={21} aria-hidden="true"/><span><strong>{s('auto')}</strong><small>{locale === 'en' ? `Use ${automaticPlaces.length} places in the current list.` : `현재 목록 ${automaticPlaces.length}곳으로 일정을 만들어요.`}</small></span><ChevronRight size={18} aria-hidden="true"/></button>
       </div> : <div className="saved-trip-period-sheet" ref={periodPanel}>
         {setup === 'auto' && automaticRegions.length > 1 && <div className="saved-trip-region-picker">
-          <strong>{s('autoRegion')}</strong>
-          <div className="saved-trip-region-options" role="group" aria-label={s('autoRegion')}>
-            {automaticRegions.map(region => <button type="button" key={region} aria-pressed={chosenRegion === region} onClick={() => { setAutomaticRegion(region); setError(''); }}>{region}<span>{s('count', { count: automaticPlaces.filter(place => savedTripRegion(place) === region).length })}</span></button>)}
-          </div>
+          <Field label={s('autoRegion')}><select aria-label={s('autoRegion')} value={chosenRegion} onChange={event => { setAutomaticRegion(event.target.value); setError(''); }}><option value="">{s('autoRegionRequired')}</option>{automaticRegions.map(region => <option key={region} value={region}>{region} · {s('count', { count: automaticPlaces.filter(place => savedTripRegion(place) === region).length })}</option>)}</select></Field>
           <p className="phase-hint">{chosenRegion ? s('autoOtherRegions', { count: places.length - scopedPlaces.length }) : s('autoRegionNote')}</p>
         </div>}
-        <div className="saved-trip-period-options" role="group" aria-label={s('period')}>{[1,2,3,4].map(days => <button key={days} type="button" aria-pressed={draft.dayCount === days} onClick={() => update(resizeSavedTrip(draft, days))}>{period(days)}</button>)}</div>
-        <button type="button" className="saved-trip-more" aria-expanded={more} aria-controls="saved-trip-long-periods" onClick={() => setMore(!more)}>{more ? s('collapse') : draft.dayCount > 4 ? period(draft.dayCount) + ' · ' + s('more') : s('more')}<ChevronRight size={14} /></button>
-        <div id="saved-trip-long-periods" className="saved-trip-period-options" role="group" aria-label={s('longer')} hidden={!more}>{[5,6,7].map(days => <button key={days} type="button" aria-pressed={draft.dayCount === days} onClick={() => update(resizeSavedTrip(draft, days))}>{period(days)}</button>)}</div>
+        <Field label={s('period')}><select aria-label={s('period')} value={draft.dayCount} onChange={event => update(resizeSavedTrip(draft, Number(event.target.value)))}>{Array.from({ length: 7 }, (_, index) => index + 1).map(days => <option key={days} value={days}>{period(days)}</option>)}</select></Field>
+        <p className="saved-trip-setup-result">{setup === 'manual' ? (locale === 'en' ? `${draft.dayCount} days to arrange your saved places.` : `${period(draft.dayCount)} 동안 직접 고른 장소를 DAY별로 배치해요.`) : (locale === 'en' ? `${scopedPlaces.length} places in ${chosenRegion || 'the selected region'} · ${period(draft.dayCount)}` : `${chosenRegion || '지역 선택 필요'} · ${scopedPlaces.length}곳 · ${period(draft.dayCount)}`)}</p>
         <details className="saved-trip-settings"><summary>{draft.startDate ? s('startDateValue', { date: draft.startDate }) : s('optional')}</summary><div>
           <Field label={s('startDate')}><input aria-label={s('startDate')} type="date" value={draft.startDate} onInput={event => update({ ...draft, startDate: event.currentTarget.value })} onChange={event => update({ ...draft, startDate: event.target.value })} /></Field>
           <Field label={s('tripName')}><input aria-label={s('tripName')} maxLength={80} value={draft.title} placeholder={s('tripPlaceholder', { period: period(draft.dayCount) })} onChange={event => update({ ...draft, title: event.target.value })} /></Field>

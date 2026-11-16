@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createEmptyState } from '../src/together/model.ts';
 import { selectGroupDiscovery } from '../src/together/groupDiscoveryModel.ts';
+import { selectDiscoveryHome } from '../src/community/discoveryHomeModel.ts';
 
 const at = new Date('2026-11-05T12:00:00+09:00');
 const group = (id, extra = {}) => ({ id, name: id, kind: 'HOBBY', region: '부산', introduction: '공개 모임 소개', cover: '', visibility: 'PUBLIC', promotionPublished: true,
@@ -10,6 +11,39 @@ const group = (id, extra = {}) => ({ id, name: id, kind: 'HOBBY', region: '부�
 const activity = (id, groupId, date, extra = {}) => ({ id, groupId, title: id, date, endDate: date, description: '공개 활동 소개', status: 'PLANNED',
   meetingPoint: 'private precise meeting point', participants: { 'private-member-id': 'JOINED' }, arrivedIds: ['private-member-id'], leadId: 'host-secret-id', editorIds: [], revision: 1, ...extra });
 const select = (state, filters = {}, viewerId = '') => selectGroupDiscovery(state, filters, viewerId, at);
+
+test('a public appointment title found on Home keeps its exact result when opening the full meetup list', () => {
+  const state = createEmptyState('me', '나');
+  state.groups.push(group('동네 친구', { promotionActivityIds: ['match', 'other'], promotionActivitySnapshots: [
+    { id: 'match', groupId: '동네 친구', title: '저녁 드로잉', description: '함께 그림을 그려요', date: '2026-11-06', endDate: '2026-11-06', status: 'PLANNED' },
+    { id: 'other', groupId: '동네 친구', title: '아침 독서', description: '', date: '2026-11-06', endDate: '2026-11-06', status: 'PLANNED' },
+  ] }));
+  state.activities.push(activity('match', '동네 친구', '2026-11-06', { title: '아직 승인되지 않은 내부 수정' }), activity('other', '동네 친구', '2026-11-06'));
+  const before = structuredClone(state);
+  const home = selectDiscoveryHome(state, [], [], { region: '부산', query: '저녁 드로잉' }, 'me', at);
+  assert.deepEqual(home.meetups.map(item => item.activity.id), ['match']);
+  const full = select(state, { ...home.groupFilters, section: 'MEETUPS', view: 'MEETUPS' }, 'me');
+  assert.deepEqual(full.events.map(item => item.activity.id), ['match']);
+  assert.equal(full.groups[0].nextActivity.id, 'match');
+  assert.deepEqual(select(state, { query: '동네 친구' }).events.map(item => item.activity.id).sort(), ['match', 'other']);
+  assert.deepEqual(state, before);
+});
+
+test('appointment search never uses private edits, unapproved events, other dates or a blocked group', () => {
+  const state = createEmptyState('me', '나');
+  state.groups.push(group('g', { promotionActivityIds: ['approved'], promotionActivitySnapshots: [
+    { id: 'approved', groupId: 'g', title: '공개 드로잉', description: '누구나 찾을 공개 문구', date: '2026-11-06', endDate: '2026-11-06', status: 'PLANNED' },
+  ] }));
+  state.activities.push(activity('approved', 'g', '2026-11-06', { title: '내부 비밀 제목' }), activity('hidden', 'g', '2026-11-06', { title: '비공개 정모 제목' }));
+  for (const query of ['내부 비밀', '비공개 정모', 'private precise']) assert.deepEqual(select(state, { query }).groups, []);
+  assert.deepEqual(select(state, { query: '드로잉', dateFilter: 'TODAY' }).groups, []);
+  assert.equal(select(state, { query: '드로잉' }, 'me').events.length, 1);
+  state.groups[0].blockedMemberIds = ['me'];
+  assert.deepEqual(select(state, { query: '드로잉' }, 'me').events, []);
+  state.groups[0].blockedMemberIds = [];
+  state.activities[0].status = 'CANCELLED';
+  assert.deepEqual(select(state, { query: '드로잉' }, 'me').events, []);
+});
 
 test('discovery sections admit only currently public published persistent groups and do not advertise blocked groups', () => {
   const state = createEmptyState('me', '나');

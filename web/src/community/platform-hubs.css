@@ -6,7 +6,7 @@
 .my-hub .screen-tabs{margin-inline:0}
 .my-hub-identity-wrap{padding:8px 16px}
 .my-hub-identity,.my-hub-guest{display:flex;align-items:center;gap:12px;width:100%;min-width:0;min-height:64px;color:var(--ink);background:transparent;border:0;text-align:left;padding:8px 0}
-.my-hub-identity>span:not(.my-hub-avatar),.my-hub-guest>span{display:grid;gap:4px;min-width:0;flex:1;overflow-wrap:anywhere}
+.my-hub-identity-copy,.my-hub-guest>span{display:grid;gap:4px;min-width:0;flex:1;overflow-wrap:anywhere}
 .my-hub-identity strong,.my-hub-guest strong{font-size:16px;line-height:22px;font-weight:600}
 .my-hub-identity small,.my-hub-guest small,.my-hub-device-note{font-size:var(--consumer-meta,12px);line-height:16px;color:var(--muted)}
 .my-hub-avatar{display:grid;place-items:center;flex:0 0 44px;min-height:44px;background:var(--paper);border:1px solid var(--line);border-radius:50%}

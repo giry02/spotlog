@@ -15,6 +15,9 @@ export interface TravelDiscoveryProps {
   onJournals: () => void;
   duration?: HomeTravelDuration;
   onDurationChange?: (duration: HomeTravelDuration) => void;
+  showActions?: boolean;
+  /** An upstream public selector already intersected all region and query filters. */
+  preFiltered?: boolean;
 }
 
 const normalized = (value: string) => value.normalize('NFKC').trim().toLocaleLowerCase('ko-KR');
@@ -36,16 +39,16 @@ function Cover({ template }: { template: HomeTripTemplate }) {
     : <span className="travel-discovery__image-empty" aria-hidden="true"><ImageOff size={24}/></span>;
 }
 
-export default function TravelDiscovery({ templates, region, query, onOpen, onMyTrips, onCreateTrip, onJournals, duration = 'ALL', onDurationChange }: TravelDiscoveryProps) {
+export default function TravelDiscovery({ templates, region, query, onOpen, onMyTrips, onCreateTrip, onJournals, duration = 'ALL', onDurationChange, showActions = true, preFiltered = false }: TravelDiscoveryProps) {
   const uid = useId();
-  const visible = filterTravelTemplates(templates, region, query).filter(template => matchesHomeTravelDuration(template.dayCount, duration));
+  const visible = (preFiltered ? templates : filterTravelTemplates(templates, region, query)).filter(template => matchesHomeTravelDuration(template.dayCount, duration));
   const filtered = Boolean(region.trim() || query.trim() || duration !== 'ALL');
   return <section className="travel-discovery" aria-labelledby={`${uid}-title`}>
-    <div className="travel-discovery__actions" aria-label="여행 바로가기">
+    {showActions && <div className="travel-discovery__actions" aria-label="여행 바로가기">
       <button type="button" onClick={onMyTrips}><Route size={17} aria-hidden="true"/><span>내 여행</span></button>
       <button type="button" aria-label="여행 만들기" onClick={onCreateTrip}><Plus size={17} aria-hidden="true"/><span>새 여행</span></button>
       <button type="button" aria-label="여행기 보기" onClick={onJournals}><BookOpen size={17} aria-hidden="true"/><span>여행기</span></button>
-    </div>
+    </div>}
     {onDurationChange && <div className="travel-discovery__durations" role="group" aria-label="여행 일정 기간">{homeTravelDurations.map(item => <button key={item.id} type="button" aria-pressed={item.id === duration} onClick={() => onDurationChange(item.id)}>{item.label}</button>)}</div>}
     <div className="travel-discovery__list-heading"><h2 id={`${uid}-title`}>{region.trim() ? `${region.trim()}의 추천 여행` : '추천 여행 일정'}</h2><span>{visible.length}개</span></div>
     {visible.length ? <div className="travel-discovery__list">{visible.map(template => <article className="travel-discovery__row" key={template.id}>

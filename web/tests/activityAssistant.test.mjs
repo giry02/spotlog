@@ -10,7 +10,7 @@ function fixture() {
   const state = createEmptyState('host', '모임장');
   state.members.push({ id: 'alice', name: '여행자' }, { id: 'outsider', name: '다른 모임원' });
   state.groups.push({ id: 'g', name: '가족', kind: 'FAMILY', region: '부산', introduction: '', cover: '', ownerId: 'host', memberIds: ['host', 'alice'], managerIds: [], archived: false, visibility: 'PRIVATE', promotionPublished: false, interestPlaceIds: ['a', 'b', 'private', 'withdrawn'] });
-  state.activities.push({ id: 'one', groupId: 'g', title: '커피와 산책', date: '2026-11-07', startTime: '14:00', endDate: '', meetingPoint: '멤버 전용 위치', description: '', status: 'PLANNED', leadId: 'host', editorIds: [], participants: { alice: 'MAYBE' }, arrivedIds: [], revision: 2 });
+  state.activities.push({ id: 'one', groupId: 'g', title: '커피와 산책', date: '2026-11-07', startTime: '14:00', endDate: '', meetingPoint: '멤버 전용 위치', description: '', status: 'PLANNED', leadId: 'host', editorIds: [], participants: { alice: 'MAYBE' }, arrivedIds: [], placeCandidateIds: ['a', 'b', 'private', 'withdrawn'], revision: 2 });
   state.activities.push({ ...structuredClone(state.activities[0]), id: 'other', title: '다른 약속' });
   state.messages.push({ id: 'm', roomId: roomIdForActivity('one'), authorId: 'alice', body: '3시로 바꾸는 건 어때요?', createdAt: '2026-11-03T00:00:00Z' }, { id: 'foreign', roomId: roomIdForActivity('other'), authorId: 'alice', body: '다른 방의 원문', createdAt: '2026-11-03T00:01:00Z' });
   return state;

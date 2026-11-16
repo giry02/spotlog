@@ -1,13 +1,14 @@
 import type { GroupTopic, PublicActivityIntent, TogetherState } from './model';
-import { discoveryProfile, filterDiscoveryGroups, isDiscoverableGroup, koreaDay, publicActivityTimeKey, shiftDay, upcomingPublicActivities, type PublicDiscoveryActivity } from './discovery.ts';
+import { discoveryProfile, filterDiscoveryGroups, isDiscoverableGroup, publicActivityTimeKey, upcomingPublicActivities, type PublicDiscoveryActivity } from './discovery.ts';
 import { groupDistrictOptions, groupRegionOptions } from './groupRegions.ts';
+import { matchesDiscoveryCalendarDate } from './groupDiscoveryCalendar.ts';
 
 export type GroupDiscoverySection = 'DISCOVER' | 'ALL' | 'RECOMMENDED' | 'MEETUPS' | 'NEW';
 export interface GroupDiscoveryFilters {
   publicActivityIntent?: PublicActivityIntent;
   region?: string; district?: string; topic?: GroupTopic; subtopic?: string | 'ALL'; categoryTopics?: GroupTopic[];
   style?: 'ALL' | 'NEIGHBORHOOD' | 'DESTINATION'; view?: 'GROUPS' | 'MEETUPS';
-  dateFilter?: 'ALL' | 'TODAY' | 'WEEKEND' | 'WEEK'; query?: string; sort?: 'SOONEST' | 'NAME' | 'NEWEST';
+  dateFilter?: 'ALL' | 'TODAY' | 'WEEKEND' | 'WEEK'; selectedDate?: string; query?: string; sort?: 'SOONEST' | 'NAME' | 'NEWEST';
   section?: GroupDiscoverySection; useMyRegion?: boolean; collectionId?: string;
 }
 /** Allowlisted public discovery fields only; no member IDs, internal chat or meeting points. */
@@ -38,14 +39,7 @@ export const groupDiscoveryCollections: GroupDiscoveryCollection[] = [
   { id: 'family', title: '가족과 보내는 시간', emoji: '👨‍👩‍👧', topics: ['FAMILY'] },
 ];
 export function matchesDiscoveryDate(activity: PublicDiscoveryActivity, filter: GroupDiscoveryFilters['dateFilter'], at = new Date()): boolean {
-  if (!filter || filter === 'ALL') return true;
-  const today = koreaDay(at); let from = today, to = today;
-  if (filter === 'WEEK') to = shiftDay(today, 6);
-  if (filter === 'WEEKEND') {
-    const weekday = new Date(`${today}T12:00:00+09:00`).getUTCDay();
-    from = shiftDay(today, weekday === 0 ? -1 : (6 - weekday + 7) % 7); to = shiftDay(from, 1);
-  }
-  return activity.date <= to && (activity.endDate || activity.date) >= from;
+  return matchesDiscoveryCalendarDate(activity, filter, undefined, at);
 }
 function publicCreatedAt(value: unknown, at: Date): string | undefined {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}T/.test(value)) return undefined;
@@ -61,12 +55,18 @@ export function selectGroupDiscovery(state: TogetherState, filters: GroupDiscove
   if (filters.district && !districts.includes(filters.district)) districts.push(filters.district);
   const allowed = new Set(publicGroups.map(group => group.id));
   const selectedTopics = [...new Set(filters.categoryTopics ?? [])];
-  const matching = filterDiscoveryGroups(state, { ...filters, recruitment: 'ALL', sort: 'EDITORIAL' }, at)
-    .filter(group => allowed.has(group.id) && (!selectedTopics.length || selectedTopics.some(topic => discoveryProfile(group).topics.includes(topic))));
+  const query = (filters.query || '').trim().toLocaleLowerCase('ko-KR');
+  const matchesDate = (activity: PublicDiscoveryActivity) => matchesDiscoveryCalendarDate(activity, filters.dateFilter, filters.selectedDate, at);
+  const metadataMatches = new Set(filterDiscoveryGroups(state, { ...filters, recruitment: 'ALL', sort: 'EDITORIAL' }, at).map(group => group.id));
+  const matchesActivity = (activity: PublicDiscoveryActivity) => !query || `${activity.title} ${activity.description}`.toLocaleLowerCase('ko-KR').includes(query);
+  const matching = filterDiscoveryGroups(state, { ...filters, query: '', recruitment: 'ALL', sort: 'EDITORIAL' }, at)
+    .filter(group => allowed.has(group.id) && (!selectedTopics.length || selectedTopics.some(topic => discoveryProfile(group).topics.includes(topic)))
+      && (!filters.selectedDate || upcomingPublicActivities(state, group, at).some(matchesDate))
+      && (!query || metadataMatches.has(group.id) || upcomingPublicActivities(state, group, at).some(activity => matchesDate(activity) && matchesActivity(activity))));
   const groups: PublicGroupDiscoveryCard[] = matching.map(group => {
     const profile = discoveryProfile(group);
     const createdAt = publicCreatedAt(group.createdAt, at);
-    const nextActivity = upcomingPublicActivities(state, group, at).find(activity => matchesDiscoveryDate(activity, filters.dateFilter, at));
+    const nextActivity = upcomingPublicActivities(state, group, at).find(activity => matchesDate(activity) && (!query || metadataMatches.has(group.id) || matchesActivity(activity)));
     return { id: group.id, name: group.name, cover: group.cover, region: group.region, district: profile.district,
       introduction: group.introduction, welcome: profile.welcome, topics: [...profile.topics], ...(profile.subtopics ? { subtopics: [...profile.subtopics] } : {}), example: group.sourceKind === 'EXAMPLE',
       memberCount: group.memberIds.length, joined: Boolean(viewerId && group.memberIds.includes(viewerId)),
@@ -76,7 +76,7 @@ export function selectGroupDiscovery(state: TogetherState, filters: GroupDiscove
   });
   const publicGroupsById = new Map(matching.map(group => [group.id, group]));
   const events = groups.flatMap(group => upcomingPublicActivities(state, publicGroupsById.get(group.id)!, at)
-    .filter(activity => matchesDiscoveryDate(activity, filters.dateFilter, at)).map(activity => ({ group, activity })))
+    .filter(activity => matchesDate(activity) && (!query || metadataMatches.has(group.id) || matchesActivity(activity))).map(activity => ({ group, activity })))
     .sort((a, b) => publicActivityTimeKey(a.activity.date, a.activity.startTime).localeCompare(publicActivityTimeKey(b.activity.date, b.activity.startTime)));
   const byTime = (a: PublicGroupDiscoveryCard, b: PublicGroupDiscoveryCard) => publicActivityTimeKey(a.nextActivity?.date ?? '', a.nextActivity?.startTime).localeCompare(publicActivityTimeKey(b.nextActivity?.date ?? '', b.nextActivity?.startTime));
   const byNewest = (a: PublicGroupDiscoveryCard, b: PublicGroupDiscoveryCard) => a.createdAt ? b.createdAt ? Date.parse(b.createdAt) - Date.parse(a.createdAt) : -1 : b.createdAt ? 1 : 0;

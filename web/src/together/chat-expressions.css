@@ -5,13 +5,14 @@
 .tg .chat-expression-tabs > button { min-width: 60px; padding: 0 2px; border-bottom: 2px solid transparent; }
 .tg .chat-expression-tabs > button[aria-selected=true] { color: var(--ink); border-color: var(--accent); }
 .tg .chat-expression-header > .chat-expression-close { width: 44px; flex: 0 0 44px; display: grid; place-items: center; padding: 0; }
-.tg .chat-expression-categories { display: flex; gap: 8px; overflow-x: auto; padding: 8px 10px; border-bottom: 1px solid var(--line); scrollbar-width: thin; }
+.tg .chat-expression-picker [role=tabpanel] { min-width: 0; }
+.tg .chat-expression-categories { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; padding: 8px 10px; border-bottom: 1px solid var(--line); }
 .tg .chat-expression-categories > button { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 7px 9px; border: 1px solid #dfdfda; border-radius: 10px; white-space: nowrap; }
 .tg .chat-expression-categories > button[aria-pressed=true] { color: #fff; background: #242421; border-color: #242421; }
 .tg .chat-expression-categories > button > span { font-size: 20px; line-height: 1; }
 .tg .chat-expression-packs > button { padding: 5px 8px; }
 .tg .chat-expression-packs img { width: 26px; height: 26px; object-fit: contain; }
-.tg .chat-expression-scroll { max-height: min(240px, 31dvh); min-height: 120px; overflow-y: auto; overscroll-behavior: contain; padding: 8px 10px; }
+.tg .chat-expression-scroll { min-width: 0; max-height: min(240px, 31dvh); min-height: 120px; overflow-y: auto; overscroll-behavior: contain; padding: 8px 10px; }
 .tg .chat-expression-emoji-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
 .tg .chat-expression-emoji-grid > button { min-width: 0; width: 100%; min-height: 46px; display: grid; place-items: center; padding: 4px 0; border-radius: 10px; }
 .tg .chat-expression-emoji-grid > button > span { font-size: 28px; line-height: 1.25; }

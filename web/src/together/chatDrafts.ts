@@ -1,7 +1,8 @@
-import { isChatStickerId } from './chatExpressions.ts';
+import { isChatStickerId } from './chatExpressionContract.ts';
 import { roomIdForActivity, roomIdForGroup, type TogetherState } from './model.ts';
+import { isChatMemberMentions, resolveChatMentionGroup, type ChatMemberMention } from './chatMentions.ts';
 
-export interface ChatComposerDraft { body: string; stickerId: string; replyToMessageId: string }
+export interface ChatComposerDraft { body: string; stickerId: string; replyToMessageId: string; mentions?: ChatMemberMention[] }
 export interface ChatDraftContext { state: TogetherState; userId: string; groupId: string; roomId: string }
 export const emptyChatDraft = (): ChatComposerDraft => ({ body: '', stickerId: '', replyToMessageId: '' });
 export interface ChatDraftMemory {
@@ -20,7 +21,8 @@ export function createChatDraftMemory(): ChatDraftMemory {
   const allowed = ({ state, userId, groupId, roomId }: ChatDraftContext) => {
     const group = state.groups.find(item => item.id === groupId);
     if (!userId || userId !== activeUser || !group?.memberIds.includes(userId) || group.blockedMemberIds?.includes(userId)) return false;
-    return roomId === roomIdForGroup(groupId) || state.activities.some(item => item.groupId === groupId && roomIdForActivity(item.id) === roomId);
+    return group.temporaryRoom?.disposition !== 'TRASH' && (group.spaceType !== 'ACTIVITY' && roomId === roomIdForGroup(groupId)
+      || state.activities.some(item => item.groupId === groupId && roomIdForActivity(item.id) === roomId));
   };
   return {
     activate: userId => { if (userId !== activeUser) { drafts.clear(); activeUser = userId; } },
@@ -30,15 +32,20 @@ export function createChatDraftMemory(): ChatDraftMemory {
     },
     read: context => {
       if (!allowed(context)) { drafts.delete(key(context)); return emptyChatDraft(); }
-      return { ...(drafts.get(key(context))?.draft ?? emptyChatDraft()) };
+      const draft = drafts.get(key(context))?.draft ?? emptyChatDraft();
+      return { ...draft, ...(draft.mentions ? { mentions: draft.mentions.map(item => ({ ...item })) } : {}) };
     },
     write: (context, draft) => {
       if (!allowed(context)) { drafts.delete(key(context)); return false; }
       if (typeof draft.body !== 'string' || draft.body.length > 4000 || typeof draft.replyToMessageId !== 'string'
-        || typeof draft.stickerId !== 'string' || (draft.stickerId !== '' && !isChatStickerId(draft.stickerId))) return false;
+        || typeof draft.stickerId !== 'string' || (draft.stickerId !== '' && !isChatStickerId(draft.stickerId))
+        || draft.mentions !== undefined && (!isChatMemberMentions(draft.body, draft.mentions, context.roomId)
+          || resolveChatMentionGroup(context.state, context.userId, context.roomId)?.id !== context.groupId
+          || draft.mentions.some(item => item.groupId !== context.groupId))) return false;
       if (!draft.body && !draft.stickerId && !draft.replyToMessageId) drafts.delete(key(context));
       else drafts.set(key(context), { groupId: context.groupId, roomId: context.roomId,
-        draft: { body: draft.body, stickerId: draft.stickerId, replyToMessageId: draft.replyToMessageId } });
+        draft: { body: draft.body, stickerId: draft.stickerId, replyToMessageId: draft.replyToMessageId,
+          ...(draft.mentions?.length ? { mentions: draft.mentions.map(item => ({ ...item })) } : {}) } });
       return true;
     },
     clear: context => { if (allowed(context)) drafts.delete(key(context)); },

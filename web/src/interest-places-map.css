@@ -7,6 +7,7 @@
 .interest-map-canvas { width: 100%; height: 300px; background: #f0f0eb; }
 .interest-map-loading { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); margin: 0; padding: 7px 11px; border-radius: 10px; color: #383834; background: rgba(255,255,255,.95); font-size: var(--type-subhead); white-space: nowrap; pointer-events: none; }
 .interest-map-pin { min-width: 44px; min-height: 44px; padding: 6px 8px; border: 2px solid white; border-radius: 13px 13px 13px 3px; color: white; background: #242421; box-shadow: 0 2px 8px #0003; font-size: var(--type-caption); font-weight: 700; line-height: 1.5; }
+.interest-map-pin[role=img] { display: grid; place-items: center; cursor: default; }
 .interest-map-pin[data-kind=FOOD] { background: #b9442e; }
 .interest-map-pin[data-kind=CAFE] { background: #825a3d; }
 .interest-map-pin[data-kind=STAY] { background: #346a91; }
@@ -22,10 +23,10 @@
 .interest-map-list > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
 .interest-map-list > div { display: grid; padding: 0 15px 10px; }
 .interest-map-list > p { padding: 0 15px 8px; margin: 0; color: #62625e; font-size: var(--type-subhead); line-height: 1.6; }
-.interest-map-list button { width: 100%; min-height: 64px; display: flex; gap: 10px; align-items: center; padding: 10px 0; border: 0; border-top: 1px solid var(--line); color: var(--ink); background: transparent; text-align: left; }
-.interest-map-list button > svg { flex-shrink: 0; color: #b06b59; }
-.interest-map-list button > span:first-of-type { min-width: 0; flex: 1; display: grid; gap: 2px; }
-.interest-map-list button strong { font-size: var(--type-body); line-height: 1.5; overflow-wrap: anywhere; }
-.interest-map-list button small { color: #777773; font-size: var(--type-caption); line-height: 1.5; }
+.interest-map-list :is(button, .interest-map-static-place) { width: 100%; min-height: 64px; display: flex; gap: 10px; align-items: center; padding: 10px 0; border: 0; border-top: 1px solid var(--line); color: var(--ink); background: transparent; text-align: left; }
+.interest-map-list :is(button, .interest-map-static-place) > svg { flex-shrink: 0; color: #b06b59; }
+.interest-map-list :is(button, .interest-map-static-place) > span:first-of-type { min-width: 0; flex: 1; display: grid; gap: 2px; }
+.interest-map-list :is(button, .interest-map-static-place) strong { font-size: var(--type-body); line-height: 1.5; overflow-wrap: anywhere; }
+.interest-map-list :is(button, .interest-map-static-place) small { color: #777773; font-size: var(--type-caption); line-height: 1.5; }
 .interest-map-list button > span:last-child { flex-shrink: 0; font-size: var(--type-subhead); }
 .interest-map-empty { margin: 0; padding: 15px; color: #62625e; font-size: var(--type-subhead); line-height: 1.6; }

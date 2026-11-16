@@ -62,7 +62,7 @@ export function memberAppointments(state: TogetherState, userId: string, range: 
   if (!userId) return [];
   return state.activities.filter(activity => {
     const group = state.groups.find(item => item.id === activity.groupId);
-    if (!group || group.archived || group.blockedMemberIds?.includes(userId) || !isMember(state, userId, group.id)) return false;
+    if (!group || group.archived && !(range === 'past' && group.temporaryRoom?.closedAt) || group.blockedMemberIds?.includes(userId) || !isMember(state, userId, group.id)) return false;
     const past = activity.status !== 'PLANNED' || Boolean((activity.endDate || activity.date) && (activity.endDate || activity.date) < today);
     return range === 'past' ? past : range === 'undated' ? !past && !activity.date : !past && Boolean(activity.date);
   }).sort((a, b) => {

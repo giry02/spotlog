@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createEmptyState } from '../src/together/model.ts';
-import { ownShareableJournals, selectMemberRecords, shareMemberJournal } from '../src/together/memberRecords.ts';
+import { initialMemberRecordTab, ownShareableJournals, resolveMemberRecordDestination, selectMemberRecords, shareMemberJournal } from '../src/together/memberRecords.ts';
 import { isTogetherState } from '../src/together/repository.ts';
 
 const group = (id, extra = {}) => ({ id, name: id, kind: 'FAMILY', region: '부산', introduction: '', cover: '', visibility: 'PRIVATE', promotionPublished: false, ownerId: 'owner', memberIds: ['owner', 'me'], managerIds: [], archived: false, ...extra });
@@ -98,4 +98,77 @@ test('archived groups remain readable and stale trash/non-journal snapshots do n
   assert.ok(selectMemberRecords(state, 'me', 'g', 'owner'));
   state.sharedJournals.find(item => item.id === 'owner-g-root').journey.trash = {};
   assert.deepEqual(selectMemberRecords(state, 'me', 'g', 'owner').journals, []);
+});
+
+test('profile identity uses only this group nickname and retains own/manager introduction access', () => {
+  const state = fixture();
+  state.groups[0].memberProfiles = { owner: { nickname: '이 모임 이름', introduction: '가입 소개', answers: [{ answer: '가입 질문 답변 비밀' }] } };
+  state.groups[1].memberProfiles = { owner: { nickname: '다른 모임 이름 비밀', introduction: '다른 모임 소개 비밀' } };
+  state.members.find(item => item.id === 'owner').avatar = 'javascript:bad';
+  const value = selectMemberRecords(state, 'me', 'g', 'owner').identity;
+  assert.deepEqual(value, { id: 'owner', name: '이 모임 이름', avatar: '', role: '모임장', introduction: '' });
+  assert.equal(selectMemberRecords(state, 'owner', 'g', 'owner').identity.introduction, '가입 소개');
+  state.groups[0].managerIds = ['me'];
+  assert.equal(selectMemberRecords(state, 'me', 'g', 'owner').identity.introduction, '가입 소개');
+  assert.equal(JSON.stringify(selectMemberRecords(state, 'me', 'g', 'owner').identity).includes('질문 답변'), false);
+});
+
+test('comments include the selected member replies on any author post only in the exact chosen scope', () => {
+  const state = fixture(), add = (postId, id, authorId = 'owner') => state.posts.find(post => post.id === postId).comments.push({ id, authorId, body: id, createdAt: '2026-11-10T00:00:00Z' });
+  add('me-g-root', 'root-comment'); add('me-g-a', 'a-comment'); add('me-g-b', 'b-comment'); add('me-foreign-root', 'foreign-comment'); add('owner-g-root', 'another-member-comment', 'me');
+  const before = structuredClone(state);
+  assert.deepEqual(selectMemberRecords(state, 'me', 'g', 'owner').comments.map(item => [item.id, item.postId]), [['root-comment', 'me-g-root']]);
+  assert.deepEqual(selectMemberRecords(state, 'me', 'g', 'owner', 'a').comments.map(item => item.id), ['a-comment']);
+  assert.deepEqual(state, before);
+});
+
+test('participation shows explicit attending choices in this group, retains cancelled history and scopes appointments exactly', () => {
+  const state = fixture();
+  state.activities[0].participants.owner = 'JOINED'; state.activities[0].date = '2026-11-10'; state.activities[0].cover = 'javascript:bad';
+  state.activities[1].participants.owner = 'MAYBE'; state.activities[1].arrivedIds = ['owner'];
+  state.activities.push({ ...structuredClone(state.activities[0]), id: 'cancelled', date: '2026-11-09', status: 'CANCELLED' }, { ...structuredClone(state.activities[0]), id: 'foreign-activity', groupId: 'foreign' });
+  assert.deepEqual(selectMemberRecords(state, 'me', 'g', 'owner').activities.map(item => item.id), ['a', 'cancelled']);
+  assert.equal(selectMemberRecords(state, 'me', 'g', 'owner').activities[0].cover, '');
+  assert.deepEqual(selectMemberRecords(state, 'me', 'g', 'owner', 'a').activities.map(item => item.id), ['a']);
+  assert.deepEqual(selectMemberRecords(state, 'me', 'g', 'owner', 'b').activities, []);
+  state.activities[1].participants.owner = 'DECLINED';
+  assert.equal(selectMemberRecords(state, 'me', 'g', 'owner').activities.some(item => item.id === 'b'), false);
+});
+
+test('comment destinations require exact parent, comment author and scope and reject stale membership or records', () => {
+  const state = fixture();
+  for (const id of ['me-g-root', 'me-g-a']) state.posts.find(item => item.id === id).comments.push({ id: 'same-comment-id', authorId: 'owner', body: '댓글', createdAt: '2026-11-10T00:00:00Z' });
+  const target = { kind: 'COMMENT', postId: 'me-g-a', commentId: 'same-comment-id' };
+  const resolve = () => resolveMemberRecordDestination(state, 'me', 'g', 'owner', 'a', target);
+  assert.deepEqual(resolve(), { kind: 'COMMENT', route: 'activity-a', activityId: 'a', view: 'record', recordView: 'posts', elementId: 'tg-comment-me-g-a-same-comment-id', postElementId: 'tg-post-me-g-a' });
+  assert.equal(resolveMemberRecordDestination(state, 'me', 'g', 'owner', undefined, target), null);
+  assert.equal(resolveMemberRecordDestination(state, 'me', 'g', 'me', 'a', target), null);
+  state.groups[0].blockedMemberIds = ['owner']; assert.equal(resolve(), null);
+  state.groups[0].blockedMemberIds = ['me']; assert.equal(resolve(), null);
+  state.groups[0].blockedMemberIds = []; state.posts.find(item => item.id === 'me-g-a').comments = []; assert.equal(resolve(), null);
+});
+
+test('activity destinations recheck attending state, exact appointment scope and current target membership', () => {
+  const state = fixture(); state.activities[0].participants.owner = 'JOINED';
+  const target = { kind: 'ACTIVITY', activityId: 'a' }, resolve = () => resolveMemberRecordDestination(state, 'me', 'g', 'owner', undefined, target);
+  assert.deepEqual(resolve(), { kind: 'ACTIVITY', route: 'activity-a', activityId: 'a', view: 'schedule' });
+  assert.equal(resolveMemberRecordDestination(state, 'me', 'g', 'owner', 'b', target), null);
+  state.activities[0].participants.owner = 'DECLINED'; assert.equal(resolve(), null);
+  state.activities[0].participants.owner = 'JOINED'; state.groups[0].memberIds = ['me']; assert.equal(resolve(), null);
+  state.groups[0].memberIds = ['owner', 'me']; state.activities[0].groupId = 'foreign'; assert.equal(resolve(), null);
+});
+
+test('first profile entry selects existing content in this scope with posts first and an honest empty fallback', () => {
+  const records = { posts: [], journals: [], media: [], comments: [], activities: [] };
+  assert.equal(initialMemberRecordTab(records), 'posts');
+  for (const tab of ['activities', 'comments', 'media', 'journals', 'posts']) {
+    records[tab].push({}); assert.equal(initialMemberRecordTab(records), tab);
+  }
+  const state = fixture(); state.posts = state.posts.filter(item => item.activityId !== 'a'); state.sharedJournals = state.sharedJournals.filter(item => item.activityId !== 'a');
+  assert.equal(initialMemberRecordTab(selectMemberRecords(state, 'me', 'g', 'owner', 'a')), 'media');
+});
+
+test('explicit share returns and scope selections retain the requested tab even when another tab has records', () => {
+  const records = { posts: [{}], journals: [], media: [{}], comments: [], activities: [] };
+  for (const tab of ['journals', 'media', 'posts', 'comments', 'activities']) assert.equal(initialMemberRecordTab(records, tab), tab);
 });

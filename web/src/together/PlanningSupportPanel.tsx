@@ -15,6 +15,8 @@ export interface PlanningSupportProps {
   onPlan: (initial: Partial<CreationBrief>) => void;
   onPoll?: (question: string, options: string[], expectedRevision?: number, dates?: { date: string; time?: string }[]) => boolean | Promise<boolean>;
   onFeedback?: (body: string) => boolean | Promise<boolean>;
+  /** Host keeps this panel mounted while showing its exact-room candidate picker. */
+  onAddPlaces?: () => void;
 }
 export type PlanningSupportTool = 'places' | 'dates' | 'departure' | 'next';
 type Tool = PlanningSupportTool;
@@ -29,7 +31,7 @@ export default function PlanningSupportPanel(props: PlanningSupportProps) {
   return <PlanningSupportBody key={`${props.userId}:${props.groupId}:${props.activityId ?? 'group'}:${props.initialTool || 'places'}`} {...props}/>;
 }
 
-function PlanningSupportBody({ state, userId, groupId, activityId, places, initialTool = 'places', onApply, onPlan, onPoll, onFeedback }: PlanningSupportProps) {
+function PlanningSupportBody({ state, userId, groupId, activityId, places, initialTool = 'places', onApply, onPlan, onPoll, onFeedback, onAddPlaces }: PlanningSupportProps) {
   const [tool, setTool] = useState<Tool>(initialTool);
   const [selected, setSelected] = useState<string[]>([]);
   const [budget, setBudget] = useState('');
@@ -83,7 +85,7 @@ function PlanningSupportBody({ state, userId, groupId, activityId, places, initi
     {tool === 'places' && <div className="planning-support-body" role="tabpanel" id="planning-places" aria-labelledby="planning-tab-places">
       <header><h3>공유한 장소를 함께 골라요</h3><p>비교 후 후보 투표를 만들어요. 투표만으로 일정·예약·참석이 바뀌지는 않아요.</p></header>
       <div className="planning-support-two"><label>1인 예산 상한 · 원<input type="number" min="0" inputMode="numeric" value={budget} onChange={event => setBudget(event.target.value)} placeholder="선택"/></label><label>걷기 상한 · 분<input type="number" min="0" inputMode="numeric" value={walking} onChange={event => setWalking(event.target.value)} placeholder="선택"/></label></div>
-      {sharedPlaces.length ? <div className="planning-support-options">{sharedPlaces.map(place => <label className="planning-support-check" key={place.id}><input type="checkbox" checked={selected.includes(place.id)} disabled={busy || (!selected.includes(place.id) && selected.length >= 8)} onChange={() => setSelected(current => current.includes(place.id) ? current.filter(id => id !== place.id) : [...current, place.id])}/><span><strong>{place.name}</strong><small>{kindNames[place.kind]} · {place.address || place.area}</small></span></label>)}</div> : <p className="planning-support-empty">모임의 공동 관심 장소에 음식점·카페·명소 등을 먼저 공유해 주세요. 개인 저장 목록은 자동으로 가져오지 않아요.</p>}
+      {sharedPlaces.length ? <><div className="planning-support-between"><small>후보 {sharedPlaces.length}곳 · 투표에는 2~8곳 선택</small>{onAddPlaces && <button type="button" disabled={disabled} onClick={onAddPlaces}><Plus size={16} aria-hidden="true"/>장소 더 담기</button>}</div><div className="planning-support-options">{sharedPlaces.map(place => <label className="planning-support-check" key={place.id}><input type="checkbox" checked={selected.includes(place.id)} disabled={busy || !canWrite || (!selected.includes(place.id) && selected.length >= 8)} onChange={() => setSelected(current => current.includes(place.id) ? current.filter(id => id !== place.id) : [...current, place.id])}/><span><strong>{place.name}</strong><small>{kindNames[place.kind]} · {place.address || place.area}</small></span></label>)}</div>{sharedPlaces.length === 1 && <small>후보를 한 곳 더 담으면 비교 투표를 만들 수 있어요.</small>}</> : <div className="planning-support-empty"><strong>아직 함께 고를 장소가 없어요</strong><p>음식점·카페·명소·숙소를 찾아 이 {activity ? '약속' : '모임'}의 후보로 담아 보세요. 개인 저장 장소는 자동으로 가져오지 않아요.</p>{onAddPlaces && <button type="button" className="planning-support-primary" disabled={disabled} onClick={onAddPlaces}><Plus size={16} aria-hidden="true"/>장소 찾아 담기</button>}</div>}
       {invalidSelection && <p role="alert">선택한 장소의 공유나 공개 상태가 바뀌었어요. <button type="button" onClick={() => setSelected(current => current.filter(id => sharedPlaces.some(place => place.id === id)))}>현재 후보로 다시 확인</button></p>}
       {compareRows.length > 0 && <details className="planning-support-details"><summary>비용·걷기 비교 · {compareRows.length}곳</summary><small>확인한 값만 직접 적어 주세요. 거리에서 걷기 시간이나 비용을 추정하지 않아요.</small>{compareRows.map(({ place, checks }) => { const value = evidence[place.id] ?? { cost: '', walk: '' }; return <div className="planning-support-evidence" key={place.id}><strong>{place.name}</strong><div className="planning-support-two"><label>확인한 비용 · 원<input type="number" min="0" inputMode="numeric" aria-label={`${place.name} 확인한 비용`} value={value.cost} onChange={event => setEvidence(current => ({ ...current, [place.id]: { ...value, cost: event.target.value } }))}/></label><label>확인한 걷기 · 분<input type="number" min="0" inputMode="numeric" aria-label={`${place.name} 확인한 걷기 시간`} value={value.walk} onChange={event => setEvidence(current => ({ ...current, [place.id]: { ...value, walk: event.target.value } }))}/></label></div><p>예산: {checkNames[checks.budget]} · 걷기: {checkNames[checks.walking]}</p></div>; })}</details>}
       <label>투표 제목<input value={question} maxLength={160} onChange={event => setQuestion(event.target.value)}/></label>

@@ -65,6 +65,17 @@ test('a template cannot bypass public journal eligibility by attaching a private
   assert.deepEqual(ids(select(templates).courses), ['public']);
 });
 
+test('a public-source course cannot reopen a withdrawn stop through its embedded journey snapshot', () => {
+  const removed = place('withdrawn', 'FOOD', '부산', { name: '철회한 장소' });
+  const embedded = journal('embedded', { days: [{ day: 1, places: [cafe, removed], blocks: [] }] });
+  const templates = [course('same', { publicJourney: embedded }), course('same', { title: '유효한 다음 공개 코스' }), course('valid', { publicJourney: journal('current') })];
+  const before = structuredClone(templates), result = select(templates);
+  assert.deepEqual(ids(result.courses), ['same', 'valid']);
+  assert.equal(result.courses[0].title, '유효한 다음 공개 코스');
+  assert.deepEqual(templates, before);
+  assert.equal(JSON.stringify(result).includes('철회한 장소'), false);
+});
+
 test('course search and counts use current approved place identities rather than removed or stale template places', () => {
   const stale = { ...cafe, name: '철회한 옛 이름', area: '서울', image: '/withdrawn-photo.webp' };
   const removed = place('removed', 'CAFE', '서울', { name: '삭제한 업체' });
