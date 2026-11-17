@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, Check, ChevronDown, Plus, Trash2 } from 'lucide-react';
+import { ArrowLeft, Check, ChevronDown, ChevronRight, Plus, Sparkles, Trash2 } from 'lucide-react';
 import { togetherId, type GroupKind, type GroupTopic } from './model';
 import { topicOptions } from './discovery';
 import { getGroupSubtopic, groupSubtopicsFor } from './groupTaxonomy';
@@ -12,10 +12,11 @@ export interface GroupCreationFormProps {
   initial?: GroupCreationInitial;
   onSubmit: (draft: GroupCreationDraft) => boolean | Promise<boolean>;
   onDraftChange?: (draft: GroupCreationDraft) => void;
+  onAssist?: (draft: GroupCreationDraft) => void;
   mode?: 'CREATE' | 'EDIT';
 }
 const kinds: Array<{id:GroupKind;label:string}> = [{id:'HOBBY',label:'취미·지역'},{id:'FAMILY',label:'가족'},{id:'FRIENDS',label:'친구'},{id:'GUIDE',label:'가이드'}];
-export default function GroupCreationForm({ initial, onSubmit, onDraftChange, mode = 'CREATE' }: GroupCreationFormProps) {
+export default function GroupCreationForm({ initial, onSubmit, onDraftChange, onAssist, mode = 'CREATE' }: GroupCreationFormProps) {
   const [draft,setDraft] = useState(() => normalizeGroupCreationDraft(initial));
   const [maxSubtopics] = useState(() => groupCreationSubtopicLimit(initial, mode));
   const [step,setStep] = useState(0);
@@ -43,7 +44,9 @@ export default function GroupCreationForm({ initial, onSubmit, onDraftChange, mo
   };
   return <div className="group-creation-form"><ol className="group-form-progress" aria-label="모임 만들기 단계">{['기본 정보','소개 작성','확인'].map((label,index)=><li key={label} aria-current={step===index?'step':undefined}><span>{index+1}</span>{label}</li>)}</ol>
     <h2 ref={titleRef} tabIndex={-1}>{step===0?mode==='EDIT'?'모임 정보를 정리해요':'어떤 모임을 만들까요?':step===1?'어떤 시간을 함께할까요?':mode==='EDIT'?'이 내용으로 저장할까요?':'이 내용으로 만들까요?'}</h2>
-    {step===0 && <div className="group-form-fields"><label>모임 이름<input aria-label="모임 이름" value={draft.name} maxLength={60} onChange={event=>update({name:event.target.value})} placeholder="우리 모임의 이름" required/></label>
+    {step===0 && <div className="group-form-fields">
+      {mode==='CREATE' && onAssist && <button type="button" className="tg-creation-entry" onClick={()=>onAssist(draft)}><Sparkles size={18} aria-hidden="true"/><span><strong>AI로 모임 초안 만들기</strong><small>하고 싶은 활동을 적고 모임 소개와 첫 활동을 검토해요.</small></span><ChevronRight size={17} aria-hidden="true"/></button>}
+      <label>모임 이름<input aria-label="모임 이름" value={draft.name} maxLength={60} onChange={event=>update({name:event.target.value})} placeholder="우리 모임의 이름" required/></label>
       <div className="group-form-two"><label>모임 관계<select value={draft.kind} onChange={event=>update({kind:event.target.value as GroupKind})}>{kinds.map(item=><option key={item.id} value={item.id}>{item.label}</option>)}</select></label><label>가입 방식<select aria-label="새 모임 가입 방식" value={draft.joinMode} onChange={event=>update({joinMode:event.target.value as GroupCreationDraft['joinMode']})}><option value="DIRECT">바로 가입</option><option value="APPROVAL">승인 후 가입</option></select></label></div>
       <label>주요 관심사<select aria-label="모임 주요 관심사" value={draft.categoryId} onChange={event=>changeCategory(event.target.value as GroupTopic)}>{topicOptions.map(item=><option key={item.id} value={item.id}>{item.emoji} {item.label}</option>)}</select></label>
       {groupSubtopicsFor(draft.categoryId).length>0 && <fieldset><legend>세부 관심사 <small>선택 · 최대 {maxSubtopics}개</small></legend><div className="group-form-chips">{groupSubtopicsFor(draft.categoryId).map(item=><button type="button" aria-pressed={draft.subcategoryIds.includes(item.id)} key={item.id} onClick={()=>{if(!draft.subcategoryIds.includes(item.id)&&draft.subcategoryIds.length>=maxSubtopics)return setError(`세부 관심사는 최대 ${maxSubtopics}개 선택할 수 있어요.`);update({subcategoryIds:draft.subcategoryIds.includes(item.id)?draft.subcategoryIds.filter(id=>id!==item.id):[...draft.subcategoryIds,item.id]});}}><span aria-hidden="true">{item.emoji}</span>{item.label}</button>)}</div>{draft.subcategoryIds.some(id=>getGroupSubtopic(id)?.parent!==draft.categoryId)&&<><small>다른 관심사에서 선택한 항목 · 누르면 해제해요</small><div className="group-form-chips">{draft.subcategoryIds.map(id=>getGroupSubtopic(id)).filter(item=>item&&item.parent!==draft.categoryId).map(item=>item&&<button type="button" aria-pressed="true" key={item.id} onClick={()=>update({subcategoryIds:draft.subcategoryIds.filter(id=>id!==item.id)})}><span aria-hidden="true">{item.emoji}</span>{item.label}</button>)}</div></>}</fieldset>}

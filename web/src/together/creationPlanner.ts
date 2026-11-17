@@ -59,7 +59,7 @@ const themes: CreationBrief['theme'][] = ['FOOD', 'CAFE', 'FOLIAGE', 'CULTURE', 
 const transports: CreationBrief['transport'][] = ['UNSET', 'WALK', 'PUBLIC', 'CAR'];
 const placeKinds: Place['kind'][] = ['LANDMARK', 'LEISURE', 'FOOD', 'CAFE', 'STAY', 'SHOP'];
 const topicRules: [GroupTopic, RegExp][] = [
-  ['FOOD', /맛집|음식점|식당|식사|점심|저녁|밥/], ['CAFE', /카페|커피|차\s*마/], ['BOOK', /독서|책\s*읽|북클럽|책\s*모임/],
+  ['FOOD', /맛집|음식점|식당|식사|점심|저녁|밥/], ['CAFE', /카페|커피|차\s*마/], ['BOOK', /독서|책(?:을)?\s*읽|북클럽|책\s*모임/],
   ['TRAVEL', /여행/], ['WALK', /산책|나들이|걷기\s*(?:모임|운동)|함께\s*걷|걷고\s*싶/], ['OUTDOOR', /단풍|꽃놀이|자연|등산|캠핑|야외|트레킹|바다|숲|공원/], ['CULTURE', /전시|박물관|미술관|문화|공연|영화|뮤지컬/],
   ['FAMILY', /가족|부모님|엄마|아빠/], ['PHOTO', /사진|촬영/], ['SOCIAL', /친구|친목|사교|새로운\s*사람|동네\s*사람/],
   ['SPORTS', /운동|러닝|달리기|축구|농구|배드민턴|테니스|볼링|탁구|자전거/], ['GAME', /게임|체스|바둑|마작/],
@@ -325,7 +325,7 @@ export function buildCreationGroupDraft(brief: CreationBrief): CreationGroupDraf
     : topics.includes('BOOK') ? '각자 읽은 책 한 권과 독서 취향을 소개하는 첫 만남'
     : `${topic}에 대한 관심사와 함께할 활동을 정하는 첫 만남`;
   return { name: `${normalizedRegion(brief.region)} ${topic}`.trim().slice(0, 60), kind, region: normalizedRegion(brief.region),
-    introduction: `${normalizedRegion(brief.region) || '원하는 지역'}에서 ${topic}을 함께해요.\n활동 방식과 첫 만남은 함께 정해요.`,
+    introduction: `${normalizedRegion(brief.region) || '원하는 지역'}에서 ${topic} 모임을 열어요.\n활동 방식과 첫 만남은 함께 정해요.`,
     topics, welcome: welcome.join(' '), joinMode: 'DIRECT', joinGuide: '가입 인사는 모임 가입 후 대화방에서 나눠 주세요. 함께하고 싶은 활동과 참여 가능한 시간을 알려 주세요. 약속 참가는 따로 선택해요.',
     firstActivityIdea: `${firstActivity} · 날짜·장소는 함께 정해요.` };
 }

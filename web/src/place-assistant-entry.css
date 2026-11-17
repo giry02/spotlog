@@ -1,0 +1,9 @@
+.place-assistant-entry {
+  display:flex; align-items:center; gap:10px; width:100%; min-height:56px; min-width:0;
+  margin:8px 0; padding:8px 12px; text-align:left; border:1px solid var(--line);
+  border-radius:9px; color:var(--ink); background:var(--paper); font:inherit;
+}
+.place-assistant-entry>span { display:grid; flex:1; min-width:0; gap:3px; }
+.place-assistant-entry strong { font-size:14px; line-height:1.4; }
+.place-assistant-entry small { font-size:12px; line-height:1.4; color:var(--muted); }
+.place-assistant-entry>svg { flex:none; }

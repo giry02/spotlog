@@ -78,6 +78,14 @@ test('group creation retains explicit multiple interests and newcomer welcome wi
   assert.equal(buildCreationGroupDraft(brief()).welcome, '');
 });
 
+test('a group described as reading books gets a reading-specific draft', () => {
+  const conditions = interpretCreationPrompt('부산에서 주말마다 책을 읽는 모임을 만들고 싶어요.');
+  const draft = buildCreationGroupDraft(conditions);
+  assert.deepEqual(draft.topics, ['BOOK']);
+  assert.match(draft.name, /독서/);
+  assert.match(draft.firstActivityIdea, /읽은 책/);
+});
+
 test('region filtering uses address/area intersection, branch identities, aliases and no nationwide fallback', () => {
   const places = [place('busan'), place('seoul', 'FOOD', { name: '부산 맛집', area: '서울 마포', address: '서울특별시 마포구 1' }),
     place('conflict', 'CAFE', { area: '부산 해운대', address: '서울 마포구 1' }), place('suyeong', 'FOOD', { area: '부산 수영', address: '부산 수영구 1' }),

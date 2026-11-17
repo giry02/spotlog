@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react';
-import { ArrowRight, Bookmark, CalendarPlus, ChevronDown, ChevronRight, Coffee, Compass, Footprints, MapPin, Palette, Search, SlidersHorizontal, Utensils, Users, X, Luggage, ImageOff } from 'lucide-react';
+import { ArrowRight, Bookmark, CalendarPlus, ChevronDown, ChevronRight, Coffee, Compass, Footprints, MapPin, Palette, Search, SlidersHorizontal, Sparkles, Utensils, Users, X, Luggage, ImageOff } from 'lucide-react';
 import type { Journey, Place } from '../data';
 import type { HomeTripTemplate } from '../consumerPublicSeed';
 import type { HomePlaceFilters, HomeRegionReference } from '../homeDiscovery';
@@ -36,6 +36,7 @@ export interface DiscoveryHomeProps {
   onOpenPlace: (place: Place) => void;
   onOpenPlaces: (filters: HomePlaceFilters) => void;
   onOpenSaved?: () => void;
+  onOpenAiSearch?: () => void;
   savedCount?: number;
   savedPlaceIds?: readonly string[];
   onTogglePlaceSaved?: (id: string) => void;
@@ -83,7 +84,7 @@ function PlaceThumbnail({ place }: { place: Place }) {
 }
 
 /** Public recommendations and a separately gated member return strip; destinations own mutations. */
-export default function DiscoveryHome({ mode = 'home', places, references = emptyReferences, state, viewerId = '', region, district, myRegionLabel, onManageMyRegions, onUseMyRegion, query, onRegionChange, onQueryChange, onOpenGroup, onFindGroups, onOpenPlace, onOpenPlaces, onOpenSaved, savedCount, savedPlaceIds, onTogglePlaceSaved, savedCourseIds, onToggleCourseSaved, onOpenMyActivity, onOpenMyChat, personalPlans, onOpenMyPlan, header, headerActions, travelContent, templates = emptyTemplates, journals = emptyJournals, duration = 'ALL', onDurationChange, onOpenTemplate, onOpenJournal, onMoreTravel, onMoreJournals, onPlan, onStartTogether, onTryCourse, view, onViewChange, purpose, onPurposeChange }: DiscoveryHomeProps) {
+export default function DiscoveryHome({ mode = 'home', places, references = emptyReferences, state, viewerId = '', region, district, myRegionLabel, onManageMyRegions, onUseMyRegion, query, onRegionChange, onQueryChange, onOpenGroup, onFindGroups, onOpenPlace, onOpenPlaces, onOpenSaved, onOpenAiSearch, savedCount, savedPlaceIds, onTogglePlaceSaved, savedCourseIds, onToggleCourseSaved, onOpenMyActivity, onOpenMyChat, personalPlans, onOpenMyPlan, header, headerActions, travelContent, templates = emptyTemplates, journals = emptyJournals, duration = 'ALL', onDurationChange, onOpenTemplate, onOpenJournal, onMoreTravel, onMoreJournals, onPlan, onStartTogether, onTryCourse, view, onViewChange, purpose, onPurposeChange }: DiscoveryHomeProps) {
   const isTravel = mode === 'travel';
   const sharedActivity = useMemo(() => selectHomeSharedActivity(state, viewerId, places), [state, viewerId, places]);
   const uid = useId();
@@ -147,6 +148,7 @@ export default function DiscoveryHome({ mode = 'home', places, references = empt
         : <button type="button" className="discovery-home__where-open" onClick={() => openWhereTo()} aria-label="어디 갈까 추천 보기"><Compass size={20} aria-hidden="true"/><span><strong>어디 갈까?</strong><small>장소와 코스 둘러보기</small></span><ChevronRight size={16} aria-hidden="true"/></button>}
       {onOpenSaved && <button type="button" className="discovery-home__where-saved" onClick={onOpenSaved} aria-label={savedCount ? `보관함 ${savedCount}개 보기` : '보관함 보기'}><Bookmark size={17} aria-hidden="true"/><span>보관함</span>{Boolean(savedCount) && <strong aria-hidden="true">{savedCount}</strong>}</button>}
     </div>
+    {currentView === 'places' && onOpenAiSearch && <button type="button" className="place-assistant-entry" onClick={onOpenAiSearch}><Sparkles size={18} aria-hidden="true"/><span><strong>AI로 장소 찾기</strong><small>원하는 장소를 문장으로 말해요</small></span><ChevronRight size={17} aria-hidden="true"/></button>}
     {!filtersOpen && <div className="discovery-home__where-picks" role="group" aria-label="가고 싶은 곳 종류">
       {currentView === 'places' && <button type="button" aria-pressed={!currentPurpose} onClick={() => setPurpose(undefined)}>전체</button>}
       {quickPlacePurposes.map(({ id, label }) => { const Icon = purposeIcons[id]; return <button type="button" key={id} aria-pressed={currentView === 'places' ? currentPurpose === id : undefined} onClick={() => openWhereTo(id)}><Icon size={16} aria-hidden="true"/>{label}</button>; })}

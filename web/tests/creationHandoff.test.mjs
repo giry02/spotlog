@@ -1,6 +1,6 @@
 import test, { beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
-import { holdCreationHandoff, peekCreationHandoff, takeCreationHandoff, retainCreationHandoff } from '../src/together/creationHandoff.ts';
+import { holdCreationHandoff, isCreationPlannerRoute, peekCreationHandoff, takeCreationHandoff, retainCreationHandoff } from '../src/together/creationHandoff.ts';
 import { interpretCreationPrompt } from '../src/together/creationPlanner.ts';
 import { restoreCreationPreview } from '../src/together/creationPreview.ts';
 
@@ -16,17 +16,21 @@ const draft = () => ({
 beforeEach(() => retainCreationHandoff(undefined, start));
 afterEach(() => retainCreationHandoff(undefined, start));
 
-test('only the two creation routes can hold a handoff and unrelated routes cannot supply one', () => {
+test('only exact creation routes can hold a handoff and unrelated routes cannot supply one', () => {
   for (const route of ['home', 'together', 'together-plan-more', 'together-plan-trip/extra', '#together-plan', '', 'https://untrusted.example/together-plan']) {
+    assert.equal(isCreationPlannerRoute(route), false, route);
     assert.equal(holdCreationHandoff(route, draft(), start), false, route);
     assert.equal(peekCreationHandoff('account-a', route, start), undefined);
     assert.equal(takeCreationHandoff('account-a', route, start), undefined);
   }
   for (const route of ['together-plan', 'together-plan-trip']) {
+    assert.equal(isCreationPlannerRoute(route), true, route);
     assert.equal(holdCreationHandoff(route, draft(), start), true);
     assert.equal(peekCreationHandoff('account-a', route, start).plan.title, '부산 가족 여행 초안');
     retainCreationHandoff(undefined, start);
   }
+  assert.equal(isCreationPlannerRoute('together-plan-group'), true);
+  assert.equal(holdCreationHandoff('together-plan-group', draft(), start), false);
 });
 
 test('guest take and peek cannot consume a pending draft before the first authenticated visitor', () => {
@@ -118,28 +122,33 @@ test('the held snapshot strips member, private place, prior consent and operatio
   assert.equal(restored.ready, true);
 });
 
-test('later caller mutations cannot modify the pending plan and group draft snapshots', () => {
+test('the group creation link restores its own reviewed snapshot after login', () => {
   const input = draft();
   input.brief = interpretCreationPrompt('부산 책 모임을 만들고 싶어.', { purpose: 'GROUP', region: '부산' });
   input.plan = null;
   input.groupDraft = { name: '한 장씩 읽어요', kind: 'HOBBY', region: '부산', introduction: '함께 읽어요.',
     topics: ['BOOK', 'CAFE'], welcome: '처음도 환영', joinGuide: '서로 배려해요.', joinMode: 'APPROVAL',
     memberIds: ['SECRET-MEMBER'], ownerId: 'SECRET-OWNER', promotionPublished: true };
-  holdCreationHandoff('together-plan', input, start);
+  assert.equal(holdCreationHandoff('together-plan-group', input, start), true);
+  assert.equal(peekCreationHandoff('', 'together-plan-group', start + 1), undefined);
+  assert.equal(peekCreationHandoff('account-a', 'together-plan-trip', start + 1), undefined);
   input.groupDraft.name = 'caller changed title';
   input.groupDraft.topics.push('SPORTS');
   input.brief.topics.push('GAME');
-  const preview = peekCreationHandoff('account-a', 'together-plan', start + 1);
+  const preview = peekCreationHandoff('account-a', 'together-plan-group', start + 1);
   assert.equal(preview.groupDraft.name, '한 장씩 읽어요');
   assert.deepEqual(preview.groupDraft.topics, ['BOOK', 'CAFE']);
   assert.equal(JSON.stringify(preview).includes('SECRET'), false);
   assert.equal('promotionPublished' in preview.groupDraft, false);
   preview.groupDraft.topics.push('PHOTO');
-  const accepted = takeCreationHandoff('account-a', 'together-plan', start + 2);
+  const accepted = takeCreationHandoff('account-a', 'together-plan-group', start + 2);
   assert.equal(accepted.plan, null);
   assert.deepEqual(accepted.groupDraft.topics, ['BOOK', 'CAFE']);
   assert.equal(accepted.groupDraft.joinMode, 'APPROVAL');
   assert.deepEqual(accepted.brief.topics, ['BOOK']);
+  const restored = restoreCreationPreview(accepted, []);
+  assert.equal(restored.ready, true);
+  assert.equal(restored.checked, false);
 });
 
 test('only the latest explicitly held draft is retained and a new hold starts its own expiry window', () => {

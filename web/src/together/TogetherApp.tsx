@@ -43,7 +43,7 @@ import { applyActivityAssistantAction } from './activityAssistant';
 import { buildMyGroupDirectory, type MyGroupDirectoryItem, type MyGroupKindFilter, type MyGroupSort } from './myGroupDirectory';
 import { calendarIncludes, calendarMonthIntersects, calendarRange, normalizeCalendarView, selectPersonalCalendarPlans, type CalendarView } from './calendarPlans';
 import CreationPlannerPanel from './CreationPlannerPanel';
-import { holdCreationHandoff, peekCreationHandoff, retainCreationHandoff, takeCreationHandoff } from './creationHandoff';
+import { holdCreationHandoff, isCreationPlannerRoute, peekCreationHandoff, retainCreationHandoff, takeCreationHandoff } from './creationHandoff';
 import type { CreationPreviewDraft } from './creationPreview';
 import PlanningSupportPanel from './PlanningSupportPanel';
 import PlanningPlacePicker from './PlanningPlacePicker';
@@ -59,6 +59,7 @@ import RoomGamesPanel from './RoomGamesPanel';
 import { createRoomGame, rerunRoomGame } from './roomGames';
 import ChallengesPanel from './ChallengesPanel';
 import GroupCreationForm from './GroupCreationForm';
+import type { GroupCreationDraft } from './groupCreation';
 import GroupJoinForm from './GroupJoinForm';
 import GroupProfileDetails from './GroupProfileDetails';
 import GroupJoinSettingsForm from './GroupJoinSettingsForm';
@@ -207,6 +208,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   const [creationRequestId, setCreationRequestId] = useState(() => togetherId('creation'));
   const [creationGroupId, setCreationGroupId] = useState('');
   const [creationReturn, setCreationReturn] = useState<Modal | null>(null);
+  const groupCreationManualDraft = useRef<{ viewerId: string; route: string; draft: GroupCreationDraft } | null>(null);
   const [creationTarget, setCreationTarget] = useState<'PERSONAL' | 'TOGETHER'>('TOGETHER');
   const [placeDetail, setPlaceDetail] = useState<Place | null>(null);
   const sharedRouteSection = useRef<HTMLDivElement>(null);
@@ -233,6 +235,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   const activeReader = useRef<FileReader | null>(null);
   useEffect(() => { uploadEpoch.current += 1; return () => { uploadEpoch.current += 1; activeReader.current?.abort(); }; }, [modal, viewer?.id, groupIdForUpload(route)]);
   const uid = viewer?.id ?? '';
+  const directCreationPurpose = route === 'together-plan-trip' ? 'TRIP' : route === 'together-plan-group' ? 'GROUP' : undefined;
   const recentStorage = useMemo(() => { try { return window.localStorage; } catch { return null; } }, []);
   const guidePublicStore = useMemo(() => recentStorage ? createVisitGuidePublicStore(recentStorage) : null, [recentStorage]);
   const creationAccount = useRef(uid);
@@ -248,7 +251,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
       const restored = takeCreationHandoff(uid, route);
       if (restored) setCreationResume(restored);
     }
-    if (!/^together-plan(?:-trip)?$/.test(route)) setCreationResume(undefined);
+    if (!isCreationPlannerRoute(route)) setCreationResume(undefined);
   }, [uid, route]);
   useEffect(() => () => { pendingJoinNavigation.current?.(); pendingJoinNavigation.current = null; }, [uid, route]);
   useEffect(() => { if (modal && modal !== 'apply') { pendingJoinNavigation.current?.(); pendingJoinNavigation.current = null; } }, [modal]);
@@ -272,6 +275,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   useEffect(() => {
     if (workspaceIdentity.current.route === route && workspaceIdentity.current.uid === uid) return;
     workspaceIdentity.current = { route, uid };
+    groupCreationManualDraft.current = null;
     setModal(null); setError(''); setHighlight(''); setPlaceDetail(null); setPollApplication(null); setPlanningPicker(null);
   }, [route, uid]);
   useEffect(() => { if (!toast) return; const timer = window.setTimeout(() => setToast(''), 3200); return () => window.clearTimeout(timer); }, [toast]);
@@ -487,12 +491,18 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     onMemberRecordRequestHandled?.(request.id);
   }, [memberRecordRequest, uid, route, group?.id, repository]);
   const requireUser = () => { if (viewer) return true; onLogin(); return false; };
+  const openGroupCreation = () => {
+    if (!requireUser()) return;
+    groupCreationManualDraft.current = null;
+    open('create-group', { kind: 'HOBBY', region: discoveryFilters?.region || '' });
+  };
   useEffect(() => {
-    if (!/^together-plan(?:-trip)?$/.test(route)) return;
-    setCreationInitial({ region: discoveryFilters?.region || '', ...(route.endsWith('-trip') ? { purpose: 'TRIP', theme: 'TRAVEL' } : {}) });
+    if (!isCreationPlannerRoute(route)) return;
+    setCreationInitial({ region: discoveryFilters?.region || '' });
     setCreationRequestId(togetherId('creation'));
     setCreationGroupId('');
-    setCreationTarget(route.endsWith('-trip') ? 'PERSONAL' : 'TOGETHER');
+    setCreationReturn(null);
+    setCreationTarget(directCreationPurpose === 'TRIP' ? 'PERSONAL' : 'TOGETHER');
   }, [route, uid]);
   const beginCreation = (initial: Partial<CreationBrief>, returnTo: Modal | null = null) => {
     if (!requireUser()) return;
@@ -582,7 +592,22 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     return true;
   };
   const creationReviewOptions = !creationGroupId && onCreatePersonalPlan ? <fieldset className="tg-creation-destination"><legend>어디에 저장할까요?</legend><label><input type="radio" name="creation-destination" checked={creationTarget === 'PERSONAL'} onChange={() => setCreationTarget('PERSONAL')}/><span>내 일정<small>개인 여행·동선으로 저장</small></span></label><label><input type="radio" name="creation-destination" checked={creationTarget === 'TOGETHER'} onChange={() => setCreationTarget('TOGETHER')}/><span>함께할 약속<small>만든 뒤 필요한 사람을 초대</small></span></label></fieldset> : undefined;
-  const creationPanel = () => <CreationPlannerPanel key={`${uid}:${creationRequestId}`} places={places} initial={creationInitial} previewOnly={!viewer} resumeDraft={viewer && creationAccount.current === uid && !creationGroupId && /^together-plan(?:-trip)?$/.test(route) ? creationResume : undefined} onLoginRequired={draft => { if (!viewer && holdCreationHandoff(route, draft)) onLogin(); }} allowedPurposes={creationInitial.purpose === 'GROUP' ? ['GROUP'] : creationGroupId ? ['MEETUP', 'OUTING', 'TRIP'] : undefined} cancelLabel={modal === 'creation' && creationReturn && creationReturn !== 'planning' ? '직접 입력할게요' : '나가기'} onReview={finishCreation} reviewOptions={creationReviewOptions} submitLabel={creationGroupId ? '이 모임의 일정으로 만들기' : creationTarget === 'PERSONAL' ? '내 일정으로 만들기' : '함께할 약속 만들기'} onCancel={() => modal === 'creation' ? setModal(creationReturn) : onBack ? onBack('home') : nav('home')}/>;
+  const closeCreationPlanner = () => {
+    if (modal === 'creation') { setModal(creationReturn); return; }
+    const destination = directCreationPurpose === 'GROUP' ? 'together-find' : 'home';
+    if (onBack) onBack(destination);
+    else nav(destination);
+  };
+  const creationPanel = (purpose?: 'TRIP' | 'GROUP') => {
+    const initial = purpose ? { ...creationInitial, purpose, ...(purpose === 'TRIP' ? { theme: 'TRAVEL' as const } : {}) } : creationInitial;
+    return <CreationPlannerPanel key={`${uid}:${creationRequestId}`} places={places} initial={initial}
+      previewOnly={!viewer} resumeDraft={viewer && creationAccount.current === uid && !creationGroupId && isCreationPlannerRoute(route) ? creationResume : undefined}
+      onLoginRequired={draft => { if (!viewer && holdCreationHandoff(route, draft)) onLogin(); }}
+      allowedPurposes={purpose ? [purpose] : initial.purpose === 'GROUP' ? ['GROUP'] : creationGroupId ? ['MEETUP', 'OUTING', 'TRIP'] : undefined}
+      cancelLabel={modal === 'creation' && creationReturn && creationReturn !== 'planning' ? '직접 입력할게요' : '나가기'} onReview={finishCreation}
+      reviewOptions={creationReviewOptions} submitLabel={creationGroupId ? '이 모임의 일정으로 만들기' : creationTarget === 'PERSONAL' ? '내 일정으로 만들기' : '함께할 약속 만들기'}
+      onCancel={closeCreationPlanner}/>;
+  };
   const toggleSelected = (id: string) => setSelectedIds(current => current.includes(id) ? current.filter(item => item !== id) : [...current, id]);
   const unread = (id: string) => { const cursor = state.readCursors[id]; return state.messages.filter(message => message.roomId === id && message.authorId !== uid && !message.deleted && (!cursor || message.createdAt > cursor)).length; };
   const openTaskSource = (id: string) => {
@@ -701,9 +726,9 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     const directorySections = [...directoryKinds.map(kind => ({ id: kind as string, label: kindNames[kind], entries: myGroupDirectory.groups.filter(item => item.group.kind === kind) })), { id: 'other', label: '기타', entries: myGroupDirectory.groups.filter(item => !directoryKinds.includes(item.group.kind)) }];
     const archivedGroups = myGroups.filter(item => item.archived && (currentDirectoryView.kind === 'ALL' || item.kind === currentDirectoryView.kind));
     const pendingMemberships = selectPendingMemberships(state, uid);
-    return <><ScreenHeader title={finding ? '모임 찾기' : temporaryView ? '일회성 모임' : '모임'} actions={<>{finding && <button type="button" className="screen-header__text-action" onClick={() => viewer ? nav('together') : onLogin()}>내 모임</button>}{!temporaryView && <button type="button" aria-label="모임 만들기" onClick={() => requireUser() && open('create-group', { kind: 'HOBBY', region: discoveryFilters?.region || '' })}><Plus size={22}/></button>}<AppMenuButton/></>}/>
+    return <><ScreenHeader title={finding ? '모임 찾기' : temporaryView ? '일회성 모임' : '모임'} actions={<>{finding && <button type="button" className="screen-header__text-action" onClick={() => viewer ? nav('together') : onLogin()}>내 모임</button>}{!temporaryView && <button type="button" aria-label="모임 만들기" onClick={openGroupCreation}><Plus size={22}/></button>}<AppMenuButton/></>}/>
       {!finding && <ScreenTabs label="모임에서 볼 내용" idPrefix="together-root" items={[{ id: 'together', label: '내 모임' }, { id: 'together-find', label: '모임 찾기' }, { id: 'together-oneoff', label: '일회성' }]} value={temporaryView ? 'together-oneoff' : 'together'} onChange={nav}/>}
-      <div className="tg-pad tg-stack tg-groups-root">{temporaryView ? <TemporaryRoomsPanel state={state} userId={uid} onCreate={() => onCreateTemporaryRoom?.()} onLogin={onLogin} onOpen={id => nav(`activity-${id}`)} onRestore={(groupId, activityId, revision) => mutate(draft => { restoreTemporaryRoom(draft, uid, groupId, activityId, revision); }, '종료한 모임의 기록을 보관함으로 복원했어요.')}/> : finding ? <GroupDiscovery showCreate={false} state={state} viewerId={uid} onJoinGroup={openPublicJoin} myRegionLabel={myRegionLabel} onManageMyRegions={onManageMyRegions} onUseMyRegion={onUseMyRegion} onOpenGroup={(id, activityId) => nav(`group-${id}`, { ...discoveryFilters, publicActivityIntent: activityId ? createPublicActivityIntent(state, id, activityId) : undefined })} onCreate={() => requireUser() && open('create-group', { kind: 'HOBBY', region: discoveryFilters?.region || '' })} initialFilters={discoveryFilters} onFiltersChange={onDiscoveryFiltersChange}/>
+      <div className="tg-pad tg-stack tg-groups-root">{temporaryView ? <TemporaryRoomsPanel state={state} userId={uid} onCreate={() => onCreateTemporaryRoom?.()} onLogin={onLogin} onOpen={id => nav(`activity-${id}`)} onRestore={(groupId, activityId, revision) => mutate(draft => { restoreTemporaryRoom(draft, uid, groupId, activityId, revision); }, '종료한 모임의 기록을 보관함으로 복원했어요.')}/> : finding ? <GroupDiscovery showCreate={false} state={state} viewerId={uid} onJoinGroup={openPublicJoin} myRegionLabel={myRegionLabel} onManageMyRegions={onManageMyRegions} onUseMyRegion={onUseMyRegion} onOpenGroup={(id, activityId) => nav(`group-${id}`, { ...discoveryFilters, publicActivityIntent: activityId ? createPublicActivityIntent(state, id, activityId) : undefined })} onCreate={openGroupCreation} initialFilters={discoveryFilters} onFiltersChange={onDiscoveryFiltersChange}/>
         : <>
           {onCreateTemporaryRoom && <button type="button" className="temporary-room-business-entry" onClick={() => nav('together-oneoff')}><CalendarDays size={20}/><span><strong>회식·고객 미팅은 일회성으로</strong><small>이번 만남만 준비하고, 끝나면 기록을 선택해요.</small></span><ChevronRight size={17}/></button>}
           {pendingMemberships.length > 0 && <section className="tg-pending-memberships" aria-labelledby="pending-memberships-title"><h2 id="pending-memberships-title">가입 신청 중 <span>{pendingMemberships.length}</span></h2>{pendingMemberships.map(item => <div className="tg-pending-membership" key={item.id}><button type="button" disabled={!item.publicNow} onClick={() => nav(`group-${item.groupId}`)}><span><strong>{item.title}</strong><small>운영진 승인 기다리는 중</small></span><ChevronRight size={17}/></button><button type="button" className="tg-text-button" aria-label={`${item.title} 가입 신청 취소`} onClick={() => mutate(draft => { draft.applications = draft.applications.filter(value => !(value.id === item.id && value.userId === uid && value.status === 'PENDING')); }, '가입 신청을 취소했어요.')}>신청 취소</button></div>)}</section>}
@@ -1110,7 +1135,20 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
       if (!request) return <div className="tg-stack"><p>취소되거나 찾을 수 없는 신청이에요.</p><button onClick={() => open('applications')}>신청 목록으로</button></div>;
       return <div className="tg-stack"><button className="tg-text-button" onClick={() => open('applications')}><ArrowLeft size={16} />가입 신청 목록</button><div className="tg-member"><span className="tg-avatar">{(request.joinProfile?.nickname || memberName(state, request.userId, group?.id)).slice(0, 1)}</span><div><h2>{request.joinProfile?.nickname || memberName(state, request.userId, group?.id)}</h2><small>{dateTimeLabel(request.createdAt)} 신청</small></div></div><section className="tg-card tg-stack">{request.joinProfile ? <GroupProfileDetails profile={request.joinProfile} fields={request.joinQuestions ? { questions: request.joinQuestions, welcome: '', availableTimes: [] } : group.joinFields}/> : <><h3>가입 인사</h3><p>{request.message || '가입 인사를 남기지 않았어요.'}</p></>}</section><div className="tg-summary"><h3>{group.name}</h3><p>승인하면 이 모임의 전체 채팅·게시판·앨범과 번개·정모를 볼 수 있어요. 정모 참석는 자동으로 신청되지 않아요.</p></div>{request.status === 'PENDING' ? <div className="tg-row"><button className="tg-primary" aria-label={`${request.joinProfile?.nickname || memberName(state, request.userId, group?.id)}님 가입 승인`} onClick={() => { if (mutate(draft => { approveGroupWithProfile(draft, request.id, uid); }, `${request.joinProfile?.nickname || memberName(state, request.userId, group?.id)}님의 가입을 승인했어요.`)) open('applications', { status: 'processed' }); }}>가입 승인</button><button onClick={() => { if (mutate(draft => { rejectGroupApplication(draft, request.id, uid); }, '가입 신청을 종료했어요.')) open('applications', { status: 'processed' }); }}>신청 거절</button></div> : <div className="tg-notice"><h3>{request.status === 'APPROVED' ? request.joinMode === 'DIRECT' ? '직접 가입 완료' : '가입 승인 완료' : '신청 종료'}</h3><small>{request.decidedAt ? dateTimeLabel(request.decidedAt) : ''}{request.decidedBy ? ` · ${memberName(state, request.decidedBy, group?.id)}` : ''}</small></div>}</div>;
     }
-    if (modal === 'create-group') return <GroupCreationForm initial={{ name: form.name, kind: directoryKinds.includes(form.kind as GroupKind) ? form.kind as GroupKind : 'HOBBY', region: form.region, district: discoveryFilters?.district, categoryId: discoveryFilters?.topic, subcategoryIds: discoveryFilters?.subtopic && discoveryFilters.subtopic !== 'ALL' ? [discoveryFilters.subtopic] : undefined, introduction: form.introduction }} onSubmit={input => { if (!requireUser()) return false; let id = ''; const ok = mutate(draft => { id = createConfiguredGroup(draft, uid, input); }, '모임을 만들었어요.'); if (ok) { setModal(null); nav(`group-${id}`); } return ok; }}/>;
+    if (modal === 'create-group' && viewer) {
+      const saved = groupCreationManualDraft.current;
+      const manual = saved?.viewerId === uid && saved.route === route ? saved.draft : undefined;
+      return <GroupCreationForm initial={manual ?? { name: form.name, kind: directoryKinds.includes(form.kind as GroupKind) ? form.kind as GroupKind : 'HOBBY', region: form.region, district: discoveryFilters?.district, categoryId: discoveryFilters?.topic, subcategoryIds: discoveryFilters?.subtopic && discoveryFilters.subtopic !== 'ALL' ? [discoveryFilters.subtopic] : undefined, introduction: form.introduction }} onAssist={draft => {
+        groupCreationManualDraft.current = { viewerId: uid, route, draft };
+        beginCreation({ purpose: 'GROUP', region: draft.region ? [draft.region, draft.district].filter(Boolean).join(' ') : discoveryFilters?.region || '' }, 'create-group');
+      }} onSubmit={input => {
+        if (!requireUser()) return false;
+        let id = '';
+        const ok = mutate(draft => { id = createConfiguredGroup(draft, uid, input); }, '모임을 만들었어요.');
+        if (ok) { groupCreationManualDraft.current = null; setModal(null); nav(`group-${id}`); }
+        return ok;
+      }}/>;
+    }
     if (modal === 'create-activity') return <form className="tg-form" onSubmit={saveActivity}><button type="button" className="tg-creation-entry" onClick={() => beginCreation({ purpose: form.activityKind === 'TRIP' ? 'TRIP' : 'MEETUP', date: form.date || '', endDate: form.endDate || '', startTime: form.startTime || '', prompt: form.title || '' }, 'create-activity')}><Sparkles size={18}/><span><strong>조건으로 갈 곳부터 고르기</strong><small>맛집·계절 나들이·여행 코스</small></span><ChevronRight size={17}/></button>{activityCoverEditor()}{field('title', '무엇을 함께할까요?', 'text', true)}<div className="tg-promotion-location">{field('date', '모임 날짜 · 나중에 정해도 돼요', 'date')}{field('startTime', '시작 시간 · 선택', 'time')}</div>{field('meetingPoint', '어디서 만날까요? · 선택')}{area('description', '함께할 내용·준비물')}<details><summary>참석 정원 · 선택</summary><label>최대 참석 인원<input type="number" min="1" max="500" step="1" placeholder="정원을 정하지 않아도 돼요" value={form.capacity || ''} onChange={event => set('capacity', event.target.value)} /></label></details><details><summary>여행·여러 날 일정 연결 · 선택</summary><label className="tg-check"><input type="checkbox" checked={form.activityKind === 'TRIP'} onChange={event => { set('activityKind', event.target.checked ? 'TRIP' : 'MEETUP'); if (!event.target.checked) { set('journeyId', ''); set('endDate', ''); } }} /><span>여행·원정 모임으로 만들기</span></label>{form.activityKind === 'TRIP' && <div className="tg-form">{field('endDate', '마지막 날짜 · 선택', 'date')}<label>내 여행 동선 가져오기<select value={form.journeyId || ''} onChange={event => { const item = journeys.find(value => value.id === event.target.value); set('journeyId', event.target.value); if (item) { set('title', item.title); set('date', item.startDate || (/^\d{4}-\d{2}-\d{2}$/.test(item.days[0]?.date || '') ? item.days[0].date : '')); set('endDate', /^\d{4}-\d{2}-\d{2}$/.test(item.days.at(-1)?.date || '') ? item.days.at(-1)!.date : ''); } }}><option value="">동선 없이 직접 만들기</option>{journeys.filter(item => item.purpose === 'PLAN' && isShareableJourney(item)).map(item => <option key={item.id} value={item.id}>{item.title}</option>)}</select></label><small>개인 원본은 유지하고 이 모임에서 사용할 사본을 만들어요.</small></div>}</details><button className="tg-primary" type="submit">번개·정모 만들기</button></form>;
     if ((modal === 'invite' || modal === 'share')) return <form className="tg-form" onSubmit={createInvite}><section className="tg-publish-context"><small>{sourceJourney ? '여행기에서 새 모임 초대' : activity ? '이 약속에 초대' : '이 모임에 초대'}</small><strong>{sourceJourney?.title || activity?.title || group?.name || form.name || '새 모임'}</strong><p>{sourceJourney ? '첫 수락 때 초대자가 모임장이 돼요. 개인 원본은 그대로 남아요.' : activity ? '초대를 수락해도 참가 상태는 따로 선택해요.' : '초대할 공간을 확인하고 초대장을 만들어요.'}</p></section>{activity && member && <button type="button" className="tg-inline-tool" onClick={() => open('visit-guide')}><MapPin size={17}/><span>가입 없이 보는 입구·주차 안내 만들기</span><ChevronRight size={16}/></button>}{field('name', group?.spaceType === 'ACTIVITY' ? '초대할 약속' : '모임 이름', 'text', true)}{sourceJourney && <><label>모임 종류<select value={form.kind || 'HOBBY'} onChange={event => set('kind', event.target.value)}>{Object.entries(kindNames).map(([id, name]) => <option key={id} value={id}>{name}</option>)}</select></label><p>첫 수락 시 모임을 만들고 초대자가 모임장이 돼요. 내 여행 원본은 그대로 유지해요.</p></>}<small>초대 유효기간 7일. 현재는 이 기기에서 초대와 수락 흐름을 확인할 수 있어요. 카카오톡 전송·다른 기기 수락은 서버 연결 후 이용 가능해요.</small><button className="tg-primary" type="submit">초대 만들기</button></form>;
     if (modal === 'manage' && group && group.spaceType !== 'ACTIVITY') {
@@ -1328,7 +1366,10 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
 
   let screen: ReactNode;
   if (route.startsWith('visit-guide-')) screen = <VisitGuideLink token={route.slice('visit-guide-'.length)} onBack={() => onBack ? onBack('home') : nav('together')}/>;
-  else if (/^together-plan(?:-trip)?$/.test(route)) screen = <><ScreenHeader title="계획 초안 만들기" variant="detail" leading={<button type="button" aria-label="계획 화면 나가기" onClick={() => onBack ? onBack('home') : nav('together')}><ArrowLeft size={20}/></button>}/><div className="tg-pad tg-stack">{creationPanel()}</div></>;
+  else if (isCreationPlannerRoute(route)) {
+    const title = directCreationPurpose === 'GROUP' ? 'AI 모임 만들기' : directCreationPurpose === 'TRIP' ? 'AI 여행 만들기' : '계획 초안 만들기';
+    screen = <><ScreenHeader title={title} variant="detail" leading={<button type="button" aria-label="계획 화면 나가기" onClick={closeCreationPlanner}><ArrowLeft size={20}/></button>}/><div className="tg-pad tg-stack">{creationPanel(directCreationPurpose)}</div></>;
+  }
   else if (route === 'together-shares') screen = viewer ? sharesScreen() : denied();
   else if (route === 'together-calendar') screen = viewer ? calendarScreen() : denied();
   else if (route === 'together-tasks') screen = viewer ? tasksScreen() : denied();
@@ -1340,5 +1381,12 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   else if (route.startsWith('activity-')) screen = activityScreen();
   else if (route.startsWith('group-')) screen = groupScreen();
   else screen = mainScreen();
-  return <div className="tg">{(error || repository.getError()) && !modal && <div className="tg-pad"><div className="tg-error" role="alert">{error || repository.getError()}</div></div>}{screen}{toast && <div className="tg-toast" role="status">{toast}</div>}{modal && (!['ai','assistant'].includes(modal) || member) && <BottomSheet title={modalTitle[modal]} onClose={() => setModal(null)}><div className="tg-sheet">{error && <div className="tg-error" role="alert" style={{ marginBottom: 16 }}>{error}</div>}{modalContent()}</div></BottomSheet>}</div>;
+  return <div className="tg">{(error || repository.getError()) && !modal && <div className="tg-pad"><div className="tg-error" role="alert">{error || repository.getError()}</div></div>}{screen}{toast && <div className="tg-toast" role="status">{toast}</div>}{modal && (!['ai','assistant'].includes(modal) || member) && <BottomSheet title={modal === 'creation' && creationInitial.purpose === 'GROUP' ? '모임 초안 만들기' : modalTitle[modal]} onClose={() => {
+    if (modal === 'creation' && creationReturn === 'create-group' && groupCreationManualDraft.current?.viewerId === uid && groupCreationManualDraft.current?.route === route) {
+      setError(''); setModal('create-group');
+    } else {
+      if (modal === 'create-group') groupCreationManualDraft.current = null;
+      setModal(null);
+    }
+  }}><div className="tg-sheet">{error && <div className="tg-error" role="alert" style={{ marginBottom: 16 }}>{error}</div>}{modalContent()}</div></BottomSheet>}</div>;
 }

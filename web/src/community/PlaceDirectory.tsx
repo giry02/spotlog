@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, Bookmark, Check, ChevronRight, Image, ImageOff, List, MapPin, Search, SlidersHorizontal, Video, X } from 'lucide-react';
+import { ArrowLeft, Bookmark, Check, ChevronRight, Image, ImageOff, List, MapPin, Search, SlidersHorizontal, Sparkles, Video, X } from 'lucide-react';
 import type { Place, PlaceKind } from '../data';
 import { AppMenuButton } from '../AppMenu';
 import { BottomSheet } from '../BottomSheet';
@@ -24,6 +24,7 @@ export interface PlaceDirectoryProps {
   onToggle: (id: string) => void;
   onShare: (place: Place) => void;
   onUsePlace?: (place: Place) => void;
+  onOpenAiSearch?: () => void;
   onBack: () => void;
   onViewChange: (view: 'GUIDE' | 'PHOTO' | 'VIDEO') => void;
 }
@@ -39,7 +40,7 @@ function Thumbnail({ place }: { place: Place }) {
 }
 
 /** Compact public list. Rich photos, attribution and existing actions belong to one detail sheet. */
-export default function PlaceDirectory({ places, references = emptyReferences, search, kind, savedIds, onSearchChange, onKindChange, onApplyFilters, onReset, onToggle, onShare, onUsePlace, onBack, onViewChange }: PlaceDirectoryProps) {
+export default function PlaceDirectory({ places, references = emptyReferences, search, kind, savedIds, onSearchChange, onKindChange, onApplyFilters, onReset, onToggle, onShare, onUsePlace, onOpenAiSearch, onBack, onViewChange }: PlaceDirectoryProps) {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [draftRegion, setDraftRegion] = useState(search.region);
   const [draftKind, setDraftKind] = useState<PlaceKind | 'ALL'>(kind);
@@ -62,6 +63,7 @@ export default function PlaceDirectory({ places, references = emptyReferences, s
     <ScreenHeader title="장소 찾기" leading={<button type="button" aria-label="장소 찾기 이전 화면" onClick={onBack}><ArrowLeft size={22}/></button>} actions={<AppMenuButton/>}/>
     <div className="community-place-directory__content">
       <label className="community-place-directory__search"><Search size={18} aria-hidden="true"/><input type="search" aria-label="장소 이름·지역 검색" placeholder="가고 싶은 곳을 검색하세요" value={search.query} onChange={event => onSearchChange({ ...search, query: event.target.value })}/>{search.query && <button type="button" aria-label="장소 검색어 지우기" onClick={() => onSearchChange({ ...search, query: '' })}><X size={18}/></button>}</label>
+      {onOpenAiSearch && <button type="button" className="place-assistant-entry" onClick={onOpenAiSearch}><Sparkles size={18} aria-hidden="true"/><span><strong>AI로 장소 찾기</strong><small>지역과 원하는 분위기를 문장으로 말해요</small></span><ChevronRight size={17} aria-hidden="true"/></button>}
       <div className="community-place-directory__toolbar"><button type="button" className="community-place-directory__filter" aria-haspopup="dialog" onClick={openFilters}><SlidersHorizontal size={17}/><span>{[search.region, search.district].filter(Boolean).join(' ') || '전체 지역'} · {kindName(kind)}</span></button><div className="community-place-directory__views" role="group" aria-label="장소 보는 방식"><button type="button" aria-label="장소 목록" aria-pressed="true" onClick={() => onViewChange('GUIDE')}><List size={19}/></button><button type="button" aria-label="장소 사진 둘러보기" aria-pressed="false" onClick={() => onViewChange('PHOTO')}><Image size={19}/></button><button type="button" aria-label="장소 영상 둘러보기" aria-pressed="false" onClick={() => onViewChange('VIDEO')}><Video size={19}/></button></div></div>
       <div className="community-place-directory__results-title"><h2>{search.query.trim() ? `“${search.query.trim()}” 검색 결과` : search.region ? `${search.region} ${kind === 'ALL' ? '장소' : kindName(kind)}` : kind === 'ALL' ? '모든 장소' : kindName(kind)}<span>{results.length}곳</span></h2>{hasFilters && <button type="button" onClick={onReset}>초기화</button>}</div>
       {results.length ? <><div className="community-place-directory__list" aria-label="공개 장소 목록">{results.slice(0, visibleCount).map(place => {

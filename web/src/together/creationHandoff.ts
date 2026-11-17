@@ -1,11 +1,17 @@
 import { snapshotCreationPreview, type CreationPreviewDraft } from './creationPreview.ts';
 
-type Pending = { route: string; expiresAt: number; draft: CreationPreviewDraft };
+type CreationPlannerRoute = 'together-plan' | 'together-plan-trip' | 'together-plan-group';
+type Pending = { route: CreationPlannerRoute; expiresAt: number; draft: CreationPreviewDraft };
 let pending: Pending | null = null;
+
+export function isCreationPlannerRoute(value: unknown): value is CreationPlannerRoute {
+  return value === 'together-plan' || value === 'together-plan-trip' || value === 'together-plan-group';
+}
 
 /** Guest's explicit save→login handoff stays in this page, for five minutes. */
 export function holdCreationHandoff(route: string, draft: CreationPreviewDraft, at = Date.now()) {
-  if (!/^together-plan(?:-trip)?$/.test(route)) return false;
+  if (!isCreationPlannerRoute(route)) return false;
+  if (route === 'together-plan-group' && draft.brief.purpose !== 'GROUP') return false;
   pending = { route, expiresAt: at + 5 * 60_000, draft: snapshotCreationPreview(draft.brief, draft.plan, draft.groupDraft) };
   return true;
 }
