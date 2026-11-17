@@ -108,3 +108,26 @@
 .discovery-home__places--editorial .discovery-home__place-copy { gap:4px; }
 .discovery-home__places--editorial .discovery-home__place-copy>strong { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
 .discovery-home__places--editorial .discovery-home__place-open>svg { display:none; }
+
+.discovery-home__where-to { min-width:0; margin:12px 0 4px; padding:4px 10px 8px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+.discovery-home__where-to.is-detail { padding:4px 0 8px; border:0; background:transparent; }
+.discovery-home__where-head { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:6px; }
+.discovery-home__where-open { display:flex; align-items:center; gap:7px; min-width:0; min-height:56px; padding:5px 0; border:0; border-radius:6px; background:none; color:var(--ink); text-align:left; }
+.discovery-home__where-open>span { display:grid; flex:1; min-width:0; }
+.discovery-home__where-open>svg,.discovery-home__where-saved>svg { flex:none; }
+.discovery-home__where-open strong,.discovery-home__where-title h2 { margin:0; font-size:16px; line-height:22px; font-weight:700; }
+.discovery-home__where-open small,.discovery-home__where-title p { margin:0; font-size:12px; line-height:17px; color:var(--muted); overflow-wrap:anywhere; }
+.discovery-home__where-title { display:grid; gap:2px; min-width:0; padding:7px 0; }
+.discovery-home__where-saved { display:flex; align-items:center; justify-content:center; gap:4px; min-width:44px; min-height:44px; padding:6px 7px; border:0; border-radius:8px; background:var(--ink); color:#fff; font-size:14px; line-height:20px; font-weight:600; white-space:nowrap; }
+.discovery-home__where-saved strong { font-size:12px; line-height:16px; font-weight:700; }
+.discovery-home__where-picks { display:flex; flex-wrap:wrap; gap:6px; margin-top:4px; }
+.discovery-home__where-picks>button { display:flex; flex:1 1 auto; align-items:center; justify-content:center; gap:5px; min-width:44px; min-height:44px; padding:6px 8px; border:1px solid var(--line); border-radius:8px; background:transparent; color:var(--ink); font-size:14px; line-height:20px; white-space:nowrap; }
+.discovery-home__where-picks>button[aria-pressed=true] { background:var(--ink); border-color:var(--ink); color:#fff; font-weight:600; }
+.discovery-home__where-courses { min-width:0; margin-top:12px; padding-top:6px; border-top:1px solid var(--line); }
+.discovery-home__where-courses>label { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:44px; font-size:14px; font-weight:600; }
+.discovery-home__where-courses>label>select { min-height:44px; max-width:65%; padding:6px 8px; border:1px solid var(--line); border-radius:8px; color:var(--ink); background:#fff; font-size:16px; }
+.discovery-home__where-course-empty { padding:8px 0 0; margin:0; color:var(--muted); font-size:14px; line-height:20px; }
+.discovery-home__place--savable { display:grid; grid-template-columns:minmax(0,1fr) 44px; align-items:center; gap:4px; }
+.discovery-home__place-save { display:grid; place-items:center; min-width:44px; width:44px; height:44px; padding:0; border:0; border-radius:8px; background:transparent; color:var(--ink); }
+.discovery-home__places--editorial .discovery-home__place--savable { display:block; position:relative; }
+.discovery-home__places--editorial .discovery-home__place-save { position:absolute; top:4px; right:4px; background:#fff; }

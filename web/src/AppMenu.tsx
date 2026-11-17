@@ -20,8 +20,6 @@ export function AppMenu({ onClose, onNavigate, myRegionLabel }: { onClose: () =>
   const go = (route: string) => { onClose(); onNavigate(route); };
   const icons = { home: House, together: Users, travel: Route, chats: MessageCircle, my: CircleUserRound };
   const tools = [
-    { label: '장소 찾기', description: '음식점·카페·숙소·명소를 찾아 담기', icon: MapPin, route: 'places-guide', group: '장소·동선' },
-    { label: '담은 장소', description: '모아 둔 장소로 여행·약속 만들기', icon: Bookmark, route: 'saved', group: '장소·동선' },
     { label: '초대·가입 신청', description: '받은 초대와 신청 상태', icon: LogIn, route: 'together-invites', group: '모임 준비' },
     { label: '내 할 일', description: '모임에서 맡은 준비 항목', icon: CheckSquare, route: 'together-tasks', group: '모임 준비' },
     { label: '내 공유 관리', description: '공유한 여행기 확인·공유 해제', icon: Share2, route: 'together-shares', group: '모임 준비' },
@@ -31,14 +29,15 @@ export function AppMenu({ onClose, onNavigate, myRegionLabel }: { onClose: () =>
   ];
   return <BottomSheet title={help ? '이용 안내' : '전체 메뉴'} onClose={onClose}>
     {help ? <div className="app-menu-help">
-      <p>홈에서 지역의 모임·장소를 둘러봐요. 모임에서는 가입한 모임과 새 모임을 찾고, 여행에서는 추천 일정·내 여행·여행기를 확인해요. 장소 찾기와 담은 장소는 전체 메뉴와 여행 화면에서 열 수 있어요.</p>
+      <p>어디 갈까?에서 지역과 하고 싶은 일에 맞는 장소·코스를 찾아요. 당장 정하지 않아도 보관함에 담아 두었다가 약속이나 내 여행에 쓸 수 있어요.</p>
       <p>마이의 내 일정에서 약속을, 내 여행에서 개인 여행·동선을, 기록에서 지난 활동과 여행기·후기를 찾아요. 모임에 가입하지 않아도 친구·가족과의 약속을 만들 수 있어요.</p>
       <p>대화함에서 모임 전체 대화와 각 약속의 대화를 바로 열어요. 대화방은 원래 모임·약속 안에 속해 있어요. 담은 장소로 개인 여행을 만들거나 모임·약속에 제안할 수 있어요.</p>
       <button className="outline" onClick={() => setHelp(false)}><ArrowLeft size={17}/>메뉴로 돌아가기</button>
     </div> : <>
       <button className="app-menu-account" onClick={() => member ? go('profile') : (onClose(), account?.openAccount('login'))}><CircleUserRound size={35}/><span><strong>{member ? member.displayName : '로그인하고 함께해요'}</strong><small>{member ? '계정·프로필·알림 설정' : '이메일·카카오·네이버·구글·애플'}</small></span><ChevronRight size={18}/></button>
+      <div className="app-menu-discovery" aria-label="장소와 코스"><button type="button" onClick={() => go('home-places')}><Compass size={20} aria-hidden="true"/><strong>어디 갈까?</strong><small>장소·코스 찾기</small></button><button type="button" onClick={() => go('saved')}><Bookmark size={20} aria-hidden="true"/><strong>보관함</strong><small>저장한 장소·코스</small></button></div>
       <nav className="app-menu-shortcuts" aria-label="주요 화면으로 이동">{primaryTabs.map(item => { const Icon = icons[item.id]; return <button type="button" key={item.id} onClick={() => go(item.id)}><Icon size={21}/><span>{item.label}</span></button>; })}</nav>
-      <div className="app-menu-links">{['장소·동선','모임 준비','여행 도구','설정·안내'].map(group => <section key={group}><h3>{group}</h3>{tools.filter(item => item.group === group).map(({label,description,icon:Icon,route}) => <button type="button" key={route} onClick={() => go(route)}><Icon size={21}/><span><strong>{label}</strong><small>{description}</small></span><ChevronRight size={17}/></button>)}{group === '설정·안내' && <button type="button" onClick={() => setHelp(true)}><HelpCircle size={21}/><span><strong>이용 안내</strong><small>홈·모임·여행·대화함·마이 사용 방법</small></span><ChevronRight size={17}/></button>}</section>)}</div>
+      <div className="app-menu-links">{['모임 준비','여행 도구','설정·안내'].map(group => <section key={group}><h3>{group}</h3>{tools.filter(item => item.group === group).map(({label,description,icon:Icon,route}) => <button type="button" key={route} onClick={() => go(route)}><Icon size={21}/><span><strong>{label}</strong><small>{description}</small></span><ChevronRight size={17}/></button>)}{group === '설정·안내' && <button type="button" onClick={() => setHelp(true)}><HelpCircle size={21}/><span><strong>이용 안내</strong><small>홈·모임·여행·대화함·마이 사용 방법</small></span><ChevronRight size={17}/></button>}</section>)}</div>
     </>}
   </BottomSheet>;
 }

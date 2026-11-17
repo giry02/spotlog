@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react';
-import { ArrowLeft, ChevronRight, Clock3, Copy, ImageOff, MapPin, Map as MapIcon, Share2, Users } from 'lucide-react';
+import { ArrowLeft, Bookmark, ChevronRight, Clock3, Copy, ImageOff, MapPin, Map as MapIcon, Share2, Users } from 'lucide-react';
 import type { Journey, Place } from './data';
 import { placeKindLabel } from './data';
 import { BottomSheet } from './BottomSheet';
@@ -10,8 +10,9 @@ import { courseDayFacts, courseStayLabel } from './coursePreviewModel';
 import './course-preview.css';
 
 /** A course is a reusable visit order, not a journal or a claim of actual attendance. */
-export default function CoursePreview({ journey, initialDay = 1, onBack, onShare, onPersonal, onTogether, onUsePlace, renderMap }: {
+export default function CoursePreview({ journey, initialDay = 1, saved = false, onToggleSaved, onBack, onShare, onPersonal, onTogether, onUsePlace, renderMap }: {
   journey: Journey; initialDay?: number; onBack: () => void; onShare: () => void;
+  saved?: boolean; onToggleSaved?: () => void;
   onPersonal: () => void; onTogether: () => void; onUsePlace?: (place: Place) => void;
   renderMap: (places: Place[]) => ReactNode;
 }) {
@@ -33,8 +34,8 @@ export default function CoursePreview({ journey, initialDay = 1, onBack, onShare
       {!day.places.length && <p className="course-preview__basis">이 DAY에 등록된 장소가 없어요. 내 여행으로 가져와 채울 수 있어요.</p>}
     </section> : <p className="course-preview__basis">등록된 DAY가 없어요.</p>}
     <p className="course-preview__notice">방문 순서를 살펴보는 코스예요. 운영·예약 정보는 방문 전에 확인하고, 날짜와 장소는 가져온 뒤 바꿀 수 있어요.</p>
-    <footer className="course-preview__footer"><button type="button" className="primary wide" disabled={!journey.days.length} onClick={() => setUseOpen(true)}><Copy size={18}/>이 코스 사용하기</button></footer>
+    <footer className="course-preview__footer" data-can-save={Boolean(onToggleSaved)}>{onToggleSaved && <button type="button" className="course-preview__save" aria-label={saved ? '코스 저장 해제' : '나중에 쓸 코스 저장'} aria-pressed={saved} onClick={onToggleSaved}><Bookmark size={18} fill={saved ? 'currentColor' : 'none'} aria-hidden="true"/>{saved ? '저장됨' : '코스 저장'}</button>}<button type="button" className="primary wide" disabled={!journey.days.length} onClick={() => setUseOpen(true)}><Copy size={18}/>이 코스 사용하기</button></footer>
     {selectedPlace && <SavedLandmarkDetailSheet place={selectedPlace} onClose={() => setSelectedPlace(null)} actions={onUsePlace ? <button type="button" className="primary wide place-use-action" onClick={() => { const place = selectedPlace; setSelectedPlace(null); onUsePlace(place); }}><MapPin size={18}/>여행·약속에 담기</button> : undefined}/>}
-    {useOpen && <BottomSheet title="이 코스를 어디에 쓸까요?" onClose={() => setUseOpen(false)}><div className="course-preview__destinations"><button type="button" onClick={() => { setUseOpen(false); onPersonal(); }}><Copy size={22}/><span><strong>내 여행으로 가져오기</strong><small>나만의 일정으로 날짜와 장소를 수정해요.</small></span><ChevronRight size={18}/></button><button type="button" onClick={() => { setUseOpen(false); onTogether(); }}><Users size={22}/><span><strong>모임·약속에서 함께하기</strong><small>함께할 공간과 가져올 내용을 확인해요.</small></span><ChevronRight size={18}/></button></div></BottomSheet>}
+    {useOpen && <BottomSheet title="이 코스를 어디에 쓸까요?" onClose={() => setUseOpen(false)}><div className="course-preview__destinations"><button type="button" onClick={() => { setUseOpen(false); onPersonal(); }}><Copy size={22}/><span><strong>내 여행으로 가져오기</strong><small>나만의 일정으로 날짜와 장소를 수정해요.</small></span><ChevronRight size={18}/></button><button type="button" onClick={() => { setUseOpen(false); onTogether(); }}><Users size={22}/><span><strong>이 코스로 약속 만들기</strong><small>내 모임에서 만들거나 친구·가족과 새로 시작해요.</small></span><ChevronRight size={18}/></button></div></BottomSheet>}
   </div>;
 }
