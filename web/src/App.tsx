@@ -1516,7 +1516,7 @@ function SpotlogApp() {
   </section></main>;
 
   const renderPlaceAssistant = (initial: { region: string; district?: string; prompt: string }, inline: boolean) => (
-    <LazyPlaceAssistantSheet key={courseOwner} active={inline || !discoveryPlace} inline={inline}
+    <LazyPlaceAssistantSheet key={courseOwner} active={!discoveryPlace} inline={inline}
       places={placeCatalog} references={publicReview.state.references} initialRegion={initial.region}
       initialDistrict={initial.district} initialPrompt={initial.prompt} savedIds={savedIds}
       onToggleSave={id => { if (placeCatalog.some(place => place.id === id && !place.personal)) toggleSaved(id); }}
