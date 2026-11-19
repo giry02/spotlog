@@ -86,3 +86,8 @@ body.spotlog-consumer .phase-sheet .place-assistant .place-assistant__save, .pla
 .place-assistant__comparison dt { color:var(--muted); }
 .place-assistant__comparison dd { min-width:0; margin:0; overflow-wrap:anywhere; }
 @media (max-width:350px) { .place-assistant__card { padding:12px; } .place-assistant .place-assistant__open { grid-template-columns:72px minmax(0,1fr); gap:8px; } .place-assistant__thumbnail { width:72px; height:78px; } .place-assistant__query { gap:6px; padding:10px; } .place-assistant__query > svg { display:none; } .place-assistant__sort { gap:4px 10px; } }
+
+/* Preserve the query and comparison heading below the sticky page chrome. */
+.place-assistant__query, .place-assistant__comparison { scroll-margin-block-start:64px; }
+.place-assistant-page .place-assistant__compare-bar { top:56px; }
+.phase-sheet .place-assistant__compare-bar { top:0; }
