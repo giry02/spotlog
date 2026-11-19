@@ -29,6 +29,8 @@ export default function ChatSummaryExample(props: ChatSummaryExampleProps) {
 function ChatSummaryExamplePanel(props: ChatSummaryExampleProps) {
   const { state, userId, groupId, roomId, unreadAfter, onSource, onApply, viewState, onViewStateChange } = props;
   const context = { state, userId, groupId, roomId, unreadAfter };
+  const activityId = roomId.startsWith('activity:') ? roomId.slice('activity:'.length) : undefined;
+  const speakerName = (memberId: string) => memberName(state, memberId, groupId, activityId);
   const headingId = useId();
   const [local, setLocal] = useState(() => createChatSummaryExampleViewState(context));
   const [error, setError] = useState('');
@@ -69,7 +71,7 @@ function ChatSummaryExamplePanel(props: ChatSummaryExampleProps) {
       <button type="button" aria-pressed={view.mode === 'all'} onClick={() => changeMode('all')}>전체</button>
       <button type="button" aria-pressed={view.mode === 'person'} onClick={() => changeMode('person')}>특정인</button>
     </div>
-    {view.mode === 'person' && <label className="chat-summary-example-person"><span>예시 원문을 쓴 사람</span><select value={view.personId} onChange={event => update({ ...view, personId: event.target.value, selectedIds: [] })}><option value="">참여자 선택</option>{view.personId && !speakers.includes(view.personId) && <option value={view.personId}>선택한 참여자 · 현재 예시 없음</option>}{speakers.map(id => <option key={id} value={id}>{memberName(state, id)}</option>)}</select></label>}
+    {view.mode === 'person' && <label className="chat-summary-example-person"><span>예시 원문을 쓴 사람</span><select value={view.personId} onChange={event => update({ ...view, personId: event.target.value, selectedIds: [] })}><option value="">참여자 선택</option>{view.personId && !speakers.includes(view.personId) && <option value={view.personId}>선택한 참여자 · 현재 예시 없음</option>}{speakers.map(id => <option key={id} value={id}>{speakerName(id)}</option>)}</select></label>}
     <p className="chat-summary-example-meta" role="status">{selectionError || `선택 범위 발언 ${result?.sourceCount ?? 0}개 · 정리에 연결된 예시 원문 ${result?.sources.length ?? 0}개`}</p>
     {view.mode === 'unread' && <p className="chat-summary-example-meta">마지막 읽음 이후 내 발언도 포함해요. 이전 근거가 범위 밖이면 해당 정리 항목은 제외해요.</p>}
     {view.mode === 'person' && <p className="chat-summary-example-meta">선택한 사람의 원문만 근거로 삼아요. 여러 사람의 근거가 필요한 변경 내용은 모두 포함될 때만 보여요.</p>}
@@ -82,11 +84,11 @@ function ChatSummaryExamplePanel(props: ChatSummaryExampleProps) {
           {onApply && item.category !== 'CHANGED' && <input type="checkbox" checked={selectedIds.includes(item.id)} onChange={() => update({ ...view, selectedIds: selectedIds.includes(item.id) ? selectedIds.filter(id => id !== item.id) : [...selectedIds, item.id] })}/>}
           <span><strong>{item.title}</strong><span>{item.text}</span></span>
         </label>
-        {item.ownerId && <p className="chat-summary-example-meta">원문에서 맡겠다고 한 사람 · {memberName(state, item.ownerId)}</p>}
+        {item.ownerId && <p className="chat-summary-example-meta">원문에서 맡겠다고 한 사람 · {speakerName(item.ownerId)}</p>}
         {item.category === 'CHANGED' && <p className="chat-summary-example-meta">이전 제안 · 준비나 공지로 반영하지 않아요.</p>}
         <details className="chat-summary-example-sources"><summary>근거 원문 {item.sourceIds.length}개</summary><div>{item.sourceIds.map(id => {
           const original = result!.sources.find(message => message.id === id)!;
-          return <div className="chat-summary-example-original" key={id}><small>{memberName(state, original.authorId)}</small><blockquote>{original.body}</blockquote><button type="button" onClick={() => source(id)}>이 원문으로 이동</button></div>;
+          return <div className="chat-summary-example-original" key={id}><small>{speakerName(original.authorId)}</small><blockquote>{original.body}</blockquote><button type="button" onClick={() => source(id)}>이 원문으로 이동</button></div>;
         })}</div></details>
       </article>)}</section>;
     })}

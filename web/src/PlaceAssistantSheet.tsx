@@ -22,7 +22,8 @@ interface PlaceAssistantSheetProps {
   onClose: () => void;
 }
 
-type SearchRun = { type: 'idle' | 'busy' | 'error' }
+type SearchRun = { type: 'idle' | 'busy' }
+  | { type: 'error'; message: string }
   | { type: 'result'; mode: 'model' | 'catalog'; ids: string[] };
 
 const endpoint = configuredPlanningAiEndpoint(import.meta.env.VITE_PLANNING_AI_ENDPOINT);
@@ -98,8 +99,10 @@ export default function PlaceAssistantSheet({ active, inline, places, references
       if (request.current === controller && !controller.signal.aborted) {
         setRun({ type: 'result', mode: 'model', ids: response.placeIds });
       }
-    } catch {
-      if (request.current === controller && !controller.signal.aborted) setRun({ type: 'error' });
+    } catch (error) {
+      if (request.current === controller && !controller.signal.aborted) {
+        setRun({ type: 'error', message: error instanceof Error ? error.message : 'AI 추천을 불러오지 못했어요.' });
+      }
     } finally {
       if (request.current === controller) request.current = null;
     }
@@ -146,7 +149,7 @@ export default function PlaceAssistantSheet({ active, inline, places, references
 
       <section ref={status} className="place-assistant__output" aria-label="장소 추천 결과" aria-busy={run.type === 'busy'}>
         {run.type === 'error' && <div className="place-assistant__message">
-          <p role="alert">AI 추천을 불러오지 못했어요. 다시 시도하거나 등록 장소에서 찾아보세요.</p>
+          <p role="alert">{run.message}</p>
           <button type="button" className="place-assistant__secondary" onClick={searchCatalog}>등록 장소로 찾기</button>
         </div>}
         {run.type === 'result' && <>

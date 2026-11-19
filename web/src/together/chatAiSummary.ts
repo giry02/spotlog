@@ -19,7 +19,7 @@ export interface ChatAiSummaryRequest extends ScopedAiRequest {
 }
 export interface ChatAiSummaryOutput {
   title: string;
-  sections: Array<{ heading: string; items: Array<{ text: string; sourceIds: string[] }> }>;
+  sections: Array<{ kind?: 'TIME_PLACE' | 'PREPARATION' | 'CHANGED' | 'OPEN_QUESTIONS' | 'OTHER'; heading: string; items: Array<{ text: string; sourceIds: string[] }> }>;
 }
 export interface ChatAiSummarySnapshot { request: ChatAiSummaryRequest; output: ChatAiSummaryOutput }
 export const MAX_CHAT_AI_MESSAGES = 300;
@@ -63,6 +63,7 @@ export async function postScopedAiJson<T>(endpoint: string, request: ScopedAiReq
     if (!response.ok) {
       if (response.status === 401 || response.status === 403) throw new Error('AI 서버에서 대화 접근 권한을 확인하지 못했어요.');
       if (response.status === 429) throw new Error('AI 요청이 많아요. 잠시 후 다시 시도해 주세요.');
+      if (response.status === 413) throw new Error('선택한 대화가 많아요. 기간이나 참여자를 좁혀 주세요.');
       throw new Error('AI 요약을 받지 못했어요. 잠시 후 다시 시도해 주세요.');
     }
     let body: unknown;
@@ -107,7 +108,9 @@ export function parseChatAiSummaryOutput(value: unknown, request: ChatAiSummaryR
       if (itemCount > 40 || characterCount > 20000) throw invalid();
       return { text: item.text, sourceIds: [...new Set(item.sourceIds as string[])] };
     });
-    return { heading: section.heading, items };
+    const kind = ['TIME_PLACE', 'PREPARATION', 'CHANGED', 'OPEN_QUESTIONS', 'OTHER'].includes(String(section.kind))
+      ? section.kind as NonNullable<ChatAiSummaryOutput['sections'][number]['kind']> : undefined;
+    return { heading: section.heading, items, ...(kind ? { kind } : {}) };
   });
   return { title: value.title, sections };
 }

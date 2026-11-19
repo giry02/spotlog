@@ -12,7 +12,7 @@ import { isTogetherChallenge } from './challenges.ts';
 import { validGroupSubtopics } from './groupTaxonomy.ts';
 import { isGroupJoinDraft, isGroupJoinFields } from './groupJoining.ts';
 import { isSafeTogetherImageUrl, isTogetherPhotoAttachments, isPublicReviewPreview } from './contentMedia.ts';
-import { isGroupMemberPresentations } from './memberProfile.ts';
+import { isGroupMemberPresentations, isRoomProfilePresets } from './roomIdentity.ts';
 import { hydrateExampleMemberAvatars } from './exampleMemberAvatars.ts';
 import { expireTemporaryRooms, isTemporaryRoomSettings } from './temporaryRooms.ts';
 import { isPlaceAssessmentStateFields } from './businessAssessments.ts';
@@ -20,6 +20,7 @@ import { isMeetingDecisionStateFields } from './meetingDecision.ts';
 import { isPersonalRouteStateFields } from './personalRoutes.ts';
 import { isVisitGuideStateFields } from './visitGuides.ts';
 import { isChatMemberMentions } from './chatMentions.ts';
+import { isActivityParticipationFields } from './activityParticipation.ts';
 
 export const TOGETHER_STORAGE_PREFIX = 'spotlog.together.local.v1:';
 export const togetherStorageKey = (accountId: string) => `${TOGETHER_STORAGE_PREFIX}${encodeURIComponent(accountId || 'guest')}`;
@@ -40,6 +41,7 @@ export function isTogetherState(value: unknown): value is TogetherState {
   if (!object(value) || value.schemaVersion !== 1 || !arrayFields.every(key => Array.isArray(value[key])) || !object(value.readCursors) || !Object.values(value.readCursors).every(item => typeof item === 'string') || !strings(value.mutedRooms)) return false;
   if (value.discoveryCatalogVersion !== undefined && (!Number.isInteger(value.discoveryCatalogVersion) || Number(value.discoveryCatalogVersion) < 0)) return false;
   if (value.exampleMemberAvatarVersion !== undefined && value.exampleMemberAvatarVersion !== 1) return false;
+  if (value.roomProfilePresets !== undefined && !isRoomProfilePresets(value.roomProfilePresets)) return false;
   if (!isPlaceAssessmentStateFields(value)) return false;
   if (!isMeetingDecisionStateFields(value)) return false;
   if (!isPersonalRouteStateFields(value)) return false;
@@ -50,14 +52,19 @@ export function isTogetherState(value: unknown): value is TogetherState {
   const discovery = (profile: unknown) => object(profile) && strings(profile.topics) && profile.topics.every(topic => ['TRAVEL', 'FOOD', 'CAFE', 'WALK', 'PHOTO', 'OUTDOOR', 'CULTURE', 'FAMILY', 'SOCIAL', 'SPORTS', 'BOOK', 'GAME', 'MUSIC', 'LANGUAGE', 'CRAFT', 'PETS'].includes(topic)) && validGroupSubtopics(profile.topics as import('./model').GroupTopic[], profile.subtopics) && textFields(profile, ['district', 'welcome', 'joinGuide']) && ['NEIGHBORHOOD', 'DESTINATION'].includes(String(profile.style)) && ['OPEN', 'PAUSED'].includes(String(profile.recruitment)) && (profile.joinMode === undefined || typeof profile.joinMode === 'string' && ['DIRECT', 'APPROVAL'].includes(profile.joinMode));
   const optionalActivityFields = (row: Record<string, unknown>) => (row.kind === undefined || ['MEETUP', 'TRIP'].includes(String(row.kind)))
     && (row.startTime === undefined || typeof row.startTime === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(row.startTime))
+    && (row.endTime === undefined || typeof row.endTime === 'string' && /^([01]\d|2[0-3]):[0-5]\d$/.test(row.endTime)
+      && typeof row.startTime === 'string' && typeof row.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(row.date)
+      && (typeof row.endDate === 'string' && row.endDate > row.date || row.endTime > row.startTime))
     && (row.capacity === undefined || typeof row.capacity === 'number' && Number.isInteger(row.capacity) && row.capacity > 0 && row.capacity <= 500)
     && (row.cover === undefined || isSafeTogetherImageUrl(row.cover))
     && (row.placeCandidateIds === undefined || strings(row.placeCandidateIds) && row.placeCandidateIds.length <= 100 && new Set(row.placeCandidateIds).size === row.placeCandidateIds.length)
-    && (row.venuePlaceId === undefined || typeof row.venuePlaceId === 'string' && row.venuePlaceId.trim().length > 0);
+    && (row.venuePlaceId === undefined || typeof row.venuePlaceId === 'string' && row.venuePlaceId.trim().length > 0)
+    && (row.memberPresentations === undefined || isGroupMemberPresentations(row.memberPresentations))
+    && isActivityParticipationFields(row);
   const publicSnapshot = (snapshot: unknown) => object(snapshot) && textFields(snapshot, ['id', 'groupId', 'title', 'date', 'endDate', 'description'])
     && ['PLANNED', 'COMPLETED', 'CANCELLED'].includes(String(snapshot.status))
     && optionalActivityFields(snapshot)
-    && Object.keys(snapshot).every(key => ['id', 'groupId', 'title', 'date', 'endDate', 'description', 'status', 'kind', 'startTime'].includes(key));
+    && Object.keys(snapshot).every(key => ['id', 'groupId', 'title', 'date', 'endDate', 'description', 'status', 'kind', 'startTime', 'endTime'].includes(key));
   const temporary = (row: Record<string, unknown>) => row.temporaryRoom === undefined || row.spaceType === 'ACTIVITY' && isTemporaryRoomSettings(row.temporaryRoom)
     && (!row.temporaryRoom.closedAt || row.archived === true)
     && (value.activities as unknown[]).filter(activity => object(activity) && activity.groupId === row.id).length === 1;

@@ -1,7 +1,7 @@
 .activity-phase-heading{display:grid;gap:10px;min-width:0;padding:0 0 18px;border-bottom:1px solid var(--line,#e6e6df)}
 .activity-phase-heading>small{font-size:12px;color:var(--muted,#777)}
 .activity-phase-facts,.activity-phase-venue{display:flex;align-items:flex-start;gap:10px;min-width:0}
-.activity-phase-facts strong{font-size:16px;line-height:22px}.activity-phase-facts svg,.activity-phase-venue svg{flex-shrink:0;margin-top:2px}
+.activity-phase-facts strong{font-size:16px;line-height:22px}.activity-phase-facts strong,.activity-phase-venue span{min-width:0;overflow-wrap:anywhere}.activity-phase-facts svg,.activity-phase-venue svg{flex-shrink:0;margin-top:2px}
 .activity-phase-venue{font-size:14px;line-height:20px;color:var(--muted,#777)}
 .activity-phase-actions,.activity-record-compose{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
 .tg .activity-phase-actions button,.tg .activity-record-compose button{display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:8px 12px;font-size:14px;border:1px solid var(--line,#ddd);border-radius:8px;background:#fff;color:var(--ink,#171717)}
@@ -12,9 +12,9 @@
 .tg .activity-record-mosaic button{border:0;padding:0;border-radius:0;min-width:0;height:120px;overflow:hidden;background:var(--soft,#f3f3ef)}.activity-record-mosaic img{display:block;height:100%;width:100%;object-fit:cover}.activity-record-shelf.is-compact .activity-record-mosaic button{height:96px}
 .activity-record-counts{display:flex;flex-wrap:wrap;gap:4px 18px}.tg .activity-record-counts button{display:flex;align-items:center;gap:4px;min-height:36px;padding:0;border:0;border-radius:0;background:none;font-size:12px}
 .tg .activity-rsvp-details>summary,.tg .activity-route-details>summary{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:48px;font-size:14px;cursor:pointer;border-bottom:1px solid var(--line,#ddd);list-style:none}.activity-rsvp-details>summary::-webkit-details-marker,.activity-route-details>summary::-webkit-details-marker{display:none}.activity-rsvp-details[open]>summary,.activity-route-details[open]>summary{margin-bottom:16px}
-.activity-prep-priority{display:grid;gap:10px;padding:16px;background:var(--soft,#f5f5f1);border-radius:10px}.activity-prep-priority h2{margin:0;font-size:16px}.activity-prep-priority p{margin:0;font-size:14px}.activity-prep-priority small{font-size:12px;color:var(--muted,#777)}
+.activity-prep-priority{display:grid;gap:10px;padding:16px;background:var(--soft,#f5f5f1);border:1px solid var(--line);border-radius:10px}.activity-prep-priority h2{margin:0;font-size:16px}.activity-prep-priority p{margin:0;font-size:14px}.activity-prep-priority small{font-size:12px;color:var(--muted,#777)}
 .tg .activity-prep-tools>summary{display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;font-size:14px}.activity-prep-tools[open]>summary{margin-bottom:12px}
 .activity-record-panel{display:grid;gap:22px;min-width:0}.activity-record-intro{font-size:14px;color:var(--muted,#777);margin:0}.tg .activity-record-panel .tg-board-filters{margin-bottom:0}
 .tg .activity-phase-heading button:focus-visible,.tg .activity-record-panel button:focus-visible{outline:2px solid var(--ink,#171717);outline-offset:3px}
-.activity-route-focus{scroll-margin-top:128px;display:grid;gap:16px;min-width:0}.activity-day-presence{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px}.tg .activity-day-presence button{min-height:44px;flex-shrink:0;font-size:14px;padding:8px 12px}
+.activity-route-focus{scroll-margin-top:128px;display:grid;gap:16px;min-width:0}.activity-day-presence{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 12px;font-size:14px}.activity-day-presence>span{min-width:0;overflow-wrap:anywhere}.tg .activity-day-presence button{min-height:44px;flex-shrink:0;font-size:14px;padding:8px 12px}
 .activity-temporary-details>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;font-size:12px;cursor:pointer;color:var(--muted,#777)}

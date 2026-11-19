@@ -24,7 +24,7 @@
   --color-text: var(--ink);
   --color-muted: var(--muted);
   --color-border: #deded9;
-  --color-surface: #fff;
+  --color-surface: var(--surface);
   --color-bg: var(--paper);
   --color-primary: var(--ink);
   --color-accent: var(--accent);

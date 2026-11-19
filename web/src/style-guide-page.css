@@ -1,8 +1,8 @@
 /* Documentation only. Never target product screens or shared UI classes. */
 .app-shell.tab-style-guide { max-width: 1240px; }
-.site-design-guide { color: #171716; background: #f8f8f6; min-height: 100%; font-size: 14px; }
+.site-design-guide { color: #171716; background: var(--paper); min-height: 100%; font-size: 14px; }
 .site-design-guide * { box-sizing: border-box; }
-.site-design-guide .sg-toolbar { position: sticky; top: 0; z-index: 8; display: flex; align-items: center; gap: 12px; padding: 16px 28px; background: #f8f8f6; border-bottom: 1px solid #e9e9e5; }
+.site-design-guide .sg-toolbar { position: sticky; top: 0; z-index: 8; display: flex; align-items: center; gap: 12px; padding: 16px 28px; background: var(--paper); border-bottom: 1px solid var(--line); }
 .site-design-guide .sg-toolbar button { display: grid; place-items: center; flex: 0 0 42px; width: 42px; height: 42px; background: white; border: 1px solid #e9e9e5; border-radius: 50%; }
 .site-design-guide .sg-toolbar strong { font: 800 22px/1.3 Manrope, sans-serif; }
 .site-design-guide .sg-toolbar strong span { margin-left: 12px; color: #777773; font: 600 10px/1.5 'DM Sans', sans-serif; letter-spacing: 1.1px; }
@@ -37,7 +37,7 @@
 .site-design-guide .sg-caption { color: #777773; font-size: 12px; line-height: 1.8; margin-bottom: 14px; }
 .site-design-guide .sg-table-wrap { overflow-x: auto; border: 1px solid #e9e9e5; border-radius: 15px; background: white; }
 .site-design-guide table { width: 100%; min-width: 610px; border-collapse: collapse; text-align: left; font-size: 12px; line-height: 1.75; }
-.site-design-guide th, .site-design-guide td { padding: 13px 16px; vertical-align: top; border-bottom: 1px solid #e9e9e5; }
+.site-design-guide th, .site-design-guide td { padding: 13px 16px; vertical-align: top; border-bottom: 1px solid var(--line); }
 .site-design-guide thead { background: #f0f0ed; }
 .site-design-guide th { font-weight: 700; }
 .site-design-guide tbody th { width: 21%; }

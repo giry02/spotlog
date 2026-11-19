@@ -28,7 +28,7 @@ export function StyleGuide({ onBack }: { onBack: () => void }) {
           <section><h3>같은 역할, 같은 형태</h3><p>일반 목록·긴 여행기·편집 도구의 글자 크기를 구분합니다. 같은 장소라도 발견 카드, 여행기 안의 카드, 저장 목록 카드는 서로 다른 구성입니다.</p></section>
           <section><h3>현재 화면이 우선</h3><p>승인된 화면 → 최종 적용 CSS → 가이드 → 공통 부품 순서로 판단합니다. 가이드나 부품 기본값이 다르면 화면 대신 가이드를 정정합니다.</p></section>
         </div>
-        <div className="sg-colors">{[['주요 글자·핵심 버튼', '#171716'], ['화면 배경', '#f8f8f6'], ['카드 바탕', '#ffffff'], ['보조 글자', '#777773'], ['구분선', '#e9e9e5'], ['포인트', '#ff5a3d']].map(([label, color]) => <div key={color}><i style={{ background: color }} /><strong>{label}</strong><code>{color}</code></div>)}</div>
+        <div className="sg-colors">{[['주요 글자·핵심 버튼', '#171716'], ['화면 배경', '#f8f8f6'], ['카드 바탕', '#ffffff'], ['보조 영역', '#f1f1ee'], ['보조 글자', '#6f6f69'], ['구분선', '#e9e9e5'], ['포인트', '#ff5a3d']].map(([label, color]) => <div key={color}><i style={{ background: color }} /><strong>{label}</strong><code>{color}</code></div>)}</div>
         <h3 className="sg-subtitle" id="sg-typography">글자 — 역할별 적용 규칙 · 2026.09.13</h3>
         <p className="sg-caption">제목: Manrope 선언 · 본문: DM Sans, Pretendard 및 시스템 대체 서체. 한글은 실제 기기에 설치된 지원 서체로 표시될 수 있습니다. 임의의 새 글꼴을 추가하지 않습니다.</p>
         <div className="sg-callout"><strong>새 작업에 적용할 기준</strong><ul>{typographyRules.map(rule => <li key={rule}>{rule}</li>)}</ul></div>

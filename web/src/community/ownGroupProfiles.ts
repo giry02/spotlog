@@ -1,12 +1,13 @@
-import { memberName, type TogetherState } from '../together/model.ts';
+import type { TogetherState } from '../together/model.ts';
 import { isSafeTogetherImageUrl } from '../together/contentMedia.ts';
 import { updateOwnMemberPresentation, type MemberPresentationInput } from '../together/memberProfile.ts';
+import { canUseRoomProfiles, resolveRoomIdentity } from '../together/roomIdentity.ts';
 
 /** This self-service picker contains active group memberships, never standalone backing spaces. */
 export function ownGroupProfileChoices(state: TogetherState, actorId: string) {
   if (!actorId || !state.members.some(member => member.id === actorId)) return [];
-  return state.groups.filter(group => group.spaceType !== 'ACTIVITY' && !group.archived && group.memberIds.includes(actorId) && !group.blockedMemberIds?.includes(actorId))
-    .map(group => ({ id: group.id, name: group.name, nickname: memberName(state, actorId, group.id),
+  return state.groups.filter(group => canUseRoomProfiles(group) && !group.archived && group.memberIds.includes(actorId) && !group.blockedMemberIds?.includes(actorId))
+    .map(group => ({ id: group.id, name: group.name, nickname: resolveRoomIdentity(state, actorId, group.id).name,
       cover: isSafeTogetherImageUrl(group.cover) ? group.cover : '',
       role: group.ownerId === actorId ? '모임장' : group.managerIds.includes(actorId) ? '운영진' : '모임원' }));
 }

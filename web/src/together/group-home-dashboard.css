@@ -16,7 +16,7 @@
 .tg .group-home-dashboard .ghd-context>button { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--muted,#686868); }
 .ghd-context>button>span { display:flex; align-items:center; gap:6px; min-width:0; }
 .ghd-context small { padding:2px 5px; background:#eeeee9; border-radius:4px; }
-.tg .group-home-dashboard .ghd-notice { display:flex; align-items:center; gap:7px; width:100%; min-height:44px; padding:8px 10px; background:#f0f0ec; border-radius:8px; }
+.tg .group-home-dashboard .ghd-notice { display:flex; align-items:center; gap:7px; width:100%; min-height:44px; padding:8px 10px; border:1px solid var(--line); border-radius:8px; background:#f0f0ec; }
 .ghd-notice strong { font-size:12px; flex:none; }
 .ghd-notice>span { flex:1; min-width:0; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:12px; }
 .tg .group-home-dashboard .ghd-application { display:flex; align-items:center; gap:8px; border:1px solid var(--line,#e5e5df); border-radius:9px; padding:8px 12px; }
@@ -34,7 +34,7 @@
 .ghd-next-copy>strong { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-size:16px; line-height:22px; overflow-wrap:anywhere; }
 .ghd-next-copy>span { display:flex; align-items:flex-start; gap:4px; font-size:12px; line-height:16px; color:var(--muted,#686868); min-width:0; overflow-wrap:anywhere; }
 .ghd-next-copy>span>svg { flex:0 0 14px; margin-top:1px; }
-.ghd-next footer { display:flex; align-items:center; gap:8px; justify-content:space-between; border-top:1px solid var(--line,#e5e5df); padding:8px 12px; background:#fafaf8; }
+.ghd-next footer { display:flex; align-items:center; gap:8px; justify-content:space-between; border-top:1px solid var(--line,#e5e5df); padding:8px 12px; }
 .ghd-next footer>span { font-size:12px; line-height:16px; color:var(--muted,#686868); min-width:0; flex:1; }
 .tg .group-home-dashboard .ghd-next footer>button { display:flex; align-items:center; justify-content:center; gap:4px; min-height:44px; padding:8px 10px; border-radius:8px; background:var(--ink,#171717); color:white; font-size:12px; line-height:16px; white-space:nowrap; font-weight:600; }
 .ghd-upcoming { display:grid; min-width:0; }
@@ -56,7 +56,7 @@
 .tg .group-home-dashboard .ghd-place-grid>button { display:grid; align-content:start; gap:4px; min-width:0; }
 .ghd-place-grid .ghd-photo { width:100%; aspect-ratio:1.15; border-radius:8px; margin-bottom:3px; }
 .ghd-place-grid strong { font-size:14px; line-height:20px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; overflow-wrap:anywhere; }
-.tg .group-home-dashboard .ghd-taste { display:flex; align-items:center; gap:10px; width:100%; padding:12px; border:1px solid #deded8; border-radius:10px; background:#f5f5f1; }
+.tg .group-home-dashboard .ghd-taste { display:flex; align-items:center; gap:10px; width:100%; padding:12px; border:1px solid var(--line); border-radius:10px; background:#f5f5f1; }
 .ghd-taste>span { display:grid; gap:4px; flex:1; min-width:0; }
 .ghd-taste strong { font-size:14px; line-height:20px; }
 .ghd-posts { display:grid; min-width:0; }

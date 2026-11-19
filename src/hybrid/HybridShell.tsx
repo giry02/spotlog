@@ -218,7 +218,7 @@ export function HybridShell() {
         onHttpError={(event) => { if (isEntryDocument(event.nativeEvent.url)) failLoading(`HTTP ${event.nativeEvent.statusCode}`); }}
         onContentProcessDidTerminate={() => failLoading('화면 연결이 종료됐어요. 다시 연결해 주세요.')}
         onRenderProcessGone={() => failLoading('화면 연결이 종료됐어요. 다시 연결해 주세요.')}
-        renderLoading={() => <View style={styles.loading}><ActivityIndicator color="#315CFD" /><Text style={styles.loadingText}>Spotlog 모바일웹을 여는 중</Text></View>}
+        renderLoading={() => <View style={styles.loading}><ActivityIndicator color="#171716" /><Text style={styles.loadingText}>Spotlog 모바일웹을 여는 중</Text></View>}
       />
 
       {__DEV__ && bridgeReady && <View pointerEvents="none" style={styles.bridgeDot} />}
@@ -237,21 +237,21 @@ export function HybridShell() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#FFFFFF' },
-  webview: { flex: 1, backgroundColor: '#F7F8FA' },
-  loading: { position: 'absolute', inset: 0, alignItems: 'center', justifyContent: 'center', gap: 12, backgroundColor: '#F7F8FA' },
+  safe: { flex: 1, backgroundColor: '#F8F8F6' },
+  webview: { flex: 1, backgroundColor: '#F8F8F6' },
+  loading: { position: 'absolute', inset: 0, alignItems: 'center', justifyContent: 'center', gap: 12, backgroundColor: '#F8F8F6' },
   loadingText: { color: '#667085', fontSize: 14, fontWeight: '700' },
   bridgeDot: { position: 'absolute', right: 8, top: 8, width: 6, height: 6, borderRadius: 3, backgroundColor: '#14B88A' },
-  error: { position: 'absolute', inset: 0, backgroundColor: '#F7F8FA' },
+  error: { position: 'absolute', inset: 0, backgroundColor: '#F8F8F6' },
   errorContent: { flexGrow: 1, padding: 30, alignItems: 'center', justifyContent: 'center' },
-  errorIcon: { width: 60, height: 60, borderRadius: 22, alignItems: 'center', justifyContent: 'center', backgroundColor: '#EEF2FF' },
-  errorIconText: { color: '#315CFD', fontSize: 25, fontWeight: '900' },
+  errorIcon: { width: 60, height: 60, borderRadius: 22, alignItems: 'center', justifyContent: 'center', backgroundColor: '#F1F1EE' },
+  errorIconText: { color: '#171716', fontSize: 25, fontWeight: '900' },
   errorTitle: { marginTop: 18, color: '#101828', fontSize: 21, fontWeight: '900', textAlign: 'center' },
   errorCopy: { marginTop: 8, color: '#667085', fontSize: 16, lineHeight: 24, textAlign: 'center' },
   urlBox: { width: '100%', marginTop: 18, padding: 12, borderRadius: 14, backgroundColor: '#FFFFFF' },
   urlLabel: { color: '#98A2B3', fontSize: 9, fontWeight: '900', letterSpacing: 0.8 },
   url: { marginTop: 4, color: '#315CFD', fontSize: 11, fontWeight: '700' },
   errorDetail: { marginTop: 9, color: '#98A2B3', fontSize: 9, textAlign: 'center' },
-  retry: { marginTop: 20, minWidth: 150, height: 48, borderRadius: 16, alignItems: 'center', justifyContent: 'center', backgroundColor: '#315CFD' },
+  retry: { marginTop: 20, minWidth: 150, height: 48, borderRadius: 16, alignItems: 'center', justifyContent: 'center', backgroundColor: '#171716' },
   retryText: { color: '#FFFFFF', fontSize: 14, fontWeight: '900' },
 });

@@ -24,4 +24,4 @@
 .tg .chat-expression-sticker-grid > button:hover { background: #f6f6f1; }
 .tg .chat-expression-sticker-grid img { width: 100%; height: auto; aspect-ratio: 1; display: block; object-fit: contain; pointer-events: none; }
 .tg .chat-expression-sticker-grid > button > span { font-size: 12px; font-weight: 400; line-height: 16px; overflow-wrap: anywhere; }
-.tg .chat-expression-hint { margin: 0; padding: 10px 12px; border-top: 1px solid var(--line); color: #62625e; background: #fafaf7; font-size: 14px; line-height: 20px; }
+.tg .chat-expression-hint { margin: 0; padding: 10px 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; line-height: 20px; }

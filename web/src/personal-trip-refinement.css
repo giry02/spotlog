@@ -13,7 +13,7 @@
   padding: 0 10px;
   gap: 5px;
   border-radius: 11px;
-  border-color: #e5e4df;
+  border-color: var(--line);
   background: #f8f8f6;
   font-size: var(--type-subhead);
   font-weight: 700;
@@ -50,7 +50,7 @@
 .phase-sheet .nearby-register-button { min-height:var(--touch-target,44px); font-size:var(--type-subhead); line-height:1.5; }
 .phase-sheet .plan-form .plan-check { display:flex; align-items:center; gap:8px; font-size:var(--type-subhead); font-weight:400; margin:0; }
 .phase-sheet .plan-form .plan-check input { margin:0; }
-.plan-timeline-gap { display:grid; gap:6px; background:#f1f1ed; }
+.plan-timeline-gap { display:grid; gap:6px; border-style:dashed; background:#f1f1ed; }
 .plan-timeline-gap>small,.plan-timeline-gap>p { margin:0; font-size:var(--type-caption); color:var(--muted); line-height:1.5; }
 .plan-timeline-gap>strong { font-size:var(--type-subhead); }
 .plan-timeline-gap>.ui-button { justify-self:start; }

@@ -51,7 +51,7 @@
 .tg-tag { display:inline-flex; align-items:center; gap:4px; padding:4px 8px; border-radius:7px; font-size:12px; line-height:16px; font-weight:600; color:#62625e; background:#f1f1ee; }
 .tg-tag.coral { color:#b13e2c; background:#fff0eb; }
 .tg-tag.green { color:#227769; background:#e9f5ef; }
-.tg-summary { padding:16px; background:#eeeae2; border-radius:16px; }
+.tg-summary { min-width:0; padding:16px; background:#eeeae2; border:1px solid var(--line); border-radius:16px; overflow-wrap:anywhere; }
 .tg-summary p { font-size:14px; color:#62625e; margin-top:7px; }
 .tg-section { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:6px 0 0; }
 .tg-section>h2,.tg-section>h3 { flex:1; min-width:0; }
@@ -138,7 +138,7 @@
 .tg-chat-message .tg-message-tools { display:flex; gap:8px; }
 .tg-chat-message .tg-message-tools button { min-height:44px; padding:8px 0; font-size:14px; border:0; background:transparent; color:var(--muted); }
 .tg-composer { position:sticky; bottom:0; z-index:8; background:var(--paper); padding:12px 16px calc(12px + env(safe-area-inset-bottom)); border-top:1px solid var(--line); display:flex; align-items:flex-end; gap:8px; }
-.tg-composer textarea { min-height:46px; max-height:120px; resize:vertical; flex:1; }
+.tg-composer textarea { min-width:0; min-height:46px; max-height:120px; resize:vertical; flex:1 1 0; }
 .tg-chat-tools { padding:10px 16px; display:flex; gap:8px; flex-wrap:wrap; background:white; border-bottom:1px solid var(--line); }
 .tg-chat-tools button { font-size:14px; }
 .tg-result { padding:16px; border:1px solid var(--line); border-radius:14px; background:white; }

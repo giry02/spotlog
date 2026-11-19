@@ -7,9 +7,12 @@
   font-synthesis: none;
   --accent: #ff5a3d;
   --ink: #171716;
-  --muted: #777773;
+  --muted: #6f6f69;
   --line: #e9e9e5;
+  --surface: #fff;
+  --surface-muted: #f1f1ee;
   --paper: #f8f8f6;
+  --soft: var(--surface-muted);
   --type-display: clamp(30px, 8vw, 36px);
   --type-title-lg: 28px;
   --type-title: 22px;
@@ -37,15 +40,15 @@ body { margin: 0; min-width: 320px; height: 100dvh; overflow: hidden; overscroll
 button, input, select, textarea { font: inherit; }
 button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.app-shell { position: relative; width: 100%; max-width: 460px; height: 100%; margin: 0 auto; overflow: hidden; background: var(--paper); box-shadow: 0 0 50px rgba(0,0,0,.12); }
+.app-shell { position: relative; width: 100%; max-width: 460px; height: 100%; margin: 0 auto; overflow: hidden; background: var(--paper); }
 .content { height: calc(100% - 74px - env(safe-area-inset-bottom)); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none; }
 .content::-webkit-scrollbar { display: none; }
 .tab-discover .content, .detail-open .content { height: 100%; }
 .tab-discover.place-video .content { background: #080808; }
 
 /* Navigation */
-.tabbar { position: absolute; z-index: 50; left: 0; right: 0; bottom: 0; height: calc(70px + env(safe-area-inset-bottom)); padding: 7px 10px env(safe-area-inset-bottom); display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); background: rgba(252,252,250,.97); border-top: 1px solid rgba(17,17,17,.08); backdrop-filter: blur(20px); }
-.tabbar button { min-width: 0; border: 0; background: transparent; color: #92928e; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.tabbar { position: absolute; z-index: 50; left: 0; right: 0; bottom: 0; height: calc(70px + env(safe-area-inset-bottom)); padding: 7px 10px env(safe-area-inset-bottom); display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); background: rgba(252,252,250,.97); border-top: 1px solid var(--line); }
+.tabbar button { min-width: 0; border: 0; background: transparent; color: var(--muted); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
 .tabbar button span { font-size: 10px; font-weight: 600; }
 .tabbar button.active { color: var(--ink); }
 .tab-discover.place-video .tabbar { color: white; background: linear-gradient(180deg, transparent, rgba(0,0,0,.76) 42%); border: 0; backdrop-filter: none; }
@@ -783,7 +786,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
 /* Standalone photo-story concept — vertical places, horizontal scenes */
 .tab-photo-stories .content { height: 100%; overflow: hidden; background: #f3f3ef; }
 .photo-story-preview { position: relative; height: 100%; overflow: hidden; background: #f3f3ef; }
-.photo-story-topbar { position: absolute; z-index: 20; top: 0; left: 0; right: 0; min-height: calc(66px + env(safe-area-inset-top)); padding: max(10px, env(safe-area-inset-top)) 14px 9px; display: grid; grid-template-columns: 42px 1fr 42px; align-items: center; gap: 9px; border-bottom: 1px solid rgba(24,24,21,.07); background: rgba(250,250,247,.94); backdrop-filter: blur(20px); }
+.photo-story-topbar { position: absolute; z-index: 20; top: 0; left: 0; right: 0; min-height: calc(66px + env(safe-area-inset-top)); padding: max(10px, env(safe-area-inset-top)) 14px 9px; display: grid; grid-template-columns: 42px 1fr 42px; align-items: center; gap: 9px; border-bottom: 1px solid rgba(24,24,21,.07); background: rgba(250,250,247,.94); }
 .photo-story-topbar > button { width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #deded8; border-radius: 50%; color: #262623; background: white; }
 .photo-story-topbar > div { min-width: 0; display: flex; flex-direction: column; align-items: center; line-height: 1.25; }
 .photo-story-topbar strong { font-family: 'Manrope', sans-serif; font-size: 17px; letter-spacing: -.4px; }
@@ -967,8 +970,8 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px s
 .demo-note { font-size: var(--type-caption); line-height: 1.6; }
 .toast { font-size: var(--type-caption); }
 
-@media (min-width: 700px) {
-  .app-shell { height: min(900px, 100dvh); }
+@media (min-width: 461px) {
+  .app-shell { box-shadow: -1px 0 var(--line), 1px 0 var(--line); }
 }
 
 @media (prefers-reduced-motion: reduce) {

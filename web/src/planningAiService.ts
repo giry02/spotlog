@@ -42,8 +42,13 @@ async function ask(endpoint: string, feature: Feature, fields: Record<string, un
       method: 'POST', credentials: 'same-origin', redirect: 'error', cache: 'no-store', signal: requestSignal,
       headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({ schemaVersion: 1, requestId, feature, ...fields }),
+    }).catch(error => {
+      if (requestSignal.aborted) throw error;
+      throw new Error('AI 서버에 연결하지 못했어요. 입력을 유지했어요.');
     });
-    if (!response.ok) throw new Error('AI에 연결하지 못했어요. 입력을 유지했어요.');
+    if (response.status === 429) throw new Error('AI가 다른 요청을 처리 중이에요. 잠시 뒤 다시 시도해 주세요.');
+    if (response.status === 504) throw new Error('AI 응답이 늦어지고 있어요. 입력을 유지했어요.');
+    if (!response.ok) throw new Error('AI 결과를 받지 못했어요. 입력을 유지했어요.');
     if (!/^application\/json(?:\s*;|$)/i.test(response.headers.get('Content-Type') || '') || Number(response.headers.get('Content-Length')) > 48_000) throw new Error('AI 응답 형식을 확인할 수 없어요.');
     const raw = await response.text();
     if (raw.length > 48_000) throw new Error('AI 응답 형식을 확인할 수 없어요.');
@@ -53,7 +58,7 @@ async function ask(endpoint: string, feature: Feature, fields: Record<string, un
     if (value.status === 'INSUFFICIENT_DATA') return null;
     if (!isRecord(value.result)) throw new Error('AI 응답 형식을 확인할 수 없어요.');
     return value.result;
-  }, signal, 12_000);
+  }, signal, 45_000);
 }
 
 export async function requestPlaceAi(endpoint: string, input: PlaceInput, signal?: AbortSignal): Promise<{ placeIds: string[] }> {

@@ -1,5 +1,6 @@
 .own-group-profiles { display:grid; gap:16px; min-width:0; color:var(--ink); }
 .own-group-profiles p { margin:0; font-size:14px; line-height:20px; overflow-wrap:anywhere; }
+.own-group-profiles__intro { color:var(--muted); }
 .own-group-profiles__scope { display:grid; gap:4px; min-width:0; padding-bottom:12px; border-bottom:1px solid var(--line); }
 .own-group-profiles__scope>button { display:flex; align-items:center; justify-self:start; gap:6px; min-height:44px; padding:8px 0; border:0; background:none; color:var(--ink); font-size:14px; line-height:20px; }
 .own-group-profiles__choices { display:grid; min-width:0; }

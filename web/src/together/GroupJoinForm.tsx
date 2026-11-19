@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Check, ChevronDown } from 'lucide-react';
 import type { GroupJoinMode, TogetherGroup } from './model';
 import { discoveryProfile } from './discovery';
+import { canUseRoomProfiles } from './roomIdentity';
 import { groupAvailabilityOptions, isGroupJoinFields, normalizeGroupJoinDraft, normalizeGroupJoinFields, validateGroupJoinDraft, type GroupJoinDraft, type GroupJoinFields } from './groupJoining';
 import './group-creation.css';
 
@@ -20,7 +21,8 @@ function GroupJoinBody({group,accountName,initial,joinMode,fields:givenFields,co
   const fields=givenFields || (isGroupJoinFields(stored)?stored:normalizeGroupJoinFields());
   const mode=joinMode || profile.joinMode || 'APPROVAL';
   const direct=mode==='DIRECT';
-  const [draft,setDraft]=useState(()=>normalizeGroupJoinDraft(initial,accountName,fields));
+  const useMultiProfile = canUseRoomProfiles(group);
+  const [draft,setDraft]=useState(()=>normalizeGroupJoinDraft(initial,useMultiProfile ? '' : accountName,fields));
   const [error,setError]=useState('');const [busy,setBusy]=useState(false);
   const lock=useRef(false),notify=useRef(onDraftChange);notify.current=onDraftChange;
   useEffect(()=>{notify.current?.(draft);},[draft]);
@@ -34,7 +36,7 @@ function GroupJoinBody({group,accountName,initial,joinMode,fields:givenFields,co
     finally{lock.current=false;setBusy(false);}
   };
   return <form className="group-join-form" onSubmit={event=>{event.preventDefault();void submit();}}><div className="group-join-heading"><span className="group-join-mode">{direct?'바로 가입':'운영진 승인 후 가입'}</span><h2>{group.name}</h2><p>{fields.welcome||profile.welcome}</p><small>{direct?'안내를 확인하고 가입하면 모임을 이용할 수 있어요.':'신청을 보내면 운영진이 확인해요. 승인 후 모임을 이용할 수 있어요.'} 약속 참가는 별도로 선택해요.</small></div>{context}
-    <div className="group-form-fields"><label>이 모임에서 사용할 이름 <small>선택</small><input aria-label="모임에서 사용할 이름" value={draft.nickname} maxLength={30} autoComplete="nickname" onChange={event=>update({nickname:event.target.value})}/><small>계정 이름은 바뀌지 않아요.</small></label><details className="group-join-options" open={!direct}><summary>자기소개·활동 시간 <small>선택{fields.questions.length ? ` · 질문 ${fields.questions.length}개` : ''}</small><ChevronDown size={16}/></summary><div className="group-form-fields"><label>자기소개 <small>선택</small><textarea aria-label="가입 인사" value={draft.introduction} maxLength={500} rows={3} placeholder="함께하고 싶은 활동이나 편한 인사를 남겨주세요." onChange={event=>update({introduction:event.target.value})}/></label>
+    <div className="group-form-fields">{useMultiProfile && <label>이 모임에서 사용할 이름 <small>선택</small><input aria-label="모임에서 사용할 이름" value={draft.nickname} maxLength={30} autoComplete="off" onChange={event=>update({nickname:event.target.value})}/><small>가입한 뒤 멀티프로필에서 바꿀 수 있어요.</small></label>}<details className="group-join-options" open={!direct}><summary>자기소개·활동 시간 <small>선택{fields.questions.length ? ` · 질문 ${fields.questions.length}개` : ''}</small><ChevronDown size={16}/></summary><div className="group-form-fields"><label>자기소개 <small>선택</small><textarea aria-label="가입 인사" value={draft.introduction} maxLength={500} rows={3} placeholder="함께하고 싶은 활동이나 편한 인사를 남겨주세요." onChange={event=>update({introduction:event.target.value})}/></label>
       {fields.questions.map(question=><label key={question.id}>{question.label} <small>선택</small><textarea value={draft.answers.find(item=>item.questionId===question.id)?.answer || ''} maxLength={500} rows={2} onChange={event=>{const value=event.target.value;update({answers:[...draft.answers.filter(item=>item.questionId!==question.id),{questionId:question.id,answer:value}]});}}/></label>)}
       <fieldset><legend>함께하기 편한 시간 <small>선택</small></legend>{fields.availableTimes.length>0 && <p className="group-form-hint">이 모임은 주로 {fields.availableTimes.map(id=>groupAvailabilityOptions.find(item=>item.id===id)?.label).filter(Boolean).join(' · ')}에 활동해요.</p>}<div className="group-form-chips">{groupAvailabilityOptions.map(item=><button type="button" key={item.id} aria-pressed={draft.availableTimes.includes(item.id)} onClick={()=>update({availableTimes:draft.availableTimes.includes(item.id)?draft.availableTimes.filter(id=>id!==item.id):[...draft.availableTimes,item.id]})}>{draft.availableTimes.includes(item.id)&&<Check size={14}/>} {item.label}</button>)}</div></fieldset>
     </div></details></div><details className="group-join-guide" open><summary>모임 가입 안내</summary><p>{profile.joinGuide}</p></details><label className="group-rule-check"><input type="checkbox" checked={draft.rulesAccepted} onChange={event=>update({rulesAccepted:event.target.checked})}/><span>모임 소개와 가입 안내를 확인했어요.</span></label>{error&&<p role="alert" className="group-form-error">{error}</p>}<button className="tg-primary" type="submit" disabled={busy}>{busy?'처리 중…':direct?'확인하고 가입하기':'가입 신청 보내기'}</button>

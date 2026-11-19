@@ -1,5 +1,5 @@
-import { isMember, memberName, roomIdForActivity, roomIdForGroup, type TogetherGroup, type TogetherMessage, type TogetherState } from './model.ts';
-import { isSafeTogetherImageUrl } from './contentMedia.ts';
+import { isMember, roomIdForActivity, roomIdForGroup, type TogetherGroup, type TogetherMessage, type TogetherState } from './model.ts';
+import { resolveRoomIdentity } from './roomIdentity.ts';
 import type { ChatMemberMention, ChatMentionQuery } from './chatMentionTypes.ts';
 export type { ChatMemberMention, ChatMentionQuery } from './chatMentionTypes.ts';
 
@@ -44,11 +44,13 @@ export function selectChatMentionCandidates(state: TogetherState, actorId: strin
   if (!group || group.archived || group.temporaryRoom?.closedAt || group.temporaryRoom?.expiresAt && Date.parse(group.temporaryRoom.expiresAt) <= Date.now()
     || typeof query !== 'string' || query.length > 80) return [];
   const needle = query.trim().toLocaleLowerCase();
+  const activityId = roomId.startsWith('activity:') ? roomId.slice('activity:'.length) : undefined;
   return group.memberIds.filter((id, index, all) => id !== actorId && all.indexOf(id) === index && !group.blockedMemberIds?.includes(id))
     .flatMap(userId => {
-      const member = state.members.find(item => item.id === userId), name = memberName(state, userId, group.id).trim();
-      if (!member || !name || name.length > 120 || /[\u0000-\u001f\u007f]/u.test(name) || !name.toLocaleLowerCase().includes(needle)) return [];
-      return [{ userId, name, ...(isSafeTogetherImageUrl(member.avatar) ? { avatar: member.avatar } : {}),
+      if (!state.members.some(item => item.id === userId)) return [];
+      const identity = resolveRoomIdentity(state, userId, group.id, activityId), name = identity.name.trim();
+      if (!name || name.length > 120 || /[\u0000-\u001f\u007f]/u.test(name) || !name.toLocaleLowerCase().includes(needle)) return [];
+      return [{ userId, name, ...(identity.avatar ? { avatar: identity.avatar } : {}),
         role: group.ownerId === userId ? '모임장' : group.managerIds.includes(userId) ? '매니저' : '모임원' }];
     });
 }

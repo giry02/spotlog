@@ -4,7 +4,7 @@
 .candidate-route-summary { display: flex; align-items: flex-start; gap: 8px; margin: 0; font-size: 14px; line-height: 1.5; color: #62625e; overflow-wrap: anywhere; }
 .candidate-route-summary svg { flex-shrink: 0; margin-top: 3px; }
 .candidate-choice-group { min-width: 0; padding: 12px; border: 1px solid #deded8; border-radius: 16px; background: #fff; }
-.candidate-choice-group legend { display: flex; align-items: center; gap: 6px; max-width: 100%; padding: 0 6px; font-size: 14px; font-weight: 700; line-height: 1.5; word-break: keep-all; }
+.candidate-choice-group legend { display: flex; align-items: center; gap: 6px; max-width: 100%; padding: 0 6px; font-size: 14px; font-weight: 700; line-height: 1.5; word-break: keep-all; overflow-wrap: anywhere; }
 .candidate-option { border-bottom: 1px solid #eeeeea; padding-bottom: 4px; }
 .candidate-choice-row { display: flex; align-items: flex-start; gap: 4px; }
 .candidate-choice-row > .ui-icon-button { flex-shrink: 0; width: 44px; min-height: 44px; margin-top: 4px; }
@@ -32,7 +32,7 @@
 .candidate-radio:has(input:checked) .candidate-place-photo { outline: 2px solid #167567; outline-offset: -2px; }
 .candidate-radio:has(input:disabled) { opacity: .6; cursor: default; }
 .candidate-skip { color: #62625e; }
-.candidate-confirm { position: sticky; z-index: 2; bottom: -20px; display: grid; gap: 8px; padding: 14px 0 20px; background: #f8f8f6; border-top: 1px solid #e6e6df; }
+.candidate-confirm { position: sticky; z-index: 2; bottom: -20px; display: grid; gap: 8px; padding: 14px 0 20px; background: #f8f8f6; border-top: 1px solid var(--line); }
 .candidate-confirm p { margin: 0; font-size: 14px; line-height: 1.5; }
 .candidate-review-progress{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;border-bottom:1px solid var(--line);padding-bottom:16px}.candidate-review-progress>strong{font-size:16px;line-height:1.5}.candidate-review-progress>span{font-size:12px;line-height:1.5;align-self:center;color:var(--muted)}.candidate-review-progress>progress{grid-column:1/-1;width:100%;height:5px;accent-color:var(--ink)}.candidate-review-progress>p{grid-column:1/-1;margin:0;font-size:12px;line-height:1.5;color:var(--muted)}.candidate-decision{min-width:0;border-block-end:1px solid var(--line)}.candidate-decision>summary{display:flex;gap:10px;align-items:center;min-height:64px;padding:8px 0;cursor:pointer;list-style:none}.candidate-decision>summary>svg{flex:none}.candidate-decision>summary>span{flex:1;min-width:0;display:grid;gap:4px}.candidate-decision>summary strong{font-size:14px;line-height:1.5;overflow-wrap:anywhere}.candidate-decision>summary small{font-size:12px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}.candidate-decision>summary em{flex:none;font-size:12px;line-height:1.5;font-style:normal;border-bottom:1px solid currentColor}.candidate-decision>.candidate-choice-group{margin:0 0 12px;border:0;border-radius:0;padding:0}.candidate-decision .candidate-choice-group>legend{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}.candidate-review-day>h3{font-size:16px}
 .plan-candidate-banner { display: flex; align-items: center; gap: 12px; padding: 14px; margin: 14px 18px; border: 1px solid #d3e4df; border-radius: 16px; background: #edf5f2; }

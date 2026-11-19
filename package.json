@@ -32,6 +32,8 @@
     "android:aab": "npx --yes eas-cli@latest build --platform android --profile production",
     "ios": "expo start --ios",
     "web": "npm run dev --workspace @spotlog/web",
+    "web:ai:catalog": "node web/server/exportPlanningCatalog.mjs",
+    "web:ai:server": "node web/server/startPlanningAi.mjs",
     "web:build": "npm run build --workspace @spotlog/web",
     "web:typecheck": "npm run typecheck --workspace @spotlog/web",
     "typecheck": "tsc --noEmit"

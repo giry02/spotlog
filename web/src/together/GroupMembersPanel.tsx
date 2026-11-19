@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { BookOpen, ChevronRight, ShieldCheck, UserRound } from 'lucide-react';
 import type { TogetherState } from './model';
 import { selectGroupMembers } from './groupContent';
-import { TogetherPhotoPicker } from './ReviewPostComposer';
+import { canUseRoomProfiles } from './roomIdentity';
 import GroupProfileDetails from './GroupProfileDetails';
 import { isSafeTogetherImageUrl } from './contentMedia';
 import './content-panels.css';
@@ -13,20 +13,20 @@ export function MemberAvatar({ name, avatar, large = false, onImageError }: { na
 }
 
 interface GroupMembersProps {
-  state: TogetherState; viewerId: string; groupId: string; onViewRecords: (memberId: string) => void;
-  onAvatarChange?: (url: string) => boolean; onOpenManagers?: () => void;
+  state: TogetherState; viewerId: string; groupId: string; activityId?: string; onViewRecords: (memberId: string) => void;
+  onOpenManagers?: () => void;
   onManageMember?: (memberId: string) => void; onOpenApplications?: () => void;
   onEditProfile?: () => void;
 }
 /** Member browsing and personal presentation; role changes live in GroupManagersPanel. */
-export default function GroupMembersPanel({ state, viewerId, groupId, onViewRecords, onAvatarChange, onOpenManagers, onManageMember, onOpenApplications, onEditProfile }: GroupMembersProps) {
-  const members = selectGroupMembers(state, viewerId, groupId);
+export default function GroupMembersPanel({ state, viewerId, groupId, activityId, onViewRecords, onOpenManagers, onManageMember, onOpenApplications, onEditProfile }: GroupMembersProps) {
+  const members = selectGroupMembers(state, viewerId, groupId, activityId);
   const group = state.groups.find(item => item.id === groupId);
   if (!members || !group) return <p>현재 모임원만 멤버를 볼 수 있어요.</p>;
   const own = members.find(item => item.id === viewerId);
   const manager = !group.archived && (group.ownerId === viewerId || group.managerIds.includes(viewerId));
   return <div className="tg-members-panel">
-    {own && <section className="tg-own-member"><MemberAvatar name={own.name} avatar={own.avatar} large/><div><small>이 모임에서의 내 프로필</small><strong>{own.name}</strong><span>{own.role}</span></div>{!group.archived && <div className="tg-own-member__actions">{onEditProfile ? <button type="button" onClick={onEditProfile}>내 프로필 편집</button> : onAvatarChange && <><TogetherPhotoPicker key={`${viewerId}:${groupId}`} purpose="AVATAR" label={own.avatar ? '내 사진 바꾸기' : '내 사진 등록'} onSelect={onAvatarChange}/>{own.avatar && <button type="button" className="tg-text-button" onClick={() => onAvatarChange('')}>사진 삭제</button>}</>}</div>}</section>}
+    {own && <section className="tg-own-member"><MemberAvatar name={own.name} avatar={own.avatar} large/><div><small>{canUseRoomProfiles(group) ? '이 방의 멀티프로필' : '내 기본 프로필'}</small><strong>{own.name}</strong><span>{own.role}</span></div>{!group.archived && onEditProfile && <div className="tg-own-member__actions"><button type="button" onClick={onEditProfile}>멀티프로필 편집</button></div>}</section>}
     <div className="tg-between"><h3>함께하는 멤버 <span>{members.length}</span></h3>{onOpenManagers && group.ownerId === viewerId && !group.archived && <button type="button" className="tg-text-button" onClick={onOpenManagers}><ShieldCheck size={16}/>운영진 관리</button>}</div>
     <div className="tg-member-directory">{members.map(item => <article className="tg-member-directory__item" key={item.id}><button type="button" className="tg-member-directory__person" aria-label={`${item.name}님의 기록 보기`} onClick={() => onViewRecords(item.id)}><MemberAvatar name={item.name} avatar={item.avatar}/><span><strong>{item.name}{item.id === viewerId && <small>나</small>}</strong><small>{item.role}</small></span><BookOpen size={17}/><ChevronRight size={16}/></button>
       {item.sharedIntroduction && <p>{item.sharedIntroduction}</p>}

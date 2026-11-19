@@ -1,5 +1,5 @@
 .saved-place-toolbar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
-.saved-place-toolbar .interest-view-toggle { flex:1 1 auto; min-width:max-content; margin:0; gap:6px; }
+.saved-place-toolbar .interest-view-toggle { flex:1 1 auto; min-width:0; flex-wrap:wrap; margin:0; gap:6px; }
 .saved-place-toolbar .interest-view-toggle button { min-height:44px; padding:10px; font-size:var(--type-subhead); }
 .saved-place-toolbar .interest-view-toggle > span { margin-left:2px; white-space:nowrap; }
 .saved-place-toolbar .saved-trip-launch { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:44px; padding:10px; border:1px solid var(--line); border-radius:12px; color:var(--ink); background:transparent; font-size:var(--type-subhead); font-weight:650; white-space:nowrap; }
@@ -38,7 +38,7 @@
 .saved-trip-toolbar .day-tabs-track { width: 100%; }
 .saved-trip-toolbar .day-tabs-track button { min-width: 82px; min-height: 44px; padding: 5px 10px; border-radius: 10px; }
 .saved-trip-toolbar .day-tabs-track small,.saved-trip-toolbar .day-tabs-track strong { font-size: var(--type-caption); line-height: 1.25; }
-.saved-trip-toolbar-row { display: flex; align-items: center; gap: 8px; }
+.saved-trip-toolbar-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
 .saved-trip-toolbar-row > span { margin-right: auto; color: var(--muted); font-size: var(--type-caption); }
 .saved-trip-period-link { display: inline-flex; align-items: center; gap: 2px; padding: 0; min-height: var(--touch-target,44px); border: 0; background: transparent; color: var(--ink); font-size: var(--type-subhead); font-weight: 650; }
 .saved-trip-confirm { display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; min-height: var(--touch-target,44px); padding: 0 10px; border: 0; border-radius: 10px; background: #242422; color: white; font-size: var(--type-subhead); font-weight: 650; }

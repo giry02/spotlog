@@ -102,6 +102,7 @@ test('archived groups remain readable and stale trash/non-journal snapshots do n
 
 test('profile identity uses only this group nickname and retains own/manager introduction access', () => {
   const state = fixture();
+  state.groups[0].kind = 'HOBBY';
   state.groups[0].memberProfiles = { owner: { nickname: '이 모임 이름', introduction: '가입 소개', answers: [{ answer: '가입 질문 답변 비밀' }] } };
   state.groups[1].memberProfiles = { owner: { nickname: '다른 모임 이름 비밀', introduction: '다른 모임 소개 비밀' } };
   state.members.find(item => item.id === 'owner').avatar = 'javascript:bad';

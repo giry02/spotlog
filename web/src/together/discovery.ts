@@ -53,8 +53,8 @@ export function publicActivities(state: TogetherState, group: TogetherGroup): Pu
       const approved = current.promotionActivitySnapshots === undefined ? activity
         : current.promotionActivitySnapshots.find(snapshot => snapshot.id === activity.id && snapshot.groupId === current.id);
       if (!approved) return [];
-      const { id, groupId, title, date, endDate, description, kind, startTime } = approved;
-      return [{ id, groupId, title, date, endDate, description, status: activity.status, ...(kind ? { kind } : {}), ...(startTime ? { startTime } : {}) }];
+      const { id, groupId, title, date, endDate, description, kind, startTime, endTime } = approved;
+      return [{ id, groupId, title, date, endDate, description, status: activity.status, ...(kind ? { kind } : {}), ...(startTime ? { startTime } : {}), ...(endTime ? { endTime } : {}) }];
     });
 }
 export function koreaDay(date = new Date()): string {

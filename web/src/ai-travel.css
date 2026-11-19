@@ -7,7 +7,7 @@
 .ai-travel-form .phase-hint { margin: 0; }
 .ai-travel-preview > h3 { margin: 10px 0 6px; font-family: 'Manrope',sans-serif; font-size: 20px; line-height: 1.35; outline: none; }
 .ai-travel-result-meta { margin: 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.7; }
-.ai-travel-day-options { position: sticky; top: -20px; z-index: 2; padding-block: 12px; background: #fafaf8; border-bottom: 1px solid var(--line); }
+.ai-travel-day-options { position: sticky; top: -20px; z-index: 2; padding-block: 12px; background: var(--surface); border-bottom: 1px solid var(--line); }
 .ai-travel-day-options button { display: flex; gap: 8px; align-items: center; }
 .ai-travel-day-options small { font-size: 12px; }
 .ai-travel-days { min-width: 0; }

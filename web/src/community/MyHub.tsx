@@ -112,7 +112,7 @@ export function MyHub({ state, userId, userName, plans, journals, onActivity, on
         {content.pastPlans.length > 0 && <><div className="my-hub-section-heading"><h2>지난 개인 여행</h2></div>{content.pastPlans.map(plan => <PlanRow key={plan.id} plan={plan} onOpen={() => onPlan(plan.id)}/>)}</>}
       </>}
       <footer className="my-hub-footer my-hub-footer--account">
-        {authenticated ? <><button type="button" className="my-hub-account-line" onClick={onAccount}><MemberAvatar name={userName || member?.name || '내 계정'} avatar={member?.avatar}/><span>{userName || member?.name || '내 계정'}</span><small>계정 관리</small><ChevronRight size={16}/></button>{onEditGroupProfiles && <button type="button" onClick={onEditGroupProfiles}><UserRound size={18}/><span>모임별 내 프로필</span><ChevronRight size={16}/></button>}</> : <button type="button" onClick={onLogin}><UserRound size={18}/>로그인·회원가입<ChevronRight size={16}/></button>}
+        {authenticated ? <><button type="button" className="my-hub-account-line" onClick={onAccount}><MemberAvatar name={userName || member?.name || '내 계정'} avatar={member?.avatar}/><span>{userName || member?.name || '내 계정'}</span><small>계정 관리</small><ChevronRight size={16}/></button>{onEditGroupProfiles && <button type="button" onClick={onEditGroupProfiles}><UserRound size={18}/><span>내 멀티프로필</span><ChevronRight size={16}/></button>}</> : <button type="button" onClick={onLogin}><UserRound size={18}/>로그인·회원가입<ChevronRight size={16}/></button>}
         <button type="button" onClick={onTrash}><Trash2 size={16}/>기기 휴지통</button>
       </footer>
     </div>

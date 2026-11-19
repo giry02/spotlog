@@ -11,11 +11,16 @@ const groupRoom = roomIdForGroup('one'), activityRoom = roomIdForActivity('outin
 function fixture() {
   const state = createEmptyState('alice', '나');
   state.discoveryCatalogVersion = 3;
-  state.members.push({ id: 'bob', name: '민지' }, { id: 'bobby', name: '민지' }, { id: 'mom', name: '우리 엄마' },
+  state.members.push({ id: 'bob', name: '민지', avatar: '/basic.png' }, { id: 'bobby', name: '민지' }, { id: 'mom', name: '우리 엄마' },
     { id: 'unicode', name: '지우 🌷' }, { id: 'other', name: '다른 모임 전용 이름' });
-  const group = { id: 'one', name: '우리 모임', kind: 'FAMILY', region: '부산', introduction: '', cover: '', ownerId: 'alice',
+  const group = { id: 'one', name: '우리 모임', kind: 'HOBBY', region: '부산', introduction: '', cover: '', ownerId: 'alice',
     memberIds: ['alice', 'bob', 'bobby', 'mom', 'unicode'], managerIds: ['mom'], archived: false, visibility: 'PRIVATE', promotionPublished: false,
-    memberPresentations: { bob: { nickname: '별이', introduction: '노출하면 안 되는 소개' } } };
+    memberPresentations: {
+      bob: { nickname: '별이', introduction: '노출하면 안 되는 소개' },
+      bobby: { nickname: '민지', introduction: '' },
+      mom: { nickname: '우리 엄마', introduction: '' },
+      unicode: { nickname: '지우 🌷', introduction: '' },
+    } };
   state.groups.push(group, { ...structuredClone(group), id: 'other', name: '다른 모임', memberIds: ['alice', 'other'], managerIds: [], memberPresentations: {} });
   state.activities.push({ id: 'outing', groupId: 'one', title: '부산 나들이', date: '', endDate: '', meetingPoint: '', description: '',
     status: 'PLANNED', leadId: 'alice', editorIds: [], participants: { mom: 'DECLINED' }, arrivedIds: [], revision: 1 });
@@ -48,6 +53,24 @@ test('candidate projection uses exact room members and scoped nickname, never co
   assert.deepEqual({ ...state, groups: before.groups }, before);
 });
 
+test('activity tagging uses that room’s nickname and photo, while family and friends use the basic profile', () => {
+  const state = fixture();
+  state.groups[0].memberPresentations.bob.avatar = '/club.png';
+  state.activities[0].memberPresentations = { bob: { nickname: '산책별', introduction: '', avatar: '/walk.png' } };
+  const groupCandidate = selectChatMentionCandidates(state, 'alice', groupRoom, '별이')[0];
+  const activityCandidate = selectChatMentionCandidates(state, 'alice', activityRoom, '산책별')[0];
+  assert.deepEqual(groupCandidate, { userId: 'bob', name: '별이', avatar: '/club.png', role: '모임원' });
+  assert.deepEqual(activityCandidate, { userId: 'bob', name: '산책별', avatar: '/walk.png', role: '모임원' });
+  assert.deepEqual(selectChatMentionCandidates(state, 'alice', activityRoom, '별이'), []);
+  assert.equal(picked(state, activityRoom).body, '@산책별 ');
+  for (const kind of ['FAMILY', 'FRIENDS']) {
+    state.groups[0].kind = kind;
+    const matches = selectChatMentionCandidates(state, 'alice', activityRoom, '민지');
+    assert.deepEqual(matches[0], { userId: 'bob', name: '민지', avatar: '/basic.png', role: '모임원' });
+    assert.deepEqual(selectChatMentionCandidates(state, 'alice', activityRoom, '산책별'), []);
+  }
+});
+
 test('cursor-local @ query ignores emails, punctuation, existing picked spans, invalid offsets and trailing unrelated text', () => {
   for (const body of ['hi@example.com', 'hi@민지', '@a.com', '@민지\n다음', '다음@@민지']) assert.equal(findChatMentionQuery(body, body.length), null, body);
   assert.deepEqual(findChatMentionQuery('안녕 @우리 엄', 8), { start: 3, end: 8, query: '우리 엄' });
@@ -71,7 +94,7 @@ test('explicit insertion records actual picked ID and UTF-16 ranges, preserving 
 });
 
 test('duplicate displayed names preserve the explicitly selected member ID instead of guessing by text', () => {
-  const state = fixture(); delete state.groups[0].memberPresentations;
+  const state = fixture(); state.groups[0].memberPresentations.bob.nickname = '민지';
   const candidates = selectChatMentionCandidates(state, 'alice', groupRoom, '민지');
   assert.deepEqual(candidates.map(item => item.userId), ['bob', 'bobby']);
   const value = picked(state, groupRoom, 'bobby');

@@ -95,13 +95,15 @@ test('private, unpublished, archived and blocked group introductions do not beco
 
 test('member directory preserves prior join-profile visibility and own avatar changes cannot target another account', () => {
   const state = fixture();
+  state.groups[0].kind = 'HOBBY';
   assert.equal(selectGroupMembers(state,'outsider','g'),null);
   assert.equal(selectGroupMembers(state,'me','g').find(item => item.id === 'member').introduction,'');
   assert.equal(selectGroupMembers(state,'owner','g').find(item => item.id === 'member').introduction,'선택 가입 소개 비밀');
   const owner = structuredClone(state.members.find(item => item.id === 'owner'));
-  setOwnMemberAvatar(state,'me','g',photo); assert.equal(state.members.find(item => item.id === 'me').avatar,photo);
+  setOwnMemberAvatar(state,'me','g',photo); assert.equal(selectGroupMembers(state,'me','g').find(item => item.id === 'me').avatar,photo);
+  assert.equal(state.members.find(item => item.id === 'me').avatar,undefined);
   assert.deepEqual(state.members.find(item => item.id === 'owner'),owner);
-  assert.ok(isTogetherState(state)); setOwnMemberAvatar(state,'me','g',''); assert.equal(state.members.find(item => item.id === 'me').avatar,undefined);
+  assert.ok(isTogetherState(state)); setOwnMemberAvatar(state,'me','g',''); assert.equal(selectGroupMembers(state,'me','g').find(item => item.id === 'me').avatar,'');
   assert.throws(() => setOwnMemberAvatar(state,'outsider','g',photo));
   assert.throws(() => setOwnMemberAvatar(state,'me','g','javascript:alert(1)'));
 });

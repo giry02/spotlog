@@ -1,4 +1,4 @@
-.place-assistant-page { padding: 16px 16px 24px; }
+.place-assistant-page { padding: 16px 16px 24px; background: var(--surface, #fff); }
 
 .place-assistant {
   display: grid;
@@ -21,11 +21,12 @@ body.spotlog-consumer .phase-sheet .place-assistant__form :is(select, textarea),
 .place-assistant__form :is(select, textarea) {
   box-sizing: border-box;
   width: 100%;
+  min-width: 0;
   min-height: 44px;
   padding: 10px 12px;
   border: 1px solid var(--line, #deded8);
   border-radius: 10px;
-  background: #fff;
+  background: var(--surface, #fff);
   color: var(--ink, #191917);
   font: inherit;
   font-size: 16px;
@@ -56,7 +57,7 @@ body.spotlog-consumer .phase-sheet .place-assistant__form :is(select, textarea),
   box-shadow: none;
   border: 1px solid var(--line, #deded8);
   border-radius: 10px;
-  background: #fff;
+  background: var(--surface, #fff);
   color: var(--ink, #191917);
   font-weight: 600;
   line-height: 1.35;
@@ -66,7 +67,6 @@ body.spotlog-consumer .phase-sheet .place-assistant__form :is(select, textarea),
 :is(.phase-sheet, .place-assistant-page) .place-assistant .place-assistant__examples button {
   padding-inline: 10px;
   border-radius: 8px;
-  background: var(--soft, #f2f2ef);
   font-size: 13px;
 }
 
@@ -94,6 +94,7 @@ body.spotlog-consumer .phase-sheet .place-assistant__form :is(select, textarea),
 
 .place-assistant__notice,
 .place-assistant__message {
+  border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--soft, #f2f2ef);
   padding: 10px 12px;

@@ -16,7 +16,7 @@
 .app-menu-travel[open] summary>svg:last-child { transform:rotate(90deg); }
 .app-menu-links button { display:flex; align-items:center; gap:14px; min-height:72px; padding:12px 4px; background:transparent; border:0; text-align:left; color:var(--ink); }
 .app-menu-links strong { font-size:var(--type-body); font-weight:600; }
-.app-menu-links button:hover { background:var(--paper); }
+.app-menu-links button:hover { background:var(--surface-muted); }
 .app-menu-help { font-size:var(--type-body); line-height:1.7; }
 .app-menu-help p { margin:0 0 20px; }
 .my-trip-create-choices { display:grid; gap:8px; }

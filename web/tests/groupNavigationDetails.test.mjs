@@ -5,10 +5,11 @@ import { buildMyGroupDirectory } from '../src/together/myGroupDirectory.ts';
 
 const group = id => ({ id, name:id, kind:'FRIENDS',region:'부산',introduction:'',cover:'',visibility:'PRIVATE',ownerId:'me',memberIds:['me','friend'],managerIds:[],archived:false,promotionPublished:false });
 test('group names resolve only the explicitly selected group and preserve the account name elsewhere', () => {
-  const state=createEmptyState('me','내 계정 이름'); state.groups=[group('a'),group('b')];
+  const state=createEmptyState('me','내 계정 이름'); state.groups=[{ ...group('a'), kind: 'HOBBY' },group('b'),{ ...group('c'), kind: 'HOBBY' }];
   state.groups[0].memberProfiles={me:{nickname:'산책친구',introduction:'',answers:[],availableTimes:[],rulesAccepted:true}};
   assert.equal(memberName(state,'me','a'),'산책친구');
   assert.equal(memberName(state,'me','b'),'내 계정 이름');
+  assert.equal(memberName(state,'me','c'),'모임원');
   assert.equal(memberName(state,'me'),'내 계정 이름');
 });
 test('joined-group preview uses the latest nondeleted group-room message, without exposing an unrelated event or advancing read state', () => {

@@ -58,3 +58,19 @@
 :is(.tg,.tg-sheet) .conversation-digest .conversation-ai-results .conversation-digest-result-meta>strong{font-size:16px;line-height:22px}
 .conversation-ai-results .conversation-ai-section{padding:12px;border:1px solid var(--line);border-radius:8px}
 .conversation-ai-results .conversation-ai-section ul{padding-left:18px}
+
+.conversation-ai-link { display:inline-flex; align-items:center; min-height:40px; max-width:100%; padding:8px 0; border:0; background:transparent; color:var(--ink); font-size:13px; font-weight:650; text-align:left; text-decoration:underline; text-underline-offset:3px; overflow-wrap:anywhere; }
+.conversation-summary-task { display:grid; gap:10px; margin-top:12px; padding:12px; border:1px solid var(--line); border-radius:12px; background:var(--surface-muted); }
+.conversation-summary-task > label { display:grid; gap:6px; font-size:13px; }
+.conversation-summary-task input:not([type=checkbox]) { box-sizing:border-box; width:100%; min-width:0; min-height:44px; padding:10px; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink); }
+.conversation-summary-task > .conversation-summary-task__check { display:flex; align-items:center; gap:8px; min-height:40px; }
+.conversation-summary-task__check input { width:18px; height:18px; accent-color:var(--ink); }
+.conversation-summary-task > div { display:flex; flex-wrap:wrap; gap:8px; }
+.conversation-summary-task > div > button { min-height:44px; padding:9px 12px; border:1px solid var(--line); border-radius:8px; background:var(--surface); color:var(--ink); }
+.conversation-summary-task > div > button[type=submit] { background:var(--ink); color:#fff; }
+.conversation-summary-task > div > button:disabled { opacity:.4; }
+
+.conversation-ai-current { display:grid; gap:6px; margin:0 0 16px; padding:12px; border:1px solid var(--line); border-left:3px solid var(--ink); border-radius:8px; background:var(--surface-muted); }
+.conversation-ai-current > strong { font-size:13px; }
+.conversation-ai-current > p { margin:0; font-size:14px; line-height:1.5; overflow-wrap:anywhere; }
+.conversation-ai-current > small { color:var(--muted); font-size:12px; line-height:1.6; }

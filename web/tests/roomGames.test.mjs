@@ -68,6 +68,23 @@ test('draw chooses only current selected members without assuming any attendance
   assert.equal(getRoomGames(state, 'me', activityScope, at)[0].members.find(member => member.id === 'friend').name, '친구');
 });
 
+test('new member-based games snapshot the current room’s name without changing previous results', () => {
+  const state = fixture(), group = state.groups[0], activity = state.activities[0];
+  group.kind = 'HOBBY';
+  group.memberPresentations = { friend: { nickname: '모임 닉네임', introduction: '' } };
+  activity.memberPresentations = { friend: { nickname: '약속 닉네임', introduction: '' } };
+  const memberName = scope => getRoomGameContext(state, 'me', scope, at).members.find(member => member.id === 'friend').name;
+  assert.equal(memberName(groupScope), '모임 닉네임');
+  assert.equal(memberName(activityScope), '약속 닉네임');
+  const result = createRoomGame(state, 'me', activityScope, draw(), at, () => 2);
+  assert.equal(result.members.find(member => member.id === 'friend').name, '약속 닉네임');
+  activity.memberPresentations.friend.nickname = '변경한 방 닉네임';
+  assert.equal(memberName(activityScope), '변경한 방 닉네임');
+  assert.equal(getRoomGames(state, 'me', activityScope, at)[0].members.find(member => member.id === 'friend').name, '약속 닉네임');
+  group.kind = 'FAMILY';
+  assert.equal(memberName(activityScope), '친구');
+});
+
 test('member-based wheels retain separate current IDs even when display names are identical', () => {
   const state = fixture(); state.members.find(member => member.id === 'friend').name = '나';
   const result = createRoomGame(state, 'me', groupScope, wheel('members', { memberIds: ['me', 'friend'], options: undefined }), at, () => 1);

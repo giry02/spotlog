@@ -33,6 +33,7 @@ export interface DiscoveryHomeProps {
   onQueryChange: (value: string) => void;
   onOpenGroup: (groupId: string, activityId?: string) => void;
   onFindGroups: (filters?: GroupDiscoveryFilters) => void;
+  onOpenPicks?: (filters?: GroupDiscoveryFilters) => void;
   onOpenPlace: (place: Place) => void;
   onOpenPlaces: (filters: HomePlaceFilters) => void;
   onOpenSaved?: () => void;
@@ -84,7 +85,7 @@ function PlaceThumbnail({ place }: { place: Place }) {
 }
 
 /** Public recommendations and a separately gated member return strip; destinations own mutations. */
-export default function DiscoveryHome({ mode = 'home', places, references = emptyReferences, state, viewerId = '', region, district, myRegionLabel, onManageMyRegions, onUseMyRegion, query, onRegionChange, onQueryChange, onOpenGroup, onFindGroups, onOpenPlace, onOpenPlaces, onOpenSaved, onOpenAiSearch, savedCount, savedPlaceIds, onTogglePlaceSaved, savedCourseIds, onToggleCourseSaved, onOpenMyActivity, onOpenMyChat, personalPlans, onOpenMyPlan, header, headerActions, travelContent, templates = emptyTemplates, journals = emptyJournals, duration = 'ALL', onDurationChange, onOpenTemplate, onOpenJournal, onMoreTravel, onMoreJournals, onPlan, onStartTogether, onTryCourse, view, onViewChange, purpose, onPurposeChange }: DiscoveryHomeProps) {
+export default function DiscoveryHome({ mode = 'home', places, references = emptyReferences, state, viewerId = '', region, district, myRegionLabel, onManageMyRegions, onUseMyRegion, query, onRegionChange, onQueryChange, onOpenGroup, onFindGroups, onOpenPicks, onOpenPlace, onOpenPlaces, onOpenSaved, onOpenAiSearch, savedCount, savedPlaceIds, onTogglePlaceSaved, savedCourseIds, onToggleCourseSaved, onOpenMyActivity, onOpenMyChat, personalPlans, onOpenMyPlan, header, headerActions, travelContent, templates = emptyTemplates, journals = emptyJournals, duration = 'ALL', onDurationChange, onOpenTemplate, onOpenJournal, onMoreTravel, onMoreJournals, onPlan, onStartTogether, onTryCourse, view, onViewChange, purpose, onPurposeChange }: DiscoveryHomeProps) {
   const isTravel = mode === 'travel';
   const sharedActivity = useMemo(() => selectHomeSharedActivity(state, viewerId, places), [state, viewerId, places]);
   const uid = useId();
@@ -178,6 +179,7 @@ export default function DiscoveryHome({ mode = 'home', places, references = empt
       })}</div>{onManageMyRegions && <button type="button" className="discovery-home__manage-region" onClick={onManageMyRegions}>내 지역 관리{myRegionLabel ? ` · ${myRegionLabel}` : ''}<ChevronRight size={16}/></button>}{hasFilters && <button type="button" className="discovery-home__manage-region" onClick={reset}>조건 초기화<X size={16}/></button>}<button type="button" className="discovery-home__filter-done" onClick={() => setFiltersOpen(false)}>선택한 조건으로 보기<ChevronRight size={16}/></button></div>}
       <div className="discovery-home__sections" aria-live="polite" aria-atomic="false">
         {currentView === 'meetups' && <GroupMeetupSchedule meetups={groupProjection.meetups} title={region ? `${district || region}의 번개·정모` : '모집 중인 번개·정모'} filters={groupProjection.filters} onOpenGroup={onOpenGroup} onFindGroups={onFindGroups} limit={8} showEmpty/>}
+        {(currentView === 'groups' || currentView === 'meetups') && onOpenPicks && <button type="button" className="discovery-home__picks-entry" onClick={() => onOpenPicks(groupProjection.filters)}><Bookmark size={17}/><span>관심 약속·발견 조건</span><ChevronRight size={16}/></button>}
         {(currentView === 'groups' || currentView === 'recommended' && groupProjection.groups.length > 0) && <GroupDiscoveryHome key={viewerId ? `account:${viewerId}` : 'guest'} projection={groupProjection} variant={currentView === 'groups' ? 'full' : 'preview'} region={region} district={district} onOpenGroup={onOpenGroup} onFindGroups={onFindGroups} onBrowse={() => changeView('groups')} savedInterests={savedInterests} savedInterestGroups={savedInterestGroups} onManageInterests={() => setInterestsOpen(true)}/>}
         {currentView === 'recommended' && groupProjection.meetups.length > 0 && <GroupMeetupSchedule meetups={groupProjection.meetups} title={region ? `${district || region}의 다가오는 번개·정모` : '다가오는 번개·정모'} filters={groupProjection.filters} onOpenGroup={onOpenGroup} onFindGroups={onFindGroups} limit={2}/>}
         {currentView === 'recommended' && travelHighlights}

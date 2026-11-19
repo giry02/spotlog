@@ -41,7 +41,7 @@ export default function ChatEntityCard({ entity, state, userId, places, onOpenPl
     content = <>
       <div className="tg-chat-entity-heading"><CheckSquare size={17}/><span>준비할 일</span><small>{task.completed ? '완료' : '준비 중'}</small></div>
       <strong className="tg-chat-entity-title">{task.title}</strong>
-      <dl className="tg-chat-entity-info"><div><dt>담당</dt><dd>{task.assigneeId ? memberName(state, task.assigneeId) : '미정'}</dd></div>{task.dueDate && <div><dt>기한</dt><dd>{task.dueDate}</dd></div>}</dl>
+      <dl className="tg-chat-entity-info"><div><dt>담당</dt><dd>{task.assigneeId ? memberName(state, task.assigneeId, task.groupId, task.activityId) : '미정'}</dd></div>{task.dueDate && <div><dt>기한</dt><dd>{task.dueDate}</dd></div>}</dl>
       <button type="button" className="tg-chat-task-toggle" aria-pressed={task.completed} disabled={!entity.canInteract || !onToggleTask} onClick={() => onToggleTask && apply(() => onToggleTask(task.id))}><span className={task.completed ? 'is-complete' : ''} aria-hidden="true">{task.completed && <Check size={15}/>}</span>{task.completed ? '완료했어요' : '완료로 표시'}</button>
       {!entity.canInteract && !task.completed && <div className="tg-chat-entity-footnote">현재는 완료 상태를 바꿀 수 없어요.</div>}
     </>;

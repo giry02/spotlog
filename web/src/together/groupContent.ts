@@ -1,7 +1,9 @@
-import { memberName, togetherId, type TogetherPhotoAttachment, type TogetherPost, type TogetherState } from './model.ts';
+import { togetherId, type TogetherPhotoAttachment, type TogetherPost, type TogetherState } from './model.ts';
 import { discoveryProfile, isDiscoverableGroup, publicActivities } from './discovery.ts';
 import { assertMemberRecordWriteAccess, selectMemberRecords } from './memberRecords.ts';
 import { isPublicReviewPreview, isSafeTogetherImageUrl, isTogetherPhotoAttachments } from './contentMedia.ts';
+import { updateOwnMemberPresentation } from './memberProfile.ts';
+import { resolveRoomIdentity, roomProfileEditorValues } from './roomIdentity.ts';
 
 export interface ReviewDraftFacts {
   scope: { groupId: string; activityId?: string; name: string };
@@ -44,10 +46,8 @@ export function addGroupPost(state: TogetherState, actorId: string, groupId: str
 }
 
 export function setOwnMemberAvatar(state: TogetherState, actorId: string, groupId: string, avatar: string, activityId?: string): void {
-  assertMemberRecordWriteAccess(state, actorId, groupId, activityId);
-  const member = state.members.find(item => item.id === actorId);
-  if (!member || avatar && !isSafeTogetherImageUrl(avatar)) throw new Error('내 프로필 사진을 확인해 주세요.');
-  if (avatar) member.avatar = avatar; else delete member.avatar;
+  const current = roomProfileEditorValues(state, actorId, groupId, activityId);
+  updateOwnMemberPresentation(state, actorId, groupId, { ...current, avatar }, activityId);
 }
 
 /** Authors can withdraw their own public excerpt even after leaving; managers can moderate this group's excerpt. */
@@ -67,14 +67,15 @@ export function changeGroupRole(state: TogetherState, actorId: string, groupId: 
   else group.managerIds = role === 'MANAGER' ? [...new Set([...group.managerIds, memberId])] : group.managerIds.filter(id => id !== memberId);
 }
 
-export function selectGroupMembers(state: TogetherState, viewerId: string, groupId: string) {
+export function selectGroupMembers(state: TogetherState, viewerId: string, groupId: string, activityId?: string) {
   const group = state.groups.find(item => item.id === groupId);
   if (!viewerId || !group?.memberIds.includes(viewerId) || group.blockedMemberIds?.includes(viewerId) || !state.members.some(item => item.id === viewerId)) return null;
+  if (activityId && !state.activities.some(item => item.id === activityId && item.groupId === groupId)) return null;
   const canReadProfiles = group.ownerId === viewerId || group.managerIds.includes(viewerId);
   return group.memberIds.filter(id => !group.blockedMemberIds?.includes(id)).flatMap(id => {
     const member = state.members.find(item => item.id === id); if (!member) return [];
-    return [{ id, name: memberName(state, id, groupId), avatar: member.avatar && isSafeTogetherImageUrl(member.avatar) ? member.avatar : '',
-      role: group.ownerId === id ? '모임장' : group.managerIds.includes(id) ? '운영진' : '모임원', introduction: id === viewerId || canReadProfiles ? group.memberProfiles?.[id]?.introduction || '' : '', sharedIntroduction: group.memberPresentations?.[id]?.introduction || '' }];
+    return [{ id, ...resolveRoomIdentity(state, id, groupId, activityId),
+      role: group.ownerId === id ? '모임장' : group.managerIds.includes(id) ? '운영진' : '모임원', introduction: id === viewerId || canReadProfiles ? group.memberProfiles?.[id]?.introduction || '' : '', sharedIntroduction: roomProfileEditorValues(state, id, groupId, activityId).introduction }];
   });
 }
 

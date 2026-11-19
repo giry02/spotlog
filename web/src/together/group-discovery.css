@@ -37,7 +37,7 @@
 .gd-filter-summary { display:flex; align-items:center; gap:12px; margin-top:12px; }
 .gd-filter-summary>span { flex:1; min-width:0; color:#62625e; font-size:12px; line-height:16px; }
 .gd .gd-filter-summary>button { border:0; padding:8px 0; color:var(--muted); background:transparent; flex-shrink:0; }
-.gd-upcoming { margin-top:16px; padding:16px; background:#f0eee7; border-radius:18px; }
+.gd-upcoming { min-width:0; margin-top:16px; padding:16px; border:1px solid var(--line); background:#f0eee7; border-radius:18px; }
 .gd-section-heading { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px; }
 .gd-section-heading>h2,.gd-section-heading>div { min-width:0; }
 .gd-section-heading>button { flex-shrink:0; }
@@ -86,7 +86,7 @@
 .gd-empty>span { font-size:34px; }
 .gd-empty p { font-size:14px; color:var(--muted); margin-bottom:5px; }
 .gd .gd-primary { background:#232321; color:white; border-color:#232321; }
-.gd-home { margin:16px 0; padding:16px; background:#f1eee7; border-top:1px solid #e8e3d8; border-bottom:1px solid #e8e3d8; }
+.gd-home { min-width:0; margin:16px 0; padding:16px; background:#f1eee7; border-block:1px solid var(--line); }
 /* The home panel already provides the screen's outer inset. */
 .tg-home-groups .gd-home { padding-inline:0; }
 .gd-home-title { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
@@ -125,7 +125,7 @@
 .gd-region-shortcuts { display:flex; flex-wrap:wrap; gap:7px; margin-top:18px; align-items:center; }
 .gd-region-shortcuts>span { font-size:12px; color:var(--muted); width:100%; }
 .gd .gd-region-shortcuts>button { font-size:14px; padding:8px 10px; background:transparent; border-color:#dcd8ce; }
-.gd-home-empty { padding:24px 14px; background:#ffffff80; border-radius:16px; display:flex; flex-direction:column; gap:12px; align-items:center; text-align:center; }
+.gd-home-empty { padding:24px 14px; border:1px dashed var(--line); border-radius:16px; display:flex; flex-direction:column; gap:12px; align-items:center; text-align:center; }
 .gd-home-empty>span { font-size:32px; }
 .gd-home-empty p { font-size:14px; color:#62625e; }
 .gd-sr-only { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
@@ -177,7 +177,7 @@
 .gd-discovery .gd-card-arrow { display:block; flex-shrink:0; color:var(--muted); }
 .gd-discovery .gd-meetup-list { gap:0; border-top:1px solid var(--line); }
 .gd-discovery .gd-event { padding:12px 0; border:0; border-bottom:1px solid var(--line); border-radius:0; background:transparent; }
-.gd-discovery .gd-event-date { width:44px; min-height:52px; background:var(--paper); border-radius:8px; }
+.gd-discovery .gd-event-date { width:44px; min-height:52px; background:var(--soft,#f5f5f5); border-radius:8px; }
 .gd-discovery .gd-event-copy>strong { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 .gd-discovery .gd-filter-summary { margin-top:4px; }
 @media(max-width:359px) { .gd-discovery .gd-results-heading { gap:6px; } .gd-discovery .gd-results-heading select { max-width:116px; font-size:14px; } }

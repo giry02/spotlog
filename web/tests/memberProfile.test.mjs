@@ -7,11 +7,12 @@ import { selectGroupMembers, selectPublicGroupIntroduction } from '../src/togeth
 import { createTogetherRepository, isTogetherState, togetherStorageKey } from '../src/together/repository.ts';
 import { createSeedState, TOGETHER_REVIEW_MEMBER_ID } from '../src/together/seed.ts';
 import { hydrateExampleMemberAvatars, exampleMemberAvatar } from '../src/together/exampleMemberAvatars.ts';
+import { canUseRoomProfiles, getOwnRoomProfilePresets, resolveRoomIdentity } from '../src/together/roomIdentity.ts';
 
 function fixture() {
   const state = createEmptyState('me', '동명이인'); state.discoveryCatalogVersion = 5;
   state.members.push({ id: 'owner', name: '운영자' }, { id: 'author', name: '동명이인', avatar: '/media/author.jpg', email: 'private-email', phone: 'private-phone', birthday: 'private-birthday' }, { id: 'outside', name: '외부' });
-  const group = { id: 'g', name: '모임', kind: 'FRIENDS', region: '부산', introduction: '', cover: '', ownerId: 'owner', memberIds: ['owner', 'me', 'author'], managerIds: [], archived: false, visibility: 'PRIVATE', promotionPublished: false,
+  const group = { id: 'g', name: '모임', kind: 'HOBBY', region: '부산', introduction: '', cover: '', ownerId: 'owner', memberIds: ['owner', 'me', 'author'], managerIds: [], archived: false, visibility: 'PRIVATE', promotionPublished: false,
     memberProfiles: { author: { nickname: '가입 이름표', introduction: '가입 소개 비밀', answers: [{ questionId: 'q', answer: '가입 답변 비밀' }], availableTimes: [], rulesAccepted: true } } };
   state.groups.push(group, { ...structuredClone(group), id: 'other', name: '다른 비밀 모임', memberPresentations: { author: { nickname: '다른 이름 비밀', introduction: '다른 소개 비밀' } } });
   state.activities.push({ id: 'a', groupId: 'g', title: '약속A', date: '2999-01-01', endDate: '', meetingPoint: '', description: '', status: 'PLANNED', leadId: 'owner', editorIds: [], participants: { author: 'JOINED' }, arrivedIds: [], revision: 1 },
@@ -30,7 +31,7 @@ test('shared profile allowlist excludes contact fields, private onboarding and o
   const state = fixture(); state.groups[0].memberPresentations = { author: { nickname: '산책 친구', introduction: '직접 공유한 소개' } };
   for (const viewer of ['me', 'owner', 'author']) {
     const before = structuredClone(state), profile = selectMemberProfile(state, viewer, 'g', 'author');
-    assert.deepEqual(profile.identity, { id: 'author', name: '산책 친구', avatar: '/media/author.jpg', role: '모임원', introduction: '직접 공유한 소개' });
+    assert.deepEqual(profile.identity, { id: 'author', name: '산책 친구', avatar: '', role: '모임원', introduction: '직접 공유한 소개' });
     for (const secret of ['private-email', 'private-phone', 'private-birthday', '가입 소개 비밀', '가입 답변 비밀', '다른 비밀 모임', '다른 이름 비밀', '다른 소개 비밀']) assert.equal(JSON.stringify(profile).includes(secret), false);
     assert.deepEqual(state, before);
   }
@@ -42,20 +43,78 @@ test('shared profile allowlist excludes contact fields, private onboarding and o
 test('group names prefer explicitly saved presentation while keeping prior join nickname fallback and author IDs distinct', () => {
   const state = fixture(); assert.equal(memberName(state, 'author', 'g'), '가입 이름표');
   updateOwnMemberPresentation(state, 'author', 'g', input({ nickname: '새 모임 이름' }));
-  assert.equal(memberName(state, 'author', 'g'), '새 모임 이름'); assert.equal(memberName(state, 'me', 'g'), '동명이인');
+  assert.equal(memberName(state, 'author', 'g'), '새 모임 이름'); assert.equal(memberName(state, 'me', 'g'), '모임원');
   assert.equal(memberName(state, 'author', 'other'), '다른 이름 비밀'); assert.equal(memberName(state, 'author'), '동명이인');
   assert.equal(selectGroupMembers(state, 'me', 'g').find(item => item.id === 'author').sharedIntroduction, input().introduction);
 });
 
-test('editing writes only own selected group presentation and own global photo, retaining joining answers and all original records', () => {
+test('editing writes only own group identity and private recents, retaining base profile and original records', () => {
   const state = fixture(), before = structuredClone(state);
   updateOwnMemberPresentation(state, 'author', 'g', input({ nickname: ' 새 이름 ', introduction: ' 새 소개\n둘째 줄 ' }));
-  before.groups[0].memberPresentations = { author: { nickname: '새 이름', introduction: '새 소개\n둘째 줄' } }; before.members.find(item => item.id === 'author').avatar = '/media/mine.jpg';
+  before.groups[0].memberPresentations = { author: { nickname: '새 이름', introduction: '새 소개\n둘째 줄', avatar: '/media/mine.jpg' } };
+  before.roomProfilePresets = { author: [
+    { nickname: '새 이름', avatar: '/media/mine.jpg' }, { nickname: '가입 이름표', avatar: '' }, { nickname: '다른 이름 비밀', avatar: '' },
+  ] };
   assert.deepEqual(state, before); assert.equal(isTogetherState(state), true);
-  assert.equal(selectMemberProfile(state, 'me', 'other', 'author').identity.avatar, '/media/mine.jpg');
+  assert.equal(selectMemberProfile(state, 'me', 'other', 'author').identity.avatar, '');
   updateOwnMemberPresentation(state, 'author', 'g', input({ nickname: '', introduction: '', avatar: '' }));
-  assert.equal(state.members.find(item => item.id === 'author').avatar, undefined);
+  assert.equal(state.members.find(item => item.id === 'author').avatar, '/media/author.jpg');
   assert.equal(selectMemberProfile(state, 'me', 'g', 'author').identity.introduction, '');
+});
+
+test('exact activity profiles inherit before the first edit and do not alter the parent or sibling room', () => {
+  const state = fixture();
+  updateOwnMemberPresentation(state, 'author', 'g', input({ nickname: '모임 프로필', avatar: '/media/group.jpg' }));
+  assert.deepEqual(resolveRoomIdentity(state, 'author', 'g', 'a'), { name: '모임 프로필', avatar: '/media/group.jpg' });
+  updateOwnMemberPresentation(state, 'author', 'g', input({ nickname: '약속 프로필', avatar: '/media/activity.jpg' }), 'a');
+  assert.deepEqual(resolveRoomIdentity(state, 'author', 'g', 'a'), { name: '약속 프로필', avatar: '/media/activity.jpg' });
+  assert.deepEqual(resolveRoomIdentity(state, 'author', 'g', 'b'), { name: '모임 프로필', avatar: '/media/group.jpg' });
+  assert.deepEqual(resolveRoomIdentity(state, 'author', 'g'), { name: '모임 프로필', avatar: '/media/group.jpg' });
+  assert.deepEqual(resolveRoomIdentity(state, 'author', 'other', 'a'), { name: '모임원', avatar: '' });
+  assert.equal(selectMemberRecords(state, 'me', 'g', 'author', 'a').identity.name, '약속 프로필');
+  assert.equal(selectGroupMembers(state, 'me', 'g', 'a').find(item => item.id === 'author').avatar, '/media/activity.jpg');
+  assert.equal(selectMemberProfile(state, 'author', 'g', 'author', 'a').activityName, '약속A');
+  assert.ok(isTogetherState(state));
+});
+
+test('family, friends and stand-alone rooms show the standard account identity even with old room data', () => {
+  for (const [kind, spaceType] of [['FAMILY', undefined], ['FRIENDS', undefined], ['HOBBY', 'ACTIVITY']]) {
+    const state = fixture(), group = state.groups[0];
+    group.kind = kind; group.spaceType = spaceType;
+    group.memberPresentations = { author: { nickname: '이전 방 닉네임', introduction: '이전 방 소개', avatar: '/legacy.jpg' } };
+    state.activities[0].memberPresentations = { author: { nickname: '이전 약속', introduction: '', avatar: '/activity.jpg' } };
+    assert.equal(canUseRoomProfiles(group), false);
+    assert.deepEqual(resolveRoomIdentity(state, 'author', 'g', 'a'), { name: '동명이인', avatar: '/media/author.jpg' });
+    const profile = selectMemberProfile(state, 'author', 'g', 'author', 'a');
+    assert.equal(profile.canEdit, false);
+    assert.equal(profile.editablePresentation, undefined);
+    denied(state, 'author', 'g', 'a');
+    assert.ok(getOwnRoomProfilePresets(state, 'author').every(item => !item.nickname.startsWith('이전')));
+  }
+});
+
+test('the default account name saved by a previous join form is never treated as a separate profile', () => {
+  const state = fixture();
+  state.groups[0].memberProfiles.author.nickname = '동명이인';
+  assert.deepEqual(resolveRoomIdentity(state, 'author', 'g'), { name: '모임원', avatar: '' });
+  assert.ok(getOwnRoomProfilePresets(state, 'author').every(item => item.nickname !== '동명이인'));
+  updateOwnMemberPresentation(state, 'author', 'g', input({ nickname: '동명이인' }));
+  assert.deepEqual(resolveRoomIdentity(state, 'author', 'g'), { name: '동명이인', avatar: '/media/mine.jpg' });
+});
+
+test('previous profiles are current-account pairs and reusing one in a new room updates only that room', () => {
+  const state = fixture();
+  updateOwnMemberPresentation(state, 'me', 'g', input({ nickname: '처음 닉네임', avatar: '/mine1.jpg' }));
+  updateOwnMemberPresentation(state, 'me', 'g', input({ nickname: '다음 닉네임', avatar: '/mine2.jpg' }));
+  const history = getOwnRoomProfilePresets(state, 'me');
+  assert.deepEqual(history, [{ nickname: '다음 닉네임', avatar: '/mine2.jpg' }, { nickname: '처음 닉네임', avatar: '/mine1.jpg' }]);
+  updateOwnMemberPresentation(state, 'me', 'other', { ...history[1], introduction: '새 방에서만 보이는 소개' });
+  assert.deepEqual(resolveRoomIdentity(state, 'me', 'other'), { name: '처음 닉네임', avatar: '/mine1.jpg' });
+  assert.deepEqual(resolveRoomIdentity(state, 'me', 'g'), { name: '다음 닉네임', avatar: '/mine2.jpg' });
+  assert.deepEqual(getOwnRoomProfilePresets(state, 'me'), [history[1], history[0]]);
+  const otherPresets = getOwnRoomProfilePresets(state, 'author');
+  assert.ok(otherPresets.every(item => !item.avatar.includes('mine') && !item.nickname.includes('닉네임')));
+  assert.ok(history.every(item => !Object.hasOwn(item, 'introduction')));
 });
 
 test('albums count exact-author root/activity attachments and retained media, with original post source IDs and no personal library lookup', () => {
@@ -83,7 +142,7 @@ test('stale profile saves reject guest, revoked, blocked, archived, missing, for
   for (const change of [s => s.groups[0].blockedMemberIds = ['me'], s => s.groups[0].memberIds = ['owner'], s => s.groups[0].archived = true, s => s.members = s.members.filter(item => item.id !== 'me')]) { const state = fixture(); change(state); denied(state); }
   denied(fixture(), 'me', 'other', 'a'); denied(fixture(), 'me', 'g', 'missing');
   const standalone = fixture(); standalone.groups[0].spaceType = 'ACTIVITY'; denied(standalone);
-  updateOwnMemberPresentation(standalone, 'me', 'g', input(), 'a');
+  denied(standalone, 'me', 'g', 'a');
   const cancelled = fixture(); cancelled.activities[0].status = 'CANCELLED'; denied(cancelled, 'me', 'g', 'a');
 });
 
@@ -101,6 +160,7 @@ test('repository reload persists presentation and invalid or failed writes prese
   const repo = createTogetherRepository('me', '동명이인', [], storage);
   assert.equal(repo.update(state => updateOwnMemberPresentation(state, 'me', 'g', input())), true);
   assert.equal(createTogetherRepository('me', '동명이인', [], storage).getSnapshot().groups[0].memberPresentations.me.introduction, input().introduction);
+  assert.deepEqual(getOwnRoomProfilePresets(createTogetherRepository('me', '동명이인', [], storage).getSnapshot(), 'me'), [{ nickname: '새 이름표', avatar: '/media/mine.jpg' }]);
   const saved = memory.get(key); fail = true;
   assert.equal(repo.update(state => updateOwnMemberPresentation(state, 'me', 'g', input({ introduction: '실패한 변경' }))), false); assert.equal(memory.get(key), saved);
   fail = false; assert.equal(repo.update(state => state.groups[0].memberPresentations.me.phone = 'secret'), false); assert.equal(memory.get(key), saved);

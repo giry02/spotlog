@@ -59,7 +59,7 @@
 .ai-planner-business-copy>.ui-button[aria-pressed=true] { color:#176759; background:#e3f2ed; border-color:#e3f2ed; }
 .ai-planner-empty { display:flex; align-items:flex-start; gap:10px; margin:0; padding:14px; border:1px solid var(--line); border-radius:12px; color:var(--muted); font-size:var(--type-subhead); font-weight:400; line-height:1.5; }
 .ai-planner-empty>svg { flex:none; margin-top:2px; }
-.ai-planner-save { position:sticky; bottom:-24px; padding:12px 0 max(24px,env(safe-area-inset-bottom)); margin-bottom:-24px; background:#fafaf8; border-top:1px solid var(--line); z-index:3; }
+.ai-planner-save { position:sticky; bottom:-24px; padding:12px 0 max(24px,env(safe-area-inset-bottom)); margin-bottom:-24px; background:var(--surface); border-top:1px solid var(--line); z-index:3; }
 .ai-planner button:focus-visible,.ai-planner summary:focus-visible { outline:2px solid var(--ink); outline-offset:3px; }
 .phase-sheet .ai-planner .ui-button--compact { min-height:36px; }
 .phase-sheet .ai-planner .ai-planner-back { padding:0 10px; background:#f8f8f6; }

@@ -20,6 +20,8 @@ export function AppMenu({ onClose, onNavigate, myRegionLabel }: { onClose: () =>
   const go = (route: string) => { onClose(); onNavigate(route); };
   const icons = { home: House, together: Users, travel: Route, chats: MessageCircle, my: CircleUserRound };
   const tools = [
+    { label: '관심 약속·발견 조건', description: '저장한 약속과 지역·취미 조건', icon: Bookmark, route: 'together-picks', group: '모임 준비' },
+    { label: '함께하는 캘린더', description: '모임·내 여행 일정과 겹치는 시간', icon: CalendarDays, route: 'together-calendar', group: '모임 준비' },
     { label: '초대·가입 신청', description: '받은 초대와 신청 상태', icon: LogIn, route: 'together-invites', group: '모임 준비' },
     { label: '내 할 일', description: '모임에서 맡은 준비 항목', icon: CheckSquare, route: 'together-tasks', group: '모임 준비' },
     { label: '내 공유 관리', description: '공유한 여행기 확인·공유 해제', icon: Share2, route: 'together-shares', group: '모임 준비' },

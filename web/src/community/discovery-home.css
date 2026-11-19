@@ -131,3 +131,6 @@
 .discovery-home__place-save { display:grid; place-items:center; min-width:44px; width:44px; height:44px; padding:0; border:0; border-radius:8px; background:transparent; color:var(--ink); }
 .discovery-home__places--editorial .discovery-home__place--savable { display:block; position:relative; }
 .discovery-home__places--editorial .discovery-home__place-save { position:absolute; top:4px; right:4px; background:#fff; }
+
+.discovery-home__picks-entry { display:flex; align-items:center; gap:8px; width:100%; min-height:44px; margin:0 0 16px; padding:10px 0; border:0; border-bottom:1px solid var(--line); background:transparent; color:var(--ink); text-align:left; font-size:13px; }
+.discovery-home__picks-entry > span { flex:1; min-width:0; }

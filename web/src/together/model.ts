@@ -8,6 +8,7 @@ import type { TogetherDecision } from './decisionTypes';
 import type { TogetherPersonalRoute } from './personalRouteTypes';
 import type { TogetherVisitGuide } from './visitGuideTypes';
 import type { ChatMemberMention } from './chatMentionTypes';
+import { resolveRoomIdentity, type RoomProfilePreset } from './roomIdentity.ts';
 
 export type GroupKind = 'FAMILY' | 'FRIENDS' | 'HOBBY' | 'GUIDE';
 export type GroupJoinMode = 'DIRECT' | 'APPROVAL';
@@ -23,7 +24,7 @@ export type ActivityStatus = 'PLANNED' | 'CANCELLED' | 'COMPLETED';
 export type ParticipationStatus = 'JOINED' | 'MAYBE' | 'DECLINED';
 export interface TogetherMember { id: string; name: string; avatar?: string }
 /** Explicit presentation shared with current group members; separate from private joining answers. */
-export interface GroupMemberPresentation { nickname: string; introduction: string }
+export interface GroupMemberPresentation { nickname: string; introduction: string; avatar?: string }
 export interface TogetherPhotoAttachment { id: string; url: string; caption: string }
 export interface TogetherGroup {
   id: string; name: string; kind: GroupKind; region: string; introduction: string; cover: string;
@@ -45,13 +46,19 @@ export interface TogetherActivity {
   id: string; groupId: string; title: string; date: string; endDate: string; meetingPoint: string;
   description: string; status: ActivityStatus; leadId: string; editorIds: string[];
   participants: Record<string, ParticipationStatus>; arrivedIds: string[]; journey?: Journey; revision: number;
-  kind?: 'MEETUP' | 'TRIP'; startTime?: string; capacity?: number;
+  kind?: 'MEETUP' | 'TRIP'; startTime?: string; endTime?: string; capacity?: number;
+  /** Ordered, voluntary waitlist. Available seats require the waiting actor's own confirmation. */
+  waitlist?: string[];
+  /** Additional occurrence made from an explicitly reviewed repeated-appointment preview. */
+  repeat?: { seriesId: string; sourceActivityId: string; index: number; count: number; intervalDays: 7 | 14 | 28 };
   cover?: string;
   placeCandidateIds?: string[];
   venuePlaceId?: string;
+  /** Presentation for this appointment, independent of its parent room. */
+  memberPresentations?: Record<string, GroupMemberPresentation>;
 }
 /** Approved public text only. Internal route, attendance and precise meeting details never belong here. */
-export type GroupPublicActivitySnapshot = Pick<TogetherActivity, 'id' | 'groupId' | 'title' | 'date' | 'endDate' | 'description' | 'status' | 'kind' | 'startTime'>;
+export type GroupPublicActivitySnapshot = Pick<TogetherActivity, 'id' | 'groupId' | 'title' | 'date' | 'endDate' | 'description' | 'status' | 'kind' | 'startTime' | 'endTime'>;
 export interface ChatEntityReference { type: 'POLL' | 'TASK' | 'ACTIVITY' | 'NOTICE' | 'GAME' | 'CHALLENGE'; id: string }
 export interface TogetherMessage { id: string; roomId: string; authorId: string; body: string; createdAt: string; deleted?: boolean; stickerId?: string; replyToMessageId?: string; reactions?: Record<string, string[]>; entity?: ChatEntityReference; mentions?: ChatMemberMention[] }
 export interface TogetherNotice { id: string; groupId: string; activityId?: string; title: string; body: string; createdAt: string }
@@ -89,14 +96,13 @@ export interface TogetherState {
   decisions?: TogetherDecision[];
   personalRoutes?: TogetherPersonalRoute[];
   visitGuides?: TogetherVisitGuide[];
+  /** Only the owning account reads and reuses these previously selected identities. */
+  roomProfilePresets?: Record<string, RoomProfilePreset[]>;
 }
 
 export const roomIdForGroup = (id: string) => `group:${id}`;
 export const roomIdForActivity = (id: string) => `activity:${id}`;
-export const memberName = (state: TogetherState, userId: string, groupId?: string) => {
-  const group = groupId ? state.groups.find(item => item.id === groupId) : undefined;
-  return group?.memberPresentations?.[userId]?.nickname.trim() || group?.memberProfiles?.[userId]?.nickname.trim() || state.members.find(member => member.id === userId)?.name || '모임원';
-};
+export const memberName = (state: TogetherState, userId: string, groupId?: string, activityId?: string) => resolveRoomIdentity(state, userId, groupId, activityId).name;
 export const isMember = (state: TogetherState, userId: string, groupId: string) => {
   const group = state.groups.find(item => item.id === groupId);
   return Boolean(userId && group && group.temporaryRoom?.disposition !== 'TRASH' && group.memberIds.includes(userId));
@@ -285,17 +291,25 @@ export function rejectGroupApplication(state: TogetherState, applicationId: stri
 export function countGroupParticipants(state: TogetherState, activityId: string): number {
   const activity = state.activities.find(item => item.id === activityId);
   const group = state.groups.find(item => item.id === activity?.groupId);
-  return activity && group ? group.memberIds.filter(id => activity.participants[id] === 'JOINED').length : 0;
+  return activity && group ? [...new Set(group.memberIds)].filter(id => activity.participants[id] === 'JOINED' && !group.blockedMemberIds?.includes(id)
+    && state.members.some(member => member.id === id)).length : 0;
 }
 
 /** Sets only the actor's RSVP. The repository transaction prevents concurrent last-seat overwrites. */
 export function setGroupParticipation(state: TogetherState, activityId: string, actorId: string, status: ParticipationStatus): void {
   const activity = state.activities.find(item => item.id === activityId);
   const group = state.groups.find(item => item.id === activity?.groupId);
-  if (!activity || !group || !group.memberIds.includes(actorId) || group.blockedMemberIds?.includes(actorId)) throw new Error('모임원만 참가 여부를 선택할 수 있어요.');
+  if (!activity || !group || !state.members.some(member => member.id === actorId) || !group.memberIds.includes(actorId) || group.blockedMemberIds?.includes(actorId)) throw new Error('모임원만 참가 여부를 선택할 수 있어요.');
   if (group.archived || activity.status !== 'PLANNED') throw new Error('취소·완료·보관된 일정은 참가 여부를 바꿀 수 없어요.');
   if (!['JOINED', 'MAYBE', 'DECLINED'].includes(status)) throw new Error('참가 상태를 다시 선택해 주세요.');
-  if (activity.participants[actorId] === status) return;
+  if (activity.participants[actorId] === status && (status === 'JOINED' || !activity.waitlist?.includes(actorId))) return;
   if (status === 'JOINED' && activity.capacity !== undefined && countGroupParticipants(state, activityId) >= activity.capacity) throw new Error('모집 정원이 찼어요. 미정으로 남기거나 담당자에게 문의해 주세요.');
+  const waiting = (activity.waitlist || []).filter(id => group.memberIds.includes(id) && !group.blockedMemberIds?.includes(id)
+    && state.members.some(member => member.id === id) && activity.participants[id] !== 'JOINED');
+  if (status === 'JOINED' && activity.capacity !== undefined && waiting.length) {
+    const seats = Math.max(0, activity.capacity - countGroupParticipants(state, activityId));
+    if (!waiting.slice(0, seats).includes(actorId) && waiting.length >= seats) throw new Error('먼저 대기한 분이 참가를 확인할 차례예요. 대기를 신청할 수 있어요.');
+  }
+  if (activity.waitlist !== undefined) activity.waitlist = waiting.filter(id => id !== actorId);
   activity.participants[actorId] = status; activity.revision += 1;
 }

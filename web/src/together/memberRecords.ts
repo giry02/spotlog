@@ -1,6 +1,7 @@
 import type { Journey } from '../data';
 import { isMember, memberName, snapshotJourneyForGroup, togetherId, type TogetherState } from './model.ts';
 import { isSafeTogetherImageUrl } from './contentMedia.ts';
+import { resolveRoomIdentity } from './roomIdentity.ts';
 
 export type MemberRecordTab = 'journals' | 'media' | 'posts' | 'comments' | 'activities';
 
@@ -25,12 +26,10 @@ export function selectMemberRecords(state: TogetherState, viewerId: string, grou
     || !state.members.some(item => item.id === authorId)) return null;
   const matches = (item: { groupId: string; authorId: string; activityId?: string }) => item.groupId === groupId
     && item.authorId === authorId && item.activityId === activityId;
-  const member = state.members.find(item => item.id === authorId)!;
   const canReadIntroduction = viewerId === authorId || group.ownerId === viewerId || group.managerIds.includes(viewerId);
   const scopedPosts = state.posts.filter(item => item.groupId === groupId && item.activityId === activityId);
   return {
-    identity: { id: authorId, name: memberName(state, authorId, groupId),
-      avatar: isSafeTogetherImageUrl(member.avatar) ? member.avatar : '',
+    identity: { id: authorId, ...resolveRoomIdentity(state, authorId, groupId, activityId),
       role: group.ownerId === authorId ? '모임장' : group.managerIds.includes(authorId) ? '운영진' : '모임원',
       introduction: canReadIntroduction ? group.memberProfiles?.[authorId]?.introduction || '' : '' },
     journals: state.sharedJournals.filter(matches).filter(item => !item.journey.trash && item.journey.purpose === 'JOURNAL' && item.journey.status === 'PUBLISHED'),
@@ -80,7 +79,7 @@ export function shareMemberJournal(state: TogetherState, actorId: string, groupI
   const duplicate = state.sharedJournals.find(item => item.groupId === groupId && item.activityId === activityId
     && item.authorId === actorId && item.sourceJourneyId === source.id);
   if (duplicate) throw new Error('이미 공유한 여행기예요. 기존 공유본을 확인해 주세요.');
-  const journey = snapshotJourneyForGroup(source, memberName(state, actorId, groupId));
+  const journey = snapshotJourneyForGroup(source, memberName(state, actorId, groupId, activityId));
   const id = togetherId('shared-journal');
   state.sharedJournals.push({ id, groupId, activityId, authorId: actorId, sourceJourneyId: source.id, journey });
   return id;

@@ -12,8 +12,8 @@
 .phase-sheet .account-method-apple{background:#171716;color:white;border-color:#171716;}
 .account-method-switch{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;font-size:var(--type-subhead);}
 .account-method-switch>span{color:var(--muted);}
-.account-form .account-social-notice{font-size:var(--type-subhead);line-height:var(--leading-body);padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);}
-.account-review-notice{display:grid;gap:6px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--paper);}
+.account-form .account-social-notice{font-size:var(--type-subhead);line-height:var(--leading-body);padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface-muted);}
+.account-review-notice{display:grid;gap:6px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface-muted);}
 .account-review-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
 .account-review-heading>strong,.account-review-notice>p{font-size:var(--type-subhead);margin:0;line-height:1.6;}
 .account-review-notice .ui-button{justify-self:start;min-height:36px;font-size:var(--type-subhead);}
@@ -70,6 +70,10 @@
 .guest-profile-card h2,.guest-device-card h2,.member-account-card h2{font-size:var(--type-headline);line-height:1.5;margin:0;}
 .guest-profile-card p,.guest-device-card p,.member-account-card p{font-size:var(--type-subhead);line-height:1.7;margin:0;color:var(--muted);}
 .guest-profile-card>.ui-button,.guest-device-card>.ui-button,.member-account-card>.ui-button{width:100%;font-size:var(--type-subhead);}
+.basic-account-profile{display:flex;align-items:center;gap:12px;min-width:0;}
+.basic-account-profile>div{min-width:0;}
+.basic-account-profile__actions{display:flex;flex-wrap:wrap;gap:8px;}
+.basic-account-profile__actions>.ui-button{min-height:44px;padding:8px 12px;font-size:var(--type-subhead);}
 .guest-profile-card .guest-signin-options{font-size:var(--type-caption);text-align:center;}
 .device-profile-preview{border:1px solid var(--line);padding:16px;border-radius:14px;margin-bottom:20px;}
 .device-profile-preview>summary{font-size:var(--type-subhead);font-weight:600;cursor:pointer;min-height:36px;display:flex;align-items:center;gap:10px;}

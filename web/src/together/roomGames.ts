@@ -1,4 +1,4 @@
-import { isMember, type TogetherState } from './model.ts';
+import { isMember, memberName, type TogetherState } from './model.ts';
 import { koreaDay } from './discovery.ts';
 import type { RoomGameBar, RoomGameInput, RoomGameMember, RoomGameOption, RoomGameScope, TogetherGame } from './gameTypes.ts';
 export type { GameCreateInput, RoomGameInput, RoomGameScope, TogetherGame } from './gameTypes.ts';
@@ -25,8 +25,8 @@ export function getRoomGameContext(state: GameState, actorId: string, scope: Roo
     : activity && activity.status !== 'PLANNED' ? '취소하거나 마친 약속의 결과는 읽기만 가능해요.'
     : lastDate && (!dateValid(lastDate) || lastDate < koreaDay(at)) ? '지난 약속의 결과는 읽기만 가능해요.' : '';
   const members: RoomGameMember[] = group.memberIds.flatMap(id => {
-    const member = state.members.find(item => item.id === id);
-    return member && !group.blockedMemberIds?.includes(id) ? [{ id, name: member.name.trim().slice(0, 100) || '모임원' }] : [];
+    if (!state.members.some(item => item.id === id) || group.blockedMemberIds?.includes(id)) return [];
+    return [{ id, name: memberName(state, id, group.id, activity?.id).trim().slice(0, 100) || '모임원' }];
   });
   return { group, activity, members, canWrite: !readOnlyReason, readOnlyReason };
 }

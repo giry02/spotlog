@@ -3,6 +3,7 @@ import { ArrowDown, ArrowLeft, AtSign, BarChart3, Bell, BellOff, CalendarDays, C
 import { BottomSheet } from '../BottomSheet';
 import { memberName, type TogetherActivity, type TogetherGroup, type TogetherMessage, type TogetherNotice, type TogetherState } from './model';
 import { canReplyToMessage } from './chatActions';
+import { canUseRoomProfiles, resolveRoomIdentity } from './roomIdentity';
 import ChatMessageActions from './ChatMessageActions';
 import { findChatMentionQuery, insertChatMention, rebaseChatMentions, selectChatMentionCandidates, selectReadableChatMentions, type ChatMemberMention } from './chatMentions';
 import ChatEmojiPicker from './ChatEmojiPicker';
@@ -45,12 +46,17 @@ interface Props {
   onManage?: () => void;
   onResources?: () => void;
   onMemberProfile?: (memberId: string) => void;
+  onEditOwnProfile?: () => void;
   onCheckReply?: (messageId: string) => boolean;
 }
 
 /** Room-scoped interaction only. Opening/searching never advances the read cursor. */
-export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state, userId, group, activity, roomId, messages, highlight, canManage, error, onSummary, onSource, onClearHighlight, onNotice, onReport, onNavigate, onRead, onSend, onReaction, onAssistant, onPersonalRoute, onVisitGuide, onTool, onVotePoll, onClosePoll, onConfirmPoll, onEditPoll, onApplyPollToActivity, onParticipation, onToggleTask, onToggleMute, onBack, onOpenView, onManage, onResources, onMemberProfile, onCheckReply }: Props) {
+export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state, userId, group, activity, roomId, messages, highlight, canManage, error, onSummary, onSource, onClearHighlight, onNotice, onReport, onNavigate, onRead, onSend, onReaction, onAssistant, onPersonalRoute, onVisitGuide, onTool, onVotePoll, onClosePoll, onConfirmPoll, onEditPoll, onApplyPollToActivity, onParticipation, onToggleTask, onToggleMute, onBack, onOpenView, onManage, onResources, onMemberProfile, onEditOwnProfile, onCheckReply }: Props) {
   const draftContext = { state, userId, groupId: group.id, roomId };
+  const roomMemberName = (id: string) => memberName(state, id, group.id, activity?.id);
+  const usesRoomProfiles = canUseRoomProfiles(group);
+  const viewOwnProfile = onMemberProfile ? () => onMemberProfile(userId) : undefined;
+  const ownProfileAction = usesRoomProfiles ? onEditOwnProfile || viewOwnProfile : viewOwnProfile;
   const [composer, setComposer] = useState(() => draftMemory.read(draftContext));
   const composerRef = useRef(composer);
   const { body, stickerId, replyToMessageId: replyId } = composer;
@@ -142,7 +148,7 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
     return entity.type === 'POLL' ? entity.value.question : entity.value.title;
   };
   const unread = sorted.filter(item => item.authorId !== userId && (!boundary || item.createdAt > boundary));
-  const shown = sorted.filter(item => (person === 'all' || item.authorId === person) && (!query.trim() || `${memberName(state, item.authorId, group.id)} ${messageText(item)}`.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase())));
+  const shown = sorted.filter(item => (person === 'all' || item.authorId === person) && (!query.trim() || `${roomMemberName(item.authorId)} ${messageText(item)}`.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase())));
   const reply = sorted.find(item => item.id === replyId);
   const context = selectChatChromeContext(state, userId, group.id, activity?.id);
   const { notices, messages: activeCards, pollCount, taskCount, challengeCount } = context;
@@ -204,7 +210,7 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
     const parts: ReactNode[] = [];
     for (const mention of mentions) {
       parts.push(message.body.slice(cursor, mention.start));
-      parts.push(<button key={`${mention.start}:${mention.userId}`} type="button" data-swipe-reply-ignore className="tg-chat-member-tag" aria-label={`${memberName(state, mention.userId, group.id)}님 프로필 보기`} onClick={event => { event.stopPropagation(); closeMessageActions(); onMemberProfile?.(mention.userId); }}>{mention.text}</button>);
+      parts.push(<button key={`${mention.start}:${mention.userId}`} type="button" data-swipe-reply-ignore className="tg-chat-member-tag" aria-label={`${roomMemberName(mention.userId)}님 프로필 보기`} onClick={event => { event.stopPropagation(); closeMessageActions(); onMemberProfile?.(mention.userId); }}>{mention.text}</button>);
       cursor = mention.end;
     }
     parts.push(message.body.slice(cursor));
@@ -340,21 +346,21 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
       {shown.map(message => {
         const original = message.replyToMessageId ? sorted.find(item => item.id === message.replyToMessageId) : null;
         const reactions = Object.entries(message.reactions ?? {}).map(([emoji, ids]) => ({ emoji, ids: ids.filter(id => group.memberIds.includes(id)) })).filter(item => item.ids.length);
-        const author = memberName(state, message.authorId, group.id);
+        const { name: author, avatar } = resolveRoomIdentity(state, message.authorId, group.id, activity?.id);
         const selected = selectedMessage === message.id;
         const messageSticker = getChatSticker(message.stickerId);
-        const authorMember = state.members.find(item => item.id === message.authorId);
-        const canOpenProfile = Boolean(onMemberProfile && authorMember && group.memberIds.includes(message.authorId) && !group.blockedMemberIds?.includes(message.authorId));
+        const canOpenProfile = Boolean(onMemberProfile && state.members.some(item => item.id === message.authorId)
+          && group.memberIds.includes(message.authorId) && !group.blockedMemberIds?.includes(message.authorId));
         return <div key={message.id}>
           {message.id === unread[0]?.id && <div className="tg-unread-divider">여기부터 안 읽은 대화</div>}
           <article data-message id={`tg-message-${message.id}`} className={`tg-chat-message ${message.authorId === userId ? 'mine' : ''} ${highlight === message.id ? 'tg-highlight' : ''} ${selected ? 'tg-message-selected' : ''}`} onKeyDown={event => {
             if (event.key === 'Escape' && selected) { event.preventDefault(); event.stopPropagation(); closeMessageActions(true); }
           }}>
-            {canOpenProfile ? <button type="button" className="tg-chat-avatar-button" aria-label={`${author}님 프로필 보기`} onClick={() => onMemberProfile?.(message.authorId)}><MemberAvatar name={author} avatar={authorMember?.avatar}/></button> : <span className="tg-chat-avatar-button" aria-hidden="true"><MemberAvatar name={author} avatar={authorMember?.avatar}/></span>}
+            {canOpenProfile ? <button type="button" className="tg-chat-avatar-button" aria-label={`${author}님 프로필 보기`} onClick={() => onMemberProfile?.(message.authorId)}><MemberAvatar name={author} avatar={avatar}/></button> : <span className="tg-chat-avatar-button" aria-hidden="true"><MemberAvatar name={author} avatar={avatar}/></span>}
             <div>
               <div className="tg-message-meta">{canOpenProfile ? <button type="button" className="tg-chat-author-button" aria-label={`${author}님 프로필 보기`} onClick={() => onMemberProfile?.(message.authorId)}>{author}{message.authorId === userId && <span> · 나</span>}</button> : <small>{author}</small>}<small><time dateTime={message.createdAt}>{new Date(message.createdAt).toLocaleTimeString('ko-KR', { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit' })}</time></small></div>
               <div className="tg-message-content">
-                {message.replyToMessageId && <button type="button" className="tg-quoted-message" disabled={!original} onClick={() => original && onSource(original.id)}><strong>{original ? `${memberName(state, original.authorId, group.id)}에게 답장` : '원문을 확인할 수 없는 답장'}</strong><span>{original ? messageText(original) : '삭제되었거나 이 방에서 볼 수 없는 원문이에요.'}</span></button>}
+                {message.replyToMessageId && <button type="button" className="tg-quoted-message" disabled={!original} onClick={() => original && onSource(original.id)}><strong>{original ? `${roomMemberName(original.authorId)}에게 답장` : '원문을 확인할 수 없는 답장'}</strong><span>{original ? messageText(original) : '삭제되었거나 이 방에서 볼 수 없는 원문이에요.'}</span></button>}
                 {hasEntity(message) ? <ChatEntityCard entity={readChatEntity(state, userId, roomId, message)} places={places} onOpenPlace={onOpenPlace} state={state} userId={userId} onVotePoll={onVotePoll} onClosePoll={onClosePoll} onConfirmPoll={onConfirmPoll} onEditPoll={onEditPoll} onApplyPollToActivity={onApplyPollToActivity} onToggleTask={onToggleTask} onOpenEntity={(type, id) => onParticipation?.(type === 'GAME' ? 'games' : 'challenges', id)} onNavigate={onNavigate}/> : <SwipeReply enabled={canReplyToMessage(state, userId, roomId, message.id)} resetKey={`${userId}:${roomId}:${message.id}`} onReply={() => beginReply(message.id)} onLongPress={() => selectMessage(message.id, false)}><div data-swipe-reply-surface data-message-id={message.id} className={`tg-message-select ${message.body ? '' : 'tg-message-select-sticker'}`} onClick={() => selectMessage(message.id)}>
                   <span id={`tg-message-body-${message.id}`} className="tg-message-body">{message.body ? renderMessageBody(message) : <span className="ui-sr-only">{messageSticker?.label || '메시지'}</span>}</span>
                   {messageSticker && <img data-swipe-reply-sticker className="tg-chat-sticker" src={messageSticker.src} alt={`이모티콘: ${messageSticker.label}`}/>}
@@ -368,7 +374,7 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
         </div>;
       })}
     </div>
-    {activeMessage && <ChatMessageActions id={`tg-message-actions-${activeMessage.id}`} author={memberName(state, activeMessage.authorId, group.id)} anchor={document.getElementById(`tg-message-${activeMessage.id}`)?.querySelector<HTMLElement>('.tg-message-select') || document.getElementById(`tg-message-select-${activeMessage.id}`)} boundary={workspace.current}
+    {activeMessage && <ChatMessageActions id={`tg-message-actions-${activeMessage.id}`} author={roomMemberName(activeMessage.authorId)} anchor={document.getElementById(`tg-message-${activeMessage.id}`)?.querySelector<HTMLElement>('.tg-message-select') || document.getElementById(`tg-message-select-${activeMessage.id}`)} boundary={workspace.current}
       canReply={canReplyToMessage(state, userId, roomId, activeMessage.id)} canReact={!group.archived} canMention={!group.archived && selectChatMentionCandidates(state, userId, roomId).some(item => item.userId === activeMessage.authorId)} canCopy={!hasEntity(activeMessage) && Boolean(activeMessage.body.trim())} canReport={activeMessage.authorId !== userId} canNotice={canManage && !hasEntity(activeMessage) && Boolean(activeMessage.body.trim())}
       activeReactions={Object.entries(activeMessage.reactions || {}).filter(([, ids]) => ids.includes(userId)).map(([emoji]) => emoji)}
       onReply={() => beginReply(activeMessage.id)} onReaction={emoji => { onReaction(activeMessage.id, emoji); closeMessageActions(true); }} onMention={() => chooseMention(activeMessage.authorId, false)} onCopy={() => void copyMessage(activeMessage)} onReport={() => { closeMessageActions(); onReport(activeMessage.id); }} onNotice={() => { closeMessageActions(); onNotice(activeMessage.body); }} onClose={closeMessageActions}/>}
@@ -378,7 +384,7 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
       {mentionCandidates.length > 0 && <div ref={mentionList} className="tg-chat-mention-suggestions"><div className="tg-chat-mention-label"><span>이 대화방의 멤버</span><button type="button" aria-label="멤버 추천 닫기" onClick={() => setDismissedMention(mentionKey)}><X size={16}/></button></div><div role="listbox" id="tg-chat-mention-suggestions" aria-label="태그할 멤버">{mentionCandidates.map((candidate, index) => <button type="button" role="option" tabIndex={-1} aria-selected={mentionIndex === index} id={`tg-chat-mention-option-${index}`} key={candidate.userId} onPointerDown={event => event.preventDefault()} onClick={() => chooseMention(candidate.userId)}><MemberAvatar name={candidate.name} avatar={candidate.avatar}/><span>{candidate.name}<small>{memberTagHint(candidate.userId)}</small></span><AtSign size={16}/></button>)}</div></div>}
       {(error || replyId || emojiOpen && !group.archived || sticker) && <div className="tg-composer-extras" role="region" aria-label="답장·이모티콘 미리보기" tabIndex={0}>
       {error && <div className="tg-composer-error tg-error" role="alert">{error}</div>}
-      {replyId && <div className="tg-reply-preview"><button type="button" className="tg-reply-original" disabled={!reply} aria-label="답장할 원문 보기" onClick={() => reply && onSource(reply.id)}><Reply size={16}/><span><strong>{reply ? `${memberName(state, reply.authorId, group.id)}에게 답장` : '원문을 다시 확인해 주세요'}</strong><p>{reply ? messageText(reply) : '원문을 볼 수 없어요. 답장을 취소한 뒤 보낼 수 있어요.'}</p></span></button><button type="button" className="tg-icon" aria-label="답장 취소" onClick={() => setReplyId('')}><X size={18}/></button></div>}
+      {replyId && <div className="tg-reply-preview"><button type="button" className="tg-reply-original" disabled={!reply} aria-label="답장할 원문 보기" onClick={() => reply && onSource(reply.id)}><Reply size={16}/><span><strong>{reply ? `${roomMemberName(reply.authorId)}에게 답장` : '원문을 다시 확인해 주세요'}</strong><p>{reply ? messageText(reply) : '원문을 볼 수 없어요. 답장을 취소한 뒤 보낼 수 있어요.'}</p></span></button><button type="button" className="tg-icon" aria-label="답장 취소" onClick={() => setReplyId('')}><X size={18}/></button></div>}
       {emojiOpen && !group.archived && <ChatEmojiPicker onInsertEmoji={insert} onSelectSticker={id => { setStickerId(id); setEmojiOpen(false); input.current?.focus(); }} onClose={() => setEmojiOpen(false)}/>}
       {sticker && <div className="tg-sticker-preview"><img src={sticker.src} alt={`선택한 이모티콘: ${sticker.label}`}/><strong>{sticker.label}</strong><button type="button" className="tg-icon" aria-label="선택한 이모티콘 빼기" onClick={() => setStickerId('')}><X size={18}/></button></div>}
       </div>}
@@ -397,7 +403,7 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
       {activeCards.length > 0 && <section><h3>진행 중인 항목 · {activeCards.length}</h3>{activeCards.map(message => <button type="button" key={message.id} className="tg-chat-context-item" onClick={() => { setContextOpen(false); setQuery(''); setPerson('all'); onSource(message.id); }}><span>{message.entity?.type === 'POLL' ? '투표' : message.entity?.type === 'CHALLENGE' ? '챌린지' : '준비'}</span><strong>{messageText(message)}</strong><ChevronRight size={16}/></button>)}</section>}
       {!notices.length && !activeCards.length && <p>현재 공지나 진행 중인 항목이 없어요.</p>}
     </div></BottomSheet>}
-    {searchOpen && <BottomSheet title="대화 검색" onClose={() => { setSearchOpen(false); setQuery(''); setPerson('all'); }}><div className="tg tg-chat-search-panel"><div className="tg-room-search"><label><span className="ui-sr-only">대화 검색</span><Search size={17}/><input ref={searchInput} aria-label="대화 검색" placeholder="대화 내용·사람 검색" value={query} onChange={event => setQuery(event.target.value)}/>{query && <button type="button" className="tg-icon" aria-label="대화 검색 지우기" onClick={() => setQuery('')}><X size={16}/></button>}</label><select aria-label="대화 검색 대상" value={person} onChange={event => setPerson(event.target.value)}><option value="all">모든 멤버</option>{group.memberIds.map(id => <option key={id} value={id}>{memberName(state, id, group.id)}</option>)}</select><span aria-live="polite">{shown.length}개 대화</span></div><div className="tg-chat-search-results">{shown.slice().reverse().map(message => <button type="button" key={message.id} onClick={() => { setSearchOpen(false); setQuery(''); setPerson('all'); onSource(message.id); }}><small>{memberName(state, message.authorId, group.id)}</small><span>{messageText(message)}</span><ChevronRight size={16}/></button>)}{!shown.length && <p>검색 결과가 없어요.</p>}</div></div></BottomSheet>}
+    {searchOpen && <BottomSheet title="대화 검색" onClose={() => { setSearchOpen(false); setQuery(''); setPerson('all'); }}><div className="tg tg-chat-search-panel"><div className="tg-room-search"><label><span className="ui-sr-only">대화 검색</span><Search size={17}/><input ref={searchInput} aria-label="대화 검색" placeholder="대화 내용·사람 검색" value={query} onChange={event => setQuery(event.target.value)}/>{query && <button type="button" className="tg-icon" aria-label="대화 검색 지우기" onClick={() => setQuery('')}><X size={16}/></button>}</label><select aria-label="대화 검색 대상" value={person} onChange={event => setPerson(event.target.value)}><option value="all">모든 멤버</option>{group.memberIds.map(id => <option key={id} value={id}>{roomMemberName(id)}</option>)}</select><span aria-live="polite">{shown.length}개 대화</span></div><div className="tg-chat-search-results">{shown.slice().reverse().map(message => <button type="button" key={message.id} onClick={() => { setSearchOpen(false); setQuery(''); setPerson('all'); onSource(message.id); }}><small>{roomMemberName(message.authorId)}</small><span>{messageText(message)}</span><ChevronRight size={16}/></button>)}{!shown.length && <p>검색 결과가 없어요.</p>}</div></div></BottomSheet>}
     {addOpen && <BottomSheet title="대화에 추가" description={activity?.title || group.name} onClose={() => setAddOpen(false)}><div className="tg tg-room-options">
       {activity && onPersonalRoute && <button type="button" onClick={() => { setAddOpen(false); onPersonalRoute(); }}><MapPin size={18}/><span>내 참여 구간·변경 확인</span><ChevronRight size={17}/></button>}
       {activity && onVisitGuide && <button type="button" onClick={() => { setAddOpen(false); onVisitGuide(); }}><ListChecks size={18}/><span>입구·주차·방문 안내</span><ChevronRight size={17}/></button>}
@@ -418,7 +424,7 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
       {activity && group.spaceType !== 'ACTIVITY' && <button type="button" onClick={() => { setViewOpen(false); onNavigate(`group-${group.id}`); }}><Users size={17}/>모임 화면으로</button>}
     </div></BottomSheet>}
     {moreOpen && <BottomSheet title="대화 설정" description={activity?.title || group.name} onClose={() => setMoreOpen(false)}><div className="tg tg-room-options">
-      {onMemberProfile && <button type="button" onClick={() => { setMoreOpen(false); onMemberProfile(userId); }}><Users size={17}/>내 모임 프로필</button>}
+      {ownProfileAction && <button type="button" onClick={() => { setMoreOpen(false); ownProfileAction(); }}><Users size={17}/>{usesRoomProfiles ? '이 방의 멀티프로필' : '내 프로필'}</button>}
       {onResources && <button type="button" onClick={() => { setMoreOpen(false); onResources(); }}><FolderOpen size={17}/>사진·일정·투표 모아보기</button>}
       <button type="button" onClick={() => { setMoreOpen(false); onSummary(boundary); }}><MessageCircle size={17}/>대화 요약{unread.length > 0 && <small>안 읽은 대화 {unread.length}개</small>}</button>
       {unread[0] && <button type="button" onClick={() => { setMoreOpen(false); onSource(unread[0].id); }}><MessageCircle size={17}/>첫 안 읽은 대화로 이동</button>}
