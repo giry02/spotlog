@@ -2,20 +2,28 @@ import type { GroupJoinMode, GroupKind, GroupTopic } from './model.ts';
 import { topicOptions } from './discovery.ts';
 import { getGroupSubtopic, normalizeGroupSubtopics } from './groupTaxonomy.ts';
 import { isGroupJoinFields, normalizeGroupJoinFields, type GroupJoinFields } from './groupJoining.ts';
+import { groupLocalityIssues } from './groupRegions.ts';
 
 export interface GroupCreationDraft {
   name: string; kind: GroupKind; region: string; district: string; categoryId: GroupTopic; subcategoryIds: string[];
+  neighborhood?: string;
   topics: GroupTopic[]; joinMode: GroupJoinMode; introduction: string; purpose: string; joinFields: GroupJoinFields;
 }
 export interface GroupIntroductionAnswers { who: string; activities: string; atmosphere: string; purpose: string }
 export type GroupCreationInitial = Partial<Omit<GroupCreationDraft, 'joinFields'>> & { joinFields?: Partial<GroupJoinFields> };
+export type GroupCreationPhase = 'INPUT' | 'DRAFT';
+/** Explicit local editor phase survives optional text being cleared; old callers keep their prior inference. */
+export function groupCreationResumePhase(initial: GroupCreationInitial = {}, phase?: GroupCreationPhase): GroupCreationPhase {
+  if (phase === 'INPUT' || phase === 'DRAFT') return phase;
+  return initial.name?.trim() && initial.introduction?.trim() ? 'DRAFT' : 'INPUT';
+}
 const topic = (value: unknown): value is GroupTopic => topicOptions.some(item => item.id === value);
 export function normalizeGroupCreationDraft(initial: GroupCreationInitial = {}): GroupCreationDraft {
   const topics = initial.topics?.filter(topic) || [];
   const categoryId = topic(initial.categoryId) ? initial.categoryId : topics[0] || 'SOCIAL';
   const allTopics = [...new Set([categoryId, ...topics])];
   return { name: initial.name || '', kind: ['FAMILY','FRIENDS','HOBBY','GUIDE'].includes(initial.kind || '') ? initial.kind! : 'HOBBY', region: initial.region || '', district: initial.district || '',
-    categoryId, subcategoryIds: normalizeGroupSubtopics(allTopics, initial.subcategoryIds || []), topics: allTopics,
+    ...(initial.neighborhood !== undefined ? { neighborhood: initial.neighborhood } : {}), categoryId, subcategoryIds: normalizeGroupSubtopics(allTopics, initial.subcategoryIds || []), topics: allTopics,
     joinMode: initial.joinMode === 'APPROVAL' ? 'APPROVAL' : 'DIRECT', introduction: initial.introduction || '', purpose: initial.purpose || '', joinFields: normalizeGroupJoinFields(initial.joinFields) };
 }
 export function groupCreationSubtopicLimit(initial: GroupCreationInitial | undefined, mode: 'CREATE' | 'EDIT' = 'CREATE'): number {
@@ -28,6 +36,8 @@ export function validateGroupCreationBasics(input: GroupCreationDraft, maxSubtop
   if (!Number.isInteger(maxSubtopics) || maxSubtopics < 3 || maxSubtopics > 32) throw new Error('세부 관심사 선택 범위를 다시 확인해 주세요.');
   if (input.subcategoryIds.length > maxSubtopics || new Set(input.subcategoryIds).size !== input.subcategoryIds.length || input.subcategoryIds.some(id => { const item = getGroupSubtopic(id); return !item || !input.topics.includes(item.parent); })) throw new Error(`세부 관심사를 최대 ${maxSubtopics}개 선택해 주세요.`);
   if (input.region.length > 100 || input.district.length > 100 || input.district.trim() && !input.region.trim()) throw new Error('함께할 지역과 동네를 확인해 주세요.');
+  const localityIssues = groupLocalityIssues(input);
+  if (localityIssues.length) throw new Error(localityIssues.join(' '));
 }
 export function validateGroupCreationDraft(input: GroupCreationDraft, maxSubtopics = 3): GroupCreationDraft {
   validateGroupCreationBasics(input, maxSubtopics);
@@ -35,7 +45,7 @@ export function validateGroupCreationDraft(input: GroupCreationDraft, maxSubtopi
   const joinFields = normalizeGroupJoinFields(input.joinFields);
   if (!isGroupJoinFields(joinFields)) throw new Error('새 멤버 질문은 최대 3개, 각 120자 이내로 적어 주세요.');
   return { kind:input.kind,categoryId:input.categoryId,joinMode:input.joinMode,name: input.name.trim(), region: input.region.trim(), district: input.district.trim(), introduction: input.introduction.trim(), purpose: input.purpose.trim(),
-    topics: [...input.topics], subcategoryIds: [...input.subcategoryIds], joinFields };
+    ...(input.neighborhood !== undefined ? { neighborhood: input.neighborhood.trim() } : {}), topics: [...input.topics], subcategoryIds: [...input.subcategoryIds], joinFields };
 }
 export function applyGroupIntroductionDraft(draft: GroupCreationDraft, introduction: string): GroupCreationDraft {
   if (typeof introduction!=='string' || introduction.length>2000) throw new Error('모임 소개를 2,000자 이내로 정리해 주세요.');

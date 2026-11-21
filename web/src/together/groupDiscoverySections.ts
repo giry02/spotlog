@@ -11,6 +11,7 @@ export interface GroupDiscoveryBrowseSection {
   topics?: GroupTopic[];
   region?: string;
   district?: string;
+  neighborhood?: string;
   kind: 'GROUPS' | 'MEETUPS';
   previewGroups?: PublicGroupDiscoveryCard[];
 }
@@ -27,8 +28,8 @@ export function buildGroupDiscoverySections(projection: Projection, filters: Gro
   add({ id: 'welcome', title: '첫 참여 안내가 있는 모임', emoji: '🌱', kind: 'GROUPS', groups: welcoming(projection.groups) });
   const recommended = groupDiscoveryCollections.find(section => section.id === 'recommended');
   add({ id: 'recommended', title: recommended?.title || '지역·관심사에 맞는 모임', emoji: '✨', kind: 'GROUPS', groups: projection.recommended });
-  if (filters.region) add({ id: 'area', title: `${filters.district || filters.region}에서 만나요`, emoji: '📍', kind: 'GROUPS',
-    region: filters.region, district: filters.district, groups: open(projection.groups).filter(group => group.region === filters.region && (!filters.district || group.district === filters.district)) });
+  if (filters.region) add({ id: 'area', title: `${filters.neighborhood || filters.district || filters.region}에서 만나요`, emoji: '📍', kind: 'GROUPS',
+    region: filters.region, district: filters.district, ...(filters.neighborhood ? { neighborhood: filters.neighborhood } : {}), groups: open(projection.groups).filter(group => group.region === filters.region && (!filters.district || group.district === filters.district) && (!filters.neighborhood || group.neighborhood === filters.neighborhood)) });
   for (const section of groupDiscoveryCollections) {
     if (!section.topics?.length || filters.topic && !section.topics.includes(filters.topic)) continue;
     add({ id: section.id, title: section.title, emoji: section.emoji, kind: 'GROUPS', topics: [...section.topics],
@@ -44,7 +45,7 @@ export function groupDiscoveryMoreFilters(filters: GroupDiscoveryFilters, sectio
   return { ...filters, section: section.kind === 'MEETUPS' ? 'MEETUPS' : section.id === 'new' ? 'NEW' : 'ALL',
     view: section.kind === 'MEETUPS' ? 'MEETUPS' : 'GROUPS', collectionId: section.id,
     ...(filters.categoryTopics ? { categoryTopics: [...filters.categoryTopics] } : {}),
-    ...(section.region ? { region: section.region, district: section.district || '' } : {}),
+    ...(section.region ? { region: section.region, district: section.district || '', ...(section.neighborhood ? { neighborhood: section.neighborhood } : {}) } : {}),
     ...(section.id === 'new' ? { sort: 'NEWEST' } : {}) };
 }
 
@@ -60,8 +61,8 @@ export function resolveGroupDiscoveryList(projection: Projection, filters: Group
   if (collectionId === 'direct') return { ...base, title: '마음에 들면 바로 가입', groups: direct(projection.groups) };
   if (collectionId === 'welcome') return { ...base, title: '첫 참여 안내가 있는 모임', groups: welcoming(projection.groups) };
   if (collectionId === 'recommended') return { ...base, title: '지역·관심사에 맞는 모임', groups: projection.recommended };
-  if (collectionId === 'area') return { ...base, title: `${filters.district || filters.region || '선택한 지역'}에서 만나요`, groups: filters.region
-    ? open(projection.groups).filter(group => group.region === filters.region && (!filters.district || group.district === filters.district)) : [] };
+  if (collectionId === 'area') return { ...base, title: `${filters.neighborhood || filters.district || filters.region || '선택한 지역'}에서 만나요`, groups: filters.region
+    ? open(projection.groups).filter(group => group.region === filters.region && (!filters.district || group.district === filters.district) && (!filters.neighborhood || group.neighborhood === filters.neighborhood)) : [] };
   if (collectionId === 'new') return { ...base, title: '새로 생긴 모임', groups: projection.recent };
   if (collectionId === 'upcoming') return { ...base, kind: 'MEETUPS', title: '다가오는 번개·정모', groups: [], events: projection.events };
   if (collectionId === 'paused') return { ...base, title: '모집을 쉬고 있는 모임', groups: projection.groups.filter(group => group.recruitment === 'PAUSED') };

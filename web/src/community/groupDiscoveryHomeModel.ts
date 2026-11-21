@@ -58,7 +58,7 @@ export function selectHomeSavedInterestGroups(state: TogetherState, filters: Dis
   });
 }
 
-/** A home handoff always carries the chosen region, district and literal query into the real listing. */
+/** A home handoff always carries the chosen region, district, neighborhood and literal query into the real listing. */
 export function groupHomeListingFilters(base: GroupDiscoveryFilters, destination:
   { kind: 'GROUPS' | 'MEETUPS' } | { kind: 'TOPIC'; topic: GroupTopic; subtopic?: string } | { kind: 'COLLECTION'; id: string }): GroupDiscoveryFilters {
   const filters: GroupDiscoveryFilters = { ...base, useMyRegion: false, publicActivityIntent: undefined, collectionId: undefined,

@@ -36,7 +36,7 @@ export function publicGroupJoinVersion(group: TogetherGroup): string {
   const profile = discoveryProfile(group);
   return JSON.stringify([group.id, group.name, group.introduction, group.visibility, group.promotionPublished, group.archived,
     group.region, profile.district, profile.joinMode, profile.recruitment, profile.joinGuide, profile.welcome, profile.topics, profile.style,
-    profile.subtopics || [], group.joinFields || null]);
+    profile.subtopics || [], group.joinFields || null, ...(profile.neighborhood !== undefined ? [profile.neighborhood] : [])]);
 }
 
 function joinableGroup(state: TogetherState, groupId: string, userId: string, intent: PublicActivityIntent | undefined, at: Date, expectedVersion?: string) {

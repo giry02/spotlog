@@ -1,16 +1,20 @@
 import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react';
-import { ArrowLeft, ArrowRight, Check, ChevronDown, ImageOff, MapPin, Plus, RefreshCw, Sparkles, Trash2, X } from 'lucide-react';
+import { ArrowDown, ArrowUp, Check, ChevronDown, ImageOff, MapPin, Plus, Sparkles, Trash2, X } from 'lucide-react';
 import type { Place } from '../data';
 import { getPlacePhotos } from '../PhotoPlaceCard';
 import { PhotoCredit } from '../PublicTourismCredit';
 import { naverDirectionsUrl } from '../placeDirections';
 import { configuredPlanningAiEndpoint, PLANNING_AI_CANDIDATE_LIMIT, requestGroupDraftAi, requestTripDraftAi } from '../planningAiService';
 import { topicOptions } from './discovery';
-import { buildCreationGroupDraft, buildCreationPlans, creationBriefTopics, creationCatalogPlaces, creationCatalogRegions, interpretCreationPrompt, refreshCreationPlan, validateCreationBrief, validateCreationPlan, type CreationBrief, type CreationGroupDraft, type CreationPlan, type CreationPurpose } from './creationPlanner';
+import { creationBriefTopics, creationCatalogPlaces, creationCatalogRegions, interpretCreationPrompt, refreshCreationPlan, validateCreationBrief, validateCreationPlan, type CreationBrief, type CreationGroupDraft, type CreationPlan, type CreationPurpose } from './creationPlanner';
 import { completeCreationReview, creationPreviewCatalog, restoreCreationPreview, type CreationPreviewDraft } from './creationPreview';
+import { prepareQuickCreation, quickCreationStartDatePatch } from './quickCreation';
+import GroupLocalityFields from './GroupLocalityFields';
+import { groupLocalityIssues, parseGroupLocality } from './groupRegions';
 import type { GroupTopic } from './model';
 import './creation-planner.css';
 
+export interface CreationPlannerLocalDraft extends CreationPreviewDraft { phase: 'INPUT' | 'DRAFT'; prompt: string }
 export interface CreationPlannerPanelProps {
   places: Place[];
   initial?: Partial<CreationBrief>;
@@ -19,285 +23,343 @@ export interface CreationPlannerPanelProps {
   submitLabel?: string;
   reviewOptions?: ReactNode;
   cancelLabel?: string;
-  /** Public catalog + page-memory input only. The final action requests login instead of saving. */
   previewOnly?: boolean;
   onLoginRequired?: (draft: CreationPreviewDraft) => void;
-  /** Explicit guest-to-member handoff; confirmations are never restored. */
   resumeDraft?: CreationPreviewDraft;
+  resumeLocalDraft?: CreationPlannerLocalDraft;
+  onDraftChange?: (draft: CreationPlannerLocalDraft) => void;
   onReview: (brief: CreationBrief, plan: CreationPlan | null, groupDraft?: CreationGroupDraft) => boolean | Promise<boolean>;
   onCancel?: () => void;
 }
 
-const purposes: Array<{ id: CreationPurpose; label: string }> = [
-  { id: 'MEETUP', label: '식사·만남' }, { id: 'OUTING', label: '나들이' }, { id: 'TRIP', label: '여행' }, { id: 'GROUP', label: '새 모임' },
-];
-const presetOptions: Array<{ label: string; purpose: CreationPurpose; prompt: string }> = [
-  { label: '🍽️ 맛집 탐방', purpose: 'MEETUP', prompt: '부산에서 친구 4명이 맛집을 탐방하고 카페에서 이야기하고 싶어.' },
-  { label: '🌿 자연·산책', purpose: 'OUTING', prompt: '부산에서 부모님과 자연을 보고 산책한 뒤 밥도 먹고 싶어. 많이 걷기는 어려워.' },
-  { label: '🏸 운동 약속', purpose: 'MEETUP', prompt: '부산에서 친구들과 배드민턴을 치고 함께 저녁을 먹고 싶어.' },
-  { label: '📚 독서·카페', purpose: 'MEETUP', prompt: '부산에서 친구 3명과 카페에서 독서하고 책 이야기를 나누고 싶어.' },
-  { label: '🎲 보드게임', purpose: 'MEETUP', prompt: '부산에서 보드게임을 처음 하는 친구들과 함께 놀고 싶어.' },
-  { label: '🎨 전시 관람', purpose: 'OUTING', prompt: '부산에서 전시를 보고 카페에서 이야기하고 싶어.' },
-  { label: '🧳 가족여행', purpose: 'TRIP', prompt: '부산으로 가족 4명이 2박 3일 여행하고 싶어. 음식점과 카페, 숙소도 찾아줘.' },
-  { label: '👋 새 모임 개설', purpose: 'GROUP', prompt: '부산에서 주말마다 카페와 맛집을 함께 찾는 취미 모임을 만들고 싶어.' },
+const purposes: { id: CreationPurpose; label: string }[] = [
+  { id: 'MEETUP', label: '약속' }, { id: 'OUTING', label: '나들이' }, { id: 'TRIP', label: '여행' }, { id: 'GROUP', label: '모임' },
 ];
 const placeKinds: Record<Place['kind'], string> = { LANDMARK: '명소', FOOD: '음식점', CAFE: '카페', STAY: '숙소', SHOP: '쇼핑', LEISURE: '레저' };
-const transportNames: Record<CreationBrief['transport'], string> = { UNSET: '미정', WALK: '도보', PUBLIC: '대중교통', CAR: '자동차' };
 const kindNames: Record<CreationGroupDraft['kind'], string> = { FAMILY: '가족', FRIENDS: '친구', HOBBY: '취미·지역', GUIDE: '가이드' };
 const numberValue = (value: string) => value.trim() === '' ? undefined : Number(value);
 const planningEndpoint = configuredPlanningAiEndpoint(import.meta.env.VITE_PLANNING_AI_ENDPOINT);
+const validCount = (value: number) => Number.isInteger(value) && value >= 1 && value <= 7;
+function dateCount(start: string, end: string): number | undefined {
+  if (!start || !end) return undefined;
+  const value = (Date.parse(`${end}T12:00:00Z`) - Date.parse(`${start}T12:00:00Z`)) / 86400000 + 1;
+  return validCount(value) ? value : undefined;
+}
+type AiSuggestion = { brief: CreationBrief; plan: CreationPlan | null; groupDraft?: CreationGroupDraft };
+type DayChange = { count: number; patch: Partial<CreationBrief> };
 
-/** Temporary choices stay in this panel. Saving only happens through the final parent callback. */
-export default function CreationPlannerPanel({ places, initial, initialPrompt = '', allowedPurposes, submitLabel, reviewOptions, cancelLabel = '닫기', previewOnly = false, onLoginRequired, resumeDraft, onReview, onCancel }: CreationPlannerPanelProps) {
+/** One click produces a page-memory draft. Only the explicit final save invokes the parent. */
+export default function CreationPlannerPanel({ places, initial, initialPrompt = '', allowedPurposes, submitLabel, reviewOptions, cancelLabel = '취소', previewOnly = false, onLoginRequired, resumeDraft, resumeLocalDraft, onDraftChange, onReview, onCancel }: CreationPlannerPanelProps) {
   const availablePlaces = useMemo(() => previewOnly ? creationPreviewCatalog(places) : places, [places, previewOnly]);
-  const [restored] = useState(() => resumeDraft ? restoreCreationPreview(resumeDraft, availablePlaces) : null);
-  const availablePurposes = purposes.filter(item => !allowedPurposes || allowedPurposes.includes(item.id));
-  const initialHints = Object.fromEntries(Object.entries(initial ?? {}).filter(([, value]) => value !== '' && value !== undefined)) as Partial<CreationBrief>;
-  const [step, setStep] = useState(restored ? restored.ready ? 3 : 1 : 0);
-  const [prompt, setPrompt] = useState(restored?.brief.prompt ?? (initialPrompt || initial?.prompt || ''));
-  const [brief, setBrief] = useState(() => restored?.brief ?? interpretCreationPrompt(initialPrompt || initial?.prompt || '', initialHints));
-  const [purposeTouched, setPurposeTouched] = useState(Boolean(restored || initial?.purpose));
-  const [plans, setPlans] = useState<CreationPlan[]>(restored?.ready && restored.plan ? [restored.plan] : []);
-  const [plan, setPlan] = useState<CreationPlan | null>(restored?.ready ? restored.plan : null);
-  const [groupDraft, setGroupDraft] = useState<CreationGroupDraft | null>(restored?.groupDraft ?? null);
+  const choices = purposes.filter(item => !allowedPurposes || allowedPurposes.includes(item.id));
+  const [context] = useState(() => Object.fromEntries(Object.entries(initial ?? {}).filter(([, value]) => value !== '' && value !== undefined)) as Partial<CreationBrief>);
+  const [restored] = useState(() => {
+    if (resumeDraft) return restoreCreationPreview(resumeDraft, availablePlaces);
+    if (resumeLocalDraft?.phase !== 'DRAFT') return null;
+    const checked = restoreCreationPreview(resumeLocalDraft, availablePlaces);
+    // The same-account editor keeps even invalid values for correction and the full 2,000-character note.
+    return { ...checked, brief: structuredClone(resumeLocalDraft.brief), groupDraft: resumeLocalDraft.groupDraft && structuredClone(resumeLocalDraft.groupDraft) };
+  });
+  const [phase, setPhase] = useState<'INPUT' | 'DRAFT'>(restored ? 'DRAFT' : resumeLocalDraft?.phase ?? 'INPUT');
+  const [prompt, setPrompt] = useState(restored?.brief.prompt ?? resumeLocalDraft?.prompt ?? (initialPrompt || initial?.prompt || ''));
+  const [brief, setBrief] = useState<CreationBrief>(() => restored?.brief ?? resumeLocalDraft?.brief ?? interpretCreationPrompt(initialPrompt || initial?.prompt || '', {
+    ...context, purpose: choices.some(item => item.id === context.purpose) ? context.purpose : choices[0]?.id ?? 'MEETUP',
+  }));
+  const [plan, setPlan] = useState<CreationPlan | null>(restored?.plan ?? null);
+  const [groupDraft, setGroupDraft] = useState<CreationGroupDraft | undefined>(restored?.groupDraft);
+  const [activeDay, setActiveDay] = useState(1);
+  const [pendingDays, setPendingDays] = useState<DayChange | null>(null);
   const [picker, setPicker] = useState<{ day: number; replaceId?: string } | null>(null);
   const [search, setSearch] = useState('');
-  const [checked, setChecked] = useState(false);
-  const [dateUnconfirmed, setDateUnconfirmed] = useState(false);
+  const [placeKind, setPlaceKind] = useState<Place['kind'] | 'ALL'>('ALL');
   const [error, setError] = useState(restored && !restored.ready ? `공개 자료나 조건이 바뀌었어요. ${restored.issues.join(' ')}` : '');
   const [busy, setBusy] = useState(false);
+  const [completed, setCompleted] = useState(false);
   const [modelPending, setModelPending] = useState(false);
-  const [modelDraft, setModelDraft] = useState(false);
-  const modelRequest = useRef<AbortController | null>(null);
+  const [suggestion, setSuggestion] = useState<AiSuggestion | null>(null);
+  const [modelApplied, setModelApplied] = useState(false);
+  const requestRef = useRef<AbortController | null>(null);
+  const inFlight = useRef(false);
+  const draftCallback = useRef(onDraftChange);
+  draftCallback.current = onDraftChange;
+  useEffect(() => {
+    const value = phase === 'INPUT' ? { brief: { ...brief, prompt }, plan: null } : structuredClone({ brief, plan, ...(groupDraft ? { groupDraft } : {}) });
+    draftCallback.current?.({ ...value, phase, prompt });
+  }, [phase, prompt, brief, plan, groupDraft]);
   const currentPlaces = useRef(availablePlaces);
   currentPlaces.current = availablePlaces;
-  const [completed, setCompleted] = useState(false);
-  const inFlight = useRef(false);
-  const manuallyEdited = useRef<Partial<CreationBrief>>({});
-  const regionId = useId();
   const headingRef = useRef<HTMLDivElement>(null);
-  const pickerRef = useRef<HTMLElement>(null);
+  const regionId = useId();
+  const locked = busy || completed;
+  const isGroup = brief.purpose === 'GROUP';
   const regionOptions = useMemo(() => creationCatalogRegions(availablePlaces), [availablePlaces]);
   const catalog = useMemo(() => creationCatalogPlaces(brief, availablePlaces), [brief.region, availablePlaces]);
+  const publicPlaces = useMemo(() => creationPreviewCatalog(availablePlaces), [availablePlaces]);
+  const publicById = useMemo(() => new Map(publicPlaces.map(place => [place.id, place])), [publicPlaces]);
   const catalogById = new Map(catalog.map(place => [place.id, place]));
-  const isGroup = brief.purpose === 'GROUP';
   const selectedTopics = creationBriefTopics(brief);
-  const canGroup = availablePurposes.some(item => item.id === 'GROUP');
-  const canPlan = availablePurposes.some(item => item.id !== 'GROUP');
-  const canTrip = availablePurposes.some(item => item.id === 'TRIP');
-  const canDay = availablePurposes.some(item => item.id === 'MEETUP' || item.id === 'OUTING');
-  const titles = ['하고 싶은 일', '조건 확인', isGroup ? '모임 초안' : '후보 비교', '마지막 확인'];
-  const locked = busy || completed || modelPending;
-  const canAskModel = Boolean(planningEndpoint && (isGroup || !brief.locationUndecided));
-  const cancelModel = () => { modelRequest.current?.abort(); modelRequest.current = null; setModelPending(false); };
-  useEffect(() => () => { modelRequest.current?.abort(); modelRequest.current = null; }, []);
-  useEffect(() => { setChecked(false); setDateUnconfirmed(false); setCompleted(false); }, [previewOnly]);
-  useEffect(() => { if (picker) pickerRef.current?.scrollIntoView({ block: 'start', behavior: 'instant' }); }, [picker]);
-  const nextStep = (value: number) => { setStep(value); setError(''); setChecked(false); setPicker(null); headingRef.current?.scrollIntoView({ block: 'start', behavior: 'instant' }); };
-  const updateBrief = <K extends keyof CreationBrief>(key: K, value: CreationBrief[K]) => {
-    if (modelRequest.current) cancelModel();
-    manuallyEdited.current = { ...manuallyEdited.current, [key]: value };
-    setBrief(current => ({ ...current, [key]: value })); setPlans([]); setPlan(null); setChecked(false); setError('');
-    if (!isGroup) setModelDraft(false);
+  const day = plan?.days.find(row => row.day === activeDay) ?? plan?.days[0];
+  const issues = phase !== 'DRAFT' ? [] : isGroup
+    ? [...validateCreationBrief(brief), ...groupLocalityIssues(parseGroupLocality(groupDraft?.region || brief.region)), ...(!groupDraft?.name.trim() ? ['모임 이름을 입력해 주세요.'] : []), ...(!groupDraft?.introduction.trim() ? ['모임 소개를 입력해 주세요.'] : [])]
+    : [...(plan ? validateCreationPlan(brief, plan, availablePlaces) : ['일정 초안을 다시 확인해 주세요.']), ...(brief.startTime && !brief.date ? ['시작 시각을 정하려면 날짜도 함께 정해 주세요.'] : [])];
+  const uniqueIssues = [...new Set(issues)];
+  const cancelModel = () => { requestRef.current?.abort(); requestRef.current = null; setModelPending(false); };
+  const invalidateModel = () => { cancelModel(); setSuggestion(null); setError(''); };
+  useEffect(() => () => { requestRef.current?.abort(); requestRef.current = null; }, []);
+  useEffect(() => { requestRef.current?.abort(); requestRef.current = null; setModelPending(false); setSuggestion(null); }, [availablePlaces]);
+
+  const makeDraft = () => {
+    invalidateModel();
+    const next = prepareQuickCreation({ purpose: brief.purpose, prompt, initial: context, preferPromptRegion: true }, availablePlaces);
+    setBrief(next.brief); setPlan(next.plan); setGroupDraft(next.groupDraft);
+    setActiveDay(1); setPicker(null); setPendingDays(null); setModelApplied(false); setPhase('DRAFT');
+    setError(next.issues.join(' '));
+    headingRef.current?.scrollIntoView({ block: 'start', behavior: 'instant' });
+  };
+
+  const updateBrief = (patch: Partial<CreationBrief>) => {
+    invalidateModel();
+    const next = { ...brief, ...patch };
+    if (patch.region !== undefined) next.locationUndecided = !isGroup && plan?.placeIds.length ? false : !patch.region.trim() || Boolean(brief.locationUndecided);
+    setBrief(next);
+    if (plan) setPlan(refreshCreationPlan(next, plan, availablePlaces));
+    if (groupDraft && patch.region !== undefined) setGroupDraft({ ...groupDraft, region: patch.region });
+  };
+  const updateGroup = (patch: Partial<CreationGroupDraft>) => { invalidateModel(); setGroupDraft(current => current ? { ...current, ...patch } : current); };
+  const updatePlan = (next: CreationPlan, nextBrief = brief) => {
+    invalidateModel();
+    const withLocation = { ...nextBrief, locationUndecided: !next.placeIds.length };
+    setBrief(withLocation); setPlan(refreshCreationPlan(withLocation, next, availablePlaces));
   };
   const updateTopics = (topic: GroupTopic, selected: boolean) => {
-    const topics = selected ? [...selectedTopics, topic] : selectedTopics.filter(id => id !== topic);
-    updateBrief('topics', [...new Set(topics)]);
-    setGroupDraft(current => current && ({ ...current, topics: [...new Set(topics)] }));
+    const topics = [...new Set(selected ? [...selectedTopics, topic] : selectedTopics.filter(id => id !== topic))];
     const theme: CreationBrief['theme'] = topics.includes('OUTDOOR') || topics.includes('WALK') ? 'FOLIAGE' : topics.includes('FOOD') ? 'FOOD' : topics.includes('CAFE') ? 'CAFE' : topics.includes('CULTURE') ? 'CULTURE' : topics.includes('TRAVEL') ? 'TRAVEL' : 'OTHER';
-    updateBrief('theme', theme);
+    updateBrief({ topics, theme });
+    if (groupDraft) setGroupDraft({ ...groupDraft, topics });
   };
-  const selectTarget = (group: boolean) => {
-    updateBrief('purpose', group ? 'GROUP' : canTrip && (brief.dayCount ?? 1) > 1 ? 'TRIP' : canDay ? 'MEETUP' : 'TRIP');
-    setPurposeTouched(true); setGroupDraft(null); setModelDraft(false);
+
+  const applyDays = ({ count, patch }: DayChange) => {
+    if (!plan) return;
+    const days = Array.from({ length: count }, (_, index) => ({ day: index + 1, placeIds: [...(plan.days[index]?.placeIds ?? [])] }));
+    const overflow = plan.days.slice(count).flatMap(row => row.placeIds);
+    days[count - 1].placeIds.push(...overflow);
+    const nextBrief = { ...brief, ...patch };
+    if (nextBrief.purpose === 'TRIP') nextBrief.dayCount = count;
+    else nextBrief.dayCount = undefined;
+    if (nextBrief.date) Object.assign(nextBrief, quickCreationStartDatePatch(nextBrief.purpose, nextBrief.date, count));
+    updatePlan({ ...plan, days, placeIds: days.flatMap(row => row.placeIds) }, nextBrief);
+    setActiveDay(current => Math.min(current, count)); setPendingDays(null); setPicker(null);
   };
-  const useUndecidedDraft = () => {
-    const next = { ...brief, locationUndecided: true };
-    updateBrief('locationUndecided', true);
-    const drafts = buildCreationPlans(next, availablePlaces);
-    setPlans(drafts); setPlan(drafts[0] ?? null); setError(''); setModelDraft(false);
+  const requestDays = (count: number, patch: Partial<CreationBrief> = {}) => {
+    if (!plan || !validCount(count)) return;
+    invalidateModel();
+    const next = { count, patch };
+    if (plan.days.slice(count).some(row => row.placeIds.length)) { setPendingDays(next); return; }
+    applyDays(next);
   };
-  const parsePrompt = () => {
-    if (!prompt.trim()) { setError('하고 싶은 일을 한 문장으로 적어주세요.'); return; }
-    const next = prompt.trim() === brief.prompt ? { ...brief } : interpretCreationPrompt(prompt.trim(), { ...initialHints, ...manuallyEdited.current });
-    const purpose = purposeTouched ? brief.purpose : next.purpose;
-    setBrief({ ...next, prompt: prompt.trim(), purpose: availablePurposes.some(item => item.id === purpose) ? purpose : availablePurposes[0]?.id || 'MEETUP' });
-    setPlan(null); setPlans([]);
-    if (!isGroup) setModelDraft(false);
-    nextStep(1);
+  const changeDuration = (count: number) => {
+    const patch: Partial<CreationBrief> = {};
+    if (brief.date && brief.endDate && Number.isFinite(Date.parse(brief.date))) patch.endDate = new Date(Date.parse(`${brief.date}T12:00:00Z`) + (count - 1) * 86400000).toISOString().slice(0, 10);
+    requestDays(count, patch);
   };
-  const build = async (withModel = false) => {
-    if (modelRequest.current) return;
-    setError('');
-    if (!brief.region.trim()) { setError(isGroup ? '모임의 활동 지역을 선택해 주세요.' : '찾아볼 지역을 먼저 선택해 주세요.'); return; }
-    if (brief.people !== undefined && (!Number.isInteger(brief.people) || brief.people < 1 || brief.people > 300)) { setError('인원은 1~300명으로 입력해 주세요.'); return; }
-    if ([brief.budgetPerPerson, brief.walkingLimitMinutes].some(value => value !== undefined && (!Number.isFinite(value) || value < 0))) { setError('예산과 걷기 제한은 0 이상의 숫자로 입력해 주세요.'); return; }
-    if (brief.endDate && !brief.date) { setError('마지막 날짜를 정했다면 시작 날짜도 입력해 주세요.'); return; }
-    if (brief.date && brief.endDate && brief.endDate < brief.date) { setError('마지막 날짜는 시작 날짜보다 빠를 수 없어요.'); return; }
-    const issues = isGroup ? [] : validateCreationBrief(brief);
-    if (issues.length) { setError(issues.join(' ')); return; }
-    if (!withModel) {
-      if (isGroup) {
-        setGroupDraft(current => current && !modelDraft ? { ...current, region: brief.region } : buildCreationGroupDraft(brief));
-        setModelDraft(false); nextStep(2); return;
-      }
-      try {
-        const next = buildCreationPlans(brief, availablePlaces);
-        setPlans(next); setPlan(next[0] ? structuredClone(next[0]) : null); setModelDraft(false); nextStep(2);
-      } catch (cause) { setError(cause instanceof Error ? cause.message : '조건을 확인하고 다시 찾아주세요.'); }
-      return;
-    }
-    if (!canAskModel) return;
-    const controller = new AbortController();
-    modelRequest.current = controller; setModelPending(true);
-    const active = () => modelRequest.current === controller && !controller.signal.aborted;
+  const changeStartDate = (date: string) => {
     try {
-      if (isGroup) {
-        const draft = await requestGroupDraftAi(planningEndpoint, brief, controller.signal);
-        if (!active()) return;
-        if (!draft) throw new Error('이 조건으로 모임 초안을 받지 못했어요. 조건을 바꾸거나 기본 초안을 써 보세요.');
-        setGroupDraft({ ...buildCreationGroupDraft(brief), ...draft });
-      } else {
-        const priority = buildCreationPlans(brief, availablePlaces).flatMap(item => item.placeIds);
-        const ids = [...new Set([...priority, ...catalog.map(item => item.id)])].slice(0, PLANNING_AI_CANDIDATE_LIMIT);
-        if (!ids.length) throw new Error('이 지역에 등록 장소가 없어요. 지역을 바꾸거나 장소 미정으로 만들 수 있어요.');
-        const days = brief.purpose === 'TRIP' && brief.date && brief.endDate ? Math.round((Date.parse(brief.endDate) - Date.parse(brief.date)) / 86_400_000) + 1 : brief.purpose === 'TRIP' ? (brief.dayCount ?? 1) : 1;
-        const draft = await requestTripDraftAi(planningEndpoint, brief, days, ids, controller.signal);
-        if (!active()) return;
-        if (!draft) throw new Error('조건에 맞는 AI 초안을 받지 못했어요. 조건을 바꾸거나 등록 장소로 찾아보세요.');
-        const reviewed = refreshCreationPlan(brief, { id: 'model-plan', source: 'CATALOG', title: draft.title, days: draft.days, placeIds: draft.days.flatMap(day => day.placeIds), explanation: [], unknowns: [] }, currentPlaces.current);
-        const problems = validateCreationPlan(brief, reviewed, currentPlaces.current);
-        if (problems.length) throw new Error(problems.join(' '));
-        const suggestion = { ...reviewed, explanation: [reviewed.explanation[0], 'AI가 방문 순서를 제안했어요. 실제 이동 경로와 시간은 지도에서 확인해 주세요.'] };
-        setPlans([suggestion]); setPlan(suggestion);
-      }
-      setModelDraft(true); nextStep(2);
-    } catch (cause) {
-      if (active()) setError(cause instanceof Error ? cause.message : 'AI 초안을 불러오지 못했어요. 입력은 그대로예요.');
-    } finally {
-      if (active()) { modelRequest.current = null; setModelPending(false); }
+      const patch = quickCreationStartDatePatch(brief.purpose, date, plan?.days.length ?? brief.dayCount ?? 1);
+      if (patch.date !== brief.date || patch.endDate !== brief.endDate) updateBrief(patch);
     }
+    catch (cause) { setError(cause instanceof Error ? cause.message : '날짜를 확인해 주세요.'); }
   };
-  const changePlan = (next: CreationPlan) => {
-    const updated = refreshCreationPlan(brief, next, availablePlaces);
-    setPlan(modelDraft ? { ...updated, explanation: [updated.explanation[0], 'AI 초안을 직접 수정했어요. 실제 이동 경로와 시간은 지도에서 확인해 주세요.'] } : updated);
-    setChecked(false); setError('');
+  const changeEndDate = (value: string) => {
+    if (value === brief.endDate) return;
+    const count = dateCount(brief.date, value);
+    if (count) requestDays(count, { endDate: value });
+    else updateBrief({ endDate: value });
+  };
+  const changePurpose = (purpose: CreationPurpose) => {
+    if (purpose === brief.purpose || purpose === 'GROUP') return;
+    requestDays(purpose === 'TRIP' ? Math.max(2, plan?.days.length ?? 2) : 1, { purpose, endDate: purpose === 'TRIP' ? brief.endDate : '' });
   };
   const removePlace = (id: string) => {
     if (!plan) return;
-    changePlan({ ...plan, placeIds: plan.placeIds.filter(value => value !== id), days: plan.days.map(day => ({ ...day, placeIds: day.placeIds.filter(value => value !== id) })) });
+    const days = plan.days.map(row => ({ ...row, placeIds: row.placeIds.filter(value => value !== id) }));
+    updatePlan({ ...plan, days, placeIds: days.flatMap(row => row.placeIds) });
+  };
+  const reorderPlace = (id: string, offset: number) => {
+    if (!plan || !day) return;
+    const ids = [...day.placeIds], index = ids.indexOf(id), target = index + offset;
+    if (index < 0 || target < 0 || target >= ids.length) return;
+    [ids[index], ids[target]] = [ids[target], ids[index]];
+    const days = plan.days.map(row => row.day === day.day ? { ...row, placeIds: ids } : row);
+    updatePlan({ ...plan, days, placeIds: days.flatMap(row => row.placeIds) });
+  };
+  const movePlace = (id: string, target: number) => {
+    if (!plan) return;
+    const days = plan.days.map(row => ({ ...row, placeIds: [...row.placeIds.filter(value => value !== id), ...(row.day === target ? [id] : [])] }));
+    updatePlan({ ...plan, days, placeIds: days.flatMap(row => row.placeIds) });
   };
   const pickPlace = (id: string) => {
     if (!plan || !picker || !catalogById.has(id) || plan.placeIds.includes(id)) return;
-    const days = plan.days.map(day => day.day !== picker.day ? day : { ...day, placeIds: picker.replaceId ? day.placeIds.map(value => value === picker.replaceId ? id : value) : [...day.placeIds, id] });
-    changePlan({ ...plan, days, placeIds: days.flatMap(day => day.placeIds) }); setPicker(null); setSearch('');
+    if (!picker.replaceId && plan.placeIds.length >= 35) { setError('한 일정에는 장소를 35곳까지 담을 수 있어요.'); return; }
+    const days = plan.days.map(row => row.day !== picker.day ? row : { ...row, placeIds: picker.replaceId ? row.placeIds.map(value => value === picker.replaceId ? id : value) : [...row.placeIds, id] });
+    updatePlan({ ...plan, days, placeIds: days.flatMap(row => row.placeIds) }); setPicker(null); setSearch('');
   };
-  const review = () => {
-    if (isGroup) {
-      if (!groupDraft?.name.trim() || !groupDraft.introduction.trim()) { setError('모임 이름과 소개를 확인해 주세요.'); return; }
-      if (!groupDraft.region.trim()) { setError('모임의 활동 지역을 선택해 주세요.'); return; }
-    } else {
-      if (!plan) { setError('비교할 후보를 선택해 주세요.'); return; }
-      const problems = validateCreationPlan(brief, plan, availablePlaces);
-      if (problems.length) { setError(problems.join(' ')); return; }
-    }
-    setDateUnconfirmed(false); nextStep(3);
+  const clearPlaces = () => {
+    if (!plan) return;
+    updatePlan({ ...plan, placeIds: [], days: plan.days.map(row => ({ ...row, placeIds: [] })) });
+    setPicker(null);
+  };
+
+  const askModel = async () => {
+    if (requestRef.current || locked) return;
+    if (!planningEndpoint) { setError('AI 서버가 연결되어 있지 않아요. 지금 초안은 그대로 수정하고 저장할 수 있어요.'); return; }
+    if (!brief.region.trim()) { setError('AI로 장소나 소개를 제안받으려면 활동 지역을 먼저 정해 주세요.'); return; }
+    const controller = new AbortController();
+    requestRef.current = controller; setModelPending(true); setSuggestion(null); setError('');
+    const active = () => requestRef.current === controller && !controller.signal.aborted;
+    const modelPrompt = isGroup && groupDraft
+      ? ['모임 이름은 유지하고 소개와 첫 활동 아이디어를 다듬어 주세요.', `모임 이름: ${groupDraft.name}`, `현재 소개: ${groupDraft.introduction}`, brief.prompt ? `하고 싶은 일: ${brief.prompt}` : ''].filter(Boolean).join('\n')
+      : brief.prompt || plan?.title || '함께할 시간을 계획해 주세요.';
+    const modelBrief = { ...brief, prompt: modelPrompt.slice(0, 600), notes: brief.notes.slice(0, 1500) };
+    try {
+      if (isGroup) {
+        const response = await requestGroupDraftAi(planningEndpoint, modelBrief, controller.signal);
+        if (!active()) return;
+        if (!response || !groupDraft) throw new Error('AI 제안을 받지 못했어요. 지금 모임 초안은 그대로예요.');
+        setSuggestion({ brief: modelBrief, plan: null, groupDraft: {
+          ...groupDraft, introduction: response.introduction,
+          ...(response.firstActivityIdea !== undefined ? { firstActivityIdea: response.firstActivityIdea } : {}),
+        } });
+      } else {
+        const ids = [...new Set([...(plan?.placeIds.filter(id => catalogById.has(id)) ?? []), ...catalog.map(place => place.id)])].slice(0, PLANNING_AI_CANDIDATE_LIMIT);
+        if (!ids.length) throw new Error('이 지역에 제안할 등록 장소가 없어요. 지금 초안은 장소 미정으로 저장할 수 있어요.');
+        const aiBrief = { ...modelBrief, locationUndecided: false };
+        const response = await requestTripDraftAi(planningEndpoint, aiBrief, plan?.days.length ?? 1, ids, controller.signal);
+        if (!active()) return;
+        if (!response) throw new Error('조건에 맞는 AI 제안을 받지 못했어요. 지금 초안은 그대로예요.');
+        const proposed = refreshCreationPlan(aiBrief, { id: 'catalog-ai-proposal', source: 'CATALOG', title: response.title, days: response.days, placeIds: response.days.flatMap(row => row.placeIds), explanation: [], unknowns: [] }, currentPlaces.current);
+        const problems = validateCreationPlan(aiBrief, proposed, currentPlaces.current);
+        if (problems.length) throw new Error(problems.join(' '));
+        setSuggestion({ brief: { ...brief, locationUndecided: false }, plan: proposed });
+      }
+    } catch (cause) { if (active()) setError(cause instanceof Error ? cause.message : 'AI 제안을 받지 못했어요. 지금 초안은 그대로예요.'); }
+    finally { if (active()) { requestRef.current = null; setModelPending(false); } }
+  };
+  const applySuggestion = () => {
+    if (!suggestion) return;
+    if (suggestion.plan) {
+      const problems = validateCreationPlan(suggestion.brief, suggestion.plan, currentPlaces.current);
+      if (problems.length) { setError(problems.join(' ')); setSuggestion(null); return; }
+      setBrief(suggestion.brief); setPlan(refreshCreationPlan(suggestion.brief, suggestion.plan, currentPlaces.current)); setActiveDay(1);
+    } else if (suggestion.groupDraft) setGroupDraft(suggestion.groupDraft);
+    setSuggestion(null); setModelApplied(true); setPicker(null); setError('');
   };
   const submit = async () => {
-    if (inFlight.current || completed) return;
-    if (!checked || (!isGroup && !brief.date && !dateUnconfirmed)) { setError('확인 항목을 체크해 주세요.'); return; }
-    if (!isGroup) {
-      const problems = plan ? validateCreationPlan(brief, plan, availablePlaces) : ['선택한 초안이 없어요. 후보를 다시 확인해 주세요.'];
-      if (problems.length) { setError(problems.join(' ')); return; }
+    if (inFlight.current || completed || phase !== 'DRAFT') return;
+    if (pendingDays) { setError('일수를 줄일 때 장소를 어떻게 옮길지 먼저 확인해 주세요.'); return; }
+    if (uniqueIssues.length) {
+      if (isGroup) headingRef.current?.parentElement?.querySelector<HTMLDetailsElement>('details.cplan-locality')?.setAttribute('open', '');
+      setError(uniqueIssues.join(' ')); return;
     }
-    inFlight.current = true; setBusy(true); setError('');
+    cancelModel(); setSuggestion(null); inFlight.current = true; setBusy(true); setError('');
     try {
-      const result = await completeCreationReview({ brief, plan, groupDraft: groupDraft ?? undefined, previewOnly, checked, dateUnconfirmed }, availablePlaces, { onReview, onLoginRequired });
+      const result = await completeCreationReview({ brief, plan, groupDraft, previewOnly, checked: true, dateUnconfirmed: !brief.date }, availablePlaces, { onReview, onLoginRequired });
       if (result === 'SAVED') setCompleted(true);
-      else if (result === 'REJECTED') setError('아직 저장하지 못했어요. 권한이나 다른 곳에서 변경된 내용을 확인한 뒤 다시 시도해 주세요. 입력과 선택은 유지했어요.');
-    } catch (cause) { setError(cause instanceof Error ? cause.message : '저장하지 못했어요. 입력과 선택을 유지했으니 다시 시도해 주세요.'); }
+      else if (result === 'REJECTED') setError('저장하지 못했어요. 입력과 선택을 유지했으니 다시 시도해 주세요.');
+    } catch (cause) { setError(cause instanceof Error ? cause.message : '저장하지 못했어요. 지금 초안은 그대로예요.'); }
     finally { inFlight.current = false; setBusy(false); }
   };
-  const pickerPlaces = catalog.filter(place => !plan?.placeIds.includes(place.id) && (!search.trim() || `${place.name} ${place.address} ${place.area}`.toLocaleLowerCase().includes(search.trim().toLocaleLowerCase())));
-  const displayedDays = plan?.days.length ? plan.days : plan ? [{ day: 1, placeIds: plan.placeIds }] : [];
-  const reviewEndDate = brief.endDate || (brief.date && plan && plan.days.length > 1 && Number.isFinite(Date.parse(brief.date)) ? new Date(Date.parse(brief.date + 'T12:00:00Z') + (plan.days.length - 1) * 86400000).toISOString().slice(0, 10) : '');
-  const finalLabel = previewOnly ? '로그인하고 저장' : isGroup ? '확인하고 모임 만들기' : submitLabel || (brief.purpose === 'TRIP' ? '확인하고 여행 만들기' : '확인하고 약속 만들기');
 
-  return <section className="creation-planner" aria-label="등록 장소로 모임과 일정 초안 만들기">
+  const pickerPlaces = catalog.filter(place => !plan?.placeIds.includes(place.id) && (placeKind === 'ALL' || place.kind === placeKind) && (!search.trim() || `${place.name} ${place.address} ${place.area}`.toLowerCase().includes(search.trim().toLowerCase())));
+  const finalLabel = previewOnly ? '로그인하고 저장' : isGroup ? '모임 만들기' : submitLabel || (brief.purpose === 'TRIP' ? '여행 만들기' : '약속 만들기');
+  const examples = isGroup ? ['주말에 함께 책 읽는 모임', '우리 가족', '동네 맛집 탐방 모임'] : brief.purpose === 'TRIP' ? ['가족과 2박 3일 여행, 음식점과 숙소도', '친구들과 당일 바다 여행'] : ['친구들과 저녁 식사', '주말에 산책하고 커피 한 잔', '회사 회식'];
+
+  return <section className="creation-planner cplan-quick" aria-label="간단하게 모임과 일정 만들기">
     <div className="cplan-top" ref={headingRef}>
-      <div className="cplan-progress"><small className="cplan-status">{step >= 2 ? modelDraft ? 'AI 제안 · 검토 중' : isGroup ? '기본 모임 초안' : '등록 장소 기반' : planningEndpoint ? '초안 도우미' : 'AI 연결 전 · 기본 초안'}</small><ol className="cplan-steps" aria-label="만들기 단계">{titles.map((title, index) => <li key={index} aria-current={index === step ? 'step' : undefined} className={index < step ? 'is-complete' : ''}><span className="cplan-sr-only">{index + 1}. {title}</span></li>)}</ol><small aria-hidden="true">{step + 1} / {titles.length}</small></div>
-      <div className="cplan-step">{step > 0 && <button type="button" className="cplan-icon" aria-label="이전 단계" disabled={locked} onClick={() => nextStep(step - 1)}><ArrowLeft size={18}/></button>}<div><h3>{step === 0 ? '어떤 시간을 보내고 싶나요?' : step === 1 ? '필요한 조건을 확인해요' : step === 2 ? isGroup ? '우리 모임답게 다듬어요' : '장소와 코스를 비교해요' : '만들기 전에 확인해요'}</h3></div></div>
+      <div className="cplan-quick-heading"><div><h3>{phase === 'INPUT' ? isGroup ? '어떤 모임을 만들까요?' : brief.purpose === 'TRIP' ? '어떤 여행을 떠날까요?' : '어떤 약속을 만들까요?' : '초안에서 바로 고쳐요'}</h3><small>{phase === 'INPUT' ? '한 줄만 적거나, 비워 두고 시작해도 돼요.' : isGroup ? '이름과 소개를 확인하고 모임을 만들어요.' : '이름·장소·날짜를 원하는 만큼만 바꾸세요.'}</small></div><span className="cplan-phase-label">{phase === 'INPUT' ? '시작' : modelApplied ? 'AI 제안 적용' : '기본 초안'}</span></div>
+      {restored && phase === 'DRAFT' && <p className="cplan-note">{resumeDraft ? '로그인 전에 만든 초안이에요. 내용을 확인한 뒤 저장해 주세요.' : '작성하던 초안을 이어서 고칠 수 있어요.'}</p>}
     </div>
+    <datalist id={regionId}>{regionOptions.map(region => <option value={region} key={region}/>)}</datalist>
     <fieldset className="cplan-content cplan-stack" disabled={locked}>
-      {step === 0 && <>
-        <label>하고 싶은 일<textarea value={prompt} maxLength={1000} placeholder="어디에서 누구와 무엇을 하고 싶은지 적어주세요." onChange={event => { setPrompt(event.target.value); setError(''); }}/></label>
-        <p className="cplan-note">식사 약속부터 운동·취미·가족여행·새 모임까지 자유롭게 적어주세요. 여러 활동을 함께 적어도 돼요.</p>
-        <details className="cplan-more"><summary>어떻게 적을지 예시 보기<ChevronDown size={18}/></summary><div className="cplan-presets" aria-label="예시 문장 채우기">{presetOptions.filter(item => !allowedPurposes || allowedPurposes.includes(item.purpose)).map(item => <button type="button" key={item.label} onClick={() => { setPrompt(item.prompt); setError(''); }}>{item.label}</button>)}</div><small>문장을 채우는 예시예요. 활동 종류를 제한하지 않아요.</small></details>
-      </>}
-      {step === 1 && <>
-        <p className="cplan-note">문장에서 찾은 조건이에요. 빠지거나 다르게 읽힌 부분을 직접 고쳐주세요.</p>
-        {canGroup && canPlan && <div className="cplan-stack"><label>무엇을 만들까요?</label><div className="cplan-purpose" aria-label="만들 대상"><button type="button" aria-pressed={!isGroup} onClick={() => selectTarget(false)}>약속·일정</button><button type="button" aria-pressed={isGroup} onClick={() => selectTarget(true)}>지속 모임</button></div><small>{isGroup ? '사람들이 계속 함께할 모임을 만들어요. 개별 약속과 여행은 모임 안에서 따로 만들 수 있어요.' : '한 번의 만남이나 나들이, 여러 DAY의 여행 일정을 만들어요.'}</small></div>}
-        {!isGroup && canDay && canTrip && <label>일정 형태<select aria-label="일정 형태" value={brief.purpose === 'TRIP' ? 'TRIP' : 'DAY'} onChange={event => { const trip = event.target.value === 'TRIP'; updateBrief('purpose', trip ? 'TRIP' : 'MEETUP'); updateBrief('dayCount', trip ? brief.dayCount || 2 : 1); if (!trip) updateBrief('endDate', brief.date); setPurposeTouched(true); }}><option value="DAY">하루 약속·나들이</option><option value="TRIP">여행 · 여러 DAY와 숙박</option></select></label>}
-        <details className="cplan-more"><summary>활동·관심사 · {selectedTopics.length ? `${selectedTopics.length}개 선택` : '선택 사항'}<ChevronDown size={18}/></summary><div className="cplan-topic-picks">{topicOptions.map(topic => <label className="cplan-check" key={topic.id}><input type="checkbox" checked={selectedTopics.includes(topic.id)} onChange={event => updateTopics(topic.id, event.target.checked)}/><span><span aria-hidden="true">{topic.emoji} </span>{topic.label}</span></label>)}</div><small>여러 개를 함께 고를 수 있어요. 구체적인 종목·취향·계절 조건은 하고 싶은 일이나 추가 조건에 적어주세요.</small></details>
-        {selectedTopics.length > 0 && <div className="cplan-topic-tags" aria-label="확인한 활동·관심사">{topicOptions.filter(topic => selectedTopics.includes(topic.id)).map(topic => <span key={topic.id}>{topic.emoji} {topic.label}</span>)}</div>}
-        <label htmlFor={regionId}>{isGroup ? '활동 지역' : '찾아볼 지역'}<select id={regionId} aria-label={isGroup ? '활동 지역 선택' : '찾아볼 지역'} value={brief.region} onChange={event => updateBrief('region', event.target.value)}><option value="">지역 선택</option>{brief.region && !regionOptions.includes(brief.region) && <option value={brief.region}>{brief.region}{catalog.length ? ' · 세부 지역' : ' · 등록 자료 확인 필요'}</option>}{regionOptions.map(region => <option key={region} value={region}>{region}</option>)}</select></label>
-        {!regionOptions.length && <p className="cplan-error" role="status">선택할 지역의 장소 자료가 없어요. 새 모임은 지역을 직접 입력하고 만들 수 있어요.</p>}
-        {isGroup && <label>활동 지역 직접 입력<input value={brief.region} maxLength={80} placeholder="예: 부산 수영구" onChange={event => updateBrief('region', event.target.value)}/></label>}
-        {!isGroup && <>
-          <details className="cplan-more"><summary>동네까지 좁혀 찾기<ChevronDown size={18}/></summary><div className="cplan-stack"><label>지역·동네<input value={brief.region} maxLength={80} placeholder="예: 부산 중구" onChange={event => updateBrief('region', event.target.value)}/></label><small>선택한 지역의 주소와 일치하는 등록 장소에서 찾아요.</small></div></details>
-          <div className="cplan-two"><label>시작 날짜 · 선택<input type="date" value={brief.date} onInput={event => updateBrief('date', event.currentTarget.value)} onChange={event => updateBrief('date', event.target.value)}/></label><label>시작 시각 · 선택<input type="time" value={brief.startTime} onInput={event => updateBrief('startTime', event.currentTarget.value)} onChange={event => updateBrief('startTime', event.target.value)}/></label></div>
-          <div className="cplan-two"><label>함께할 인원<input type="number" min="1" max="300" inputMode="numeric" value={brief.people ?? ''} placeholder="미정" onChange={event => updateBrief('people', numberValue(event.target.value))}/></label><label>이동수단<select aria-label="이동수단" value={brief.transport} onChange={event => updateBrief('transport', event.target.value as CreationBrief['transport'])}>{Object.entries(transportNames).map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></label></div>
-          <label className="cplan-check"><input type="checkbox" checked={brief.locationUndecided === true} onChange={event => updateBrief('locationUndecided', event.target.checked)}/><span>장소는 나중에 정할게요.</span></label>
-          {brief.locationUndecided && <small>활동과 날짜를 먼저 정하는 초안이에요. 장소와 동선은 만든 뒤 직접 추가해요.</small>}
-          <details className="cplan-more"><summary>예산·걷기·기간 더 정하기<ChevronDown size={18}/></summary><div className="cplan-stack"><div className="cplan-two"><label>1인 예산 상한 · 원<input type="number" min="0" max="10000000" inputMode="numeric" value={brief.budgetPerPerson ?? ''} placeholder="미정" onChange={event => updateBrief('budgetPerPerson', numberValue(event.target.value))}/></label><label>걷기 제한 · 분<input type="number" min="0" max="600" inputMode="numeric" value={brief.walkingLimitMinutes ?? ''} placeholder="미정" onChange={event => updateBrief('walkingLimitMinutes', numberValue(event.target.value))}/></label></div><div className="cplan-two"><label>마지막 날짜 · 선택<input type="date" value={brief.endDate} onInput={event => updateBrief('endDate', event.currentTarget.value)} onChange={event => updateBrief('endDate', event.target.value)}/></label><label>여행 일수 (1~7일)<input type="number" min="1" max="7" inputMode="numeric" value={brief.dayCount ?? 1} onChange={event => updateBrief('dayCount', numberValue(event.target.value))}/></label></div><label>추가 조건<textarea value={brief.notes} maxLength={1200} placeholder="예: 유모차 이동 가능 여부 확인, 식사 중 휴식 필요" onChange={event => updateBrief('notes', event.target.value)}/></label></div></details>
-          <small>가격·도보 시간·계절별 풍경·영업·예약 가능 여부는 확인한 자료가 있어야 판단할 수 있어요.</small>
-        </>}
-      </>}
-      {step === 2 && isGroup && groupDraft && <>
-        <label>모임 이름<input value={groupDraft.name} maxLength={80} onChange={event => setGroupDraft(current => current && ({ ...current, name: event.target.value }))}/></label>
-        <label>모임 구분<select aria-label="모임 구분" value={groupDraft.kind} onChange={event => setGroupDraft(current => current && ({ ...current, kind: event.target.value as CreationGroupDraft['kind'] }))}>{Object.entries(kindNames).map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label>
-        <label>활동 지역<input value={groupDraft.region} maxLength={80} onChange={event => setGroupDraft(current => current && ({ ...current, region: event.target.value }))}/></label>
-        <label>모임 소개<textarea aria-label="모임 소개" value={groupDraft.introduction} maxLength={2000} onChange={event => setGroupDraft(current => current && ({ ...current, introduction: event.target.value }))}/></label>
-        <details className="cplan-more"><summary>관심사 선택 · {groupDraft.topics?.length ?? 0}개<ChevronDown size={18}/></summary><div className="cplan-topic-picks">{topicOptions.map(topic => <label className="cplan-check" key={topic.id}><input type="checkbox" checked={groupDraft.topics?.includes(topic.id) ?? false} onChange={event => setGroupDraft(current => current && ({ ...current, topics: event.target.checked ? [...(current.topics ?? []), topic.id] : (current.topics ?? []).filter(id => id !== topic.id) }))}/><span><span aria-hidden="true">{topic.emoji} </span>{topic.label}</span></label>)}</div></details>
-        {(groupDraft.topics?.length ?? 0) > 0 && <div className="cplan-topic-tags" aria-label="선택한 관심사">{topicOptions.filter(topic => groupDraft.topics?.includes(topic.id)).map(topic => <span key={topic.id}>{topic.emoji} {topic.label}</span>)}</div>}
-        <details className="cplan-more"><summary>가입 안내·첫 활동 아이디어<ChevronDown size={18}/></summary><div className="cplan-stack"><label>환영하는 분·참여 방식<textarea aria-label="환영하는 분·참여 방식" value={groupDraft.welcome ?? ''} maxLength={500} placeholder="예: 맛집 탐방이 처음인 분도 편하게 함께해요." onChange={event => setGroupDraft(current => current && ({ ...current, welcome: event.target.value }))}/></label><label>가입 방식<select aria-label="새 모임 가입 방식" value={groupDraft.joinMode ?? 'DIRECT'} onChange={event => setGroupDraft(current => current && ({ ...current, joinMode: event.target.value as 'DIRECT' | 'APPROVAL' }))}><option value="DIRECT">바로 가입 · 기본</option><option value="APPROVAL">운영진 승인 후 가입</option></select><small>처음에는 비공개로 만들고, 공개 모집 시 이 방식을 적용해요.</small></label><label>가입 안내·인사 질문<textarea aria-label="가입 안내·인사 질문" value={groupDraft.joinGuide ?? ''} maxLength={1000} placeholder="예: 좋아하는 음식과 주로 활동하는 지역을 알려주세요." onChange={event => setGroupDraft(current => current && ({ ...current, joinGuide: event.target.value }))}/></label><label>첫 활동 아이디어 · 날짜 미정<textarea aria-label="첫 활동 아이디어 · 날짜 미정" value={groupDraft.firstActivityIdea ?? ''} maxLength={500} placeholder="예: 첫 모임에서 가고 싶은 카페 후보를 함께 골라요." onChange={event => setGroupDraft(current => current && ({ ...current, firstActivityIdea: event.target.value }))}/></label><small>첫 활동은 소개에 남기는 아이디어예요. 실제 일정과 참석·예약은 만든 뒤 따로 정해요.</small></div></details>
-        <p className="cplan-note">새 모임은 비공개로 만들어요. 만든 뒤 첫 만남을 정하고 사람들을 초대할 수 있어요.</p>
-      </>}
-      {step === 2 && !isGroup && <>
-        {!plans.length ? <div className="cplan-empty"><MapPin size={28}/><h4>활동에 맞는 등록 장소가 부족해요</h4><p>다른 종류의 장소를 임의로 추천하지 않아요. 장소 없이 활동 초안을 먼저 만들거나 조건을 바꿀 수 있어요.</p><button type="button" className="cplan-primary" onClick={useUndecidedDraft}>장소는 나중에 정하기</button><button type="button" onClick={() => nextStep(1)}>조건 바꾸기</button></div> : <>
-          <div className="cplan-plans" aria-label="등록 장소 코스 비교">{plans.map((item, index) => <button className="cplan-plan" type="button" key={item.id} aria-pressed={plan?.id === item.id} onClick={() => { changePlan(structuredClone(item)); setPicker(null); }}><span aria-hidden="true">{plan?.id === item.id ? <Check size={14}/> : index + 1}</span><div><strong>{item.title}</strong><span>{item.placeIds.map(id => catalogById.get(id)?.name).filter(Boolean).join(' → ')}</span><small>{item.explanation[0] || '등록 자료의 장소로 구성한 비교 후보'}</small></div></button>)}</div>
-          {plan && <><div className="cplan-stack">{displayedDays.map(day => <div className="cplan-stack" key={day.day}><h4>{displayedDays.length > 1 ? `DAY ${day.day}` : brief.locationUndecided ? '활동 초안 · 장소 미정' : '선택한 장소 · 순서 초안'}</h4>{brief.locationUndecided ? <p className="cplan-note">만날 장소와 동선은 아직 정하지 않았어요. 만든 뒤 장소를 추가할 수 있어요.</p> : <><div className="cplan-places">{day.placeIds.map(id => { const place = catalogById.get(id); return place ? <PlannerPlace key={id} place={place} tools={<details className="cplan-place-options"><summary>장소 바꾸기·빼기<ChevronDown size={15}/></summary><div><button type="button" onClick={() => { setPicker({ day: day.day, replaceId: id }); setSearch(''); }}><RefreshCw size={15}/>다른 곳 선택</button><button type="button" className="cplan-icon" aria-label={`${place.name} 후보에서 빼기`} onClick={() => removePlace(id)}><Trash2 size={17}/></button></div></details>}/> : <p className="cplan-error" key={id}>이 장소의 공개 정보가 바뀌었어요. 조건으로 돌아가 다시 찾아주세요.</p>; })}</div><button type="button" onClick={() => { setPicker({ day: day.day }); setSearch(''); }}><Plus size={17}/>이 DAY에 장소 추가</button></>}</div>)}</div>
-          {picker && <section className="cplan-replace" ref={pickerRef} aria-label="다른 등록 장소 선택"><div className="cplan-replace-head"><div><h4>{picker.replaceId ? '대신 갈 장소' : '함께 갈 장소'} 선택</h4><small>{brief.region}의 등록 장소 · 선택한 장소 제외</small></div><button type="button" className="cplan-icon" aria-label="장소 선택 닫기" onClick={() => setPicker(null)}><X size={18}/></button></div><label>이름·주소 검색<input value={search} onChange={event => setSearch(event.target.value)} placeholder="음식점, 숙소 이름이나 주소"/></label><div className="cplan-catalog-list">{pickerPlaces.length ? pickerPlaces.map(place => <PlannerPlace key={place.id} place={place} tools={<button type="button" onClick={() => pickPlace(place.id)}><Plus size={15}/>{picker.replaceId ? '이 장소로 바꾸기' : '후보에 담기'}</button>}/>) : <p className="cplan-note">선택할 장소가 없어요. 검색어를 바꾸거나 다른 지역을 확인해 주세요.</p>}</div></section>}
-          {plan.unknowns.length > 0 && <details className="cplan-unknowns" open><summary>직접 확인할 내용 · {plan.unknowns.length}개<ChevronDown size={17}/></summary><ul>{plan.unknowns.map((item, index) => <li key={index}>{item}</li>)}</ul></details>}
-          <small>{brief.locationUndecided ? '장소를 정할 준비가 되면 조건으로 돌아가 장소 미정 선택을 해제해 주세요.' : '방문 순서는 편집 가능한 초안이에요. 경로와 이동 시간은 아직 계산하지 않았어요.'}</small></>}
-        </>}
-      </>}
-      {step === 3 && <>
-        {isGroup && groupDraft ? <><h4>{groupDraft.name}</h4><dl className="cplan-review"><dt>모임 구분</dt><dd>{kindNames[groupDraft.kind]}</dd><dt>활동 지역</dt><dd>{groupDraft.region}</dd><dt>소개</dt><dd>{groupDraft.introduction}</dd><dt>관심사</dt><dd>{topicOptions.filter(topic => groupDraft.topics?.includes(topic.id)).map(topic => topic.label).join(' · ') || '아직 선택하지 않았어요.'}</dd>{groupDraft.welcome?.trim() && <><dt>환영 안내</dt><dd>{groupDraft.welcome}</dd></>}{groupDraft.joinGuide?.trim() && <><dt>가입 안내</dt><dd>{groupDraft.joinGuide}</dd></>}{groupDraft.firstActivityIdea?.trim() && <><dt>첫 활동</dt><dd>{groupDraft.firstActivityIdea}<small>날짜 미정의 아이디어 · 실제 약속은 따로 만들어요.</small></dd></>}<dt>공개 범위</dt><dd>비공개</dd></dl></> : plan && <><h4>{plan.title}</h4><dl className="cplan-review"><dt>지역</dt><dd>{brief.region}</dd><dt>날짜</dt><dd>{brief.date || '미정'}{reviewEndDate && reviewEndDate !== brief.date ? ` ~ ${reviewEndDate}` : ''}{brief.startTime ? ` · ${brief.startTime}` : ''}</dd><dt>인원·이동</dt><dd>{brief.people ? `${brief.people}명` : '인원 미정'} · {transportNames[brief.transport]}</dd></dl><ol className="cplan-review-days" aria-label="만들어질 DAY별 방문 순서">{displayedDays.map(day => <li key={day.day}><strong>DAY {day.day} · {day.placeIds.length}곳</strong><p>{day.placeIds.length ? day.placeIds.map(id => catalogById.get(id)?.name || '공개 정보 확인 필요').join(' → ') : '장소 미정'}</p></li>)}</ol><details className="cplan-more"><summary>요청·추가 조건<ChevronDown size={17}/></summary><dl className="cplan-review"><dt>하고 싶은 일</dt><dd>{brief.prompt}</dd><dt>활동·관심사</dt><dd>{topicOptions.filter(topic => selectedTopics.includes(topic.id)).map(topic => topic.label).join(' · ') || '미정'}</dd>{brief.budgetPerPerson !== undefined && <><dt>희망 예산</dt><dd>1인 {brief.budgetPerPerson.toLocaleString()}원 이하 · 충족 여부 미확인</dd></>}{brief.walkingLimitMinutes !== undefined && <><dt>희망 걷기</dt><dd>{brief.walkingLimitMinutes}분 이하 · 충족 여부 미확인</dd></>}{brief.notes.trim() && <><dt>추가 조건</dt><dd>{brief.notes}</dd></>}</dl></details>{plan.unknowns.length > 0 && <details className="cplan-unknowns" open><summary>만들기 전 확인할 내용 · {plan.unknowns.length}개<ChevronDown size={17}/></summary><ul>{plan.unknowns.map((item, index) => <li key={index}>{item}</li>)}</ul></details>}{!brief.date && <label className="cplan-check"><input type="checkbox" checked={dateUnconfirmed} onChange={event => setDateUnconfirmed(event.target.checked)}/><span>날짜 미정의 초안으로 만들게요.</span></label>}</>}
+      {phase === 'INPUT' ? <>
+        <label>{isGroup ? '모임 이름이나 하고 싶은 일' : '이름이나 하고 싶은 일'}<textarea value={prompt} maxLength={1000} rows={3} placeholder={isGroup ? '예: 주말에 함께 책 읽는 모임' : brief.purpose === 'TRIP' ? '예: 부산으로 가족과 2박 3일 여행' : '예: 친구들과 저녁 식사'} onChange={event => { setPrompt(event.target.value); setError(''); }}/></label>
+        <div className="cplan-quick-examples" aria-label="입력 예시">{examples.map(example => <button type="button" key={example} onClick={() => setPrompt(example)}>{example}</button>)}</div>
+        <p className="cplan-note">{brief.region ? `${brief.region}에서 시작해요. ` : ''}지역·날짜·장소는 초안에서 정해도 돼요.</p>
+      </> : <>
+        <section className="cplan-editor-section" aria-label={isGroup ? '모임 기본 정보' : '일정 기본 정보'}>
+          {isGroup && groupDraft ? <>
+            <label>모임 이름<input value={groupDraft.name} maxLength={100} onChange={event => updateGroup({ name: event.target.value })}/></label>
+            <label>모임 소개<textarea value={groupDraft.introduction} maxLength={3000} rows={3} onChange={event => updateGroup({ introduction: event.target.value })}/></label>
+          </> : plan && <label>일정 이름<input value={plan.title} maxLength={100} onChange={event => updatePlan({ ...plan, title: event.target.value })}/></label>}
+          {isGroup && groupDraft && <details className="cplan-locality"><summary><MapPin size={17}/><span><small>활동 지역</small><strong>{groupDraft.region || '미정 · 나중에 정해도 돼요'}</strong></span><span>변경</span><ChevronDown size={16}/></summary><GroupLocalityFields {...parseGroupLocality(groupDraft.region)} onChange={value => updateBrief({ region: [value.region, value.district, value.neighborhood].filter(Boolean).join(' ') })}/></details>}
+          <div className={isGroup ? undefined : 'cplan-two'}>
+            {!isGroup && <label>활동 지역<input list={regionId} value={brief.region} maxLength={80} placeholder="미정 · 나중에 선택" onChange={event => updateBrief({ region: event.target.value })}/></label>}
+            {isGroup && groupDraft ? <label>모임 구분<select value={groupDraft.kind} onChange={event => updateGroup({ kind: event.target.value as CreationGroupDraft['kind'] })}>{Object.entries(kindNames).map(([id, label]) => <option value={id} key={id}>{label}</option>)}</select></label>
+              : brief.purpose === 'TRIP' ? <label>여행 일수<select value={plan?.days.length ?? brief.dayCount ?? 2} onChange={event => changeDuration(Number(event.target.value))}>{Array.from({ length: 7 }, (_, index) => <option value={index + 1} key={index}>{index === 0 ? '당일' : `${index}박 ${index + 1}일`}</option>)}</select></label>
+                : <label>날짜 · 선택<input type="date" value={brief.date} onInput={event => changeStartDate(event.currentTarget.value)} onChange={event => changeStartDate(event.currentTarget.value)} onBlur={event => changeStartDate(event.currentTarget.value)}/></label>}
+          </div>
+          {!isGroup && <details className="cplan-more"><summary>날짜·인원 등 더 정하기<ChevronDown size={17}/></summary><div className="cplan-stack">
+            {brief.purpose === 'TRIP' && <div className="cplan-two"><label>시작 날짜 · 선택<input type="date" value={brief.date} onInput={event => changeStartDate(event.currentTarget.value)} onChange={event => changeStartDate(event.currentTarget.value)} onBlur={event => changeStartDate(event.currentTarget.value)}/></label><label>마지막 날짜 · 선택<input type="date" value={brief.endDate} onInput={event => changeEndDate(event.currentTarget.value)} onChange={event => changeEndDate(event.currentTarget.value)} onBlur={event => changeEndDate(event.currentTarget.value)}/></label></div>}
+            <div className="cplan-two"><label>시작 시각 · 선택<input type="time" value={brief.startTime} onChange={event => updateBrief({ startTime: event.target.value })}/></label><label>예상 인원 · 선택<input type="number" min="1" max="300" value={brief.people ?? ''} placeholder="미정" onChange={event => updateBrief({ people: numberValue(event.target.value) })}/></label></div>
+            <div className="cplan-two"><label>이동 수단<select value={brief.transport} onChange={event => updateBrief({ transport: event.target.value as CreationBrief['transport'] })}><option value="UNSET">미정</option><option value="WALK">도보</option><option value="PUBLIC">대중교통</option><option value="CAR">자동차</option></select></label>{choices.filter(item => item.id !== 'GROUP').length > 1 && <label>일정 종류<select value={brief.purpose} onChange={event => changePurpose(event.target.value as CreationPurpose)}>{choices.filter(item => item.id !== 'GROUP').map(item => <option value={item.id} key={item.id}>{item.label}</option>)}</select></label>}</div>
+          </div></details>}
+        </section>
+
+        {!isGroup && plan && <section className="cplan-editor-section cplan-itinerary" aria-label="방문할 장소 편집">
+          <div className="cplan-section-heading"><h4>{brief.purpose === 'TRIP' ? '우리 여행 동선' : '함께 갈 장소'}</h4><small>{plan.placeIds.length ? `${plan.placeIds.length}곳` : '장소 미정'}</small></div>
+          {plan.days.length > 1 && <div className="cplan-day-tabs" role="tablist" aria-label="여행 날짜">{plan.days.map(row => <button type="button" role="tab" aria-selected={row.day === (day?.day ?? 1)} key={row.day} onClick={() => { setActiveDay(row.day); setPicker(null); }}>DAY {row.day}<small>{row.placeIds.length}곳</small></button>)}</div>}
+          {pendingDays && <div className="cplan-change-confirm" role="alert"><strong>{pendingDays.count}일로 줄이면 뒤쪽 DAY가 없어져요.</strong><p>담아 둔 장소는 DAY {pendingDays.count}로 모두 옮겨 보관할까요?</p><div><button type="button" onClick={() => setPendingDays(null)}>변경 취소</button><button type="button" onClick={() => applyDays(pendingDays)}>장소 옮기고 줄이기</button></div></div>}
+          <div className="cplan-places">{day?.placeIds.length ? day.placeIds.map((id, index) => {
+            const place = publicById.get(id);
+            return place ? <PlannerPlace key={id} place={place} invalid={!catalogById.has(id)} tools={<>
+              <span className="cplan-order">{index + 1}</span><button type="button" className="cplan-icon" aria-label={`${place.name} 위로 이동`} disabled={index === 0} onClick={() => reorderPlace(id, -1)}><ArrowUp size={16}/></button><button type="button" className="cplan-icon" aria-label={`${place.name} 아래로 이동`} disabled={index === day.placeIds.length - 1} onClick={() => reorderPlace(id, 1)}><ArrowDown size={16}/></button>
+              <details className="cplan-place-options"><summary aria-label={`${place.name} 편집`}>편집<ChevronDown size={15}/></summary><div><button type="button" onClick={() => { setPicker({ day: day.day, replaceId: id }); setSearch(''); }}>다른 장소</button>{plan.days.length > 1 && <label className="cplan-sr-only" htmlFor={`${regionId}-${id}`}>옮길 DAY</label>}{plan.days.length > 1 && <select id={`${regionId}-${id}`} aria-label={`${place.name} 옮길 DAY`} value={day.day} onChange={event => movePlace(id, Number(event.target.value))}>{plan.days.map(row => <option value={row.day} key={row.day}>DAY {row.day}</option>)}</select>}<button type="button" aria-label={`${place.name} 빼기`} onClick={() => removePlace(id)}><Trash2 size={16}/></button></div></details>
+            </>}/> : <article key={id} className="cplan-invalid-place"><p>공개 정보가 바뀐 장소가 있어요. 다시 선택하거나 빼 주세요.</p><button type="button" onClick={() => removePlace(id)}>이 장소 빼기</button></article>;
+          }) : <div className="cplan-empty"><MapPin size={24}/><strong>장소는 나중에 정해도 괜찮아요.</strong><p>음식점·카페·숙소를 담으면 방문 순서로 이어져요.</p></div>}</div>
+          <button type="button" className="cplan-add-place" onClick={() => { setPicker({ day: day?.day ?? 1 }); setSearch(''); }}><Plus size={17}/>장소 추가</button>
+          {plan.placeIds.some(id => !catalogById.has(id)) && <div className="cplan-change-confirm"><p>지역이나 공개 정보가 바뀌었어요. 담은 장소를 유지한 채 확인 중이에요.</p><button type="button" onClick={clearPlaces}>담은 장소 비우고 장소 미정으로</button></div>}
+          {picker && <section className="cplan-replace" aria-label="등록 장소 선택"><div className="cplan-replace-head"><div><h4>{picker.replaceId ? '바꿀 장소' : '함께 갈 장소'}</h4><small>DAY {picker.day} · {brief.region || '활동 지역을 먼저 선택해 주세요.'}</small></div><button type="button" className="cplan-icon" aria-label="장소 선택 닫기" onClick={() => setPicker(null)}><X size={18}/></button></div>{!brief.region && <label>찾아볼 지역<input list={regionId} value={brief.region} placeholder="예: 부산" onChange={event => updateBrief({ region: event.target.value })}/></label>}<div className="cplan-picker-search"><label>이름·주소 검색<input value={search} onChange={event => setSearch(event.target.value)} placeholder="장소 이름이나 주소"/></label><label>종류<select aria-label="담을 장소 종류" value={placeKind} onChange={event => setPlaceKind(event.target.value as Place['kind'] | 'ALL')}><option value="ALL">전체</option>{Object.entries(placeKinds).map(([id,label]) => <option key={id} value={id}>{label}</option>)}</select></label></div><small>바로 담거나, 사진을 눌러 상세 정보를 확인하세요.</small><div className="cplan-catalog-list">{pickerPlaces.length ? pickerPlaces.map(place => <PlannerCandidate key={place.id} place={place} label={picker.replaceId ? '바꾸기' : '담기'} onPick={() => pickPlace(place.id)}/>) : <p className="cplan-note">{brief.region ? '조건에 맞는 등록 장소가 없어요. 검색어나 지역을 바꿔 보세요.' : '지역을 정하면 등록 장소를 보여드려요.'}</p>}</div></section>}
+          <small>방문 순서는 자유롭게 바꿀 수 있어요. 실제 이동 경로·시간과 예약은 따로 확인해 주세요.</small>
+        </section>}
+
+        <details className="cplan-more cplan-editor-advanced"><summary>{isGroup ? '관심사·가입 방식 등 더 정하기' : '관심사·예산·요청 더 정하기'}<ChevronDown size={17}/></summary><div className="cplan-stack">
+          <div className="cplan-topic-picks">{topicOptions.map(topic => <label className="cplan-check" key={topic.id}><input type="checkbox" checked={selectedTopics.includes(topic.id)} onChange={event => updateTopics(topic.id, event.target.checked)}/><span>{topic.label}</span></label>)}</div>
+          {isGroup && groupDraft ? <>
+            <label>가입 방식<select value={groupDraft.joinMode ?? 'DIRECT'} onChange={event => updateGroup({ joinMode: event.target.value as 'DIRECT' | 'APPROVAL' })}><option value="DIRECT">바로 가입</option><option value="APPROVAL">모임장 승인 후 가입</option></select></label>
+            <label>환영 안내<input value={groupDraft.welcome ?? ''} maxLength={500} onChange={event => updateGroup({ welcome: event.target.value })}/></label><label>가입 안내<textarea value={groupDraft.joinGuide ?? ''} maxLength={1000} rows={2} onChange={event => updateGroup({ joinGuide: event.target.value })}/></label><label>첫 활동 아이디어<textarea value={groupDraft.firstActivityIdea ?? ''} maxLength={500} rows={2} onChange={event => updateGroup({ firstActivityIdea: event.target.value })}/></label><small>아이디어를 적어도 실제 약속이나 채팅방을 자동으로 만들지 않아요.</small>
+          </> : <div className="cplan-two"><label>희망 예산 · 1인<input type="number" min="0" value={brief.budgetPerPerson ?? ''} placeholder="미정" onChange={event => updateBrief({ budgetPerPerson: numberValue(event.target.value) })}/></label><label>희망 걷기 · 분<input type="number" min="0" max="600" value={brief.walkingLimitMinutes ?? ''} placeholder="미정" onChange={event => updateBrief({ walkingLimitMinutes: numberValue(event.target.value) })}/></label></div>}
+          <label>하고 싶은 일<textarea value={brief.prompt} maxLength={1000} rows={2} onChange={event => { setPrompt(event.target.value); updateBrief({ prompt: event.target.value }); }}/></label>
+          <label>추가 조건<textarea value={brief.notes} maxLength={2000} rows={2} onChange={event => updateBrief({ notes: event.target.value })}/></label><small>조건을 바꿔도 담은 장소는 유지돼요.</small>
+        </div></details>
+
+        <details className="cplan-more cplan-ai"><summary><span><Sparkles size={17}/>AI로 더 다듬기 · 선택</span><ChevronDown size={17}/></summary><div className="cplan-stack"><p className="cplan-note">{isGroup ? '모임 소개와 첫 활동 아이디어를 제안받아요.' : '입력한 조건과 공개 장소로 방문 순서를 제안받아요.'} 지금 초안은 제안을 직접 적용할 때까지 유지돼요.</p>{planningEndpoint ? <><small>입력한 조건{isGroup ? '' : '과 공개 장소 후보'}만 AI 서버에 보내요.</small><button type="button" disabled={modelPending} onClick={() => void askModel()}><Sparkles size={17}/>{modelPending ? 'AI 제안 준비 중…' : isGroup ? 'AI 소개 제안받기' : 'AI 동선 제안받기'}</button></> : <p className="cplan-note">AI 서버 연결 후 사용할 수 있어요. 지금은 이 초안을 직접 수정해 주세요.</p>}{modelPending && <button type="button" onClick={cancelModel}>AI 요청 취소</button>}
+          {suggestion && <section className="cplan-ai-proposal" aria-label="적용 전 AI 제안"><strong>AI 제안 · 아직 적용하지 않았어요</strong>{suggestion.groupDraft ? <><h4>{suggestion.groupDraft.name}</h4><p>{suggestion.groupDraft.introduction}</p>{suggestion.groupDraft.firstActivityIdea && <small>{suggestion.groupDraft.firstActivityIdea}</small>}</> : suggestion.plan && <><h4>{suggestion.plan.title}</h4><ol>{suggestion.plan.days.map(row => <li key={row.day}><strong>DAY {row.day}</strong><p>{row.placeIds.map(id => publicById.get(id)?.name ?? '공개 정보 확인 필요').join(' → ') || '장소 미정'}</p></li>)}</ol><small>실제 경로·영업 시간·요금·예약은 확인이 필요해요.</small></>}<div className="cplan-proposal-actions"><button type="button" onClick={() => setSuggestion(null)}>지금 초안 유지</button><button type="button" onClick={applySuggestion}>이 제안 적용</button></div></section>}
+        </div></details>
+
+        {plan && <details className="cplan-unknowns"><summary>방문 전에 확인할 내용<ChevronDown size={17}/></summary><ul>{plan.unknowns.map((value, index) => <li key={index}>{value}</li>)}</ul></details>}
         {!previewOnly && !isGroup && reviewOptions}
-        <label className="cplan-check"><input type="checkbox" checked={checked} onChange={event => { setChecked(event.target.checked); setError(''); }}/><span>{isGroup ? '이름·지역·소개를 확인했어요.' : brief.locationUndecided ? '장소 미정의 활동 초안과 조건을 확인했어요.' : '선택한 장소와 확인이 필요한 조건을 살펴봤어요.'}</span></label>
-        <small>{previewOnly ? '아직 저장하거나 공유하지 않았어요. 로그인한 뒤 초안을 다시 확인하고 저장해요.' : restored ? '로그인 전에 고른 초안이에요. 내용을 다시 확인한 뒤 직접 저장해 주세요.' : isGroup ? '모임을 만든 뒤 초대와 홍보는 직접 진행해요.' : '새 초안을 만들어요. 초대·참석 확정·예약은 별도로 진행해요.'}</small>
+        <div className="cplan-save-summary"><strong>{isGroup ? '비공개 모임으로 시작해요.' : `${brief.date || '날짜 미정'}${brief.startTime ? ` · ${brief.startTime}` : ''} · ${brief.region || '지역 미정'}${!plan?.placeIds.length ? ' · 장소 미정' : ` · ${plan.placeIds.length}곳`}`}</strong><small>{previewOnly ? '로그인한 뒤 이 초안을 다시 확인하고 저장해요.' : isGroup ? '만든 뒤 필요한 사람을 초대하거나 홍보할 수 있어요.' : '아래 버튼을 누르면 이 내용으로 저장해요. 초대·참석·예약은 따로 진행해요.'}</small>{modelApplied && <small>AI 제안을 적용한 뒤 직접 확인 중이에요.</small>}</div>
+        {uniqueIssues.length > 0 && <div className="cplan-validation" role="status"><strong>저장 전에 확인해 주세요.</strong><ul>{uniqueIssues.map(issue => <li key={issue}>{issue}</li>)}</ul></div>}
       </>}
     </fieldset>
-    {step === 1 && canAskModel && <p className="cplan-note">AI 요청에는 입력한 조건{isGroup ? '과 관심사' : '과 공개 장소 후보'}만 사용해요. 초안을 확인하기 전에는 저장하지 않아요.</p>}
     {error && <p className="cplan-error" role="alert">{error}</p>}
-    {modelPending && <p className="cplan-note" role="status">AI가 초안을 준비하고 있어요.</p>}
-    {completed && <p className="cplan-success" role="status">새 초안을 만들었어요.</p>}
-    <div className={`cplan-actions${step === 0 && onCancel ? ' cplan-actions--with-cancel' : ''}`}>
-      {step === 0 && <button type="button" className="cplan-primary" disabled={locked || !prompt.trim()} onClick={parsePrompt}>조건 확인하기<ArrowRight size={17}/></button>}
-      {step === 1 && <>
-        {canAskModel && <button type="button" className="cplan-primary" disabled={locked} onClick={() => void build(true)}><Sparkles size={17} aria-hidden="true"/>{modelPending ? 'AI 초안 만드는 중…' : isGroup ? 'AI로 모임 초안 만들기' : 'AI로 일정 초안 만들기'}</button>}
-        {modelPending ? <button type="button" onClick={cancelModel}>요청 취소</button> : <button type="button" className={canAskModel ? undefined : 'cplan-primary'} disabled={locked} onClick={() => void build()}>{isGroup ? '기본 모임 초안 만들기' : brief.locationUndecided ? '장소 미정으로 초안 만들기' : '등록 장소로 후보 찾기'}<ArrowRight size={17}/></button>}
-      </>}
-      {step === 2 && (isGroup || plan) && <button type="button" className="cplan-primary" disabled={locked || (!isGroup && !brief.locationUndecided && !plan?.placeIds.length)} onClick={review}>이 초안 확인하기<ArrowRight size={17}/></button>}
-      {step === 3 && <button type="button" className="cplan-primary" disabled={locked || !checked || (!isGroup && !brief.date && !dateUnconfirmed)} onClick={() => void submit()}>{completed ? '만들기 완료' : busy ? '저장 중…' : finalLabel}{!busy && !completed && <Check size={17}/>}</button>}
-      {step === 0 && onCancel && <button type="button" disabled={locked} onClick={onCancel}>{cancelLabel}</button>}
+    {completed && <p className="cplan-success" role="status">저장했어요.</p>}
+    <div className="cplan-actions cplan-quick-actions">
+      {onCancel && <button type="button" disabled={locked} onClick={() => { cancelModel(); onCancel(); }}>{cancelLabel}</button>}
+      <button type="button" className="cplan-primary" disabled={locked || Boolean(pendingDays)} onClick={() => phase === 'INPUT' ? makeDraft() : void submit()}>{phase === 'INPUT' ? '초안 만들기' : completed ? '저장 완료' : busy ? '저장 중…' : finalLabel}{phase === 'DRAFT' && !busy && !completed && <Check size={17}/>}</button>
     </div>
   </section>;
 }
 
-function PlannerPlace({ place, tools }: { place: Place; tools?: ReactNode }) {
+function PlannerCandidate({ place, label, onPick }: { place: Place; label: string; onPick: () => void }) {
   const photo = getPlacePhotos(place, true)[0];
   const [failed, setFailed] = useState(false);
-  return <article className="cplan-place"><details><summary>{photo && !failed ? <img className="cplan-place-thumb" src={photo.image} alt="" loading="lazy" onError={() => setFailed(true)}/> : <span className="cplan-place-thumb"><ImageOff size={21} aria-hidden="true"/></span>}<span className="cplan-place-title"><small>{placeKinds[place.kind]}</small><strong>{place.name}</strong><small>{place.area}</small></span><ChevronDown size={17}/></summary><div className="cplan-place-content">{photo && !failed && <><img src={photo.image} alt={photo.alt || place.name} loading="lazy" onError={() => setFailed(true)}/><small>{photo.sourceId ? '등록 장소 사진' : '참고 이미지 · 해당 장소의 실제 모습과 다를 수 있어요.'}</small><PhotoCredit image={photo.image} sourceId={photo.sourceId}/></>}{failed && <small>사진을 불러오지 못했어요.</small>}<p>{place.description || '등록된 소개가 없어요.'}</p><small>{place.address || '주소 확인 필요'}</small><a href={naverDirectionsUrl(place)} target="_blank" rel="noreferrer"><MapPin size={15}/>네이버 지도에서 위치 확인</a></div></details>{tools && <div className="cplan-place-tools">{tools}</div>}</article>;
+  useEffect(() => setFailed(false), [photo?.image]);
+  return <article className="cplan-candidate"><details><summary>{photo && !failed ? <img src={photo.image} alt="" loading="lazy" onError={() => setFailed(true)}/> : <span className="cplan-candidate-fallback"><ImageOff size={18}/></span>}<span><strong>{place.name}</strong><small>{placeKinds[place.kind]} · {place.area}</small></span><ChevronDown size={15}/></summary><div className="cplan-place-content">{photo && !failed && <><img src={photo.image} alt={photo.alt || place.name} loading="lazy" onError={() => setFailed(true)}/><small>{photo.sourceId ? '등록 장소 사진' : '참고 이미지 · 해당 장소의 실제 모습과 다를 수 있어요.'}</small><PhotoCredit image={photo.image} sourceId={photo.sourceId}/></>}<p>{place.description || '등록된 소개가 없어요.'}</p><small>{place.address}</small><a href={naverDirectionsUrl(place)} target="_blank" rel="noreferrer"><MapPin size={15}/>지도에서 확인</a></div></details><button type="button" onClick={onPick} aria-label={`${place.name} ${label}`}><Plus size={15}/>{label}</button></article>;
+}
+
+function PlannerPlace({ place, tools, invalid }: { place: Place; tools?: ReactNode; invalid?: boolean }) {
+  const photo = getPlacePhotos(place, true)[0];
+  const [failed, setFailed] = useState(false);
+  useEffect(() => setFailed(false), [photo?.image]);
+  return <article className={`cplan-place${invalid ? ' cplan-place--invalid' : ''}`}><details><summary>{photo && !failed ? <img className="cplan-place-thumb" src={photo.image} alt="" loading="lazy" onError={() => setFailed(true)}/> : <span className="cplan-place-thumb"><ImageOff size={21} aria-hidden="true"/></span>}<span className="cplan-place-title"><small>{placeKinds[place.kind]}</small><strong>{place.name}</strong><small>{invalid ? '현재 지역 조건 확인 필요' : place.area}</small></span><ChevronDown size={17}/></summary><div className="cplan-place-content">{photo && !failed && <><img src={photo.image} alt={photo.alt || place.name} loading="lazy" onError={() => setFailed(true)}/><small>{photo.sourceId ? '등록 장소 사진' : '참고 이미지 · 해당 장소의 실제 모습과 다를 수 있어요.'}</small><PhotoCredit image={photo.image} sourceId={photo.sourceId}/></>}{failed && <small>사진을 불러오지 못했어요.</small>}<p>{place.description || '등록된 소개가 없어요.'}</p><small>{place.address || '주소 확인 필요'}</small><a href={naverDirectionsUrl(place)} target="_blank" rel="noreferrer"><MapPin size={15}/>네이버 지도에서 위치 확인</a></div></details>{tools && <div className="cplan-place-tools">{tools}</div>}</article>;
 }

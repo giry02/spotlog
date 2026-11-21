@@ -12,7 +12,7 @@ export function createConfiguredGroup(state: TogetherState, userId: string, inpu
   state.groups.push({ id, name: value.name, kind: value.kind, region: value.region, introduction: value.introduction, cover: '',
     visibility: 'PRIVATE', ownerId: userId, memberIds: [userId], managerIds: [], archived: false, promotionPublished: false,
     createdAt: at.toISOString(), sourceKind: 'LOCAL', joinFields: value.joinFields,
-    discovery: { topics: value.topics, subtopics: value.subcategoryIds, district: value.district, style: 'NEIGHBORHOOD', recruitment: 'PAUSED',
+    discovery: { topics: value.topics, subtopics: value.subcategoryIds, district: value.district, ...(value.neighborhood !== undefined ? { neighborhood: value.neighborhood } : {}), style: 'NEIGHBORHOOD', recruitment: 'PAUSED',
       joinMode: value.joinMode, welcome: value.joinFields.welcome, joinGuide: '' } });
   return id;
 }

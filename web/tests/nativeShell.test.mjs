@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import vm from 'node:vm';
-import { parseNativeToWebMessage, parseWebToNativeMessage } from '../../shared/hybridBridge.ts';
+import { CURRENT_AREA_CONSENT_VERSION, parseNativeToWebMessage, parseWebToNativeMessage } from '../../shared/hybridBridge.ts';
 
 const require = createRequire(import.meta.url);
 const ts = require('typescript');
@@ -13,7 +13,7 @@ const flush = async () => { for (let i = 0; i < 8; i++) await new Promise((resol
 const defer = () => { let resolve, reject; const promise = new Promise((a, b) => { resolve = a; reject = b; }); return { promise, resolve, reject }; };
 
 function nativeFixture(overrides = {}) {
-  const states = [], refs = [], messages = [], alerts = [], stored = [], opened = [], scheduled = [];
+  const states = [], refs = [], messages = [], alerts = [], stored = [], opened = [], scheduled = [], locationCalls = [];
   let stateIndex = 0, refIndex = 0, effects = [], cleanups = [], back;
   const notifications = {
     AndroidImportance: { HIGH: 4 }, setNotificationHandler() {}, setNotificationChannelAsync: async () => {},
@@ -22,6 +22,14 @@ function nativeFixture(overrides = {}) {
   };
   const storage = { getItem: async () => null, setItem: async (key, value) => { stored.push({ key, value: JSON.parse(value) }); }, ...overrides.storage };
   const linking = { openURL: async (value) => { opened.push(value); }, ...overrides.linking };
+  const location = {
+    Accuracy: { Low: 2 },
+    hasServicesEnabledAsync: async () => { locationCalls.push('services'); return true; },
+    getForegroundPermissionsAsync: async () => { locationCalls.push('getPermission'); return { granted: true, canAskAgain: true }; },
+    requestForegroundPermissionsAsync: async () => { locationCalls.push('requestPermission'); return { granted: true, canAskAgain: true }; },
+    getCurrentPositionAsync: async (options) => { locationCalls.push({ position: options }); return { coords: { latitude: 37.45, longitude: 126.68, accuracy: 900 }, timestamp: Date.now() }; },
+    ...overrides.location,
+  };
   const react = {
     useState(initial) { const index = stateIndex++; if (!(index in states)) states[index] = initial; return [states[index], (value) => { states[index] = typeof value === 'function' ? value(states[index]) : value; }]; },
     useRef(initial) { const index = refIndex++; return refs[index] ??= { current: initial }; },
@@ -37,13 +45,13 @@ function nativeFixture(overrides = {}) {
   const jsx = (type, props) => ({ type, props });
   const dependencies = {
     react, 'react/jsx-runtime': { jsx, jsxs: jsx, Fragment: 'Fragment' }, 'react-native': native,
-    '@react-native-async-storage/async-storage': { __esModule: true, default: storage }, 'expo-notifications': notifications,
+    '@react-native-async-storage/async-storage': { __esModule: true, default: storage }, 'expo-notifications': notifications, 'expo-location': location,
     'react-native-safe-area-context': { SafeAreaView: 'SafeAreaView' },
     'react-native-webview': { __esModule: true, default: 'WebView' },
     '../../shared/hybridBridge': { parseWebToNativeMessage },
   };
   const module = { exports: {} };
-  vm.runInNewContext(`(function(require, module, exports) { ${compiled}\n })`, { URL, Promise, process: { env: {} }, __DEV__: overrides.dev ?? true })(
+  vm.runInNewContext(`(function(require, module, exports) { ${compiled}\n })`, { URL, Promise, setTimeout, clearTimeout, process: { env: {} }, __DEV__: overrides.dev ?? true })(
     (name) => { if (!(name in dependencies)) throw new Error(`Unexpected native dependency ${name}`); return dependencies[name]; }, module, module.exports,
   );
   function render() {
@@ -56,10 +64,84 @@ function nativeFixture(overrides = {}) {
   }
   const tree = render();
   const web = (tree) => tree.props.children[0].props;
-  const send = async (message) => { web(tree).onMessage({ nativeEvent: { data: typeof message === 'string' ? message : JSON.stringify(message) } }); await flush(); };
+  const send = async (message, url = web(tree).source.uri) => { web(tree).onMessage({ nativeEvent: { url, data: typeof message === 'string' ? message : JSON.stringify(message) } }); await flush(); };
   const result = () => messages.filter((message) => message.type === 'PREVIEW_NOTIFICATION_RESULT');
-  return { tree, web, render, send, result, messages, alerts, stored, opened, scheduled, back: () => back?.(), states, notifications, refs };
+  return { tree, web, render, send, result, messages, alerts, stored, opened, scheduled, locationCalls, back: () => back?.(), states, notifications, refs,
+    unmount: () => { for (const cleanup of cleanups) cleanup?.(); cleanups = []; } };
 }
+
+const locationRequest = (fixture, extra = {}) => ({ type: 'CURRENT_LOCATION_REQUEST', payload: { requestId: 'location_request_0123456789', sessionId: fixture.refs[2].current,
+  consentAccepted: true, consentVersion: CURRENT_AREA_CONSENT_VERSION, purpose: 'GROUP_NEARBY', ...extra } });
+const locationResults = fixture => fixture.messages.filter(message => message.type === 'CURRENT_LOCATION_RESULT');
+
+test('native location is never requested at startup, by untrusted documents or without valid feature consent/session', async () => {
+  const fixture = nativeFixture();
+  await fixture.send({ type: 'READY' });
+  assert.equal(fixture.web(fixture.tree).geolocationEnabled, false);
+  assert.equal(fixture.web(fixture.tree).injectedJavaScriptForMainFrameOnly, true);
+  assert.equal(fixture.locationCalls.length, 0);
+  await fixture.send(locationRequest(fixture), 'https://untrusted.example/app');
+  await fixture.send(locationRequest(fixture), 'http://10.0.2.2:5173/admin.html');
+  for (const extra of [{ sessionId: 'wrong_session_0123456789' }, { consentAccepted: false }, { consentVersion: 'old' }, { purpose: 'ADVERTISING' }]) await fixture.send(locationRequest(fixture, extra));
+  assert.equal(fixture.locationCalls.length, 0); assert.equal(locationResults(fixture).length, 0);
+});
+
+test('native location returns one fresh low-accuracy reading only to the requesting main document and never stores it', async () => {
+  const fixture = nativeFixture({ location: { getForegroundPermissionsAsync: async () => ({ granted: false, canAskAgain: true }) } });
+  await fixture.send(locationRequest(fixture));
+  assert.deepEqual(fixture.locationCalls.slice(0, 2), ['services', 'requestPermission']);
+  assert.equal(JSON.stringify(fixture.locationCalls.at(-1)), JSON.stringify({ position: { accuracy: 2, mayShowUserSettingsDialog: false } }));
+  assert.equal(locationResults(fixture).length, 1);
+  const result = locationResults(fixture)[0].payload;
+  assert.equal(result.ok, true); assert.equal(result.coordinates.accuracy, 900);
+  assert.equal('timestamp' in result || 'altitude' in result.coordinates, false);
+  assert.equal(fixture.stored.length, 0);
+});
+
+test('native denial, disabled location, inaccurate and stale OS data do not leak coordinates or private OS errors', async () => {
+  for (const [location, expected] of [
+    [{ getForegroundPermissionsAsync: async () => ({ granted: false, canAskAgain: false }) }, 'DENIED'],
+    [{ hasServicesEnabledAsync: async () => false }, 'UNAVAILABLE'],
+    [{ getCurrentPositionAsync: async () => { throw new Error('private OS data'); } }, 'UNAVAILABLE'],
+    [{ getCurrentPositionAsync: async () => ({ coords: { latitude: 37.45, longitude: 126.68, accuracy: 10001 }, timestamp: Date.now() }) }, 'INACCURATE'],
+    [{ getCurrentPositionAsync: async () => ({ coords: { latitude: 37.45, longitude: 126.68, accuracy: 10 }, timestamp: Date.now() - 60000 }) }, 'UNAVAILABLE'],
+  ]) {
+    const fixture = nativeFixture({ location }); await fixture.send(locationRequest(fixture));
+    const result = locationResults(fixture).at(-1).payload;
+    assert.equal(result.ok, false); assert.equal(result.code, expected);
+    assert.equal(JSON.stringify(result).includes('37.45') || JSON.stringify(result).includes('private OS'), false);
+  }
+});
+
+test('cancel, navigation, renderer error or unmount drops late native readings and prevents additional prompts while busy', async () => {
+  for (const action of ['cancel', 'navigation', 'error', 'unmount']) {
+    const pending = defer();
+    const fixture = nativeFixture({ location: { getCurrentPositionAsync: async () => pending.promise } });
+    const request = locationRequest(fixture); await fixture.send(request);
+    if (action === 'cancel') await fixture.send({ type: 'CURRENT_LOCATION_CANCEL', payload: { requestId: request.payload.requestId, sessionId: request.payload.sessionId } });
+    if (action === 'navigation') fixture.web(fixture.tree).onLoadStart({ nativeEvent: { url: 'http://10.0.2.2:5173/admin.html' } });
+    if (action === 'error') fixture.web(fixture.tree).onError({ nativeEvent: { description: 'reload' } });
+    if (action === 'unmount') fixture.unmount();
+    pending.resolve({ coords: { latitude: 37.45, longitude: 126.68, accuracy: 10 }, timestamp: Date.now() }); await flush();
+    assert.equal(locationResults(fixture).length, 0);
+  }
+  const pending = defer(), fixture = nativeFixture({ location: { getCurrentPositionAsync: async () => pending.promise } });
+  await fixture.send(locationRequest(fixture));
+  await fixture.send(locationRequest(fixture, { requestId: 'second_request_0123456789' }));
+  assert.equal(locationResults(fixture).at(-1).payload.code, 'UNAVAILABLE');
+  pending.resolve({ coords: { latitude: 37.45, longitude: 126.68, accuracy: 10 }, timestamp: Date.now() }); await flush();
+});
+
+test('closing while the OS permission sheet is open prevents a later GPS read', async () => {
+  const permission = defer(), fixture = nativeFixture({ location: {
+    getForegroundPermissionsAsync: async () => ({ granted: false, canAskAgain: true }), requestForegroundPermissionsAsync: async () => permission.promise,
+  } });
+  const request = locationRequest(fixture); await fixture.send(request);
+  await fixture.send({ type: 'CURRENT_LOCATION_CANCEL', payload: { requestId: request.payload.requestId, sessionId: request.payload.sessionId } });
+  permission.resolve({ granted: true, canAskAgain: true }); await flush();
+  assert.equal(fixture.locationCalls.some(value => typeof value === 'object' && value.position), false);
+  assert.equal(locationResults(fixture).length, 0);
+});
 
 test('native bridge rejects malformed messages, unsupported notification results and nonfinite thresholds', () => {
   for (const value of ['', '{}', 'null', '[]', '{"type":"NEW_UNKNOWN"}', '{"type":"UPDATE_NOTIFICATION_PREFERENCES","payload":{"enabled":true,"viewMilestone":0}}', '{"type":"PREVIEW_CREATOR_NOTIFICATION","payload":{"viewMilestone":1e999}}']) assert.equal(parseWebToNativeMessage(value), null);

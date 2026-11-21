@@ -88,7 +88,7 @@ export function selectPublicGroupIntroduction(state: TogetherState, groupId: str
     .map(item => ({ title: item.publicPreview!.title, excerpt: item.publicPreview!.excerpt, publishedAt: item.publicPreview!.publishedAt }))
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
   return { id: group.id, name: group.name, cover: isSafeTogetherImageUrl(group.cover) ? group.cover : '', introduction: group.introduction,
-    region: group.region, district: profile.district, welcome: profile.welcome, joinGuide: profile.joinGuide, topics: [...profile.topics], example: group.sourceKind === 'EXAMPLE',
+    region: group.region, district: profile.district, ...(profile.neighborhood !== undefined ? { neighborhood: profile.neighborhood } : {}), welcome: profile.welcome, joinGuide: profile.joinGuide, topics: [...profile.topics], example: group.sourceKind === 'EXAMPLE',
     memberCount: group.memberIds.filter(id => !group.blockedMemberIds?.includes(id)).length, recruitment: profile.recruitment, joinMode: profile.joinMode,
     publishedActivityCount: publicActivities(state, group).length, publicReviewCount: reviews.length, reviews: reviews.slice(0, 6) };
 }

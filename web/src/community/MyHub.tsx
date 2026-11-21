@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BookOpen, CalendarDays, ChevronRight, FolderOpen, Plus, Settings, Trash2, UserRound, Users } from 'lucide-react';
+import { BookOpen, CalendarDays, ChevronRight, FolderOpen, MapPin, Plus, Settings, Trash2, UserRound, Users } from 'lucide-react';
 import type { Journey } from '../data';
 import { ScreenHeader, ScreenTabs } from '../ScreenHeader';
 import { AppMenuButton } from '../AppMenu';
@@ -37,6 +37,8 @@ export interface MyHubProps {
   onCalendar: () => void;
   onCreateAppointment: () => void;
   onCreateTravel: () => void;
+  myRegionLabel?: string;
+  onManageMyRegions?: () => void;
   section?: MySection;
   onSectionChange?: (section: MySection) => void;
 }
@@ -48,7 +50,7 @@ function MyGroupRow({ item, userId, onOpen }: { item: MyGroupDirectoryItem; user
   const { group, nextActivity, lastMessage, unreadCount } = item;
   const profile = discoveryProfile(group);
   const topics = profile.topics.map(topic => topicOptions.find(option => option.id === topic)?.label).filter(Boolean);
-  const location = [group.region, profile.district].filter(Boolean).join(' ');
+  const location = [group.region, profile.district, profile.neighborhood].filter(Boolean).join(' ');
   const role = group.ownerId === userId ? '모임장' : group.managerIds.includes(userId) ? '운영진' : '모임원';
   return <button type="button" className="my-hub-group-row" onClick={onOpen}>
     <span className="my-hub-group-cover">{group.cover && failedCover !== group.cover ? <img src={group.cover} alt="" loading="lazy" onError={() => setFailedCover(group.cover)}/> : <Users size={26} aria-hidden="true"/>}</span>
@@ -61,7 +63,7 @@ function MyGroupRow({ item, userId, onOpen }: { item: MyGroupDirectoryItem; user
 }
 
 /** One personal root; account, calendar and existing editors keep their own detail screens. */
-export function MyHub({ state, userId, userName, plans, journals, onActivity, onGroup, onFindGroups, onPlan, onJournal, onLogin, onInvites, onTrash, onPersonalLibrary, onAccount, onEditGroupProfiles, onOpenOwnGroupRecords, onOpenOwnGroupRecord, onCalendar, onCreateAppointment, onCreateTravel, section: suppliedSection, onSectionChange }: MyHubProps) {
+export function MyHub({ state, userId, userName, plans, journals, onActivity, onGroup, onFindGroups, onPlan, onJournal, onLogin, onInvites, onTrash, onPersonalLibrary, onAccount, onEditGroupProfiles, onOpenOwnGroupRecords, onOpenOwnGroupRecord, onCalendar, onCreateAppointment, onCreateTravel, myRegionLabel, onManageMyRegions, section: suppliedSection, onSectionChange }: MyHubProps) {
   const [localSelection, setLocalSelection] = useState<{ owner: string; section: MySection }>({ owner: userId, section: 'schedule' });
   useEffect(() => { setLocalSelection({ owner: userId, section: 'schedule' }); }, [userId]);
   const section = myHubSection(suppliedSection ?? (localSelection.owner === userId ? localSelection.section : 'schedule'));
@@ -82,6 +84,7 @@ export function MyHub({ state, userId, userName, plans, journals, onActivity, on
     <ScreenHeader title="마이" actions={<><button type="button" aria-label={authenticated ? '계정 관리' : '로그인·회원가입'} onClick={authenticated ? onAccount : onLogin}><Settings size={22}/></button><AppMenuButton/></>}/>
     <ScreenTabs label="마이 구분" idPrefix="my-hub" value={section} onChange={setSection} items={[{ id: 'schedule', label: '내 일정', panelId: 'my-hub-panel' }, { id: 'groups', label: '내 모임', panelId: 'my-hub-panel' }, { id: 'travel', label: '내 여행', panelId: 'my-hub-panel' }, { id: 'records', label: '기록', panelId: 'my-hub-panel' }]}/>
     <div className="platform-hub-body my-hub-body" id="my-hub-panel" role="tabpanel" aria-labelledby={`my-hub-${section}`}>
+      {onManageMyRegions && <button type="button" className="my-hub-area" onClick={onManageMyRegions}><MapPin size={20}/><span><strong>내 동네·위치 관리</strong><small>{myRegionLabel || '현재 위치로 동네를 정하고 모임을 찾아요'}</small></span><ChevronRight size={17}/></button>}
       {section === 'schedule' ? <>
         <div className="my-hub-tools"><button type="button" onClick={authenticated ? onCalendar : onLogin}><CalendarDays size={18}/>캘린더</button><button type="button" onClick={onCreateAppointment}><Plus size={18}/>약속 만들기</button></div>
         {!authenticated ? <div className="my-hub-empty"><CalendarDays size={26}/><strong>모임과 약속 일정을 모아봐요</strong><p>내 여행은 로그인 없이도 이 기기의 보관함에서 확인할 수 있어요.</p><button type="button" className="my-hub-text-action" onClick={() => setSection('travel')}>이 기기의 내 여행 보기<ChevronRight size={16}/></button></div> : <>

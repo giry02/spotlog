@@ -26,3 +26,26 @@ const options = (presets: readonly string[], existing: readonly string[]) => [..
 /** Values are unchanged, including legacy free text; selecting a preset is an explicit user action. */
 export function groupRegionOptions(existing: readonly string[] = []): string[] { return options(MY_REGION_OPTIONS, existing); }
 export function groupDistrictOptions(region: string, existing: readonly string[] = []): string[] { return options(districts[aliases[region] || region] || [], existing); }
+
+export interface GroupLocality { region: string; district: string; neighborhood?: string }
+/** Sejong has no district tier. Other localities retain their city/county/ward before an optional town. */
+export function groupRegionNeedsDistrict(region: string): boolean { return (aliases[region] || region) !== '세종'; }
+/** Only explicitly supplied local labels. This is not a nationwide administrative lookup. */
+export function groupNeighborhoodOptions(_region: string, _district: string, existing: readonly string[] = []): string[] { return options([], existing); }
+export function groupLocalityIssues(value: GroupLocality): string[] {
+  const neighborhood = value.neighborhood ?? '';
+  if (![value.region, value.district, neighborhood].every(part => typeof part === 'string' && part.length <= 100 && !/[\u0000-\u001f\u007f]/u.test(part))) return ['활동 지역을 100자 이내로 적어 주세요.'];
+  if (value.district.trim() && !value.region.trim()) return ['시·도를 먼저 선택해 주세요.'];
+  if (neighborhood.trim() && (!value.region.trim() || groupRegionNeedsDistrict(value.region.trim()) && !value.district.trim())) return ['동·읍·면을 정하려면 시·도와 시·군·구를 먼저 선택해 주세요.'];
+  return [];
+}
+/** Split authored labels without guessing a district or a user's current position. */
+export function parseGroupLocality(value: string): GroupLocality {
+  const tokens = value.trim().replace(/\s+/gu, ' ').split(' ').filter(Boolean);
+  const first = tokens.shift() || '', region = aliases[first] || first;
+  const last = tokens.at(-1) || '';
+  const explicitParent = (MY_REGION_OPTIONS as readonly string[]).includes(region) && tokens.length > 1
+    && tokens.slice(0, -1).every(part => /^[가-힣0-9·.]{1,30}[시군구]$/u.test(part));
+  const hasTown = last.length > 1 && /[읍면동]$/u.test(last) && (!['운동','활동','이동','공동'].includes(last) || explicitParent);
+  return { region, district: (hasTown ? tokens.slice(0, -1) : tokens).join(' '), ...(hasTown ? { neighborhood: last } : {}) };
+}

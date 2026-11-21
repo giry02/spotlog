@@ -1,12 +1,12 @@
 import type { GroupTopic, PublicActivityIntent, TogetherState } from './model';
 import { discoveryProfile, filterDiscoveryGroups, isDiscoverableGroup, publicActivityTimeKey, upcomingPublicActivities, type PublicDiscoveryActivity } from './discovery.ts';
-import { groupDistrictOptions, groupRegionOptions } from './groupRegions.ts';
+import { groupDistrictOptions, groupRegionOptions, groupNeighborhoodOptions, groupRegionNeedsDistrict } from './groupRegions.ts';
 import { matchesDiscoveryCalendarDate } from './groupDiscoveryCalendar.ts';
 
 export type GroupDiscoverySection = 'DISCOVER' | 'ALL' | 'RECOMMENDED' | 'MEETUPS' | 'NEW';
 export interface GroupDiscoveryFilters {
   publicActivityIntent?: PublicActivityIntent;
-  region?: string; district?: string; topic?: GroupTopic; subtopic?: string | 'ALL'; categoryTopics?: GroupTopic[];
+  region?: string; district?: string; neighborhood?: string; topic?: GroupTopic; subtopic?: string | 'ALL'; categoryTopics?: GroupTopic[];
   style?: 'ALL' | 'NEIGHBORHOOD' | 'DESTINATION'; view?: 'GROUPS' | 'MEETUPS';
   dateFilter?: 'ALL' | 'TODAY' | 'WEEKEND' | 'WEEK'; selectedDate?: string; query?: string; sort?: 'SOONEST' | 'NAME' | 'NEWEST';
   section?: GroupDiscoverySection; useMyRegion?: boolean; collectionId?: string;
@@ -14,6 +14,7 @@ export interface GroupDiscoveryFilters {
 /** Allowlisted public discovery fields only; no member IDs, internal chat or meeting points. */
 export interface PublicGroupDiscoveryCard {
   id: string; name: string; cover: string; region: string; district: string;
+  neighborhood?: string;
   introduction: string; welcome: string; topics: GroupTopic[]; subtopics?: string[]; example: boolean;
   memberCount: number; joined: boolean; pending: boolean; recruitment: 'OPEN' | 'PAUSED';
   joinMode: 'DIRECT' | 'APPROVAL'; createdAt?: string; nextActivity?: PublicDiscoveryActivity;
@@ -53,6 +54,8 @@ export function selectGroupDiscovery(state: TogetherState, filters: GroupDiscove
   const districts = groupDistrictOptions(filters.region || '', publicGroups.filter(group => !filters.region || group.region === filters.region).map(group => discoveryProfile(group).district));
   if (filters.region && !regions.includes(filters.region)) regions.push(filters.region);
   if (filters.district && !districts.includes(filters.district)) districts.push(filters.district);
+  const neighborhoods = groupNeighborhoodOptions(filters.region || '', filters.district || '',
+    filters.region && (filters.district || !groupRegionNeedsDistrict(filters.region)) ? publicGroups.filter(group => group.region === filters.region && discoveryProfile(group).district === (filters.district || '')).flatMap(group => discoveryProfile(group).neighborhood || []).concat(filters.neighborhood || []) : filters.neighborhood ? [filters.neighborhood] : []);
   const allowed = new Set(publicGroups.map(group => group.id));
   const selectedTopics = [...new Set(filters.categoryTopics ?? [])];
   const query = (filters.query || '').trim().toLocaleLowerCase('ko-KR');
@@ -67,7 +70,7 @@ export function selectGroupDiscovery(state: TogetherState, filters: GroupDiscove
     const profile = discoveryProfile(group);
     const createdAt = publicCreatedAt(group.createdAt, at);
     const nextActivity = upcomingPublicActivities(state, group, at).find(activity => matchesDate(activity) && (!query || metadataMatches.has(group.id) || matchesActivity(activity)));
-    return { id: group.id, name: group.name, cover: group.cover, region: group.region, district: profile.district,
+    return { id: group.id, name: group.name, cover: group.cover, region: group.region, district: profile.district, ...(profile.neighborhood !== undefined ? { neighborhood: profile.neighborhood } : {}),
       introduction: group.introduction, welcome: profile.welcome, topics: [...profile.topics], ...(profile.subtopics ? { subtopics: [...profile.subtopics] } : {}), example: group.sourceKind === 'EXAMPLE',
       memberCount: group.memberIds.length, joined: Boolean(viewerId && group.memberIds.includes(viewerId)),
       pending: Boolean(viewerId && state.applications.some(item => item.groupId === group.id && item.userId === viewerId && item.status === 'PENDING')),
@@ -91,5 +94,5 @@ export function selectGroupDiscovery(state: TogetherState, filters: GroupDiscove
   const sections = groupDiscoveryCollections.map(collection => ({ ...collection, groups: collection.mode === 'RECOMMENDED' ? recommended : collection.mode === 'UPCOMING' ? upcomingPreview : collection.mode === 'NEW' ? recent
     : recommended.filter(group => collection.topics?.some(topic => group.topics.includes(topic))) })).filter(section => section.groups.length > 0);
   if (!sections.length && groups.length) sections.push({ id: 'all', title: '모집을 쉬고 있는 모임', emoji: '👥', groups, topics: undefined, mode: undefined });
-  return { regions, districts, groups: listed, recommended, recent, upcoming, events, sections };
+  return { regions, districts, neighborhoods, groups: listed, recommended, recent, upcoming, events, sections };
 }

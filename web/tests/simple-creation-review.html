@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>Spotlog 간단 만들기 · 메모리 검수</title>
+    <style>
+      html,body { margin:0; height:100%; }
+      body.simple-creation-review { height:100dvh; overflow:hidden; }
+      .simple-creation-review #root { display:grid; grid-template-rows:auto minmax(0,1fr); min-height:0; height:100%; }
+      .simple-creation-toolbar { box-sizing:border-box; width:100%; max-width:460px; margin:0 auto; padding:0 16px; background:#fff3e7; color:#38322b; border-bottom:1px solid #e5d9cd; font:13px/18px system-ui,sans-serif; }
+      .simple-creation-toolbar summary { display:flex; align-items:center; min-height:44px; font-weight:600; cursor:pointer; }
+      .simple-creation-toolbar[open] { max-height:45dvh; overflow:auto; }
+      .simple-creation-toolbar p { margin:0 0 10px; overflow-wrap:anywhere; }
+      .simple-creation-toolbar small { display:block; margin-bottom:10px; font-size:12px; line-height:16px; }
+      .simple-creation-toolbar nav { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0; }
+      .simple-creation-toolbar a,.simple-creation-toolbar button { box-sizing:border-box; min-height:44px; padding:8px 10px; border:1px solid #d6c9bb; border-radius:8px; background:#fff; color:inherit; font:inherit; }
+      .simple-creation-toolbar a { display:inline-flex; align-items:center; text-decoration:none; }
+      .simple-creation-toolbar a[aria-current="page"] { background:#242422; color:#fff; border-color:#242422; }
+      .simple-creation-toolbar output { display:block; margin-bottom:10px; padding:8px 0; border-block:1px solid #e5d9cd; font-variant-numeric:tabular-nums; }
+      .simple-creation-app { min-width:0; min-height:0; width:100%; height:100%; }
+      .simple-creation-app .app-shell .content { height:100%; }
+      .simple-creation-personal { padding:20px 16px; }
+      .simple-creation-personal h1 { margin:0 0 16px; font-size:20px; }
+      .simple-creation-personal p { margin:8px 0; }
+      .simple-creation-personal article { padding:16px 0; border-bottom:1px solid #ddd; }
+      body.simple-creation-review[data-embed="true"] #root { grid-template-rows:minmax(0,1fr); }
+      body.simple-creation-review[data-embed="true"] .simple-creation-toolbar { display:none; }
+    </style>
+  </head>
+  <body class="simple-creation-review">
+    <div id="root"><p style="padding:16px">실제 저장소와 분리하는 중…</p></div>
+    <script type="module" src="/tests/simple-creation-review.tsx"></script>
+  </body>
+</html>

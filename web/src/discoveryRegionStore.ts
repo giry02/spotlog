@@ -1,7 +1,7 @@
 /** A manually chosen discovery area, separate from places, trips, addresses and GPS. */
 export const MY_REGION_OPTIONS = ['서울', '경기', '인천', '강원', '충북', '충남', '대전', '세종', '전북', '전남', '광주', '경북', '경남', '대구', '울산', '부산', '제주'] as const;
 export type MyRegionName = typeof MY_REGION_OPTIONS[number];
-export interface MyRegionEntry { id: string; region: MyRegionName; district?: string }
+export interface MyRegionEntry { id: string; region: MyRegionName; district?: string; neighborhood?: string }
 export interface MyRegionsState {
   schemaVersion: 1;
   owner: string;
@@ -21,7 +21,7 @@ export function myRegionStorageKey(owner: string): string { return MY_REGION_STO
 export function emptyMyRegions(owner: string): MyRegionsState { return { schemaVersion: 1, owner: regionOwner(owner), revision: 0, regions: [], activeId: null }; }
 const knownKeys = (value: object, allowed: readonly string[]) => Object.keys(value).every(key => allowed.includes(key));
 const plainText = (value: unknown, maximum: number): value is string => typeof value === 'string' && value.length > 0 && value.length <= maximum && value === value.trim() && !/[\u0000-\u001f\u007f]/u.test(value);
-const areaKey = (entry: MyRegionEntry) => `${entry.region}\n${(entry.district || '').normalize('NFKC').replace(/\s+/gu, ' ').trim()}`;
+const areaKey = (entry: MyRegionEntry) => [entry.region, entry.district || '', entry.neighborhood || ''].map(value => value.normalize('NFKC').replace(/\s+/gu, ' ').trim()).join('\n');
 
 function validState(value: unknown, owner: string): value is MyRegionsState {
   if (!value || typeof value !== 'object' || Array.isArray(value) || !knownKeys(value, ['schemaVersion', 'owner', 'revision', 'regions', 'activeId'])) return false;
@@ -29,8 +29,9 @@ function validState(value: unknown, owner: string): value is MyRegionsState {
   if (state.schemaVersion !== 1 || state.owner !== owner || !Number.isSafeInteger(state.revision) || state.revision < 0 || !Array.isArray(state.regions) || state.regions.length > 3) return false;
   const ids = new Set<string>(), areas = new Set<string>();
   for (const entry of state.regions) {
-    if (!entry || typeof entry !== 'object' || Array.isArray(entry) || !knownKeys(entry, ['id', 'region', 'district']) || !plainText(entry.id, 160)
-      || !(MY_REGION_OPTIONS as readonly unknown[]).includes(entry.region) || (entry.district !== undefined && !plainText(entry.district, 40))) return false;
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry) || !knownKeys(entry, ['id', 'region', 'district', 'neighborhood']) || !plainText(entry.id, 160)
+      || !(MY_REGION_OPTIONS as readonly unknown[]).includes(entry.region) || (entry.district !== undefined && !plainText(entry.district, 40))
+      || entry.neighborhood !== undefined && (!plainText(entry.neighborhood, 40) || entry.region !== '세종' && !entry.district)) return false;
     if (ids.has(entry.id) || areas.has(areaKey(entry))) return false;
     ids.add(entry.id); areas.add(areaKey(entry));
   }

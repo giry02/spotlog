@@ -27,7 +27,7 @@ export function AppMenu({ onClose, onNavigate, myRegionLabel }: { onClose: () =>
     { label: '내 공유 관리', description: '공유한 여행기 확인·공유 해제', icon: Share2, route: 'together-shares', group: '모임 준비' },
     { label: '여행 만들기', description: '저장 장소 또는 조건으로 계획', icon: Route, route: 'create-trip', group: '여행 도구' },
     { label: '오프라인 저장', description: '이 기기에 내려받은 내 여행', icon: WifiOff, route: 'offline', group: '여행 도구' },
-    { label: '내 지역 설정', description: myRegionLabel || '주 활동 지역과 관심 지역', icon: MapPin, route: 'my-regions', group: '설정·안내' },
+    { label: '내 동네·위치 관리', description: myRegionLabel || '현재 위치로 내 동네 설정', icon: MapPin, route: 'my-regions', group: '설정·안내' },
   ];
   return <BottomSheet title={help ? '이용 안내' : '전체 메뉴'} onClose={onClose}>
     {help ? <div className="app-menu-help">

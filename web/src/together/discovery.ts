@@ -1,5 +1,6 @@
 import type { GroupDiscoveryProfile, GroupPublicActivitySnapshot, GroupTopic, TogetherGroup, TogetherState } from './model';
 import { getGroupSubtopic, normalizeGroupSubtopics } from './groupTaxonomy.ts';
+import { groupRegionNeedsDistrict } from './groupRegions.ts';
 
 export const topicOptions: { id: GroupTopic; label: string; emoji: string; description: string }[] = [
   { id: 'SOCIAL', label: '이웃·친목', emoji: '👋', description: '동네에서 편하게 만나 이야기 나누기' },
@@ -22,7 +23,7 @@ export const topicOptions: { id: GroupTopic; label: string; emoji: string; descr
 const topicIds = new Set(topicOptions.map(option => option.id));
 export type DiscoveryDateFilter = 'ALL' | 'TODAY' | 'WEEK' | 'THISWEEK' | 'WEEKEND' | 'UPCOMING' | 'THIS_MONTH';
 export interface DiscoveryFilters {
-  query?: string; region?: string; district?: string; topic?: GroupTopic | 'ALL'; subtopic?: string | 'ALL'; style?: 'ALL' | 'NEIGHBORHOOD' | 'DESTINATION';
+  query?: string; region?: string; district?: string; neighborhood?: string; topic?: GroupTopic | 'ALL'; subtopic?: string | 'ALL'; style?: 'ALL' | 'NEIGHBORHOOD' | 'DESTINATION';
   recruitment?: 'OPEN' | 'ALL'; dateFilter?: DiscoveryDateFilter; sort?: 'EDITORIAL' | 'SOONEST' | 'NAME' | 'NEWEST';
 }
 export type PublicDiscoveryActivity = GroupPublicActivitySnapshot;
@@ -34,6 +35,7 @@ export function discoveryProfile(group: TogetherGroup): GroupDiscoveryProfile {
   const topics = profile?.topics?.filter(topic => topicIds.has(topic)) || [];
   return {
     topics, ...(profile?.subtopics !== undefined ? { subtopics: normalizeGroupSubtopics(topics, profile.subtopics) } : {}), district: profile?.district ?? '',
+    ...(profile?.neighborhood !== undefined ? { neighborhood: profile.neighborhood } : {}),
     style: profile?.style === 'DESTINATION' ? 'DESTINATION' : 'NEIGHBORHOOD',
     recruitment: profile?.recruitment === 'PAUSED' ? 'PAUSED' : 'OPEN',
     joinMode,
@@ -101,6 +103,8 @@ export function filterDiscoveryGroups(state: TogetherState, filters: DiscoveryFi
     if (filters.recruitment !== 'ALL' && profile.recruitment !== 'OPEN') return false;
     if (filters.region && !['ALL', '전체', '전체 지역'].includes(filters.region) && group.region !== filters.region) return false;
     if (filters.district && !['ALL', '전체', '전체 동네'].includes(filters.district) && profile.district !== filters.district) return false;
+    if (filters.neighborhood && !['ALL', '전체', '전체 동·읍·면'].includes(filters.neighborhood)
+      && (!filters.region || ['ALL', '전체', '전체 지역'].includes(filters.region) || groupRegionNeedsDistrict(filters.region) && (!filters.district || ['ALL', '전체', '전체 동네'].includes(filters.district)) || profile.neighborhood !== filters.neighborhood)) return false;
     if (filters.topic && filters.topic !== 'ALL' && !profile.topics.includes(filters.topic)) return false;
     if (filters.subtopic && filters.subtopic !== 'ALL') {
       const subtopic = getGroupSubtopic(filters.subtopic);
@@ -108,7 +112,7 @@ export function filterDiscoveryGroups(state: TogetherState, filters: DiscoveryFi
     }
     if (filters.style && filters.style !== 'ALL' && profile.style !== filters.style) return false;
     const subtopicText = profile.subtopics?.flatMap(id => { const item = getGroupSubtopic(id); return item ? [item.label, ...item.keywords] : []; }).join(' ') || '';
-    if (query && !`${group.name} ${group.region} ${group.introduction} ${profile.district} ${profile.welcome} ${profile.topics.map(topic => topicOptions.find(option => option.id === topic)?.label).join(' ')} ${subtopicText}`.toLocaleLowerCase('ko-KR').includes(query)) return false;
+    if (query && !`${group.name} ${group.region} ${group.introduction} ${profile.district} ${profile.neighborhood ?? ''} ${profile.welcome} ${profile.topics.map(topic => topicOptions.find(option => option.id === topic)?.label).join(' ')} ${subtopicText}`.toLocaleLowerCase('ko-KR').includes(query)) return false;
     if (range && !upcomingPublicActivities(state, group, at).some(activity => overlaps(activity, range[0], range[1]))) return false;
     if (filters.dateFilter === 'UPCOMING' && !upcomingPublicActivities(state, group, at).length) return false;
     return true;

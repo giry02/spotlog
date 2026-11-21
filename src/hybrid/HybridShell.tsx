@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Notifications from 'expo-notifications';
+import * as Location from 'expo-location';
 import { ActivityIndicator, Alert, BackHandler, Linking, Platform, Pressable, ScrollView, Share, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import WebView, { type WebViewMessageEvent, type WebViewNavigation } from 'react-native-webview';
-import { parseWebToNativeMessage, type NativeToWebMessage, type NotificationPreferences } from '../../shared/hybridBridge';
+import { parseWebToNativeMessage, type NativeToWebMessage, type NotificationPreferences, type NativeLocationErrorCode } from '../../shared/hybridBridge';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -62,6 +63,12 @@ function isEntryDocument(url: string) {
 export function HybridShell() {
   const webViewRef = useRef<WebView>(null);
   const notificationQueue = useRef<Promise<void>>(Promise.resolve());
+  // The session token correlates a main-document bridge. Origin + document checks are the trust boundary.
+  const locationSession = useRef(`location_${Date.now().toString(36)}_${Math.random().toString(36).slice(2)}_${Math.random().toString(36).slice(2)}`);
+  const locationDocument = useRef({ url: webUrl, epoch: 0 });
+  const pendingLocation = useRef<{ requestId: string; epoch: number } | null>(null);
+  const locationBusy = useRef(false);
+  const mounted = useRef(true);
   const [reloadKey, setReloadKey] = useState(0);
   const [loadError, setLoadError] = useState('');
   const [bridgeReady, setBridgeReady] = useState(false);
@@ -77,6 +84,15 @@ export function HybridShell() {
   const sendToWeb = useCallback((message: NativeToWebMessage) => {
     webViewRef.current?.postMessage(JSON.stringify(message));
   }, []);
+
+  useEffect(() => {
+    mounted.current = true;
+    return () => { mounted.current = false; pendingLocation.current = null; };
+  }, []);
+
+  const locationCapabilityScript = `if (window === window.top && !window.__SPOTLOG_LOCATION_BRIDGE__) {
+    Object.defineProperty(window, '__SPOTLOG_LOCATION_BRIDGE__', { value: { version: 1, sessionId: ${JSON.stringify(locationSession.current)} }, writable: false, configurable: false });
+  } true;`;
 
   useEffect(() => {
     if (Platform.OS !== 'android') return;
@@ -108,6 +124,53 @@ export function HybridShell() {
   const handleMessage = useCallback(async (event: WebViewMessageEvent) => {
     const message = parseWebToNativeMessage(event.nativeEvent.data);
     if (!message) return;
+
+    if (message.type === 'CURRENT_LOCATION_REQUEST' || message.type === 'CURRENT_LOCATION_CANCEL') {
+      // Only the configured app document can access the location bridge, never an external page or iframe.
+      if (!mounted.current || !isEntryDocument(event.nativeEvent.url) || !isEntryDocument(locationDocument.current.url)
+        || message.payload.sessionId !== locationSession.current) return;
+      if (message.type === 'CURRENT_LOCATION_CANCEL') {
+        if (pendingLocation.current?.requestId === message.payload.requestId) pendingLocation.current = null;
+        return;
+      }
+      const { requestId } = message.payload;
+      if (locationBusy.current) {
+        sendToWeb({ type: 'CURRENT_LOCATION_RESULT', payload: { requestId, sessionId: locationSession.current, ok: false, code: 'UNAVAILABLE' } });
+        return;
+      }
+      const request = { requestId, epoch: locationDocument.current.epoch };
+      pendingLocation.current = request;
+      locationBusy.current = true;
+      const active = () => mounted.current && pendingLocation.current === request && locationDocument.current.epoch === request.epoch && isEntryDocument(locationDocument.current.url);
+      const fail = (code: NativeLocationErrorCode) => {
+        if (!active()) return;
+        pendingLocation.current = null;
+        sendToWeb({ type: 'CURRENT_LOCATION_RESULT', payload: { requestId, sessionId: locationSession.current, ok: false, code } });
+      };
+      const timer = setTimeout(() => fail('TIMEOUT'), 19000);
+      try {
+        if (!await Location.hasServicesEnabledAsync()) { fail('UNAVAILABLE'); return; }
+        if (!active()) return;
+        let permission = await Location.getForegroundPermissionsAsync();
+        if (!active()) return;
+        if (!permission.granted && permission.canAskAgain) permission = await Location.requestForegroundPermissionsAsync();
+        if (!active()) return;
+        if (!permission.granted) { fail('DENIED'); return; }
+        // Approximate foreground permission is sufficient. Do not upgrade to fine or start a watcher.
+        const started = Date.now();
+        const position = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Low, mayShowUserSettingsDialog: false });
+        if (!active()) return;
+        const { latitude, longitude, accuracy } = position.coords;
+        if (accuracy === null || ![latitude, longitude, accuracy, position.timestamp].every(Number.isFinite)
+          || latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180 || accuracy < 0
+          || position.timestamp < started - 30000 || position.timestamp > Date.now() + 5000) { fail('UNAVAILABLE'); return; }
+        if (accuracy > 10000) { fail('INACCURATE'); return; }
+        pendingLocation.current = null;
+        sendToWeb({ type: 'CURRENT_LOCATION_RESULT', payload: { requestId, sessionId: locationSession.current, ok: true, coordinates: { latitude, longitude, accuracy } } });
+      } catch { fail('UNAVAILABLE'); }
+      finally { clearTimeout(timer); locationBusy.current = false; if (pendingLocation.current === request) pendingLocation.current = null; }
+      return;
+    }
 
     if (message.type === 'READY') {
       setBridgeReady(true);
@@ -194,6 +257,8 @@ export function HybridShell() {
   }, [trustedOrigin]);
 
   const failLoading = useCallback((message: string) => {
+    locationDocument.current.epoch += 1;
+    pendingLocation.current = null;
     setWebCanGoBack(false);
     setBridgeReady(false);
     setLoadError(message);
@@ -211,7 +276,16 @@ export function HybridShell() {
         domStorageEnabled
         startInLoadingState
         setSupportMultipleWindows={false}
-        onLoadStart={() => { setLoadError(''); setBridgeReady(false); setWebCanGoBack(false); }}
+        geolocationEnabled={false}
+        injectedJavaScriptBeforeContentLoaded={locationCapabilityScript}
+        injectedJavaScript={locationCapabilityScript}
+        injectedJavaScriptBeforeContentLoadedForMainFrameOnly
+        injectedJavaScriptForMainFrameOnly
+        onLoadStart={(event) => {
+          locationDocument.current = { url: event.nativeEvent.url, epoch: locationDocument.current.epoch + 1 };
+          pendingLocation.current = null;
+          setLoadError(''); setBridgeReady(false); setWebCanGoBack(false);
+        }}
         onMessage={(event) => void handleMessage(event)}
         onShouldStartLoadWithRequest={handleNavigation}
         onError={(event) => failLoading(event.nativeEvent.description || '모바일웹을 불러오지 못했습니다.')}

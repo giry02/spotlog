@@ -18,6 +18,22 @@
 .my-regions input[type=radio] { flex:0 0 20px; width:20px; height:20px; min-height:20px; margin:0; accent-color:var(--ink); }
 .my-regions .my-regions-add { background:transparent; border-style:dashed; }
 .my-regions .my-regions-save { width:100%; border-color:var(--ink); background:var(--ink); color:white; font-weight:600; }
+.my-regions .my-regions-save { position:sticky; bottom:0; z-index:2; box-shadow:0 8px 0 8px var(--paper,#f8f8f6); }
+.my-current-area { display:flex; flex-direction:column; gap:12px; padding:14px; border:1px solid var(--line,#e9e9e5); border-radius:12px; background:var(--surface,#fff); min-width:0; }
+.my-current-area-heading { display:flex; align-items:center; gap:10px; }
+.my-current-area-heading>svg { flex:none; }
+.my-current-area-heading>div { min-width:0; }
+.my-current-area-heading strong { font-size:16px; line-height:22px; font-weight:600; }
+.my-current-area-heading p { margin:4px 0 0; color:var(--muted); font-size:12px; line-height:18px; }
+.my-current-area-consent,.my-current-area-result { display:flex; flex-direction:column; gap:8px; min-width:0; }
+.my-current-area-consent>p,.my-current-area-result>p { font-size:14px; line-height:20px; overflow-wrap:anywhere; }
+.my-current-area :is(small,.my-current-area-consent>p[role=status]) { color:var(--muted); font-size:12px; line-height:18px; overflow-wrap:anywhere; }
+.my-current-area-actions { display:flex; flex-direction:column; gap:8px; }
+.my-current-area-consent>a { color:var(--ink,#171716); font-size:12px; line-height:18px; text-decoration:underline; text-underline-offset:3px; align-self:flex-start; min-height:36px; display:inline-flex; align-items:center; }
+.my-regions :is(.my-current-area-start,.my-current-area-accept) { background:var(--ink,#171716); border-color:var(--ink,#171716); color:#fff; font-weight:600; }
+.my-current-area-result { border-left:3px solid var(--ink,#171716); padding-left:10px; }
+.my-current-area-result>strong { font-size:16px; line-height:22px; overflow-wrap:anywhere; }
+.my-current-area-error { padding:10px; border-radius:8px; background:#fff0eb; color:#a63e2b; font-size:14px; line-height:20px; overflow-wrap:anywhere; }
 .my-regions-storage { color:var(--muted); font-size:12px; line-height:16px; }
 .my-regions-empty { padding:12px; background:var(--surface-muted); border-radius:10px; color:var(--muted); }
 .my-regions-error { padding:12px; border-radius:10px; background:#fff0eb; color:#a63e2b; display:grid; gap:8px; }

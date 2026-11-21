@@ -3,6 +3,7 @@ import { selectGroupDiscovery, type GroupDiscoveryFilters } from './groupDiscove
 import { koreaDay, shiftDay, topicOptions, type PublicDiscoveryActivity } from './discovery.ts';
 import { validDiscoveryCalendarDate } from './groupDiscoveryCalendar.ts';
 import { getGroupSubtopic } from './groupTaxonomy.ts';
+import { groupLocalityIssues } from './groupRegions.ts';
 
 export const DISCOVERY_PICKS_CHANGED = 'spotlog:discovery-picks-changed';
 export type PicksStorage = Pick<Storage, 'getItem' | 'setItem'>;
@@ -10,6 +11,7 @@ export type DiscoveryWeekday = 'ALL' | 'WEEKEND' | 'WEEKDAY' | '0' | '1' | '2' |
 export type DiscoveryTimeBand = 'ALL' | 'MORNING' | 'AFTERNOON' | 'EVENING' | 'NIGHT';
 export interface DiscoveryConditionInput {
   name: string; region: string; district: string; topic: GroupTopic | ''; subtopic: string; query: string;
+  neighborhood?: string;
   weekday: DiscoveryWeekday; timeBand: DiscoveryTimeBand;
 }
 export interface SavedDiscoveryCondition extends DiscoveryConditionInput { id: string; known: string[] }
@@ -26,6 +28,7 @@ const text = (value: unknown, max: number, empty = false): value is string => ty
   && value.length <= max && (empty || value.length > 0) && !/[\u0000-\u001f\u007f-\u009f]/u.test(value);
 const exactKeys = (value: Record<string, unknown>, keys: string[]) => Object.keys(value).length === keys.length && Object.keys(value).every(key => keys.includes(key));
 const conditionKeys = ['name', 'region', 'district', 'topic', 'subtopic', 'query', 'weekday', 'timeBand'];
+const localityKeys = (value: Record<string, unknown>) => value.neighborhood === undefined ? conditionKeys : [...conditionKeys, 'neighborhood'];
 
 export function discoveryPicksStorageKey(owner: string): string {
   if (!text(owner, 300, true)) throw new Error('현재 계정을 다시 확인해 주세요.');
@@ -38,19 +41,20 @@ export function emptyDiscoveryPicks(owner: string): DiscoveryPicksState {
 }
 
 function validCondition(value: unknown): value is DiscoveryConditionInput {
-  if (!object(value) || !exactKeys(value, conditionKeys) || !text(value.name, 50) || !text(value.region, 80, true)
+  if (!object(value) || !exactKeys(value, localityKeys(value)) || !text(value.name, 50) || !text(value.region, 80, true)
     || !text(value.district, 80, true) || !text(value.query, 120, true) || !text(value.subtopic, 100, true)
+    || value.neighborhood !== undefined && !text(value.neighborhood, 80, true)
     || value.topic !== '' && !topics.has(value.topic as GroupTopic) || typeof value.weekday !== 'string' || !weekdays.has(value.weekday)
     || typeof value.timeBand !== 'string' || !timeBands.has(value.timeBand)) return false;
   const child = value.subtopic ? getGroupSubtopic(value.subtopic) : undefined;
-  return (!value.district || Boolean(value.region)) && (!value.subtopic || Boolean(child && value.topic === child.parent));
+  return !groupLocalityIssues({ region: value.region, district: value.district, ...(value.neighborhood !== undefined ? { neighborhood: value.neighborhood as string } : {}) }).length && (!value.subtopic || Boolean(child && value.topic === child.parent));
 }
 function validState(value: unknown, owner: string): value is DiscoveryPicksState {
   if (!object(value) || !exactKeys(value, ['schemaVersion', 'owner', 'conditions', 'appointments']) || value.schemaVersion !== 1 || value.owner !== owner
     || !Array.isArray(value.conditions) || value.conditions.length > conditionLimit || !Array.isArray(value.appointments) || value.appointments.length > appointmentLimit) return false;
   const ids = new Set<string>();
   for (const condition of value.conditions) {
-    if (!object(condition) || !exactKeys(condition, [...conditionKeys, 'id', 'known']) || !text(condition.id, 180) || ids.has(condition.id)
+    if (!object(condition) || !exactKeys(condition, [...localityKeys(condition), 'id', 'known']) || !text(condition.id, 180) || ids.has(condition.id)
       || !Array.isArray(condition.known) || condition.known.length > seenLimit || !condition.known.every(key => typeof key === 'string' && /^[a-f0-9]{16}$/.test(key))
       || new Set(condition.known).size !== condition.known.length) return false;
     const { id, known, ...input } = condition;
@@ -112,15 +116,15 @@ function matchesWeekday(activity: PublicDiscoveryActivity, weekday: DiscoveryWee
   return false;
 }
 export function selectConditionMatches(state: TogetherState, owner: string, condition: DiscoveryConditionInput, at = new Date()): PublicDiscoveryEvent[] {
-  const clean = Object.fromEntries(conditionKeys.map(key => [key, condition[key as keyof DiscoveryConditionInput]]));
+  const clean = { ...Object.fromEntries(conditionKeys.map(key => [key, condition[key as keyof DiscoveryConditionInput]])), ...(condition.neighborhood !== undefined ? { neighborhood: condition.neighborhood } : {}) };
   if (!validCondition(clean)) return [];
-  return selectGroupDiscovery(state, { region: condition.region, district: condition.district, topic: condition.topic || undefined,
+  return selectGroupDiscovery(state, { region: condition.region, district: condition.district, ...(condition.neighborhood !== undefined ? { neighborhood: condition.neighborhood } : {}), topic: condition.topic || undefined,
     subtopic: condition.subtopic || undefined, query: condition.query, sort: 'SOONEST', view: 'MEETUPS' }, owner, at).events
     .filter(item => matchesWeekday(item.activity, condition.weekday, at) && matchesTime(item.activity, condition.timeBand));
 }
 /** A short fingerprint of approved public facts detects a new or changed announcement without copying its text into storage. */
 function fingerprint({ group, activity }: PublicDiscoveryEvent): string {
-  const bytes = new TextEncoder().encode(JSON.stringify([group.id, group.region, group.district, group.topics, group.subtopics, activity]));
+  const bytes = new TextEncoder().encode(JSON.stringify([group.id, group.region, group.district, group.topics, group.subtopics, activity, ...(group.neighborhood !== undefined ? [group.neighborhood] : [])]));
   let hash = 14695981039346656037n;
   for (const byte of bytes) hash = BigInt.asUintN(64, (hash ^ BigInt(byte)) * 1099511628211n);
   return hash.toString(16).padStart(16, '0');
@@ -168,6 +172,6 @@ export function selectSavedPublicAppointments(state: TogetherState, owner: strin
   return references.map(reference => ({ reference, event: events.find(item => item.group.id === reference.groupId && item.activity.id === reference.activityId) }));
 }
 export function conditionDiscoveryFilters(condition: DiscoveryConditionInput): GroupDiscoveryFilters {
-  return { region: condition.region, district: condition.district, topic: condition.topic || undefined, subtopic: condition.subtopic || undefined,
+  return { region: condition.region, district: condition.district, ...(condition.neighborhood !== undefined ? { neighborhood: condition.neighborhood } : {}), topic: condition.topic || undefined, subtopic: condition.subtopic || undefined,
     query: condition.query, view: 'MEETUPS', section: 'MEETUPS', dateFilter: 'ALL', useMyRegion: false };
 }

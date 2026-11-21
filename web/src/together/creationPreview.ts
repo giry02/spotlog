@@ -1,4 +1,5 @@
 import type { Place } from '../data';
+import { groupLocalityIssues, parseGroupLocality } from './groupRegions.ts';
 import { creationBriefTopics, creationCatalogPlaces, creationCatalogRegions, interpretCreationPrompt, refreshCreationPlan, validateCreationBrief, validateCreationPlan, type CreationBrief, type CreationGroupDraft, type CreationPlan } from './creationPlanner.ts';
 
 /** Page-memory handoff only. No member/group IDs, place objects or prior consent are carried. */
@@ -43,7 +44,8 @@ export function snapshotCreationPreview(brief: CreationBrief, plan: CreationPlan
 function previewIssues(draft: CreationPreviewDraft, places: Place[]): string[] {
   if (draft.brief.purpose !== 'GROUP') return draft.plan ? validateCreationPlan(draft.brief, draft.plan, places) : ['선택한 초안을 다시 확인해 주세요.'];
   const issues = validateCreationBrief(draft.brief);
-  if (!draft.groupDraft?.name.trim() || !draft.groupDraft.introduction.trim() || !draft.groupDraft.region.trim()) issues.push('모임 이름·지역·소개를 다시 확인해 주세요.');
+  issues.push(...groupLocalityIssues(parseGroupLocality(draft.groupDraft?.region || draft.brief.region)));
+  if (!draft.groupDraft?.name.trim() || !draft.groupDraft.introduction.trim() || !draft.groupDraft.region.trim() && !draft.brief.locationUndecided) issues.push('모임 이름·지역·소개를 다시 확인해 주세요.');
   if (draft.groupDraft && !['FAMILY', 'FRIENDS', 'HOBBY', 'GUIDE'].includes(draft.groupDraft.kind)) issues.push('모임 구분을 다시 확인해 주세요.');
   if (draft.groupDraft?.joinMode && !['DIRECT', 'APPROVAL'].includes(draft.groupDraft.joinMode)) issues.push('가입 방식을 다시 확인해 주세요.');
   return [...new Set(issues)];

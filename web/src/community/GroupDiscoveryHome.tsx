@@ -7,7 +7,7 @@ import { groupHomeListingFilters, type GroupDiscoveryHomeProjection } from './gr
 import type { GroupInterestsRead } from '../groupInterestStore';
 import './group-discovery-home.css';
 
-const areaLabel = (group: DiscoveryGroupCard) => [group.region, group.district].filter(Boolean).join(' · ');
+const areaLabel = (group: DiscoveryGroupCard) => [group.region, group.district, group.neighborhood].filter(Boolean).join(' · ');
 const membershipLabel = (group: DiscoveryGroupCard) => group.joined ? '가입 중' : group.joinMode === 'DIRECT' ? '바로 가입' : '승인 후 가입';
 const dateLabel = (date: string) => new Date(`${date}T12:00:00+09:00`).toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric', weekday: 'short', timeZone: 'Asia/Seoul' });
 const weekdayLabel = (date: string) => new Date(`${date}T12:00:00+09:00`).toLocaleDateString('ko-KR', { weekday: 'short', timeZone: 'Asia/Seoul' });
@@ -45,14 +45,14 @@ export function GroupMeetupSchedule({ meetups, title, filters, onOpenGroup, onFi
 }
 
 interface Props {
-  projection: GroupDiscoveryHomeProjection; variant?: 'full' | 'preview'; region: string; district?: string;
+  projection: GroupDiscoveryHomeProjection; variant?: 'full' | 'preview'; region: string; district?: string; neighborhood?: string;
   onOpenGroup: (groupId: string, activityId?: string) => void; onFindGroups: (filters?: GroupDiscoveryFilters) => void;
   onBrowse?: () => void;
   savedInterests?: GroupInterestsRead; savedInterestGroups?: DiscoveryGroupCard[]; onManageInterests?: () => void;
 }
 
 /** Interest navigation, photo recommendations and dated public events have separate presentation roles. */
-export default function GroupDiscoveryHome({ projection, variant = 'full', region, district, onOpenGroup, onFindGroups, onBrowse, savedInterests, savedInterestGroups = [], onManageInterests }: Props) {
+export default function GroupDiscoveryHome({ projection, variant = 'full', region, district, neighborhood, onOpenGroup, onFindGroups, onBrowse, savedInterests, savedInterestGroups = [], onManageInterests }: Props) {
   const uid = useId(), [openTopic, setOpenTopic] = useState<GroupTopic>(), [expandedTopics, setExpandedTopics] = useState(false), [expandedInterests, setExpandedInterests] = useState(false);
   const full = variant === 'full', activeInterest = projection.interests.find(item => item.id === openTopic);
   const featured = full ? projection.featured : projection.groups.slice(0, 2);
@@ -70,7 +70,7 @@ export default function GroupDiscoveryHome({ projection, variant = 'full', regio
     </section>}
     {savedInterests && savedInterests.status !== 'ready' && <p className="gdh-saved-note" role="status">{savedInterests.message} 내 관심사에서 다시 불러올 수 있어요.</p>}
     {selectedInterests && selectedInterests.topics.length === 0 && full && <p className="gdh-saved-note">내 관심사를 저장하면 선택한 분야의 모임을 따로 모아볼 수 있어요.</p>}
-    <section className="gdh-featured" aria-labelledby={`${uid}-featured`}><div className="gdh-heading"><h2 id={`${uid}-featured`}>{full ? region ? `${district || region}에서 둘러볼 모임` : '함께할 모임을 골라보세요' : region ? `${district || region}에서 함께하는 모임` : '관심사로 만나는 모임'}</h2><button type="button" aria-label="같은 조건의 모임 더 보기" onClick={() => onFindGroups(groupHomeListingFilters(projection.filters, { kind: 'GROUPS' }))}>더 보기<ChevronRight size={16}/></button></div>
+    <section className="gdh-featured" aria-labelledby={`${uid}-featured`}><div className="gdh-heading"><h2 id={`${uid}-featured`}>{full ? region ? `${neighborhood || district || region}에서 둘러볼 모임` : '함께할 모임을 골라보세요' : region ? `${neighborhood || district || region}에서 함께하는 모임` : '관심사로 만나는 모임'}</h2><button type="button" aria-label="같은 조건의 모임 더 보기" onClick={() => onFindGroups(groupHomeListingFilters(projection.filters, { kind: 'GROUPS' }))}>더 보기<ChevronRight size={16}/></button></div>
       {featuredGroup ? <><PhotoGroupCard group={featuredGroup} meetup={nextMeetup(featuredGroup.id)} onOpen={onOpenGroup}/><div className="gdh-topic-rows">{featured.slice(1).map(group => <GroupComparisonRow key={group.id} group={group} meetup={nextMeetup(group.id)} onOpen={onOpenGroup}/>)}</div></> : <div className="gdh-empty"><Users size={24} aria-hidden="true"/><p>선택한 지역·조건에 맞는 공개 모임이 없어요.</p><button type="button" onClick={() => onFindGroups(groupHomeListingFilters(projection.filters, { kind: 'GROUPS' }))}>조건을 바꾸어 모임 찾기<ArrowRight size={16}/></button></div>}
     </section>
     {!full && <div className="gdh-preview-interests" aria-label="관심사로 모임 찾기">{interestList.slice(0, 3).map(item => <button key={item.id} type="button" onClick={() => openInterest(item.id)}><span aria-hidden="true">{item.emoji}</span>{item.label}</button>)}<button type="button" className="gdh-preview-interests__all" onClick={onBrowse || (() => onFindGroups(groupHomeListingFilters(projection.filters, { kind: 'GROUPS' })))}>관심사별<ArrowRight size={16}/></button>{onManageInterests && <button type="button" onClick={onManageInterests}>내 관심사{selectedInterests?.topics.length ? ` ${selectedInterests.topics.length}` : ''}<ChevronRight size={15}/></button>}</div>}
@@ -78,7 +78,7 @@ export default function GroupDiscoveryHome({ projection, variant = 'full', regio
       {savedInterestGroups.length ? <><div className="gdh-topic-rows">{savedInterestGroups.slice(0, savedVisibleCount).map(group => <GroupComparisonRow key={group.id} group={group} meetup={nextMeetup(group.id)} onOpen={onOpenGroup}/>)}</div>{savedInterestGroups.length > savedVisibleCount && <button type="button" className="gdh-saved-more" onClick={() => setSavedVisibleCount(value => value + 3)}>내 관심사 모임 더 보기<ChevronDown size={16}/></button>}</> : <p className="gdh-saved-empty">지금 조건에 맞는 공개 모임이 없어요. 관심사를 수정하거나 지역 모임을 둘러보세요.</p>}
     </details>}
     {full && <>
-      <GroupMeetupSchedule meetups={projection.meetups} title={region ? `${district || region}에서 잡힌 약속` : '다가오는 번개·정모'} filters={projection.filters} onOpenGroup={onOpenGroup} onFindGroups={onFindGroups}/>
+      <GroupMeetupSchedule meetups={projection.meetups} title={region ? `${neighborhood || district || region}에서 잡힌 약속` : '다가오는 번개·정모'} filters={projection.filters} onOpenGroup={onOpenGroup} onFindGroups={onFindGroups}/>
       {projection.topics.length > 0 && <div className="gdh-topic-sections">{projection.topics.slice(0, expandedTopics ? projection.topics.length : 4).map(section => <section className="gdh-topic-section" key={section.id} aria-labelledby={`${uid}-${section.id}`}><div className="gdh-heading"><h2 id={`${uid}-${section.id}`}><span aria-hidden="true">{section.emoji}</span>{section.title}</h2><button type="button" aria-label={`${section.title} 더 보기`} onClick={() => onFindGroups(groupHomeListingFilters(projection.filters, { kind: 'COLLECTION', id: section.id }))}>더 보기<ChevronRight size={16}/></button></div><div className="gdh-topic-rows">{section.groups.map(group => <GroupComparisonRow key={group.id} group={group} meetup={nextMeetup(group.id)} onOpen={onOpenGroup}/>)}</div></section>)}</div>}
       {projection.topics.length > 4 && <button type="button" className="gdh-more-topics" aria-expanded={expandedTopics} onClick={() => setExpandedTopics(value => !value)}>{expandedTopics ? '관심사별 모임 접기' : '다른 관심사의 모임도 보기'}<ChevronDown size={17} aria-hidden="true"/></button>}
       <button type="button" className="gdh-all-groups" onClick={() => onFindGroups(groupHomeListingFilters(projection.filters, { kind: 'GROUPS' }))}><MapPin size={17} aria-hidden="true"/>현재 조건의 모임 모두 보기<ArrowRight size={17} aria-hidden="true"/></button>

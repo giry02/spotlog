@@ -3,7 +3,7 @@ import { Bookmark, Check, ChevronLeft, ChevronRight, Plus, Search, SlidersHorizo
 import type { GroupTopic, TogetherState } from './model';
 import type { GroupDiscoveryFilters } from './groupDiscoveryModel';
 import { topicOptions } from './discovery';
-import { groupDistrictOptions, groupRegionOptions } from './groupRegions';
+import GroupLocalityFields from './GroupLocalityFields';
 import { groupSubtopicsFor } from './groupTaxonomy';
 import { acknowledgeDiscoveryMatches, conditionDiscoveryFilters, DISCOVERY_PICKS_CHANGED, readDiscoveryPicks, removeDiscoveryCondition,
   saveDiscoveryCondition, selectConditionMatches, selectNewDiscoveryMatches, selectSavedPublicAppointments, toggleSavedPublicAppointment,
@@ -48,7 +48,7 @@ function PicksBody({ state, viewerId, initialFilters, storage: givenStorage, onO
   const picks = usePicks(viewerId, givenStorage);
   const [tab, setTab] = useState<'saved' | 'conditions' | 'new'>('saved');
   const [creating, setCreating] = useState(false), [selectedId, setSelectedId] = useState('');
-  const [input, setInput] = useState<DiscoveryConditionInput>({ name: '', region: initialFilters?.region || '', district: initialFilters?.district || '',
+  const [input, setInput] = useState<DiscoveryConditionInput>({ name: '', region: initialFilters?.region || '', district: initialFilters?.district || '', neighborhood: initialFilters?.neighborhood || '',
     topic: initialFilters?.topic || '', subtopic: initialFilters?.subtopic === 'ALL' ? '' : initialFilters?.subtopic || '', query: initialFilters?.query || '', weekday: 'ALL', timeBand: 'ALL' });
   const current = picks.state.conditions.find(item => item.id === selectedId);
   const matches = current ? selectConditionMatches(state, viewerId, current) : [];
@@ -56,8 +56,6 @@ function PicksBody({ state, viewerId, initialFilters, storage: givenStorage, onO
   const count = newMatches.reduce((sum, item) => sum + item.matches.length, 0);
   const saved = selectSavedPublicAppointments(state, viewerId, picks.state.appointments);
   const update = (next: Partial<DiscoveryConditionInput>) => setInput(value => ({ ...value, ...next }));
-  const regionOptions = groupRegionOptions(input.region ? [input.region] : []);
-  const districts = groupDistrictOptions(input.region, input.district ? [input.district] : []);
   const open = (event: PublicDiscoveryEvent) => {
     const fresh = selectSavedPublicAppointments(state, viewerId, [{ groupId: event.group.id, activityId: event.activity.id }])[0]?.event;
     if (fresh) onOpenActivity(fresh.group.id, fresh.activity.id);
@@ -65,7 +63,7 @@ function PicksBody({ state, viewerId, initialFilters, storage: givenStorage, onO
   const row = (event: PublicDiscoveryEvent) => <article className="discovery-pick" key={`${event.group.id}:${event.activity.id}`}>
     <button type="button" className="discovery-pick__open" onClick={() => open(event)} aria-label={`${event.activity.title} 공개 약속 보기`}>
       <span className="discovery-pick__date">{dateLabel(event.activity.date)}<small>{event.activity.startTime || '시간 미정'}</small></span>
-      <span><strong>{event.activity.title}</strong><small>{event.group.name} · {[event.group.region, event.group.district].filter(Boolean).join(' ')}</small><small>{event.group.joined ? '가입한 모임' : event.group.joinMode === 'DIRECT' ? '모임 가입 후 참여' : '모임 가입 승인 후 참여'}</small></span><ChevronRight size={17}/>
+      <span><strong>{event.activity.title}</strong><small>{event.group.name} · {[event.group.region, event.group.district, event.group.neighborhood].filter(Boolean).join(' ')}</small><small>{event.group.joined ? '가입한 모임' : event.group.joinMode === 'DIRECT' ? '모임 가입 후 참여' : '모임 가입 승인 후 참여'}</small></span><ChevronRight size={17}/>
     </button>
     <SavePublicActivityButton state={state} viewerId={viewerId} groupId={event.group.id} activityId={event.activity.id} storage={picks.storage ?? undefined}/>
   </article>;
@@ -84,14 +82,14 @@ function PicksBody({ state, viewerId, initialFilters, storage: givenStorage, onO
       {!creating && !current && <>
         <button type="button" className="discovery-picks__primary" disabled={picks.status !== 'ready'} onClick={() => setCreating(true)}><Plus size={17}/>현재 조건으로 발견 조건 만들기</button>
         {picks.state.conditions.length ? <div className="discovery-picks__conditions">{picks.state.conditions.map(condition => <article key={condition.id}>
-          <button type="button" onClick={() => setSelectedId(condition.id)}><Search size={19}/><span><strong>{condition.name}</strong><small>{[condition.region, condition.district, topicOptions.find(item => item.id === condition.topic)?.label, weekdays.find(item => item[0] === condition.weekday)?.[1], timeBands.find(item => item[0] === condition.timeBand)?.[1]].filter(Boolean).join(' · ')}</small></span><ChevronRight size={17}/></button>
+          <button type="button" onClick={() => setSelectedId(condition.id)}><Search size={19}/><span><strong>{condition.name}</strong><small>{[condition.region, condition.district, condition.neighborhood, topicOptions.find(item => item.id === condition.topic)?.label, weekdays.find(item => item[0] === condition.weekday)?.[1], timeBands.find(item => item[0] === condition.timeBand)?.[1]].filter(Boolean).join(' · ')}</small></span><ChevronRight size={17}/></button>
           <button type="button" className="discovery-picks__delete" aria-label={`${condition.name} 조건 삭제`} onClick={() => picks.perform(() => removeDiscoveryCondition(picks.storage, viewerId, condition.id))}><Trash2 size={16}/></button>
         </article>)}</div> : <p className="discovery-picks__hint">지역·활동·요일·시간을 저장하면 다음에 다시 찾기 편해요.</p>}
       </>}
       {current && <section className="discovery-picks__matches"><button type="button" className="discovery-picks__back" onClick={() => setSelectedId('')}><ChevronLeft size={17}/>발견 조건 목록</button><h3>{current.name}</h3><p className="discovery-picks__hint">현재 조건에 맞는 공개 약속 {matches.length}개</p>{matches.map(row)}{!matches.length && <p>지금 맞는 공개 약속이 없어요. 새로 맞는 약속은 새 매칭에서 확인할 수 있어요.</p>}{onApplyFilters && <button type="button" className="discovery-picks__secondary" onClick={() => onApplyFilters(conditionDiscoveryFilters(current))}>지역·관심사로 더 보기<ChevronRight size={16}/></button>}</section>}
       {creating && <form className="discovery-picks__form" onSubmit={event => { event.preventDefault(); if (picks.perform(() => saveDiscoveryCondition(picks.storage, viewerId, state, { ...input, name: input.name.trim(), query: input.query.trim() }))) setCreating(false); }}>
         <label>조건 이름<input value={input.name} maxLength={50} required placeholder="예: 부산 주말 오전 산책" onChange={event => update({ name: event.target.value })}/></label>
-        <div className="discovery-picks__fields"><label>지역<select value={input.region} onChange={event => update({ region: event.target.value, district: '' })}><option value="">모든 지역</option>{regionOptions.map(region => <option key={region}>{region}</option>)}</select></label><label>동네<select value={input.district} disabled={!input.region} onChange={event => update({ district: event.target.value })}><option value="">모든 동네</option>{districts.map(district => <option key={district}>{district}</option>)}</select></label></div>
+        <GroupLocalityFields region={input.region} district={input.district} neighborhood={input.neighborhood} onChange={update} label="발견할 지역" ariaPrefix="발견 조건" mode="FILTER" neighborhoodMaxLength={80}/>
         <div className="discovery-picks__fields"><label>관심사<select value={input.topic} onChange={event => update({ topic: event.target.value as GroupTopic | '', subtopic: '' })}><option value="">모든 관심사</option>{topicOptions.map(topic => <option key={topic.id} value={topic.id}>{topic.emoji} {topic.label}</option>)}</select></label><label>세부 활동<select value={input.subtopic} disabled={!input.topic} onChange={event => update({ subtopic: event.target.value })}><option value="">모든 세부 활동</option>{groupSubtopicsFor(input.topic || undefined).map(item => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label></div>
         <div className="discovery-picks__fields"><label>요일<select value={input.weekday} onChange={event => update({ weekday: event.target.value as DiscoveryWeekday })}>{weekdays.map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label><label>시작 시간대<select value={input.timeBand} onChange={event => update({ timeBand: event.target.value as DiscoveryTimeBand })}>{timeBands.map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label></div>
         <label>검색어 · 선택<input value={input.query} maxLength={120} onChange={event => update({ query: event.target.value })}/></label>

@@ -1,0 +1,23 @@
+.personal-trip .plan-private-preferences {
+  margin:0 16px;
+  padding:0;
+  border-bottom:1px solid var(--line);
+  font-size:14px;
+  line-height:1.5;
+  overflow-wrap:anywhere;
+}
+.personal-trip .plan-private-preferences>summary {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  min-height:44px;
+  cursor:pointer;
+}
+.personal-trip .plan-private-preferences>summary>span {
+  font-size:12px;
+  color:var(--muted);
+}
+.personal-trip .plan-private-preferences>div { display:grid; gap:8px; padding:0 0 12px; }
+.personal-trip .plan-private-preferences p { margin:0; white-space:pre-wrap; }
+.personal-trip .plan-private-preferences .plan-private-facts { color:var(--muted); font-size:12px; }

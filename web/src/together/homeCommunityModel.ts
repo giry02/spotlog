@@ -5,6 +5,7 @@ import { discoveryProfile, filterDiscoveryGroups, isDiscoverableGroup, koreaDay,
 
 export interface HomePublicGroup {
   id: string; name: string; cover: string; region: string; district: string;
+  neighborhood?: string;
   category: string; emoji: string; welcome: string; example: boolean;
 }
 export interface HomePublicMeetup { group: HomePublicGroup; activity: PublicDiscoveryActivity }
@@ -25,6 +26,11 @@ export function homeCommunityFilters(state: TogetherState, region: string, query
   if (!selected || ['ALL', '전체', '전체 지역', '국내'].includes(selected)) return filters;
   const groups = state.groups.filter(isDiscoverableGroup);
   if (groups.some(group => group.region === selected)) return { ...filters, region: selected };
+  const local = groups.find(group => {
+    const profile = discoveryProfile(group);
+    return profile.neighborhood && [group.region, profile.district, profile.neighborhood].filter(Boolean).join(' ') === selected;
+  });
+  if (local) return { ...filters, region: local.region, district: discoveryProfile(local).district, neighborhood: discoveryProfile(local).neighborhood };
   const compound = groups.find(group => {
     const district = discoveryProfile(group).district;
     return district && [group.region + ' ' + district, group.region + ' · ' + district].includes(selected);
@@ -46,7 +52,7 @@ const validDay = (value: string) => /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.
 const publicGroup = (group: TogetherGroup): HomePublicGroup => {
   const profile = discoveryProfile(group);
   const topic = topicOptions.find(item => item.id === profile.topics[0]);
-  return { id: group.id, name: group.name, cover: group.cover, region: group.region, district: profile.district, category: topic?.label || '모임', emoji: topic?.emoji || '👥', welcome: profile.welcome, example: group.sourceKind === 'EXAMPLE' };
+  return { id: group.id, name: group.name, cover: group.cover, region: group.region, district: profile.district, ...(profile.neighborhood !== undefined ? { neighborhood: profile.neighborhood } : {}), category: topic?.label || '모임', emoji: topic?.emoji || '👥', welcome: profile.welcome, example: group.sourceKind === 'EXAMPLE' };
 };
 
 /** Public discovery and the member-only continuation are projected separately. Never returns message text. */

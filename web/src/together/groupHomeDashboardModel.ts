@@ -50,7 +50,7 @@ export function selectGroupHomeDashboard(state: TogetherState, viewerId: string,
   const hasRecords = pastActivityCount > 0 || posts.length > 0 || media.length > 0 || journalCount > 0 || taste.totalRecordCount > 0;
   const lifecycle = group.archived ? 'ARCHIVED' as const : upcoming.length ? 'UPCOMING' as const : hasRecords ? 'RECORDS' as const : 'START' as const;
   return {
-    group: { id: group.id, name: group.name, kind: group.kind, region: [group.region, group.discovery?.district].filter(Boolean).join(' · '), cover: image(group.cover), archived: group.archived, example: group.sourceKind === 'EXAMPLE' },
+    group: { id: group.id, name: group.name, kind: group.kind, region: [group.region, group.discovery?.district, group.discovery?.neighborhood].filter(Boolean).join(' · '), cover: image(group.cover), archived: group.archived, example: group.sourceKind === 'EXAMPLE' },
     canWrite: !group.archived, canManage: !group.archived && (group.ownerId === viewerId || group.managerIds.includes(viewerId)),
     memberCount: members.length, members: members.slice(0, 7),
     nextActivity: upcoming[0], upcoming: upcoming.slice(1, 4), upcomingCount: upcoming.length,

@@ -59,7 +59,7 @@ const themes: CreationBrief['theme'][] = ['FOOD', 'CAFE', 'FOLIAGE', 'CULTURE', 
 const transports: CreationBrief['transport'][] = ['UNSET', 'WALK', 'PUBLIC', 'CAR'];
 const placeKinds: Place['kind'][] = ['LANDMARK', 'LEISURE', 'FOOD', 'CAFE', 'STAY', 'SHOP'];
 const topicRules: [GroupTopic, RegExp][] = [
-  ['FOOD', /맛집|음식점|식당|식사|점심|저녁|밥/], ['CAFE', /카페|커피|차\s*마/], ['BOOK', /독서|책(?:을)?\s*읽|북클럽|책\s*모임/],
+  ['FOOD', /맛집|음식점|식당|식사|점심|저녁|밥/], ['CAFE', /카페|커피|차\s*마/], ['BOOK', /독서|(?:^|[^가-힣])(?:전자|그림|만화)?책(?:을)?\s*읽|북클럽|(?:^|[^가-힣])(?:전자|그림|만화)?책\s*모임/],
   ['TRAVEL', /여행/], ['WALK', /산책|나들이|걷기\s*(?:모임|운동)|함께\s*걷|걷고\s*싶/], ['OUTDOOR', /단풍|꽃놀이|자연|등산|캠핑|야외|트레킹|바다|숲|공원/], ['CULTURE', /전시|박물관|미술관|문화|공연|영화|뮤지컬/],
   ['FAMILY', /가족|부모님|엄마|아빠/], ['PHOTO', /사진|촬영/], ['SOCIAL', /친구|친목|사교|새로운\s*사람|동네\s*사람/],
   ['SPORTS', /운동|러닝|달리기|축구|농구|배드민턴|테니스|볼링|탁구|자전거/], ['GAME', /게임|체스|바둑|마작/],
@@ -125,6 +125,11 @@ export function interpretCreationPrompt(prompt: string, initial: Partial<Creatio
     const district = normalized.match(new RegExp(`(?:^|[^가-힣])${region}\\s+([가-힣]{1,8}(?:구|군))(?=에서|에|로|의|은|는|을|를|과|와|[\\s,.!?]|$)`))?.[1];
     // Preserve an explicitly written district, while ordinary words such as 친구 are not districts.
     if (district && !['친구', '식구', '가구', '누구', '욕구', '탐구', '연구', '지구', '농구', '축구', '야구', '배구', '정구', '탁구'].includes(district)) region += ` ${district}`;
+    if (initial.purpose === 'GROUP' || purpose === 'GROUP') {
+      const root = foundRegions[0];
+      const locality = normalized.match(new RegExp(`(?:^|[^가-힣])${root}\\s+((?:[가-힣0-9·.]{1,18}(?:시|군|구)\\s+){0,2})([가-힣0-9·.]{1,24}(?:동|읍|면))(?=에서|에|로|의|은|는|을|를|과|와|까지|[\\s,.!?]|$)`));
+      if (locality && !/^(?:친구|식구|누구)\s/.test(locality[1])) region = `${root} ${locality[1]}${locality[2]}`.replace(/\s+/g, ' ').trim();
+    }
   }
   if (foundRegions.length > 1) notes.push('지역이 여러 곳이에요. 이번 일정의 지역을 한 곳으로 확인해 주세요.');
   const exactDates = [...text.matchAll(/\b(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})(?!\d)|(\d{4})\s*년\s*(\d{1,2})\s*월\s*(\d{1,2})\s*일/g)]
@@ -174,7 +179,7 @@ export function interpretCreationPrompt(prompt: string, initial: Partial<Creatio
 function briefIssues(brief: CreationBrief): string[] {
   const issues: string[] = [];
   if (!purposeValues.includes(brief.purpose)) issues.push('만들 항목을 확인해 주세요.');
-  if (!normalizedRegion(brief.region)) issues.push('지역을 먼저 선택해 주세요.');
+  if (!normalizedRegion(brief.region) && brief.locationUndecided !== true) issues.push('지역을 먼저 선택해 주세요.');
   if (brief.date && !validDate(brief.date)) issues.push('시작 날짜를 확인해 주세요.');
   if (brief.endDate && !validDate(brief.endDate)) issues.push('종료 날짜를 확인해 주세요.');
   if (brief.endDate && !brief.date) issues.push('시작 날짜를 먼저 확인해 주세요.');

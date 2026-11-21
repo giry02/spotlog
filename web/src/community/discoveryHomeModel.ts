@@ -5,7 +5,7 @@ import { discoveryProfile, filterDiscoveryGroups, isDiscoverableGroup, publicAct
 
 export type DiscoveryHomeView = 'recommended' | 'meetups' | 'groups' | 'places' | 'trips';
 export type DiscoveryPurpose = 'FOOD' | 'CAFE' | 'WALK' | 'CULTURE' | 'FAMILY' | 'TRAVEL';
-export interface DiscoveryHomeFilters { region: string; district?: string; query: string; purpose?: DiscoveryPurpose }
+export interface DiscoveryHomeFilters { region: string; district?: string; neighborhood?: string; query: string; purpose?: DiscoveryPurpose }
 export const discoveryPurposes: ReadonlyArray<{ id: DiscoveryPurpose; label: string; topic: GroupTopic; placeKind: PlaceKind | 'ALL' }> = [
   { id: 'FOOD', label: '맛집', topic: 'FOOD', placeKind: 'FOOD' },
   { id: 'CAFE', label: '카페', topic: 'CAFE', placeKind: 'CAFE' },
@@ -15,7 +15,7 @@ export const discoveryPurposes: ReadonlyArray<{ id: DiscoveryPurpose; label: str
   { id: 'TRAVEL', label: '여행', topic: 'TRAVEL', placeKind: 'ALL' },
 ];
 export interface DiscoveryGroupCard {
-  id: string; name: string; cover: string; region: string; district: string; category: string;
+  id: string; name: string; cover: string; region: string; district: string; neighborhood?: string; category: string;
   welcome: string; topics: GroupTopic[]; example: boolean; joined: boolean; joinMode: 'DIRECT' | 'APPROVAL';
 }
 export interface DiscoveryMeetupCard { group: DiscoveryGroupCard; activity: PublicDiscoveryActivity }
@@ -26,6 +26,7 @@ const groupCard = (group: TogetherGroup, viewerId: string): DiscoveryGroupCard =
   const profile = discoveryProfile(group);
   return {
     id: group.id, name: group.name, cover: group.cover, region: group.region, district: profile.district,
+    ...(profile.neighborhood ? { neighborhood: profile.neighborhood } : {}),
     category: topicOptions.find(topic => topic.id === profile.topics[0])?.label || '모임',
     welcome: profile.welcome, topics: [...profile.topics], example: group.sourceKind === 'EXAMPLE',
     joined: Boolean(viewerId && group.memberIds.includes(viewerId)), joinMode: profile.joinMode === 'DIRECT' ? 'DIRECT' : 'APPROVAL',
@@ -37,15 +38,16 @@ export function selectDiscoveryHome(state: TogetherState, places: ReadonlyArray<
   const region = filters.region.trim(), query = normalize(filters.query);
   const purpose = discoveryPurposes.find(item => item.id === filters.purpose);
   const district = filters.district?.trim() || '';
-  const baseGroups = filterDiscoveryGroups(state, { region, district, topic: purpose?.topic, sort: 'EDITORIAL' }, at);
+  const neighborhood = filters.neighborhood?.trim() || '';
+  const baseGroups = filterDiscoveryGroups(state, { region, district, neighborhood, topic: purpose?.topic, sort: 'EDITORIAL' }, at);
   const groups = baseGroups.filter(group => {
     const profile = discoveryProfile(group);
-    return matches(query, [group.name, group.region, profile.district, group.introduction, profile.welcome, ...profile.topics.map(id => topicOptions.find(topic => topic.id === id)?.label || '')]);
+    return matches(query, [group.name, group.region, profile.district, profile.neighborhood || '', group.introduction, profile.welcome, ...profile.topics.map(id => topicOptions.find(topic => topic.id === id)?.label || '')]);
   }).map(group => groupCard(group, viewerId));
   const meetups: DiscoveryMeetupCard[] = baseGroups.flatMap(group => {
     const card = groupCard(group, viewerId);
     return upcomingPublicActivities(state, group, at)
-      .filter(activity => matches(query, [activity.title, activity.description, card.name, card.region, card.district, ...card.topics.map(id => topicOptions.find(topic => topic.id === id)?.label || '')]))
+      .filter(activity => matches(query, [activity.title, activity.description, card.name, card.region, card.district, card.neighborhood || '', ...card.topics.map(id => topicOptions.find(topic => topic.id === id)?.label || '')]))
       .map(activity => ({ group: card, activity }));
   }).sort((left, right) => publicActivityTimeKey(left.activity.date, left.activity.startTime).localeCompare(publicActivityTimeKey(right.activity.date, right.activity.startTime)));
   // Callers supply the same approved place catalogue used by customer discovery.
@@ -58,7 +60,7 @@ export function selectDiscoveryHome(state: TogetherState, places: ReadonlyArray<
   if (region && !regions.includes(region)) regions.push(region);
   return {
     regions, groups, meetups, places: homePlacePreview(matchingPlaces, matchingPlaces.length),
-    groupFilters: { region, ...(district ? { district } : {}), query: filters.query.trim(), topic: purpose?.topic, dateFilter: 'ALL' as const, sort: 'SOONEST' as const },
+    groupFilters: { region, ...(district ? { district } : {}), ...(neighborhood ? { neighborhood } : {}), query: filters.query.trim(), topic: purpose?.topic, dateFilter: 'ALL' as const, sort: 'SOONEST' as const },
     placeFilters: { region, ...(district ? { district } : {}), query: filters.query.trim(), kind: purpose?.placeKind || 'ALL' as const },
   };
 }

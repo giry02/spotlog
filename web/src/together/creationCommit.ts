@@ -6,6 +6,7 @@ import { resolvePlacePhotos } from '../placePhotos.ts';
 import { topicOptions } from './discovery.ts';
 import { shareChatEntity } from './chatEntities.ts';
 import { createRoomPoll } from './polls.ts';
+import { groupLocalityIssues, parseGroupLocality } from './groupRegions.ts';
 
 export interface CreationCommitInput {
   requestId: string;
@@ -23,7 +24,7 @@ const bounded = (value: unknown, limit: number, label: string, required = false)
 const validDate = (value: string) => /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(`${value}T12:00:00Z`)) && new Date(`${value}T12:00:00Z`).toISOString().slice(0, 10) === value;
 function checkBrief(brief: CreationBrief) {
   if (!['MEETUP', 'OUTING', 'TRIP', 'GROUP'].includes(brief.purpose)) throw new Error('만들 내용을 다시 선택해 주세요.');
-  bounded(brief.region, 80, '지역', true);
+  bounded(brief.region, 80, '지역', brief.locationUndecided !== true);
   bounded(brief.prompt, 1000, '요청');
   bounded(brief.notes, 2000, '조건');
   if (brief.purpose === 'GROUP') return;
@@ -89,7 +90,10 @@ export function commitCreation(state: TogetherState, actorId: string, input: Cre
     const name = bounded(draft.name, 100, '모임 이름', true);
     const firstIdea = bounded(draft.firstActivityIdea ?? '', 500, '첫 활동 아이디어');
     const introduction = bounded([bounded(draft.introduction, 3000, '모임 소개'), firstIdea ? `첫 활동 아이디어 · 일정 미정\n${firstIdea}` : ''].filter(Boolean).join('\n\n'), 4000, '모임 소개');
-    const area = bounded(draft.region, 80, '활동 지역', true).split(/\s+/), region = area[0], district = area.slice(1).join(' ');
+    const locality = parseGroupLocality(bounded(draft.region, 80, '활동 지역', input.brief.locationUndecided !== true));
+    const { region, district } = locality, neighborhood = locality.neighborhood || '';
+    const localityErrors = groupLocalityIssues({ region, district, neighborhood });
+    if (localityErrors.length) throw new Error(localityErrors.join(' '));
     const themes: Partial<Record<CreationBrief['theme'], GroupTopic>> = { FOOD: 'FOOD', CAFE: 'CAFE', FOLIAGE: 'OUTDOOR', CULTURE: 'CULTURE', TRAVEL: 'TRAVEL' };
     const chosenTopics = draft.topics ?? (themes[input.brief.theme] ? [themes[input.brief.theme]!] : []);
     if (!Array.isArray(chosenTopics) || chosenTopics.length > 16 || chosenTopics.some(topic => !topicOptions.some(item => item.id === topic))) throw new Error('관심사를 다시 확인해 주세요.');
@@ -101,14 +105,14 @@ export function commitCreation(state: TogetherState, actorId: string, input: Cre
     const previous = state.groups.find(group => group.id === id);
     if (previous) {
       if (previous.ownerId !== actorId || !previous.memberIds.includes(actorId) || previous.name !== name || previous.introduction !== introduction || previous.region !== region || previous.kind !== draft.kind || previous.spaceType === 'ACTIVITY' || previous.archived || previous.blockedMemberIds?.includes(actorId)) throw new Error('같은 요청의 내용이 바뀌었어요. 다시 확인해 주세요.');
-      if (previous.discovery?.topics.join('\n') !== topics.join('\n') || previous.discovery?.district !== district || previous.discovery?.welcome !== welcome || previous.discovery?.joinGuide !== joinGuide || previous.discovery?.joinMode !== joinMode) throw new Error('같은 요청의 가입 안내가 바뀌었어요. 다시 확인해 주세요.');
+      if (previous.discovery?.topics.join('\n') !== topics.join('\n') || previous.discovery?.district !== district || (previous.discovery?.neighborhood || '') !== neighborhood || previous.discovery?.welcome !== welcome || previous.discovery?.joinGuide !== joinGuide || previous.discovery?.joinMode !== joinMode) throw new Error('같은 요청의 가입 안내가 바뀌었어요. 다시 확인해 주세요.');
       return { kind: 'GROUP', id };
     }
     if (state.activities.some(activity => activity.id === id)) throw new Error('이미 사용한 요청이에요.');
     state.groups.push({ id, name, kind: draft.kind, region, introduction, cover: '', visibility: 'PRIVATE',
       ownerId: actorId, memberIds: [actorId], managerIds: [], archived: false, promotionPublished: false,
       sourceKind: 'LOCAL', spaceType: 'GROUP', interestPlaceIds: [],
-      createdAt: new Date().toISOString(), discovery: { topics, district, style: 'NEIGHBORHOOD', recruitment: 'PAUSED', welcome, joinGuide, joinMode } });
+      createdAt: new Date().toISOString(), discovery: { topics, district, ...(neighborhood ? { neighborhood } : {}), style: 'NEIGHBORHOOD', recruitment: 'PAUSED', welcome, joinGuide, joinMode } });
     return { kind: 'GROUP', id };
   }
   if (!input.plan) throw new Error('만들 일정을 선택해 주세요.');

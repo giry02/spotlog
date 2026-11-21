@@ -15,6 +15,8 @@ export type GroupJoinMode = 'DIRECT' | 'APPROVAL';
 export type GroupTopic = 'TRAVEL' | 'FOOD' | 'CAFE' | 'WALK' | 'PHOTO' | 'OUTDOOR' | 'CULTURE' | 'FAMILY' | 'SOCIAL' | 'SPORTS' | 'BOOK' | 'GAME' | 'MUSIC' | 'LANGUAGE' | 'CRAFT' | 'PETS';
 export interface GroupDiscoveryProfile {
   topics: GroupTopic[]; district: string; style: 'NEIGHBORHOOD' | 'DESTINATION'; recruitment: 'OPEN' | 'PAUSED'; welcome: string; joinGuide: string;
+  /** Optional town/dong within the explicitly selected region and district. */
+  neighborhood?: string;
   /** Additive selected child IDs; legacy broad interests stay unclassified. */
   subtopics?: string[];
   /** Missing on existing records means APPROVAL; never silently expand an existing group's access. */

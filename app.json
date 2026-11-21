@@ -13,7 +13,10 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.spotlog.mobile"
+      "bundleIdentifier": "com.spotlog.mobile",
+      "infoPlist": {
+        "NSLocationDefaultAccuracyReduced": true
+      }
     },
     "android": {
       "versionCode": 1,
@@ -24,12 +27,32 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "package": "com.spotlog.mobile"
+      "package": "com.spotlog.mobile",
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION"
+      ],
+      "blockedPermissions": [
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_BACKGROUND_LOCATION",
+        "android.permission.FOREGROUND_SERVICE_LOCATION"
+      ]
     },
     "plugins": [
       "expo-image",
       "expo-video",
       "expo-font",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "현재 위치를 한 번 확인해 내 동네를 설정하고 가까운 모임을 찾습니다. 정밀 좌표는 저장하지 않습니다.",
+          "locationAlwaysAndWhenInUsePermission": false,
+          "locationAlwaysPermission": false,
+          "motionUsagePermission": false,
+          "isIosBackgroundLocationEnabled": false,
+          "isAndroidBackgroundLocationEnabled": false,
+          "isAndroidForegroundServiceEnabled": false
+        }
+      ],
       [
         "expo-notifications",
         {
