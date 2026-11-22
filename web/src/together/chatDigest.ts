@@ -1,6 +1,7 @@
 import { isMember, roomIdForActivity, roomIdForGroup, type TogetherMessage, type TogetherState } from './model.ts';
+import { MAX_CHAT_AI_CHARACTERS, MAX_CHAT_AI_MESSAGES } from './chatAiLimits.ts';
 
-export type ChatDigestScope = 'unread' | 'today' | 'recent7' | 'date' | 'all';
+export type ChatDigestScope = 'unread' | 'today' | 'recent7' | 'date' | 'all' | 'latest';
 export type ChatDigestCategory = 'prepare' | 'time-place' | 'check' | 'other';
 export interface ChatDigestFilters { scope: ChatDigestScope; authorId?: string; from?: string; to?: string }
 export interface ChatDigestContext { state: TogetherState; userId: string; groupId: string; roomId: string; unreadAfter?: string }
@@ -36,7 +37,8 @@ function windowFor(filters: ChatDigestFilters, reference: number, unreadAfter?: 
   if (filters.authorId !== undefined && !filters.authorId) throw new Error('발언한 참여자를 선택해 주세요.');
   const today = dateStart(chatDigestDayKey(reference));
   switch (filters.scope) {
-    case 'all': return { start: -Infinity, end: Infinity, strictStart: false };
+    case 'all':
+    case 'latest': return { start: -Infinity, end: Infinity, strictStart: false };
     case 'today': return { start: today, end: today + dayMs, strictStart: false };
     case 'recent7': return { start: today - 6 * dayMs, end: today + dayMs, strictStart: false };
     case 'unread': {
@@ -61,7 +63,7 @@ export function selectChatDigestMessages(context: ChatDigestContext, filters: Ch
   const window = windowFor(filters, reference, context.unreadAfter);
   const ids = new Map<string, number>();
   context.state.messages.forEach(message => ids.set(message.id, (ids.get(message.id) ?? 0) + 1));
-  return context.state.messages.filter(message => {
+  const sources = context.state.messages.filter(message => {
     const instant = Date.parse(message.createdAt);
     return message.roomId === context.roomId && !message.deleted && message.entity === undefined && Boolean(message.id && message.body.trim()) && ids.get(message.id) === 1
       && Number.isFinite(instant) && instant <= cutoff && instant < window.end
@@ -69,6 +71,15 @@ export function selectChatDigestMessages(context: ChatDigestContext, filters: Ch
       && (filters.authorId === undefined || message.authorId === filters.authorId);
   }).map(({ id, roomId, authorId, body, createdAt }) => ({ id, roomId, authorId, body, createdAt }))
     .sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt) || a.id.localeCompare(b.id));
+  if (filters.scope !== 'latest') return sources;
+  let characters = 0;
+  const recent: ChatDigestSource[] = [];
+  for (const source of sources) {
+    if (recent.length === MAX_CHAT_AI_MESSAGES || characters + source.body.length > MAX_CHAT_AI_CHARACTERS) break;
+    recent.push(source);
+    characters += source.body.length;
+  }
+  return recent;
 }
 
 export function chatDigestSelectionKey(filters: ChatDigestFilters, unreadAfter?: string): string {

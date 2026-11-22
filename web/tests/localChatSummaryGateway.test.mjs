@@ -50,9 +50,9 @@ test('chat summaries remain unavailable unless explicitly enabled, including on 
 test('explicit loopback opt-in summarizes selected originals with numbered pseudonyms and echoes the exact request scope', async t => {
   const app = await serve(t, ({ messages }) => {
     const data = JSON.parse(messages[1].content);
-    assert.deepEqual(data, { purpose: 'KEY_POINTS', cutoff: '2026-11-19T05:00:00.000Z', sources: [
-      { ref: 2, speaker: 'p2', at: '2026-11-19T04:01:00.000Z', body: '우산을 챙겨 주세요.' },
-      { ref: 1, speaker: 'p1', at: '2026-11-19T04:00:00.000Z', body: '두 시에 정문에서 만나요.' },
+    assert.deepEqual(data, { purpose: 'KEY_POINTS', order: 'OLDEST_TO_NEWEST', sources: [
+      { ref: 1, speaker: 'p1', body: '두 시에 정문에서 만나요.', volunteerEvidence: [] },
+      { ref: 2, speaker: 'p2', body: '우산을 챙겨 주세요.', volunteerEvidence: [] },
     ] });
     for (const privateValue of ['account-self', 'book-group', 'book-night', 'person-private-a', 'person-private-b', 'original-a', 'original-b', 'private-member-bio']) {
       assert.equal(JSON.stringify(messages).includes(privateValue), false, privateValue);

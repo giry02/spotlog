@@ -9,12 +9,20 @@ import { placeAssistantPromptLimit, placeAssistantRegions, preparePlaceAssistant
 import { buildPlaceSearchPresentation, formatPlaceSearchDistance, placeSearchOriginOptions, type PlaceSearchSort } from './placeSearchPresentation';
 import './place-assistant.css';
 
-interface PlaceAssistantSheetProps {
+export interface PlaceAssistantSelection {
+  /** Actor/room or trip/DAY identity. A late completion cannot update another selection context. */
+  scopeKey: string; contextLabel: string; label: string;
+  selectedIds?: ReadonlyArray<string>;
+  actionLabel?: (place: Place) => string;
+  onSelect: (place: Place) => string | null | Promise<string | null>;
+}
+export interface PlaceAssistantSheetProps {
   active: boolean; inline?: boolean;
   places: ReadonlyArray<Place>; references?: ReadonlyArray<HomeRegionReference>;
-  initialRegion?: string; initialDistrict?: string; initialPrompt?: string;
-  savedIds: ReadonlyArray<string>; onToggleSave: (id: string) => void;
+  initialRegion?: string; initialDistrict?: string; initialPrompt?: string; initialOriginId?: string; initialKind?: PlaceAssistantKind;
+  savedIds?: ReadonlyArray<string>; onToggleSave?: (id: string) => void;
   onOpenPlace: (place: Place) => void; onClose: () => void;
+  selection?: PlaceAssistantSelection;
 }
 type SearchRun = { type: 'idle' | 'busy' } | { type: 'error'; message: string }
   | { type: 'result'; mode: 'model' | 'catalog'; ids: string[]; criteriaKey: string };
@@ -24,14 +32,17 @@ const pageSize = 8;
 const sorts: Array<[PlaceSearchSort, string]> = [['RECOMMENDED', '추천순'], ['MATCH', '조건 맞는순'], ['DISTANCE', '가까운순'], ['NAME', '이름순']];
 const PlacesMap = lazy(() => import('./InterestPlacesMap'));
 
-export default function PlaceAssistantSheet({ active, inline, places, references = emptyReferences, initialRegion, initialDistrict, initialPrompt, savedIds, onToggleSave, onOpenPlace, onClose }: PlaceAssistantSheetProps) {
+export default function PlaceAssistantSheet({ active, inline, places, references = emptyReferences, initialRegion, initialDistrict, initialPrompt, initialOriginId, initialKind='ALL', savedIds = [], onToggleSave, onOpenPlace, onClose, selection }: PlaceAssistantSheetProps) {
   const promptId = useId();
   const [prompt, setPrompt] = useState(initialPrompt?.slice(0, placeAssistantPromptLimit) ?? '');
-  const [region, setRegion] = useState(''), [kind, setKind] = useState<PlaceAssistantKind>('ALL');
+  const [region, setRegion] = useState(''), [kind, setKind] = useState<PlaceAssistantKind>(initialKind);
   const [run, setRun] = useState<SearchRun>({ type: 'idle' });
   const [attempted, setAttempted] = useState(false), [editing, setEditing] = useState(true), [visible, setVisible] = useState(pageSize);
   const [sort, setSort] = useState<PlaceSearchSort>('RECOMMENDED');
-  const [originId, setOriginId] = useState(''), [originQuery, setOriginQuery] = useState(''), [originOpen, setOriginOpen] = useState(false);
+  const [originId, setOriginId] = useState(initialOriginId || ''), [originQuery, setOriginQuery] = useState(''), [originOpen, setOriginOpen] = useState(false);
+  const [selectingId, setSelectingId] = useState(''), [selectionError,setSelectionError] = useState('');
+  const selectionLock = useRef<object|null>(null), selectionRef = useRef(selection), selectionEpoch = useRef(0);
+  selectionRef.current = selection;
   const [selectedIds, setSelectedIds] = useState<string[]>([]), [comparing, setComparing] = useState(false), [mapOpen, setMapOpen] = useState(false), [feedback, setFeedback] = useState('');
   const pending = useRef<{controller: AbortController; key: string} | null>(null);
   const outputRef = useRef<HTMLElement>(null), comparisonRef = useRef<HTMLElement>(null), contentRef = useRef<HTMLDivElement>(null), queryRef = useRef<HTMLDivElement>(null);
@@ -52,6 +63,7 @@ export default function PlaceAssistantSheet({ active, inline, places, references
   const appliedKinds = prepared.requestedKinds.map(item => interestKindLabels[item]);
 
   useEffect(() => () => { pending.current?.controller.abort(); pending.current = null; }, []);
+  useEffect(() => { selectionEpoch.current += 1; selectionLock.current=null; setSelectingId(''); setSelectionError(''); setFeedback(''); return () => { selectionEpoch.current += 1; selectionLock.current=null; }; }, [selection?.scopeKey]);
   useEffect(() => {
     if (pending.current && (!active || pending.current.key !== criteriaKey)) {
       pending.current.controller.abort(); pending.current = null; setRun({ type: 'idle' }); setEditing(true);
@@ -116,10 +128,27 @@ export default function PlaceAssistantSheet({ active, inline, places, references
     if (selectedRows.length >= 3) { setFeedback('한 번에 3곳까지 비교할 수 있어요. 먼저 선택한 장소를 빼주세요.'); return; }
     setSelectedIds(ids => [...ids.filter(value => rows.some(item => item.place.id === value)), id]);
   }
+  async function selectPlace(place: Place) {
+    if (selectionLock.current || !active || !selection) return;
+    const current = places.find(item => item.id === place.id && !item.personal);
+    if (!current || !rows.some(row => row.place.id === current.id)) { setFeedback('현재 조건에서 사용할 장소를 다시 확인해 주세요.'); return; }
+    if (selection.selectedIds?.includes(current.id)) return;
+    const epoch = selectionEpoch.current, scope = selection.scopeKey, operation={};
+    selectionLock.current = operation; setSelectingId(current.id); setFeedback(''); setSelectionError('');
+    try {
+      const problem = await selection.onSelect(current);
+      if (selectionEpoch.current !== epoch || selectionRef.current?.scopeKey !== scope) return;
+      if(problem)setSelectionError(problem);else setFeedback(`${current.name} 선택을 반영했어요.`);
+    } catch (cause) {
+      if (selectionEpoch.current === epoch && selectionRef.current?.scopeKey === scope) setSelectionError(cause instanceof Error ? cause.message : '담지 못했어요. 장소와 선택은 그대로예요.');
+    } finally { if(selectionLock.current===operation)selectionLock.current=null; if (selectionEpoch.current === epoch) setSelectingId(''); }
+  }
+  const selectionAction = (place: Place) => selection && <button type="button" className="place-assistant__select" aria-label={`${place.name} · ${selection.selectedIds?.includes(place.id)?'담김':selection.actionLabel?.(place)||selection.label}`} disabled={Boolean(selectingId) || selection.selectedIds?.includes(place.id)} onClick={() => void selectPlace(place)}>{selection.selectedIds?.includes(place.id) ? <><Check size={15}/>담김</> : selectingId === place.id ? '담는 중…' : selection.actionLabel?.(place) || selection.label}</button>;
   const useModel = Boolean(endpoint && prepared.candidateIds.length);
   const submitLabel = run.type === 'busy' ? '장소 찾는 중…' : useModel ? 'AI 추천 받기' : '등록 장소로 찾기';
   if (!active) return null;
   const content = <div ref={contentRef} className="place-assistant" data-has-results={Boolean(result)}>
+    {selection && <p className="place-assistant__context"><MapPin size={16}/>{selection.contextLabel}<small>직접 고른 장소만 담아요.</small></p>}
     {!result && <header className="place-assistant__intro"><span><Sparkles size={17}/>장소 탐색</span><h2>어디가 우리에게 맞을까요?</h2><p>하고 싶은 일을 적고, 조건과 거리를 비교해 골라보세요.</p></header>}
     {result && <div ref={queryRef} className="place-assistant__query"><Search size={18}/><div><strong>{prompt}</strong><small>{[scopeLabel, ...appliedKinds].filter(Boolean).join(' · ')}</small></div><button type="button" aria-expanded={editing} aria-controls={`${promptId}-form`} onClick={() => setEditing(value => !value)}><SlidersHorizontal size={17}/>{editing ? '접기' : '조건 수정'}</button></div>}
     <form id={`${promptId}-form`} className="place-assistant__form" hidden={!editing} onSubmit={submit}>
@@ -132,6 +161,7 @@ export default function PlaceAssistantSheet({ active, inline, places, references
       <div className="place-assistant__actions"><button type="submit" className="place-assistant__submit" disabled={run.type === 'busy'}>{useModel ? <Sparkles size={17}/> : <Search size={17}/>} {submitLabel}</button>{run.type === 'busy' && <button type="button" onClick={resetSearch}>취소</button>}</div>
     </form>
     {feedback && <p className="place-assistant__hint" role="status">{feedback}</p>}
+    {selectionError && <p className="place-assistant__issue" role="alert">{selectionError}</p>}
     <section ref={outputRef} className="place-assistant__output" aria-label="장소 추천 결과" aria-busy={run.type === 'busy'}>
       {run.type === 'busy' && <div className="place-assistant__message" role="status">지역과 요청에 맞는 장소를 찾고 있어요.</div>}
       {run.type === 'error' && <div className="place-assistant__message"><p role="alert">{run.message}</p><button type="button" onClick={searchCatalog}>등록 장소로 찾기</button></div>}
@@ -149,15 +179,15 @@ export default function PlaceAssistantSheet({ active, inline, places, references
         {!rows.length && <div className="place-assistant__message"><strong>조건에 맞는 장소가 없어요</strong><p>검색 조건을 바꾸거나 특징을 줄여 다시 찾아보세요.</p><button type="button" onClick={() => setEditing(true)}>조건 수정</button>{result.mode === 'model' && <button type="button" onClick={searchCatalog}>등록 장소로 찾기</button>}</div>}
         <ol className="place-assistant__results" aria-label={`${sorts.find(([id]) => id === presentation.sort)?.[1] || '추천순'} 장소 목록`}>
           {rows.slice(0, visible).map((row, index) => { const place = row.place, saved = savedIds.includes(place.id), comparingPlace = selectedRows.some(item => item.place.id === place.id); return <li className="place-assistant__card" key={place.id}>
-            <div className="place-assistant__card-heading"><button type="button" className="place-assistant__open" data-place-open={place.id} aria-label={`${place.name} 상세 보기`} onClick={() => openPlace(place)}><span className="place-assistant__thumbnail"><MapPin size={24}/>{place.image && <img src={place.image} loading="lazy" alt="" onError={event => { event.currentTarget.hidden = true; }}/>}<span className="place-assistant__rank" aria-label={`${index + 1}번째 추천`}>{index + 1}</span></span><span className="place-assistant__copy"><small>{interestKindLabels[place.kind]} · {place.area}</small><strong>{place.name}</strong>{row.distanceKm !== null && <span className="place-assistant__distance">{formatPlaceSearchDistance(row.distanceKm)}</span>}{availableOrigin && row.distanceKm === null && <span>거리 확인 전</span>}</span></button><button type="button" className="place-assistant__save" aria-label={`${place.name} ${saved ? '보관함에서 제거' : '보관함에 저장'}`} aria-pressed={saved} onClick={() => onToggleSave(place.id)}><Bookmark size={21} fill={saved ? 'currentColor' : 'none'}/></button></div>
+            <div className="place-assistant__card-heading"><button type="button" className="place-assistant__open" data-place-open={place.id} aria-label={`${place.name} 상세 보기`} onClick={() => openPlace(place)}><span className="place-assistant__thumbnail"><MapPin size={24}/>{place.image && <img src={place.image} loading="lazy" alt="" onError={event => { event.currentTarget.hidden = true; }}/>}<span className="place-assistant__rank" aria-label={`${index + 1}번째 추천`}>{index + 1}</span></span><span className="place-assistant__copy"><small>{interestKindLabels[place.kind]} · {place.area}</small><strong>{place.name}</strong>{row.distanceKm !== null && <span className="place-assistant__distance">{formatPlaceSearchDistance(row.distanceKm)}</span>}{availableOrigin && row.distanceKm === null && <span>거리 확인 전</span>}</span></button>{onToggleSave && <button type="button" className="place-assistant__save" aria-label={`${place.name} ${saved ? '보관함에서 제거' : '보관함에 저장'}`} aria-pressed={saved} onClick={() => onToggleSave(place.id)}><Bookmark size={21} fill={saved ? 'currentColor' : 'none'}/></button>}</div>
             {row.matchedConditions.length > 0 && <div className="place-assistant__matches">{row.matchedConditions.slice(0, 4).map(term => <span key={term}><Check size={12}/>{term}</span>)}</div>}
             <p className="place-assistant__reason">{row.matchedConditions.some(term => term !== interestKindLabels[place.kind]) ? row.reason : place.hook || place.description || row.reason}</p>
-            <div className="place-assistant__card-actions"><button type="button" onClick={() => openPlace(place)}>상세 보기<ChevronRight size={15}/></button><button type="button" aria-pressed={comparingPlace} onClick={() => toggleCompare(place.id)}>{comparingPlace ? <Check size={15}/> : <PlusCompare/>}{comparingPlace ? '비교에 담음' : '후보 비교'}</button></div>
+            <div className="place-assistant__card-actions">{selectionAction(place)}<button type="button" onClick={() => openPlace(place)}>상세 보기<ChevronRight size={15}/></button><button type="button" aria-pressed={comparingPlace} onClick={() => toggleCompare(place.id)}>{comparingPlace ? <Check size={15}/> : <PlusCompare/>}{comparingPlace ? '비교에 담음' : '후보 비교'}</button></div>
           </li>; })}
         </ol>
         {rows.length > visible && <button type="button" className="place-assistant__more" onClick={() => setVisible(value => value + pageSize)}>장소 {Math.min(pageSize, rows.length - visible)}곳 더 보기<ChevronDown size={16}/></button>}
 
-        {comparing && selectedRows.length > 0 && <section className="place-assistant__comparison" ref={comparisonRef} aria-label="선택한 장소 비교"><h3>우리에게 맞는 곳 비교하기</h3>{selectedRows.map(row => <article key={row.place.id}><div><strong>{row.place.name}</strong><button type="button" aria-label={`${row.place.name} 비교에서 빼기`} onClick={() => toggleCompare(row.place.id)}><X size={16}/></button></div><dl><dt>종류·지역</dt><dd>{interestKindLabels[row.place.kind]} · {row.place.area}</dd><dt>맞는 조건</dt><dd>{row.matchedConditions.join(' · ') || '등록 설명에서 추가 확인'}</dd><dt>기준과 거리</dt><dd>{availableOrigin ? row.distanceKm === null ? '좌표 확인 전' : `${availableOrigin.name}에서 ${formatPlaceSearchDistance(row.distanceKm)}` : '기준 장소를 선택해 주세요'}</dd><dt>주소</dt><dd>{row.place.address || '등록 주소 확인 전'}</dd></dl><div className="place-assistant__card-actions"><button type="button" onClick={() => openPlace(row.place)}>장소 자세히 보기</button><button type="button" aria-pressed={savedIds.includes(row.place.id)} onClick={() => onToggleSave(row.place.id)}>{savedIds.includes(row.place.id) ? '보관함에 저장됨' : '보관함에 저장'}</button></div></article>)}<p className="place-assistant__hint">마음에 드는 곳을 보관함에 담아 모임 약속이나 내 여행에 사용할 수 있어요.</p></section>}
+        {comparing && selectedRows.length > 0 && <section className="place-assistant__comparison" ref={comparisonRef} aria-label="선택한 장소 비교"><h3>우리에게 맞는 곳 비교하기</h3>{selectedRows.map(row => <article key={row.place.id}><div><strong>{row.place.name}</strong><button type="button" aria-label={`${row.place.name} 비교에서 빼기`} onClick={() => toggleCompare(row.place.id)}><X size={16}/></button></div><dl><dt>종류·지역</dt><dd>{interestKindLabels[row.place.kind]} · {row.place.area}</dd><dt>맞는 조건</dt><dd>{row.matchedConditions.join(' · ') || '등록 설명에서 추가 확인'}</dd><dt>기준과 거리</dt><dd>{availableOrigin ? row.distanceKm === null ? '좌표 확인 전' : `${availableOrigin.name}에서 ${formatPlaceSearchDistance(row.distanceKm)}` : '기준 장소를 선택해 주세요'}</dd><dt>주소</dt><dd>{row.place.address || '등록 주소 확인 전'}</dd></dl><div className="place-assistant__card-actions">{selectionAction(row.place)}<button type="button" onClick={() => openPlace(row.place)}>장소 자세히 보기</button>{onToggleSave && <button type="button" aria-pressed={savedIds.includes(row.place.id)} onClick={() => onToggleSave(row.place.id)}>{savedIds.includes(row.place.id) ? '보관함에 저장됨' : '보관함에 저장'}</button>}</div></article>)}<p className="place-assistant__hint">{selection ? `${selection.contextLabel}에 쓸 장소를 직접 골라 담으세요.` : '마음에 드는 곳을 보관함에 담아 모임 약속이나 내 여행에 사용할 수 있어요.'}</p></section>}
       </>}
     </section>
   </div>;

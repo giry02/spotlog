@@ -1,0 +1,2 @@
+export const MAX_CHAT_AI_MESSAGES = 80;
+export const MAX_CHAT_AI_CHARACTERS = 12000;

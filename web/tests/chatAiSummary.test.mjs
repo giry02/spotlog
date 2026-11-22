@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { createEmptyState } from '../src/together/model.ts';
 import { createChatAiSummaryRequest, MAX_CHAT_AI_MESSAGES, MAX_CHAT_AI_CHARACTERS, normalizeAiEndpoint,
   parseChatAiSummaryOutput, postScopedAiJson, projectChatAiRequest, requestChatAiSummary } from '../src/together/chatAiSummary.ts';
+import { normalizeChatSummaryRequest } from '../server/chatSummaryModel.mjs';
 
 const cutoff = Date.parse('2026-11-09T03:00:00Z');
 const scope = { userId: 'me', groupId: 'family', roomId: 'activity:trip' };
@@ -156,4 +157,46 @@ test('the shared HTTP envelope also supports an explicit review draft adapter wi
     return json(responseFor(request, { title: '검토할 후기', body: '수정할 초안' }));
   });
   assert.equal(output.title, '검토할 후기');
+});
+
+test('81 originals fail before transport; an explicit latest window sends the newest 80 within the same server limit', () => {
+  const context = fixture();
+  context.state.messages = Array.from({ length: 81 }, (_, index) => ({ ...context.state.messages[0], id: 'many-' + index,
+    createdAt: new Date(cutoff - (81 - index) * 1000).toISOString() }));
+  assert.throws(() => requestFor(context), /좁혀/);
+  const request = requestFor(context, { scope: 'latest' });
+  assert.equal(MAX_CHAT_AI_MESSAGES, 80); assert.equal(MAX_CHAT_AI_CHARACTERS, 12000);
+  assert.equal(request.payload.sources.length, 80);
+  assert.equal(request.payload.sources[0].id, 'many-80');
+  assert.equal(request.payload.sources.at(-1).id, 'many-1');
+  assert.equal(request.payload.filters.scope, 'latest');
+  assert.equal(normalizeChatSummaryRequest(request).sources.length, 80);
+});
+
+test('the explicit latest window respects character capacity without skipping newer messages to fit older ones', () => {
+  const context = fixture();
+  context.state.messages = Array.from({ length: 5 }, (_, index) => ({ ...context.state.messages[0], id: 'long-' + index,
+    body: '가'.repeat(index === 0 ? 30 : 4000), createdAt: new Date(cutoff - (5 - index) * 1000).toISOString() }));
+  assert.throws(() => requestFor(context), /좁혀/);
+  const request = requestFor(context, { scope: 'latest' });
+  assert.deepEqual(request.payload.sources.map(source => source.id), ['long-4', 'long-3', 'long-2']);
+  assert.equal(normalizeChatSummaryRequest(request).sources.length, 3);
+});
+
+test('attribution requires a real author in the cited originals and volunteer metadata cannot appoint another person', () => {
+  const context = fixture(); context.state.messages[0].body = '제가 물을 챙길게요.';
+  const request = requestFor(context), output = outputFor();
+  output.sections[0].items[0].speakerId = 'mom'; output.sections[0].items[0].volunteered = true;
+  assert.equal(parseChatAiSummaryOutput(output, request).sections[0].items[0].speakerId, 'mom');
+  output.sections[0].items[0].speakerId = 'me';
+  assert.throws(() => parseChatAiSummaryOutput(output, request), /근거/);
+  output.sections[0].items[0].speakerId = 'invented';
+  assert.throws(() => parseChatAiSummaryOutput(output, request), /근거/);
+  output.sections[0].items[0].speakerId = 'mom';
+  const requestWithoutVolunteering = requestFor();
+  assert.throws(() => parseChatAiSummaryOutput(output, requestWithoutVolunteering), /근거/);
+  for (const body of ['제가 물을 챙길까요?', '제가 물은 못 챙길 것 같아요.']) {
+    context.state.messages[0].body = body;
+    assert.throws(() => parseChatAiSummaryOutput(output, requestFor(context)), /근거/);
+  }
 });

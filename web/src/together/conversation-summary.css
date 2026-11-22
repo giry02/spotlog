@@ -74,3 +74,16 @@
 .conversation-ai-current > strong { font-size:13px; }
 .conversation-ai-current > p { margin:0; font-size:14px; line-height:1.5; overflow-wrap:anywhere; }
 .conversation-ai-current > small { color:var(--muted); font-size:12px; line-height:1.6; }
+
+.conversation-summary-range { display:grid; gap:8px; min-width:0; padding:12px; border:1px solid var(--line); border-radius:8px; }
+.conversation-summary-range p { margin:0; font-size:13px; line-height:20px; overflow-wrap:anywhere; }
+.conversation-summary-range>div { display:flex; flex-wrap:wrap; gap:8px; }
+.conversation-summary-range>div>button { flex:1 1 140px; }
+.conversation-summary-speaker { display:block; margin-top:6px; font-size:12px; line-height:18px; color:var(--muted); overflow-wrap:anywhere; }
+:is(.tg,.tg-sheet) .conversation-digest .conversation-summary-saved { margin-top:8px; font-size:12px; font-weight:650; }
+:is(.tg,.tg-sheet) .conversation-digest .conversation-summary-notice { justify-self:start; margin-top:4px; background:var(--surface-muted,#f7f7f7); }
+.conversation-digest .conversation-summary-task__check input { flex:none; width:18px; min-height:18px; height:18px; padding:0; }
+.conversation-summary-citation-group { min-width:0; margin-top:6px; }
+.conversation-summary-citation-group>summary { display:flex; align-items:center; justify-content:flex-start; gap:6px; min-height:44px; width:fit-content; max-width:100%; padding:6px 0; list-style:none; cursor:pointer; color:var(--muted); font-size:12px; line-height:18px; }
+.conversation-summary-citation-group>summary::-webkit-details-marker { display:none; }
+.conversation-summary-citation-group[open]>summary>svg { transform:rotate(180deg); }

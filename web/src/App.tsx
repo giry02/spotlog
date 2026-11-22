@@ -1,4 +1,5 @@
 import { naverDirectionsUrl } from './placeDirections';
+import { buildEmptyPersonalTrip, type EmptyPersonalTripRequest } from './emptyPersonalTrip';
 import PublicPlaceFacts from './community/PublicPlaceFacts';
 import CoursePreview from './CoursePreview';
 import { accountProviderName } from './accountMethods';
@@ -1160,6 +1161,23 @@ function SpotlogApp() {
     openMyJourney(journey.id);
     showToast(copy("새 여행을 만들었습니다."));
   };
+  const startPersonalTrip = (request: EmptyPersonalTripRequest): boolean => {
+    const journey = buildEmptyPersonalTrip(request, togetherViewer?.name ?? profile.displayName);
+    let selected = journey;
+    const saved = setJourneys(current => {
+      const existing = current.find(item => item.id === journey.id);
+      if (existing) {
+        if (!isPersonalPlan(existing) || existing.visibility !== 'PRIVATE' || existing.trash || existing.title !== journey.title) throw new Error('이 여행 만들기 요청을 다시 확인해 주세요.');
+        selected = existing;
+        return current;
+      }
+      return [journey, ...current];
+    });
+    if (!saved) return false;
+    openMyJourney(selected.id);
+    showToast('여행을 만들었어요. 날짜와 장소를 편하게 정해 보세요.');
+    return true;
+  };
 
   const createSavedTrip = (draft: Journey): string | null => {
     const created = initializeCreatedPlan(draft, profile.displayName);
@@ -1578,7 +1596,7 @@ function SpotlogApp() {
             {tab === 'together' && <TogetherApp calendarView={calendarView} onCalendarViewChange={view => { setCalendarView(view); writeNavigationState({ calendarView: view }, 'replace'); }} repository={togetherRepository} key={togetherViewer?.id ?? 'guest'} route={togetherRoute} discoveryFilters={effectiveDiscoveryFilters} myRegionLabel={myRegionLabel} onManageMyRegions={() => setMyRegionsOpen(true)} onUseMyRegion={() => changeDiscoveryFilters({ ...discoveryFilters, useMyRegion: true })} onDiscoveryFiltersChange={changeDiscoveryFilters} onBack={goTogetherBack} onNavigate={navigateTogether} viewer={togetherViewer} onLogin={() => account.openAccount('login', togetherRoute.startsWith('together-plan') ? '로그인하고 만든 계획을 저장해 주세요.' : '로그인하고 모임에 함께해 주세요.')} places={placeCatalog} journeys={ownJourneys} onOpenJourney={openJourney} onSavePlace={place => {
               const saved = saveBusiness({ ...place, personal: place.personal || !placeCatalog.some(item => item.id === place.id) });
               if (!saved) showToast('장소를 저장하지 못했어요. 기존 저장 장소는 그대로예요.');
-            }} onCopyJourney={copyJourney} memberRecordRequest={memberRecordRequest} onMemberRecordRequestHandled={id => setMemberRecordRequest(current => current?.id === id ? null : current)} personalRouteRequest={personalRouteRequest} onPersonalRouteRequestHandled={id => setPersonalRouteRequest(current => current?.id === id ? null : current)} decisionRequest={decisionRequest} onDecisionRequestHandled={id => setDecisionRequest(current => current?.id === id ? null : current)} onCreateTemporaryRoom={openTemporaryCreation} journalShareRequest={journalShareRequest ?? undefined} onJournalShareRequestHandled={id => setJournalShareRequest(current => current?.id === id ? null : current)} onCreatePersonalPlan={source => { const owned = copyPersonalPlan(source, togetherViewer?.name ?? profile.displayName); if (!setJourneys(current => [owned, ...current])) return false; openMyJourney(owned.id); showToast('내 일정으로 만들었어요.'); return true; }} onCreateJournal={(source, originScope) => {
+            }} onCopyJourney={copyJourney} memberRecordRequest={memberRecordRequest} onMemberRecordRequestHandled={id => setMemberRecordRequest(current => current?.id === id ? null : current)} personalRouteRequest={personalRouteRequest} onPersonalRouteRequestHandled={id => setPersonalRouteRequest(current => current?.id === id ? null : current)} decisionRequest={decisionRequest} onDecisionRequestHandled={id => setDecisionRequest(current => current?.id === id ? null : current)} onCreateTemporaryRoom={openTemporaryCreation} journalShareRequest={journalShareRequest ?? undefined} onJournalShareRequestHandled={id => setJournalShareRequest(current => current?.id === id ? null : current)} onStartPersonalPlan={startPersonalTrip} onCreatePersonalPlan={source => { const owned = copyPersonalPlan(source, togetherViewer?.name ?? profile.displayName); if (!setJourneys(current => [owned, ...current])) return false; openMyJourney(owned.id); showToast('내 일정으로 만들었어요.'); return true; }} onCreateJournal={(source, originScope) => {
               try {
                 const owned = copyPersonalPlan(source, togetherViewer?.name ?? profile.displayName);
                 const journal = makeJournalFromPlan(owned, togetherViewer?.name ?? profile.displayName, { includePlanned: true });
@@ -2074,7 +2092,7 @@ function Trips({ journeys, onOpen, onCreate, onShare, onTrash, onDelete }: { onT
 function JourneySection({ title, description, journeys, onOpen, onShare, onDelete }: { onDelete?: (id: string) => void; title: string; description: string; journeys: Journey[]; onOpen: (id: string) => void; onShare: (journey: Journey) => void }) {
   const copy=useUiCopy();
   return <section className="journey-section"><div className="section-heading"><div><h2>{title}</h2><p>{description}</p></div><span>{journeys.length}</span></div><div className="journey-list">{journeys.map((journey) => <div className="journey-with-credit" key={journey.id}><article className="journey-card">
-    <button className="journey-main" onClick={() => onOpen(journey.id)}><img src={journey.cover} alt="" /><span className={`status-badge status-${journey.status.toLowerCase()}`}>{journey.visibility === 'PUBLIC' ? <Globe2 size={11} /> : <Lock size={11} />}{journey.isMine ? `${journey.recommendationKind === 'AI' ? copy("AI 추천 · ") : ''}${isPersonalPlan(journey)?journey.planStage==='DRAFT'?'준비 중':'내 여행':copy(statusLabel[journey.status])}` : `${journey.author}의 가이드`}</span><span className="journey-gradient" /><span className="journey-copy"><small>{journey.region} · {journey.duration}</small><strong>{journey.title}</strong><em>{journey.summary}</em><span><CalendarDays size={13} />{journey.dateRange}<i />{journeyPlaceCount(journey)}{copy("곳")}</span></span></button>
+    <button className="journey-main" onClick={() => onOpen(journey.id)}>{journey.cover && <img src={journey.cover} alt="" />}<span className={`status-badge status-${journey.status.toLowerCase()}`}>{journey.visibility === 'PUBLIC' ? <Globe2 size={11} /> : <Lock size={11} />}{journey.isMine ? `${journey.recommendationKind === 'AI' ? copy("AI 추천 · ") : ''}${isPersonalPlan(journey)?journey.planStage==='DRAFT'?'준비 중':'내 여행':copy(statusLabel[journey.status])}` : `${journey.author}의 가이드`}</span><span className="journey-gradient" /><span className="journey-copy"><small>{journey.region} · {journey.duration}</small><strong>{journey.title}</strong><em>{journey.summary}</em><span><CalendarDays size={13} />{journey.dateRange}<i />{journeyPlaceCount(journey)}{copy("곳")}</span></span></button>
     {onDelete && journey.isMine && <button className="journey-share journey-trash" aria-label={`${journey.title} 휴지통으로 이동`} onClick={() => onDelete(journey.id)}><Trash2 size={16}/></button>}
     <button className="journey-share" onClick={() => onShare(journey)} aria-label={`${journey.title} 공유`}><Share2 size={17} /></button>
   </article>{isPersonalPlan(journey) && journey.isMine && journey.visibility === 'PRIVATE' && !journey.trash && <OfflineSavedBadge journey={journey}/>}</div>)}</div></section>;

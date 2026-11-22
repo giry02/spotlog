@@ -91,3 +91,5 @@ body.spotlog-consumer .phase-sheet .place-assistant .place-assistant__save, .pla
 .place-assistant__query, .place-assistant__comparison { scroll-margin-block-start:64px; }
 .place-assistant-page .place-assistant__compare-bar { top:56px; }
 .phase-sheet .place-assistant__compare-bar { top:0; }
+.place-assistant__context{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;font-weight:600}.place-assistant__context small{font-size:12px;font-weight:400;color:var(--muted)}
+body.spotlog-consumer .phase-sheet .place-assistant .place-assistant__select,.place-assistant .place-assistant__card-actions>.place-assistant__select{flex-basis:100%;min-height:44px;border-color:var(--ink);background:var(--ink);color:var(--surface,#fff);font-size:14px}

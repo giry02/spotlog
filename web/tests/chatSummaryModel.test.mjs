@@ -29,9 +29,12 @@ test('normalization copies only chosen same-room originals in chronological orde
 test('the model receives pseudonymous speakers, ref numbers and selected text without account or message metadata', () => {
   const input = normalizeChatSummaryRequest(request());
   const model = chatSummaryModelInput(input);
-  assert.deepEqual(model.data.sources.map(source => source.speaker), ['p2', 'p1']);
-  assert.deepEqual(model.data.sources.map(source => source.ref), [2, 1]);
-  assert.deepEqual(model.data.sources.map(source => source.body), input.sources.map(source => source.body).reverse());
+  assert.equal(model.data.order,'OLDEST_TO_NEWEST');
+  assert.deepEqual(model.data.sources.map(source => source.speaker), ['p1', 'p2']);
+  assert.deepEqual(model.data.sources.map(source => source.ref), [1, 2]);
+  assert.deepEqual(model.data.sources.map(source => source.body), input.sources.map(source => source.body));
+  assert.equal(Object.hasOwn(model.data,'cutoff'),false);
+  assert.equal(model.data.sources.some(source=>Object.hasOwn(source,'at')),false);
   const serialized = JSON.stringify(model);
   for (const secret of ['member-secret-a', 'member-secret-b', 'reading-group', 'book-night', 'summary-test', 'private-avatar', 'private-intro']) {
     assert.equal(serialized.includes(secret), false, secret);
@@ -103,4 +106,67 @@ test('mixed timestamp offsets are ordered by the instant before model ref number
     { id: 'earlier', roomId: scope.roomId, authorId: 'member-secret-a', body: '먼저 발언', createdAt: '2026-11-19T09:30:00+09:00' },
   ];
   assert.deepEqual(normalizeChatSummaryRequest(body).sources.map(source => source.id), ['earlier', 'later']);
+});
+
+test('structured speaker references resolve to scoped source authors without exposing names to the model', () => {
+  const body = request(); body.payload.sources[0].body = '제가 삼각대를 챙길게요.';
+  const input = normalizeChatSummaryRequest(body), output = goodOutput();
+  output.sections[1].items[0] = { text: '삼각대 지참', refs: [2], speaker: 'p2', volunteered: true };
+  const result = validateChatSummaryResult(input, output);
+  assert.deepEqual(result.sections[1].items[0], { text: '삼각대 지참', sourceIds: ['second'], speakerId: 'member-secret-b', volunteered: true });
+  assert.deepEqual(chatSummaryModelInput(input).schema.properties.sections.items.properties.items.items.properties.speaker.enum, ['', 'p1', 'p2']);
+  for (const speaker of ['p1', 'p3', 'member-secret-b', 'p02']) {
+    output.sections[1].items[0].speaker = speaker;
+    assert.throws(() => validateChatSummaryResult(input, output), /INVALID_MODEL_RESULT/);
+  }
+  output.sections[1].items[0].speaker = 'p2';
+  input.sources[1].body = '삼각대를 누가 가져오나요?';
+  assert.equal(validateChatSummaryResult(input, output).sections[1].items[0].volunteered,undefined);
+  output.sections[1].items[0].text='p2가 삼각대를 맡기로 확정';
+  assert.throws(() => validateChatSummaryResult(input, output), /INVALID_MODEL_RESULT/);
+});
+
+test('an explicit volunteer sentence survives another sentence suggestion without assigning shared preparations',()=>{
+  const body=request();body.payload.sources[0].body='준비물은 각자 물과 편한 신발을 챙기면 좋겠어요. 저는 우산도 가져갈게요.';
+  const input=normalizeChatSummaryRequest(body),output=goodOutput();
+  assert.deepEqual(chatSummaryModelInput(input).data.sources[1].volunteerEvidence,['저는 우산도 가져갈게요.']);
+  output.sections[1].items[0]={text:'우산 지참',refs:[2],speaker:'p2',volunteered:true};
+  assert.equal(validateChatSummaryResult(input,output).sections[1].items[0].volunteered,true);
+  output.sections[1].items[0].text='물과 편한 신발과 우산 준비';
+  assert.equal(validateChatSummaryResult(input,output).sections[1].items[0].volunteered,undefined);
+  output.sections[1].items[0].text='p2가 예약 담당하기로 확정';
+  assert.throws(()=>validateChatSummaryResult(input,output),/INVALID_MODEL_RESULT/);
+});
+
+test('unsupported optional volunteering decoration is omitted without changing grounded text or trusting uncited speakers',()=>{
+  const input=normalizeChatSummaryRequest(request()),output=goodOutput();
+  output.sections[0].items[0]={text:'12시에 정문에서 만나요.',refs:[1],speaker:'p1',volunteered:true};
+  const result=validateChatSummaryResult(input,output);
+  assert.equal(result.sections[0].items[0].text,'12시에 정문에서 만나요.');
+  assert.equal(result.sections[0].items[0].speakerId,'member-secret-a');
+  assert.equal(result.sections[0].items[0].volunteered,undefined);
+  output.sections[0].items[0].speaker='p2';
+  assert.throws(()=>validateChatSummaryResult(input,output),/INVALID_MODEL_RESULT/);
+});
+
+test('supported pseudonymous volunteering prose becomes scoped profile attribution, never a literal p label or first person',()=>{
+  const body=request();body.payload.sources[0].body='사진 찍을 때 쓸 작은 삼각대는 제가 가져갈게요.';
+  const input=normalizeChatSummaryRequest(body),output=goodOutput();
+  output.sections[1].items[0]={text:'작은 삼각대는 p2가 가져갈 예정',refs:[2],speaker:'p2',volunteered:true};
+  const item=validateChatSummaryResult(input,output).sections[1].items[0];
+  assert.equal(item.text,'작은 삼각대는 가져갈 예정');assert.equal(item.speakerId,'member-secret-b');assert.equal(item.volunteered,true);
+  output.sections[1].items[0].text='작은 삼각대는 제가 가져갈게요.';
+  assert.equal(validateChatSummaryResult(input,output).sections[1].items[0].text,'작은 삼각대는 가져갈게요.');
+  output.sections[1].items[0].text='작은 삼각대는 p1가 가져갈 예정';
+  assert.throws(()=>validateChatSummaryResult(input,output),/INVALID_MODEL_RESULT/);
+});
+
+test('volunteering questions, refusal and an unrelated cited task never grant an assignment',()=>{
+  for(const message of ['제가 우산을 가져갈까요?','제가 우산을 가져갈 수 있어요.','제가 우산은 못 가져가요.']){
+    const body=request();body.payload.sources[0].body=message;
+    const input=normalizeChatSummaryRequest(body),output=goodOutput();
+    assert.deepEqual(chatSummaryModelInput(input).data.sources[1].volunteerEvidence,[]);
+    output.sections[1].items[0]={text:'우산 지참',refs:[2],speaker:'p2',volunteered:true};
+    assert.equal(validateChatSummaryResult(input,output).sections[1].items[0].volunteered,undefined);
+  }
 });

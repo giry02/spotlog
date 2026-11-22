@@ -6,8 +6,9 @@ import { getGroupSubtopic, groupSubtopicsFor } from './groupTaxonomy';
 import GroupLocalityFields from './GroupLocalityFields';
 import { groupAvailabilityOptions } from './groupJoining';
 import { applyGroupIntroductionDraft, buildGroupIntroductionDraft, groupCreationResumePhase, groupCreationSubtopicLimit, normalizeGroupCreationDraft, validateGroupCreationBasics, validateGroupCreationDraft, type GroupCreationDraft, type GroupCreationInitial, type GroupCreationPhase, type GroupIntroductionAnswers } from './groupCreation';
-import { configuredPlanningAiEndpoint, requestGroupDraftAi } from '../planningAiService';
+import { configuredPlanningAiEndpoint, requestGroupDraftAi, type GroupAiCopy } from '../planningAiService';
 import { interpretCreationPrompt } from './creationPlanner';
+import { groupRegionNeedsDistrict, parseGroupLocality } from './groupRegions';
 import './group-creation.css';
 
 export interface GroupCreationFormProps {
@@ -31,17 +32,30 @@ function QuickGroupCreationForm({ initial, onSubmit, onDraftChange, resumePhase 
   const [ready, setReady] = useState(() => groupCreationResumePhase(initial, resumePhase) === 'DRAFT');
   const [error, setError] = useState(''), [busy, setBusy] = useState(false);
   const [aiPending, setAiPending] = useState(false), [aiError, setAiError] = useState(''), [aiIntroduction, setAiIntroduction] = useState('');
+  const [aiPromptOpen,setAiPromptOpen] = useState(false), [aiPrompt,setAiPrompt] = useState(''), [aiGroupProposal,setAiGroupProposal] = useState<(GroupAiCopy&{region:string})|null>(null);
+  const [aiApplied,setAiApplied] = useState(false);
   const aiRequest = useRef<AbortController | null>(null);
   const notify = useRef(onDraftChange), lock = useRef(false), heading = useRef<HTMLHeadingElement>(null);
+  const locationDetails = useRef<HTMLDetailsElement>(null);
+  const needsParent = Boolean(draft.region.trim() && draft.neighborhood?.trim() && groupRegionNeedsDistrict(draft.region) && !draft.district.trim());
   const maxSubtopics = groupCreationSubtopicLimit(initial, 'CREATE');
   notify.current = onDraftChange;
   useEffect(() => { notify.current?.(draft, ready ? 'DRAFT' : 'INPUT'); }, [draft, ready]);
   useEffect(() => { if (ready) heading.current?.focus({preventScroll:true}); }, [ready]);
+  useEffect(() => {
+    if (!ready || !needsParent || !locationDetails.current) return;
+    locationDetails.current.open=true;
+    locationDetails.current.querySelector<HTMLSelectElement>('select[aria-label="모임 시·군·구"]')?.focus();
+  }, [ready,needsParent,draft.neighborhood]);
   useEffect(() => () => { aiRequest.current?.abort(); aiRequest.current = null; }, []);
   const cancelAi = () => { aiRequest.current?.abort(); aiRequest.current = null; setAiPending(false); };
   const update = (value: Partial<GroupCreationDraft>) => {
-    cancelAi(); setAiIntroduction(''); setAiError('');
+    cancelAi(); setAiIntroduction(''); setAiGroupProposal(null); setAiError('');
     setDraft(current => ({...current,...value})); setError('');
+  };
+  const updateLocality = (value: {region:string;district:string;neighborhood:string}) => {
+    // The person supplies the missing parent; keep the town they already wrote instead of clearing it.
+    update({...value,neighborhood:needsParent&&value.region===draft.region&&value.district.trim()?draft.neighborhood:value.neighborhood});
   };
   const aiRegion = [draft.region.trim(), draft.district.trim(), draft.neighborhood?.trim()].filter(Boolean).join(' ');
   const aiUnavailable = !planningEndpoint ? 'AI 연결 후 사용할 수 있어요.'
@@ -70,6 +84,34 @@ function QuickGroupCreationForm({ initial, onSubmit, onDraftChange, resumePhase 
       if (active()) { aiRequest.current = null; setAiPending(false); }
     }
   };
+  const proposeGroup = async () => {
+    if (lock.current || aiRequest.current) return;
+    if (!planningEndpoint) { setAiError('AI 서버가 연결되어 있지 않아요. 이름만 정하고 기본 초안으로 시작할 수 있어요.'); return; }
+    if (!aiPrompt.trim()) { setAiError('함께하고 싶은 활동을 한 줄로 적어 주세요.'); return; }
+    const inferred=interpretCreationPrompt(aiPrompt.trim(),{purpose:'GROUP'});
+    const instruction='\n제공하지 않은 날짜·인원·장소는 확정하지 말고 첫 활동 아이디어로만 제안해 주세요.';
+    const header=draft.name.trim()?`모임 이름 유지: ${draft.name.trim()}\n`:'';
+    const brief=interpretCreationPrompt(`${header}${aiPrompt.trim().slice(0,600-header.length-instruction.length)}${instruction}`, {purpose:'GROUP',region:inferred.region||aiRegion,topics:[...draft.topics]});
+    if (!brief.region.trim()) { setAiError('문장에 지역을 적거나 활동 지역을 먼저 정해 주세요.'); return; }
+    const controller=new AbortController();aiRequest.current=controller;setAiPending(true);setAiError('');setAiGroupProposal(null);
+    const active=()=>aiRequest.current===controller&&!controller.signal.aborted;
+    try {
+      const result=await requestGroupDraftAi(planningEndpoint,brief,controller.signal);
+      if(!active())return;
+      if(!result)throw new Error('조건에 맞는 제안을 받지 못했어요. 한 줄을 고치거나 기본 초안으로 시작해 주세요.');
+      const suffix=result.firstActivityIdea?.trim()?`\n\n첫 활동 아이디어 · 일정 미정\n${result.firstActivityIdea.trim()}`:'';
+      setAiGroupProposal({...result,name:draft.name.trim()||result.name.slice(0,60),introduction:result.introduction.slice(0,2000-suffix.length),region:brief.region});
+    } catch(cause){if(active())setAiError(cause instanceof Error?cause.message:'AI 제안을 받지 못했어요. 입력은 그대로예요.');}
+    finally{if(active()){aiRequest.current=null;setAiPending(false);}}
+  };
+  const applyGroupProposal = () => {
+    if(!aiGroupProposal)return;
+    const idea=aiGroupProposal.firstActivityIdea?.trim();
+    const suffix=idea?`\n\n첫 활동 아이디어 · 일정 미정\n${idea}`:'';
+    const area=parseGroupLocality(aiGroupProposal.region);
+    update({name:aiGroupProposal.name,introduction:aiGroupProposal.introduction+suffix,region:area.region,district:area.district,neighborhood:area.neighborhood??''});
+    setAiPromptOpen(false);setReady(true);setAiApplied(true);
+  };
   const introduction = () => draft.kind === 'FAMILY' ? '가족끼리 약속과 사진을 모으고, 함께할 일정을 나눠요.'
     : draft.kind === 'FRIENDS' ? '친구들과 약속을 정하고 함께한 사진과 이야기를 모아요.'
       : draft.kind === 'GUIDE' ? '함께할 일정을 준비하고 참여 안내와 기록을 나눠요.'
@@ -87,7 +129,11 @@ function QuickGroupCreationForm({ initial, onSubmit, onDraftChange, resumePhase 
     cancelAi();
     let value: GroupCreationDraft;
     try { value = validateGroupCreationDraft(draft, maxSubtopics); }
-    catch (cause) { setError(cause instanceof Error ? cause.message : '입력을 확인해 주세요.'); return; }
+    catch (cause) {
+      setError(needsParent?`${draft.neighborhood}의 시·군·구만 선택해 주세요. 이름과 소개는 그대로예요.`:cause instanceof Error ? cause.message : '입력을 확인해 주세요.');
+      if(needsParent&&locationDetails.current){locationDetails.current.open=true;locationDetails.current.querySelector<HTMLSelectElement>('select[aria-label="모임 시·군·구"]')?.focus();}
+      return;
+    }
     lock.current = true; setBusy(true); setError('');
     try { if (!await onSubmit(value)) setError('저장하지 못했어요. 초안은 유지했으니 다시 시도해 주세요.'); }
     catch (cause) { setError(cause instanceof Error ? cause.message : '저장하지 못했어요. 초안은 유지했어요.'); }
@@ -95,10 +141,20 @@ function QuickGroupCreationForm({ initial, onSubmit, onDraftChange, resumePhase 
   };
   return <form className="group-creation-form group-quick-create" data-draft-ready={ready} aria-label="모임 만들기" onSubmit={event => { event.preventDefault(); if (ready) void save(); else makeDraft(); }}>
     <fieldset className="group-quick-create__body" disabled={busy}>
-      <header className="group-quick-create__heading"><small>{ready ? '기본 초안 · 저장 전' : '이름만 정하고 시작해요'}</small><h2 ref={heading} tabIndex={-1}>{ready ? '이대로 만들까요?' : '모임 이름은 무엇인가요?'}</h2>{!ready && <p>이름을 적으면 소개가 담긴 초안이 나와요. 나머지는 나중에 정해도 돼요.</p>}</header>
+      <header className="group-quick-create__heading"><small>{ready ? aiApplied?'AI 제안 적용 · 저장 전':'기본 초안 · 저장 전' : '이름만 정하고 시작해요'}</small><h2 ref={heading} tabIndex={-1}>{ready ? '이대로 만들까요?' : '모임 이름은 무엇인가요?'}</h2>{!ready && <p>이름을 적으면 소개가 담긴 초안이 나와요. 나머지는 나중에 정해도 돼요.</p>}</header>
       <label className="group-quick-create__label">모임 이름<input aria-label="모임 이름" value={draft.name} maxLength={60} onChange={event => update({name:event.target.value})} placeholder="예: 우리 가족, 주말 산책 친구들" required/></label>
+      <button type="button" className="group-quick-create__ai-entry" aria-expanded={aiPromptOpen} onClick={()=>{cancelAi();setAiPromptOpen(value=>!value);setAiError('');}}><Sparkles size={17}/><span>{ready?'AI로 소개·첫 활동 제안받기':'한 줄로 AI 모임 초안 받기'}</span><ChevronDown size={17}/></button>
+      {aiPromptOpen && <section className="group-quick-create__ai-brief" aria-label="한 줄로 모임 초안 제안" aria-busy={aiPending}>
+        <small>이름을 정하지 않아도 돼요. 지역과 함께하고 싶은 활동을 적어 주세요.</small>
+        <label className="group-quick-create__label">어떤 모임을 함께하고 싶나요?<textarea aria-label="AI 모임 요청" value={aiPrompt} maxLength={500} rows={2} placeholder="예: 인천 주안동에서 주말에 산책하고 카페에 갈 친구 모임" onChange={event=>{cancelAi();setAiPrompt(event.target.value);setAiGroupProposal(null);setAiError('');}}/></label>
+        <button type="button" className="group-quick-create__assist" disabled={aiPending||busy} onClick={()=>void proposeGroup()}><Sparkles size={16}/>{aiPending?'AI 초안 준비 중…':'AI 초안 제안받기'}</button>
+        <small>이름·소개와 첫 활동 아이디어를 제안해요. 제안을 적용해도 모임은 아직 저장되지 않아요.</small>
+        {aiPending&&<button type="button" onClick={cancelAi}>요청 취소</button>}
+        {aiError&&<p role="alert" className="group-form-error">{aiError}</p>}
+        {aiGroupProposal&&<section className="group-quick-create__ai-preview" aria-label="적용 전 AI 모임 초안"><strong>{aiGroupProposal.name}</strong><small>{aiGroupProposal.region}</small><p>{aiGroupProposal.introduction}</p>{aiGroupProposal.firstActivityIdea&&<p><small>첫 활동 아이디어 · 일정 미정</small><br/>{aiGroupProposal.firstActivityIdea}</p>}<div><button type="button" onClick={applyGroupProposal}>이 초안으로 계속</button><button type="button" onClick={()=>setAiGroupProposal(null)}>지금 입력 유지</button></div></section>}
+      </section>}
       {ready && <>
-        <details className="group-quick-create__location"><summary><MapPin size={17}/><span><small>활동 지역</small><strong>{[draft.region,draft.district,draft.neighborhood].filter(Boolean).join(' ') || '미정 · 나중에 정해도 돼요'}</strong></span><span>변경</span><ChevronDown size={16}/></summary><GroupLocalityFields region={draft.region} district={draft.district} neighborhood={draft.neighborhood} onChange={update}/></details>
+        <details ref={locationDetails} open={needsParent||undefined} className="group-quick-create__location"><summary><MapPin size={17}/><span><small>활동 지역</small><strong>{[draft.region,draft.district,draft.neighborhood].filter(Boolean).join(' ') || '미정 · 나중에 정해도 돼요'}</strong></span><span>변경</span><ChevronDown size={16}/></summary>{needsParent&&<p className="group-form-hint" role="status">{draft.neighborhood}의 시·군·구만 선택해 주세요. 이름과 소개는 그대로예요.</p>}<GroupLocalityFields region={draft.region} district={draft.district} neighborhood={draft.neighborhood} onChange={updateLocality}/></details>
         <section className="group-quick-create__draft" aria-label="수정할 모임 초안">
           <label className="group-quick-create__label">누구와 함께하나요?<select aria-label="모임 관계" value={draft.kind} onChange={event => update({kind:event.target.value as GroupKind})}>{kinds.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>
           <label className="group-quick-create__label">모임 소개<textarea aria-label="모임 소개" value={draft.introduction} maxLength={2000} rows={3} onChange={event => update({introduction:event.target.value})}/></label>

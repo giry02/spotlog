@@ -6,6 +6,7 @@ import type { GroupDiscoveryFilters } from '../src/together/GroupDiscovery';
 import type { TogetherState } from '../src/together/model';
 import type { TogetherRepository } from '../src/together/repository';
 import type { MyRegionsState } from '../src/discoveryRegionStore';
+import type { EmptyPersonalTripRequest } from '../src/emptyPersonalTrip';
 
 const people = {
   owner: { id: 'simple-review-owner', name: '하린 · 가상 모임장', avatar: '/media/groups/cafe-conversation-20261109.jpg' },
@@ -134,9 +135,9 @@ async function boot() {
   const initialRoute = location.hash.slice(1) || screens[params.get('screen') || 'appointment'] || screens.appointment;
   // Product modules must not observe the browser's real storage before isolation is installed.
   const [{ default: TogetherApp }, { createEmptyState }, { createTogetherRepository, togetherStorageKey, isTogetherState },
-    { DISCOVERY_CATALOG_VERSION }, { placeCatalog }, { PersonalTrip }, { copyPersonalPlan }, { default: MyRegionSheet }, { readMyRegions, activeRegion }] = await Promise.all([
+    { DISCOVERY_CATALOG_VERSION }, { placeCatalog }, { PersonalTrip }, { copyPersonalPlan }, { default: MyRegionSheet }, { readMyRegions, activeRegion }, { buildEmptyPersonalTrip }] = await Promise.all([
     import('../src/together/TogetherApp'), import('../src/together/model'), import('../src/together/repository'),
-    import('../src/together/discoveryExamples'), import('../src/data'), import('../src/PersonalTrip'), import('../src/tripPlan'), import('../src/MyRegionSheet'), import('../src/discoveryRegionStore'),
+    import('../src/together/discoveryExamples'), import('../src/data'), import('../src/PersonalTrip'), import('../src/tripPlan'), import('../src/MyRegionSheet'), import('../src/discoveryRegionStore'), import('../src/emptyPersonalTrip'),
   ]);
   const state: TogetherState = createEmptyState(people.owner.id, people.owner.name);
   state.discoveryCatalogVersion = DISCOVERY_CATALOG_VERSION;
@@ -207,7 +208,9 @@ async function boot() {
     const [myRegions, setMyRegions] = useState<MyRegionsState>(() => readMyRegions(local, initialRole === 'owner' ? people.owner.id : 'guest-device').state);
     const [shouldFailSave, setShouldFailSave] = useState(failSave.enabled);
     const [filters, setFilters] = useState<GroupDiscoveryFilters>(localityReview ? { region: '인천', district: '미추홀구' } : { region: '부산' });
-    const [plans, setPlans] = useState<Journey[]>([]);
+    const [planScopes, setPlanScopes] = useState<Record<'owner' | 'guest', Journey[]>>({ owner: [], guest: [] });
+    const plans = planScopes[role];
+    const setPlans = (next: Journey[]) => setPlanScopes(current => ({ ...current, [role]: next }));
     const regionOwner = role === 'owner' ? people.owner.id : 'guest-device';
     const currentRegions = myRegions.owner === regionOwner ? myRegions : readMyRegions(local, regionOwner).state;
     const currentMyRegion = activeRegion(currentRegions);
@@ -218,7 +221,8 @@ async function boot() {
       setFilters(current => ({ ...current, region: selected?.region || '', district: selected?.district || '', neighborhood: selected?.neighborhood || '', useMyRegion: false }));
     };
     useEffect(() => { setMyRegionsOpen(false); }, [role]);
-    const savedPlans = useRef(new Map<string, Journey>());
+    const savedPlanScopes = useRef({ owner: new Map<string, Journey>(), guest: new Map<string, Journey>() });
+    const savedPlans = { current: savedPlanScopes.current[role] };
     const snapshot = useSyncExternalStore(repository.subscribe, repository.getSnapshot, repository.getSnapshot);
     const tally = counts(snapshot, plans);
     useEffect(() => {
@@ -245,8 +249,16 @@ async function boot() {
       navigate(`review-personal-plan-${personal.id}`);
       return true;
     };
+    const startPlan = (request: EmptyPersonalTripRequest): boolean => {
+      if (failSave.enabled) { setStatus('가상 저장 실패예요. 이름은 그대로 유지돼요.'); return false; }
+      const trip = buildEmptyPersonalTrip(request, role === 'owner' ? people.owner.name : '게스트 여행자');
+      if (!savedPlans.current.has(trip.id)) savedPlans.current.set(trip.id, trip);
+      setPlans([...savedPlans.current.values()]);
+      navigate(`review-personal-plan-${trip.id}`);
+      return true;
+    };
     const updatePlan = (next: Journey): boolean => {
-      if (failSave.enabled || role !== 'owner' || !next.isMine || next.visibility !== 'PRIVATE') return false;
+      if (failSave.enabled || !next.isMine || next.visibility !== 'PRIVATE') return false;
       const entry = [...savedPlans.current.entries()].find(([, plan]) => plan.id === next.id);
       if (!entry) return false;
       savedPlans.current.set(entry[0], next); setPlans([...savedPlans.current.values()]); return true;
@@ -257,7 +269,7 @@ async function boot() {
     };
     const login = () => { changeRole('owner'); setStatus('가상 계정으로 전환했어요. 로그인만으로 저장하지 않으며, 복원한 초안의 저장 버튼을 다시 눌러야 해요.'); };
     const personalRoute = route === 'review-personal-plans' || route.startsWith('review-personal-plan-');
-    const openedPlan = role === 'owner' && route.startsWith('review-personal-plan-') ? plans.find(plan => plan.id === route.slice('review-personal-plan-'.length)) : undefined;
+    const openedPlan = route.startsWith('review-personal-plan-') ? plans.find(plan => plan.id === route.slice('review-personal-plan-'.length)) : undefined;
     return <><details className="simple-creation-toolbar"><summary>간단 만들기 검수 · 모임 +{tally.addedGroups} / 약속 {tally.activities} / 개인 여행 {tally.personalPlans}</summary>
       <p>가상 계정의 실제 만들기 화면이에요. 초안 생성·편집 중에는 아래 개수가 늘지 않아야 해요. 마지막 저장 후 선택한 대상만 하나 늘어나는지 확인해요.</p>
       <output aria-label="간단 만들기 저장 개수" data-testid="creation-counts">
@@ -281,12 +293,12 @@ async function boot() {
         renderMap={places => <p className="plan-help">동선 {places.length}곳 · 이 검수는 작성 내용 보관을 확인하며 실제 지도는 표시하지 않아요.</p>}/>
       : personalRoute ? <section className="simple-creation-personal"><h1>저장한 개인 여행 · 검수</h1>
         <p>이 페이지 메모리에만 저장됐어요. 실제 내 여행에는 추가하지 않아요.</p>
-        {role !== 'owner' ? <button type="button" onClick={login}>가상 계정으로 로그인</button> : plans.length ? plans.map(plan => <article key={plan.id}><h2>{plan.title}</h2><p>{plan.region} · {plan.days.length}일</p>{plan.days.map((day, index) => <p key={day.dayId ?? index}>DAY {index + 1} · {day.places.length}곳</p>)}<button type="button" onClick={() => navigate(`review-personal-plan-${plan.id}`)}>내 여행 열기</button></article>) : <p>아직 저장한 개인 여행이 없어요.</p>}
+        {plans.length ? plans.map(plan => <article key={plan.id}><h2>{plan.title}</h2><p>{plan.region} · {plan.days.length}일</p>{plan.days.map((day, index) => <p key={day.dayId ?? index}>DAY {index + 1} · {day.places.length}곳</p>)}<button type="button" onClick={() => navigate(`review-personal-plan-${plan.id}`)}>내 여행 열기</button></article>) : <p>아직 저장한 개인 여행이 없어요.</p>}
         <button type="button" onClick={() => navigate('together-plan-trip')}>여행 만들기로</button>
       </section> : <TogetherApp repository={repository} route={route} viewer={role === 'owner' ? people.owner : null} places={placeCatalog} journeys={plans}
         discoveryFilters={filters} onDiscoveryFiltersChange={setFilters} onNavigate={navigate} onBack={fallback => navigate(fallback)}
         myRegionLabel={myRegionLabel} onManageMyRegions={() => setMyRegionsOpen(true)} onUseMyRegion={() => applyMyRegion(currentRegions)}
-        onLogin={login} onCreatePersonalPlan={savePlan}
+        onLogin={login} onCreatePersonalPlan={savePlan} onStartPersonalPlan={startPlan}
         onOpenJourney={id => navigate(`review-personal-plan-${id}`)} onSavePlace={() => setStatus('실제 관심 장소 자료에는 저장하지 않아요.')}
         onCopyJourney={savePlan}/>}
     </section></main></div>{myRegionsOpen && <MyRegionSheet ownerId={regionOwner} submitLabel="이 동네로 모임 찾기" onClose={() => setMyRegionsOpen(false)} onSaved={next => { setMyRegions(next); applyMyRegion(next); navigate('together-find'); setStatus('내 지역을 이 검수 페이지의 메모리에만 저장했어요.'); }}/>}</>;

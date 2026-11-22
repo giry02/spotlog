@@ -174,3 +174,15 @@ test('model timeout responds without partial data and releases its concurrency s
   assert.deepEqual(await result.json(), { error: 'MODEL_TIMEOUT' });
   assert.equal((await app.post(placeRequest)).status, 200);
 });
+
+for (const [purpose, prompt, expected] of [
+  ['MEETUP','해운대에서 식사하고 카페에 가요.',['food-one','coffee']],
+  ['MEETUP','해운대에서 점심과 저녁을 먹고 카페에 가요.',['food-one','coffee','food-two']],
+  ['TRIP','해운대에서 맛집 여행을 해요.',['food-one','coffee','food-two','food-three']],
+]) test(`${purpose}: a simple meal and coffee is concise while explicitly requested meals and travel stay distinct`,async t=>{
+  const catalog=[['food-one','FOOD'],['coffee','CAFE'],['food-two','FOOD'],['food-three','FOOD']].map(([id,kind])=>({id,kind,name:id,area:'부산 해운대'}));
+  const app=await serve(t,()=>response({title:'해운대 식사와 카페',days:[[1,2,3,4]]}),{catalog});
+  const result=await app.post({...tripRequest,prompt,dayCount:1,eligiblePlaceIds:catalog.map(place=>place.id),conditions:{...tripRequest.conditions,purpose}});
+  assert.equal(result.status,200);
+  assert.deepEqual((await result.json()).result.days,[{day:1,placeIds:expected}]);
+});

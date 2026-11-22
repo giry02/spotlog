@@ -15,12 +15,16 @@ import { chatComposerLayout, chatViewOptions, selectChatChromeContext } from './
 import type { Place } from '../data';
 import { MemberAvatar } from './GroupMembersPanel';
 import SwipeReply from './SwipeReply';
+import ChatSearchPanel from './ChatSearchPanel';
+import { createChatSearchMemory, type ChatSearchMemory } from './chatSearch';
 import './chat-workspace.css';
 import './chat-interactions.css';
 import './chat-entity-card.css';
 
 interface Props {
   draftMemory: ChatDraftMemory;
+  searchMemory?: ChatSearchMemory;
+  summaryResumable?: boolean;
   places?: Place[];
   onOpenPlace?: (place: Place) => void;
   state: TogetherState; userId: string; group: TogetherGroup; activity?: TogetherActivity; roomId: string;
@@ -51,8 +55,12 @@ interface Props {
 }
 
 /** Room-scoped interaction only. Opening/searching never advances the read cursor. */
-export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state, userId, group, activity, roomId, messages, highlight, canManage, error, onSummary, onSource, onClearHighlight, onNotice, onReport, onNavigate, onRead, onSend, onReaction, onAssistant, onPersonalRoute, onVisitGuide, onTool, onVotePoll, onClosePoll, onConfirmPoll, onEditPoll, onApplyPollToActivity, onParticipation, onToggleTask, onToggleMute, onBack, onOpenView, onManage, onResources, onMemberProfile, onEditOwnProfile, onCheckReply }: Props) {
+export default function ChatWorkspace({ draftMemory, searchMemory, summaryResumable = false, places, onOpenPlace, state, userId, group, activity, roomId, messages, highlight, canManage, error, onSummary, onSource, onClearHighlight, onNotice, onReport, onNavigate, onRead, onSend, onReaction, onAssistant, onPersonalRoute, onVisitGuide, onTool, onVotePoll, onClosePoll, onConfirmPoll, onEditPoll, onApplyPollToActivity, onParticipation, onToggleTask, onToggleMute, onBack, onOpenView, onManage, onResources, onMemberProfile, onEditOwnProfile, onCheckReply }: Props) {
   const draftContext = { state, userId, groupId: group.id, roomId };
+  const localSearchMemory = useRef<ChatSearchMemory | null>(null);
+  if (!localSearchMemory.current) localSearchMemory.current = createChatSearchMemory();
+  const currentSearchMemory = searchMemory || localSearchMemory.current;
+  currentSearchMemory.activate(userId);
   const roomMemberName = (id: string) => memberName(state, id, group.id, activity?.id);
   const usesRoomProfiles = canUseRoomProfiles(group);
   const viewOwnProfile = onMemberProfile ? () => onMemberProfile(userId) : undefined;
@@ -76,8 +84,6 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
     requestAnimationFrame(() => input.current?.focus());
   };
   const [boundary, setBoundary] = useState<string | undefined>(state.readCursors[roomId]);
-  const [query, setQuery] = useState('');
-  const [person, setPerson] = useState('all');
   const [searchOpen, setSearchOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
   const [viewOpen, setViewOpen] = useState(false);
@@ -96,7 +102,6 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
   const [interactionFeedback, setInteractionFeedback] = useState<{ text: string; error?: boolean }>();
   const [latestAvailable, setLatestAvailable] = useState(false);
   const input = useRef<HTMLTextAreaElement>(null);
-  const searchInput = useRef<HTMLInputElement>(null);
   const stream = useRef<HTMLDivElement>(null);
   const workspace = useRef<HTMLDivElement>(null);
   const header = useRef<HTMLElement>(null);
@@ -148,7 +153,7 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
     return entity.type === 'POLL' ? entity.value.question : entity.value.title;
   };
   const unread = sorted.filter(item => item.authorId !== userId && (!boundary || item.createdAt > boundary));
-  const shown = sorted.filter(item => (person === 'all' || item.authorId === person) && (!query.trim() || `${roomMemberName(item.authorId)} ${messageText(item)}`.toLocaleLowerCase().includes(query.trim().toLocaleLowerCase())));
+  const shown = sorted;
   const reply = sorted.find(item => item.id === replyId);
   const context = selectChatChromeContext(state, userId, group.id, activity?.id);
   const { notices, messages: activeCards, pollCount, taskCount, challengeCount } = context;
@@ -225,7 +230,7 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
     } catch { setInteractionFeedback({ text: '복사하지 못했어요. 브라우저의 클립보드 권한을 확인해 주세요.', error: true }); }
   };
   const latest = () => {
-    setQuery(''); setPerson('all'); onClearHighlight();
+    onClearHighlight();
     requestAnimationFrame(() => { const scroll = scrollRoot(); scroll?.scrollTo({ top: scroll.scrollHeight, behavior: 'instant' }); });
   };
   useLayoutEffect(() => {
@@ -242,9 +247,8 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
     if (dock.current) observer?.observe(dock.current);
     update();
     return () => { container?.removeEventListener('scroll', update); observer?.disconnect(); };
-  }, [messages.length, query, person]);
-  useEffect(() => { if (searchOpen) searchInput.current?.focus({ preventScroll: true }); }, [searchOpen]);
-  useEffect(() => { if (highlight) { setQuery(''); setPerson('all'); } }, [highlight]);
+  }, [messages.length]);
+  useEffect(() => { if (highlight) { } }, [highlight]);
   useLayoutEffect(resizeComposer, [body, replyId, emojiOpen, stickerId, error, group.archived]);
   useLayoutEffect(() => {
     if (!pendingOwnSendScroll.current) return;
@@ -331,7 +335,7 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
     <header ref={header} className="tg-chat-header">
       <button type="button" className="tg-icon" aria-label="이전 화면으로 돌아가기" onClick={() => onBack ? onBack() : onNavigate(activity ? `activity-${activity.id}` : `group-${group.id}`)}><ArrowLeft size={20}/></button>
       <h1><button type="button" className="tg-chat-room-title" aria-label={`${activity?.title || group.name} · 화면과 대화방 이동`} aria-haspopup="dialog" onClick={() => setViewOpen(true)}><span><strong>{activity?.title || group.name}</strong><small>{activity ? group.spaceType === 'ACTIVITY' ? '약속 대화' : `${group.name} · 약속 대화` : '모임 전체 대화'}</small></span><ChevronDown size={15}/></button></h1>
-      <button type="button" className="tg-chat-summary-action" onClick={() => onSummary(boundary)} aria-label={unread.length ? `대화 요약 · 안 읽은 대화 ${unread.length}개` : '대화 요약'} title="대화 요약">대화 요약{unread.length > 0 && <span className="tg-chat-summary-dot" aria-hidden="true"/>}</button>
+      <button type="button" className="tg-chat-summary-action" onClick={() => onSummary(boundary)} aria-label={summaryResumable ? "대화 요약 이어보기" : unread.length ? `대화 요약 · 안 읽은 대화 ${unread.length}개` : "대화 요약"} title={summaryResumable ? "대화 요약 이어보기" : "대화 요약"}>{summaryResumable ? "요약 이어보기" : "대화 요약"}{unread.length > 0 && <span className="tg-chat-summary-dot" aria-hidden="true"/>}</button>
       <button type="button" className="tg-icon" aria-label="대화 검색 열기" aria-haspopup="dialog" onClick={() => setSearchOpen(true)}><Search size={20}/></button>
       <button type="button" className="tg-icon" aria-label="대화 설정" aria-haspopup="dialog" onClick={() => setMoreOpen(true)}><MoreHorizontal size={22}/></button>
     </header>
@@ -342,7 +346,7 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
       {onResources && <button type="button" aria-label="대화방 자료 모아보기" onClick={onResources}><FolderOpen size={16}/><span>자료</span></button>}
     </div>
     <div className="tg-chat tg-room-stream" ref={stream} role="region" aria-label="채팅 대화">
-      {!shown.length && <div className="tg-empty"><MessageCircle size={28}/><h2>{query || person !== 'all' ? '검색 결과가 없어요' : '첫 인사를 나눠보세요'}</h2><p>이 방의 모임원끼리 대화를 확인해요.</p>{(query || person !== 'all') && <button onClick={() => { setQuery(''); setPerson('all'); }}>검색 초기화</button>}</div>}
+      {!shown.length && <div className="tg-empty"><MessageCircle size={28}/><h2>첫 인사를 나눠보세요</h2><p>이 방의 모임원끼리 대화를 확인해요.</p></div>}
       {shown.map(message => {
         const original = message.replyToMessageId ? sorted.find(item => item.id === message.replyToMessageId) : null;
         const reactions = Object.entries(message.reactions ?? {}).map(([emoji, ids]) => ({ emoji, ids: ids.filter(id => group.memberIds.includes(id)) })).filter(item => item.ids.length);
@@ -400,10 +404,10 @@ export default function ChatWorkspace({ draftMemory, places, onOpenPlace, state,
     </div>
     {contextOpen && <BottomSheet title="공지·진행 항목" description={activity?.title || group.name} onClose={() => setContextOpen(false)}><div className="tg tg-chat-context-panel">
       {notices.length > 0 && <section><h3>공지 · {notices.length}</h3>{notices.map(item => <details key={item.id}><summary>{item.title}<ChevronDown size={16}/></summary><div className="tg-chat-notice-text">{item.body}</div></details>)}</section>}
-      {activeCards.length > 0 && <section><h3>진행 중인 항목 · {activeCards.length}</h3>{activeCards.map(message => <button type="button" key={message.id} className="tg-chat-context-item" onClick={() => { setContextOpen(false); setQuery(''); setPerson('all'); onSource(message.id); }}><span>{message.entity?.type === 'POLL' ? '투표' : message.entity?.type === 'CHALLENGE' ? '챌린지' : '준비'}</span><strong>{messageText(message)}</strong><ChevronRight size={16}/></button>)}</section>}
+      {activeCards.length > 0 && <section><h3>진행 중인 항목 · {activeCards.length}</h3>{activeCards.map(message => <button type="button" key={message.id} className="tg-chat-context-item" onClick={() => { setContextOpen(false); onSource(message.id); }}><span>{message.entity?.type === 'POLL' ? '투표' : message.entity?.type === 'CHALLENGE' ? '챌린지' : '준비'}</span><strong>{messageText(message)}</strong><ChevronRight size={16}/></button>)}</section>}
       {!notices.length && !activeCards.length && <p>현재 공지나 진행 중인 항목이 없어요.</p>}
     </div></BottomSheet>}
-    {searchOpen && <BottomSheet title="대화 검색" onClose={() => { setSearchOpen(false); setQuery(''); setPerson('all'); }}><div className="tg tg-chat-search-panel"><div className="tg-room-search"><label><span className="ui-sr-only">대화 검색</span><Search size={17}/><input ref={searchInput} aria-label="대화 검색" placeholder="대화 내용·사람 검색" value={query} onChange={event => setQuery(event.target.value)}/>{query && <button type="button" className="tg-icon" aria-label="대화 검색 지우기" onClick={() => setQuery('')}><X size={16}/></button>}</label><select aria-label="대화 검색 대상" value={person} onChange={event => setPerson(event.target.value)}><option value="all">모든 멤버</option>{group.memberIds.map(id => <option key={id} value={id}>{roomMemberName(id)}</option>)}</select><span aria-live="polite">{shown.length}개 대화</span></div><div className="tg-chat-search-results">{shown.slice().reverse().map(message => <button type="button" key={message.id} onClick={() => { setSearchOpen(false); setQuery(''); setPerson('all'); onSource(message.id); }}><small>{roomMemberName(message.authorId)}</small><span>{messageText(message)}</span><ChevronRight size={16}/></button>)}{!shown.length && <p>검색 결과가 없어요.</p>}</div></div></BottomSheet>}
+    {searchOpen && <ChatSearchPanel context={draftContext} memory={currentSearchMemory} onClose={() => setSearchOpen(false)} onSource={onSource}/> }
     {addOpen && <BottomSheet title="대화에 추가" description={activity?.title || group.name} onClose={() => setAddOpen(false)}><div className="tg tg-room-options">
       {activity && onPersonalRoute && <button type="button" onClick={() => { setAddOpen(false); onPersonalRoute(); }}><MapPin size={18}/><span>내 참여 구간·변경 확인</span><ChevronRight size={17}/></button>}
       {activity && onVisitGuide && <button type="button" onClick={() => { setAddOpen(false); onVisitGuide(); }}><ListChecks size={18}/><span>입구·주차·방문 안내</span><ChevronRight size={17}/></button>}

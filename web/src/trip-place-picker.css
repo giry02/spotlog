@@ -19,4 +19,6 @@
 .trip-picker-tags {display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;}
 .trip-picker-tags span {background:#f1f1ee;padding:2px 5px;border-radius:5px;color:#62625e;font-size:var(--type-caption);}
 .trip-picker-main>.ui-button {flex:none;min-height:44px;padding:7px 9px;}
+.trip-picker-mode{display:flex;gap:8px;border-bottom:1px solid var(--line);padding-bottom:8px}.trip-picker-mode>button{flex:1;min-height:44px;display:flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:0;background:transparent;color:var(--muted);font-size:14px}.trip-picker-mode>button[aria-pressed=true]{border-bottom:2px solid var(--ink);color:var(--ink);font-weight:700}.trip-picker-manual{display:grid;gap:12px;min-width:0}.trip-picker-manual[hidden]{display:none!important}.trip-picker-detail{display:grid;gap:12px;min-width:0}
+.trip-picker-ai-meal{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.trip-picker-ai-meal>small{font-size:12px;color:var(--muted)}.trip-picker-ai-meal .trip-picker-meal>button{min-height:44px;min-width:64px}
 .trip-picker-place>.public-photo-credit {margin-top:6px;min-height:44px;}

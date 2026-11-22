@@ -20,6 +20,8 @@ import type { PublicActivityIntent } from './model';
 import ChatWorkspace from './ChatWorkspace';
 import { pageChatDraftMemory } from './chatDrafts';
 import ConversationSummary from './ConversationSummary';
+import { createChatSummaryMemory } from './summaryMemory';
+import { createChatSearchMemory } from './chatSearch';
 import DiscoveryPicksPanel, { SavePublicActivityButton } from './DiscoveryPicksPanel';
 import CalendarPanel from './CalendarPanel';
 import { ActivityWaitlistPanel, ActivityRepeatPanel } from './ActivityParticipationTools';
@@ -53,6 +55,8 @@ import { holdCreationHandoff, isCreationPlannerRoute, peekCreationHandoff, retai
 import type { CreationPreviewDraft } from './creationPreview';
 import { attachCreationPreferences } from './creationPreferences';
 import { pageCreationDraftMemory } from './creationDraftMemory';
+import TripStartPanel from '../TripStartPanel';
+import type { EmptyPersonalTripRequest } from '../emptyPersonalTrip';
 import PlanningSupportPanel from './PlanningSupportPanel';
 import PlanningPlacePicker from './PlanningPlacePicker';
 import { addPlanningPlaceCandidate } from './planningPlaces';
@@ -121,6 +125,7 @@ interface Props {
   personalRouteRequest?: { id: string; actorId: string; groupId: string; activityId: string } | null; onPersonalRouteRequestHandled?: (id: string) => void;
   memberRecordRequest?: { id: string; actorId: string; groupId: string; activityId?: string; record?: { type: 'POST' | 'MEDIA' | 'JOURNAL' | 'COMMENT'; id: string; commentId?: string } } | null; onMemberRecordRequestHandled?: (id: string) => void;
   onCreatePersonalPlan?: (journey: Journey) => boolean;
+  onStartPersonalPlan?: (request: EmptyPersonalTripRequest) => boolean;
   myRegionLabel?: string; onManageMyRegions?: () => void; onUseMyRegion?: () => void;
   calendarView?: CalendarView; onCalendarViewChange?: (view: CalendarView) => void;
 }
@@ -182,7 +187,7 @@ function PlaceRow({ place, onSave }: { place: Place; onSave: (place: Place) => v
   return <details className="tg-place"><summary>{photos[0] ? <img src={photos[0].image} alt="" /> : <MapPin size={28} />}<div><span className="tg-tag">{placeNames[place.kind]}</span><strong>{place.name}</strong><small>{place.area}</small></div><ChevronDown size={18} /></summary><div className="tg-place-content">{photos[0] && <><img src={photos[0].image} alt={photos[0].alt || place.name} /><PhotoCredit image={photos[0].image} sourceId={photos[0].sourceId} /></>}<p>{place.description || '장소 소개를 준비하고 있어요.'}</p><small>{place.address}</small>{place.duration && <small>방문 참고 · {place.duration}</small>}<div className="tg-row"><button onClick={() => onSave(place)}><Heart size={16} />관심 장소 저장</button><a className="tg-direction" href={naverDirectionsUrl(place)} target="_blank" rel="noreferrer">네이버 길찾기 ↗</a></div></div></details>;
 }
 
-export default function TogetherApp({ repository: suppliedRepository, route, onNavigate, onBack, viewer, onLogin, places, journeys, onOpenJourney, onSavePlace, onCopyJourney, onCreateJournal, journalShareRequest, onJournalShareRequestHandled, decisionRequest, onDecisionRequestHandled, personalRouteRequest, onPersonalRouteRequestHandled, memberRecordRequest, onMemberRecordRequestHandled, onCreateTemporaryRoom, onCreatePersonalPlan, discoveryFilters, onDiscoveryFiltersChange, reviewRepository, myRegionLabel, onManageMyRegions, onUseMyRegion, calendarView, onCalendarViewChange }: Props) {
+export default function TogetherApp({ repository: suppliedRepository, route, onNavigate, onBack, viewer, onLogin, places, journeys, onOpenJourney, onSavePlace, onCopyJourney, onCreateJournal, journalShareRequest, onJournalShareRequestHandled, decisionRequest, onDecisionRequestHandled, personalRouteRequest, onPersonalRouteRequestHandled, memberRecordRequest, onMemberRecordRequestHandled, onCreateTemporaryRoom, onCreatePersonalPlan, onStartPersonalPlan, discoveryFilters, onDiscoveryFiltersChange, reviewRepository, myRegionLabel, onManageMyRegions, onUseMyRegion, calendarView, onCalendarViewChange }: Props) {
   useConsumerDensity();
   const repository = useMemo(() => suppliedRepository ?? (import.meta.env.DEV && reviewRepository ? reviewRepository : createTogetherRepository(viewer?.id ?? '', viewer?.name ?? '', places)), [suppliedRepository, viewer?.id, reviewRepository]);
   const [state, setState] = useState<TogetherState>(() => repository.getSnapshot());
@@ -197,6 +202,9 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   const [directoryView, setDirectoryView] = useState(directoryViewMemory.current);
   const [activityFilter, setActivityFilter] = useState('upcoming');
   const [modal, setModal] = useState<Modal | null>(null);
+  const [summaryMemory] = useState(createChatSummaryMemory);
+  const [searchMemory] = useState(createChatSearchMemory);
+  const [summaryReturn, setSummaryReturn] = useState<{ userId: string; groupId: string; roomId: string; form: Record<string, string> } | null>(null);
   const [form, setForm] = useState<Record<string, string>>({});
   const [pollApplication, setPollApplication] = useState<PollActivityApplicationPreview | null>(null);
   const [planningPicker, setPlanningPicker] = useState<{ actorId: string; groupId: string; activityId?: string } | null>(null);
@@ -209,7 +217,6 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   const [withdrawIds, setWithdrawIds] = useState<string[]>([]);
   const [error, setError] = useState('');
   const [toast, setToast] = useState('');
-  const [aiPreview, setAiPreview] = useState(false);
   const [highlight, setHighlight] = useState('');
   const [calendarDate, setCalendarDate] = useState(() => normalizeCalendarView(calendarView, dayKey().slice(0, 7)).date);
   const [creationBoot] = useState(() => {
@@ -231,6 +238,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   const groupCreationManualDraft = useRef<{ viewerId: string; route: string; draft: GroupCreationDraft; phase?: 'INPUT' | 'DRAFT' } | null>(null);
   const [creationTarget, setCreationTarget] = useState<'PERSONAL' | 'TOGETHER'>(creationBoot.target);
   const [preparedCreationRoute, setPreparedCreationRoute] = useState(creationBoot.preparedRoute);
+  const [tripRecommendation, setTripRecommendation] = useState<{ actor: string; route: string } | null>(null);
   const [placeDetail, setPlaceDetail] = useState<Place | null>(null);
   const sharedRouteSection = useRef<HTMLDivElement>(null);
   const [dashboardRecordHighlight, setDashboardRecordHighlight] = useState('');
@@ -256,6 +264,11 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   const activeReader = useRef<FileReader | null>(null);
   useEffect(() => { uploadEpoch.current += 1; return () => { uploadEpoch.current += 1; activeReader.current?.abort(); }; }, [modal, viewer?.id, groupIdForUpload(route)]);
   const uid = viewer?.id ?? '';
+  summaryMemory.activate(uid);
+  summaryMemory.reconcile(state, uid);
+  searchMemory.activate(uid);
+  searchMemory.reconcile(state, uid);
+  useEffect(() => { setSummaryReturn(null); }, [uid]);
   pageCreationDraftMemory.activate(uid);
   const directCreationPurpose = route === 'together-plan-trip' ? 'TRIP' : route === 'together-plan-group' ? 'GROUP' : undefined;
   const recentStorage = useMemo(() => { try { return window.localStorage; } catch { return null; } }, []);
@@ -387,7 +400,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   const notices = state.notices.filter(item => item.groupId === group?.id && (activity ? item.activityId === activity.id : !item.activityId));
   const sourceJourney = journeys.find(item => item.id === (route.startsWith('together-share-') ? route.slice(15) : ''));
   const set = (key: string, value: string) => setForm(current => ({ ...current, [key]: value }));
-  const open = (type: Modal, initial: Record<string, string> = {}) => { setModal(type); setForm(type === 'promotion' && group ? { introduction: group.introduction, region: group.region, cover: group.cover, ...discoveryProfile(group), topics: discoveryProfile(group).topics.join(','), subtopics: (discoveryProfile(group).subtopics || []).join(','), ...initial } : initial); setError(''); setSelectedIds(type === 'promotion' ? [...(group?.promotionActivityIds || [])] : type === 'edit-activity' ? [...(activity?.editorIds || [])] : []); setAiPreview(false); };
+  const open = (type: Modal, initial: Record<string, string> = {}) => { setModal(type); setForm(type === 'promotion' && group ? { introduction: group.introduction, region: group.region, cover: group.cover, ...discoveryProfile(group), topics: discoveryProfile(group).topics.join(','), subtopics: (discoveryProfile(group).subtopics || []).join(','), ...initial } : initial); setError(''); setSelectedIds(type === 'promotion' ? [...(group?.promotionActivityIds || [])] : type === 'edit-activity' ? [...(activity?.editorIds || [])] : []); };
   const checkRoomItem = (item?: { groupId: string; activityId?: string }) => {
     if (!group || !item || item.groupId !== group.id || item.activityId !== activity?.id) throw new Error('이 대화방의 항목을 다시 확인해 주세요.');
   };
@@ -472,7 +485,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     if (summaryRoute && member) open('ai', { scope: 'unread', person: 'all' });
   }, [route, member]);
   useEffect(() => {
-    if ((modal === 'ai' || modal === 'assistant') && !member) { setModal(null); setAiPreview(false); setSelectedIds([]); setForm({}); }
+    if ((modal === 'ai' || modal === 'assistant') && !member) { setModal(null); setSelectedIds([]); setForm({}); }
   }, [modal, member]);
   useEffect(() => {
     if ((modal === 'planning' || modal === 'creation' && creationGroupId) && (!member || group?.archived)) { setModal(null); setError('이 모임의 현재 접근 권한을 확인해 주세요.'); }
@@ -580,7 +593,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
       nav(target);
     }
   };
-  const publishAssistantAction = (action: Parameters<typeof applyActivityAssistantAction>[2]) => {
+  const publishAssistantAction = (action: Parameters<typeof applyActivityAssistantAction>[2], keepSummary = false) => {
     let destination = action.activityId ? roomIdForActivity(action.activityId) : roomIdForGroup(action.groupId);
     let messageId: string | undefined;
     const ok = mutate(draft => {
@@ -593,7 +606,10 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
       const message = matching.find(item => !existingMessages.has(item.id)) || matching.at(-1);
       if (message) { destination = message.roomId; messageId = message.id; }
     });
-    if (ok) showChatResult(destination, messageId);
+    if (ok) {
+      if (keepSummary) setToast('준비할 일로 담았어요. 요약에서 다른 항목도 확인할 수 있어요.');
+      else showChatResult(destination, messageId);
+    }
     return ok;
   };
   const changeCreationTarget = (target: 'PERSONAL' | 'TOGETHER') => {
@@ -888,7 +904,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   const chatScreen = () => {
     if (!group || (route.startsWith('activitychat-') && !activity)) return missing(); if (!member) return denied();
     return <>
-      <ChatWorkspace key={`${uid}:${group.id}:${roomId}`} draftMemory={pageChatDraftMemory} places={places} state={state} userId={uid} group={group} activity={activity} roomId={roomId} messages={messages} notices={notices} highlight={highlight} canManage={activity ? editor : manager} error={error}
+      <ChatWorkspace key={`${uid}:${group.id}:${roomId}`} draftMemory={pageChatDraftMemory} searchMemory={searchMemory} summaryResumable={Boolean(summaryReturn && summaryReturn.userId === uid && summaryReturn.groupId === group.id && summaryReturn.roomId === roomId)} places={places} state={state} userId={uid} group={group} activity={activity} roomId={roomId} messages={messages} notices={notices} highlight={highlight} canManage={activity ? editor : manager} error={error}
         onBack={returnFromChat}
         onCheckReply={messageId => canReplyToMessage(repository.getSnapshot(), uid, roomId, messageId)}
         onEditOwnProfile={canUseRoomProfiles(group) && !group.archived && activity?.status !== 'CANCELLED' ? () => open('member-profile-edit', { recordActivityId: activity?.id || '', profileReturn: 'chat' }) : undefined}
@@ -904,7 +920,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
         onClosePoll={closePoll} onConfirmPoll={confirmPoll} onEditPoll={editPoll} onApplyPollToActivity={openPollApplication} onParticipation={openParticipation}
         onToggleTask={taskId => mutate(draft => { toggleChatTask(draft, uid, roomId, taskId); })}
         onToggleMute={() => mutate(draft => { draft.mutedRooms = draft.mutedRooms.includes(roomId) ? draft.mutedRooms.filter(id => id !== roomId) : [...draft.mutedRooms, roomId]; }, state.mutedRooms.includes(roomId) ? '이 기기에 채팅 알림 켜짐 설정을 저장했어요. 알림 발송은 아직 연결 전이에요.' : '이 기기에 채팅 알림 꺼짐 설정을 저장했어요.')}
-        onSummary={unreadAfter => open('ai', { scope: 'unread', person: 'all', unreadCaptured: 'yes', ...(unreadAfter ? { unreadAfter } : {}) })}
+        onSummary={unreadAfter => open('ai', summaryReturn && summaryReturn.userId === uid && summaryReturn.groupId === group.id && summaryReturn.roomId === roomId ? summaryReturn.form : { scope: 'unread', person: 'all', unreadCaptured: 'yes', ...(unreadAfter ? { unreadAfter } : {}) })}
         onSource={jumpToMessage} onClearHighlight={() => setHighlight('')} onNotice={body => open('notice', body ? { title: '고정 안내', body } : {})} onReport={id => report('MESSAGE', id)} onNavigate={nav}
         onRead={() => mutate(draft => { if (!isMember(draft, uid, group.id)) throw new Error('현재 모임원만 읽음 표시를 할 수 있어요.'); draft.readCursors[roomId] = [...messages].sort((a, b) => a.createdAt.localeCompare(b.createdAt)).at(-1)?.createdAt || now(); }, '이 채팅을 여기까지 읽음으로 표시했어요.')}
         onSend={(body, sticker, reply, mentions) => mutate(draft => { postTogetherMessage(draft, uid, roomId, body, sticker, reply, mentions); })}
@@ -978,28 +994,18 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     if (!requireUser()) return; if (sourceJourney && !isShareableJourney(sourceJourney)) return setError('방문 장소와 후보를 확인하고 내 여행에서 먼저 완료해 주세요.'); let id = '';
     if (mutate(draft => { if (!sourceJourney) { const target = draft.groups.find(item => item.id === group?.id); if (!target || target.archived || !target.memberIds.includes(uid) || target.ownerId !== uid && !target.managerIds.includes(uid)) throw new Error('기존 모임의 직접 초대는 모임장과 운영진이 할 수 있어요.'); } id = togetherId('invite'); draft.invites.push({ id, intentId: togetherId('intent'), sourceTripId: sourceJourney?.id, sourceJourney: sourceJourney ? snapshotJourneyForGroup(sourceJourney, viewer!.name) : undefined, groupId: sourceJourney ? undefined : group?.id, senderId: uid, name: form.name || group?.name || '우리 모임', kind: (form.kind || group?.kind || 'FAMILY') as GroupKind, region: form.region || group?.region || '', acceptedBy: [], expiresAt: new Date(Date.now() + 7 * 86400000).toISOString(), revoked: false }); }, '초대를 만들었어요.')) { setModal(null); nav(`group-invite-${id}`); }
   });
-  const goToChat = () => { if (!group || !member) return; rememberChatOrigin(); setModal(null); nav(activity ? `activitychat-${activity.id}` : `groupchat-${group.id}`); };
   const jumpToMessage = (id: string) => {
     if (!group || !member || !messages.some(item => item.id === id && !item.deleted)) return;
+    if (modal === 'ai') rememberSummaryReturn();
     setModal(null);
     if (!inChat) { rememberChatOrigin(); pendingSourceJump.current = id; nav(activity ? `activitychat-${activity.id}` : `groupchat-${group.id}`); return; }
     setHighlight(id); window.setTimeout(() => scrollChatTo(id), 60);
   };
   const summaryUnreadAfter = form.unreadCaptured === 'yes' ? form.unreadAfter : state.readCursors[roomId];
-  const selectedMessages = messages.filter(item => (form.person === 'all' || !form.person || item.authorId === form.person) && (form.scope !== 'unread' || !summaryUnreadAfter || item.createdAt > summaryUnreadAfter) && (form.scope !== 'today' || dayKey(new Date(item.createdAt)) === dayKey()) && (form.scope !== 'date' || ((!form.from || dayKey(new Date(item.createdAt)) >= form.from) && (!form.to || dayKey(new Date(item.createdAt)) <= form.to))));
-  const exampleTemplates: Record<string, { sourceBody: string; category: string; text: string; task?: string; assignee?: string }> = {
-    'family-general-1': { sourceBody: '지난 여행 사진은 앨범에 모아 둘게요. 다음 여행 이야기는 부산 가족여행 일정에서 해요.', category: '모임 안내', text: '지난 여행 사진은 앨범에, 다음 여행 대화는 해당 일정 채팅에 모으기' },
-    'family-general-2': { sourceBody: '좋아요. 공지와 다음 일정은 모임 홈에서도 볼 수 있어요.', category: '확인할 곳', text: '공지와 다음 일정은 모임 홈에서 확인하기' },
-    'friends-chat-1': { sourceBody: '토요일에 읽고 있는 책이나 좋아하는 이야기를 나눠요. 새 정모에 참가 여부를 남겨 주세요.', category: '모임 준비', text: '읽고 있는 책이나 이야기 준비 · 토요일 정모에서 참석 여부 선택' },
-    'family-chat-2': { sourceBody: '기차 시간을 확인했어요. 부산역 10시 30분, 2번 출구로 확정해요.', category: '확정된 내용', text: '부산역 2번 출구 · 10시 30분 집합' },
-    'family-chat-3': { sourceBody: '계단이 적고 오래 걷지 않는 곳이면 좋겠어. 중간에 카페에서 쉬자.', category: '동행자 요청', text: '계단과 걷는 거리를 줄이고 중간에 카페에서 쉬기', task: '계단·걷는 거리와 카페 휴식 시간을 동선에서 확인' },
-    'family-chat-4': { sourceBody: '점심은 식당 A와 식당 B 중 골라요. 아직 결정하지 않았어요.', category: '논의 중인 후보', text: '점심 식당 A / B · 아직 결정하지 않음' },
-    'family-chat-5': { sourceBody: '제가 식당 예약이 가능한지 알아볼게요. 아직 예약한 건 아니에요.', category: '확인할 일', text: '식당 예약 가능 여부 확인 · 예약 완료 아님', task: '점심 식당 예약 가능 여부 확인' },
-    'family-chat-6': { sourceBody: '각자 보조배터리와 편한 신발을 챙기자.', category: '준비물', text: '각자 보조배터리와 편한 신발 챙기기', task: '보조배터리와 편한 신발 챙기기' },
+  const rememberSummaryReturn = () => {
+    if (group && member) setSummaryReturn({ userId: uid, groupId: group.id, roomId,
+      form: { ...form, unreadCaptured: 'yes', unreadAfter: summaryUnreadAfter || '' } });
   };
-  // Both the known fixture ID and its unchanged original must match. Customer text is never interpreted here.
-  const isExampleMessage = (message: typeof messages[number]) => exampleTemplates[message.id]?.sourceBody === message.body;
-  const exampleResults = member ? selectedMessages.filter(isExampleMessage).map(message => ({ message, ...exampleTemplates[message.id] })) : [];
   const canApply = activity ? editor : manager;
   const memberRecordScopeId = form.recordActivityId !== undefined ? form.recordActivityId || undefined : activity?.id;
   const memberRecordActivity = state.activities.find(item => item.id === memberRecordScopeId && item.groupId === group?.id);
@@ -1356,36 +1362,8 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
       if (!group || !member) return denied();
       return <div className="tg-form">
         <div className="tg-ai-context"><small>선택한 채팅</small><strong>{group.name}{activity ? ` › ${activity.title}` : ' · 전체 채팅'}</strong></div>
-        <ConversationSummary key={`${uid}:${roomId}`} state={state} userId={uid} groupId={group.id} roomId={roomId} unreadAfter={summaryUnreadAfter} onSource={jumpToMessage} onCreateTask={canWriteRoom ? publishAssistantAction : undefined} onViewActivity={activity ? () => { setModal(null); nav(`activity-${activity.id}`); } : undefined}/>
-        <details className="tg-example-summary"><summary>AI 요약·준비 반영 예시</summary><div className="tg-form"><p className="tg-ai-status">AI 모델 연결 전 · 등록된 예시 원문으로 준비·공지 반영을 확인해요.</p>
-        {!aiPreview ? <>
-          <label>정리할 범위<select value={form.scope || 'unread'} onChange={event => set('scope', event.target.value)}><option value="unread">안 읽은 대화</option><option value="today">오늘</option><option value="date">기간 선택</option><option value="all">이 채팅 전체</option></select></label>
-          {form.scope === 'date' && <>{field('from', '시작', 'date')}{field('to', '종료', 'date')}</>}
-          <label>특정 사람<select value={form.person || 'all'} onChange={event => set('person', event.target.value)}><option value="all">모든 사람</option>{group.memberIds.map(id => <option key={id} value={id}>{memberName(state, id, group?.id)}</option>)}</select></label>
-          <small>선택한 조건의 대화 {selectedMessages.length}개 · 현재 채팅 안에서만 확인해요.</small>
-          <button className="tg-primary" onClick={() => { if (form.scope === 'date' && form.from && form.to && form.from > form.to) { setError('종료 날짜를 시작 날짜 이후로 선택해 주세요.'); return; } setError(''); setAiPreview(true); setSelectedIds([]); }}>예시 결과 확인</button>
-          <small>요약 화면을 열어도 읽음 위치와 실제 일정은 바뀌지 않아요.</small>
-        </> : <>
-          <h3 className="tg-ai-results-title">결과 형식 예시</h3>
-          {exampleResults.length ? exampleResults.map(result => <div className="tg-result" key={result.message.id}><h3>{result.category}</h3><label><input type="checkbox" checked={selectedIds.includes(result.message.id)} onChange={() => toggleSelected(result.message.id)} /><span>{result.text}</span></label><small>{memberName(state, result.message.authorId, group?.id, activity?.id)}의 예시 원문에 연결됨</small><button className="tg-text-button" onClick={() => jumpToMessage(result.message.id)}>원문 보기 <ArrowRight size={14} /></button>{result.message.id === 'family-chat-4' && editor && <button className="tg-text-button" onClick={() => open('poll', { title: '점심 식당 후보 고르기', options: '식당 A · 후보\n식당 B · 후보' })}>투표 초안 만들기</button>}</div>) : <div className="tg-ai-empty"><h3>{selectedMessages.length ? '이 조건에는 연결된 예시 결과가 없어요' : '선택한 조건에 맞는 대화가 없어요'}</h3><p>{messages.some(isExampleMessage) ? '범위나 사람을 바꾸면 이 채팅의 예시 원문을 확인할 수 있어요.' : '현재 채팅에 준비된 예시 원문이 없어요. 대화와 준비할 내용을 직접 확인해 보세요.'}</p><div className="tg-row"><button disabled={!messages.length} onClick={() => { setForm({ scope: 'all', person: 'all' }); setSelectedIds([]); }}>필터 초기화</button><button onClick={goToChat}>대화로 가기<ArrowRight size={15}/></button></div></div>}
-          {exampleResults.length > 0 && (canApply ? <>
-            {activity && <button className="tg-primary" disabled={!exampleResults.some(item => item.task && selectedIds.includes(item.message.id))} onClick={() => {
-              let added = 0;
-              if (mutate(draft => {
-                const current = draft.activities.find(item => item.id === activity.id);
-                if (!current || !canEditActivity(draft, uid, current)) throw new Error('이 일정의 준비 목록을 바꿀 권한이 없어요.');
-                exampleResults.filter(item => item.task && selectedIds.includes(item.message.id)).forEach(result => {
-                  const source = draft.messages.find(item => item.id === result.message.id && item.roomId === roomId && !item.deleted);
-                  if (!source || source.body !== result.sourceBody) throw new Error('원문이 바뀌었어요. 대화를 다시 확인해 주세요.');
-                  if (draft.tasks.some(item => item.activityId === activity.id && item.sourceMessageIds?.includes(result.message.id))) return;
-                  draft.tasks.push({ id: togetherId('task'), groupId: activity.groupId, activityId: activity.id, title: result.task!, assigneeId: result.assignee, completed: false, sourceMessageIds: [result.message.id] }); added += 1;
-                });
-              })) { setToast(added ? `${added}개 항목을 준비 목록에 추가했어요.` : '이미 준비 목록에 있는 항목이에요.'); setModal(null); }
-            }}>선택 항목 준비에 추가</button>}
-            <button disabled={!selectedIds.length} onClick={() => open('notice', { title: '대화에서 확인한 안내', body: exampleResults.filter(item => selectedIds.includes(item.message.id)).map(item => `[${item.category}] ${item.text}`).join('\n') })}>선택 항목 공지로 편집</button>
-          </> : <small>준비 목록·공지 반영은 일정 담당자 또는 모임 운영진이 할 수 있어요.</small>)}
-          <button onClick={() => { setAiPreview(false); setError(''); }}>조건 다시 선택</button>
-        </>}</div></details>
+        <ConversationSummary key={`${uid}:${roomId}`} memory={summaryMemory} state={state} userId={uid} groupId={group.id} roomId={roomId} unreadAfter={summaryUnreadAfter} onSource={jumpToMessage} onCreateTask={canWriteRoom ? action => publishAssistantAction(action, true) : undefined} onDraftNotice={canApply ? draft => { rememberSummaryReturn(); open('notice', draft); } : undefined} onViewActivity={activity ? () => { rememberSummaryReturn(); setModal(null); nav(`activity-${activity.id}`); } : undefined}/>
+
       </div>;
     }
     return <p>이 기능을 사용할 수 있는 권한이 없어요.</p>;
@@ -1395,7 +1373,10 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   if (route.startsWith('visit-guide-')) screen = <VisitGuideLink token={route.slice('visit-guide-'.length)} onBack={() => onBack ? onBack('home') : nav('together')}/>;
   else if (isCreationPlannerRoute(route)) {
     const title = directCreationPurpose === 'GROUP' ? '모임 만들기' : directCreationPurpose === 'TRIP' ? '여행 만들기' : '약속 만들기';
-    screen = <><ScreenHeader title={title} variant="detail" leading={<button type="button" aria-label="계획 화면 나가기" onClick={closeCreationPlanner}><ArrowLeft size={20}/></button>}/><div className="tg-pad tg-stack">{creationPanel(directCreationPurpose)}</div></>;
+    const recommending = tripRecommendation?.actor === uid && tripRecommendation.route === route || Boolean(creationResume);
+    const startTrip = directCreationPurpose === 'TRIP' && onStartPersonalPlan && !recommending;
+    const leave = () => { if (directCreationPurpose === 'TRIP' && recommending && !creationResume && onStartPersonalPlan) setTripRecommendation(null); else closeCreationPlanner(); };
+    screen = <><ScreenHeader title={title} variant="detail" leading={<button type="button" aria-label="계획 화면 나가기" onClick={leave}><ArrowLeft size={20}/></button>}/><div className="tg-pad tg-stack">{startTrip ? <TripStartPanel key={`${uid}:${route}`} onCreate={request => { const ok = onStartPersonalPlan(request); if (ok) pageCreationDraftMemory.remove(uid, currentCreationScope); return ok; }} onRecommend={() => setTripRecommendation({ actor: uid, route })} onCancel={closeCreationPlanner}/> : creationPanel(directCreationPurpose)}</div></>;
   }
   else if (route === 'together-shares') screen = viewer ? sharesScreen() : denied();
   else if (route === 'together-picks') screen = picksScreen();

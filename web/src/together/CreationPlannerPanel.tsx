@@ -9,6 +9,7 @@ import { topicOptions } from './discovery';
 import { creationBriefTopics, creationCatalogPlaces, creationCatalogRegions, interpretCreationPrompt, refreshCreationPlan, validateCreationBrief, validateCreationPlan, type CreationBrief, type CreationGroupDraft, type CreationPlan, type CreationPurpose } from './creationPlanner';
 import { completeCreationReview, creationPreviewCatalog, restoreCreationPreview, type CreationPreviewDraft } from './creationPreview';
 import { prepareQuickCreation, quickCreationStartDatePatch } from './quickCreation';
+import { selectCreationAiCandidates } from './creationAiCandidates';
 import GroupLocalityFields from './GroupLocalityFields';
 import { groupLocalityIssues, parseGroupLocality } from './groupRegions';
 import type { GroupTopic } from './model';
@@ -78,6 +79,7 @@ export default function CreationPlannerPanel({ places, initial, initialPrompt = 
   const [modelPending, setModelPending] = useState(false);
   const [suggestion, setSuggestion] = useState<AiSuggestion | null>(null);
   const [modelApplied, setModelApplied] = useState(false);
+  const [startWithAi, setStartWithAi] = useState(Boolean(planningEndpoint));
   const requestRef = useRef<AbortController | null>(null);
   const inFlight = useRef(false);
   const draftCallback = useRef(onDraftChange);
@@ -115,6 +117,7 @@ export default function CreationPlannerPanel({ places, initial, initialPrompt = 
     setActiveDay(1); setPicker(null); setPendingDays(null); setModelApplied(false); setPhase('DRAFT');
     setError(next.issues.join(' '));
     headingRef.current?.scrollIntoView({ block: 'start', behavior: 'instant' });
+    return next;
   };
 
   const updateBrief = (patch: Partial<CreationBrief>) => {
@@ -209,37 +212,43 @@ export default function CreationPlannerPanel({ places, initial, initialPrompt = 
     setPicker(null);
   };
 
-  const askModel = async () => {
+  const askModel = async (draft?: { brief: CreationBrief; plan: CreationPlan | null; groupDraft?: CreationGroupDraft }) => {
     if (requestRef.current || locked) return;
     if (!planningEndpoint) { setError('AI 서버가 연결되어 있지 않아요. 지금 초안은 그대로 수정하고 저장할 수 있어요.'); return; }
-    if (!brief.region.trim()) { setError('AI로 장소나 소개를 제안받으려면 활동 지역을 먼저 정해 주세요.'); return; }
+    const currentBrief = draft?.brief ?? brief;
+    const currentPlan = draft ? draft.plan : plan;
+    const currentGroup = draft ? draft.groupDraft : groupDraft;
+    const groupPurpose = currentBrief.purpose === 'GROUP';
+    const currentCatalog = selectCreationAiCandidates(currentBrief, currentPlaces.current);
+    const currentIds = new Set(currentCatalog.map(place => place.id));
+    if (!currentBrief.region.trim()) { setError('어느 지역에서 만날까요? 초안에서 지역을 정하면 AI 제안을 받을 수 있어요.'); return; }
     const controller = new AbortController();
     requestRef.current = controller; setModelPending(true); setSuggestion(null); setError('');
     const active = () => requestRef.current === controller && !controller.signal.aborted;
-    const modelPrompt = isGroup && groupDraft
-      ? ['모임 이름은 유지하고 소개와 첫 활동 아이디어를 다듬어 주세요.', `모임 이름: ${groupDraft.name}`, `현재 소개: ${groupDraft.introduction}`, brief.prompt ? `하고 싶은 일: ${brief.prompt}` : ''].filter(Boolean).join('\n')
-      : brief.prompt || plan?.title || '함께할 시간을 계획해 주세요.';
-    const modelBrief = { ...brief, prompt: modelPrompt.slice(0, 600), notes: brief.notes.slice(0, 1500) };
+    const modelPrompt = groupPurpose && currentGroup
+      ? ['모임 이름은 유지하고 소개와 첫 활동 아이디어를 다듬어 주세요.', `모임 이름: ${currentGroup.name}`, `현재 소개: ${currentGroup.introduction}`, currentBrief.prompt ? `하고 싶은 일: ${currentBrief.prompt}` : ''].filter(Boolean).join('\n')
+      : currentBrief.prompt || currentPlan?.title || '함께할 시간을 계획해 주세요.';
+    const modelBrief = { ...currentBrief, prompt: modelPrompt.slice(0, 600), notes: currentBrief.notes.slice(0, 1500) };
     try {
-      if (isGroup) {
+      if (groupPurpose) {
         const response = await requestGroupDraftAi(planningEndpoint, modelBrief, controller.signal);
         if (!active()) return;
-        if (!response || !groupDraft) throw new Error('AI 제안을 받지 못했어요. 지금 모임 초안은 그대로예요.');
+        if (!response || !currentGroup) throw new Error('AI 제안을 받지 못했어요. 지금 모임 초안은 그대로예요.');
         setSuggestion({ brief: modelBrief, plan: null, groupDraft: {
-          ...groupDraft, introduction: response.introduction,
+          ...currentGroup, introduction: response.introduction,
           ...(response.firstActivityIdea !== undefined ? { firstActivityIdea: response.firstActivityIdea } : {}),
         } });
       } else {
-        const ids = [...new Set([...(plan?.placeIds.filter(id => catalogById.has(id)) ?? []), ...catalog.map(place => place.id)])].slice(0, PLANNING_AI_CANDIDATE_LIMIT);
+        const ids = [...new Set([...(currentPlan?.placeIds.filter(id => currentIds.has(id)) ?? []), ...currentCatalog.map(place => place.id)])].slice(0, PLANNING_AI_CANDIDATE_LIMIT);
         if (!ids.length) throw new Error('이 지역에 제안할 등록 장소가 없어요. 지금 초안은 장소 미정으로 저장할 수 있어요.');
         const aiBrief = { ...modelBrief, locationUndecided: false };
-        const response = await requestTripDraftAi(planningEndpoint, aiBrief, plan?.days.length ?? 1, ids, controller.signal);
+        const response = await requestTripDraftAi(planningEndpoint, aiBrief, currentPlan?.days.length ?? 1, ids, controller.signal);
         if (!active()) return;
         if (!response) throw new Error('조건에 맞는 AI 제안을 받지 못했어요. 지금 초안은 그대로예요.');
         const proposed = refreshCreationPlan(aiBrief, { id: 'catalog-ai-proposal', source: 'CATALOG', title: response.title, days: response.days, placeIds: response.days.flatMap(row => row.placeIds), explanation: [], unknowns: [] }, currentPlaces.current);
         const problems = validateCreationPlan(aiBrief, proposed, currentPlaces.current);
         if (problems.length) throw new Error(problems.join(' '));
-        setSuggestion({ brief: { ...brief, locationUndecided: false }, plan: proposed });
+        setSuggestion({ brief: { ...currentBrief, locationUndecided: false }, plan: proposed });
       }
     } catch (cause) { if (active()) setError(cause instanceof Error ? cause.message : 'AI 제안을 받지 못했어요. 지금 초안은 그대로예요.'); }
     finally { if (active()) { requestRef.current = null; setModelPending(false); } }
@@ -273,6 +282,10 @@ export default function CreationPlannerPanel({ places, initial, initialPrompt = 
   const finalLabel = previewOnly ? '로그인하고 저장' : isGroup ? '모임 만들기' : submitLabel || (brief.purpose === 'TRIP' ? '여행 만들기' : '약속 만들기');
   const examples = isGroup ? ['주말에 함께 책 읽는 모임', '우리 가족', '동네 맛집 탐방 모임'] : brief.purpose === 'TRIP' ? ['가족과 2박 3일 여행, 음식점과 숙소도', '친구들과 당일 바다 여행'] : ['친구들과 저녁 식사', '주말에 산책하고 커피 한 잔', '회사 회식'];
 
+  const aiTools = <details className="cplan-more cplan-ai" open={modelPending || Boolean(suggestion) || undefined}><summary><span><Sparkles size={17}/>AI로 더 다듬기 · 선택</span><ChevronDown size={17}/></summary><div className="cplan-stack"><p className="cplan-note">{isGroup ? '모임 소개와 첫 활동 아이디어를 제안받아요.' : '입력한 조건과 공개 장소로 방문 순서를 제안받아요.'} 지금 초안은 제안을 직접 적용할 때까지 유지돼요.</p>{planningEndpoint ? <><small>입력한 조건{isGroup ? '' : '과 공개 장소 후보'}만 AI 서버에 보내요.</small><button type="button" disabled={modelPending} onClick={() => void askModel()}><Sparkles size={17}/>{modelPending ? 'AI 제안 준비 중…' : isGroup ? 'AI 소개 제안받기' : 'AI 동선 제안받기'}</button></> : <p className="cplan-note">AI 서버 연결 후 사용할 수 있어요. 지금은 이 초안을 직접 수정해 주세요.</p>}{modelPending && <button type="button" onClick={cancelModel}>AI 요청 취소</button>}
+          {suggestion && <section className="cplan-ai-proposal" aria-label="적용 전 AI 제안"><strong>AI 제안 · 아직 적용하지 않았어요</strong>{suggestion.groupDraft ? <><h4>{suggestion.groupDraft.name}</h4><p>{suggestion.groupDraft.introduction}</p>{suggestion.groupDraft.firstActivityIdea && <small>{suggestion.groupDraft.firstActivityIdea}</small>}</> : suggestion.plan && <><h4>{suggestion.plan.title}</h4><ol>{suggestion.plan.days.map(row => <li key={row.day}><strong>DAY {row.day}</strong><p>{row.placeIds.map(id => publicById.get(id)?.name ?? '공개 정보 확인 필요').join(' → ') || '장소 미정'}</p></li>)}</ol><small>실제 경로·영업 시간·요금·예약은 확인이 필요해요.</small></>}<div className="cplan-proposal-actions"><button type="button" onClick={() => setSuggestion(null)}>지금 초안 유지</button><button type="button" onClick={applySuggestion}>이 제안 적용</button></div></section>}
+        </div></details>;
+
   return <section className="creation-planner cplan-quick" aria-label="간단하게 모임과 일정 만들기">
     <div className="cplan-top" ref={headingRef}>
       <div className="cplan-quick-heading"><div><h3>{phase === 'INPUT' ? isGroup ? '어떤 모임을 만들까요?' : brief.purpose === 'TRIP' ? '어떤 여행을 떠날까요?' : '어떤 약속을 만들까요?' : '초안에서 바로 고쳐요'}</h3><small>{phase === 'INPUT' ? '한 줄만 적거나, 비워 두고 시작해도 돼요.' : isGroup ? '이름과 소개를 확인하고 모임을 만들어요.' : '이름·장소·날짜를 원하는 만큼만 바꾸세요.'}</small></div><span className="cplan-phase-label">{phase === 'INPUT' ? '시작' : modelApplied ? 'AI 제안 적용' : '기본 초안'}</span></div>
@@ -284,7 +297,9 @@ export default function CreationPlannerPanel({ places, initial, initialPrompt = 
         <label>{isGroup ? '모임 이름이나 하고 싶은 일' : '이름이나 하고 싶은 일'}<textarea value={prompt} maxLength={1000} rows={3} placeholder={isGroup ? '예: 주말에 함께 책 읽는 모임' : brief.purpose === 'TRIP' ? '예: 부산으로 가족과 2박 3일 여행' : '예: 친구들과 저녁 식사'} onChange={event => { setPrompt(event.target.value); setError(''); }}/></label>
         <div className="cplan-quick-examples" aria-label="입력 예시">{examples.map(example => <button type="button" key={example} onClick={() => setPrompt(example)}>{example}</button>)}</div>
         <p className="cplan-note">{brief.region ? `${brief.region}에서 시작해요. ` : ''}지역·날짜·장소는 초안에서 정해도 돼요.</p>
+        {planningEndpoint && <label className="cplan-check"><input type="checkbox" checked={startWithAi} onChange={event => setStartWithAi(event.target.checked)}/><span>AI로 초안 제안받기<small>적은 내용과 공개 장소 후보로 제안해요. 저장 전에 직접 확인할 수 있어요.</small></span></label>}
       </> : <>
+        {(modelPending || suggestion) && aiTools}
         <section className="cplan-editor-section" aria-label={isGroup ? '모임 기본 정보' : '일정 기본 정보'}>
           {isGroup && groupDraft ? <>
             <label>모임 이름<input value={groupDraft.name} maxLength={100} onChange={event => updateGroup({ name: event.target.value })}/></label>
@@ -331,9 +346,7 @@ export default function CreationPlannerPanel({ places, initial, initialPrompt = 
           <label>추가 조건<textarea value={brief.notes} maxLength={2000} rows={2} onChange={event => updateBrief({ notes: event.target.value })}/></label><small>조건을 바꿔도 담은 장소는 유지돼요.</small>
         </div></details>
 
-        <details className="cplan-more cplan-ai"><summary><span><Sparkles size={17}/>AI로 더 다듬기 · 선택</span><ChevronDown size={17}/></summary><div className="cplan-stack"><p className="cplan-note">{isGroup ? '모임 소개와 첫 활동 아이디어를 제안받아요.' : '입력한 조건과 공개 장소로 방문 순서를 제안받아요.'} 지금 초안은 제안을 직접 적용할 때까지 유지돼요.</p>{planningEndpoint ? <><small>입력한 조건{isGroup ? '' : '과 공개 장소 후보'}만 AI 서버에 보내요.</small><button type="button" disabled={modelPending} onClick={() => void askModel()}><Sparkles size={17}/>{modelPending ? 'AI 제안 준비 중…' : isGroup ? 'AI 소개 제안받기' : 'AI 동선 제안받기'}</button></> : <p className="cplan-note">AI 서버 연결 후 사용할 수 있어요. 지금은 이 초안을 직접 수정해 주세요.</p>}{modelPending && <button type="button" onClick={cancelModel}>AI 요청 취소</button>}
-          {suggestion && <section className="cplan-ai-proposal" aria-label="적용 전 AI 제안"><strong>AI 제안 · 아직 적용하지 않았어요</strong>{suggestion.groupDraft ? <><h4>{suggestion.groupDraft.name}</h4><p>{suggestion.groupDraft.introduction}</p>{suggestion.groupDraft.firstActivityIdea && <small>{suggestion.groupDraft.firstActivityIdea}</small>}</> : suggestion.plan && <><h4>{suggestion.plan.title}</h4><ol>{suggestion.plan.days.map(row => <li key={row.day}><strong>DAY {row.day}</strong><p>{row.placeIds.map(id => publicById.get(id)?.name ?? '공개 정보 확인 필요').join(' → ') || '장소 미정'}</p></li>)}</ol><small>실제 경로·영업 시간·요금·예약은 확인이 필요해요.</small></>}<div className="cplan-proposal-actions"><button type="button" onClick={() => setSuggestion(null)}>지금 초안 유지</button><button type="button" onClick={applySuggestion}>이 제안 적용</button></div></section>}
-        </div></details>
+        {!modelPending && !suggestion && aiTools}
 
         {plan && <details className="cplan-unknowns"><summary>방문 전에 확인할 내용<ChevronDown size={17}/></summary><ul>{plan.unknowns.map((value, index) => <li key={index}>{value}</li>)}</ul></details>}
         {!previewOnly && !isGroup && reviewOptions}
@@ -345,7 +358,7 @@ export default function CreationPlannerPanel({ places, initial, initialPrompt = 
     {completed && <p className="cplan-success" role="status">저장했어요.</p>}
     <div className="cplan-actions cplan-quick-actions">
       {onCancel && <button type="button" disabled={locked} onClick={() => { cancelModel(); onCancel(); }}>{cancelLabel}</button>}
-      <button type="button" className="cplan-primary" disabled={locked || Boolean(pendingDays)} onClick={() => phase === 'INPUT' ? makeDraft() : void submit()}>{phase === 'INPUT' ? '초안 만들기' : completed ? '저장 완료' : busy ? '저장 중…' : finalLabel}{phase === 'DRAFT' && !busy && !completed && <Check size={17}/>}</button>
+      <button type="button" className="cplan-primary" disabled={locked || modelPending || Boolean(pendingDays)} onClick={() => { if (phase === 'INPUT') { const next = makeDraft(); if (startWithAi && prompt.trim()) void askModel(next); } else void submit(); }}>{phase === 'INPUT' ? startWithAi && prompt.trim() ? 'AI로 초안 만들기' : '초안 만들기' : modelPending ? 'AI 제안 준비 중…' : completed ? '저장 완료' : busy ? '저장 중…' : finalLabel}{phase === 'DRAFT' && !busy && !completed && !modelPending && <Check size={17}/>}</button>
     </div>
   </section>;
 }

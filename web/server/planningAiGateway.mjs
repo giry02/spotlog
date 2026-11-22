@@ -1,4 +1,5 @@
 import { chatSummaryModelInput, normalizeChatSummaryRequest, validateChatSummaryResult } from './chatSummaryModel.mjs';
+import { chatSearchModelInput, normalizeChatSearchRequest, validateChatSearchResult } from './chatSearchModel.mjs';
 
 const requestLimit = 16_000;
 const modelResponseLimit = 96_000;
@@ -102,10 +103,11 @@ const groupSchema = schemaObject(Object.fromEntries(Object.entries(groupLimits).
 const groupInstruction = '사용자가 설명한 모임의 이름, 소개, 환영 멘트, 가입 안내, 첫 활동 아이디어를 자연스러운 한국어로 짧게 작성하세요. 가입 안내는 가입 후 서로 소개하거나 관심사를 나누자는 인사말이에요. 예약, 신청, 선발, 승인, 회비, 가입 자격을 만들지 마세요. 첫 활동의 날짜와 장소는 미정인 제안입니다.';
 const unconfirmedJoinRequirements = /예약|신청|승인|조건|선발|정원|자격|면접|등록|필수|의무|회비|비용|참가비|반드시/;
 const placeInstruction = '요청과 관련 있는 장소 후보의 ref 정수만 적합한 순서대로 최대 12개 골라 refs에 넣으세요. 관련 있는 장소가 없으면 refs는 빈 배열입니다. 후보에 없는 장소와 확인하지 않은 영업시간, 요금, 예약, 접근성은 판단하지 마세요.';
-const tripInstruction = 'days에는 요청한 dayCount와 정확히 같은 수의 배열을 첫 날부터 순서대로 넣으세요. 하루 2~5곳 정도를 골라 방문 순서대로 ref 정수만 넣으세요. 가까운 후보를 같은 날에 두고 요청한 관심사와 식사·휴식을 반영하세요. 전체 일정에서 같은 ref는 한 번만 넣으세요. 맞는 장소가 없는 날은 그 날 배열만 비우세요. title은 자연스러운 한국어로 짧게 작성하세요. 경로, 소요시간, 가격, 영업시간, 예약은 확정하지 마세요.';
+const tripInstruction = 'days에는 요청한 dayCount와 정확히 같은 수의 배열을 첫 날부터 순서대로 넣으세요. 여행은 하루 2~5곳 정도를 골라 방문 순서대로 ref 정수만 넣으세요. conditions.purpose가 MEETUP 또는 OUTING인 약속·나들이는 요청한 활동마다 한 곳씩, 하루 1~3곳의 간단한 일정으로 만드세요. 식사와 카페만 요청하면 음식점 한 곳과 카페 한 곳으로 충분하며 다른 관광 활동을 덧붙이지 마세요. 가까운 후보를 같은 날에 두고 요청한 관심사와 식사·휴식을 반영하세요. 전체 일정에서 같은 ref는 한 번만 넣으세요. 맞는 장소가 없는 날은 그 날 배열만 비우세요. title은 자연스러운 한국어로 짧게 작성하세요. 경로, 소요시간, 가격, 영업시간, 예약은 확정하지 마세요.';
 
 function modelInput(input, candidates) {
   if (input.feature === 'CHAT_SUMMARY') return chatSummaryModelInput(input);
+  if (input.feature === 'CHAT_SEARCH') return chatSearchModelInput(input);
   const common = { region: input.region, prompt: input.prompt };
   if (input.feature === 'GROUP_DRAFT') return {
     instruction: groupInstruction, schema: groupSchema, data: { ...common, topics: input.topics }, outputTokens: 560,
@@ -153,6 +155,9 @@ function validateModelResult(input, candidates, output) {
   if (input.feature === 'CHAT_SUMMARY') {
     try { return validateChatSummaryResult(input, output); } catch { throw invalidModel(); }
   }
+  if (input.feature === 'CHAT_SEARCH') {
+    try { return validateChatSearchResult(input, output); } catch { throw invalidModel(); }
+  }
   if (!record(output)) throw invalidModel();
   if (input.feature === 'PLACE_SEARCH') {
     const placeIds = resolveRefs(output.refs, candidates, 12);
@@ -175,8 +180,21 @@ function validateModelResult(input, candidates, output) {
   const title = cleanText(output.title, 80);
   const used = new Set();
   const days = output.days.map((row, index) => ({ day: index + 1, placeIds: resolveRefs(row, candidates, 5, used) }));
+  if (input.conditions?.purpose === 'MEETUP') {
+    const byId = new Map(candidates.map(place => [place.id, place]));
+    const meetingRequest = `${input.prompt} ${input.conditions.notes}`;
+    const foodLimit = /점심/.test(meetingRequest) && /저녁/.test(meetingRequest) ? 2 : 1;
+    const cafeLimit = /카페\s*투어|여러\s*카페|카페\s*(?:두|세|2|3)\s*곳/.test(meetingRequest) ? 3 : 1;
+    for (const day of days) {
+      let foods = 0, cafes = 0;
+      day.placeIds = day.placeIds.filter(id => {
+        const kind = byId.get(id)?.kind;
+        return kind === 'FOOD' ? ++foods <= foodLimit : kind === 'CAFE' ? ++cafes <= cafeLimit : true;
+      }).slice(0, 3);
+    }
+  }
   if (!title) throw invalidModel();
-  return used.size ? { title, days } : undefined;
+  return days.some(day => day.placeIds.length) ? { title, days } : undefined;
 }
 
 async function readRequest(request, maximum = requestLimit) {
@@ -281,8 +299,8 @@ export function createPlanningAiHandler({
   }
 
   return async function handle(request, response) {
-    const summary = enableLocalChatSummary && request.url === '/api/chat-ai';
-    if (request.url !== apiRoute && !summary) return false;
+    const chat = enableLocalChatSummary && request.url === '/api/chat-ai';
+    if (request.url !== apiRoute && !chat) return false;
     let started = false;
     const disconnected = new AbortController();
     const cancel = () => { if (!response.writableEnded) disconnected.abort(); };
@@ -294,9 +312,9 @@ export function createPlanningAiHandler({
       }
       if (request.headers.origin !== undefined && request.headers.origin !== origin) throw new PlanningError(403, 'ORIGIN_NOT_ALLOWED');
       let input;
-      const body = await readRequest(request, summary ? 100_000 : requestLimit);
-      if (summary) {
-        try { input = normalizeChatSummaryRequest(body); }
+      const body = await readRequest(request, chat ? 100_000 : requestLimit);
+      if (chat) {
+        try { input = body?.feature === 'CHAT_SEARCH' ? normalizeChatSearchRequest(body) : normalizeChatSummaryRequest(body); }
         catch (error) { throw new PlanningError(error.status || 400, error.message || 'INVALID_CHAT_REQUEST'); }
       } else input = normalizeRequest(body);
       const candidates = input.eligiblePlaceIds?.map(id => index.get(id)).filter(Boolean) ?? [];
@@ -319,7 +337,7 @@ export function createPlanningAiHandler({
           if (extra) empty.forEach((day, i) => { day.placeIds = extra.days[i].placeIds; });
         }
       }
-      if (summary) reply(response, 200, { schemaVersion: 1, requestId: input.requestId, scope: input.scope, output: result });
+      if (chat) reply(response, 200, { schemaVersion: 1, requestId: input.requestId, scope: input.scope, output: result });
       else reply(response, 200, { schemaVersion: 1, requestId: input.requestId, feature: input.feature, source: 'LLM',
         status: result ? 'READY' : 'INSUFFICIENT_DATA', ...(result && { result }) });
     } catch (error) {

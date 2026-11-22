@@ -1,4 +1,6 @@
 import { withRequestDeadline } from '../requestDeadline.ts';
+import { MAX_CHAT_AI_CHARACTERS, MAX_CHAT_AI_MESSAGES } from './chatAiLimits.ts';
+export { MAX_CHAT_AI_CHARACTERS, MAX_CHAT_AI_MESSAGES } from './chatAiLimits.ts';
 import { chatDigestSelectionKey, createChatDigest, projectChatDigest,
   type ChatDigestContext, type ChatDigestFilters, type ChatDigestSource } from './chatDigest.ts';
 
@@ -9,7 +11,7 @@ export const chatAiSummaryPurposes: ReadonlyArray<{ id: ChatAiSummaryPurpose; la
 ];
 export interface AiRequestScope { userId: string; groupId: string; roomId: string }
 export interface ScopedAiRequest {
-  schemaVersion: 1; requestId: string; feature: 'CHAT_SUMMARY' | 'REVIEW_DRAFT'; scope: AiRequestScope; payload: unknown;
+  schemaVersion: 1; requestId: string; feature: 'CHAT_SUMMARY' | 'CHAT_SEARCH' | 'REVIEW_DRAFT'; scope: AiRequestScope; payload: unknown;
 }
 export interface ChatAiSummaryRequest extends ScopedAiRequest {
   feature: 'CHAT_SUMMARY';
@@ -19,11 +21,9 @@ export interface ChatAiSummaryRequest extends ScopedAiRequest {
 }
 export interface ChatAiSummaryOutput {
   title: string;
-  sections: Array<{ kind?: 'TIME_PLACE' | 'PREPARATION' | 'CHANGED' | 'OPEN_QUESTIONS' | 'OTHER'; heading: string; items: Array<{ text: string; sourceIds: string[] }> }>;
+  sections: Array<{ kind?: 'TIME_PLACE' | 'PREPARATION' | 'CHANGED' | 'OPEN_QUESTIONS' | 'OTHER'; heading: string; items: Array<{ text: string; sourceIds: string[]; speakerId?: string; volunteered?: true }> }>;
 }
 export interface ChatAiSummarySnapshot { request: ChatAiSummaryRequest; output: ChatAiSummaryOutput }
-export const MAX_CHAT_AI_MESSAGES = 300;
-export const MAX_CHAT_AI_CHARACTERS = 60000;
 const isRecord = (value: unknown): value is Record<string, unknown> => Boolean(value && typeof value === 'object' && !Array.isArray(value));
 const text = (value: unknown, maximum: number): value is string => typeof value === 'string' && Boolean(value.trim()) && value.length <= maximum;
 const sameScope = (value: unknown, scope: AiRequestScope) => isRecord(value) && value.userId === scope.userId && value.groupId === scope.groupId && value.roomId === scope.roomId;
@@ -106,13 +106,23 @@ export function parseChatAiSummaryOutput(value: unknown, request: ChatAiSummaryR
         || item.sourceIds.some(id => typeof id !== 'string' || !allowed.has(id))) throw invalid();
       itemCount += 1; characterCount += item.text.length;
       if (itemCount > 40 || characterCount > 20000) throw invalid();
-      return { text: item.text, sourceIds: [...new Set(item.sourceIds as string[])] };
+      const sourceIds = [...new Set(item.sourceIds as string[])];
+      const sources = request.payload.sources.filter(source => sourceIds.includes(source.id));
+      if (item.speakerId !== undefined && (typeof item.speakerId !== 'string' || !sources.some(source => source.authorId === item.speakerId))) throw invalid();
+      if (item.volunteered !== undefined && item.volunteered !== true) throw invalid();
+      if (item.volunteered && !sources.some(source => source.authorId === item.speakerId && sourceVolunteers(source.body))) throw invalid();
+      return { text: item.text, sourceIds, ...(item.speakerId ? { speakerId: item.speakerId as string } : {}), ...(item.volunteered ? { volunteered: true as const } : {}) };
     });
     const kind = ['TIME_PLACE', 'PREPARATION', 'CHANGED', 'OPEN_QUESTIONS', 'OTHER'].includes(String(section.kind))
       ? section.kind as NonNullable<ChatAiSummaryOutput['sections'][number]['kind']> : undefined;
     return { heading: section.heading, items, ...(kind ? { kind } : {}) };
   });
   return { title: value.title, sections };
+}
+
+export function sourceVolunteers(body: string): boolean {
+  return /(?:제가|내가|저는|나는).{0,45}(?:챙길|챙겨|가져|준비할|준비해|확인할|확인해|알아볼|알아보|맡을|담당할|예약할)/su.test(body)
+    && !/(?:[?？]|까요|을까|수\s*있|좋겠|안\s*할|못\s*(?:할|챙|가져|준비|확인|알아|맡|담당|예약)|어려워|어렵|아직\s*(?:안|못)|않을|않겠)/u.test(body);
 }
 
 export function requestChatAiSummary(endpoint: string, request: ChatAiSummaryRequest, signal: AbortSignal, fetcher?: typeof fetch): Promise<ChatAiSummaryOutput> {
