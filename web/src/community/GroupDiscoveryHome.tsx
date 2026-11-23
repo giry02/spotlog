@@ -1,6 +1,7 @@
 import { useId, useState } from 'react';
 import { ArrowRight, CalendarDays, ChevronDown, ChevronRight, Grid3X3, ImageOff, MapPin, Users, X } from 'lucide-react';
 import type { GroupTopic } from '../together/model';
+import { topicOptions, validPublicStartTime } from '../together/discovery';
 import type { GroupDiscoveryFilters } from '../together/groupDiscoveryModel';
 import type { DiscoveryGroupCard, DiscoveryMeetupCard } from './discoveryHomeModel';
 import { groupHomeListingFilters, type GroupDiscoveryHomeProjection } from './groupDiscoveryHomeModel';
@@ -25,8 +26,10 @@ function PhotoGroupCard({ group, meetup, onOpen }: { group: DiscoveryGroupCard; 
   </button></article>;
 }
 
-function GroupComparisonRow({ group, meetup, onOpen }: { group: DiscoveryGroupCard; meetup?: DiscoveryMeetupCard; onOpen: (groupId: string) => void }) {
-  return <article className="gdh-topic-row"><button type="button" onClick={() => onOpen(group.id)} aria-label={`${group.name} 모임 소개 보기`}><span className="gdh-topic-row__photo"><GroupPhoto group={group}/></span><span className="gdh-topic-row__copy"><strong>{group.name}</strong><span>{meetup ? `${dateLabel(meetup.activity.date)} · ${meetup.activity.title}` : group.welcome}</span><small>{areaLabel(group)} · {membershipLabel(group)}{group.example ? ' · 모임 예시' : ''}</small></span><ChevronRight size={16} aria-hidden="true"/></button></article>;
+function GroupComparisonRow({ group, meetup, onOpen, matchingTopics }: { group: DiscoveryGroupCard; meetup?: DiscoveryMeetupCard; onOpen: (groupId: string) => void; matchingTopics?: readonly GroupTopic[] }) {
+  const match = group.topics.find(topic => matchingTopics?.includes(topic));
+  const matchLabel = topicOptions.find(topic => topic.id === match)?.label;
+  return <article className="gdh-topic-row"><button type="button" onClick={() => onOpen(group.id)} aria-label={`${group.name} 모임 소개 보기`}><span className="gdh-topic-row__photo"><GroupPhoto group={group}/></span><span className="gdh-topic-row__copy"><strong>{group.name}</strong><span>{meetup ? `${dateLabel(meetup.activity.date)} · ${meetup.activity.title}` : group.welcome}</span><small>{[matchLabel, areaLabel(group), membershipLabel(group), group.example ? '모임 예시' : ''].filter(Boolean).join(' · ')}</small></span><ChevronRight size={16} aria-hidden="true"/></button></article>;
 }
 
 export function GroupMeetupSchedule({ meetups, title, filters, onOpenGroup, onFindGroups, limit = 3, showEmpty = false }: {
@@ -35,12 +38,15 @@ export function GroupMeetupSchedule({ meetups, title, filters, onOpenGroup, onFi
 }) {
   const uid = useId();
   if (!meetups.length && !showEmpty) return null;
+  const scheduled = meetups.filter(item => validPublicStartTime(item.activity.startTime)).slice(0, limit);
+  const undecided = meetups.filter(item => !validPublicStartTime(item.activity.startTime)).slice(0, limit - scheduled.length);
+  const renderMeetup = ({ group, activity }: DiscoveryMeetupCard) => <article className="gdh-meetup" key={`${group.id}:${activity.id}`}><button type="button" onClick={() => onOpenGroup(group.id, activity.id)} aria-label={`${activity.title} · ${dateLabel(activity.date)} ${validPublicStartTime(activity.startTime) ? activity.startTime : '시간 미정'} · ${group.name} 공개 약속 보기`}>
+    <span className="gdh-meetup__date" aria-hidden="true"><small>{Number(activity.date.slice(5, 7))}월</small><strong>{Number(activity.date.slice(8, 10))}</strong><span>{weekdayLabel(activity.date)}</span></span>
+    <span className="gdh-meetup__copy"><span className="gdh-meta">{activity.endDate && activity.endDate !== activity.date ? `${dateLabel(activity.endDate)}까지 · ` : ''}{validPublicStartTime(activity.startTime) ? activity.startTime : '시간 미정'}</span><strong>{activity.title}</strong><span className="gdh-meta">{group.category} · {areaLabel(group)}</span><span className="gdh-meetup__host">{group.name}{group.example ? ' · 모임 예시' : ''}</span></span><ChevronRight size={17} aria-hidden="true"/>
+  </button></article>;
   return <section className="group-discovery-home gdh-meetups-section" aria-labelledby={`${uid}-title`}>
     <div className="gdh-heading"><h2 id={`${uid}-title`}>{title}</h2><button type="button" aria-label="같은 조건의 번개·정모 더 보기" onClick={() => onFindGroups(groupHomeListingFilters(filters, { kind: 'MEETUPS' }))}>더 보기<ChevronRight size={16}/></button></div>
-    {meetups.length ? <div className="gdh-meetups">{meetups.slice(0, limit).map(({ group, activity }) => <article className="gdh-meetup" key={`${group.id}:${activity.id}`}><button type="button" onClick={() => onOpenGroup(group.id, activity.id)} aria-label={`${activity.title} · ${dateLabel(activity.date)} ${activity.startTime || '시간 안내 확인'} · ${group.name} 공개 약속 보기`}>
-      <span className="gdh-meetup__date" aria-hidden="true"><small>{Number(activity.date.slice(5, 7))}월</small><strong>{Number(activity.date.slice(8, 10))}</strong><span>{weekdayLabel(activity.date)}</span></span>
-      <span className="gdh-meetup__copy"><span className="gdh-meta">{activity.endDate && activity.endDate !== activity.date ? `${dateLabel(activity.endDate)}까지 · ` : ''}{activity.startTime || '시간 미정'}</span><strong>{activity.title}</strong><span className="gdh-meta">{group.category} · {areaLabel(group)}</span><span className="gdh-meetup__host">{group.name}{group.example ? ' · 모임 예시' : ''}</span></span><ChevronRight size={17} aria-hidden="true"/>
-    </button></article>)}</div> : <div className="gdh-empty"><CalendarDays size={24} aria-hidden="true"/><p>이 조건의 공개 번개·정모를 기다리고 있어요.</p><button type="button" onClick={() => onFindGroups(groupHomeListingFilters(filters, { kind: 'MEETUPS' }))}>번개·정모 찾아보기<ArrowRight size={16}/></button></div>}
+    {meetups.length ? <div className="gdh-meetups">{scheduled.map(renderMeetup)}{undecided.length > 0 && <><p className="gdh-time-pending">시간 미정인 약속</p>{undecided.map(renderMeetup)}</>}</div> : <div className="gdh-empty"><CalendarDays size={24} aria-hidden="true"/><p>이 조건의 공개 번개·정모를 기다리고 있어요.</p><button type="button" onClick={() => onFindGroups(groupHomeListingFilters(filters, { kind: 'MEETUPS' }))}>번개·정모 찾아보기<ArrowRight size={16}/></button></div>}
   </section>;
 }
 
@@ -79,7 +85,7 @@ export default function GroupDiscoveryHome({ projection, variant = 'full', regio
     </details>}
     {full && <>
       <GroupMeetupSchedule meetups={projection.meetups} title={region ? `${neighborhood || district || region}에서 잡힌 약속` : '다가오는 번개·정모'} filters={projection.filters} onOpenGroup={onOpenGroup} onFindGroups={onFindGroups}/>
-      {projection.topics.length > 0 && <div className="gdh-topic-sections">{projection.topics.slice(0, expandedTopics ? projection.topics.length : 4).map(section => <section className="gdh-topic-section" key={section.id} aria-labelledby={`${uid}-${section.id}`}><div className="gdh-heading"><h2 id={`${uid}-${section.id}`}><span aria-hidden="true">{section.emoji}</span>{section.title}</h2><button type="button" aria-label={`${section.title} 더 보기`} onClick={() => onFindGroups(groupHomeListingFilters(projection.filters, { kind: 'COLLECTION', id: section.id }))}>더 보기<ChevronRight size={16}/></button></div><div className="gdh-topic-rows">{section.groups.map(group => <GroupComparisonRow key={group.id} group={group} meetup={nextMeetup(group.id)} onOpen={onOpenGroup}/>)}</div></section>)}</div>}
+      {projection.topics.length > 0 && <div className="gdh-topic-sections">{projection.topics.slice(0, expandedTopics ? projection.topics.length : 4).map(section => <section className="gdh-topic-section" key={section.id} aria-labelledby={`${uid}-${section.id}`}><div className="gdh-heading"><h2 id={`${uid}-${section.id}`}><span aria-hidden="true">{section.emoji}</span>{section.title}</h2><button type="button" aria-label={`${section.title} 더 보기`} onClick={() => onFindGroups(groupHomeListingFilters(projection.filters, { kind: 'COLLECTION', id: section.id }))}>더 보기<ChevronRight size={16}/></button></div><div className="gdh-topic-rows">{section.groups.map(group => <GroupComparisonRow key={group.id} group={group} meetup={nextMeetup(group.id)} onOpen={onOpenGroup} matchingTopics={section.topics}/>)}</div></section>)}</div>}
       {projection.topics.length > 4 && <button type="button" className="gdh-more-topics" aria-expanded={expandedTopics} onClick={() => setExpandedTopics(value => !value)}>{expandedTopics ? '관심사별 모임 접기' : '다른 관심사의 모임도 보기'}<ChevronDown size={17} aria-hidden="true"/></button>}
       <button type="button" className="gdh-all-groups" onClick={() => onFindGroups(groupHomeListingFilters(projection.filters, { kind: 'GROUPS' }))}><MapPin size={17} aria-hidden="true"/>현재 조건의 모임 모두 보기<ArrowRight size={17} aria-hidden="true"/></button>
     </>}

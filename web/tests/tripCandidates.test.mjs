@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { addTripCandidate, candidateSelection, confirmTripCandidates, KEEP_CURRENT, removeTripCandidate, selectTripCandidate, SKIP_CANDIDATES } from '../src/tripCandidates.ts';
+import { addNearbyVisit, addTripCandidate, candidateSelection, confirmTripCandidates, KEEP_CURRENT, removeTripCandidate, selectTripCandidate, SKIP_CANDIDATES } from '../src/tripCandidates.ts';
 import { buildPersonalPlan, copyPersonalPlan, makeJournalFromPlan, normalizePlan, removePlanDay, removePlanVisit, setPlanStay, transferVisit, insertNearby } from '../src/tripPlan.ts';
 import { createLocalRepository } from '../src/localRepository.ts';
 import { hasStayCandidate } from '../src/tripCandidates.ts';
@@ -9,6 +9,34 @@ const place = (id, kind='LANDMARK') => ({id,kind,name:id,area:'부산 해운대'
 const setup = () => ({...buildPersonalPlan([place('a'),place('b')],3,'준비 중','나'),planStage:'DRAFT'});
 const context = trip => ({dayId:trip.days[0].dayId,anchorVisitId:trip.days[0].places[0].visitId});
 function shortlisted() { let trip=setup();const ctx=context(trip);for(const id of ['f1','f2'])trip=addTripCandidate(trip,place(id,'FOOD'),ctx);return trip; }
+
+test('direct nearby addition fills the selected slot while leaving other shortlists and days intact', () => {
+  let trip = { ...setup(), planStage: 'READY' };
+  const ctx = context(trip);
+  trip.days[0].planningGaps = [{ id: 'meal', kind: 'FOOD', slot: 'lunch', reason: 'missing-data', afterVisitId: ctx.anchorVisitId }];
+  trip = addTripCandidate(trip, place('later', 'FOOD'), { ...ctx, slot: 'dinner' });
+  const next = addNearbyVisit(trip, place('lunch', 'FOOD'), { ...ctx, slot: 'lunch' });
+  assert.deepEqual(next.days[0].places.map(visit => visit.id), ['a', 'lunch']);
+  assert.equal(next.days[0].places[1].anchorVisitId, ctx.anchorVisitId);
+  assert.equal(next.days[0].places[1].planningSlot, 'lunch');
+  assert.deepEqual(next.days[0].planningGaps, []);
+  assert.deepEqual(next.days.slice(1), trip.days.slice(1));
+  assert.deepEqual(next.businessCandidates, trip.businessCandidates);
+  assert.throws(() => addNearbyVisit(next, place('replace-lunch', 'FOOD'), { ...ctx, slot: 'lunch' }), /후보 비교/);
+  assert.throws(() => addNearbyVisit(trip, place('replace-dinner-list', 'FOOD'), { ...ctx, slot: 'dinner' }), /후보 비교/);
+});
+
+test('direct stay addition leaves all nights untouched if any selected night has a fixed booking', () => {
+  const trip = setup();
+  const ctx = context(trip);
+  const booked = setPlanStay(trip, place('reserved', 'STAY'), trip.days[1].dayId, 1, true);
+  const original = JSON.stringify(booked);
+  assert.throws(() => addNearbyVisit(booked, place('new stay', 'STAY'), { ...ctx, nights: 2 }), /숙소가 고정/);
+  assert.equal(JSON.stringify(booked), original);
+  const next = addNearbyVisit(booked, place('new stay', 'STAY'), { ...ctx, nights: 1 });
+  assert.equal(next.days[0].places.at(-1).id, 'new stay');
+  assert.deepEqual(next.days[1].places, booked.days[1].places);
+});
 test('accommodation added state follows selected nights and booking intent instead of the landmark DAY',()=>{
   const base=setup(),ctx=context(base),stay=place('stay','STAY');
   const day2={...ctx,dayId:base.days[1].dayId,nights:1};

@@ -47,6 +47,7 @@
 .gdh-empty>button { display:flex; align-items:center; gap:8px; min-width:44px; min-height:44px; padding:8px 0; border:0; background:none; font-size:14px; line-height:20px; }
 .gdh-meetups-section { gap:0; }
 .gdh-meetups { display:grid; min-width:0; border-top:1px solid var(--line); }
+.gdh-time-pending { margin:0; padding:9px 0 0; font-size:12px; line-height:18px; font-weight:600; color:var(--muted); }
 .gdh-meetup { min-width:0; border-bottom:1px solid var(--line); }
 .gdh-meetup>button { display:flex; align-items:center; gap:12px; width:100%; min-width:0; min-height:88px; padding:12px 0; border:0; border-radius:0; background:none; text-align:left; }
 .gdh-meetup>button>svg { flex:none; color:var(--muted); }

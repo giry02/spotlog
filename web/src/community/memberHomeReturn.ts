@@ -36,6 +36,18 @@ export interface MemberReturnPlan {
 
 export type MemberHomeSchedule = ({ kind: 'ACTIVITY' } & MemberReturnActivity) | ({ kind: 'PLAN' } & MemberReturnPlan);
 
+/** The caller supplies the current device's own plans, including in guest mode. */
+export function selectHomeDraftPlan(personalPlans: ReadonlyArray<Journey>, recentId?: string | null) {
+  const drafts = personalPlans.filter(plan => plan.isMine && plan.purpose === 'PLAN' && plan.visibility === 'PRIVATE'
+    && !plan.trash && plan.planStage === 'DRAFT' && plan.status === 'PLANNING' && plan.days.length > 0);
+  const draft = drafts.find(plan => plan.id === recentId) ?? drafts[0];
+  if (!draft) return null;
+  const day = draft.days.find(item => item.dayId && item.dayId === draft.travelProgress?.dayId)
+    ?? draft.days.find(item => item.places.length > 0)
+    ?? draft.days[0];
+  return { id: draft.id, title: draft.title, day: day.day };
+}
+
 const validDay = (value: string): boolean => /^\d{4}-\d{2}-\d{2}$/.test(value)
   && Number.isFinite(Date.parse(`${value}T12:00:00+09:00`))
   && koreaDay(new Date(`${value}T12:00:00+09:00`)) === value;

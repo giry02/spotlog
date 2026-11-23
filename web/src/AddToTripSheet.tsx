@@ -1,5 +1,5 @@
 import { useLayoutEffect, useMemo, useRef, useState, type FormEvent } from 'react';
-import { Check, ImageOff, Plus } from 'lucide-react';
+import { Check, ChevronDown, ImageOff, MapPin, Plus } from 'lucide-react';
 import { BottomSheet } from './BottomSheet';
 import { Button, Field } from './ui';
 import type { Journey, Place } from './data';
@@ -19,8 +19,9 @@ interface AddToTripSheetProps {
 
 export function AddToTripSheet({ places, journeys, initialJourneyId, initialDay = 1, onClose, onConfirm, onRemove }: AddToTripSheetProps) {
   const mine = journeys.filter((journey) => journey.isMine);
-  const initialJourney = initialJourneyId === null ? undefined : mine.find((journey) => journey.id === initialJourneyId) ?? mine[0];
-  const [journeyId, setJourneyId] = useState(initialJourney?.id ?? '');
+  const initialJourney = mine.find((journey) => journey.id === initialJourneyId);
+  const chooseJourneyValue = '__select_journey__';
+  const [journeyId, setJourneyId] = useState(initialJourney?.id ?? (initialJourneyId === null || !mine.length ? '' : chooseJourneyValue));
   const [dayCount, setDayCount] = useState(2);
   const [targetDay, setTargetDay] = useState(initialJourney?.days.some((day) => day.day === initialDay) ? initialDay : initialJourney?.days[0]?.day ?? 1);
   const region = [...new Set(places.map((place) => place.area.trim().split(/\s+/)[0]))].filter(Boolean).join(' · ') || '국내';
@@ -29,7 +30,11 @@ export function AddToTripSheet({ places, journeys, initialJourneyId, initialDay 
   const [error, setError] = useState('');
   const selected = mine.find((journey) => journey.id === journeyId);
   const isNew = journeyId === '';
+  const hasDestination = isNew || Boolean(selected);
   const uniquePlaces = useMemo(() => [...new Map(places.map((place) => [place.id, place])).values()], [places]);
+  const selectedRegion = selected?.region.trim();
+  const hasDifferentRegion = selectedRegion && selectedRegion !== '국내'
+    && region !== '국내' && !region.split(' · ').every(area => selectedRegion.startsWith(area));
   const days = isNew ? Array.from({ length: dayCount }, (_, index) => {
     const date = startDate ? new Date(`${startDate}T00:00:00Z`) : null;
     if (date && Number.isFinite(date.getTime())) date.setUTCDate(date.getUTCDate() + index);
@@ -71,7 +76,8 @@ export function AddToTripSheet({ places, journeys, initialJourneyId, initialDay 
   return <BottomSheet title="내 여행에 담기" description={uniquePlaces.length === 1 ? uniquePlaces[0].name : `선택한 ${uniquePlaces.length}곳을 담아요`} onClose={onClose}>
     <form className="trip-placement-form" onSubmit={submit}>
       {mine.length > 0 && <Field label="담을 여행"><select value={journeyId} onChange={(event) => selectJourney(event.target.value)}>
-        {mine.map((journey) => { const included = journey.days.filter((day) => day.places.some((place) => uniquePlaces.some((selectedPlace) => selectedPlace.id === place.id))); return <option key={journey.id} value={journey.id}>{journey.title}{included.length ? ` · DAY ${included.map((day) => day.day).join(', ')} 담김` : ''}</option>; })}
+        <option value={chooseJourneyValue} disabled>여행 선택</option>
+        {mine.map((journey) => { const included = journey.days.filter((day) => day.places.some((place) => uniquePlaces.some((selectedPlace) => selectedPlace.id === place.id))); return <option key={journey.id} value={journey.id}>{[journey.title, journey.region === '국내' ? '' : journey.region].filter(Boolean).join(' · ')}{included.length ? ` · DAY ${included.map((day) => day.day).join(', ')} 담김` : ''}</option>; })}
         <option value="">＋ 새 여행 만들기</option>
       </select></Field>}
       {isNew && <>
@@ -81,7 +87,8 @@ export function AddToTripSheet({ places, journeys, initialJourneyId, initialDay 
         </select></Field>
         <Field label="출발 날짜 (선택)" hint="날짜를 아직 몰라도 DAY별로 담을 수 있어요."><input type="date" value={startDate} onChange={(event) => { setStartDate(event.target.value); setError(''); }} /></Field>
       </>}
-      <div className="trip-placement-day-field">
+      {hasDifferentRegion && <p className="phase-hint trip-placement-note" role="status"><MapPin size={15} aria-hidden="true"/>담을 여행은 {selectedRegion}, 선택한 장소는 {region}에 있어요.</p>}
+      {hasDestination && <div className="trip-placement-day-field">
         <p className="ui-field-label">담을 날짜{!isNew && selected && <span> · {tripPeriodLabel(selected.days.length)}</span>}</p>
         <div ref={dayTrack} className="phase-day-options" role="group" aria-label="담을 DAY">
           {days.map((day) => <button key={day.day} type="button" className={targetDay === day.day ? 'active' : ''} aria-pressed={targetDay === day.day} onClick={() => { setTargetDay(day.day); setError(''); }}>
@@ -89,22 +96,21 @@ export function AddToTripSheet({ places, journeys, initialJourneyId, initialDay 
           </button>)}
         </div>
         {!days.length && <p className="phase-hint">내 여행에서 날짜를 추가한 뒤 담아 주세요.</p>}
-        {alreadyCount > 0 && <p className="trip-placement-included"><Check size={14} />{alreadyCount === uniquePlaces.length ? `이미 DAY ${targetDay}에 담겨 있어요.` : `${alreadyCount}곳은 이미 담겨 있어 나머지 장소만 추가해요.`}</p>}
-      </div>
-      <section className="trip-placement-result" aria-label="담기 결과 미리보기" aria-live="polite"><strong>{isNew ? title.trim() || '새 여행' : selected?.title} · DAY {targetDay}</strong><p>{uniquePlaces.length ? alreadyCount === uniquePlaces.length ? '선택한 장소가 모두 담겨 있어요. 추가 없이 이 DAY를 열어요.' : `${uniquePlaces.length - alreadyCount}곳을 방문 순서의 마지막에 추가해요.${alreadyCount ? ` 이미 담긴 ${alreadyCount}곳은 유지해요.` : ''}` : '담을 장소를 먼저 선택해 주세요.'}</p></section>
-      <details className="trip-placement-places" open={uniquePlaces.length === 1}>
-        <summary>담을 장소 확인 · {uniquePlaces.length}곳</summary>
+        {alreadyCount > 0 && <p className="trip-placement-included"><Check size={14} aria-hidden="true"/>{alreadyCount === uniquePlaces.length ? `이미 DAY ${targetDay}에 담겨 있어요.` : `이미 담긴 ${alreadyCount}곳은 유지해요.`}</p>}
+      </div>}
+      <details className="trip-placement-places" open={uniquePlaces.length === 1 && alreadyCount > 0}>
+        <summary><span>선택한 장소 · {uniquePlaces.length}곳</span><ChevronDown size={16} aria-hidden="true"/></summary>
         <div aria-label="담을 장소 확인">{uniquePlaces.map(place => {
           const visits = includedVisits.filter(visit => visit.id === place.id);
           const otherPlacements = mine.flatMap(journey => journey.days.filter(day => !(journey.id === selected?.id && day.day === targetDay) && day.places.some(visit => visit.id === place.id)).map(day => `${journey.title} DAY ${day.day}`));
-          return <article className="trip-placement-place" key={place.id}><div className="trip-placement-place__identity"><span>{place.image ? <img src={place.image} alt=""/> : <ImageOff size={22}/>}</span><div><strong>{place.name}</strong><small>{place.address || place.area}</small><small>{visits.length ? `DAY ${targetDay}에 이미 담김` : `DAY ${targetDay}에 추가`}</small></div></div>{otherPlacements.length > 0 && <p className="trip-placement-other">다른 일정에도 담김 · {otherPlacements.join(' · ')}</p>}{onRemove && selected && visits.filter(visit => visit.visitId).map(visit => <Button key={visit.visitId} size="card" variant="secondary" className="trip-placement-card-remove" onClick={() => setError(onRemove(selected.id,targetDay,visit.visitId!) ?? '')} aria-label={`${place.name} DAY ${targetDay} 담김 해제`}><Check size={16}/>이 DAY에서 담김 해제</Button>)}</article>;
+          return <article className="trip-placement-place" key={place.id}><div className="trip-placement-place__identity"><span>{place.image ? <img src={place.image} alt=""/> : <ImageOff size={22}/>}</span><div><strong>{place.name}</strong><small>{place.address || place.area}</small>{hasDestination && <small>{visits.length ? `DAY ${targetDay}에 이미 담김` : `DAY ${targetDay}에 추가`}</small>}</div></div>{otherPlacements.length > 0 && <p className="trip-placement-other">다른 일정에도 담김 · {otherPlacements.join(' · ')}</p>}{onRemove && selected && visits.filter(visit => visit.visitId).map(visit => <Button key={visit.visitId} size="card" variant="secondary" className="trip-placement-card-remove" onClick={() => setError(onRemove(selected.id,targetDay,visit.visitId!) ?? '')} aria-label={`${place.name} DAY ${targetDay} 담김 해제`}><Check size={16}/>이 DAY에서 담김 해제</Button>)}</article>;
         })}</div>
       </details>
-      <p className="phase-hint trip-placement-note">{isNew ? '만들면 내 여행에서 이어서 일정을 수정할 수 있어요.' : '담은 뒤 내 여행의 선택한 DAY로 이동해요.'}</p>
       {error && <p className="ui-error" role="alert">{error}</p>}
-      <Button type="submit" disabled={!canConfirm}>
+      {hasDestination && uniquePlaces.length > alreadyCount && <p className="trip-placement-note">방문 순서의 마지막에 {uniquePlaces.length - alreadyCount}곳을 추가해요.</p>}
+      <Button type="submit" className="trip-placement-submit" disabled={!canConfirm}>
         {alreadyCount === uniquePlaces.length && uniquePlaces.length > 0 ? <Check size={17} /> : <Plus size={17} />}
-        {alreadyCount === uniquePlaces.length && uniquePlaces.length > 0 ? `DAY ${targetDay} 보기` : isNew ? `여행 만들고 DAY ${targetDay}에 담기` : `DAY ${targetDay}에 담기`}
+        {!hasDestination ? '담을 여행을 골라 주세요' : alreadyCount === uniquePlaces.length && uniquePlaces.length > 0 ? `DAY ${targetDay} 보기` : isNew ? `여행 만들고 DAY ${targetDay}에 담기` : `DAY ${targetDay}에 담기`}
       </Button>
     </form>
   </BottomSheet>;

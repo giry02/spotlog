@@ -1,6 +1,6 @@
 import type { Place } from '../data';
 import {
-  buildCreationGroupDraft, buildCreationPlans, creationBriefTopics, creationCatalogPlaces,
+  buildCreationGroupDraft, buildCreationPlans, creationBriefTopics, creationCatalogPlaces, creationCatalogRegions,
   interpretCreationPrompt, refreshCreationPlan, validateCreationBrief,
   type CreationBrief, type CreationGroupDraft, type CreationPlan, type CreationPurpose,
 } from './creationPlanner.ts';
@@ -68,6 +68,21 @@ function nameOnly(prompt: string): boolean {
   return Boolean(prompt && prompt.length <= 60 && !/[\n.!?。]|만들(?:어|고|기|자)|개설|추천|찾(?:아|고|기)|하고\s*싶|(?:에서|으로).*(?:모임|함께|하)/.test(prompt));
 }
 
+/** A uniquely named registered venue is a region hint when no region was written. */
+function regionFromNamedPlace(prompt: string, catalog: Place[]): string {
+  if (!prompt || /(?:빼고|제외|말고|안\s*가|못\s*가|않)/.test(prompt)) return '';
+  const matches = catalog.filter(place => {
+    const name = text(place?.name, 200);
+    if (name.length < 3 || place.personal) return false;
+    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return new RegExp(`(?:^|[\\s("'“‘])${escaped}(?:에서|에|으로|로|부터|\\s+근처)(?=\\s|[,.!?]|$)`, 'i').test(prompt);
+  });
+  if (matches.length !== 1) return '';
+  const place = matches[0];
+  const [region] = creationCatalogRegions([place]);
+  return region && creationCatalogPlaces({ region }, [place]).length ? region : '';
+}
+
 function draftIssues(brief: CreationBrief): string[] {
   const issues = validateCreationBrief(brief).filter(issue => !(brief.locationUndecided && !brief.region && issue === '지역을 먼저 선택해 주세요.'));
   if (brief.purpose !== 'GROUP' && brief.startTime && !brief.date) issues.push('시작 시각을 정하려면 날짜도 함께 정해 주세요.');
@@ -87,8 +102,13 @@ export function prepareQuickCreation(input: QuickCreationInput, catalog: Place[]
   // Empty contextual defaults must not hide a region or interests actually written in the request.
   const inherited: Partial<CreationBrief> = { ...initial, purpose };
   if (!initial.region?.trim()) delete inherited.region;
-  const requestedRegion = input.preferPromptRegion ? interpretCreationPrompt(prompt, { purpose }).region : '';
+  const interpreted = interpretCreationPrompt(prompt, { purpose });
+  const requestedRegion = input.preferPromptRegion ? interpreted.region : '';
   if (requestedRegion) inherited.region = requestedRegion;
+  if (!interpreted.region && !interpreted.notes.includes('지역이 여러 곳이에요.')) {
+    const placeRegion = !inherited.region || input.preferPromptRegion ? regionFromNamedPlace(prompt, catalog) : '';
+    if (placeRegion) inherited.region = placeRegion;
+  }
   if (initial.topics) inherited.topics = [...initial.topics];
   const brief = interpretCreationPrompt(prompt, inherited);
   if (purpose === 'TRIP' && brief.dayCount === undefined) brief.dayCount = rangeDays(brief.date, brief.endDate) ?? (singleDayTrip(prompt) ? 1 : 2);

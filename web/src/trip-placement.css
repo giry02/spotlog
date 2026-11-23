@@ -1,10 +1,15 @@
 /* Placement is an existing BottomSheet/Field/day-options composition, not a Saved toolbar. */
-.trip-placement-form { display: grid; gap: 18px; }
-.trip-placement-places { min-width: 0; }
-.trip-placement-places>summary{display:flex;align-items:center;min-height:44px;cursor:pointer;font-size:14px;font-weight:600;color:var(--ink)}
+.trip-placement-form { display: grid; gap: 14px; min-width: 0; }
+.trip-placement-places { min-width: 0; border-block: 1px solid var(--line); }
+.trip-placement-places > summary {
+  display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:44px;
+  list-style:none; cursor:pointer; font-size:14px; font-weight:600; color:var(--ink);
+}
+.trip-placement-places > summary::-webkit-details-marker { display:none; }
+.trip-placement-places > summary > svg { flex:none; color:var(--muted); }
+.trip-placement-places[open] > summary > svg { transform:rotate(180deg); }
 .trip-placement-place{padding:12px 0;border-bottom:1px solid var(--line);min-width:0}
 .trip-placement-place__identity{display:flex;gap:10px;align-items:center;min-width:0}.trip-placement-place__identity>span{display:grid;place-items:center;flex:none;width:48px;height:48px;overflow:hidden;border-radius:8px;background:#f1f1ed}.trip-placement-place__identity img{width:100%;height:100%;object-fit:cover}.trip-placement-place__identity>div{display:grid;gap:3px;min-width:0}.trip-placement-place__identity strong{font-size:14px;line-height:1.5;overflow-wrap:anywhere}.trip-placement-place__identity small,.trip-placement-other{font-size:12px;line-height:1.5;color:var(--muted);overflow-wrap:anywhere}.trip-placement-other{margin:8px 0 0}.trip-placement-place>.trip-placement-card-remove{margin-top:8px;min-height:44px;font-size:14px}
-.trip-placement-result{border-left:3px solid var(--ink);padding:10px 12px;background:#f3f3f0;min-width:0}.trip-placement-result strong{font-size:14px;line-height:1.5;overflow-wrap:anywhere}.trip-placement-result p{font-size:12px;line-height:1.5;margin:4px 0 0;color:var(--muted)}
 .trip-placement-card-state { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
 .trip-placement-card-state p { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
 .trip-placement-card-state p.is-included { color: #176759; }
@@ -17,6 +22,8 @@
 .trip-placement-form .phase-day-options { margin: 0; }
 .trip-placement-form .phase-day-options button { display: flex; flex-direction: column; align-items: center; justify-content: center; padding-block: 8px; }
 .trip-placement-form .phase-day-options small { font-size: 12px; line-height: 1.5; }
-.trip-placement-form .trip-placement-note { margin: 0; }
+.trip-placement-form .trip-placement-note { display:flex; align-items:flex-start; gap:6px; margin:0; color:var(--muted); font-size:var(--type-caption); line-height:1.5; }
+.trip-placement-form .trip-placement-note > svg { flex:none; margin-top:2px; }
+.phase-sheet .trip-placement-form .trip-placement-submit { min-height:var(--touch-target,44px); border-radius:10px; box-shadow:none; }
 .trip-placement-form .trip-placement-included { display: flex; align-items: flex-start; gap: 6px; margin: 8px 0 0; color: #176759; font-size: 13px; line-height: 1.7; }
 .trip-placement-form .trip-placement-included > svg { flex: 0 0 auto; margin-top: 4px; }

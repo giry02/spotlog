@@ -126,6 +126,10 @@ interface Props {
   memberRecordRequest?: { id: string; actorId: string; groupId: string; activityId?: string; record?: { type: 'POST' | 'MEDIA' | 'JOURNAL' | 'COMMENT'; id: string; commentId?: string } } | null; onMemberRecordRequestHandled?: (id: string) => void;
   onCreatePersonalPlan?: (journey: Journey) => boolean;
   onStartPersonalPlan?: (request: EmptyPersonalTripRequest) => boolean;
+  tripStartTitle?: string; onTripStartTitleChange?: (title: string) => void;
+  onLoginForGroupCreation?: () => void;
+  groupCreationRequest?: { id: string; actor: string; route: string } | null;
+  onGroupCreationRequestHandled?: (id: string) => void;
   myRegionLabel?: string; onManageMyRegions?: () => void; onUseMyRegion?: () => void;
   calendarView?: CalendarView; onCalendarViewChange?: (view: CalendarView) => void;
 }
@@ -187,7 +191,7 @@ function PlaceRow({ place, onSave }: { place: Place; onSave: (place: Place) => v
   return <details className="tg-place"><summary>{photos[0] ? <img src={photos[0].image} alt="" /> : <MapPin size={28} />}<div><span className="tg-tag">{placeNames[place.kind]}</span><strong>{place.name}</strong><small>{place.area}</small></div><ChevronDown size={18} /></summary><div className="tg-place-content">{photos[0] && <><img src={photos[0].image} alt={photos[0].alt || place.name} /><PhotoCredit image={photos[0].image} sourceId={photos[0].sourceId} /></>}<p>{place.description || '장소 소개를 준비하고 있어요.'}</p><small>{place.address}</small>{place.duration && <small>방문 참고 · {place.duration}</small>}<div className="tg-row"><button onClick={() => onSave(place)}><Heart size={16} />관심 장소 저장</button><a className="tg-direction" href={naverDirectionsUrl(place)} target="_blank" rel="noreferrer">네이버 길찾기 ↗</a></div></div></details>;
 }
 
-export default function TogetherApp({ repository: suppliedRepository, route, onNavigate, onBack, viewer, onLogin, places, journeys, onOpenJourney, onSavePlace, onCopyJourney, onCreateJournal, journalShareRequest, onJournalShareRequestHandled, decisionRequest, onDecisionRequestHandled, personalRouteRequest, onPersonalRouteRequestHandled, memberRecordRequest, onMemberRecordRequestHandled, onCreateTemporaryRoom, onCreatePersonalPlan, onStartPersonalPlan, discoveryFilters, onDiscoveryFiltersChange, reviewRepository, myRegionLabel, onManageMyRegions, onUseMyRegion, calendarView, onCalendarViewChange }: Props) {
+export default function TogetherApp({ repository: suppliedRepository, route, onNavigate, onBack, viewer, onLogin, places, journeys, onOpenJourney, onSavePlace, onCopyJourney, onCreateJournal, journalShareRequest, onJournalShareRequestHandled, decisionRequest, onDecisionRequestHandled, personalRouteRequest, onPersonalRouteRequestHandled, memberRecordRequest, onMemberRecordRequestHandled, onCreateTemporaryRoom, onCreatePersonalPlan, onStartPersonalPlan, tripStartTitle: suppliedTripTitle, onTripStartTitleChange, onLoginForGroupCreation, groupCreationRequest, onGroupCreationRequestHandled, discoveryFilters, onDiscoveryFiltersChange, reviewRepository, myRegionLabel, onManageMyRegions, onUseMyRegion, calendarView, onCalendarViewChange }: Props) {
   useConsumerDensity();
   const repository = useMemo(() => suppliedRepository ?? (import.meta.env.DEV && reviewRepository ? reviewRepository : createTogetherRepository(viewer?.id ?? '', viewer?.name ?? '', places)), [suppliedRepository, viewer?.id, reviewRepository]);
   const [state, setState] = useState<TogetherState>(() => repository.getSnapshot());
@@ -239,6 +243,10 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   const [creationTarget, setCreationTarget] = useState<'PERSONAL' | 'TOGETHER'>(creationBoot.target);
   const [preparedCreationRoute, setPreparedCreationRoute] = useState(creationBoot.preparedRoute);
   const [tripRecommendation, setTripRecommendation] = useState<{ actor: string; route: string } | null>(null);
+  const [localTripTitle, setLocalTripTitle] = useState('');
+  const tripStartTitle = suppliedTripTitle ?? localTripTitle;
+  const changeTripStartTitle = onTripStartTitleChange ?? setLocalTripTitle;
+  const handledGroupCreation = useRef('');
   const [placeDetail, setPlaceDetail] = useState<Place | null>(null);
   const sharedRouteSection = useRef<HTMLDivElement>(null);
   const [dashboardRecordHighlight, setDashboardRecordHighlight] = useState('');
@@ -530,9 +538,17 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   }, [memberRecordRequest, uid, route, group?.id, repository]);
   const requireUser = () => { if (viewer) return true; onLogin(); return false; };
   const openGroupCreation = () => {
+    if (!viewer && onLoginForGroupCreation) { onLoginForGroupCreation(); return; }
     if (!requireUser()) return;
     open('create-group', { kind: 'HOBBY', region: discoveryFilters?.region || '' });
   };
+  useEffect(() => {
+    if (!groupCreationRequest || !viewer || groupCreationRequest.actor !== uid || groupCreationRequest.route !== route
+      || handledGroupCreation.current === groupCreationRequest.id) return;
+    handledGroupCreation.current = groupCreationRequest.id;
+    openGroupCreation();
+    onGroupCreationRequestHandled?.(groupCreationRequest.id);
+  }, [groupCreationRequest, uid, route]);
   useEffect(() => {
     if (!isCreationPlannerRoute(route)) return;
     setCreationInitial({ region: [discoveryFilters?.region, discoveryFilters?.district, discoveryFilters?.neighborhood].filter(Boolean).join(' ') });
@@ -626,6 +642,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
         const ok = onCreatePersonalPlan(journey);
         if (!ok) { setError('저장하지 못했어요. 입력과 선택은 그대로예요.'); return false; }
         pageCreationDraftMemory.remove(uid, currentCreationScope);
+        if (route === 'together-plan-trip') changeTripStartTitle('');
         setModal(null);
         return true;
       } catch (cause) { setError(cause instanceof Error ? cause.message : '일정을 만들지 못했어요.'); return false; }
@@ -633,6 +650,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     let result: ReturnType<typeof commitCreation> | undefined;
     if (!mutate(draft => { result = commitCreation(draft, uid, { requestId: creationRequestId, brief, plan, groupDraft, groupId: creationGroupId || undefined }, places); }, brief.purpose === 'GROUP' ? '비공개 모임을 만들었어요.' : '선택한 일정으로 약속을 만들었어요.')) return false;
     pageCreationDraftMemory.remove(uid, currentCreationScope);
+    if (route === 'together-plan-trip') changeTripStartTitle('');
     setModal(null);
     if (result!.kind !== 'GROUP' && creationReturn === 'planning') {
       const message = repository.getSnapshot().messages.find(item => item.entity?.type === 'ACTIVITY' && item.entity.id === result!.id && !item.deleted);
@@ -648,20 +666,21 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     if (onBack) onBack(destination);
     else nav(destination);
   };
-  const creationPanel = (purpose?: 'TRIP' | 'GROUP') => {
+  const creationPanel = (purpose?: 'TRIP' | 'GROUP', backToTripStart?: () => void) => {
     // A route/actor switch must initialize its own context before a child's draft callback can write.
     if (isCreationPlannerRoute(route) && preparedCreationRoute !== JSON.stringify([uid, route])) return <p role="status">작성 화면을 준비하고 있어요.</p>;
     const initial = purpose ? { ...creationInitial, purpose, ...(purpose === 'TRIP' ? { theme: 'TRAVEL' as const } : {}) } : creationInitial;
     const remembered = pageCreationDraftMemory.read(uid, currentCreationScope);
     return <CreationPlannerPanel key={`${uid}:${currentCreationScope}:${creationRequestId}`} places={places} initial={initial}
+      initialName={backToTripStart ? tripStartTitle : undefined} initialPrompt={backToTripStart ? tripStartTitle : ''}
       resumeLocalDraft={remembered?.draft}
       onDraftChange={draft => { if (creationAccount.current === uid) pageCreationDraftMemory.write(uid, currentCreationScope, { draft, requestId: remembered?.requestId || creationRequestId, target: creationTarget }); }}
       previewOnly={!viewer} resumeDraft={viewer && creationAccount.current === uid && !creationGroupId && isCreationPlannerRoute(route) ? creationResume : undefined}
       onLoginRequired={draft => { if (!viewer && holdCreationHandoff(route, draft)) onLogin(); }}
       allowedPurposes={purpose ? [purpose] : initial.purpose === 'GROUP' ? ['GROUP'] : creationGroupId ? ['MEETUP', 'OUTING', 'TRIP'] : undefined}
-      cancelLabel={modal === 'creation' && creationReturn && creationReturn !== 'planning' ? '직접 입력할게요' : '나가기'} onReview={finishCreation}
+      cancelLabel={backToTripStart ? '돌아가기' : modal === 'creation' && creationReturn && creationReturn !== 'planning' ? '직접 입력할게요' : '나가기'} onReview={finishCreation}
       reviewOptions={creationGroupId ? <small>{group?.name || '현재 모임'} 안의 새 일정으로 저장해요.</small> : creationReviewOptions} submitLabel={creationGroupId ? '이 모임에 일정 저장' : creationTarget === 'PERSONAL' ? '내 여행에 저장' : '약속 저장하기'}
-      onCancel={closeCreationPlanner}/>;
+      onCancel={backToTripStart ?? closeCreationPlanner}/>;
   };
   const toggleSelected = (id: string) => setSelectedIds(current => current.includes(id) ? current.filter(item => item !== id) : [...current, id]);
   const unread = (id: string) => { const cursor = state.readCursors[id]; return state.messages.filter(message => message.roomId === id && message.authorId !== uid && !message.deleted && (!cursor || message.createdAt > cursor)).length; };
@@ -781,8 +800,8 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     const directorySections = [...directoryKinds.map(kind => ({ id: kind as string, label: kindNames[kind], entries: myGroupDirectory.groups.filter(item => item.group.kind === kind) })), { id: 'other', label: '기타', entries: myGroupDirectory.groups.filter(item => !directoryKinds.includes(item.group.kind)) }];
     const archivedGroups = myGroups.filter(item => item.archived && (currentDirectoryView.kind === 'ALL' || item.kind === currentDirectoryView.kind));
     const pendingMemberships = selectPendingMemberships(state, uid);
-    return <><ScreenHeader title={finding ? '모임 찾기' : temporaryView ? '일회성 모임' : '모임'} actions={<><button type="button" className="screen-header__text-action" onClick={() => nav('together-picks')}>관심 약속</button>{finding && <button type="button" className="screen-header__text-action" onClick={() => viewer ? nav('together') : onLogin()}>내 모임</button>}{!temporaryView && <button type="button" aria-label="모임 만들기" onClick={openGroupCreation}><Plus size={22}/></button>}<AppMenuButton/></>}/>
-      {!finding && <ScreenTabs label="모임에서 볼 내용" idPrefix="together-root" items={[{ id: 'together', label: '내 모임' }, { id: 'together-find', label: '모임 찾기' }, { id: 'together-oneoff', label: '일회성' }]} value={temporaryView ? 'together-oneoff' : 'together'} onChange={nav}/>}
+    return <><ScreenHeader title={finding ? '모임 찾기' : temporaryView ? '일회성 모임' : '모임'} actions={<><button type="button" className="screen-header__text-action" onClick={() => nav('together-picks')}>관심 약속</button>{finding && !viewer && <button type="button" className="screen-header__text-action" onClick={onLogin}>내 모임</button>}{!temporaryView && <button type="button" aria-label="모임 만들기" onClick={openGroupCreation}><Plus size={22}/></button>}<AppMenuButton/></>}/>
+      {(viewer || !finding) && <ScreenTabs label="모임에서 볼 내용" idPrefix="together-root" items={[{ id: 'together', label: '내 모임' }, { id: 'together-find', label: '모임 찾기' }, { id: 'together-oneoff', label: '일회성' }]} value={finding ? 'together-find' : temporaryView ? 'together-oneoff' : 'together'} onChange={nav}/>}
       <div className="tg-pad tg-stack tg-groups-root">{temporaryView ? <TemporaryRoomsPanel state={state} userId={uid} onCreate={() => onCreateTemporaryRoom?.()} onLogin={onLogin} onOpen={id => nav(`activity-${id}`)} onRestore={(groupId, activityId, revision) => mutate(draft => { restoreTemporaryRoom(draft, uid, groupId, activityId, revision); }, '종료한 모임의 기록을 보관함으로 복원했어요.')}/> : finding ? <GroupDiscovery showCreate={false} state={state} viewerId={uid} onJoinGroup={openPublicJoin} myRegionLabel={myRegionLabel} onManageMyRegions={onManageMyRegions} onUseMyRegion={onUseMyRegion} onOpenGroup={(id, activityId) => nav(`group-${id}`, { ...discoveryFilters, publicActivityIntent: activityId ? createPublicActivityIntent(state, id, activityId) : undefined })} onCreate={openGroupCreation} initialFilters={discoveryFilters} onFiltersChange={onDiscoveryFiltersChange}/>
         : <>
           {onCreateTemporaryRoom && <button type="button" className="temporary-room-business-entry" onClick={() => nav('together-oneoff')}><CalendarDays size={20}/><span><strong>회식·고객 미팅은 일회성으로</strong><small>이번 만남만 준비하고, 끝나면 기록을 선택해요.</small></span><ChevronRight size={17}/></button>}
@@ -1375,8 +1394,17 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     const title = directCreationPurpose === 'GROUP' ? '모임 만들기' : directCreationPurpose === 'TRIP' ? '여행 만들기' : '약속 만들기';
     const recommending = tripRecommendation?.actor === uid && tripRecommendation.route === route || Boolean(creationResume);
     const startTrip = directCreationPurpose === 'TRIP' && onStartPersonalPlan && !recommending;
-    const leave = () => { if (directCreationPurpose === 'TRIP' && recommending && !creationResume && onStartPersonalPlan) setTripRecommendation(null); else closeCreationPlanner(); };
-    screen = <><ScreenHeader title={title} variant="detail" leading={<button type="button" aria-label="계획 화면 나가기" onClick={leave}><ArrowLeft size={20}/></button>}/><div className="tg-pad tg-stack">{startTrip ? <TripStartPanel key={`${uid}:${route}`} onCreate={request => { const ok = onStartPersonalPlan(request); if (ok) pageCreationDraftMemory.remove(uid, currentCreationScope); return ok; }} onRecommend={() => setTripRecommendation({ actor: uid, route })} onCancel={closeCreationPlanner}/> : creationPanel(directCreationPurpose)}</div></>;
+    const backToTripStart = directCreationPurpose === 'TRIP' && recommending && !creationResume && onStartPersonalPlan
+      ? () => setTripRecommendation(null)
+      : undefined;
+    screen = <><ScreenHeader title={title} variant="detail" leading={<button type="button" aria-label="뒤로" onClick={backToTripStart ?? closeCreationPlanner}><ArrowLeft size={20}/></button>}/>
+      <div className="tg-pad tg-stack">{startTrip ? <TripStartPanel title={tripStartTitle} onTitleChange={changeTripStartTitle}
+        onCreate={request => {
+          const ok = onStartPersonalPlan(request);
+          if (ok) { pageCreationDraftMemory.remove(uid, currentCreationScope); changeTripStartTitle(''); }
+          return ok;
+        }}
+        onRecommend={() => setTripRecommendation({ actor: uid, route })} onCancel={closeCreationPlanner}/> : creationPanel(directCreationPurpose, backToTripStart)}</div></>;
   }
   else if (route === 'together-shares') screen = viewer ? sharesScreen() : denied();
   else if (route === 'together-picks') screen = picksScreen();

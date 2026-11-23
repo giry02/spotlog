@@ -4,32 +4,26 @@
 .travel-home__heading h2,.travel-home__empty h2 { margin:0; font-size:16px; line-height:22px; font-weight:700; letter-spacing:-.2px; }
 .travel-home__heading>button { display:flex; align-items:center; justify-content:center; gap:2px; flex:none; min-height:44px; padding:0 0 0 8px; border:0; border-radius:0; background:transparent; color:var(--muted); font-size:14px; line-height:20px; }
 .travel-home__courses { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-.travel-home__course { display:flex; flex-direction:column; min-width:0; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:white; }
+.travel-home__course { display:flex; flex-direction:column; min-width:0; border-bottom:1px solid var(--line); }
 .travel-home__course>button:not(.recipe-card-action) { display:flex; flex:1; flex-direction:column; width:100%; min-width:0; padding:0; border:0; border-radius:0; background:transparent; text-align:left; color:var(--ink); }
-.travel-home__course-tools { display:flex; align-items:stretch; border-top:1px solid var(--line); background:var(--surface,#fff); }
-.travel-home__course-tools > .recipe-card-action { display:flex; flex:1; align-items:center; justify-content:center; gap:4px; min-width:0; min-height:44px; margin:0; padding:6px 4px; border:0; border-radius:0; background:transparent; color:var(--ink); font-size:14px; line-height:18px; text-align:center; word-break:keep-all; }
+.travel-home__course-tools { display:flex; align-items:stretch; }
+.travel-home__course-tools > .recipe-card-action { display:flex; flex:1; align-items:center; justify-content:flex-start; gap:4px; min-width:0; min-height:44px; margin:0; padding:6px 0; border:0; background:transparent; color:var(--ink); font-size:14px; line-height:18px; text-align:left; word-break:keep-all; }
 .travel-home__course-tools > .recipe-card-action svg { flex:none; }
 .travel-home__course-tools > .travel-home__course-save { display:grid; place-items:center; flex:0 0 44px; min-height:44px; margin-inline-start:auto; padding:0; border:0; border-radius:0; background:transparent; color:var(--ink); }
-.travel-home__course-tools > .recipe-card-action + .travel-home__course-save { border-inline-start:1px solid var(--line); }
 .travel-home__course-tools > button:focus-visible { outline-offset:-3px; }
-@media (max-width:359px) {
-  .travel-home__course-tools > .recipe-card-action svg { display:none; }
-}
-.travel-home__course-photo { display:block; position:relative; width:100%; aspect-ratio:1.65; overflow:hidden; background:var(--line); }
+.travel-home__course-photo { display:block; position:relative; width:100%; aspect-ratio:1.65; overflow:hidden; border-radius:8px; background:var(--line); }
 .travel-home :is(img,.travel-home__no-photo) { display:block; width:100%; height:100%; object-fit:cover; }
 .travel-home .travel-home__no-photo { display:grid; place-items:center; color:var(--muted); }
 .travel-home__duration { position:absolute; left:8px; bottom:8px; padding:3px 6px; border-radius:5px; color:var(--ink); background:#fffffff0; font-size:12px; line-height:16px; font-weight:600; }
-.travel-home__course-copy { display:flex; flex:1; flex-direction:column; gap:4px; width:100%; min-width:0; padding:10px 12px 8px; }
+.travel-home__course-copy { display:flex; flex:1; flex-direction:column; gap:4px; width:100%; min-width:0; padding:7px 0 0; }
 .travel-home :is(.travel-home__course-copy,.travel-home__journal-copy,.travel-home__place-copy)>strong { color:var(--ink); font-size:16px; line-height:22px; font-weight:600; letter-spacing:-.2px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; word-break:keep-all; overflow-wrap:anywhere; }
 .travel-home__course-copy>strong { min-height:44px; }
 .travel-home__meta { color:var(--muted); font-size:12px; line-height:16px; font-weight:400; overflow-wrap:anywhere; }
-.travel-home__course-action { display:flex; align-items:center; justify-content:space-between; gap:4px; min-height:32px; margin-top:auto; color:var(--ink); font-size:14px; line-height:20px; font-weight:600; }
-.travel-home__course-action>svg { flex:none; }
 .travel-home__courses.is-single { grid-template-columns:minmax(0,1fr); }
-.travel-home__courses.is-single .travel-home__course>button:not(.recipe-card-action) { flex-direction:row; min-height:124px; }
+.travel-home__courses.is-single .travel-home__course>button:not(.recipe-card-action) { flex-direction:row; align-items:center; gap:10px; min-height:88px; }
 .travel-home__courses.is-single .travel-home__course-photo { flex:0 0 112px; width:112px; aspect-ratio:auto; align-self:stretch; }
 .travel-home__courses.is-single .travel-home__course-photo>img,.travel-home__courses.is-single .travel-home__course-photo>.travel-home__no-photo { position:absolute; inset:0; }
-.travel-home__courses.is-single .travel-home__course-copy { flex:1; width:auto; }
+.travel-home__courses.is-single .travel-home__course-copy { flex:1; width:auto; padding:0; }
 .travel-home__courses.is-single .travel-home__course-copy>strong { min-height:0; }
 .travel-home :is(.travel-home__journal,.travel-home__place) { min-width:0; border-bottom:1px solid var(--line); }
 .travel-home :is(.travel-home__journal,.travel-home__place)>button { display:flex; align-items:center; gap:12px; width:100%; min-height:88px; border:0; border-radius:0; padding:12px 0; background:transparent; color:var(--ink); text-align:left; }

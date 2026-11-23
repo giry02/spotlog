@@ -6,16 +6,18 @@ import './outing-recipe.css';
 export interface OutingRecipeFormProps {
   preview: OutingRecipePreview; requestId: string; signedIn: boolean;
   groups: Array<{ id: string; name: string }>;
-  onCreate: (input: OutingRecipeInput) => boolean; onLogin: () => void;
+  initial?: Pick<OutingRecipeInput, 'title' | 'date'>;
+  onCreate: (input: OutingRecipeInput) => boolean;
+  onLogin: (draft: Pick<OutingRecipeInput, 'title' | 'date'>) => void;
 }
-export default function OutingRecipeForm({ preview, requestId, signedIn, groups, onCreate, onLogin }: OutingRecipeFormProps) {
-  const [title, setTitle] = useState(() => `${preview.title} 함께하기`.slice(0, OUTING_RECIPE_TITLE_LIMIT));
-  const [date, setDate] = useState(''), [groupId, setGroupId] = useState(''), [consent, setConsent] = useState(false), [error, setError] = useState('');
+export default function OutingRecipeForm({ preview, requestId, signedIn, groups, initial, onCreate, onLogin }: OutingRecipeFormProps) {
+  const [title, setTitle] = useState(() => initial?.title ?? `${preview.title} 함께하기`.slice(0, OUTING_RECIPE_TITLE_LIMIT));
+  const [date, setDate] = useState(initial?.date ?? ''), [groupId, setGroupId] = useState(''), [consent, setConsent] = useState(false), [error, setError] = useState('');
   const destination = groupId ? groups.find(group => group.id === groupId) : null;
   const destinationLabel = groupId ? destination?.name || '선택한 모임을 다시 확인해 주세요' : '새 비공개 일회성 모임';
   const submit = (event: FormEvent) => {
     event.preventDefault(); setError('');
-    if (!signedIn) return onLogin();
+    if (!signedIn) return onLogin({ title, date });
     try { if (!onCreate({ requestId, title, date, groupId: groupId || undefined, consent })) setError('저장하지 못했어요. 입력한 내용은 유지돼요.'); }
     catch (failure) { setError(failure instanceof Error ? failure.message : '코스를 다시 확인해 주세요.'); }
   };

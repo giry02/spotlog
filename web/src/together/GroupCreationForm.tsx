@@ -85,8 +85,7 @@ function QuickGroupCreationForm({ initial, onSubmit, onDraftChange, resumePhase 
     }
   };
   const proposeGroup = async () => {
-    if (lock.current || aiRequest.current) return;
-    if (!planningEndpoint) { setAiError('AI 서버가 연결되어 있지 않아요. 이름만 정하고 기본 초안으로 시작할 수 있어요.'); return; }
+    if (lock.current || aiRequest.current || !planningEndpoint) return;
     if (!aiPrompt.trim()) { setAiError('함께하고 싶은 활동을 한 줄로 적어 주세요.'); return; }
     const inferred=interpretCreationPrompt(aiPrompt.trim(),{purpose:'GROUP'});
     const instruction='\n제공하지 않은 날짜·인원·장소는 확정하지 말고 첫 활동 아이디어로만 제안해 주세요.';
@@ -120,6 +119,7 @@ function QuickGroupCreationForm({ initial, onSubmit, onDraftChange, resumePhase 
     try {
       // Only the visible name belongs to this first action. Other fields can be fixed in the draft.
       if (!draft.name.trim() || draft.name.length > 60) throw new Error('모임 이름을 60자 이내로 적어 주세요.');
+      cancelAi(); setAiPromptOpen(false); setAiGroupProposal(null); setAiError('');
       setDraft(current => ({...current,name:current.name.trim(),introduction:current.introduction.trim() || introduction()}));
       setReady(true); setError('');
     } catch (cause) { setError(cause instanceof Error ? cause.message : '모임 이름을 확인해 주세요.'); }
@@ -141,10 +141,11 @@ function QuickGroupCreationForm({ initial, onSubmit, onDraftChange, resumePhase 
   };
   return <form className="group-creation-form group-quick-create" data-draft-ready={ready} aria-label="모임 만들기" onSubmit={event => { event.preventDefault(); if (ready) void save(); else makeDraft(); }}>
     <fieldset className="group-quick-create__body" disabled={busy}>
-      <header className="group-quick-create__heading"><small>{ready ? aiApplied?'AI 제안 적용 · 저장 전':'기본 초안 · 저장 전' : '이름만 정하고 시작해요'}</small><h2 ref={heading} tabIndex={-1}>{ready ? '이대로 만들까요?' : '모임 이름은 무엇인가요?'}</h2>{!ready && <p>이름을 적으면 소개가 담긴 초안이 나와요. 나머지는 나중에 정해도 돼요.</p>}</header>
+      <header className="group-quick-create__heading"><h2 ref={heading} tabIndex={-1}>{ready ? '모임 초안' : '이름부터 정해요'}</h2>{ready ? aiApplied && <small>AI 제안 적용 · 저장 전</small> : <p>소개와 운영 설정은 초안에서 정해요.</p>}</header>
       <label className="group-quick-create__label">모임 이름<input aria-label="모임 이름" value={draft.name} maxLength={60} onChange={event => update({name:event.target.value})} placeholder="예: 우리 가족, 주말 산책 친구들" required/></label>
-      <button type="button" className="group-quick-create__ai-entry" aria-expanded={aiPromptOpen} onClick={()=>{cancelAi();setAiPromptOpen(value=>!value);setAiError('');}}><Sparkles size={17}/><span>{ready?'AI로 소개·첫 활동 제안받기':'한 줄로 AI 모임 초안 받기'}</span><ChevronDown size={17}/></button>
-      {aiPromptOpen && <section className="group-quick-create__ai-brief" aria-label="한 줄로 모임 초안 제안" aria-busy={aiPending}>
+      {planningEndpoint && (!ready || aiPromptOpen) && <button type="button" className="group-quick-create__ai-entry" aria-expanded={aiPromptOpen} onClick={()=>{cancelAi();setAiPromptOpen(value=>!value);setAiError('');}}><Sparkles size={17}/><span>한 줄로 AI 모임 초안 받기</span><ChevronDown size={17}/></button>}
+      {!planningEndpoint && !ready && <p className="group-form-hint">AI 제안은 연결 후 사용할 수 있어요.</p>}
+      {planningEndpoint && aiPromptOpen && <section className="group-quick-create__ai-brief" aria-label="한 줄로 모임 초안 제안" aria-busy={aiPending}>
         <small>이름을 정하지 않아도 돼요. 지역과 함께하고 싶은 활동을 적어 주세요.</small>
         <label className="group-quick-create__label">어떤 모임을 함께하고 싶나요?<textarea aria-label="AI 모임 요청" value={aiPrompt} maxLength={500} rows={2} placeholder="예: 인천 주안동에서 주말에 산책하고 카페에 갈 친구 모임" onChange={event=>{cancelAi();setAiPrompt(event.target.value);setAiGroupProposal(null);setAiError('');}}/></label>
         <button type="button" className="group-quick-create__assist" disabled={aiPending||busy} onClick={()=>void proposeGroup()}><Sparkles size={16}/>{aiPending?'AI 초안 준비 중…':'AI 초안 제안받기'}</button>
@@ -158,7 +159,7 @@ function QuickGroupCreationForm({ initial, onSubmit, onDraftChange, resumePhase 
         <section className="group-quick-create__draft" aria-label="수정할 모임 초안">
           <label className="group-quick-create__label">누구와 함께하나요?<select aria-label="모임 관계" value={draft.kind} onChange={event => update({kind:event.target.value as GroupKind})}>{kinds.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>
           <label className="group-quick-create__label">모임 소개<textarea aria-label="모임 소개" value={draft.introduction} maxLength={2000} rows={3} onChange={event => update({introduction:event.target.value})}/></label>
-          <details className="group-quick-create__ai-options"><summary><Sparkles size={16}/>AI로 소개 다듬기 <small>선택</small><ChevronDown size={16}/></summary><div className="group-quick-create__ai" aria-busy={aiPending}>
+          {planningEndpoint && !aiPromptOpen && <details className="group-quick-create__ai-options"><summary><Sparkles size={16}/>AI로 소개 다듬기 <small>선택</small><ChevronDown size={16}/></summary><div className="group-quick-create__ai" aria-busy={aiPending}>
             <button type="button" className="group-quick-create__assist" disabled={aiPending || busy || Boolean(aiUnavailable)} onClick={() => void refineIntroduction()}><Sparkles size={16}/><span>{aiPending ? '소개를 다듬는 중…' : 'AI로 소개 다듬기'}</span></button>
             <small>{aiUnavailable || '이름·관계·활동 지역과 소개로 제안해요. 적용 전에는 내용을 바꾸지 않아요.'}</small>
             {aiPending && <p role="status">계속 수정해도 돼요. 내용을 바꾸면 현재 요청은 취소돼요.</p>}
@@ -168,7 +169,7 @@ function QuickGroupCreationForm({ initial, onSubmit, onDraftChange, resumePhase 
               <small>소개만 바꿔요. 이름·관계·가입 설정은 그대로 유지해요.</small>
               <div><button type="button" disabled={!aiIntroduction.trim()} onClick={() => update({introduction:aiIntroduction.trim()})}>이 소개 적용</button><button type="button" onClick={() => { setAiIntroduction(''); setAiError(''); }}>제안 닫기</button></div>
             </section>}
-          </div></details>
+          </div></details>}
         </section>
         <details className="group-quick-create__options"><summary>관심사 더 정하기 <small>선택</small><ChevronDown size={17}/></summary><div className="group-form-fields">
           <label>주요 관심사<select aria-label="모임 주요 관심사" value={draft.categoryId} onChange={event => { const categoryId = event.target.value as GroupTopic; update({categoryId,topics:[categoryId],subcategoryIds:[]}); }}>{topicOptions.map(item => <option key={item.id} value={item.id}>{item.emoji} {item.label}</option>)}</select></label>
@@ -184,11 +185,13 @@ function QuickGroupCreationForm({ initial, onSubmit, onDraftChange, resumePhase 
           <fieldset><legend>주로 활동하는 시간 <small>선택</small></legend><div className="group-form-chips">{groupAvailabilityOptions.map(item => <button type="button" key={item.id} aria-pressed={draft.joinFields.availableTimes.includes(item.id)} onClick={() => update({joinFields:{...draft.joinFields,availableTimes:draft.joinFields.availableTimes.includes(item.id) ? draft.joinFields.availableTimes.filter(id => id !== item.id) : [...draft.joinFields.availableTimes,item.id]}})}>{item.label}</button>)}</div></fieldset>
           <fieldset><legend>새 멤버에게 물어볼 질문 <small>선택 · 최대 3개</small></legend>{draft.joinFields.questions.map((question,index) => <div className="group-question-row" key={question.id}><input aria-label={`새 멤버 질문 ${index+1}`} value={question.label} maxLength={120} onChange={event => update({joinFields:{...draft.joinFields,questions:draft.joinFields.questions.map(item => item.id === question.id ? {...item,label:event.target.value} : item)}})}/><button type="button" aria-label={`새 멤버 질문 ${index+1} 삭제`} onClick={() => update({joinFields:{...draft.joinFields,questions:draft.joinFields.questions.filter(item => item.id !== question.id)}})}><Trash2 size={17}/></button></div>)}{draft.joinFields.questions.length < 3 && <button type="button" onClick={() => update({joinFields:{...draft.joinFields,questions:[...draft.joinFields.questions,{id:togetherId('join-question'),label:''}]}})}><Plus size={16}/>질문 추가</button>}</fieldset>
         </div></details>
-        <p className="group-quick-create__privacy"><Check size={16}/><span>비공개로 만들어요. 초대와 공개 모집은 만든 뒤 선택해요.</span></p>
       </>}
       {error && <p role="alert" className="group-form-error">{error}</p>}
     </fieldset>
-    <div className="group-quick-create__save"><button type="submit" className="tg-primary" disabled={busy}>{busy ? '저장 중…' : ready ? '모임 만들기' : '초안 만들기'}</button></div>
+    <div className="group-quick-create__save">
+      {ready && <p className="group-quick-create__privacy"><Check size={16}/><span>비공개로 만들어요. 초대와 공개 모집은 만든 뒤 선택해요.</span></p>}
+      <button type="submit" className="tg-primary" disabled={busy}>{busy ? '저장 중…' : ready ? '모임 만들기' : '초안 만들기'}</button>
+    </div>
   </form>;
 }
 

@@ -155,3 +155,15 @@ test('tiny browse sources do not repeat direct or first-participation sections y
   assert.equal(selected.sections.some(section => section.id === 'sports' && section.previewGroups.length > 0), true);
   assert.equal(sections.some(section => section.id === 'direct'), true);
 });
+
+test('category previews choose unseen topic matches before repeating top recommendations', () => {
+  const recommended = Array.from({ length: 4 }, (_, index) => ({ id: `featured-${index}` }));
+  const groups = [recommended[0], recommended[1], { id: 'new-topic-a' }, { id: 'new-topic-b' }];
+  const sections = [
+    { id: 'recommended', kind: 'GROUPS', groups: recommended },
+    { id: 'food', kind: 'GROUPS', topics: ['FOOD'], groups },
+  ];
+  const category = selectGroupDiscoverySectionPreviews(sections).sections.find(section => section.id === 'food');
+  assert.deepEqual(ids(category.previewGroups), ['new-topic-a', 'new-topic-b']);
+  assert.deepEqual(category.groups, groups);
+});

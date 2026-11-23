@@ -10,6 +10,7 @@ export interface AppointmentInput {
   description?: string;
   kind?: 'FRIENDS' | 'FAMILY';
   placeId?: string;
+  additionalPlaceIds?: string[];
 }
 
 function validDate(value: string): boolean {
@@ -27,24 +28,32 @@ export function createStandaloneAppointment(state: TogetherState, actorId: strin
   if ((input.meetingPoint?.length ?? 0) > 300 || (input.description?.length ?? 0) > 2000) throw new Error('장소는 300자, 설명은 2,000자 안으로 적어 주세요.');
   const selected = input.placeId ? places.find(place => place.id === input.placeId) : undefined;
   if (input.placeId && !selected) throw new Error('선택한 장소를 찾지 못했어요. 다시 골라 주세요.');
+  const additional = [...new Set(input.additionalPlaceIds ?? [])].filter(id => id !== selected?.id).map(id => {
+    const place = places.find(item => item.id === id);
+    if (!place) throw new Error('선택한 장소를 찾지 못했어요. 다시 골라 주세요.');
+    return place;
+  });
+  const chosen = selected ? [selected, ...additional] : additional;
   const groupId = togetherId('appointment-space');
   const group = { id: groupId, name: title, kind: input.kind === 'FAMILY' ? 'FAMILY' as const : 'FRIENDS' as const,
-    spaceType: 'ACTIVITY' as const, region: selected?.area.split(/\s+/)[0] ?? '', introduction: '', cover: selected?.image ?? '',
+    spaceType: 'ACTIVITY' as const, region: chosen[0]?.area.split(/\s+/)[0] ?? '', introduction: '', cover: chosen[0]?.image ?? '',
     visibility: 'PRIVATE' as const, ownerId: actorId, memberIds: [actorId], managerIds: [], archived: false,
-    promotionPublished: false, sourceKind: 'LOCAL' as const, interestPlaceIds: selected ? [selected.id] : [] };
+    promotionPublished: false, sourceKind: 'LOCAL' as const, interestPlaceIds: chosen.map(place => place.id) };
   let journey: Journey | undefined;
-  if (selected) {
+  if (chosen.length) {
     // Selected place information only: personal notes, source booking locks and old visits are never copied.
-    const place: Place = { id: selected.id, kind: selected.kind, name: selected.name, area: selected.area,
-      address: selected.address, lat: selected.lat, lng: selected.lng, image: selected.image,
-      photos: selected.photos ? structuredClone(selected.photos) : undefined, description: selected.description,
-      note: '', duration: selected.duration, personal: selected.personal, locationVerified: selected.locationVerified,
-      visitId: togetherId('visit'), bookingFixed: false, ...(input.startTime ? { time: input.startTime } : {}) };
+    const visits: Place[] = chosen.map(place => ({
+      id: place.id, kind: place.kind, name: place.name, area: place.area, address: place.address,
+      lat: place.lat, lng: place.lng, image: place.image,
+      photos: place.photos ? structuredClone(place.photos) : undefined, description: place.description,
+      note: '', duration: place.duration, personal: place.personal, locationVerified: place.locationVerified,
+      visitId: togetherId('visit'), bookingFixed: false, ...(input.startTime && place.id === selected?.id ? { time: input.startTime } : {}),
+    }));
     journey = { id: togetherId('appointment-plan'), purpose: 'PLAN', planStage: 'READY', title, region: group.region,
-      dateRange: input.date, duration: '하루 약속', status: 'PLANNING', visibility: 'PRIVATE', cover: place.image,
+      dateRange: input.date, duration: '하루 약속', status: 'PLANNING', visibility: 'PRIVATE', cover: visits[0].image,
       summary: '', story: '', tags: [], saves: 0, author: memberName(state, actorId), isMine: false,
-      days: [{ dayId: togetherId('day'), day: 1, date: input.date, title: '함께할 일정', story: '', places: [place],
-        blocks: [{ id: togetherId('block'), type: 'PLACE', placeId: place.id, visitId: place.visitId }] }] };
+      days: [{ dayId: togetherId('day'), day: 1, date: input.date, title: '함께할 일정', story: '', places: visits,
+        blocks: visits.map(place => ({ id: togetherId('block'), type: 'PLACE', placeId: place.id, visitId: place.visitId })) }] };
   }
   const activity: TogetherActivity = { id: togetherId('activity'), groupId, kind: 'MEETUP', title,
     date: input.date, endDate: input.date, ...(input.startTime ? { startTime: input.startTime } : {}),

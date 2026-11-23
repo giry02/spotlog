@@ -1,5 +1,6 @@
 import { useId, type ReactNode } from 'react';
 import type { GroupDiscoveryFilters, selectGroupDiscovery } from './groupDiscoveryModel';
+import { validPublicStartTime } from './discovery';
 import { discoveryCalendarDateLabel, discoveryCalendarDays, groupDiscoveryScheduleByDate, validDiscoveryCalendarDate } from './groupDiscoveryCalendar';
 import './group-discovery-calendar.css';
 
@@ -22,7 +23,14 @@ export default function DiscoveryDatePicker({ selectedDate, onChange, showDays =
 }
 
 type PublicEvent = ReturnType<typeof selectGroupDiscovery>['events'][number];
+export function PublicEventScheduleRows({ events, renderEvent, limit = events.length }: {
+  events: PublicEvent[]; renderEvent: (event: PublicEvent) => ReactNode; limit?: number;
+}) {
+  const scheduled = events.filter(item => validPublicStartTime(item.activity.startTime)).slice(0, limit);
+  const undecided = events.filter(item => !validPublicStartTime(item.activity.startTime)).slice(0, limit - scheduled.length);
+  return <>{scheduled.map(renderEvent)}{undecided.length > 0 && <><p className="gd-time-pending">시간 미정인 약속</p>{undecided.map(renderEvent)}</>}</>;
+}
 export function GroupDiscoverySchedule({ events, filters, renderEvent, at }: { events: PublicEvent[]; filters: GroupDiscoveryFilters; renderEvent: (event: PublicEvent) => ReactNode; at?: Date }) {
   const days = groupDiscoveryScheduleByDate(events, filters.dateFilter, filters.selectedDate, at);
-  return <div className="gd-calendar-schedule">{days.map(day => <section className="gd-calendar-schedule-day" key={day.date}><header><h3>{discoveryCalendarDateLabel(day.date)}</h3><span>{day.items.length}개 약속</span></header><div className="gd-meetup-list">{day.items.map(renderEvent)}</div></section>)}</div>;
+  return <div className="gd-calendar-schedule">{days.map(day => <section className="gd-calendar-schedule-day" key={day.date}><header><h3>{discoveryCalendarDateLabel(day.date)}</h3><span>{day.items.length}개 약속</span></header><div className="gd-meetup-list"><PublicEventScheduleRows events={day.items} renderEvent={renderEvent}/></div></section>)}</div>;
 }

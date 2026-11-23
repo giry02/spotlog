@@ -1,10 +1,11 @@
 import { useState, type FormEvent } from 'react';
-import { ArrowRight, BookOpen, CalendarDays, ChevronRight, Clock3, MapPin, Plus, Trash2, Users } from 'lucide-react';
+import { ArrowRight, BookOpen, CalendarDays, ChevronRight, Clock3, MapPin, Plus, Trash2, Users, X } from 'lucide-react';
 import type { Journey, Place } from '../data';
 import { ScreenHeader, ScreenTabs } from '../ScreenHeader';
 import { AppMenuButton } from '../AppMenu';
 import { BottomSheet } from '../BottomSheet';
 import type { TogetherState, TogetherActivity } from '../together/model';
+import { validCalendarDay } from '../together/calendarPlans';
 import { appointmentRequests, memberAppointments, personalPlansForRange, type AppointmentInput, type AppointmentRange } from './platformModel';
 import { selectAppointmentPlace } from './appointmentPlaceSelection';
 import './platform-hubs.css';
@@ -20,7 +21,8 @@ interface HubProps {
 }
 
 export function DateTile({ date }: { date: string }) {
-  return <span className="platform-date" title={date || '날짜 미정'}>{date ? <><small>{Number(date.slice(5, 7))}월</small><strong>{Number(date.slice(8, 10))}</strong></> : <><CalendarDays size={22}/><small>날짜 미정</small></>}</span>;
+  const calendarDay = validCalendarDay(date) ? date : '';
+  return <span className="platform-date" title={calendarDay || '날짜 미정'}>{calendarDay ? <><small>{Number(calendarDay.slice(5, 7))}월</small><strong>{Number(calendarDay.slice(8, 10))}</strong></> : <><CalendarDays size={22}/><small>날짜 미정</small></>}</span>;
 }
 
 export function ActivityRow({ activity, state, onOpen }: { activity: TogetherActivity; state: TogetherState; onOpen: () => void }) {
@@ -35,7 +37,8 @@ export function ActivityRow({ activity, state, onOpen }: { activity: TogetherAct
 }
 
 export function PlanRow({ plan, onOpen }: { plan: Journey; onOpen: () => void }) {
-  return <button type="button" className="platform-activity-row" onClick={onOpen}><DateTile date={plan.startDate || plan.days.find(day => day.date)?.date || ''}/>
+  const date = validCalendarDay(plan.startDate) ? plan.startDate : plan.days.find(day => validCalendarDay(day.date))?.date ?? '';
+  return <button type="button" className="platform-activity-row" onClick={onOpen}><DateTile date={date}/>
     <span className="platform-row-copy"><strong>{plan.title}</strong><span>{plan.region || '지역 미정'} · {plan.duration || `${plan.days.length}일`}</span><small>개인 여행 · {plan.planStage === 'DRAFT' ? '작성 중' : '비공개 일정'}</small></span><ChevronRight size={18}/></button>;
 }
 
@@ -81,12 +84,30 @@ export function RecordsHub({ state, userId, plans, journals, onActivity, onPlan,
 export function CreateAppointmentSheet({ places, initial, onChange, onClose, onCreate }: { places: Place[]; initial: AppointmentInput; onChange: (next: AppointmentInput) => void; onClose: () => void; onCreate: (input: AppointmentInput) => boolean }) {
   const [error, setError] = useState('');
   const update = (patch: Partial<AppointmentInput>) => { onChange({ ...initial, ...patch }); setError(''); };
+  const additionalIds = [...new Set(initial.additionalPlaceIds ?? [])].filter(id => id !== initial.placeId);
+  const chooseMeetingPlace = (placeId: string) => {
+    const next = selectAppointmentPlace(initial, placeId, places);
+    update({ ...next, ...(initial.additionalPlaceIds ? { additionalPlaceIds: additionalIds.filter(id => id !== next.placeId) } : {}) });
+  };
   const submit = (event: FormEvent) => { event.preventDefault(); if (!initial.title.trim()) { setError('약속 이름을 적어 주세요.'); return; } if (!onCreate(initial)) setError('저장하지 못했어요. 입력 내용을 유지하고 있어요.'); };
   return <BottomSheet title="약속 만들기" onClose={onClose}><form className="platform-create" onSubmit={submit}>
     <label>무엇을 함께할까요?<input value={initial.title} maxLength={100} required autoFocus placeholder="금요일 저녁, 가족 나들이" onChange={event => update({ title: event.target.value })}/></label>
     <div className="platform-create-pair"><label>날짜 · 나중에 정해도 돼요<input type="date" value={initial.date} onChange={event => update({ date: event.target.value, ...(event.target.value ? {} : { startTime: '' }) })}/></label><label>시작 시간<input type="time" value={initial.startTime || ''} disabled={!initial.date} onChange={event => update({ startTime: event.target.value })}/></label></div>
     <label>누구와 만날까요?<select value={initial.kind || 'FRIENDS'} onChange={event => update({ kind: event.target.value as 'FRIENDS' | 'FAMILY' })}><option value="FRIENDS">친구·지인</option><option value="FAMILY">가족</option></select></label>
-    <details open={Boolean(initial.placeId)}><summary>장소·설명 추가</summary><div className="platform-create-extra"><label>내가 저장한 장소<select value={initial.placeId || ''} onChange={event => update(selectAppointmentPlace(initial, event.target.value, places))}><option value="">나중에 함께 정하기</option>{places.map(place => <option key={place.id} value={place.id}>{place.name} · {place.area}</option>)}</select></label><label>만나는 곳<input value={initial.meetingPoint || ''} maxLength={300} placeholder="역 출구, 카페 이름" onChange={event => update({ meetingPoint: event.target.value })}/></label><label>안내<textarea value={initial.description || ''} maxLength={2000} rows={3} onChange={event => update({ description: event.target.value })}/></label></div></details>
+    <details open={Boolean(initial.placeId || additionalIds.length)}><summary>장소·설명 추가</summary>
+      <div className="platform-create-extra">
+        <label>만나는 장소<select value={initial.placeId || ''} onChange={event => chooseMeetingPlace(event.target.value)}><option value="">나중에 함께 정하기</option>{places.map(place => <option key={place.id} value={place.id}>{place.name} · {place.area}</option>)}</select></label>
+        {additionalIds.length > 0 && <section className="platform-create-visits" aria-label="추가 방문 장소">
+          <p>추가 방문 장소</p>
+          <ul>{additionalIds.map(id => {
+            const name = places.find(place => place.id === id)?.name || '목록에 없는 장소';
+            return <li key={id}><span>{name}</span><button type="button" aria-label={`${name} 빼기`} onClick={() => update({ additionalPlaceIds: additionalIds.filter(item => item !== id) })}><X size={17} aria-hidden="true"/></button></li>;
+          })}</ul>
+        </section>}
+        <label>만나는 위치 메모<input value={initial.meetingPoint || ''} maxLength={300} placeholder="역 출구, 카페 이름" onChange={event => update({ meetingPoint: event.target.value })}/></label>
+        <label>안내<textarea value={initial.description || ''} maxLength={2000} rows={3} onChange={event => update({ description: event.target.value })}/></label>
+      </div>
+    </details>
     {error && <p className="platform-form-error" role="alert">{error}</p>}<p className="platform-hint">비공개 약속으로 만들고, 안내를 확인한 뒤 친구를 초대해요.</p><button type="submit" className="primary wide">약속 만들기</button>
   </form></BottomSheet>;
 }

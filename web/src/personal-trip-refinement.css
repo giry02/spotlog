@@ -41,8 +41,81 @@
   box-shadow: none;
 }
 
-/* Nearby sheets use card actions, not full-size page confirmation buttons. */
-.phase-sheet .nearby-row>.outline { min-height:var(--touch-target,44px); padding:0 10px; border-radius:11px; font-size:var(--type-subhead); font-weight:700; line-height:1.5; box-shadow:none; }
+/* Nearby places use a compact list with a single visible action per row. */
+.phase-sheet .nearby-sheet-content { gap:12px; }
+.phase-sheet .nearby-add-modes {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  border-bottom:1px solid var(--line);
+}
+.phase-sheet .nearby-add-modes > button {
+  min-width:0;
+  min-height:var(--touch-target,44px);
+  padding:8px;
+  border:0;
+  border-bottom:2px solid transparent;
+  background:transparent;
+  color:var(--muted);
+  font-size:var(--type-subhead);
+  font-weight:600;
+}
+.phase-sheet .nearby-add-modes > button.active { border-bottom-color:var(--ink); color:var(--ink); }
+.phase-sheet .nearby-kind { margin-top:0; gap:6px; }
+.phase-sheet .nearby-kind > button {
+  min-height:var(--touch-target,44px);
+  padding:0 12px;
+  border-color:transparent;
+  border-radius:8px;
+  background:transparent;
+  color:var(--muted);
+  font-size:var(--type-subhead);
+}
+.phase-sheet .nearby-kind > button.active { color:var(--ink); background:#efefeb; border-color:transparent; }
+.phase-sheet .nearby-results { gap:0; border-top:1px solid var(--line); }
+.phase-sheet .nearby-business { border:0; border-bottom:1px solid var(--line); border-radius:0; padding:9px 0; }
+.phase-sheet .nearby-row { gap:8px; }
+.phase-sheet .nearby-open { gap:10px; min-height:var(--touch-target,44px); }
+.phase-sheet .nearby-open>.nearby-thumb { position:relative; display:grid; place-items:center; flex:0 0 48px; width:48px; height:48px; border-radius:8px; overflow:hidden; background:#efefeb; color:var(--muted); }
+.phase-sheet .nearby-thumb>img { position:absolute; inset:0; display:block; width:100%; height:100%; max-height:none; object-fit:cover; }
+.phase-sheet .nearby-open small { display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.phase-sheet .nearby-row-action {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:none;
+  min-width:var(--touch-target,44px);
+  min-height:var(--touch-target,44px);
+  gap:4px;
+  padding:0 7px;
+  border:0;
+  border-radius:8px;
+  background:#efefeb;
+  color:var(--ink);
+  font-family:inherit;
+  font-size:var(--type-subhead);
+  font-weight:600;
+  white-space:nowrap;
+}
+.phase-sheet .nearby-row-action:disabled { background:transparent; color:var(--muted); }
+.phase-sheet .nearby-row-action:not(:disabled):hover { background:#e7e7e3; }
+.phase-sheet .nearby-source-actions { display:flex; flex-wrap:wrap; gap:0 12px; }
+.phase-sheet .nearby-source-actions > button {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  min-height:var(--touch-target,44px);
+  padding:0 4px;
+  border:0;
+  border-radius:8px;
+  background:transparent;
+  color:var(--ink);
+  font:inherit;
+  font-size:var(--type-subhead);
+  text-align:left;
+}
+.phase-sheet .nearby-source-actions > button > svg { flex:none; }
+.phase-sheet .nearby-close-shortlist { align-self:flex-start; width:auto; min-height:var(--touch-target,44px); }
+.nearby-business .nearby-add-error { margin-top:8px; color:var(--ui-danger,#a13c28); }
 .phase-sheet .nearby-search { position:relative; display:flex; align-items:center; margin:0; }
 .phase-sheet .nearby-search>svg { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; }
 .phase-sheet .nearby-search>input { padding-left:38px; font-size:var(--type-body); font-weight:400; }
@@ -56,11 +129,8 @@
 .plan-timeline-gap>.ui-button { justify-self:start; }
 .plan-timeline-context { line-height:1.5; }
 
-/* Keep names readable without shrinking the type or the existing photos. */
+/* Long names must stay inside the list's text column. */
 .phase-sheet .nearby-open strong { word-break:keep-all; overflow-wrap:anywhere; }
-@media (max-width:360px) {
-  .phase-sheet .nearby-open>.plan-image-empty { display:none; }
-}
 
 /* Empty sheet results should leave the next actions visible, not use a page's 500px empty state. */
 .phase-sheet .nearby-empty { min-height:0; padding:24px 0; gap:8px; }

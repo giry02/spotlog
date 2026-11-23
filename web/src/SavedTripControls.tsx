@@ -8,10 +8,11 @@ import { localizedTripError, tripMessage, useLocale, type TripMessageKey } from 
 import { buildSavedTrip, forgetSavedTripPlace, reorderSavedTripPlace, resizeSavedTrip, savedTripDate, savedTripPeriod, savedTripRegion, validTripDate, type SavedTripDraft, type SavedTripMode } from './savedTripBuilder';
 import './saved-trip-builder.css';
 
-export function SavedTripControls({ draft, places, automaticPlaces, onChange, onCreate, browseControls }: {
+export function SavedTripControls({ draft, places, automaticPlaces, onChange, onCreate, browseControls, browseActions }: {
   draft: SavedTripDraft; places: Place[]; automaticPlaces: Place[];
   onChange: (next: SavedTripDraft) => void; onCreate: (journey: Journey) => string | null;
   browseControls?: ReactNode;
+  browseActions?: ReactNode;
 }) {
   const { locale } = useLocale();
   const s = (key: TripMessageKey, values?: Record<string, string | number>) => tripMessage(locale, key, values);
@@ -66,7 +67,10 @@ export function SavedTripControls({ draft, places, automaticPlaces, onChange, on
   return <>
     <div className="saved-place-toolbar">
       {browseControls}
-      <button type="button" className="saved-trip-launch" aria-haspopup="dialog" disabled={!places.length} onClick={() => { setError(''); setModeChoice(true); }}><CalendarDays size={16} aria-hidden="true"/>{locale === 'en' ? 'Make a trip' : '여행 만들기'}</button>
+      <div className="saved-place-toolbar-actions">
+        {browseActions}
+        {places.length > 0 && <button type="button" className="saved-trip-launch" aria-haspopup="dialog" onClick={() => { setError(''); setModeChoice(true); }}>{locale === 'en' ? 'Make a trip' : '여행 만들기'}<ChevronRight size={14} aria-hidden="true"/></button>}
+      </div>
     </div>
     {draft.active && <>
       <div className="saved-trip-toolbar" ref={toolbar}>

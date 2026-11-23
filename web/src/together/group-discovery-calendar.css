@@ -14,6 +14,7 @@
 .gd-calendar-schedule{display:grid;gap:20px;min-width:0}.gd-calendar-schedule-day{display:grid;gap:6px;min-width:0}
 .gd-calendar-schedule-day>header{display:flex;align-items:center;gap:8px;min-height:36px;padding:0 0 4px;border-bottom:1px solid var(--line)}
 .gd-calendar-schedule-day>header h3{margin:0;font-size:16px;line-height:22px}.gd-calendar-schedule-day>header>span{font-size:12px;line-height:16px;color:var(--muted)}
+.gd-time-pending{margin:0;padding:9px 0 0;font-size:12px;line-height:18px;font-weight:600;color:var(--muted)}
 .gd .gd-compact-category{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;padding:8px 0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;text-align:left;font-size:14px;line-height:20px}
 .gd-compact-category>strong{flex:1;min-width:0;font-weight:600}.gd-compact-category>span{color:var(--muted);font-weight:400}.gd-compact-category>svg{flex:none}.gd-compact-category[aria-expanded=true]>svg{transform:rotate(180deg)}
 @container gd-calendar (max-width:331px){.gd-calendar-days{grid-template-columns:repeat(4,minmax(0,1fr))}}

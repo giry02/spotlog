@@ -14,6 +14,9 @@ import * as creationPlanner from '../src/together/creationPlanner.ts';
 import * as discovery from '../src/together/discovery.ts';
 import * as tripPlan from '../src/tripPlan.ts';
 import * as tripStay from '../src/tripPickerStay.ts';
+import * as creationPreview from '../src/together/creationPreview.ts';
+import * as quickCreation from '../src/together/quickCreation.ts';
+import * as creationAiCandidates from '../src/together/creationAiCandidates.ts';
 import { configuredPlanningAiEndpoint } from '../src/planningAiService.ts';
 import { interestKindLabels } from '../src/interestCollectionStore.ts';
 
@@ -91,14 +94,14 @@ test('a completed choice from an old scope cannot overwrite the next room feedba
 test('trip AI selection keeps the exact saved DAY, deduplicates a meal slot and routes a hotel through existing stay review',()=>{
   const cafe=place('바다 카페'),hotel=place('호텔','STAY'),food=place('동백 식당','FOOD'),base=tripPlan.buildPersonalPlan([],3,'내 여행','나');let current=base,adds=0,stays=0;
   const props={journey:current,dayId:base.days[1].dayId,catalog:[cafe,hotel,food],savedPlaces:[],initialMode:'ASSISTANT',onClose(){},onAdd(p,slot){adds++;current=tripPlan.appendPlanPlace(current,base.days[1].dayId,p,slot);return null;},onAddStay(){stays++;return null;}};
-  const deps={'./BottomSheet':{BottomSheet:'BottomSheet'},'./candidatePhoto':{},'./tripCandidatePresentation':{candidatePhoto:()=>''},'./publicReview':{usePublicReview:()=>({state:{withdrawnImages:[]}})},'./ui':{Button:'Button',Field:'Field'},'./NearbyBusinessSheet':{StayForm:'StayForm'},'./tripPickerStay':tripStay,'./PlaceAssistantSheet':{__esModule:true,default:'PlaceAssistantSheet'},'./LandmarkGuideCard':{LandmarkGuideCard:'LandmarkGuideCard'},'./community/PublicPlaceFacts':{__esModule:true,default:'PublicPlaceFacts'}};
+  const deps={'./BottomSheet':{BottomSheet:'BottomSheet'},'./candidatePhoto':{},'./tripCandidatePresentation':{candidatePhoto:()=>''},'./publicReview':{usePublicReview:()=>({state:{withdrawnImages:[]}})},'./ui':{Button:'Button',Field:'Field'},'./NearbyBusinessSheet':{StayForm:'StayForm'},'./tripPickerStay':tripStay,'./PlaceAssistantSheet':{__esModule:true,default:'PlaceAssistantSheet'},'./LandmarkGuideCard':{LandmarkGuideCard:'LandmarkGuideCard'},'./community/PublicPlaceFacts':{__esModule:true,default:'PublicPlaceFacts'},'./planningAiAvailability':{planningAiAvailable:true}};
   const app=fixture('../src/TripPlacePicker.tsx','TripPlacePicker',deps,props);app.render();
   const assistant=()=>app.find(node=>node.type==='PlaceAssistantSheet');
   assert.match(assistant().props.selection.scopeKey,new RegExp(base.days[1].dayId));
   assert.equal(assistant().props.selection.onSelect(cafe),null);app.render({journey:current});
   assert.equal(current.days[0].places.length,0);assert.equal(current.days[1].places[0].id,cafe.id);assert.equal(adds,1);
   assistant().props.selection.onSelect(cafe);assert.equal(adds,1);
-  const meals=()=>app.find(node=>node.props?.['aria-label']==='AI 음식점 담을 식사 시간');
+  const meals=()=>app.find(node=>node.props?.['aria-label']==='추천 음식점 담을 식사 시간');
   assert.ok(meals());
   nodes(meals()).find(node=>node.type==='button'&&text(node)==='저녁').props.onClick();app.render();
   assert.match(assistant().props.selection.actionLabel(food),/저녁/);
@@ -164,8 +167,42 @@ test('a town-only AI proposal asks only for its missing parent and keeps the tow
 });
 
 test('an unconnected group model does not call a service or pretend a local template is AI',async()=>{
-  const {app,calls}=groupFixture({endpoint:''});app.render();app.control('한 줄로 AI 모임 초안 받기').props.onClick();app.render();
-  app.control('AI 초안 제안받기').props.onClick();await tick();app.render();assert.equal(calls.length,0);
-  assert.ok(app.find(node=>node.props?.role==='alert'&&/연결되어 있지/.test(text(node))));
+  const {app,calls,saved}=groupFixture({endpoint:''});app.render();
+  assert.ok(app.find(node=>text(node)==='AI 제안은 연결 후 사용할 수 있어요.'));
+  assert.equal(app.control('한 줄로 AI 모임 초안 받기'),undefined);
+  app.find(node=>node.props?.['aria-label']==='모임 이름').props.onChange({target:{value:'직접 정한 이름'}});app.render();
+  app.find(node=>node.type==='form').props.onSubmit({preventDefault(){}});app.render();
+  app.find(node=>node.type==='form').props.onSubmit({preventDefault(){}});await tick();app.render();
+  assert.equal(saved[0].name,'직접 정한 이름');assert.equal(calls.length,0);
   assert.equal(app.find(node=>node.props?.['aria-label']==='적용 전 AI 모임 초안'),undefined);
+});
+
+test('a trip AI suggestion preserves the typed title and applies only the chosen days',async()=>{
+  const cafe=place('바다 카페'),park=place('해변 공원','LANDMARK'),food=place('동백 식당','FOOD');
+  const saved=[];
+  const deps={
+    '../PhotoPlaceCard':{getPlacePhotos:()=>[]},'../PublicTourismCredit':{PhotoCredit:'PhotoCredit'},
+    '../placeDirections':{naverDirectionsUrl:()=>''},'./discovery':discovery,'./creationPlanner':creationPlanner,
+    './creationPreview':creationPreview,'./quickCreation':quickCreation,'./creationAiCandidates':creationAiCandidates,
+    './GroupLocalityFields':{__esModule:true,default:'GroupLocalityFields'},'./groupRegions':groupRegions,
+    '../planningAiService':{
+      configuredPlanningAiEndpoint,PLANNING_AI_CANDIDATE_LIMIT:30,
+      requestTripDraftAi:async()=>({title:'다른 제목',days:[{day:1,placeIds:[food.id]},{day:2,placeIds:[cafe.id]}]}),
+    },
+  };
+  const initialName='바다를 보러 가고 싶어';
+  const app=fixture('../src/together/CreationPlannerPanel.tsx','default',deps,{
+    places:[park,food,cafe], initial:{purpose:'TRIP',region:'부산'},initialName,initialPrompt:initialName,
+    onReview:(_brief,plan)=>{saved.push(plan);return true;},
+  });
+  app.render();app.control('AI로 초안 만들기').props.onClick();await tick();app.render();
+  const proposal=app.find(node=>node.props?.['aria-label']==='적용 전 AI 제안');
+  const choices=nodes(proposal).filter(node=>node.type==='input'&&node.props.type==='checkbox');
+  assert.equal(choices[0].props.checked,false,'a populated DAY remains unchecked');
+  assert.equal(choices[1].props.checked,true,'an empty DAY can accept the proposal by default');
+  app.control('선택한 DAY 적용').props.onClick();app.render();
+  app.control('여행 만들기').props.onClick();await tick();app.render();
+  assert.equal(saved[0].title,initialName);
+  assert.equal(saved[0].days[0].placeIds[0],park.id);
+  assert.equal(saved[0].days[1].placeIds[0],cafe.id);
 });

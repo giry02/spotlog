@@ -66,8 +66,11 @@ export function shiftDay(day: string, offset: number): string {
   const date = new Date(`${day}T12:00:00+09:00`); date.setUTCDate(date.getUTCDate() + offset); return koreaDay(date);
 }
 function validDay(day: string): boolean { return /^\d{4}-\d{2}-\d{2}$/.test(day) && Number.isFinite(Date.parse(`${day}T00:00:00+09:00`)) && koreaDay(new Date(`${day}T12:00:00+09:00`)) === day; }
+export function validPublicStartTime(startTime: string | undefined): startTime is string {
+  return Boolean(startTime && /^([01]\d|2[0-3]):[0-5]\d$/.test(startTime));
+}
 export function publicActivityTimeKey(date: string, startTime?: string): string {
-  return `${validDay(date) ? date : '9999-12-31'}T${startTime && /^([01]\d|2[0-3]):[0-5]\d$/.test(startTime) ? startTime : '23:59:59'}`;
+  return `${validDay(date) ? date : '9999-12-31'}T${validPublicStartTime(startTime) ? startTime : '23:59:59'}`;
 }
 function overlaps(activity: PublicDiscoveryActivity, from: string, to: string): boolean {
   if (!validDay(activity.date)) return false;

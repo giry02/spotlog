@@ -1,8 +1,11 @@
 .saved-place-use { display:grid; min-width:0; gap:16px; }
-.saved-place-use-actions { display:grid; gap:8px; }
-.saved-place-use-actions>button { display:flex; align-items:center; gap:12px; width:100%; min-height:72px; padding:12px; border:1px solid var(--line); border-radius:12px; background:white; color:var(--ink); text-align:left; }
+.saved-place-use-actions { display:grid; }
+.saved-place-use-actions>button { display:flex; align-items:center; gap:12px; width:100%; min-height:64px; padding:9px 2px; border:0; border-bottom:1px solid var(--line); border-radius:0; background:transparent; color:var(--ink); text-align:left; }
+.saved-place-use-actions>button:last-child { border-bottom:0; }
 .saved-place-use-actions>button>svg { flex-shrink:0; }
-.saved-place-use-actions>button>span { display:grid; flex:1; min-width:0; gap:4px; }
+.saved-place-use-actions>button>svg:first-child { box-sizing:content-box; width:19px; height:19px; padding:7px; border-radius:8px; background:#efefea; }
+.saved-place-use-actions>button>svg:last-child { width:15px; color:var(--muted); }
+.saved-place-use-actions>button>span { display:grid; flex:1; min-width:0; gap:3px; }
 .saved-place-use strong { font-size:14px; line-height:20px; font-weight:600; }
 .saved-place-use small { font-size:12px; line-height:16px; color:var(--muted); }
 .saved-place-use label { display:grid; gap:8px; font-size:14px; line-height:20px; font-weight:600; }
@@ -10,7 +13,7 @@
 .saved-place-proposal-preview { display:flex; align-items:flex-start; gap:8px; border:1px solid var(--line); border-radius:12px; padding:12px; min-width:0; }
 .saved-place-proposal-preview>svg { flex-shrink:0; }
 .saved-place-proposal-preview>div { min-width:0; }
-.saved-place-proposal-preview p { white-space:pre-wrap; overflow-wrap:anywhere; margin:8px 0 0; font-size:14px; line-height:20px; }
+.saved-place-proposal-preview p { white-space:pre-wrap; overflow-wrap:anywhere; margin:0; font-size:14px; line-height:20px; }
 .saved-place-use-note,.saved-place-use-empty p { margin:0; color:var(--muted); font-size:14px; line-height:20px; }
 .saved-place-use .saved-place-use-back { justify-self:start; min-height:44px; padding:8px 0; background:transparent; border:0; font-size:14px; color:var(--muted); }
 .saved-place-use .saved-place-use-primary { width:100%; min-height:44px; border:1px solid var(--ink); border-radius:10px; padding:10px 12px; background:var(--ink); color:white; font-size:14px; line-height:20px; font-weight:600; }
@@ -19,3 +22,21 @@
 .saved-place-use-empty { display:grid; justify-items:start; gap:12px; }
 .saved-place-use-empty h3 { margin:0; font-size:16px; line-height:22px; }
 .saved-place-use button:focus-visible,.saved-place-use select:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.saved-use-picker { display:grid; gap:8px; }
+.phase-sheet .saved-use-picker label {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  min-height:48px;
+  margin:0;
+  padding:8px 2px;
+  border-bottom:1px solid var(--line);
+}
+.saved-use-picker label input[type="checkbox"] { flex:none; width:18px; height:18px; accent-color:var(--ink); }
+.saved-use-picker label span { display:grid; gap:2px; min-width:0; overflow-wrap:anywhere; }
+.saved-use-picker label small { color:var(--muted); font-size:12px; line-height:16px; }
+.custom-place-options { border-block:1px solid var(--line); padding:0 2px; }
+.custom-place-options summary { min-height:44px; padding:11px 0; cursor:pointer; font-size:14px; line-height:22px; }
+.custom-place-options summary small { color:var(--muted); font-size:12px; margin-inline-start:4px; }
+.custom-place-options > div { display:grid; gap:12px; padding-bottom:12px; }

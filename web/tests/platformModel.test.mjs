@@ -15,6 +15,21 @@ test('invalid dates, missing identities and stale place selections make no state
  for(const input of [{title:'',date:''},{title:'약속',date:'2026-02-30'},{title:'약속',date:'',startTime:'15:00'},{title:'약속',date:'2026-11-07',placeId:'gone'}]){const state=createEmptyState('one','이름');const before=JSON.stringify(state);assert.throws(()=>createStandaloneAppointment(state,'one',input,[]));assert.equal(JSON.stringify(state),before);}
  assert.throws(()=>createStandaloneAppointment(createEmptyState('one','이름'),'stranger',{title:'약속',date:''}));
 });
+test('a saved place selection becomes an ordered private appointment with unique visits', () => {
+  const state = createEmptyState('one', '이름');
+  const cafe = { ...place, id: 'cafe', kind: 'CAFE', name: '카페' };
+  const input = { title: '같이 갈 곳', date: '', placeId: place.id, additionalPlaceIds: [cafe.id, place.id, cafe.id] };
+  const before = JSON.stringify(state);
+  assert.throws(() => createStandaloneAppointment(state, 'one', input, [place]));
+  assert.equal(JSON.stringify(state), before);
+  const result = createStandaloneAppointment(state, 'one', input, [place, cafe]);
+  assert.ok(isTogetherState(state));
+  const visits = result.journey.days[0].places;
+  assert.deepEqual(visits.map(visit => visit.id), [place.id, cafe.id]);
+  assert.ok(visits.every(visit => visit.note === '' && visit.bookingFixed === false));
+  assert.ok(visits[0].visitId !== visits[1].visitId);
+  assert.deepEqual(result.participants, {});
+});
 test('member appointment ranges do not reveal others or promote membership into attendance',()=>{
  const state=createEmptyState('one','이름');state.members.push({id:'two',name:'두번째'});
  const dated=createStandaloneAppointment(state,'one',{title:'다가올 약속',date:'2026-11-07'});const undated=createStandaloneAppointment(state,'one',{title:'날짜 미정',date:''});const past=createStandaloneAppointment(state,'one',{title:'지난 약속',date:'2026-10-30'});

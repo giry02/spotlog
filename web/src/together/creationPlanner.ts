@@ -69,6 +69,7 @@ const topicRules: [GroupTopic, RegExp][] = [
 const topicIds = topicRules.map(([id]) => id);
 const themeTopics: Partial<Record<CreationBrief['theme'], GroupTopic>> = { FOOD: 'FOOD', CAFE: 'CAFE', FOLIAGE: 'OUTDOOR', CULTURE: 'CULTURE', TRAVEL: 'TRAVEL' };
 const topicNames: Record<GroupTopic, string> = { FOOD: '맛집', CAFE: '카페', BOOK: '독서', TRAVEL: '여행', WALK: '산책', OUTDOOR: '자연·야외', CULTURE: '문화', FAMILY: '가족', PHOTO: '사진', SOCIAL: '친목', SPORTS: '운동', GAME: '보드게임', LANGUAGE: '언어', MUSIC: '음악', CRAFT: '공예', PETS: '반려동물' };
+const koreanPeople = ['한', '두', '세', '네', '다섯', '여섯', '일곱', '여덟', '아홉', '열'];
 
 /** An explicit empty selection must not reintroduce stale prompt/theme interests. */
 export function creationBriefTopics(brief: Pick<CreationBrief, 'topics' | 'theme'>): GroupTopic[] {
@@ -135,7 +136,7 @@ export function interpretCreationPrompt(prompt: string, initial: Partial<Creatio
   const exactDates = [...text.matchAll(/\b(\d{4})[-/.](\d{1,2})[-/.](\d{1,2})(?!\d)|(\d{4})\s*년\s*(\d{1,2})\s*월\s*(\d{1,2})\s*일/g)]
     .map(match => `${match[1] || match[4]}-${(match[2] || match[5]).padStart(2, '0')}-${(match[3] || match[6]).padStart(2, '0')}`);
   const date = validDate(exactDates[0]) ? exactDates[0] : '', endDate = validDate(exactDates[1]) ? exactDates[1] : '';
-  if (/오늘|내일|모레|주말|이번\s*주|다음\s*주|이번\s*달|다음\s*달/.test(text) || (!exactDates.length && /\d+\s*월\s*\d+\s*일/.test(text))) notes.push('날짜는 연도까지 포함해 직접 확인해 주세요.');
+  if (!exactDates.length && /오늘|내일|모레|주말|이번\s*주|다음\s*주|이번\s*달|다음\s*달|[월화수목금토일]요일|\d+\s*월\s*\d+\s*일/.test(text)) notes.push('날짜는 연도까지 포함해 직접 확인해 주세요.');
   if (exactDates.some(value => !validDate(value))) notes.push('입력한 날짜가 달력에 있는 날짜인지 확인해 주세요.');
   const nights = text.match(/(\d{1,2})\s*박\s*(\d{1,2})\s*일/);
   const duration = text.match(/(?:^|\s)(\d{1,2})\s*일(?:\s*(?:일정|동안|여행|정도)|\s*$)/);
@@ -143,6 +144,8 @@ export function interpretCreationPrompt(prompt: string, initial: Partial<Creatio
   if (nights && Number(nights[1]) + 1 !== Number(nights[2])) notes.push('숙박일과 여행 일수가 맞는지 확인해 주세요.');
   if (dayCount !== undefined && (dayCount < 1 || dayCount > 7)) notes.push('한 번에 1~7일 범위의 초안을 만들 수 있어요.');
   const peopleMatch = text.match(/(\d{1,3})\s*명/) || text.match(/(\d{1,3})\s*인(?!당)(?=\s*(?:가족|일행|이서|끼리|함께|참여|모임|여행|$))/);
+  const writtenPeople = text.match(/(?:^|[^가-힣])(한|두|세|네|다섯|여섯|일곱|여덟|아홉|열)\s*명(?=\s|이|과|은|는|씩|[,.!?]|$)/)?.[1];
+  const people = peopleMatch ? Number(peopleMatch[1]) : writtenPeople ? koreanPeople.indexOf(writtenPeople) + 1 : undefined;
   const budgetMatch = text.match(/(?:1\s*인(?:당)?|인당|한\s*사람당|각자)\s*(?:예산\s*(?:은|이|을|를)?\s*)?(\d+(?:\.\d+)?)\s*(만\s*원|천\s*원|원)/);
   const budgetPerPerson = budgetMatch ? Number(budgetMatch[1]) * (budgetMatch[2].includes('만') ? 10000 : budgetMatch[2].includes('천') ? 1000 : 1) : undefined;
   const walkingMatch = text.match(/(?:걷기|도보|보행|걷는\s*시간)[^\d]{0,8}(\d{1,3})\s*분|(\d{1,3})\s*분(?:\s*(?:이하|이내|정도|만))?\s*(?:걷|도보)/);
@@ -159,7 +162,7 @@ export function interpretCreationPrompt(prompt: string, initial: Partial<Creatio
   }
   const transport: CreationBrief['transport'] = /자차|운전|자동차|차량|차로\s*(?:이동|갈|가)/.test(text) ? 'CAR' : /대중교통|지하철|버스/.test(text) ? 'PUBLIC' : /도보|걸어서/.test(text) ? 'WALK' : 'UNSET';
   const result: CreationBrief = { prompt: text, purpose, region, date, endDate, startTime, transport, theme, notes: notes.join('\n'),
-    people: peopleMatch ? boundedNumber(Number(peopleMatch[1]), 1, 300) : undefined, budgetPerPerson: boundedNumber(budgetPerPerson, 0, 10000000),
+    people: boundedNumber(people, 1, 300), budgetPerPerson: boundedNumber(budgetPerPerson, 0, 10000000),
     walkingLimitMinutes: walkingMatch ? boundedNumber(Number(walkingMatch[1] || walkingMatch[2]), 0, 600) : undefined, dayCount };
   if (purpose !== 'GROUP' && ((dayCount ?? 1) > 1 || (dateRangeDays(date, endDate) ?? 1) > 1)) result.purpose = 'TRIP';
   const parsedTopics = topicRules.filter(([, pattern]) => pattern.test(text)).map(([id]) => id);

@@ -13,6 +13,7 @@ export interface TravelDiscoveryProps {
   onMyTrips: () => void;
   onCreateTrip: () => void;
   onJournals: () => void;
+  onClearFilters?: () => void;
   duration?: HomeTravelDuration;
   onDurationChange?: (duration: HomeTravelDuration) => void;
   showActions?: boolean;
@@ -39,7 +40,7 @@ function Cover({ template }: { template: HomeTripTemplate }) {
     : <span className="travel-discovery__image-empty" aria-hidden="true"><ImageOff size={24}/></span>;
 }
 
-export default function TravelDiscovery({ templates, region, query, onOpen, onMyTrips, onCreateTrip, onJournals, duration = 'ALL', onDurationChange, showActions = true, preFiltered = false }: TravelDiscoveryProps) {
+export default function TravelDiscovery({ templates, region, query, onOpen, onMyTrips, onCreateTrip, onJournals, onClearFilters, duration = 'ALL', onDurationChange, showActions = true, preFiltered = false }: TravelDiscoveryProps) {
   const uid = useId();
   const visible = (preFiltered ? templates : filterTravelTemplates(templates, region, query)).filter(template => matchesHomeTravelDuration(template.dayCount, duration));
   const filtered = Boolean(region.trim() || query.trim() || duration !== 'ALL');
@@ -57,6 +58,8 @@ export default function TravelDiscovery({ templates, region, query, onOpen, onMy
         <span className="travel-discovery__copy"><span className="travel-discovery__meta">{template.region} · {template.duration}</span><strong>{template.title}</strong><span className="travel-discovery__summary">{template.summary}</span></span>
         <ChevronRight size={17} aria-hidden="true"/>
       </button>
-    </article>)}</div> : <div className="travel-discovery__empty"><Route size={24} aria-hidden="true"/><p>{filtered ? '선택한 조건에 맞는 공개 여행 일정이 없어요.' : '공개 여행 일정을 준비하고 있어요.'}</p>{filtered && <span>위에서 지역이나 검색어를 바꾸어 찾아보세요.</span>}</div>}
+    </article>)}</div> : <div className="travel-discovery__empty"><Route size={24} aria-hidden="true"/><p>{filtered ? '선택한 조건에 맞는 공개 여행 일정이 없어요.' : '공개 여행 일정을 준비하고 있어요.'}</p>{filtered && (onClearFilters
+      ? <button type="button" onClick={onClearFilters}>여행 조건 초기화</button>
+      : <span>위에서 지역이나 검색어를 바꾸어 찾아보세요.</span>)}</div>}
   </section>;
 }

@@ -17,7 +17,7 @@ export default function CoursePreview({ journey, initialDay = 1, saved = false, 
   renderMap: (places: Place[]) => ReactNode;
 }) {
   const [selectedDay, setSelectedDay] = useState(journey.days.some(day => day.day === initialDay) ? initialDay : journey.days[0]?.day ?? 1);
-  const [mapOpen, setMapOpen] = useState(true), [useOpen, setUseOpen] = useState(false);
+  const [mapOpen, setMapOpen] = useState(false), [useOpen, setUseOpen] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const day = journey.days.find(item => item.day === selectedDay) ?? journey.days[0];
   const facts = day && courseDayFacts(day);

@@ -23,10 +23,11 @@ function text(value) {
   if(value&&typeof value==='object') return text(value.props?.children);
   return typeof value==='string'||typeof value==='number'?String(value):'';
 }
-function fixture({populated=false,save=true}={}) {
+function fixture({populated=false,save=true,planStage='DRAFT',initialDay,rememberedDay}={}) {
   const states=[], saved=[]; let cursor=0, mapCalls=0;
   const place={id:'cafe',kind:'CAFE',name:'선택한 카페',area:'부산',address:'부산',lat:35,lng:129,image:'',note:'',description:'',duration:''};
-  let journey={...tripPlan.buildPersonalPlan(populated?[place]:[],1,'새 여행','나'),planStage:'DRAFT'};
+  let journey={...tripPlan.buildPersonalPlan(populated?[place]:[],rememberedDay || 1,'새 여행','나'),planStage};
+  if (rememberedDay) journey=tripProgress.rememberTravelPosition(journey, journey.days[rememberedDay-1].dayId);
   const dependencies={
     react:{useState(initial){const index=cursor++;if(!(index in states))states[index]=typeof initial==='function'?initial():initial;return [states[index],value=>{states[index]=typeof value==='function'?value(states[index]):value;}];},useEffect(){}},
     'react/jsx-runtime':{jsx,jsxs:jsx,Fragment:'Fragment'},
@@ -43,6 +44,7 @@ function fixture({populated=false,save=true}={}) {
     './placeDirections':{naverDirectionsUrl:()=>''}, './routeData':{parseDurationMinutes:()=>0},
     './coursePreviewModel':{courseDayFacts:()=>({stayMinutes:0}),courseStayLabel:()=>''},
     './together/creationPreferences':{privatePlanningPreferences:()=>null},
+    './planningAiAvailability':{placeSearchActionLabel:'AI로 장소 찾기',planningAiAvailable:true},
   };
   const module={exports:{}};
   vm.runInNewContext(`(function(require,module,exports){${compiled}\n})`,{structuredClone,requestAnimationFrame:callback=>callback(),document:{getElementById:()=>null}})(name=>{
@@ -54,7 +56,7 @@ function fixture({populated=false,save=true}={}) {
     onChange(next){if(!save)return false;saved.push(next);journey=next;return true;},renderMap(){mapCalls++;return {type:'map',props:{}};}};
   let tree;
   return {
-    render(){cursor=0;tree=module.exports.PersonalTrip({...props,journey});return tree;},
+    render(){cursor=0;tree=module.exports.PersonalTrip({...props,journey,initialDay});return tree;},
     find(predicate){return nodes(tree).find(predicate);}, all(predicate){return nodes(tree).filter(predicate);},
     control(label){return nodes(tree).find(node=>(node.type==='button'||node.type==='Button')&&text(node)===label);},
     get saved(){return saved;},get journey(){return journey;},get mapCalls(){return mapCalls;},
@@ -126,6 +128,34 @@ test('a trip with places retains completion, route and existing place editing co
   assert.ok(app.control('완료'));
   assert.ok(app.find(node=>node.props?.className==='plan-view-map-toggle'));
   assert.ok(app.find(node=>node.props?.['aria-label']==='선택한 카페 · 장소 수정'));
+});
+
+test('one nearby stop can be added and undone in a finished itinerary without opening candidate review', () => {
+  const app = fixture({ populated: true, planStage: 'READY' });
+  app.render();
+  app.control('nearby').props.onClick();
+  app.render();
+  const nearby = app.find(node => node.type === 'NearbyBusinessSheet');
+  const food = { ...app.journey.days[0].places[0], id: 'food', name: '근처 식당', kind: 'FOOD' };
+  assert.equal(nearby.props.onAddDirect(food), null);
+  app.render();
+  assert.equal(app.find(node => node.type === 'NearbyBusinessSheet'), undefined);
+  assert.equal(app.find(node => node.type === 'TripCandidateReview'), undefined);
+  assert.equal(app.journey.planStage, 'READY');
+  assert.equal(app.journey.days[0].places[1].id, 'food');
+  assert.ok(app.control('수정'));
+  app.control('마지막 변경 취소').props.onClick();
+  app.render();
+  assert.equal(app.journey.days[0].places.length, 1);
+});
+
+test('an explicit DAY destination takes priority over the previously visited DAY', () => {
+  const app = fixture({ populated: true, initialDay: 1, rememberedDay: 2 });
+  app.render();
+  assert.equal(app.find(node => node.type === 'DayNavigation').props.selectedDay, 1);
+  const resumed = fixture({ populated: true, rememberedDay: 2 });
+  resumed.render();
+  assert.equal(resumed.find(node => node.type === 'DayNavigation').props.selectedDay, 2);
 });
 
 test('optional AI discovery opens inside the current saved DAY and explicit application uses the existing save path',()=>{

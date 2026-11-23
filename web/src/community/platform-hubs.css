@@ -31,3 +31,10 @@
 .my-hub-utility{justify-content:space-between;text-align:left;width:100%;padding-inline:0;border-top:1px solid var(--line);margin-top:16px}
 .my-hub-footer{display:flex;margin-top:24px;padding-top:8px;border-top:1px solid var(--line)}
 .my-hub :is(button):focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+
+.platform-create-visits { min-width:0; font-size:14px; line-height:20px; }
+.platform-create-visits p { margin:0; font-weight:600; }
+.platform-create-visits ul { display:grid; padding:0; margin:4px 0 0; list-style:none; }
+.platform-create-visits li { display:flex; align-items:center; justify-content:space-between; gap:8px; border-bottom:1px solid var(--line); }
+.platform-create-visits li>span { min-width:0; overflow-wrap:anywhere; }
+.platform-create-visits button { display:grid; place-items:center; flex:0 0 44px; min-height:44px; padding:0; border:0; background:none; color:var(--ink); }

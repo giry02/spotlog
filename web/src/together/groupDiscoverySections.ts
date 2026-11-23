@@ -92,7 +92,7 @@ export function selectGroupDiscoverySectionPreviews(sections: ReadonlyArray<Grou
   }
   const categories = sections.filter(section => section.topics?.length);
   const pending = [...categories];
-  const categorySeen = new Set<string>();
+  const categorySeen = new Set(commonSeen);
   const orderedCategories: GroupDiscoveryBrowseSection[] = [];
   while (pending.length) {
     // This is diversity of available categories, never an inferred popularity score.

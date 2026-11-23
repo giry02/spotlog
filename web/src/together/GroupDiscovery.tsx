@@ -1,11 +1,11 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { ArrowRight, CalendarDays, ChevronDown, ChevronRight, MapPin, Plus, Search, Users, X } from 'lucide-react';
 import type { GroupTopic, TogetherState } from './model';
-import { topicOptions, type PublicDiscoveryActivity } from './discovery';
+import { topicOptions, validPublicStartTime, type PublicDiscoveryActivity } from './discovery';
 import { selectGroupDiscovery, type GroupDiscoveryFilters, type GroupDiscoverySection, type PublicGroupDiscoveryCard } from './groupDiscoveryModel';
 import { getGroupSubtopic, groupSubtopicsFor } from './groupTaxonomy';
 import { buildGroupDiscoverySections, groupDiscoveryMoreFilters, resolveGroupDiscoveryList, selectGroupDiscoverySectionPreviews } from './groupDiscoverySections';
-import GroupDiscoveryCalendar, { GroupDiscoverySchedule } from './DiscoveryDatePicker';
+import GroupDiscoveryCalendar, { GroupDiscoverySchedule, PublicEventScheduleRows } from './DiscoveryDatePicker';
 import { discoveryCalendarDateLabel, validDiscoveryCalendarDate } from './groupDiscoveryCalendar';
 import GroupLocalityFields from './GroupLocalityFields';
 import './group-discovery.css';
@@ -29,7 +29,7 @@ const orderedTopics: GroupTopic[] = ['OUTDOOR', 'SOCIAL', 'FOOD', 'CAFE', 'SPORT
 const topics = orderedTopics.map(id => topicOptions.find(topic => topic.id === id)!);
 const discoveryTabs: { id: GroupDiscoverySection; label: string }[] = [{ id: 'DISCOVER', label: '추천' }, { id: 'ALL', label: '전체 모임' }, { id: 'MEETUPS', label: '번개·정모' }, { id: 'NEW', label: '새 모임' }];
 const publicDate = (value: string) => validDiscoveryCalendarDate(value) ? discoveryCalendarDateLabel(value) : '날짜 미정';
-const eventDate = (activity: PublicDiscoveryActivity) => `${publicDate(activity.date)}${validDiscoveryCalendarDate(activity.endDate) && activity.endDate > activity.date ? ` ~ ${publicDate(activity.endDate)}` : ''}${activity.startTime ? ` · ${activity.startTime}` : ' · 시각 미정'}`;
+const eventDate = (activity: PublicDiscoveryActivity) => `${publicDate(activity.date)}${validDiscoveryCalendarDate(activity.endDate) && activity.endDate > activity.date ? ` ~ ${publicDate(activity.endDate)}` : ''}${validPublicStartTime(activity.startTime) ? ` · ${activity.startTime}` : ' · 시각 미정'}`;
 
 function CategoryPicker({ selected, subtopic, onChoose, onSubtopic, compact = false }: { selected?: GroupTopic; subtopic?: string; onChoose: (topic?: GroupTopic) => void; onSubtopic: (id?: string) => void; compact?: boolean }) {
   const [expanded, setExpanded] = useState(false);
@@ -48,10 +48,13 @@ function CategoryPicker({ selected, subtopic, onChoose, onSubtopic, compact = fa
   </div>;
 }
 
-function RecruitmentCard({ group, onOpen, onJoin, featured = false }: { group: PublicGroupDiscoveryCard; onOpen: (id: string) => void; onJoin?: (id: string) => void; featured?: boolean }) {
+function RecruitmentCard({ group, onOpen, onJoin, featured = false, matchingTopics, matchingSubtopic }: { group: PublicGroupDiscoveryCard; onOpen: (id: string) => void; onJoin?: (id: string) => void; featured?: boolean; matchingTopics?: readonly GroupTopic[]; matchingSubtopic?: string }) {
   const [failedImage, setFailedImage] = useState('');
-  const topic = topics.find(item => item.id === group.topics[0]);
-  const subtopic = group.subtopics?.map(id => getGroupSubtopic(id)).find(Boolean);
+  const matchingTopic = group.topics.find(id => matchingTopics?.includes(id));
+  const topic = topics.find(item => item.id === (matchingTopic ?? group.topics[0]));
+  const subtopics = group.subtopics?.map(getGroupSubtopic);
+  const subtopic = subtopics?.find(item => item?.id === matchingSubtopic)
+    ?? subtopics?.find(item => item?.parent === topic?.id);
   const action = group.joined ? '가입 중' : group.pending && group.joinMode !== 'DIRECT' ? '승인 대기' : group.recruitment === 'PAUSED' ? '모집 휴식' : group.joinMode === 'DIRECT' ? '바로 가입' : '가입 신청';
   const disabled = !group.joined && (group.pending && group.joinMode !== 'DIRECT' || group.recruitment === 'PAUSED');
   const showJoinText = featured || group.joined || disabled;
@@ -104,7 +107,7 @@ export default function GroupDiscovery({ state, viewerId, onOpenGroup, onCreate,
   const chooseTopic = (topic?: GroupTopic) => { update({ topic: filters.topic === topic ? undefined : topic, subtopic: undefined, categoryTopics: undefined, collectionId: undefined }); resetScroll(); };
   const more = (item: (typeof sections)[number]) => { const next = groupDiscoveryMoreFilters(filters, item); setFilters(next); onFiltersChange?.(next); resetScroll(); };
   const regionLabel = [filters.region, filters.district, filters.neighborhood].filter(Boolean).join(' ') || (filters.useMyRegion ? myRegionLabel : '') || '전체 지역';
-  const row = (group: PublicGroupDiscoveryCard) => <RecruitmentCard key={group.id} group={group} onOpen={onOpenGroup} onJoin={onJoinGroup}/>;
+  const row = (group: PublicGroupDiscoveryCard, matchingTopics?: readonly GroupTopic[]) => <RecruitmentCard key={group.id} group={group} onOpen={onOpenGroup} onJoin={onJoinGroup} matchingTopics={matchingTopics} matchingSubtopic={filters.subtopic}/>;
   const chips: Array<{ id: string; label: string; remove: Partial<GroupDiscoveryFilters> }> = [];
   if (filters.region) chips.push({ id: 'region', label: filters.region, remove: { region: '', district: '', neighborhood: '', useMyRegion: false, ...(filters.collectionId === 'area' ? { collectionId: undefined } : {}) } });
   if (filters.district) chips.push({ id: 'district', label: filters.district, remove: { district: '', neighborhood: '', useMyRegion: false } });
@@ -122,9 +125,11 @@ export default function GroupDiscovery({ state, viewerId, onOpenGroup, onCreate,
     const comparison = spotlight ? groups.slice(1) : groups;
     return <section className={`gd-browse-section gd-browse-section--${item.id}`} key={item.id}>
       <header><h2><span aria-hidden="true">{item.emoji}</span>{item.title}</h2><button type="button" aria-label={`${item.title} 더 보기`} onClick={() => more(item)}>더 보기<ChevronRight size={15}/></button></header>
-      {item.kind === 'MEETUPS' ? <div className="gd-meetup-agenda">{item.events?.slice(0, 3).map(({ activity, group }) => <PublicActivityCard key={`${group.id}:${activity.id}`} activity={activity} group={group} onOpen={onOpenGroup}/>)}</div> : <>
+      {item.kind === 'MEETUPS' ? <div className="gd-meetup-agenda"><PublicEventScheduleRows
+        events={item.events || []} limit={3}
+        renderEvent={({ activity, group }) => <PublicActivityCard key={`${group.id}:${activity.id}`} activity={activity} group={group} onOpen={onOpenGroup}/>}/></div> : <>
         {spotlight && <RecruitmentCard group={spotlight} onOpen={onOpenGroup} onJoin={onJoinGroup} featured/>}
-        <div className="gd-result-list">{comparison.map(row)}</div>
+        <div className="gd-result-list">{comparison.map(group => row(group, item.topics))}</div>
       </>}
       {item.topics?.length && !browseSections[index + 1]?.topics?.length && previews.categoryCount > 4 && <button type="button" className="gd-expand-categories" aria-expanded={categorySectionsOpen} onClick={() => setCategorySectionsOpen(value => !value)}>{categorySectionsOpen ? '관심사별 모임 접기' : `관심사별 모임 더 보기 · ${previews.hiddenCategories}개`}<ChevronDown size={16}/></button>}
     </section>;
@@ -141,7 +146,7 @@ export default function GroupDiscovery({ state, viewerId, onOpenGroup, onCreate,
       {filters.collectionId && <button type="button" className="gd-back-to-browse" onClick={() => { update({ section: 'DISCOVER', view: 'GROUPS', collectionId: undefined }); resetScroll(); }}>추천 모임으로<ChevronRight size={16}/></button>}
       <div className="gd-results-heading"><h2>{title}<span>{result.kind === 'MEETUPS' ? result.events?.length || 0 : result.groups.length}</span></h2>{result.kind !== 'MEETUPS' && section !== 'NEW' && <select aria-label="모임 정렬" value={filters.sort || 'SOONEST'} onChange={event => update({ sort: event.target.value as GroupDiscoveryFilters['sort'] })}><option value="SOONEST">다음 약속순</option><option value="NEWEST">최신 등록순</option><option value="NAME">이름순</option></select>}</div>
       {section === 'NEW' && <p className="gd-section-basis">등록일이 확인된 최근 30일 모임이에요.</p>}
-      {result.kind === 'MEETUPS' ? <GroupDiscoverySchedule events={result.events || []} filters={filters} at={discoveryAt} renderEvent={({ activity, group }) => <PublicActivityCard key={`${group.id}:${activity.id}`} activity={activity} group={group} onOpen={onOpenGroup}/>}/> : <div className="gd-result-list">{result.groups.map(row)}</div>}
+      {result.kind === 'MEETUPS' ? <GroupDiscoverySchedule events={result.events || []} filters={filters} at={discoveryAt} renderEvent={({ activity, group }) => <PublicActivityCard key={`${group.id}:${activity.id}`} activity={activity} group={group} onOpen={onOpenGroup}/>}/> : <div className="gd-result-list">{result.groups.map(group => row(group, result.topics ?? (parent ? [parent] : filters.categoryTopics)))}</div>}
       {!(result.kind === 'MEETUPS' ? result.events?.length : result.groups.length) && <div className="gd-empty"><Search size={26}/><h3>{result.kind === 'MEETUPS' ? '이 날짜·조건의 번개·정모가 없어요' : section === 'NEW' ? '최근 등록일이 확인된 모임이 없어요' : '조건에 맞는 모임이 없어요'}</h3><p>현재 조건을 하나씩 해제하거나 다른 지역을 찾아보세요.</p><button type="button" onClick={reset}>조건 초기화</button></div>}
     </>}
   </div>;

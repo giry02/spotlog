@@ -99,22 +99,23 @@
 
 /* One short request, then one editable draft; the footer owns the only primary action. */
 .cplan-quick { gap:16px; width:100%; max-width:100%; }
-.cplan-quick-heading { display:flex; gap:12px; align-items:flex-start; min-width:0; }
-.cplan-quick-heading>div { flex:1; min-width:0; display:flex; flex-direction:column; gap:6px; }
-.cplan-phase-label { flex:none; color:var(--muted,#70706a); background:var(--soft,#f5f5f5); border-radius:6px; padding:3px 7px; font-size:11px; line-height:16px; }
-.cplan-quick-examples { display:flex; flex-wrap:wrap; gap:8px; }
-.creation-planner .cplan-quick-examples button { border-radius:20px; min-height:44px; padding:8px 12px; font-size:12px; line-height:18px; font-weight:400; background:var(--soft,#f5f5f5); border-color:transparent; }
+.cplan-quick .cplan-content { gap:12px; }
+.cplan-quick-heading { display:grid; gap:4px; min-width:0; }
+.cplan-quick-heading p { color:var(--muted,#70706a); }
+.creation-planner .cplan-prompt { min-height:76px; }
+.creation-planner .cplan-example-options > summary { justify-content:flex-start; color:var(--muted,#70706a); font-weight:500; }
+.cplan-quick-examples { display:flex; flex-wrap:wrap; gap:0 12px; padding-block-end:4px; }
+.creation-planner .cplan-quick-examples button { min-height:44px; padding:6px 0; font-size:14px; line-height:20px; font-weight:500; background:transparent; border:none; text-align:left; text-decoration:underline; text-underline-offset:3px; }
 .cplan-editor-section { display:flex; flex-direction:column; gap:12px; min-width:0; }
 .cplan-section-heading { display:flex; align-items:center; gap:12px; justify-content:space-between; }
 .cplan-itinerary { padding-top:16px; border-top:1px solid var(--line,#deded8); }
-.cplan-day-tabs { display:flex; gap:6px; overflow-x:auto; min-width:0; max-width:100%; padding-bottom:4px; scrollbar-width:thin; }
-.creation-planner .cplan-day-tabs button { flex:0 0 78px; min-width:0; display:flex; flex-direction:column; gap:0; padding:6px 10px; border-radius:8px; font-size:12px; line-height:18px; }
-.creation-planner .cplan-day-tabs button[aria-selected=true] { color:#fff; background:var(--ink,#232321); border-color:var(--ink,#232321); }
-.creation-planner .cplan-day-tabs button[aria-selected=true] small { color:inherit; opacity:.75; font-size:11px; }
+.cplan-day-tabs { display:flex; gap:4px; overflow-x:auto; min-width:0; max-width:100%; border-bottom:1px solid var(--line,#deded8); scrollbar-width:thin; }
+.creation-planner .cplan-day-tabs button { flex:0 0 64px; display:flex; flex-direction:column; gap:0; min-width:44px; padding:4px 8px; border:0; border-bottom:2px solid transparent; border-radius:0; background:transparent; color:var(--muted,#70706a); font-size:13px; line-height:18px; }
+.creation-planner .cplan-day-tabs button[aria-selected=true] { color:var(--ink,#232321); border-bottom-color:currentColor; }
 .cplan-quick .cplan-places { gap:10px; }
 .cplan-quick .cplan-place-tools { flex-wrap:wrap; align-items:center; gap:6px; padding-top:0; }
 .cplan-quick .cplan-place-tools>.cplan-order { flex:1; min-width:18px; color:var(--muted,#70706a); font-size:12px; }
-.creation-planner.cplan-quick .cplan-place-tools>.cplan-icon { flex:none; width:44px; min-width:44px; padding:10px; }
+.creation-planner.cplan-quick .cplan-place-tools>.cplan-icon { flex:none; width:44px; min-width:44px; padding:10px; border-color:transparent; background:transparent; }
 .cplan-quick .cplan-place-tools>.cplan-place-options { flex:none; width:auto; min-width:0; }
 .cplan-quick .cplan-place-options>summary { justify-content:flex-end; gap:4px; padding-inline:8px; min-width:64px; }
 .cplan-quick .cplan-place-tools>.cplan-place-options[open] { flex:1 1 100%; width:100%; }
@@ -126,7 +127,7 @@
 .cplan-invalid-place,.cplan-change-confirm { padding:12px; background:var(--soft,#f5f5f5); border:1px solid var(--line,#deded8); border-radius:10px; display:flex; flex-direction:column; gap:10px; min-width:0; }
 .cplan-change-confirm>div { display:flex; flex-wrap:wrap; gap:8px; }
 .cplan-change-confirm>div>button { flex:1; min-width:0; }
-.creation-planner .cplan-add-place { width:100%; border-style:dashed; }
+.creation-planner .cplan-add-place { align-self:flex-start; border-color:transparent; background:transparent; padding-inline:0 10px; }
 .cplan-editor-advanced>.cplan-stack,.cplan-ai>.cplan-stack { padding-bottom:12px; }
 .cplan-ai>summary>span { display:flex; align-items:center; gap:8px; min-width:0; }
 .cplan-ai-proposal { display:flex; flex-direction:column; gap:12px; padding:12px; border:1px solid var(--ink,#232321); border-radius:12px; background:#fff; min-width:0; }
@@ -136,7 +137,9 @@
 .cplan-ai-proposal li { display:grid; gap:4px; }
 .cplan-proposal-actions { display:flex; flex-wrap:wrap; gap:8px; }
 .cplan-proposal-actions>button { flex:1; min-width:0; }
-.cplan-save-summary { display:flex; flex-direction:column; gap:6px; border-left:3px solid var(--ink,#232321); background:var(--soft,#f5f5f5); padding:12px; min-width:0; }
+.cplan-save-summary { display:flex; flex-direction:column; gap:4px; border-top:1px solid var(--line,#deded8); padding:12px 0 0; min-width:0; }
+.cplan-quick .cplan-empty { flex-direction:row; align-items:flex-start; flex-wrap:wrap; text-align:left; border:none; border-radius:0; padding:4px 0; gap:6px; }
+.cplan-quick .cplan-empty p { flex-basis:100%; }
 .cplan-save-summary>strong { font-size:14px; line-height:20px; font-weight:600; }
 .cplan-validation { display:grid; gap:8px; padding:12px; background:#fff7e7; color:#725728; border-radius:10px; font-size:12px; line-height:18px; }
 .cplan-validation ul { padding-left:18px; display:grid; gap:4px; }

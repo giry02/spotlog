@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createEmptyState } from '../src/together/model.ts';
-import { selectMemberHomeSchedule } from '../src/community/memberHomeReturn.ts';
+import { selectHomeDraftPlan, selectMemberHomeSchedule } from '../src/community/memberHomeReturn.ts';
 
 const at = new Date('2026-11-06T12:00:00+09:00');
 const plan = (id, date = '2026-11-07', extra = {}) => ({
@@ -83,4 +83,18 @@ test('selection is stable across input order and never mutates personal source o
   assert.equal(selected.id, 'a');
   assert.deepEqual(selectMemberHomeSchedule(state, 'me', [...plans].reverse(), at), selected);
   assert.equal(JSON.stringify({ state, plans }), source);
+});
+
+test('home can resume a private undated draft on its remembered DAY ahead of other drafts', () => {
+  const earlier = plan('earlier', '', { planStage: 'DRAFT', days: [{ day: 1, date: 'DAY 1', places: [] }] });
+  const recent = plan('recent', '', {
+    planStage: 'DRAFT',
+    days: [{ day: 1, dayId: 'day-1', date: 'DAY 1', places: [] }, { day: 2, dayId: 'day-2', date: 'DAY 2', places: [] }],
+    travelProgress: { dayId: 'day-2', visits: {} },
+  });
+  assert.deepEqual(selectHomeDraftPlan([earlier, recent], 'recent'), { id: 'recent', title: recent.title, day: 2 });
+  assert.equal(selectHomeDraftPlan([earlier, recent], 'deleted')?.id, 'earlier');
+  for (const invalid of [{ trash: { deletedAt: '2026-11-01' } }, { isMine: false }, { visibility: 'PUBLIC' }, { planStage: 'READY' }, { days: [] }]) {
+    assert.equal(selectHomeDraftPlan([{ ...recent, ...invalid }], 'recent'), null);
+  }
 });

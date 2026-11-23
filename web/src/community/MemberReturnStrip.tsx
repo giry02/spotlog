@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { CalendarDays, ChevronRight, MessageCircle } from 'lucide-react';
+import { CalendarDays, ChevronRight, MessageCircle, Route } from 'lucide-react';
 import type { TogetherState } from '../together/model';
 import type { Journey } from '../data';
 import { koreaDay } from '../together/discovery';
-import { selectMemberHomeReturn, selectMemberHomeSchedule } from './memberHomeReturn';
+import { selectHomeDraftPlan, selectMemberHomeReturn, selectMemberHomeSchedule } from './memberHomeReturn';
 
 interface MemberHomeReturnProps {
   state: TogetherState;
@@ -11,6 +11,8 @@ interface MemberHomeReturnProps {
   onOpenMyActivity?: (activityId: string) => void;
   onOpenMyChat?: (groupId: string, activityId?: string) => void;
   personalPlans?: ReadonlyArray<Journey>;
+  recentPersonalPlanId?: string | null;
+  onOpenMyDraft?: (journeyId: string, day: number) => void;
   onOpenMyPlan?: (journeyId: string) => void;
   maxRows?: 1 | 2;
   activityRoute?: { activityId: string; stopCount: number; ownStopCount: number; needsReview: boolean } | null;
@@ -21,10 +23,18 @@ const emptyPlans: ReadonlyArray<Journey> = [];
 const shortDate = (value: string) => new Date(`${value}T12:00:00+09:00`).toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric', weekday: 'short', timeZone: 'Asia/Seoul' });
 
 /** Small return links only; membership checks and private DTO selection live outside public discovery. */
-export default function MemberReturnStrip({ state, viewerId = '', onOpenMyActivity, onOpenMyChat, personalPlans = emptyPlans, onOpenMyPlan, maxRows = 2, activityRoute }: MemberHomeReturnProps) {
+export default function MemberReturnStrip({ state, viewerId = '', onOpenMyActivity, onOpenMyChat, personalPlans = emptyPlans, recentPersonalPlanId, onOpenMyDraft, onOpenMyPlan, maxRows = 2, activityRoute }: MemberHomeReturnProps) {
   const { unreadChat } = useMemo(() => selectMemberHomeReturn(state, viewerId), [state, viewerId]);
   const schedule = useMemo(() => selectMemberHomeSchedule(state, viewerId, onOpenMyPlan ? personalPlans : emptyPlans), [state, viewerId, personalPlans, onOpenMyPlan]);
   const openSchedule = schedule?.kind === 'PLAN' ? onOpenMyPlan : onOpenMyActivity;
+  const draft = useMemo(() => selectHomeDraftPlan(personalPlans, recentPersonalPlanId), [personalPlans, recentPersonalPlanId]);
+  if (draft && onOpenMyDraft && maxRows === 1) return <section className="discovery-home__member-return" aria-label="작성 중인 여행">
+    <button type="button" className="discovery-home__draft-return" onClick={() => onOpenMyDraft(draft.id, draft.day)}
+      aria-label={`${draft.title} DAY ${draft.day} 이어서 작성`}>
+      <Route size={18} aria-hidden="true"/><strong title={draft.title}>{draft.title}</strong>
+      <span className="discovery-home__return-meta">이어서 작성</span><ChevronRight size={16} aria-hidden="true"/>
+    </button>
+  </section>;
   if ((!schedule || !openSchedule) && (!unreadChat || !onOpenMyChat)) return null;
   const ongoing = Boolean(schedule && schedule.date < koreaDay());
   const activityDate = schedule ? `${shortDate(schedule.date)}${schedule.endDate !== schedule.date ? `–${shortDate(schedule.endDate)}` : ''}` : '';

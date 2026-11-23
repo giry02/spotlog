@@ -50,7 +50,7 @@ export function AccountSheet({ onClose, adapter: suppliedAdapter, initialView = 
     const next = await adapter.session(signal);
     if (signal.aborted) return;
     updateSession(next);
-    if (next.state === 'SIGNED_IN' && initialView !== 'manage' && !['logout', 'delete', 'reset'].includes(initialEntry ?? '')) { onClose(); return; }
+    if (next.state === 'SIGNED_IN' && initialView !== 'manage' && !['logout', 'delete', 'reset'].includes(initialEntry ?? '')) { onSignedIn?.(next.user); onClose(); return; }
     const policies = await adapter.policies(signal);
     if (signal.aborted) return;
     setBundle(policies);

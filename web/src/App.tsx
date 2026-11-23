@@ -99,13 +99,14 @@ import { CreateAppointmentSheet } from './community/PlatformHubs';
 import TemporaryRoomForm from './together/TemporaryRoomForm';
 import { createTemporaryRoom, type TemporaryRoomInput } from './together/temporaryRooms';
 import OutingRecipeForm from './together/OutingRecipeForm';
+import { placeSearchActionLabel, planningAiAvailable } from './planningAiAvailability';
 import { createOutingFromRecipe, prepareOutingRecipe, type OutingRecipeInput, type OutingRecipePreview } from './together/outingRecipe';
 import { MyHub } from './community/MyHub';
 import { resolveMyOwnRecordDestination, type MyOwnRecordTarget } from './community/myHubModel';
 import OwnGroupProfilesSheet from './community/OwnGroupProfilesSheet';
 import { updateOwnGroupProfile } from './community/ownGroupProfiles';
 import { detailScreen, isTravelRootRoute, legacyMyHashMatches, legacyMySection, myRoute, mySectionForRoute, primaryTabForScreen, primaryTabs, type MySection } from './primaryNavigation';
-import { selectMemberHomeSchedule } from './community/memberHomeReturn';
+import { selectHomeDraftPlan, selectMemberHomeSchedule } from './community/memberHomeReturn';
 import { validCalendarDay } from './together/calendarPlans';
 import { createStandaloneAppointment, memberAppointments, type AppointmentInput, type AppointmentRange } from './community/platformModel';
 import type { DiscoveryHomeView, DiscoveryPurpose } from './community/discoveryHomeModel';
@@ -151,7 +152,7 @@ import './strategy-home.css';
 import { useConsumerDensity } from './consumerDensity';
 import { SavedLandmarkDetailSheet } from './SavedLandmarkDetailSheet';
 import { publicTourismPlaces } from './publicTourismContent';
-import { homeTripTemplates, publishedJourneySeeds, previewTemplateJourney, buildAiJourneyDraft, defaultComments, type JourneyComment, type HomeTripTemplate } from './consumerPublicSeed';
+import { homeTripTemplates, publishedJourneySeeds, previewTemplateJourney, defaultComments, type JourneyComment, type HomeTripTemplate } from './consumerPublicSeed';
 import { PhotoCredit, PublicSourceNotes } from './PublicTourismCredit';
 import { CardSocial, CardSocialProvider, useCardSocialStore } from './CardSocial.tsx';
 import { JournalReportButton, ReportButton, ReportProvider } from './ReportSheet';
@@ -168,7 +169,7 @@ import { Button, Field } from './ui';
 import { OfflineSavedBadge, useConnectivity } from './OfflineTripControl';
 import { removeOfflineTrip } from './offlineTrips';
 import { CreatePlanSheet } from './CreatePlanSheet';
-import { addPlanDay, appendPlanPlace, buildPersonalPlan, copyPersonalPlan, copyPlanDay, hasLocation, initializeCreatedPlan, isPersonalPlan, makeJournalFromPlan, normalizePlan, removePlanDay, transferVisit } from './tripPlan';
+import { addPlanDay, appendPlanPlace, buildPersonalPlan, copyPersonalPlan, copyPlanDay, hasLocation, initializeCreatedPlan, isPersonalPlan, makeJournalFromPlan, normalizePlan, removePlanDay, setPlanDates, transferVisit } from './tripPlan';
 import { PLAN_CREATION_KEY, type PlanCreationDraft } from './planCreationDraft';
 import { SAVED_TRIP_DRAFT_KEY } from './savedTripDraft';
 import { ChatbotHostController } from './ChatbotHostController';
@@ -674,6 +675,9 @@ const publicPlaceBaseline = placeCatalog.map(place => ({ ...place, photos: getPl
 
 export default function App({ accountAdapter }: { accountAdapter?: SocialAccountAdapter } = {}) { useConsumerDensity(); return <LocaleProvider><AccountProvider adapter={accountAdapter}><CustomerErrorBoundary><PublicReviewProvider baseline={publicPlaceBaseline}><SpotlogApp /></PublicReviewProvider></CustomerErrorBoundary></AccountProvider></LocaleProvider>; }
 
+type PlaceUseSelection = { ids: string[]; source: 'catalog' | 'saved' };
+type PlaceUseRequest = { selection: PlaceUseSelection; owner: string; sharing?: boolean };
+
 function SpotlogApp() {
   const account = useAccount()!;
   const copy=useUiCopy();
@@ -737,13 +741,16 @@ function SpotlogApp() {
   const [mySection, setMySection] = useState<MySection>('schedule');
   const [travelSection, setTravelSection] = useState<TravelSection>('recommended');
   const [calendarView, setCalendarView] = useState<{ month: string; date: string }>();
-  const [appointmentCreating, setAppointmentCreating] = useState(false);
+  const [appointmentUse, setAppointmentUse] = useState<PlaceUseRequest | null>(null);
+  const [groupCreationRequest, setGroupCreationRequest] = useState<{ id: string; actor: string; route: string } | null>(null);
+  const [tripStartDraft, setTripStartDraft] = useState<{ owner: string; title: string }>();
+  const [courseUse, setCourseUse] = useState<{ id: string; owner: string; step: 'actions' | 'travel' } | null>(null);
+  const [courseTarget, setCourseTarget] = useState('');
   const [temporaryCreating, setTemporaryCreating] = useState(false);
   const [temporaryDecisionAfterCreate, setTemporaryDecisionAfterCreate] = useState(false);
   const [decisionRequest, setDecisionRequest] = useState<{ id: string; actorId: string; activityId: string } | null>(null);
   const [personalRouteRequest, setPersonalRouteRequest] = useState<{ id: string; actorId: string; groupId: string; activityId: string } | null>(null);
-  const [recipeRequest, setRecipeRequest] = useState<{ actorId: string; source: { kind: 'COURSE' | 'JOURNEY' | 'PLACE'; id: string }; preview: OutingRecipePreview; requestId: string } | null>(null);
-  const recipeLoginHandoff = useRef<{ source: { kind: 'COURSE' | 'JOURNEY' | 'PLACE'; id: string }; version: string; expiresAt: number } | null>(null);
+  const [recipeRequest, setRecipeRequest] = useState<{ actorId: string; source: { kind: 'COURSE' | 'JOURNEY' | 'PLACE'; id: string }; preview: OutingRecipePreview; requestId: string; initial?: Pick<OutingRecipeInput, 'title' | 'date'> } | null>(null);
   const [temporaryDraftOwner, setTemporaryDraftOwner] = useState<string | null>(null);
   const [temporaryDraft, setTemporaryDraft] = useState<TemporaryRoomInput>({ title: '', purpose: 'DINNER' });
   useEffect(() => { setTemporaryCreating(false); setTemporaryDraftOwner(null); setTemporaryDraft({ title: '', purpose: 'DINNER' }); }, [togetherViewer?.id]);
@@ -752,7 +759,7 @@ function SpotlogApp() {
   const [placeAssistant, setPlaceAssistant] = useState<{ actor: string; region: string; district?: string; prompt: string } | null>(null);
   useEffect(() => { setPlaceAssistant(current => current?.actor === courseOwner ? current : null); }, [courseOwner]);
   const [travelRecommendationsOpen, setTravelRecommendationsOpen] = useState(false);
-  useEffect(() => { setAppointmentCreating(false); setAppointmentDraft({ title: '', date: '', kind: 'FRIENDS' }); setDiscoveryPlace(null); }, [togetherViewer?.id]);
+  useEffect(() => { setDiscoveryPlace(null); }, [togetherViewer?.id]);
   const liveTemplates = useMemo(() => [...new Map([...homeTripTemplates, ...publicReview.operatingTemplates].map(t => [t.id,t])).values()].map(template => ({ ...template, cover: publicReview.state.withdrawnImages.includes(template.cover) ? '' : template.cover, places: template.places.flatMap(place => { const current = placeCatalog.find(p => p.id === place.id); return current ? [current] : []; }) })).filter(t => t.places.length > 0), [placeCatalog, publicReview]);
   const homePublicTemplates = useMemo(() => reviewExposureOrder(liveTemplates, 'HOME_TRIP', publicReview.state, publicReview.now), [liveTemplates, publicReview]);
   const currentCourseTemplates = useMemo(() => {
@@ -795,6 +802,7 @@ function SpotlogApp() {
   const [sharedRouteStartOwner, setSharedRouteStartOwner] = useState<string | null>(null);
   useEffect(() => { setSharedRouteStartOwner(null); setPersonalRouteRequest(null); }, [togetherViewer?.id]);
   const [interestPlaceKind, setInterestPlaceKind] = useState<PlaceKind | null>(null);
+  const [interestDraft, setInterestDraft] = useState<{ owner: string; kind: PlaceKind; fields: CustomPlaceDraft }>();
   const [errorKind, setErrorKind] = useState<ErrorKind>(500);
   const [savedIds, setSavedIds] = useLocalState<string[]>(storageKeys.saved, readSavedIds);
   const [allJourneys, persistJourneys] = useLocalState<Journey[]>(storageKeys.journeys, readJourneys);
@@ -836,10 +844,15 @@ function SpotlogApp() {
   const [planCreationDraft, setPlanCreationDraft] = useLocalState<PlanCreationDraft | null>(PLAN_CREATION_KEY, () => JSON.parse(localRepository.getItem(PLAN_CREATION_KEY) ?? 'null'));
   const [planChoices, setPlanChoices] = useState<Place[] | null>(null);
   const [placementPlaces, setPlacementPlaces] = useState<Place[] | null>(null);
-  const [placeUse, setPlaceUse] = useState<{ placeId: string; owner: string } | null>(null);
+  const [placeUse, setPlaceUse] = useState<PlaceUseRequest | null>(null);
   const pendingSheetNavigation = useRef<(() => void) | null>(null);
   useEffect(() => {
-    setPlaceUse(null); pendingSheetNavigation.current?.(); pendingSheetNavigation.current = null;
+    setPlaceUse(current => current?.owner === regionOwner ? current : null);
+    setAppointmentUse(current => current?.owner === regionOwner ? current : null);
+    setInterestDraft(current => current?.owner === regionOwner ? current : undefined);
+    setTripStartDraft(current => current?.owner === regionOwner ? current : undefined);
+    setCourseUse(current => current?.owner === regionOwner ? current : null);
+    pendingSheetNavigation.current?.(); pendingSheetNavigation.current = null;
     return () => { pendingSheetNavigation.current?.(); pendingSheetNavigation.current = null; };
   }, [regionOwner]);
   const [aiTravelOpen, setAiTravelOpen] = useState(false);
@@ -889,7 +902,7 @@ function SpotlogApp() {
       ? { ...restoredDiscovery, travelRegion: restoredDiscovery.region } : restoredDiscovery);
     setAppointmentRange(state.appointmentRange ?? 'upcoming');
     setRecordsSection(state.recordsSection ?? 'activities');
-    setAppointmentCreating(false);
+    setAppointmentUse(null);
     setDiscoveryPlace(null);
     setTogetherRoute(state.togetherRoute ?? 'together');
     setDiscoveryFilters(state.discoveryFilters ?? { useMyRegion: true });
@@ -1044,13 +1057,29 @@ function SpotlogApp() {
     setSavedIds(ids);setPersonalPlaces(directory);showToast(copy("장소를 저장했어요. 다른 여행에서도 고를 수 있어요."));return true;
   };
   const useDiscoveredPlace = (place: Place) => {
-    if (!saveBusiness(place)) { showToast(copy("장소를 저장하지 못했어요. 다시 시도해 주세요.")); return; }
+    if (!placeCatalog.some(current => current.id === place.id && !current.personal)) {
+      showToast('목록에서 현재 등록된 장소를 다시 선택해 주세요.');
+      return;
+    }
     setPlaceAssistant(null);
     setDiscoveryPlace(null);
-    setPlaceUse({ placeId: place.id, owner: regionOwnerRef.current });
+    setPlaceUse({ selection: { ids: [place.id], source: 'catalog' }, owner: regionOwnerRef.current });
+  };
+  const useSavedPlaces = (places: Place[]) => {
+    if (!places.length) return;
+    setPlaceUse({ selection: { ids: [...new Set(places.map(place => place.id))], source: 'saved' }, owner: regionOwnerRef.current });
+  };
+  const resolvePlaceSelection = (selection: PlaceUseSelection): Place[] => {
+    const list = selection.source === 'saved' ? savedPlaces : placeCatalog.filter(place => !place.personal);
+    const byId = new Map(list.map(place => [place.id, place]));
+    return selection.ids.flatMap(id => {
+      const place = byId.get(id);
+      return place ? [place] : [];
+    });
   };
   const openMyJourney = (journeyId: string, day = 1) => {
     setTab('trips'); setSelectedJourneyId(journeyId); setSelectedTemplate(null); setEditingJourneyId(null); setCreating(false);
+    setDetailDay(day);
     writeNavigationState({ tab: 'trips', journeyId, templateId: null, editorId: null, detailDay: day }, 'push');
   };
   const openMyOwnGroupRecord = (target: MyOwnRecordTarget) => {
@@ -1089,7 +1118,7 @@ function SpotlogApp() {
     return null;
   };
   const acceptAiDraft = (draft: Journey): string | null => {
-    const created = { ...draft, purpose: 'PLAN' as const, author: profile.displayName, recommendationKind: 'AI' as const, isMine: true, visibility: 'PRIVATE' as const };
+    const created = { ...draft, purpose: 'PLAN' as const, author: profile.displayName, isMine: true, visibility: 'PRIVATE' as const };
     if (!setJourneys((current) => current.some(journey => journey.id === created.id) ? current : [created, ...current])) return null;
     openMyJourney(created.id);
     setAiTravelOpen(false);
@@ -1121,8 +1150,14 @@ function SpotlogApp() {
     else showToast('지금 볼 수 있는 공개 코스를 다시 확인해 주세요.');
   };
   const useCurrentCourseForTravel = (id: string) => {
-    const template = currentCourseTemplates.find(item => item.id === id);
-    if (template) startRecommendedJourney(template);
+    if (currentCourseTemplates.some(item => item.id === id)) {
+      setCourseTarget('');
+      setCourseUse({ id, owner: regionOwner, step: 'travel' });
+    }
+    else showToast('공개 코스 정보가 바뀌었어요. 코스를 다시 확인해 주세요.');
+  };
+  const openCourseUse = (id: string) => {
+    if (currentCourseTemplates.some(item => item.id === id)) setCourseUse({ id, owner: regionOwner, step: 'actions' });
     else showToast('공개 코스 정보가 바뀌었어요. 코스를 다시 확인해 주세요.');
   };
   const editJourney = (id: string) => {
@@ -1188,28 +1223,53 @@ function SpotlogApp() {
     return created.id;
   };
 
-  const startRecommendedJourney = (template: HomeTripTemplate) => {
-    if (template.publicJourney) {
-      const draft = copyPersonalPlan(normalizePlan(normalizeVisits({ ...template.publicJourney, title: template.title, summary: template.summary, cover: template.cover })), profile.displayName);
-      if (!setJourneys(current => [draft, ...current])) return;
-      openMyJourney(draft.id); showToast(copy("추천 일정을 내 여행으로 가져왔습니다.")); return;
+  const startRecommendedJourney = (template: HomeTripTemplate, targetId?: string) => {
+    try {
+      const currentCourse = currentCourseTemplates.find(item => item.id === template.id);
+      if (!currentCourse) throw new Error('지금 볼 수 있는 공개 코스를 다시 확인해 주세요.');
+      const preview = previewTemplateJourney(currentCourse);
+      const catalogue = new Map(placeCatalog.filter(place => !place.personal).map(place => [place.id, place]));
+      const days = preview.days.map((day, index) => {
+        const places = day.places.map(stop => {
+          const place = catalogue.get(stop.id);
+          if (!place || stop.personal) throw new Error('코스에서 더 이상 볼 수 없는 장소가 있어요.');
+          const visitId = crypto.randomUUID();
+          return { ...place, visitId, note: '' };
+        });
+        return { day: index + 1, dayId: crypto.randomUUID(), date: '', title: `DAY ${index + 1}`, story: '', places,
+          blocks: places.map(place => ({ id: crypto.randomUUID(), type: 'PLACE' as const, visitId: place.visitId, placeId: place.id })) };
+      });
+      if (targetId) {
+        let firstAddedDay = 0;
+        if (!setJourneys(current => current.map(trip => {
+          if (trip.id !== targetId || !isPersonalPlan(trip) || !trip.isMine || trip.trash || trip.visibility !== 'PRIVATE') return trip;
+          firstAddedDay = trip.days.length + 1;
+          return days.reduce((next, day) => {
+            const extended = addPlanDay(next);
+            return { ...extended, days: extended.days.map((item, index) => index === extended.days.length - 1
+              ? { ...item, places: day.places, blocks: day.blocks } : item) };
+          }, trip);
+        }))) return;
+        if (!firstAddedDay) throw new Error('추가할 내 여행을 다시 선택해 주세요.');
+        setCourseUse(null);
+        afterPlaceSheet(() => openMyJourney(targetId, firstAddedDay));
+        showToast(`코스 ${days.length}일을 여행 끝에 추가했어요.`);
+        return;
+      }
+      const created = setPlanDates(initializeCreatedPlan({
+        ...preview, id: `trip-${crypto.randomUUID()}`, title: `${preview.title} · 내 여행`, days,
+        story: '', status: 'PLANNING', tags: ['Spotlog추천', template.region],
+        sourceJourneyId: preview.id, sourceAuthor: 'Spotlog 큐레이션', recommendationKind: undefined,
+        publicAuthorId: undefined, publicSourceKind: undefined, saves: 0, views: 0,
+        businessCandidates: undefined, travelProgress: undefined,
+      }, profile.displayName), '');
+      if (!setJourneys(current => [created, ...current])) return;
+      setCourseUse(null);
+      afterPlaceSheet(() => openMyJourney(created.id));
+      showToast('추천 코스를 새 여행으로 가져왔어요.');
+    } catch (failure) {
+      showToast(failure instanceof Error ? failure.message : '코스를 가져오지 못했어요.');
     }
-    const generated = buildAiJourneyDraft(template.places, template.dayCount, false, '추천 일정에 담긴 장소');
-    const draft: Journey = {
-      ...generated,
-      title: `${template.title} · 내 여행`,
-      region: template.region,
-      duration: template.duration,
-      summary: template.summary,
-      story: `Spotlog가 ${template.eyebrow}을 중심으로 골라둔 추천 일정을 내 여행 초안으로 가져왔습니다. 날짜와 장소 순서, 사진과 글을 자유롭게 바꿔 실제 여행 계획과 여행기로 완성해보세요.`,
-      tags: ['Spotlog추천', template.region, '수정가능'],
-      author: 'Spotlog 여행자',
-      sourceAuthor: 'Spotlog 큐레이션',
-    };
-    const created = initializeCreatedPlan(draft, profile.displayName);
-    if (!setJourneys((current) => [created, ...current])) return;
-    openMyJourney(created.id);
-    showToast(copy("추천 일정을 내 여행으로 가져왔습니다."));
   };
 
   const saveJourney = (updated: Journey) => {
@@ -1417,12 +1477,18 @@ function SpotlogApp() {
     pendingSheetNavigation.current = afterSheetClose(window, state => regionOwnerRef.current === owner && locationKey(state) === locationKey(origin), () => { pendingSheetNavigation.current = null; navigate(); });
   };
   const createAppointment = (input: AppointmentInput): boolean => {
-    if (!togetherViewer) return false;
+    if (!togetherViewer || appointmentUse?.owner !== togetherViewer.id) return false;
+    const selected = resolvePlaceSelection(appointmentUse.selection);
+    if (selected.length !== appointmentUse.selection.ids.length) {
+      showToast('선택했던 장소를 찾을 수 없어요. 다시 골라 주세요.');
+      return false;
+    }
+    const availablePlaces = [...new Map([...savedPlaces, ...selected].map(place => [place.id, place])).values()];
     let id = '';
-    const saved = togetherRepository.update(draft => { id = createStandaloneAppointment(draft, togetherViewer.id, input, savedPlaces).id; });
+    const saved = togetherRepository.update(draft => { id = createStandaloneAppointment(draft, togetherViewer.id, input, availablePlaces).id; });
     if (!saved) { showToast(togetherRepository.getError() || '약속을 저장하지 못했어요.'); return false; }
     afterPlaceSheet(() => navigateTogether(`activity-${id}`));
-    setAppointmentCreating(false); setAppointmentDraft({ title: '', date: '', kind: 'FRIENDS' });
+    setAppointmentUse(null); setAppointmentDraft({ title: '', date: '', kind: 'FRIENDS' });
     return true;
   };
   const saveTemporaryRoom = (input: TemporaryRoomInput): boolean => {
@@ -1451,18 +1517,22 @@ function SpotlogApp() {
   useEffect(() => {
     setDecisionRequest(current => current?.actorId === togetherViewer?.id ? current : null);
     setRecipeRequest(current => current?.actorId === (togetherViewer?.id || '') ? current : null);
-    const pending = recipeLoginHandoff.current;
-    if (!togetherViewer || !pending) return;
-    recipeLoginHandoff.current = null;
-    if (pending.expiresAt <= Date.now()) return;
-    try {
-      const source = resolveRecipeSource(pending.source);
-      if (!source || source.isMine) return;
-      const preview = prepareOutingRecipe(source, placeCatalog);
-      if (preview.version !== pending.version) { showToast('코스 내용이 바뀌었어요. 다시 확인하고 함께할 약속을 만들어 주세요.'); return; }
-      setRecipeRequest({ actorId: togetherViewer.id, source: pending.source, preview, requestId: crypto.randomUUID() });
-    } catch { showToast('현재 공개된 코스를 다시 확인해 주세요.'); }
   }, [togetherViewer?.id]);
+  const signInForRecipe = (request: NonNullable<typeof recipeRequest>, initial: Pick<OutingRecipeInput, 'title' | 'date'>) => {
+    setRecipeRequest(null);
+    account.openAccount('login', '로그인 후 코스와 공유 범위를 다시 확인해 주세요.', undefined, {
+      onCancel: () => setRecipeRequest({ ...request, initial }),
+      onSignedIn: user => {
+        try {
+          const source = resolveRecipeSource(request.source);
+          if (!source || source.isMine) { showToast('현재 공개된 코스를 다시 선택해 주세요.'); return; }
+          const preview = prepareOutingRecipe(source, placeCatalog);
+          if (preview.version !== request.preview.version) showToast('코스 내용이 바뀌었어요. 최신 장소를 확인해 주세요.');
+          setRecipeRequest({ actorId: user.id, source: request.source, preview, requestId: crypto.randomUUID(), initial });
+        } catch { showToast('현재 공개된 코스를 다시 확인해 주세요.'); }
+      },
+    });
+  };
   const saveRecipe = (input: OutingRecipeInput): boolean => {
     if (!recipeRequest || !togetherViewer || recipeRequest.actorId !== togetherViewer.id) return false;
     const source = resolveRecipeSource(recipeRequest.source);
@@ -1492,17 +1562,29 @@ function SpotlogApp() {
     if (target && target.kind === 'PLAN' && target.id === id) openJourney(id);
     else showToast('현재 여행 일정을 다시 확인해 주세요.');
   };
-  const startPlaceAppointment = (place: Place) => {
+  const startPlaceAppointment = (request: PlaceUseRequest, places: Place[]) => {
     setPlaceUse(null);
-    if (!togetherViewer) { account.openAccount('login', '로그인하면 선택한 장소에서 약속을 만들 수 있어요.'); return; }
-    setAppointmentDraft(current => ({ ...current, title: current.title || `${place.name}에서 만나요`, placeId: place.id, meetingPoint: place.name }));
-    setAppointmentCreating(true);
+    const start = (owner: string) => {
+      const [first, ...rest] = places;
+      if (!first) return;
+      setAppointmentDraft({ title: `${first.name}에서 만나요`.slice(0, 100), date: '', kind: 'FRIENDS',
+        placeId: first.id, meetingPoint: first.name, additionalPlaceIds: rest.map(place => place.id) });
+      setAppointmentUse({ selection: request.selection, owner });
+    };
+    if (togetherViewer) start(togetherViewer.id);
+    else account.openAccount('login', '선택한 장소에서 약속을 만들어요.', undefined, {
+      onSignedIn: user => start(user.id),
+      onCancel: () => setPlaceUse(request),
+    });
   };
-  const sendPlaceProposal = (target: PlaceProposalTarget, expectedVersion: string, requestId: string): string | null => {
+  const sendPlaceProposal = (target: PlaceProposalTarget, expectedVersions: string[], requestId: string): string | null => {
     if (!placeUse || placeUse.owner !== regionOwnerRef.current || !togetherViewer) return '로그인 상태를 다시 확인해 주세요.';
-    const currentPlace = savedPlaces.find(place => place.id === placeUse.placeId);
-    if (!currentPlace) return '저장한 장소가 바뀌었어요. 목록에서 다시 선택해 주세요.';
-    const saved = togetherRepository.update(draft => { proposeSavedPlace(draft, togetherViewer.id, target, currentPlace, expectedVersion, requestId, placeCatalog.map(place => place.id)); });
+    const selected = resolvePlaceSelection(placeUse.selection);
+    if (selected.length !== placeUse.selection.ids.length || selected.length !== expectedVersions.length) return '선택한 장소가 바뀌었어요. 목록에서 다시 선택해 주세요.';
+    const publicIds = placeCatalog.filter(place => !place.personal).map(place => place.id);
+    const saved = togetherRepository.update(draft => {
+      selected.forEach((place, index) => proposeSavedPlace(draft, togetherViewer.id, target, place, expectedVersions[index], `${requestId}-${index}`, publicIds));
+    });
     if (!saved) return togetherRepository.getError() || '제안하지 못했어요. 내용을 유지했어요.';
     afterPlaceSheet(() => {
       const current = togetherRepository.getSnapshot();
@@ -1571,7 +1653,7 @@ function SpotlogApp() {
       <section className="content">
         {storageIssue && <div className="local-storage-warning" role="alert">{storageIssue}</div>}
         {tab === 'places-ai' && <>
-          <ScreenHeader title="AI로 장소 찾기" variant="detail" leading={<button type="button" aria-label="뒤로" onClick={goBack}><ArrowLeft size={20}/></button>}/>
+          <ScreenHeader title={placeSearchActionLabel} variant="detail" leading={<button type="button" aria-label="뒤로" onClick={goBack}><ArrowLeft size={20}/></button>}/>
           <div className="place-assistant-page">
             <Suspense fallback={<SectionLoading/>}>{renderPlaceAssistant({ region: homeRegion, district: homeDistrict, prompt: '' }, true)}</Suspense>
           </div>
@@ -1581,19 +1663,23 @@ function SpotlogApp() {
         {editingJourney ? (
           <JourneyEditor key={`${editingJourney.id}:${chatbotEditorEntry?.journeyId === editingJourney.id ? chatbotEditorEntry.requestId : ''}`} journey={editingJourney} initialDay={chatbotEditorEntry?.journeyId === editingJourney.id ? chatbotEditorEntry.day : undefined} initialEntry={chatbotEditorEntry?.journeyId === editingJourney.id ? chatbotEditorEntry.entry : undefined} onBack={goBack} onSave={saveJourney} onDraft={(draft,view)=>setJourneys(current=>current.map(item=>item.id===draft.id?stashJournalDraft(item,draft,view):item))} />
         ) : selectedJourney && isPersonalPlan(selectedJourney) ? (
-          <PersonalTrip onTryWithPeople={() => openRecipe({ kind: 'JOURNEY', id: selectedJourney.id })} key={selectedJourney.id} journey={selectedJourney} onTogether={() => navigateTogether(`together-share-${selectedJourney.id}`)} initialDay={detailDay ?? 1} onGuide={setGuideDay} onTrash={() => setTrashTarget(selectedJourney.id)} onSaveBusiness={saveBusiness} catalog={[...ownJourneys.flatMap(journey=>journey.days.flatMap(day=>day.places)).filter(place=>place.personal),...placeCatalog]} savedPlaces={savedPlaces} onBack={goBack} onChange={next => setJourneys(current => current.map(item => item.id === next.id ? next : item))} onAddLandmark={() => selectTab('discover')} onCopy={()=>copyJourney(selectedJourney)} onJournal={options=>createJournal(selectedJourney,options)} renderMap={(places,selected,onSelect,onResolve)=><RouteMap places={places} selectedVisitId={selected} onSelectVisit={onSelect} onResolveWarning={onResolve}/>} />
+          <PersonalTrip onTryWithPeople={() => openRecipe({ kind: 'JOURNEY', id: selectedJourney.id })} key={selectedJourney.id + ":" + (detailDay ?? "resume")} journey={selectedJourney} onTogether={() => navigateTogether(`together-share-${selectedJourney.id}`)} initialDay={detailDay ?? undefined} onGuide={setGuideDay} onTrash={() => setTrashTarget(selectedJourney.id)} onSaveBusiness={saveBusiness} catalog={[...ownJourneys.flatMap(journey=>journey.days.flatMap(day=>day.places)).filter(place=>place.personal),...placeCatalog]} savedPlaces={savedPlaces} onBack={goBack} onChange={next => setJourneys(current => current.map(item => item.id === next.id ? next : item))} onAddLandmark={() => selectTab('discover')} onCopy={()=>copyJourney(selectedJourney)} onJournal={options=>createJournal(selectedJourney,options)} renderMap={(places,selected,onSelect,onResolve)=><RouteMap places={places} selectedVisitId={selected} onSelectVisit={onSelect} onResolveWarning={onResolve}/>} />
         ) : selectedTemplate && selectedJourney ? (
           <CoursePreview key={selectedTemplate.id} journey={selectedJourney} initialDay={detailDay ?? 1} saved={courseBookmarks.ids.includes(selectedTemplate.id)} onToggleSaved={() => updateCourseBookmark(selectedTemplate.id)} onBack={goBack} onShare={() => void shareJourney(selectedJourney, '여행 코스')} onPersonal={() => afterPlaceSheet(() => useCurrentCourseForTravel(selectedTemplate.id))} onTogether={() => afterPlaceSheet(() => openRecipe({ kind: 'COURSE', id: selectedTemplate.id }))} onUsePlace={useDiscoveredPlace} renderMap={places => <RouteMap places={places}/>}/>
         ) : selectedJourney ? (
           <JourneyDetail onTryWithPeople={() => openRecipe(selectedTemplate ? { kind: 'COURSE', id: selectedTemplate.id } : { kind: 'JOURNEY', id: selectedJourney.id })} key={`${selectedJourney.id}:${detailDay ?? 1}`} onTogether={selectedJourney.isMine ? () => navigateTogether(`together-share-${selectedJourney.id}`) : undefined} initialDay={detailDay ?? 1} socialRequestId={chatbotSocialEntry?.requestId} initialSocialEntry={chatbotSocialEntry?.journeyId === selectedJourney.id ? chatbotSocialEntry.entry : undefined} onCloseSocialEntry={() => setChatbotSocialEntry(null)} journey={selectedJourney} profile={profile} comments={comments.filter((comment) => comment.journeyId === selectedJourney.id)} cheers={cheers[selectedJourney.id] ?? { LOVE: 0, BEST: 0, HELPFUL: 0 }} authorJourneys={selectedJourney.isMine ? journeys.filter((journey) => journey.isMine && !isPersonalPlan(journey)) : journeys.filter((journey) => !journey.isMine && journey.author === selectedJourney.author)} onBack={goBack} onShare={() => void shareJourney(selectedJourney)} onSharePlace={(place) => void sharePlace(place)} onEdit={() => editJourney(selectedJourney.id)} onCopy={() => selectedTemplate ? startRecommendedJourney(selectedTemplate) : copyJourney(selectedJourney)} onComment={(body) => addJourneyComment(selectedJourney.id, body)} onCheer={(cheer) => toggleJourneyCheer(selectedJourney.id, cheer)} onOpenJourney={openJourney} copyLabel={selectedTemplateJourney ? copy("이 일정 내 여행에 담기") : undefined} />
         ) : (
           <>
-            {tab === 'home' && <DiscoveryHome onOpenAiSearch={() => setPlaceAssistant({ actor: courseOwner, region: homeRegion, district: homeDistrict, prompt: discoveryHome.query })} onOpenSaved={() => selectTab('saved')} savedCount={savedPlaces.length + courseBookmarks.ids.length} savedPlaceIds={savedIds} onTogglePlaceSaved={toggleSaved} savedCourseIds={courseBookmarks.ids} onToggleCourseSaved={updateCourseBookmark} onStartTogether={() => setSharedRouteStartOwner(togetherViewer?.id || '')} onTryCourse={id => openRecipe({ kind: 'COURSE', id })} templates={homePublicTemplates} journals={homePublicJournals} duration={discoveryHome.duration} onDurationChange={duration => updateDiscoveryHome({ duration })} onOpenTemplate={openCurrentCourse} onOpenJournal={id => { if (homePublicJournals.some(item => item.id === id)) openJourney(id); }} onMoreTravel={openHomeTravel} onMoreJournals={openPublicJournals} personalPlans={ownPlans} onOpenMyPlan={openMyPlan} onOpenMyActivity={openMyActivity} onOpenMyChat={openMyChat} onPlan={openAppointmentCreation} places={reviewExposureOrder(placeCatalog, 'REGION_GUIDE', publicReview.state, publicReview.now)} references={publicReview.state.references} state={togetherState} viewerId={togetherViewer?.id} region={homeRegion} district={homeDistrict} neighborhood={homeNeighborhood} myRegionLabel={myRegionLabel} onManageMyRegions={() => setMyRegionsOpen(true)} onUseMyRegion={() => updateDiscoveryHome({ useMyRegion: true })} query={discoveryHome.query} view={discoveryHome.view === 'trips' ? 'recommended' : discoveryHome.view} purpose={discoveryHome.purpose} onRegionChange={region => updateDiscoveryHome({ region, useMyRegion: false })} onQueryChange={query => updateDiscoveryHome({ query })} onViewChange={view => view === 'trips' ? openHomeTravel(discoveryHome.duration ?? 'ALL') : updateDiscoveryHome({ view })} onPurposeChange={purpose => updateDiscoveryHome({ purpose })} onOpenGroup={openPublicGroup} onFindGroups={filters => navigateTogether('together-find', filters)} onOpenPicks={filters => navigateTogether('together-picks', filters)} onOpenPlace={setDiscoveryPlace} onOpenPlaces={filters => openPlaceGuide(filters.kind ?? 'ALL', filters)} headerActions={<AppMenuButton/>}/>}
-            {tab === 'travel' && <DiscoveryHome mode="travel" view="trips" places={placeCatalog} references={publicReview.state.references} state={togetherState} region={homeRegion} query={discoveryHome.travelQuery ?? ''} onRegionChange={travelRegion => updateDiscoveryHome({ travelRegion })} onQueryChange={travelQuery => updateDiscoveryHome({ travelQuery })} onOpenGroup={openPublicGroup} onFindGroups={filters => navigateTogether('together-find', filters)} onOpenPicks={filters => navigateTogether('together-picks', filters)} onOpenPlace={setDiscoveryPlace} onOpenPlaces={filters => openPlaceGuide(filters.kind ?? 'ALL', filters)} headerActions={<AppMenuButton/>} travelContent={<TravelLanding savedCourseIds={courseBookmarks.ids} onToggleCourseSaved={updateCourseBookmark} onTryCourse={id => openRecipe({ kind: 'COURSE', id })} section={travelSection} onSectionChange={setTravelSection} templates={homePublicTemplates} journals={homePublicJournals} places={placeCatalog} references={publicReview.state.references} onOpenJournal={openJourney} onRegionChange={travelRegion => updateDiscoveryHome({ travelRegion })} onPlaces={() => openPlaceGuide('ALL', { region: homeRegion, query: '' })} onSavedPlaces={() => selectTab('saved')} onOpenPlace={setDiscoveryPlace} duration={discoveryHome.travelDuration} onDurationChange={travelDuration => updateDiscoveryHome({ travelDuration })} region={homeRegion} query={discoveryHome.travelQuery ?? ''} onOpen={openTemplate} onMyTrips={() => openMySection('travel')} onCreateTrip={openTripCreation} onJournals={() => openPublicJournals(discoveryHome.travelDuration ?? 'ALL', homeRegion, discoveryHome.travelQuery ?? '', '')}/>}/>}
+            {tab === 'home' && <DiscoveryHome onOpenAiSearch={() => setPlaceAssistant({ actor: courseOwner, region: homeRegion, district: homeDistrict, prompt: discoveryHome.query })} onOpenSaved={() => selectTab('saved')} savedCount={savedPlaces.length + courseBookmarks.ids.length} savedPlaceIds={savedIds} onTogglePlaceSaved={toggleSaved} savedCourseIds={courseBookmarks.ids} onToggleCourseSaved={updateCourseBookmark} onStartTogether={() => setSharedRouteStartOwner(togetherViewer?.id || '')} onTryCourse={openCourseUse} templates={homePublicTemplates} journals={homePublicJournals} duration={discoveryHome.duration} onDurationChange={duration => updateDiscoveryHome({ duration })} onOpenTemplate={openCurrentCourse} onOpenJournal={id => { if (homePublicJournals.some(item => item.id === id)) openJourney(id); }} onMoreTravel={openHomeTravel} onMoreJournals={openPublicJournals} personalPlans={ownPlans} recentPersonalPlanId={recentTripId} onOpenMyDraft={id => { const draft = selectHomeDraftPlan(ownPlans, recentTripId); if (draft?.id === id) openMyJourney(id, draft.day); }} onOpenMyPlan={openMyPlan} onOpenMyActivity={openMyActivity} onOpenMyChat={openMyChat} onPlan={openAppointmentCreation} places={reviewExposureOrder(placeCatalog, 'REGION_GUIDE', publicReview.state, publicReview.now)} references={publicReview.state.references} state={togetherState} viewerId={togetherViewer?.id} region={homeRegion} district={homeDistrict} neighborhood={homeNeighborhood} myRegionLabel={myRegionLabel} onManageMyRegions={() => setMyRegionsOpen(true)} onUseMyRegion={() => updateDiscoveryHome({ useMyRegion: true })} query={discoveryHome.query} view={discoveryHome.view === 'trips' ? 'recommended' : discoveryHome.view} purpose={discoveryHome.purpose} onRegionChange={region => updateDiscoveryHome({ region, useMyRegion: false })} onQueryChange={query => updateDiscoveryHome({ query })} onViewChange={view => view === 'trips' ? openHomeTravel(discoveryHome.duration ?? 'ALL') : updateDiscoveryHome({ view })} onPurposeChange={purpose => updateDiscoveryHome({ purpose })} onOpenGroup={openPublicGroup} onFindGroups={filters => navigateTogether('together-find', filters)} onOpenPicks={filters => navigateTogether('together-picks', filters)} onOpenPlace={setDiscoveryPlace} onOpenPlaces={filters => openPlaceGuide(filters.kind ?? 'ALL', filters)} headerActions={<AppMenuButton/>}/>}
+            {tab === 'travel' && <DiscoveryHome mode="travel" view="trips" places={placeCatalog} references={publicReview.state.references} state={togetherState} region={homeRegion} query={discoveryHome.travelQuery ?? ''} onRegionChange={travelRegion => updateDiscoveryHome({ travelRegion })} onQueryChange={travelQuery => updateDiscoveryHome({ travelQuery })} onOpenGroup={openPublicGroup} onFindGroups={filters => navigateTogether('together-find', filters)} onOpenPicks={filters => navigateTogether('together-picks', filters)} onOpenPlace={setDiscoveryPlace} onOpenPlaces={filters => openPlaceGuide(filters.kind ?? 'ALL', filters)} headerActions={<AppMenuButton/>} travelContent={<TravelLanding onClearFilters={() => updateDiscoveryHome({ travelRegion: '', travelQuery: '', travelDuration: 'ALL' })} savedCourseIds={courseBookmarks.ids} onToggleCourseSaved={updateCourseBookmark} onTryCourse={openCourseUse} section={travelSection} onSectionChange={setTravelSection} templates={homePublicTemplates} journals={homePublicJournals} places={placeCatalog} references={publicReview.state.references} onOpenJournal={openJourney} onRegionChange={travelRegion => updateDiscoveryHome({ travelRegion })} onPlaces={() => openPlaceGuide('ALL', { region: homeRegion, query: '' })} onSavedPlaces={() => selectTab('saved')} onOpenPlace={setDiscoveryPlace} duration={discoveryHome.travelDuration} onDurationChange={travelDuration => updateDiscoveryHome({ travelDuration })} region={homeRegion} query={discoveryHome.travelQuery ?? ''} onOpen={openTemplate} onMyTrips={() => openMySection('travel')} onCreateTrip={openTripCreation} onJournals={() => openPublicJournals(discoveryHome.travelDuration ?? 'ALL', homeRegion, discoveryHome.travelQuery ?? '', '')}/>}/>}
             {tab === 'my' && <MyHub key={togetherViewer?.id ?? 'guest-device'} state={togetherState} userId={togetherViewer?.id ?? ''} userName={togetherViewer?.name} plans={ownPlans} journals={ownJourneys.filter(item => !isPersonalPlan(item))} section={mySection} onSectionChange={section => { setMySection(section); writeNavigationState({ mySection: section, scrollTop: 0 }, 'replace'); }} onActivity={id => navigateTogether(`activity-${id}`)} onGroup={id => navigateTogether(`group-${id}`)} onFindGroups={() => navigateTogether('together-find')} onPlan={openJourney} onJournal={openJourney} onLogin={() => account.openAccount('login')} onInvites={() => navigateTogether('together-invites')} onTrash={() => setTrashOpen(true)} onPersonalLibrary={() => selectTab('trips')} onAccount={() => selectTab('profile')} onOpenOwnGroupRecord={openMyOwnGroupRecord} onOpenOwnGroupRecords={(groupId, activityId) => { const actorId = groupProfileActor.current; if (!actorId) return account.openAccount('login'); setMemberRecordRequest({ id: crypto.randomUUID(), actorId, groupId, activityId }); navigateTogether(activityId ? `activity-${activityId}` : `group-${groupId}`); }} onEditGroupProfiles={() => { const actorId = groupProfileActor.current; if (!actorId) return account.openAccount('login'); const id = crypto.randomUUID(); ownGroupProfileRequestId.current = id; setOwnGroupProfileRequest({ actorId, id }); }} onCalendar={() => navigateTogether('together-calendar')} onCreateAppointment={openAppointmentCreation} onCreateTravel={openTripCreation} myRegionLabel={myRegionLabel} onManageMyRegions={() => setMyRegionsOpen(true)}/>}
             {tab === 'community' && <Community journeys={journeys} filters={searchDraft} onFiltersChange={setSearchDraft} onOpen={openJourney} />}
             {tab === 'chats' && <ConversationInbox view={resolveConversationInboxView(inboxView, togetherViewer?.id ?? '')} onViewChange={next => setInboxView(current => acceptConversationInboxView(current, groupProfileActor.current, next))} state={togetherState} userId={togetherViewer?.id ?? ''} onOpen={navigateTogether} onLogin={() => account.openAccount('login')} onFindGroups={() => navigateTogether('together-find')}/>}
-            {tab === 'together' && <TogetherApp calendarView={calendarView} onCalendarViewChange={view => { setCalendarView(view); writeNavigationState({ calendarView: view }, 'replace'); }} repository={togetherRepository} key={togetherViewer?.id ?? 'guest'} route={togetherRoute} discoveryFilters={effectiveDiscoveryFilters} myRegionLabel={myRegionLabel} onManageMyRegions={() => setMyRegionsOpen(true)} onUseMyRegion={() => changeDiscoveryFilters({ ...discoveryFilters, useMyRegion: true })} onDiscoveryFiltersChange={changeDiscoveryFilters} onBack={goTogetherBack} onNavigate={navigateTogether} viewer={togetherViewer} onLogin={() => account.openAccount('login', togetherRoute.startsWith('together-plan') ? '로그인하고 만든 계획을 저장해 주세요.' : '로그인하고 모임에 함께해 주세요.')} places={placeCatalog} journeys={ownJourneys} onOpenJourney={openJourney} onSavePlace={place => {
+            {tab === 'together' && <TogetherApp groupCreationRequest={groupCreationRequest} onGroupCreationRequestHandled={id => setGroupCreationRequest(current => current?.id === id ? null : current)}
+              onLoginForGroupCreation={() => account.openAccount('login', '로그인하면 모임 만들기로 이어져요.', undefined, { onSignedIn: user => setGroupCreationRequest({ id: crypto.randomUUID(), actor: user.id, route: togetherRoute }) })}
+              tripStartTitle={tripStartDraft?.owner === regionOwner ? tripStartDraft.title : ''}
+              onTripStartTitleChange={title => setTripStartDraft(title ? { owner: regionOwner, title } : undefined)}
+              calendarView={calendarView} onCalendarViewChange={view => { setCalendarView(view); writeNavigationState({ calendarView: view }, 'replace'); }} repository={togetherRepository} key={togetherViewer?.id ?? 'guest'} route={togetherRoute} discoveryFilters={effectiveDiscoveryFilters} myRegionLabel={myRegionLabel} onManageMyRegions={() => setMyRegionsOpen(true)} onUseMyRegion={() => changeDiscoveryFilters({ ...discoveryFilters, useMyRegion: true })} onDiscoveryFiltersChange={changeDiscoveryFilters} onBack={goTogetherBack} onNavigate={navigateTogether} viewer={togetherViewer} onLogin={() => account.openAccount('login', togetherRoute.startsWith('together-plan') ? '로그인하고 만든 계획을 저장해 주세요.' : '로그인하고 모임에 함께해 주세요.')} places={placeCatalog} journeys={ownJourneys} onOpenJourney={openJourney} onSavePlace={place => {
               const saved = saveBusiness({ ...place, personal: place.personal || !placeCatalog.some(item => item.id === place.id) });
               if (!saved) showToast('장소를 저장하지 못했어요. 기존 저장 장소는 그대로예요.');
             }} onCopyJourney={copyJourney} memberRecordRequest={memberRecordRequest} onMemberRecordRequestHandled={id => setMemberRecordRequest(current => current?.id === id ? null : current)} personalRouteRequest={personalRouteRequest} onPersonalRouteRequestHandled={id => setPersonalRouteRequest(current => current?.id === id ? null : current)} decisionRequest={decisionRequest} onDecisionRequestHandled={id => setDecisionRequest(current => current?.id === id ? null : current)} onCreateTemporaryRoom={openTemporaryCreation} journalShareRequest={journalShareRequest ?? undefined} onJournalShareRequestHandled={id => setJournalShareRequest(current => current?.id === id ? null : current)} onStartPersonalPlan={startPersonalTrip} onCreatePersonalPlan={source => { const owned = copyPersonalPlan(source, togetherViewer?.name ?? profile.displayName); if (!setJourneys(current => [owned, ...current])) return false; openMyJourney(owned.id); showToast('내 일정으로 만들었어요.'); return true; }} onCreateJournal={(source, originScope) => {
@@ -1609,7 +1695,7 @@ function SpotlogApp() {
             }}/>}
             {tab === 'offline' && <OfflineLibrary journeys={ownPlans} onBack={goBack} onOpen={openJourney}/>}
             {tab === 'trips' && <Trips onTrash={() => setTrashOpen(true)} onDelete={setTrashTarget} journeys={journeys} onOpen={openJourney} onCreate={openTripCreation} onShare={(journey) => void shareJourney(journey)} />}
-            {tab === 'saved' && <Saved courseLibrary={courseBookmarks} libraryView={savedLibrarySelection?.owner === courseOwner ? savedLibrarySelection.view : (savedPlaces.length || savedTripDraft.active || !courseBookmarks.ids.length ? 'places' : 'courses')} onLibraryViewChange={view => setSavedLibrarySelection({ owner: courseOwner, view })} courseTemplates={currentCourseTemplates} onOpenCourse={openCurrentCourse} onCourseTravel={useCurrentCourseForTravel} onCourseAppointment={id => openRecipe({ kind: 'COURSE', id })} onRemoveCourse={id => updateCourseBookmark(id, false)} onExploreCourses={openWhereTo} onUsePlace={place => setPlaceUse({ placeId: place.id, owner: regionOwnerRef.current })} onRegisterPlace={() => setInterestPlaceKind('FOOD')} key={togetherViewer?.id ?? 'guest-device'} viewerId={togetherViewer?.id ?? 'guest-device'} places={savedPlaces} journeys={ownPlans} draft={savedTripDraft} onDraftChange={setSavedTripDraft} onCreate={createSavedTrip} onRemove={toggleSaved} onAdd={(place) => setPlacementPlaces([place])} onCollectionCreate={places => { setPlanChoices(places); setPlanCreating(true); }} onGoDiscover={() => openPlaceGuide()} />}
+            {tab === 'saved' && <Saved courseLibrary={courseBookmarks} libraryView={savedLibrarySelection?.owner === courseOwner ? savedLibrarySelection.view : (savedPlaces.length || savedTripDraft.active || !courseBookmarks.ids.length ? 'places' : 'courses')} onLibraryViewChange={view => setSavedLibrarySelection({ owner: courseOwner, view })} courseTemplates={currentCourseTemplates} onOpenCourse={openCurrentCourse} onCourseTravel={useCurrentCourseForTravel} onCourseAppointment={id => openRecipe({ kind: 'COURSE', id })} onRemoveCourse={id => updateCourseBookmark(id, false)} onExploreCourses={openWhereTo} onUsePlace={place => useSavedPlaces([place])} onUsePlaces={useSavedPlaces} onRegisterPlace={() => setInterestPlaceKind(interestDraft?.owner === regionOwner ? interestDraft.kind : 'FOOD')} key={togetherViewer?.id ?? 'guest-device'} viewerId={togetherViewer?.id ?? 'guest-device'} places={savedPlaces} journeys={ownPlans} draft={savedTripDraft} onDraftChange={setSavedTripDraft} onCreate={createSavedTrip} onRemove={toggleSaved} onAdd={(place) => setPlacementPlaces([place])} onCollectionCreate={places => { setPlanChoices(places); setPlanCreating(true); }} onGoDiscover={() => openPlaceGuide()} />}
             {import.meta.env.DEV && tab === 'style-guide' && <StyleGuide onBack={goBack} />}
             {tab === 'profile' && <Profile key={togetherViewer?.id ?? 'guest'} basicAvatar={togetherState.members.find(item => item.id === togetherViewer?.id)?.avatar} onBasicAvatarChange={saveBasicProfilePhoto} initialEntry={chatbotProfileEntry?.entry} entryRequestId={chatbotProfileEntry?.requestId} native={native} journeys={journeys} comments={comments} cheers={cheers} profile={profile} notificationPreferences={notificationPreferences} notificationPermission={notificationPermission} onBack={() => { setChatbotProfileEntry(null); goBack(); }} onDeviceTrips={() => selectTab('trips')} onProfileChange={setProfile} onNotificationPreferencesChange={changeNotificationPreferences} onPreviewNotification={() => showToast(previewCreatorNotification(notificationPreferences.viewMilestone) ? copy("테스트 알림을 준비하고 있어요.") : copy("테스트 알림은 Spotlog 앱에서 확인할 수 있어요."))} onOpen={openJourney} />}
             {tab === 'photo-stories' && <PhotoStoryPreview savedIds={savedIds} onBack={goBack} onToggle={toggleSaved} onShare={(place) => void sharePlace(place)} />}
@@ -1625,8 +1711,10 @@ function SpotlogApp() {
         })}
       </nav>}
       {creating && <CreateJourneySheet onClose={() => setCreating(false)} onCreate={createJourney} />}
-      {tripCreationOpen && <BottomSheet title="여행 만들기" onClose={() => setTripCreationOpen(false)}><div className="my-trip-create-choices"><button type="button" onClick={() => { setTripCreationOpen(false); setPlanChoices(null); setPlanCreating(true); }}><Bookmark size={21}/><span><strong>저장한 장소로 만들기</strong><small>모아 둔 장소를 골라 DAY 일정으로 담아요.</small></span><ChevronRight size={18}/></button><button type="button" onClick={() => { afterPlaceSheet(() => navigateTogether('together-plan-trip', { region: homeRegion })); setTripCreationOpen(false); }}><Sparkles size={21} aria-hidden="true"/><span><strong>AI로 여행 초안 만들기</strong><small>지역·기간·취향을 말하고 DAY별 후보를 확인해요.</small></span><ChevronRight size={18}/></button></div></BottomSheet>}
-      {appointmentCreating && <CreateAppointmentSheet places={savedPlaces} initial={appointmentDraft} onChange={setAppointmentDraft} onClose={() => setAppointmentCreating(false)} onCreate={createAppointment}/>}
+      {tripCreationOpen && <BottomSheet title="여행 만들기" onClose={() => setTripCreationOpen(false)}><div className="my-trip-create-choices"><button type="button" onClick={() => { setTripCreationOpen(false); setPlanChoices(null); setPlanCreating(true); }}><Bookmark size={21}/><span><strong>저장한 장소로 만들기</strong><small>모아 둔 장소를 골라 DAY 일정으로 담아요.</small></span><ChevronRight size={18}/></button><button type="button" onClick={() => { afterPlaceSheet(() => navigateTogether('together-plan-trip', { region: homeRegion })); setTripCreationOpen(false); }}><Sparkles size={21} aria-hidden="true"/><span><strong>여행 계획 시작하기</strong><small>{planningAiAvailable ? '직접 만들거나 AI로 장소를 제안받아요.' : '여행을 먼저 만들거나 등록 장소로 초안을 시작해요.'}</small></span><ChevronRight size={18}/></button></div></BottomSheet>}
+      {appointmentUse?.owner === togetherViewer?.id && appointmentUse && <CreateAppointmentSheet
+        places={[...new Map([...savedPlaces, ...resolvePlaceSelection(appointmentUse.selection)].map(place => [place.id, place])).values()]}
+        initial={appointmentDraft} onChange={setAppointmentDraft} onClose={() => setAppointmentUse(null)} onCreate={createAppointment}/>}
       {sharedRouteStartOwner !== null && sharedRouteStartOwner === (togetherViewer?.id || '') && <BottomSheet title="함께 움직일 일정" onClose={() => setSharedRouteStartOwner(null)}><div className="shared-route-start">
         <p>같은 일정에서 내 합류 장소와 마지막 방문을 정해요. 가족여행, 친구 모임, 회식에도 사용할 수 있어요.</p>
         {(() => {
@@ -1643,7 +1731,29 @@ function SpotlogApp() {
         <button type="button" className="shared-route-start-primary" onClick={() => { setSharedRouteStartOwner(null); if (!togetherViewer) account.openAccount('login', '로그인하고 함께할 일정과 내 참여 구간을 정해 주세요.'); else afterPlaceSheet(() => navigateTogether('together-plan')); }}>{togetherViewer ? '새 공동 일정 만들기' : '로그인하고 내 일정 보기'}<ArrowRight size={17}/></button>
         <button type="button" className="shared-route-start-secondary" onClick={() => { setSharedRouteStartOwner(null); afterPlaceSheet(() => selectTab('travel')); }}>여행 코스에서 시작하기<ChevronRight size={16}/></button>
       </div></BottomSheet>}
-      {recipeRequest && recipeRequest.actorId === (togetherViewer?.id || '') && <BottomSheet title={recipeRequest.source.kind === 'COURSE' ? '이 코스로 약속 만들기' : '우리끼리 해보기'} onClose={() => setRecipeRequest(null)}><OutingRecipeForm key={`${recipeRequest.actorId}:${recipeRequest.requestId}`} preview={recipeRequest.preview} requestId={recipeRequest.requestId} signedIn={Boolean(togetherViewer)} groups={togetherState.groups.filter(group => group.spaceType !== 'ACTIVITY' && !group.archived && group.memberIds.includes(togetherViewer?.id || '') && !group.blockedMemberIds?.includes(togetherViewer?.id || '')).map(group => ({ id: group.id, name: group.name }))} onCreate={saveRecipe} onLogin={() => { if (recipeRequest.source.kind !== 'JOURNEY' || !resolveRecipeSource(recipeRequest.source)?.isMine) recipeLoginHandoff.current = { source: recipeRequest.source, version: recipeRequest.preview.version, expiresAt: Date.now() + 5 * 60 * 1000 }; setRecipeRequest(null); account.openAccount('login', '로그인 후 코스와 공유 범위를 다시 확인하고 약속을 만들어요.'); }}/></BottomSheet>}
+      {recipeRequest && recipeRequest.actorId === (togetherViewer?.id || '') && <BottomSheet title={recipeRequest.source.kind === 'COURSE' ? '이 코스로 약속 만들기' : '우리끼리 해보기'} onClose={() => setRecipeRequest(null)}>
+        <OutingRecipeForm key={`${recipeRequest.actorId}:${recipeRequest.requestId}`} preview={recipeRequest.preview} requestId={recipeRequest.requestId}
+          signedIn={Boolean(togetherViewer)} initial={recipeRequest.initial}
+          groups={togetherState.groups.filter(group => group.spaceType !== 'ACTIVITY' && !group.archived && group.memberIds.includes(togetherViewer?.id || '') && !group.blockedMemberIds?.includes(togetherViewer?.id || '')).map(group => ({ id: group.id, name: group.name }))}
+          onCreate={saveRecipe} onLogin={initial => signInForRecipe(recipeRequest, initial)}/>
+      </BottomSheet>}
+      {courseUse?.owner === regionOwner && (() => {
+        const course = currentCourseTemplates.find(item => item.id === courseUse.id);
+        if (!course) return <BottomSheet title="코스 확인" onClose={() => setCourseUse(null)}><p>지금은 볼 수 없는 코스예요. 다른 코스를 골라 주세요.</p></BottomSheet>;
+        return <BottomSheet title={courseUse.step === 'actions' ? '이 코스를 어디에 쓸까요?' : '내 여행에 코스 담기'} description={course.title} onClose={() => setCourseUse(null)}>
+          {courseUse.step === 'actions' ? <div className="course-preview__destinations">
+            <button type="button" onClick={() => useCurrentCourseForTravel(course.id)}><Route size={21}/><span><strong>내 여행에 담기</strong><small>기존 여행에 추가하거나 새로 만들어요.</small></span><ChevronRight size={18}/></button>
+            <button type="button" onClick={() => { setCourseUse(null); openRecipe({ kind: 'COURSE', id: course.id }); }}><Users size={21}/><span><strong>이 코스로 약속 만들기</strong><small>친구·가족이나 모임과 함께 갈 일정이에요.</small></span><ChevronRight size={18}/></button>
+          </div> : <div className="saved-place-use">
+            {ownPlans.length > 0 && <label>담을 여행<select value={courseTarget} onChange={event => setCourseTarget(event.target.value)}>
+              <option value="">새 여행으로 만들기</option>
+              {ownPlans.map(trip => <option key={trip.id} value={trip.id}>{trip.title}</option>)}
+            </select></label>}
+            <p className="saved-place-use-note">{courseTarget ? '코스의 DAY와 방문 순서대로 기존 여행의 마지막에 추가해요.' : '코스의 DAY와 방문 순서로 새 여행을 만들어요. 출발 날짜는 나중에 정할 수 있어요.'}</p>
+            <button type="button" className="saved-place-use-primary" onClick={() => startRecommendedJourney(course, courseTarget)}>{courseTarget ? '여행 끝에 코스 추가' : '새 여행으로 만들기'}</button>
+          </div>}
+        </BottomSheet>;
+      })()}
       {temporaryCreating && togetherViewer && temporaryDraftOwner === togetherViewer.id && <BottomSheet title="일회성 모임 만들기" onClose={() => setTemporaryCreating(false)}><TemporaryRoomForm draft={temporaryDraft} onChange={setTemporaryDraft} onCreate={saveTemporaryRoom}/></BottomSheet>}
       {placeAssistant && placeAssistant.actor === courseOwner && tab !== 'places-ai' && <Suspense fallback={<BottomSheet title="장소 찾기" onClose={() => setPlaceAssistant(null)}><SectionLoading/></BottomSheet>}>{renderPlaceAssistant(placeAssistant, false)}</Suspense>}
       {discoveryPlace && <BottomSheet title={discoveryPlace.name} onClose={() => setDiscoveryPlace(null)}><LandmarkGuideCard place={discoveryPlace} variant="detail" facts={<PublicPlaceFacts key={discoveryPlace.id} place={discoveryPlace}/>} showCredit saved={savedIds.includes(discoveryPlace.id)} onToggle={() => toggleSaved(discoveryPlace.id)} onShare={() => void sharePlace(discoveryPlace)}/><button type="button" className="primary wide place-use-action" onClick={() => useDiscoveredPlace(discoveryPlace)}><MapPin size={18}/>여행·약속에 담기</button></BottomSheet>}
@@ -1666,16 +1776,51 @@ function SpotlogApp() {
       {chatbotPersonalPlace && (() => { const target = journeys.find(item => item.id === chatbotPersonalPlace.journeyId && isPersonalPlan(item) && !item.trash); const day = target?.days.find(item => item.day === chatbotPersonalPlace.day); return target && day ? <PlacePicker kind={chatbotPersonalPlace.kind} region={target.region} personalPlan onClose={() => setChatbotPersonalPlace(null)} onSelect={place => { const next = appendPlanPlace(target, day.dayId!, { ...place, personal: true, locationVerified: false }); if (!setJourneys(current => current.map(item => item.id === target.id ? { ...next, planStage: 'DRAFT' } : item))) throw new Error('저장하지 못했어요. 입력한 내용을 유지합니다.'); setChatbotPersonalPlace(null); showToast(`DAY ${day.day}에 개인 입력 장소를 담았어요. 등록 정보와 위치는 미확인이에요.`); }} /> : null; })()}
       {planCreating && <CreatePlanSheet places={planChoices ?? savedPlaces} author={profile.displayName} draft={planCreationDraft} onDraftChange={setPlanCreationDraft} onClose={() => setPlanCreating(false)} onCreate={journey => { const created = initializeCreatedPlan(journey, profile.displayName); if (!setJourneys(current => [created, ...current])) return false; setPlanCreationDraft(null); setPlanCreating(false); openMyJourney(created.id); return true; }} />}
       {placeUse && placeUse.owner === regionOwner && (() => {
-        const place = savedPlaces.find(item => item.id === placeUse.placeId);
-        return place ? <SavedPlaceUseSheet key={`${regionOwner}:${place.id}`} place={place} state={togetherState} actorId={togetherViewer?.id ?? ''} hasPlacement={ownPlans.some(journey => journey.days.some(day => day.places.some(item => item.id === place.id)))} onClose={() => setPlaceUse(null)} onLogin={() => { setPlaceUse(null); account.openAccount('login', '로그인 후 공유할 모임이나 약속을 직접 선택해 주세요.'); }} onAppointment={() => startPlaceAppointment(place)} onTrip={() => { setPlaceUse(null); setPlacementPlaces([place]); }} onPropose={sendPlaceProposal}/> : null;
+        const places = resolvePlaceSelection(placeUse.selection);
+        if (places.length !== placeUse.selection.ids.length) return <BottomSheet title="장소 확인" onClose={() => setPlaceUse(null)}><p>선택한 장소가 바뀌었어요. 다시 골라 주세요.</p></BottomSheet>;
+        return <SavedPlaceUseSheet key={JSON.stringify([regionOwner, placeUse.selection.ids])} places={places}
+          state={togetherState} actorId={togetherViewer?.id ?? ''} startSharing={placeUse.sharing}
+          hasPlacement={places.length === 1 && ownPlans.some(journey => journey.days.some(day => day.places.some(item => item.id === places[0].id)))}
+          onClose={() => setPlaceUse(null)}
+          onLogin={() => {
+            setPlaceUse(null);
+            account.openAccount('login', '장소를 제안할 대화방을 선택해 주세요.', undefined, {
+              onSignedIn: user => setPlaceUse({ ...placeUse, owner: user.id, sharing: true }),
+              onCancel: () => setPlaceUse(placeUse),
+            });
+          }}
+          onAppointment={() => startPlaceAppointment(placeUse, places)}
+          onTrip={() => { setPlaceUse(null); setPlacementPlaces(places); }} onPropose={sendPlaceProposal}/>;
       })()}
-      {placementPlaces && <AddToTripSheet places={placementPlaces} journeys={ownPlans} initialJourneyId={ownPlans.find((journey) => journey.days.some((day) => day.places.some((place) => placementPlaces.some((selected) => selected.id === place.id))))?.id} initialDay={ownPlans.flatMap((journey) => journey.days).find((day) => day.places.some((place) => placementPlaces.some((selected) => selected.id === place.id)))?.day} onClose={() => setPlacementPlaces(null)} onConfirm={confirmTripPlacement} onRemove={removePlacedVisit} />}
+      {placementPlaces && (() => {
+        const placedDay = (journey: Journey) => placementPlaces.length === 1
+          ? journey.days.find(day => day.places.some(place => place.id === placementPlaces[0].id))
+          : undefined;
+        const existing = ownPlans.find(journey => placedDay(journey));
+        const current = ownPlans.find(journey => journey.id === selectedJourneyId);
+        const active = current ?? existing;
+        return <AddToTripSheet places={placementPlaces} journeys={ownPlans} initialJourneyId={active?.id}
+          initialDay={current ? detailDay ?? 1 : existing ? placedDay(existing)?.day : undefined}
+          onClose={() => setPlacementPlaces(null)} onConfirm={confirmTripPlacement} onRemove={removePlacedVisit} />;
+      })()}
       {aiTravelOpen && <AiPlannerSheet draftRef={aiTravelDraft} existingJourneyIds={allJourneys.map(journey=>journey.id)} places={aiPlaceCandidates} savedPlaces={savedPlaces} author={profile.displayName} onDraftNotice={showToast} onClose={() => setAiTravelOpen(false)} onCreate={acceptAiDraft} />}
       {trashOpen && <TripTrashSheet language={locale} journeys={allJourneys} ownerId="local-profile" onChange={setJourneys} onClose={() => setTrashOpen(false)} onOpen={journey => { setTrashOpen(false); openMyJourney(journey.id); }} />}
       {trashTarget && <MoveToTrashSheet journeys={allJourneys} journeyId={trashTarget} ownerId="local-profile" language={locale} onChange={setJourneys} onMoved={() => { setTrashTarget(null); if (selectedJourneyId === trashTarget) selectTab('trips'); showToast(locale === 'en' ? 'Moved to Trash. You can restore it for six months.' : copy("휴지통으로 이동했어요. 6개월 동안 복원할 수 있어요.")); }} onClose={() => setTrashTarget(null)} />}
       {selectedJourney && guideDay !== null && <TravelGuideSheet journey={selectedJourney} initialDay={guideDay} onClose={() => setGuideDay(null)} />}
-      {interestPlaceKind && <PlacePicker interest onKindChange={setInterestPlaceKind} kind={interestPlaceKind} region="" onClose={() => setInterestPlaceKind(null)} onSelect={place => {
+      {interestPlaceKind && <PlacePicker key={regionOwner} interest kind={interestPlaceKind} region=""
+        draft={interestDraft?.owner === regionOwner ? interestDraft.fields : undefined}
+        onDraftChange={patch => setInterestDraft(current => ({
+          owner: regionOwner, kind: current?.owner === regionOwner ? current.kind : interestPlaceKind,
+          fields: { ...(current?.owner === regionOwner ? current.fields : newCustomPlaceDraft()), ...patch },
+        }))}
+        onResetDraft={() => setInterestDraft(undefined)}
+        onKindChange={kind => {
+          setInterestPlaceKind(kind);
+          setInterestDraft(current => current?.owner === regionOwner ? { ...current, kind } : undefined);
+        }}
+        onClose={() => setInterestPlaceKind(null)} onSelect={place => {
         if (!saveBusiness({ ...place, personal: true, locationVerified: false })) throw new Error('장소를 저장하지 못했어요. 입력한 내용을 유지해요.');
+        setInterestDraft(undefined);
         setInterestPlaceKind(null);
       }}/>}
       {appMenuOpen && <AppMenu onClose={() => setAppMenuOpen(false)} onNavigate={navigateMenu} myRegionLabel={myRegionLabel}/>}
@@ -2125,17 +2270,22 @@ function SavedPlaceCard({ place, placement, selection, onRemove, onAdd, onUse }:
         <span className="saved-place-row-intro">{place.hook ?? place.description}</span>
       </span>
     </button>
-    <button type="button" className={`saved-place-row-add ${included ? 'is-added' : ''}`} onClick={() => onUse ? onUse(place) : onAdd(place)} aria-label={`${place.name}, ${placementLabel}`} title={placement ? `${placement.journeyTitle} · ${placement.date} · ${placementLabel}` : placementLabel}>{onUse ? <ChevronRight size={18} aria-hidden="true" /> : included ? <Check size={18} aria-hidden="true" /> : <Plus size={18} aria-hidden="true" />}<span>{rowActionLabel}</span></button>
+    <button type="button" className={`saved-place-row-add ${onUse ? 'saved-place-row-use' : ''} ${included ? 'is-added' : ''}`}
+      onClick={() => onUse ? onUse(place) : onAdd(place)} aria-label={`${place.name}, ${placementLabel}`} title={placement ? `${placement.journeyTitle} · ${placement.date} · ${placementLabel}` : placementLabel}>
+      {onUse ? <><span>{rowActionLabel}</span><ChevronRight size={14} aria-hidden="true"/></> : <>{included ? <Check size={18} aria-hidden="true"/> : <Plus size={18} aria-hidden="true"/>}<span>{rowActionLabel}</span></>}
+    </button>
   </article>{detailOpen && <SavedLandmarkDetailSheet place={place} onClose={() => setDetailOpen(false)} actions={<>{onUse && <button type="button" className="saved-place-remove" onClick={() => { setDetailOpen(false); onUse(place); }}><Users size={18}/>이 장소 활용</button>}<button type="button" className="saved-place-remove" onClick={removeFromSaved}><Bookmark size={18} aria-hidden="true" />{en ? 'Remove from saved places' : '관심 장소 저장 취소'}</button></>} />}</>;
 }
 
-function Saved({ places, journeys, viewerId, draft, onDraftChange, onCreate, onRemove, onAdd, onCollectionCreate, onRegisterPlace, onGoDiscover, onUsePlace, courseLibrary, libraryView, onLibraryViewChange, courseTemplates, onOpenCourse, onCourseTravel, onCourseAppointment, onRemoveCourse, onExploreCourses }: { courseLibrary: ReturnType<typeof readSavedCourses>; libraryView: 'places' | 'courses'; onLibraryViewChange: (view: 'places' | 'courses') => void; courseTemplates: readonly HomeTripTemplate[]; onOpenCourse: (id: string) => void; onCourseTravel: (id: string) => void; onCourseAppointment: (id: string) => void; onRemoveCourse: (id: string) => void; onExploreCourses: () => void; onUsePlace: (place: Place) => void; places: Place[]; journeys: Journey[]; viewerId: string; draft: SavedTripDraft; onDraftChange: (draft: SavedTripDraft) => void; onCreate: (journey: Journey) => string | null; onRemove: (id: string) => void; onAdd: (place: Place) => void; onCollectionCreate: (places: Place[]) => void; onRegisterPlace: () => void; onGoDiscover: () => void }) {
+function Saved({ places, journeys, viewerId, draft, onDraftChange, onCreate, onRemove, onAdd, onCollectionCreate, onRegisterPlace, onGoDiscover, onUsePlace, onUsePlaces, courseLibrary, libraryView, onLibraryViewChange, courseTemplates, onOpenCourse, onCourseTravel, onCourseAppointment, onRemoveCourse, onExploreCourses }: { courseLibrary: ReturnType<typeof readSavedCourses>; libraryView: 'places' | 'courses'; onLibraryViewChange: (view: 'places' | 'courses') => void; courseTemplates: readonly HomeTripTemplate[]; onOpenCourse: (id: string) => void; onCourseTravel: (id: string) => void; onCourseAppointment: (id: string) => void; onRemoveCourse: (id: string) => void; onExploreCourses: () => void; onUsePlace: (place: Place) => void; onUsePlaces: (places: Place[]) => void; places: Place[]; journeys: Journey[]; viewerId: string; draft: SavedTripDraft; onDraftChange: (draft: SavedTripDraft) => void; onCreate: (journey: Journey) => string | null; onRemove: (id: string) => void; onAdd: (place: Place) => void; onCollectionCreate: (places: Place[]) => void; onRegisterPlace: () => void; onGoDiscover: () => void }) {
   const copy=useUiCopy();
   const { locale } = useLocale();
   const en = locale === 'en';
   const [displayMode, setDisplayMode] = useState<'list' | 'map'>('list');
   const [mapPlace, setMapPlace] = useState<Place | null>(null);
   const [visiblePlaceIds, setVisiblePlaceIds] = useState<string[] | null>(null);
+  const [choosingPlaces, setChoosingPlaces] = useState(false);
+  const [chosenPlaceIds, setChosenPlaceIds] = useState<string[]>([]);
   const filteredPlaces = visiblePlaceIds === null ? places : places.filter(place => visiblePlaceIds.includes(place.id));
   const [collapsedRegions, setCollapsedRegions] = useState<string[]>([]);
   const savedRegionNames = Array.from(new Set(filteredPlaces.map(landmarkRegion))).sort((a, b) => domesticRegionOrder.indexOf(a) - domesticRegionOrder.indexOf(b));
@@ -2167,9 +2317,25 @@ function Saved({ places, journeys, viewerId, draft, onDraftChange, onCreate, onR
     <div className="saved-library-tabs" role="group" aria-label="보관함 종류"><button type="button" aria-pressed={libraryView === 'places'} onClick={() => onLibraryViewChange('places')}>장소 <span>{places.length}</span></button><button type="button" aria-pressed={libraryView === 'courses'} onClick={() => { setMapPlace(null); onLibraryViewChange('courses'); }}>코스 <span>{courseLibrary.ids.length}</span></button></div>
     {libraryView === 'courses' && <SavedCourseList library={courseLibrary} templates={courseTemplates} onOpen={onOpenCourse} onTravel={onCourseTravel} onAppointment={onCourseAppointment} onRemove={onRemoveCourse} onExplore={onExploreCourses}/>}
     <div hidden={libraryView !== 'places'}>
-    <p className="saved-library-hint">‘사용하기’를 눌러 새 약속을 만들거나 모임에 장소 후보로 제안할 수 있어요.</p>
     <InterestCollections places={places} viewerId={viewerId} onAddToTrip={onAdd} onCreateTrip={onCollectionCreate} onExplore={onGoDiscover} onVisiblePlaceIdsChange={setVisiblePlaceIds}/>
-    <SavedTripControls draft={draft} places={places} automaticPlaces={selectedPlaces} onChange={onDraftChange} onCreate={onCreate} browseControls={<div className="interest-view-toggle" role="group" aria-label="관심 장소 보기"><button type="button" aria-pressed={displayMode === 'list'} className={displayMode === 'list' ? 'active' : ''} onClick={() => setDisplayMode('list')}><BookOpen size={16}/>목록</button><button type="button" aria-pressed={displayMode === 'map'} className={displayMode === 'map' ? 'active' : ''} onClick={() => setDisplayMode('map')}><MapIcon size={16}/>지도</button><span aria-live="polite">{selectedPlaces.length}곳</span></div>} />
+    {choosingPlaces && libraryView === "places" && <BottomSheet title="사용할 장소 고르기" onClose={() => setChoosingPlaces(false)}>
+      <div className="saved-use-picker">{selectedPlaces.map(place => <label key={place.id}>
+        <span><strong>{place.name}</strong><small>{place.area}</small></span>
+        <input type="checkbox" checked={chosenPlaceIds.includes(place.id)} onChange={event => { const checked = event.target.checked; setChosenPlaceIds(ids => checked ? [...ids, place.id] : ids.filter(id => id !== place.id)); }}/>
+      </label>)}<button type="button" className="primary wide" disabled={!chosenPlaceIds.some(id => selectedPlaces.some(place => place.id === id))} onClick={() => {
+        const byId = new Map(selectedPlaces.map(place => [place.id, place]));
+        const chosen = chosenPlaceIds.flatMap(id => { const place = byId.get(id); return place ? [place] : []; });
+        setChoosingPlaces(false);
+        onUsePlaces(chosen);
+      }}>{chosenPlaceIds.length ? `${chosenPlaceIds.length}곳 사용하기` : '장소를 선택해 주세요'}</button></div>
+    </BottomSheet>}
+    {places.length > 0 && <SavedTripControls draft={draft} places={places} automaticPlaces={selectedPlaces} onChange={onDraftChange} onCreate={onCreate}
+      browseControls={<div className="interest-view-toggle" role="group" aria-label="관심 장소 보기">
+        <button type="button" aria-pressed={displayMode === 'list'} onClick={() => setDisplayMode('list')}>목록</button>
+        <button type="button" aria-pressed={displayMode === 'map'} onClick={() => setDisplayMode('map')}>지도</button>
+      </div>}
+      browseActions={selectedPlaces.length > 1 && !draft.active && <button type="button" className="saved-use-multiple" aria-haspopup="dialog"
+        onClick={() => { setChosenPlaceIds([]); setChoosingPlaces(true); }}>여러 곳 선택</button>}/>}
     {displayMode === 'map' && <InterestPlacesMap places={selectedPlaces} onSelectPlace={setMapPlace}/>}
     <div hidden={displayMode !== 'list'}>
     {places.length ? <><div className="saved-region-groups">{!visibleSavedGroups.length && <p className="saved-filter-empty">선택한 조건에 맞는 장소가 없어요.</p>}{visibleSavedGroups.map(({ region, places: regionPlaces }) => { const collapsed = collapsedRegions.includes(region); return <section className="saved-region-section" key={region}><button type="button" className="saved-region-heading" onClick={() => toggleSavedRegion(region)} aria-expanded={!collapsed}><span><strong>{region}</strong><small>{regionPlaces.length}{copy("곳")}</small></span><span>{regionPlaces.map((place) => place.name).join(' · ')}</span>{collapsed ? <ArrowDown size={17} /> : <ArrowUp size={17} />}</button>{!collapsed && <div className="saved-list">{regionPlaces.map((place) => <SavedPlaceCard key={place.id} place={place} placement={placementsByPlace.get(place.id)} selection={selectionFor(place)} onRemove={onRemove} onAdd={pick} onUse={draft.active ? undefined : onUsePlace} />)}</div>}</section>; })}</div></> : <div className="empty saved-empty"><span className="empty-icon"><Bookmark size={28} /></span><h2>{copy("내 장소를 더 담아보세요")}</h2><p>{copy("음식점·카페·숙소 등 마음에 드는 장소를 저장하면")}<br />{copy("저장한 장소로 약속을 만들거나 모임에 제안할 수 있어요.")}</p><button className="outline" onClick={onGoDiscover}><Compass size={17} />{copy("장소 둘러보기")}</button></div>}
@@ -2401,22 +2567,38 @@ function EditorPlaceBlock({ block, place, index, total, onUpdate, onMove, onRemo
   return <article className="editor-place-block"><div className="block-toolbar"><span><Icon size={13} />{placeKindLabel[place.kind]}{' '}{copy("카드")}</span><BlockControls index={index} total={total} onMove={onMove} onRemove={onRemove} /></div><div className="editor-place-preview">{place.image && <img src={place.image} alt="" />}<div><strong>{place.name}</strong><small>{place.address}</small><p>{place.note}</p><PhotoCredit image={place.image} /></div></div><div className="editor-place-fields"><label><span>{copy("도착 시각")}</span><input type="time" value={place.time ?? ''} onChange={(event) => onUpdate({ time: event.target.value })} /></label><label><span>{copy("체류 시간")}</span><input value={place.duration} onChange={(event) => onUpdate({ duration: event.target.value })} placeholder={copy("예: 1시간 20분")} /></label><label className="wide-field"><span>{copy("이동 메모")}</span><input value={place.move ?? ''} onChange={(event) => onUpdate({ move: event.target.value })} placeholder={copy("예: 차량 25분")} /></label></div></article>;
 }
 
-function PlacePicker({ kind, region, personalPlan = false, interest = false, onKindChange, onClose, onSelect }: { kind: PlaceKind; region: string; personalPlan?: boolean; interest?: boolean; onKindChange?: (kind: PlaceKind) => void; onClose: () => void; onSelect: (place: Place) => void }) {
+const newCustomPlaceDraft = (area = '', duration = '') => ({ name: '', area, address: '', description: '', note: '', duration, image: '' });
+type CustomPlaceDraft = ReturnType<typeof newCustomPlaceDraft>;
+
+function PlacePicker({ kind, region, personalPlan = false, interest = false, draft, onDraftChange, onResetDraft, onKindChange, onClose, onSelect }: {
+  kind: PlaceKind; region: string; personalPlan?: boolean; interest?: boolean;
+  draft?: CustomPlaceDraft; onDraftChange?: (patch: Partial<CustomPlaceDraft>) => void; onResetDraft?: () => void;
+  onKindChange?: (kind: PlaceKind) => void; onClose: () => void; onSelect: (place: Place) => void;
+}) {
   const { catalog: placeCatalog } = usePublicReview();
   const copy=useUiCopy();
   const [mode, setMode] = useState<'CUSTOM' | 'CATALOG'>('CUSTOM');
   const [registrationError, setRegistrationError] = useState('');
   const select = (place: Place) => { try { onSelect(place); } catch (failure) { setRegistrationError(failure instanceof Error ? failure.message : '저장하지 못했어요. 입력한 내용을 유지합니다.'); } };
-  const [custom, setCustom] = useState({ name: '', area: region, address: '', description: '', note: '', duration: kind === 'STAY' ? copy("숙박") : '' , image: '' });
+  const [localDraft, setLocalDraft] = useState(() => newCustomPlaceDraft(region, !interest && kind === 'STAY' ? copy("숙박") : ''));
+  const custom = draft ?? localDraft;
   const candidates = placeCatalog.filter((place) => place.kind === kind).sort((a, b) => Number(b.area.includes(region)) - Number(a.area.includes(region)));
-  const updateCustom = (key: keyof typeof custom, value: string) => setCustom((current) => ({ ...current, [key]: value }));
+  const updateCustom = (key: keyof CustomPlaceDraft, value: string) => {
+    if (onDraftChange) onDraftChange({ [key]: value });
+    else setLocalDraft(current => ({ ...current, [key]: value }));
+    setRegistrationError('');
+  };
+  const imageToken = useRef(0);
+  useEffect(() => () => { imageToken.current += 1; }, []);
   const handleCustomImage = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
+    const token = ++imageToken.current;
     try {
-      updateCustom('image', await resizeImageFile(file, 1200, 0.8));
+      const image = await resizeImageFile(file, 1200, 0.8);
+      if (token === imageToken.current) updateCustom('image', image);
     } catch (error) {
-      window.alert(error instanceof Error ? error.message : copy("사진을 불러오지 못했습니다."));
+      if (token === imageToken.current) setRegistrationError(error instanceof Error ? error.message : copy("사진을 불러오지 못했습니다."));
     }
   };
   const addCustomPlace = (event: FormEvent<HTMLFormElement>) => {
@@ -2437,18 +2619,22 @@ function PlacePicker({ kind, region, personalPlan = false, interest = false, onK
       duration: custom.duration.trim() || (kind === 'STAY' ? copy("숙박") : copy("체류 시간 미입력")),
     });
   };
+  const photo = <label className={`custom-photo-field ${custom.image ? 'has-image' : ''}`}>{custom.image ? <img src={custom.image} alt="등록할 장소" /> : <><ImagePlus size={22} /><span>{placeKindLabel[kind]}{' '}{copy("사진 추가")}</span></>}<input type="file" accept="image/*" capture="environment" onChange={(event) => void handleCustomImage(event)} /></label>;
+  const duration = <label><span>{kind === 'STAY' ? copy("숙박 형태") : copy("머문 시간")}</span><input value={custom.duration} onChange={(event) => updateCustom('duration', event.target.value)} placeholder={kind === 'STAY' ? copy("1박") : copy("약 1시간")} /></label>;
+  const description = <label><span>{copy("정보 소개")}</span><textarea rows={2} value={custom.description} onChange={(event) => updateCustom('description', event.target.value)} placeholder={kind === 'STAY' ? copy("객실, 위치, 주변 동선 등 기본 정보를 적어주세요.") : copy("어떤 곳인지 간단히 소개해 주세요.")} /></label>;
+  const note = <label><span>{interest ? '개인 메모' : copy("내 경험과 추천 포인트")}</span><textarea rows={3} value={custom.note} onChange={(event) => updateCustom('note', event.target.value)} placeholder={kind === 'STAY' ? copy("실제로 묵어보니 좋았던 점, 체크인 팁 등을 적어주세요.") : copy("직접 다녀와서 알게 된 팁을 적어주세요.")} /></label>;
   return <BottomSheet title={interest ? "관심 장소 추가" : `${placeKindLabel[kind]} 삽입`} onClose={onClose}><section className="place-picker phase-embedded-sheet">
     {interest && onKindChange && <label className="interest-kind-picker">장소 종류<select value={kind} onChange={event => onKindChange(event.target.value as PlaceKind)}>{Object.entries(placeKindLabel).map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></label>}
     <div className="place-picker-tabs"><button className={mode === 'CUSTOM' ? 'active' : ''} onClick={() => setMode('CUSTOM')}>{copy("직접 등록")}</button>{!personalPlan&&<button className={mode === 'CATALOG' ? 'active' : ''} onClick={() => setMode('CATALOG')}>{copy("목록에서 선택")}</button>}</div>
     {mode === 'CUSTOM' ? <form className="custom-place-form" onSubmit={addCustomPlace}>
       <p>{interest ? '가고 싶은 장소를 직접 저장해요. 개인 메모는 모임에 자동 공유되지 않아요.' : personalPlan ? '이름·주소를 직접 입력해 선택한 DAY의 개인 일정 초안에 담아요. 등록 정보와 좌표는 미확인이며 예약을 만들지 않아요.' : copy("모든 업체를 미리 등록할 필요 없이, 직접 다녀온 정보를 여행기에 남기세요.")}</p>
-      <label className={`custom-photo-field ${custom.image ? 'has-image' : ''}`}>{custom.image ? <img src={custom.image} alt="등록할 장소" /> : <><ImagePlus size={22} /><span>{placeKindLabel[kind]}{' '}{copy("사진 추가")}</span></>}<input type="file" accept="image/*" capture="environment" onChange={(event) => void handleCustomImage(event)} /></label>
+      {!interest && photo}
       <label><span>{placeKindLabel[kind]}{' '}{copy("이름 *")}</span><input required value={custom.name} onChange={(event) => updateCustom('name', event.target.value)} placeholder={kind === 'STAY' ? copy("예: 바다 앞 작은 펜션") : copy("장소 이름")} /></label>
-      <div className="custom-place-row"><label><span>{copy("지역")}</span><input value={custom.area} onChange={(event) => updateCustom('area', event.target.value)} placeholder={copy("예: 부산 해운대")} /></label><label><span>{kind === 'STAY' ? copy("숙박 형태") : copy("머문 시간")}</span><input value={custom.duration} onChange={(event) => updateCustom('duration', event.target.value)} placeholder={kind === 'STAY' ? copy("1박") : copy("약 1시간")} /></label></div>
+      <div className={interest ? undefined : "custom-place-row"}><label><span>{copy("지역")}</span><input value={custom.area} onChange={(event) => updateCustom('area', event.target.value)} placeholder={copy("예: 부산 해운대")} /></label>{!interest && duration}</div>
       <label><span>{copy("주소")}</span><input value={custom.address} onChange={(event) => updateCustom('address', event.target.value)} placeholder={copy("주소를 입력하면 길찾기 검색에 사용합니다")} /></label>
-      <label><span>{copy("정보 소개")}</span><textarea rows={2} value={custom.description} onChange={(event) => updateCustom('description', event.target.value)} placeholder={kind === 'STAY' ? copy("객실, 위치, 주변 동선 등 기본 정보를 적어주세요.") : copy("어떤 곳인지 간단히 소개해 주세요.")} /></label>
-      <label><span>{copy("내 경험과 추천 포인트")}</span><textarea rows={3} value={custom.note} onChange={(event) => updateCustom('note', event.target.value)} placeholder={kind === 'STAY' ? copy("실제로 묵어보니 좋았던 점, 체크인 팁 등을 적어주세요.") : copy("직접 다녀와서 알게 된 팁을 적어주세요.")} /></label>
+      {interest ? <details className="custom-place-options"><summary>사진·설명 추가 <small>선택</small></summary><div>{photo}{description}{note}</div></details> : <>{description}{note}</>}
       {registrationError && <p className="ui-error" role="alert">{registrationError}</p>}<button className="primary custom-place-submit" type="submit"><Plus size={17} />{placeKindLabel[kind]}{' '}{interest ? "관심 장소에 저장" : copy("카드 추가")}</button>
+      {interest && draft && <button type="button" className="outline" onClick={() => { imageToken.current += 1; setRegistrationError(''); onResetDraft?.(); }}>입력 지우기</button>}
     </form> : <><p>{copy("준비된 항목은 빠르게 고르는 보조 목록입니다. 없으면 직접 등록하세요.")}</p><div className="picker-list">{candidates.map((place) => <button key={place.id} onClick={() => onSelect(place)}><img src={place.image} alt="" /><span><strong>{place.name}</strong><small>{place.area} · {place.address}</small></span><Plus size={17} /></button>)}</div></>}
   </section></BottomSheet>;
 }

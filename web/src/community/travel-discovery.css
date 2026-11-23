@@ -28,3 +28,4 @@
 .travel-discovery__empty { display:grid; justify-items:start; gap:8px; padding:20px 0; color:var(--muted); }
 .travel-discovery__empty p { margin:0; font-size:14px; line-height:20px; }
 .travel-discovery__empty>span { font-size:12px; line-height:16px; }
+.travel-discovery__empty>button { min-height:44px; padding:8px 13px; border:1px solid var(--line); border-radius:10px; background:white; color:var(--ink); font-size:14px; line-height:20px; }

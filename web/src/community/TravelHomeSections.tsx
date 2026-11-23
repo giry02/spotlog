@@ -1,5 +1,5 @@
 import { useId, useState } from 'react';
-import { ArrowRight, Bookmark, ChevronRight, ImageOff, Users } from 'lucide-react';
+import { Bookmark, ChevronRight, ImageOff } from 'lucide-react';
 import { homeJournalSourceLabel, type HomeTravelCourseCard, type HomeTravelJournalCard } from './travelHomeModel';
 import './travel-home-sections.css';
 
@@ -32,9 +32,12 @@ export default function TravelHomeSections({ courses, journals, onOpenCourse, on
       {shownCourses.length ? <div className={`travel-home__courses${shownCourses.length === 1 ? ' is-single' : ''}`}>{shownCourses.map(course => <article className="travel-home__course" key={course.id}>
         <button type="button" onClick={() => onOpenCourse(course.id)} aria-label={`${course.title} · ${course.duration} · ${course.placeCount}곳 · 여행 일정 미리보기`}>
           <span className="travel-home__course-photo"><Photo src={course.cover}/><span className="travel-home__duration">{course.duration}</span></span>
-          <span className="travel-home__course-copy"><span className="travel-home__meta">{course.region} · {course.placeCount}곳</span><strong>{course.title}</strong><span className="travel-home__course-action">코스 미리보기<ArrowRight size={16}/></span></span>
+          <span className="travel-home__course-copy"><span className="travel-home__meta">{course.region} · {course.placeCount}곳</span><strong>{course.title}</strong></span>
         </button>
-        {(onTryCourse || onToggleCourseSaved) && <div className="travel-home__course-tools">{onTryCourse && <button type="button" className="recipe-card-action" onClick={() => onTryCourse(course.id)} aria-label={`${course.title} 우리끼리 해보기`}><Users size={16}/>우리끼리 해보기</button>}{onToggleCourseSaved && <button type="button" className="travel-home__course-save" aria-pressed={savedCourseIds?.includes(course.id) ?? false} aria-label={`${course.title} ${savedCourseIds?.includes(course.id) ? '코스 저장 해제' : '코스 저장'}`} onClick={() => onToggleCourseSaved(course.id)}><Bookmark size={19} fill={savedCourseIds?.includes(course.id) ? 'currentColor' : 'none'} aria-hidden="true"/></button>}</div>}
+        {(onTryCourse || onToggleCourseSaved) && <div className="travel-home__course-tools">
+          {onTryCourse && <button type="button" className="recipe-card-action" onClick={() => onTryCourse(course.id)} aria-label={`${course.title} 이 코스 사용하기`}>코스 사용<ChevronRight size={14} aria-hidden="true"/></button>}
+          {onToggleCourseSaved && <button type="button" className="travel-home__course-save" aria-pressed={savedCourseIds?.includes(course.id) ?? false} aria-label={`${course.title} ${savedCourseIds?.includes(course.id) ? '코스 저장 해제' : '코스 저장'}`} onClick={() => onToggleCourseSaved(course.id)}><Bookmark size={19} fill={savedCourseIds?.includes(course.id) ? 'currentColor' : 'none'} aria-hidden="true"/></button>}
+        </div>}
       </article>)}</div> : <p className="travel-home__none">선택한 조건의 공개 여행 코스가 없어요.</p>}
     </section>}
     {shownJournals.length > 0 && <section className="travel-home__section" aria-labelledby={`${uid}-journals`}>

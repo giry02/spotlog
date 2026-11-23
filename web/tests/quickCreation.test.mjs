@@ -24,6 +24,22 @@ test('one minimal meetup request becomes one usable editable draft without inven
   assert.deepEqual(validateCreationPlan(result.brief, result.plan, catalog), []);
 });
 
+test('a unique public venue and written headcount become reviewable fields without guessing a weekday date', () => {
+  const forest = place('forest', 'LANDMARK', { name:'서울숲', area:'서울 성동', address:'서울 성동구 뚝섬로 273' });
+  const prompt = '서울숲에서 토요일 오후 2시에 네 명이 산책하고 카페';
+  const result = prepareQuickCreation({ prompt }, [forest, ...catalog]);
+  assert.equal(result.brief.region,'서울');
+  assert.equal(result.brief.startTime,'14:00');
+  assert.equal(result.brief.people,4);
+  assert.equal(result.brief.date,'');
+  assert.match(result.brief.notes,/날짜.*확인/);
+  for (const request of [
+    { prompt:'서울숲은 제외하고 산책' },
+    { prompt:'서울숲에서 산책', catalog:[{...forest,personal:true}] },
+    { prompt:'서울숲에서 산책', catalog:[forest,{...forest,id:'forest2',area:'부산',address:'부산'}] },
+  ]) assert.equal(prepareQuickCreation(request,request.catalog ?? [forest]).brief.region,'');
+});
+
 test('blank input and an unknown region produce a location-undecided draft, never an arbitrary city', () => {
   for (const input of [{}, { prompt: '반가운 사람들끼리 만나요' }, { prompt: '뉴욕에서 만나요' }]) {
     const result = prepareQuickCreation(input, catalog);

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { ArrowLeft, BedDouble, Bookmark, Check, Coffee, MapPin, Search, ShoppingBag, Sparkles, Utensils, Activity } from 'lucide-react';
+import { ArrowLeft, BedDouble, Bookmark, Check, Coffee, MapPin, Search, ShoppingBag, SlidersHorizontal, Sparkles, Utensils, Activity } from 'lucide-react';
 import type { Journey, Place, PlaceKind, PlanningSlot } from './data';
 import { BottomSheet } from './BottomSheet';
 import { candidatePhoto } from './tripCandidatePresentation';
@@ -10,6 +10,7 @@ import { tripPickerStaySelection } from './tripPickerStay';
 import PlaceAssistantSheet from './PlaceAssistantSheet';
 import { LandmarkGuideCard } from './LandmarkGuideCard';
 import PublicPlaceFacts from './community/PublicPlaceFacts';
+import { planningAiAvailable } from './planningAiAvailability';
 import './trip-place-picker.css';
 
 const kinds = [{value:'ALL',name:'전체',Icon:MapPin},{value:'LANDMARK',name:'랜드마크',Icon:MapPin},{value:'FOOD',name:'음식점',Icon:Utensils},{value:'CAFE',name:'카페',Icon:Coffee},{value:'STAY',name:'숙소',Icon:BedDouble},{value:'SHOP',name:'쇼핑',Icon:ShoppingBag},{value:'LEISURE',name:'레저',Icon:Activity}] as const;
@@ -64,7 +65,7 @@ export function TripPlacePicker({journey,dayId,catalog,savedPlaces,onAdd,onAddSt
   let replacementSelection:ReturnType<typeof tripPickerStaySelection>|undefined;
   if(replacement&&stayPlace){try{replacementSelection=tripPickerStaySelection(journey,stayPlace.id,replacement.choice);}catch{/* Confirmation rechecks a removed or changed DAY before saving. */}}
   return <BottomSheet title={`DAY ${day?.day??''}에 장소 담기`} description="음식점·카페·숙소부터 담아도 돼요. 숙소는 숙박일과 박수를 선택해요." onClose={onClose}><div className="trip-place-picker">
-    <div className="trip-picker-mode" role="group" aria-label="장소 찾는 방법"><button type="button" aria-pressed={mode==='MANUAL'} onClick={()=>setMode('MANUAL')}><Search size={17}/>직접 찾기</button><button type="button" aria-pressed={mode==='ASSISTANT'} onClick={()=>setMode('ASSISTANT')}><Sparkles size={17}/>AI로 찾기</button></div>
+    <div className="trip-picker-mode" role="group" aria-label="장소 찾는 방법"><button type="button" aria-pressed={mode==='MANUAL'} onClick={()=>setMode('MANUAL')}><Search size={17}/>직접 찾기</button><button type="button" aria-pressed={mode==='ASSISTANT'} onClick={()=>setMode('ASSISTANT')}>{planningAiAvailable ? <Sparkles size={17}/> : <SlidersHorizontal size={17}/>} {planningAiAvailable ? 'AI로 찾기' : '조건으로 찾기'}</button></div>
     <div className="trip-picker-manual" hidden={mode!=='MANUAL'}>
     <div className="trip-picker-kinds" role="tablist" aria-label="담을 장소 종류">{kinds.map(item=><button key={item.value} type="button" role="tab" aria-selected={kind===item.value} onClick={()=>{setKind(item.value);setLimit(12);}}><item.Icon size={15}/>{item.name}</button>)}</div>
     <div className="trip-picker-filter"><Field label="지역"><select value={region} onChange={event=>{setRegion(event.target.value);setLimit(12);}}><option value="">전체 지역</option>{regions.map(value=><option key={value}>{value}</option>)}</select></Field><button className={savedOnly?'active':''} type="button" aria-pressed={savedOnly} onClick={()=>{setSavedOnly(value=>!value);setLimit(12);}}><Bookmark size={16}/>저장한 장소</button></div>
@@ -72,11 +73,13 @@ export function TripPlacePicker({journey,dayId,catalog,savedPlaces,onAdd,onAddSt
     {kind==='FOOD'&&<div className="trip-picker-meal" aria-label="담을 식사 시간">{(['lunch','dinner'] as const).map(value=><button type="button" key={value} aria-pressed={slot===value} onClick={()=>setSlot(value)}>{value==='lunch'?'점심':'저녁'}</button>)}</div>}
     <p className="trip-picker-context">DAY {day?.day} · {selectedSlot==='lunch'?'점심':selectedSlot==='dinner'?'저녁':selectedSlot==='afternoon'?'오후 카페':'선택한 장소'} 담기</p>
     <div className="trip-picker-results">{results.slice(0,limit).map(place=><PlaceChoice key={place.id} place={place} label={place.kind==='FOOD'?(slot==='dinner'?'저녁에 담기':'점심에 담기'):place.kind==='CAFE'?'카페 담기':place.kind==='STAY'?'숙박일 선택':'장소 담기'} added={isAdded(place)} onAdd={()=>add(place)}/> )}</div>
-    {!results.length && <p className="plan-help">이 조건에 맞는 장소가 없어요. 지역이나 검색어를 바꿔보세요.</p>}
+    {!results.length && <div className="trip-picker-empty"><p className="plan-help">이 조건에 맞는 장소가 없어요.</p>
+      <Button variant="secondary" onClick={() => { setRegion(''); setQuery(''); setKind('ALL'); setSavedOnly(false); setLimit(12); }}>검색 조건 초기화</Button>
+    </div>}
     {results.length>limit&&<Button variant="secondary" onClick={()=>setLimit(value=>value+12)}>장소 더 보기</Button>}
     </div>
     {mode==='ASSISTANT' && <>
-      {(!assistantDetail||currentDetail?.kind==='FOOD') && <div className="trip-picker-ai-meal"><small>음식점 담을 때</small><div className="trip-picker-meal" role="group" aria-label="AI 음식점 담을 식사 시간">{(['lunch','dinner'] as const).map(value=><button type="button" key={value} aria-pressed={slot===value} onClick={()=>setSlot(value)}>{value==='lunch'?'점심':'저녁'}</button>)}</div></div>}
+      {(!assistantDetail||currentDetail?.kind==='FOOD') && <div className="trip-picker-ai-meal"><small>음식점 담을 때</small><div className="trip-picker-meal" role="group" aria-label="추천 음식점 담을 식사 시간">{(['lunch','dinner'] as const).map(value=><button type="button" key={value} aria-pressed={slot===value} onClick={()=>setSlot(value)}>{value==='lunch'?'점심':'저녁'}</button>)}</div></div>}
       <PlaceAssistantSheet inline active={!assistantDetail} places={available} initialKind={kind} initialRegion={region||undefined} initialPrompt={query||undefined} initialOriginId={day?.places.find(place=>!place.personal&&Number.isFinite(place.lat)&&Number.isFinite(place.lng))?.id} onClose={()=>setMode('MANUAL')} onOpenPlace={setAssistantDetail}
         selection={{scopeKey:`trip:${journey.id}:${dayId}:${slot}`,contextLabel:`${journey.title} · DAY ${day?.day??''}${journey.startDate&&day?` · ${day.date}`:''}`,label:`DAY ${day?.day??''}에 담기`,selectedIds:available.filter(isAdded).map(place=>place.id),actionLabel:assistantActionLabel,onSelect:selectAssistantPlace}}/>
       {assistantDetail && <div className="trip-picker-detail"><button type="button" className="plan-back" onClick={()=>setAssistantDetail(null)}><ArrowLeft size={17}/>추천 결과로</button>{currentDetail?<LandmarkGuideCard place={currentDetail} variant="detail" showCredit facts={<PublicPlaceFacts place={currentDetail}/>} actions={<Button disabled={isAdded(currentDetail)} onClick={()=>{const problem=selectAssistantPlace(currentDetail);if(problem)setError(problem);else if(currentDetail.kind!=='STAY')setAssistantDetail(null);}}>{isAdded(currentDetail)?'담김':assistantActionLabel(currentDetail)}</Button>}/>:<p role="status">공개 정보가 바뀌었어요. 추천 결과에서 장소를 다시 확인해 주세요.</p>}</div>}
