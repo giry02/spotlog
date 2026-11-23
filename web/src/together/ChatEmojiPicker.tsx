@@ -1,5 +1,5 @@
-import { useId, useState } from 'react';
-import { X } from 'lucide-react';
+import { Fragment, useId, useRef, useState } from 'react';
+import { ChevronDown, X } from 'lucide-react';
 import { chatStickerPacks, chatStickers, emojiCategories, getChatSticker, type ChatStickerPackId } from './chatExpressions';
 import './chat-expressions.css';
 
@@ -16,8 +16,17 @@ export default function ChatEmojiPicker({ onInsertEmoji, onSelectSticker, onClos
   const [categoryId, setCategoryId] = useState(emojiCategories[0].id);
   const [packId, setPackId] = useState<ChatStickerPackId>('redcap');
   const [selectedSticker, setSelectedSticker] = useState('');
+  const addedHeading = useRef<HTMLHeadingElement>(null);
   const category = emojiCategories.find(item => item.id === categoryId) ?? emojiCategories[0];
   const pack = chatStickerPacks.find(item => item.id === packId)!;
+  const packStickers = chatStickers.filter(sticker => sticker.pack === packId);
+  const jumpToAdded = () => {
+    const heading = addedHeading.current;
+    const scroll = heading?.closest('.chat-expression-scroll');
+    if (!heading || !scroll) return;
+    scroll.scrollTop += heading.getBoundingClientRect().top - scroll.getBoundingClientRect().top - 8;
+    heading.focus({ preventScroll: true });
+  };
   return <section className="chat-expression-picker" aria-label="이모지와 스티커 선택">
     <div className="chat-expression-header"><div className="chat-expression-tabs" role="tablist" aria-label="표현 종류" onKeyDown={event => {
       if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
@@ -30,9 +39,15 @@ export default function ChatEmojiPicker({ onInsertEmoji, onSelectSticker, onClos
           {chatStickerPacks.map(item => <button type="button" key={item.id} aria-pressed={packId === item.id} onClick={() => setPackId(item.id)}><img src={getChatSticker(item.coverId)!.src} alt="" />{item.shortName}</button>)}
         </div>
         <div className="chat-expression-scroll" key={packId}>
-          <p className="chat-expression-pack-name">{pack.name}</p>
+          <div className="chat-expression-pack-heading">
+            <p className="chat-expression-pack-name">{pack.name} · {packStickers.length}종</p>
+            {packId === 'redcap' && <button type="button" className="chat-expression-added-link" onClick={jumpToAdded}>추가 9종 보기<ChevronDown size={14} aria-hidden="true"/></button>}
+          </div>
           <div className="chat-expression-sticker-grid" role="group" aria-label={pack.name}>
-            {chatStickers.filter(sticker => sticker.pack === packId).map(sticker => <button type="button" key={sticker.id} aria-label={`${pack.shortName} · ${sticker.name} 선택`} aria-pressed={selectedSticker === sticker.id} onClick={() => { setSelectedSticker(sticker.id); onSelectSticker(sticker.id); }}><img src={sticker.src} alt="" loading="lazy" /><span>{sticker.name}</span></button>)}
+            {packStickers.map(sticker => <Fragment key={sticker.id}>
+              {sticker.id === 'redcap-confirmed' && <h3 className="chat-expression-added-heading" tabIndex={-1} ref={addedHeading}>추가 9종</h3>}
+              <button type="button" aria-label={`${pack.shortName} · ${sticker.name} 선택`} aria-pressed={selectedSticker === sticker.id} onClick={() => { setSelectedSticker(sticker.id); onSelectSticker(sticker.id); }}><img src={sticker.src} alt="" loading="lazy" /><span>{sticker.name}</span></button>
+            </Fragment>)}
           </div>
         </div>
         <p className="chat-expression-hint">스티커를 고른 뒤 미리보기에서 전송해 주세요.</p>

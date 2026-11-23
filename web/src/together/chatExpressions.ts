@@ -4,6 +4,7 @@
  */
 import { isChatStickerId, type ChatStickerId, type ChatStickerPackId } from './chatExpressionContract.ts';
 import { redCapStickers } from './redCapStickers.ts';
+import { companionStickers } from './companionStickers.ts';
 export { isChatStickerId, type ChatStickerId, type ChatStickerPackId } from './chatExpressionContract.ts';
 export interface ChatSticker { readonly id:ChatStickerId; readonly name:string; readonly label:string; readonly pack:ChatStickerPackId; readonly svg?:string; readonly src:string }
   const ink='#514d47', cream='#fff9e7', mint='#adc9b6', coral='#ef9b91';
@@ -84,7 +85,9 @@ export interface ChatSticker { readonly id:ChatStickerId; readonly name:string; 
     Object.freeze({id:'cat',name:'살금 고양이의 인사',shortName:'고양이',coverId:'cat-hi',description:'조용히 다가와 마음을 건네는 회색 고양이'}),
     Object.freeze({id:'bear',name:'느긋 곰의 오후',shortName:'곰',coverId:'bear-hi',description:'크고 포근한 마음으로 곁을 지키는 갈색 곰'}),
     Object.freeze({id:'duck',name:'동동 오리의 산책',shortName:'오리',coverId:'duck-hi',description:'가벼운 발걸음으로 기분을 전하는 노란 오리'}),
-    Object.freeze({id:'redcap',name:'빨간 모자의 하루',shortName:'빨간모자',coverId:'redcap-thumbs-up',description:'일상과 약속, 나들이에서 쓰는 표정과 동작 27가지'})
+    Object.freeze({id:'redcap',name:'빨간 모자의 하루',shortName:'빨간모자',coverId:'redcap-thumbs-up',description:'일상과 약속, 나들이에서 쓰는 표정과 동작 36가지'}),
+    Object.freeze({id:'roundglasses',name:'동글안경의 하루',shortName:'동글안경',coverId:'roundglasses-thumbs-up',description:'동그란 안경 너머로 건네는 다정한 답장 9종'}),
+    Object.freeze({id:'purplescarf',name:'보라머플러의 나들이',shortName:'보라머플러',coverId:'purplescarf-excited',description:'보라색 머플러를 휘날리며 보내는 나들이 표현 9종'}),
   ]);
   const stickers:ChatSticker[]=entries.map(([id,name,label,pose])=>{const svg=art(label,pose);return Object.freeze({id,name,label,pack:'bunny',svg,src:'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)});});
   for(const species of ['cat','bear','duck'] as const){
@@ -92,7 +95,7 @@ export interface ChatSticker { readonly id:ChatStickerId; readonly name:string; 
   }
 
 export const packs = chatStickerPacks;
-export const chatStickers:readonly ChatSticker[] = Object.freeze([...stickers, ...redCapStickers]);
+export const chatStickers:readonly ChatSticker[] = Object.freeze([...stickers, ...redCapStickers, ...companionStickers]);
 const stickerIndex = new Map(chatStickers.map(sticker=>[sticker.id,sticker]));
 export function getChatSticker(id:unknown):ChatSticker|null { return isChatStickerId(id) ? stickerIndex.get(id)! : null; }
 export interface ChatEmoji { readonly emoji:string; readonly label:string }

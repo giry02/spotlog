@@ -72,15 +72,20 @@ test('missing, cross-room and deleted originals cannot be quoted or reacted to',
   assertRejectedWithoutChange(state, () => toggleMessageReaction(state, 'alice', groupRoom, 'source', '👍'));
 });
 
-test('new sticker-only posts stay compatible with prior sticker IDs in stored history', () => {
-  const state = fixture();
-  const old = postTogetherMessage(state, 'alice', groupRoom, '', 'bunny-hi');
-  const next = postTogetherMessage(state, 'bob', groupRoom, '', 'redcap-thumbs-up');
-  assert.equal(next.body, '');
-  assert.equal(next.stickerId, 'redcap-thumbs-up');
-  const reloaded = JSON.parse(JSON.stringify(state));
-  assert.deepEqual(reloaded.messages.slice(-2).map(row => row.stickerId), [old.stickerId, next.stickerId]);
+test('new sticker-only posts reload alongside previously stored animal and red cap stickers', () => {
+  const state = fixture(), key = togetherStorageKey('alice');
+  const prior = ['bunny-hi', 'redcap-thumbs-up'];
+  for (const id of prior) postTogetherMessage(state, 'alice', groupRoom, '', id);
+  const disk = memoryStorage({ [key]: JSON.stringify(state) });
+  const repo = createTogetherRepository('alice', '가', [], disk);
+  const added = ['redcap-confirmed', 'roundglasses-thumbs-up', 'purplescarf-excited'];
+  assert.equal(repo.update(draft => {
+    for (const id of added) postTogetherMessage(draft, 'bob', groupRoom, '', id);
+  }), true);
+  const reloaded = createTogetherRepository('alice', '가', [], disk).getSnapshot();
   assert.equal(isTogetherState(reloaded), true);
+  assert.deepEqual(reloaded.messages.slice(-(prior.length + added.length)).map(row => [row.stickerId, row.body, row.roomId]),
+    [...prior, ...added].map(id => [id, '', groupRoom]));
 });
 
 test('canonical room, latest membership, blocked status and archived status are checked for every action', () => {

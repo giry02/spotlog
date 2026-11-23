@@ -21,7 +21,7 @@ test('repository and draft/message validation load without initializing chat art
   const result = spawnSync(process.execPath, ['--input-type=module', '-e', `
     import { registerHooks } from 'node:module';
     registerHooks({ resolve(specifier, context, nextResolve) {
-      if (/chatExpressions(?:\\.ts)?$|redCapStickers(?:\\.ts)?$|\\.(?:svg|webp)$/.test(specifier)) throw new Error('Validation loaded chat artwork');
+      if (/(?:chatExpressions|redCapStickers|companionStickers)(?:\\.ts)?$|\\.(?:svg|webp)$/.test(specifier)) throw new Error('Validation loaded chat artwork');
       return nextResolve(specifier, context);
     } });
     for (const entry of ${JSON.stringify(entries)}) await import(entry);
@@ -30,14 +30,24 @@ test('repository and draft/message validation load without initializing chat art
   assert.equal(result.status, 0, result.stderr || result.stdout);
 });
 
-test('four original packs keep all 34 stable stickers and red cap adds 27',()=>{
+test('the 34 animal stickers and 27 released red cap stickers stay intact as more poses and packs are appended', () => {
   assert.equal(packs,chatStickerPacks);
-  assert.deepEqual(chatStickerPacks.map(pack=>pack.id),['bunny','cat','bear','duck','redcap']);
-  assert.equal(chatStickers.length,61);assert.equal(new Set(chatStickers.map(sticker=>sticker.id)).size,61);
-  assert.deepEqual(chatStickerPacks.map(pack=>chatStickers.filter(sticker=>sticker.pack===pack.id).length),[10,8,8,8,27]);
+  const packOrder = ['bunny','cat','bear','duck','redcap','roundglasses','purplescarf'];
+  const packSizes = [10,8,8,8,36,9,9];
+  assert.deepEqual(chatStickerPacks.map(pack=>pack.id), packOrder);
+  assert.deepEqual(chatStickers.map(sticker=>sticker.pack), packOrder.flatMap((pack, i) => Array(packSizes[i]).fill(pack)));
+  assert.equal(new Set(chatStickers.map(sticker=>sticker.id)).size,88);
   for(const pack of chatStickerPacks){assert.equal(getChatSticker(pack.coverId).pack,pack.id);assert.ok(pack.name&&pack.shortName&&pack.description);}
   const legacy = chatStickers.slice(0,34).map(x => [x.id,x.name,x.label,x.pack,x.svg]);
   assert.equal(createHash('sha256').update(JSON.stringify(legacy)).digest('hex'), '0e0cae698173ae1799eb79c1a9efd004db139d409ed62c7120deba8192d98c6f');
+  const released = chatStickers.slice(34,61).map(x => [
+    x.id, x.name, x.label, x.pack, createHash('sha256').update(readFileSync(new URL(x.src))).digest('hex'),
+  ]);
+  // The approved 27 from the previous release: preserve metadata, order and exact art bytes.
+  assert.equal(createHash('sha256').update(JSON.stringify(released)).digest('hex'), 'a981f6a03b975f4a3baad3f89ce51399a78badc28590d6fdd424ac6e3f6d7761');
+  assert.deepEqual(chatStickers.slice(61,70).map(sticker=>sticker.id), [
+    'confirmed', 'cant-make-it', 'good-night', 'where-are-you', 'ill-call', 'send-photo', 'saved-seat', 'im-home', 'had-fun',
+  ].map(id => 'redcap-' + id));
 });
 
 test('only catalog IDs resolve; arbitrary URLs, markup, object keys and unknown IDs are refused',()=>{
@@ -48,7 +58,9 @@ test('only catalog IDs resolve; arbitrary URLs, markup, object keys and unknown 
 });
 
 test('SVG data is self-contained constant artwork without executable markup or external resources',()=>{
-  for(const sticker of chatStickers.filter(item => item.pack !== 'redcap')){
+  const vectorStickers = chatStickers.filter(item => typeof item.svg === 'string');
+  assert.equal(vectorStickers.length, 34);
+  for(const sticker of vectorStickers){
     assert.match(sticker.src,/^data:image\/svg\+xml;charset=utf-8,/);
     assert.equal(decodeURIComponent(sticker.src.split(',').slice(1).join(',')),sticker.svg);
     assert.match(sticker.svg,/<svg[^>]+viewBox="0 0 240 240"/);
@@ -58,16 +70,18 @@ test('SVG data is self-contained constant artwork without executable markup or e
   }
 });
 
-test('new stickers use unique local, lossless 256px alpha WebP images and Korean labels', () => {
-  const newStickers = chatStickers.filter(item => item.pack === 'redcap');
-  assert.equal(new Set(newStickers.map(item => item.src)).size, 27);
-  for (const item of newStickers) {
+test('character packs use unique local, lossless 256px alpha WebP images and Korean labels', () => {
+  const assetDirectory = { redcap: 'red-cap', roundglasses: 'round-glasses', purplescarf: 'purple-scarf' };
+  const rasterStickers = chatStickers.filter(item => Object.hasOwn(assetDirectory, item.pack));
+  assert.equal(new Set(rasterStickers.map(item => item.src)).size, 54);
+  for (const item of rasterStickers) {
     assert.ok(Object.isFrozen(item));
     assert.match(item.label, /[가-힣]/);
     assert.equal(item.svg, undefined);
     const source = new URL(item.src);
     assert.equal(source.protocol, 'file:');
-    assert.ok(source.pathname.endsWith('/sticker-art/red-cap/' + item.id.slice(7) + '.webp'));
+    assert.ok(item.id.startsWith(item.pack + '-'), item.id);
+    assert.ok(source.pathname.endsWith('/sticker-art/' + assetDirectory[item.pack] + '/' + item.id.slice(item.pack.length + 1) + '.webp'), item.src);
     const bytes = readFileSync(source);
     assert.equal(bytes.toString('ascii', 0, 4), 'RIFF');
     assert.equal(bytes.toString('ascii', 8, 16), 'WEBPVP8L');

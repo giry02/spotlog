@@ -29,6 +29,15 @@ const entries = [
   ['redcap-love-this-place', '여기 좋아', new URL('./sticker-art/red-cap/love-this-place.webp', import.meta.url).href],
   ['redcap-go-again', '또 가자', new URL('./sticker-art/red-cap/go-again.webp', import.meta.url).href],
   ['redcap-trip', '여행 가자', new URL('./sticker-art/red-cap/trip.webp', import.meta.url).href],
+  ['redcap-confirmed', '확인했어!', new URL('./sticker-art/red-cap/confirmed.webp', import.meta.url).href],
+  ['redcap-cant-make-it', '오늘은 못 가', new URL('./sticker-art/red-cap/cant-make-it.webp', import.meta.url).href],
+  ['redcap-good-night', '잘 자', new URL('./sticker-art/red-cap/good-night.webp', import.meta.url).href],
+  ['redcap-where-are-you', '어디야?', new URL('./sticker-art/red-cap/where-are-you.webp', import.meta.url).href],
+  ['redcap-ill-call', '전화할게', new URL('./sticker-art/red-cap/ill-call.webp', import.meta.url).href],
+  ['redcap-send-photo', '사진 보내줘', new URL('./sticker-art/red-cap/send-photo.webp', import.meta.url).href],
+  ['redcap-saved-seat', '자리 맡아뒀어', new URL('./sticker-art/red-cap/saved-seat.webp', import.meta.url).href],
+  ['redcap-im-home', '집에 왔어', new URL('./sticker-art/red-cap/im-home.webp', import.meta.url).href],
+  ['redcap-had-fun', '오늘 즐거웠어', new URL('./sticker-art/red-cap/had-fun.webp', import.meta.url).href],
 ] as const satisfies readonly (readonly [ChatStickerId, string, string])[];
 
 export const redCapStickers = Object.freeze(entries.map(([id, label, src]) =>
