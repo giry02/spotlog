@@ -2,7 +2,7 @@
  * Adapted for Spotlog's local immutable sticker catalog; no third-party sticker art.
  * SVG builders are private and use only constant labels/poses, never user markup.
  */
-import { isChatStickerId, type ChatStickerId, type ChatStickerPackId } from './chatExpressionContract.ts';
+import { isChatStickerId, mascotStickerPackIds, type ChatStickerId, type ChatStickerPackId } from './chatExpressionContract.ts';
 import { redCapStickers } from './redCapStickers.ts';
 import { companionStickers } from './companionStickers.ts';
 import { mascotStickers, type MascotStickerTheme } from './mascotStickers.ts';
@@ -92,6 +92,10 @@ export interface ChatSticker { readonly id:ChatStickerId; readonly name:string; 
     Object.freeze({id:'purplescarf',name:'보라머플러의 나들이',shortName:'보라머플러',coverId:'purplescarf-excited',description:'보라색 머플러를 휘날리며 보내는 나들이 표현 9종'}),
     Object.freeze({id:'pebble',name:'몽돌이',shortName:'몽돌이',coverId:'pebble-thumbs-up',description:'주황 스카프를 두른 몽돌이의 반응과 약속, 나들이 39종'}),
     Object.freeze({id:'guidebot',name:'길잡이 로봇',shortName:'길잡이',coverId:'guidebot-thumbs-up',description:'노란 길잡이 로봇과 주고받는 일상과 약속, 나들이 39종'}),
+    Object.freeze({id:'backpack',name:'배낭콩',shortName:'배낭콩',coverId:'backpack-thumbs-up',description:'초록 배낭을 닮은 배낭콩의 일상과 약속, 나들이 39종'}),
+    Object.freeze({id:'cloud',name:'두둥구름',shortName:'두둥구름',coverId:'cloud-thumbs-up',description:'둥실 떠다니는 두둥구름의 일상과 약속, 나들이 39종'}),
+    Object.freeze({id:'otter',name:'탐험수달',shortName:'탐험수달',coverId:'otter-thumbs-up',description:'파란 가방을 멘 탐험수달의 일상과 약속, 나들이 39종'}),
+    Object.freeze({id:'thermos',name:'온기병',shortName:'온기병',coverId:'thermos-thumbs-up',description:'따뜻한 인사를 건네는 온기병의 일상과 약속, 나들이 39종'}),
   ]);
   const stickers:ChatSticker[]=entries.map(([id,name,label,pose])=>{const svg=art(label,pose);return Object.freeze({id,name,label,pack:'bunny',svg,src:'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)});});
   for(const species of ['cat','bear','duck'] as const){
@@ -100,7 +104,7 @@ export interface ChatSticker { readonly id:ChatStickerId; readonly name:string; 
 
 export const packs = chatStickerPacks;
 // Browsing order is independent of the saved-sticker catalogue.
-const featuredPackIds = ['redcap', 'pebble', 'guidebot'] as const;
+const featuredPackIds = ['redcap', ...mascotStickerPackIds] as const;
 const featuredPackSet = new Set<ChatStickerPackId>(featuredPackIds);
 const animalPackIds = new Set<ChatStickerPackId>(['bunny', 'cat', 'bear', 'duck']);
 export const chatStickerPickerPacks = Object.freeze([

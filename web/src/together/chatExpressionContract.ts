@@ -1,5 +1,24 @@
 /** Stored-message validation must not initialize the chat artwork or picker. */
-export type ChatStickerPackId = 'bunny' | 'cat' | 'bear' | 'duck' | 'redcap' | 'roundglasses' | 'purplescarf' | 'pebble' | 'guidebot';
+export const mascotStickerPackIds = Object.freeze(['pebble', 'guidebot', 'backpack', 'cloud', 'otter', 'thermos'] as const);
+export type MascotStickerPackId = typeof mascotStickerPackIds[number];
+export type ChatStickerPackId = 'bunny' | 'cat' | 'bear' | 'duck' | 'redcap' | 'roundglasses' | 'purplescarf' | MascotStickerPackId;
+
+export const mascotStickerPoses = Object.freeze({
+  starter: Object.freeze(['thumbs-up', 'on-my-way', 'thanks'] as const),
+  daily: Object.freeze(['hello', 'okay', 'laugh', 'wow', 'sad', 'sorry', 'congrats', 'cheer', 'love', 'tired', 'good-night', 'good-morning'] as const),
+  planning: Object.freeze(['joining', 'cant-make-it', 'check-time', 'change-time', 'meet-here', 'where-are-you', 'leaving', 'running-late', 'wait', 'arrived', 'im-home', 'call'] as const),
+  outing: Object.freeze(['meal', 'coffee', 'walk', 'photo', 'send-photo', 'rain', 'rest', 'recommend', 'booked', 'saved-seat', 'good-time', 'again'] as const),
+});
+export type MascotStickerTheme = keyof typeof mascotStickerPoses;
+export type MascotStickerPose = typeof mascotStickerPoses[MascotStickerTheme][number];
+export const mascotStickerThemes = Object.freeze(Object.keys(mascotStickerPoses) as MascotStickerTheme[]);
+export function mascotStickerId(pack: MascotStickerPackId, pose: MascotStickerPose): `${MascotStickerPackId}-${MascotStickerPose}` {
+  return `${pack}-${pose}`;
+}
+const mascotStickerIds = mascotStickerPackIds.flatMap(pack => mascotStickerThemes.flatMap(theme =>
+  mascotStickerPoses[theme].map(pose => mascotStickerId(pack, pose)),
+));
+
 export const chatStickerIds = Object.freeze([
   'bunny-hi', 'bunny-love', 'bunny-cheer', 'bunny-thanks', 'bunny-laugh',
   'bunny-tears', 'bunny-sleep', 'bunny-coffee', 'bunny-okay', 'bunny-nope',
@@ -12,14 +31,7 @@ export const chatStickerIds = Object.freeze([
   'redcap-confirmed', 'redcap-cant-make-it', 'redcap-good-night', 'redcap-where-are-you', 'redcap-ill-call', 'redcap-send-photo', 'redcap-saved-seat', 'redcap-im-home', 'redcap-had-fun',
   'roundglasses-thumbs-up', 'roundglasses-hello', 'roundglasses-thanks', 'roundglasses-thinking', 'roundglasses-come-along', 'roundglasses-booked', 'roundglasses-tea', 'roundglasses-five-minutes', 'roundglasses-take-time',
   'purplescarf-excited', 'purplescarf-high-five', 'purplescarf-wow', 'purplescarf-go', 'purplescarf-found-the-way', 'purplescarf-fresh-air', 'purplescarf-snack', 'purplescarf-selfie', 'purplescarf-see-you',
-  'pebble-thumbs-up', 'pebble-on-my-way', 'pebble-thanks',
-  'pebble-hello', 'pebble-okay', 'pebble-laugh', 'pebble-wow', 'pebble-sad', 'pebble-sorry', 'pebble-congrats', 'pebble-cheer', 'pebble-love', 'pebble-tired', 'pebble-good-night', 'pebble-good-morning',
-  'pebble-joining', 'pebble-cant-make-it', 'pebble-check-time', 'pebble-change-time', 'pebble-meet-here', 'pebble-where-are-you', 'pebble-leaving', 'pebble-running-late', 'pebble-wait', 'pebble-arrived', 'pebble-im-home', 'pebble-call',
-  'pebble-meal', 'pebble-coffee', 'pebble-walk', 'pebble-photo', 'pebble-send-photo', 'pebble-rain', 'pebble-rest', 'pebble-recommend', 'pebble-booked', 'pebble-saved-seat', 'pebble-good-time', 'pebble-again',
-  'guidebot-thumbs-up', 'guidebot-on-my-way', 'guidebot-thanks',
-  'guidebot-hello', 'guidebot-okay', 'guidebot-laugh', 'guidebot-wow', 'guidebot-sad', 'guidebot-sorry', 'guidebot-congrats', 'guidebot-cheer', 'guidebot-love', 'guidebot-tired', 'guidebot-good-night', 'guidebot-good-morning',
-  'guidebot-joining', 'guidebot-cant-make-it', 'guidebot-check-time', 'guidebot-change-time', 'guidebot-meet-here', 'guidebot-where-are-you', 'guidebot-leaving', 'guidebot-running-late', 'guidebot-wait', 'guidebot-arrived', 'guidebot-im-home', 'guidebot-call',
-  'guidebot-meal', 'guidebot-coffee', 'guidebot-walk', 'guidebot-photo', 'guidebot-send-photo', 'guidebot-rain', 'guidebot-rest', 'guidebot-recommend', 'guidebot-booked', 'guidebot-saved-seat', 'guidebot-good-time', 'guidebot-again',
+  ...mascotStickerIds,
 ] as const);
 export type ChatStickerId = typeof chatStickerIds[number];
 const stickerIds: ReadonlySet<string> = new Set(chatStickerIds);

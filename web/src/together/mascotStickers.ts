@@ -1,97 +1,35 @@
-import type { ChatStickerId, ChatStickerPackId } from './chatExpressionContract.ts';
+import {
+  mascotStickerId, mascotStickerPackIds, mascotStickerPoses, mascotStickerThemes,
+  type MascotStickerPackId, type MascotStickerPose,
+} from './chatExpressionContract.ts';
 
-export type MascotStickerPackId = Extract<ChatStickerPackId, 'pebble' | 'guidebot'>;
-export type MascotStickerTheme = 'starter' | 'daily' | 'planning' | 'outing';
-type MascotEntry = readonly [
-  pack: MascotStickerPackId,
-  id: Extract<ChatStickerId, `${MascotStickerPackId}-${string}`>,
-  theme: MascotStickerTheme,
-  label: string,
-  src: string,
-];
+export type { MascotStickerPackId, MascotStickerTheme } from './chatExpressionContract.ts';
 
-// The three approved concepts stay at the start of each pack. Keep asset URLs static for Vite.
-const entries = [
-  ['pebble', 'pebble-thumbs-up', 'starter', '엄지척', new URL('./sticker-art/pebble/thumbs-up.webp', import.meta.url).href],
-  ['pebble', 'pebble-on-my-way', 'starter', '가는 중', new URL('./sticker-art/pebble/on-my-way.webp', import.meta.url).href],
-  ['pebble', 'pebble-thanks', 'starter', '고마워', new URL('./sticker-art/pebble/thanks.webp', import.meta.url).href],
-  ['pebble', 'pebble-hello', 'daily', '안녕!', new URL('./sticker-art/pebble/hello.webp', import.meta.url).href],
-  ['pebble', 'pebble-okay', 'daily', '알겠어!', new URL('./sticker-art/pebble/okay.webp', import.meta.url).href],
-  ['pebble', 'pebble-laugh', 'daily', '웃겨!', new URL('./sticker-art/pebble/laugh.webp', import.meta.url).href],
-  ['pebble', 'pebble-wow', 'daily', '깜짝이야!', new URL('./sticker-art/pebble/wow.webp', import.meta.url).href],
-  ['pebble', 'pebble-sad', 'daily', '속상해', new URL('./sticker-art/pebble/sad.webp', import.meta.url).href],
-  ['pebble', 'pebble-sorry', 'daily', '미안해', new URL('./sticker-art/pebble/sorry.webp', import.meta.url).href],
-  ['pebble', 'pebble-congrats', 'daily', '축하해!', new URL('./sticker-art/pebble/congrats.webp', import.meta.url).href],
-  ['pebble', 'pebble-cheer', 'daily', '힘내!', new URL('./sticker-art/pebble/cheer.webp', import.meta.url).href],
-  ['pebble', 'pebble-love', 'daily', '좋아해', new URL('./sticker-art/pebble/love.webp', import.meta.url).href],
-  ['pebble', 'pebble-tired', 'daily', '피곤해', new URL('./sticker-art/pebble/tired.webp', import.meta.url).href],
-  ['pebble', 'pebble-good-night', 'daily', '잘 자', new URL('./sticker-art/pebble/good-night.webp', import.meta.url).href],
-  ['pebble', 'pebble-good-morning', 'daily', '좋은 아침!', new URL('./sticker-art/pebble/good-morning.webp', import.meta.url).href],
-  ['pebble', 'pebble-joining', 'planning', '참석할게!', new URL('./sticker-art/pebble/joining.webp', import.meta.url).href],
-  ['pebble', 'pebble-cant-make-it', 'planning', '오늘은 못 가', new URL('./sticker-art/pebble/cant-make-it.webp', import.meta.url).href],
-  ['pebble', 'pebble-check-time', 'planning', '시간 확인', new URL('./sticker-art/pebble/check-time.webp', import.meta.url).href],
-  ['pebble', 'pebble-change-time', 'planning', '시간 바꿀까?', new URL('./sticker-art/pebble/change-time.webp', import.meta.url).href],
-  ['pebble', 'pebble-meet-here', 'planning', '여기서 만나', new URL('./sticker-art/pebble/meet-here.webp', import.meta.url).href],
-  ['pebble', 'pebble-where-are-you', 'planning', '어디야?', new URL('./sticker-art/pebble/where-are-you.webp', import.meta.url).href],
-  ['pebble', 'pebble-leaving', 'planning', '출발!', new URL('./sticker-art/pebble/leaving.webp', import.meta.url).href],
-  ['pebble', 'pebble-running-late', 'planning', '조금 늦어요', new URL('./sticker-art/pebble/running-late.webp', import.meta.url).href],
-  ['pebble', 'pebble-wait', 'planning', '잠깐만', new URL('./sticker-art/pebble/wait.webp', import.meta.url).href],
-  ['pebble', 'pebble-arrived', 'planning', '도착!', new URL('./sticker-art/pebble/arrived.webp', import.meta.url).href],
-  ['pebble', 'pebble-im-home', 'planning', '집에 왔어', new URL('./sticker-art/pebble/im-home.webp', import.meta.url).href],
-  ['pebble', 'pebble-call', 'planning', '전화할게', new URL('./sticker-art/pebble/call.webp', import.meta.url).href],
-  ['pebble', 'pebble-meal', 'outing', '밥 먹자', new URL('./sticker-art/pebble/meal.webp', import.meta.url).href],
-  ['pebble', 'pebble-coffee', 'outing', '차 한 잔?', new URL('./sticker-art/pebble/coffee.webp', import.meta.url).href],
-  ['pebble', 'pebble-walk', 'outing', '산책 가자', new URL('./sticker-art/pebble/walk.webp', import.meta.url).href],
-  ['pebble', 'pebble-photo', 'outing', '사진 찍자', new URL('./sticker-art/pebble/photo.webp', import.meta.url).href],
-  ['pebble', 'pebble-send-photo', 'outing', '사진 보내줘', new URL('./sticker-art/pebble/send-photo.webp', import.meta.url).href],
-  ['pebble', 'pebble-rain', 'outing', '비 와요', new URL('./sticker-art/pebble/rain.webp', import.meta.url).href],
-  ['pebble', 'pebble-rest', 'outing', '잠깐 쉬자', new URL('./sticker-art/pebble/rest.webp', import.meta.url).href],
-  ['pebble', 'pebble-recommend', 'outing', '여기 좋아', new URL('./sticker-art/pebble/recommend.webp', import.meta.url).href],
-  ['pebble', 'pebble-booked', 'outing', '예약했어요', new URL('./sticker-art/pebble/booked.webp', import.meta.url).href],
-  ['pebble', 'pebble-saved-seat', 'outing', '자리 맡아뒀어', new URL('./sticker-art/pebble/saved-seat.webp', import.meta.url).href],
-  ['pebble', 'pebble-good-time', 'outing', '오늘 즐거웠어', new URL('./sticker-art/pebble/good-time.webp', import.meta.url).href],
-  ['pebble', 'pebble-again', 'outing', '또 만나!', new URL('./sticker-art/pebble/again.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-thumbs-up', 'starter', '엄지척', new URL('./sticker-art/guide-bot/thumbs-up.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-on-my-way', 'starter', '가는 중', new URL('./sticker-art/guide-bot/on-my-way.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-thanks', 'starter', '고마워', new URL('./sticker-art/guide-bot/thanks.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-hello', 'daily', '안녕!', new URL('./sticker-art/guide-bot/hello.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-okay', 'daily', '알겠어!', new URL('./sticker-art/guide-bot/okay.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-laugh', 'daily', '웃겨!', new URL('./sticker-art/guide-bot/laugh.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-wow', 'daily', '깜짝이야!', new URL('./sticker-art/guide-bot/wow.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-sad', 'daily', '속상해', new URL('./sticker-art/guide-bot/sad.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-sorry', 'daily', '미안해', new URL('./sticker-art/guide-bot/sorry.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-congrats', 'daily', '축하해!', new URL('./sticker-art/guide-bot/congrats.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-cheer', 'daily', '힘내!', new URL('./sticker-art/guide-bot/cheer.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-love', 'daily', '좋아해', new URL('./sticker-art/guide-bot/love.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-tired', 'daily', '피곤해', new URL('./sticker-art/guide-bot/tired.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-good-night', 'daily', '잘 자', new URL('./sticker-art/guide-bot/good-night.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-good-morning', 'daily', '좋은 아침!', new URL('./sticker-art/guide-bot/good-morning.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-joining', 'planning', '참석할게!', new URL('./sticker-art/guide-bot/joining.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-cant-make-it', 'planning', '오늘은 못 가', new URL('./sticker-art/guide-bot/cant-make-it.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-check-time', 'planning', '시간 확인', new URL('./sticker-art/guide-bot/check-time.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-change-time', 'planning', '시간 바꿀까?', new URL('./sticker-art/guide-bot/change-time.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-meet-here', 'planning', '여기서 만나', new URL('./sticker-art/guide-bot/meet-here.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-where-are-you', 'planning', '어디야?', new URL('./sticker-art/guide-bot/where-are-you.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-leaving', 'planning', '출발!', new URL('./sticker-art/guide-bot/leaving.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-running-late', 'planning', '조금 늦어요', new URL('./sticker-art/guide-bot/running-late.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-wait', 'planning', '잠깐만', new URL('./sticker-art/guide-bot/wait.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-arrived', 'planning', '도착!', new URL('./sticker-art/guide-bot/arrived.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-im-home', 'planning', '집에 왔어', new URL('./sticker-art/guide-bot/im-home.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-call', 'planning', '전화할게', new URL('./sticker-art/guide-bot/call.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-meal', 'outing', '밥 먹자', new URL('./sticker-art/guide-bot/meal.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-coffee', 'outing', '차 한 잔?', new URL('./sticker-art/guide-bot/coffee.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-walk', 'outing', '산책 가자', new URL('./sticker-art/guide-bot/walk.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-photo', 'outing', '사진 찍자', new URL('./sticker-art/guide-bot/photo.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-send-photo', 'outing', '사진 보내줘', new URL('./sticker-art/guide-bot/send-photo.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-rain', 'outing', '비 와요', new URL('./sticker-art/guide-bot/rain.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-rest', 'outing', '잠깐 쉬자', new URL('./sticker-art/guide-bot/rest.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-recommend', 'outing', '여기 좋아', new URL('./sticker-art/guide-bot/recommend.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-booked', 'outing', '예약했어요', new URL('./sticker-art/guide-bot/booked.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-saved-seat', 'outing', '자리 맡아뒀어', new URL('./sticker-art/guide-bot/saved-seat.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-good-time', 'outing', '오늘 즐거웠어', new URL('./sticker-art/guide-bot/good-time.webp', import.meta.url).href],
-  ['guidebot', 'guidebot-again', 'outing', '또 만나!', new URL('./sticker-art/guide-bot/again.webp', import.meta.url).href],
-] as const satisfies readonly MascotEntry[];
+const labels = {
+  'thumbs-up': '엄지척', 'on-my-way': '가는 중', thanks: '고마워',
+  hello: '안녕!', okay: '알겠어!', laugh: '웃겨!', wow: '깜짝이야!', sad: '속상해', sorry: '미안해',
+  congrats: '축하해!', cheer: '힘내!', love: '좋아해', tired: '피곤해', 'good-night': '잘 자', 'good-morning': '좋은 아침!',
+  joining: '참석할게!', 'cant-make-it': '오늘은 못 가', 'check-time': '시간 확인', 'change-time': '시간 바꿀까?',
+  'meet-here': '여기서 만나', 'where-are-you': '어디야?', leaving: '출발!', 'running-late': '조금 늦어요',
+  wait: '잠깐만', arrived: '도착!', 'im-home': '집에 왔어', call: '전화할게',
+  meal: '밥 먹자', coffee: '차 한 잔?', walk: '산책 가자', photo: '사진 찍자', 'send-photo': '사진 보내줘', rain: '비 와요',
+  rest: '잠깐 쉬자', recommend: '여기 좋아', booked: '예약했어요', 'saved-seat': '자리 맡아뒀어', 'good-time': '오늘 즐거웠어', again: '또 만나!',
+} as const satisfies Record<MascotStickerPose, string>;
 
-export const mascotStickers = Object.freeze(entries.map(([pack, id, theme, label, src]) =>
-  Object.freeze({ id, name: label, label, pack, theme, src }),
-));
+// A static directory in each branch lets Vite bundle the matching local WebPs.
+function artUrl(pack: MascotStickerPackId, pose: MascotStickerPose) {
+  switch (pack) {
+    case 'pebble': return new URL(`./sticker-art/pebble/${pose}.webp`, import.meta.url).href;
+    case 'guidebot': return new URL(`./sticker-art/guide-bot/${pose}.webp`, import.meta.url).href;
+    case 'backpack': return new URL(`./sticker-art/backpack/${pose}.webp`, import.meta.url).href;
+    case 'cloud': return new URL(`./sticker-art/cloud/${pose}.webp`, import.meta.url).href;
+    case 'otter': return new URL(`./sticker-art/otter/${pose}.webp`, import.meta.url).href;
+    case 'thermos': return new URL(`./sticker-art/thermos/${pose}.webp`, import.meta.url).href;
+  }
+}
+
+export const mascotStickers = Object.freeze(mascotStickerPackIds.flatMap(pack => mascotStickerThemes.flatMap(theme =>
+  mascotStickerPoses[theme].map(pose => Object.freeze({
+    id: mascotStickerId(pack, pose), name: labels[pose], label: labels[pose], pack, theme, src: artUrl(pack, pose),
+  })),
+)));

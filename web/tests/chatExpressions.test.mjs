@@ -4,12 +4,14 @@ import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { chatStickerPacks, chatStickerPickerPacks, packs, chatStickers, getChatSticker, isChatStickerId, emojiCategories } from '../src/together/chatExpressions.ts';
+import { chatStickerIds, isChatStickerId as validateStoredSticker } from '../src/together/chatExpressionContract.ts';
+
+const mascotPackIds = ['pebble', 'guidebot', 'backpack', 'cloud', 'otter', 'thermos'];
 
 test('the picker places featured stickers first and keeps all animal packs at the end', () => {
-  assert.deepEqual(chatStickerPickerPacks.map(pack => pack.id), ['redcap', 'pebble', 'guidebot', 'roundglasses', 'purplescarf', 'bunny', 'cat', 'bear', 'duck']);
+  assert.deepEqual(chatStickerPickerPacks.map(pack => pack.id), ['redcap', ...mascotPackIds, 'roundglasses', 'purplescarf', 'bunny', 'cat', 'bear', 'duck']);
   assert.deepEqual(new Set(chatStickerPickerPacks), new Set(chatStickerPacks));
 });
-import { chatStickerIds, isChatStickerId as validateStoredSticker } from '../src/together/chatExpressionContract.ts';
 
 test('stored sticker contract accepts exactly the current immutable artwork IDs', () => {
   assert.deepEqual(chatStickerIds, chatStickers.map(sticker => sticker.id));
@@ -35,34 +37,33 @@ test('repository and draft/message validation load without initializing chat art
   assert.equal(result.status, 0, result.stderr || result.stdout);
 });
 
-test('all 88 previous stickers and their packs keep their metadata, order and original artwork', () => {
+test('all 166 previous stickers and their packs keep their metadata, order and original artwork', () => {
   assert.equal(packs,chatStickerPacks);
-  const packOrder = ['bunny','cat','bear','duck','redcap','roundglasses','purplescarf','pebble','guidebot'];
-  const packSizes = [10,8,8,8,36,9,9,39,39];
+  const packOrder = ['bunny','cat','bear','duck','redcap','roundglasses','purplescarf', ...mascotPackIds];
+  const packSizes = [10,8,8,8,36,9,9, ...mascotPackIds.map(() => 39)];
   assert.deepEqual(chatStickerPacks.map(pack=>pack.id), packOrder);
   assert.deepEqual(chatStickers.map(sticker=>sticker.pack), packOrder.flatMap((pack, i) => Array(packSizes[i]).fill(pack)));
-  assert.equal(new Set(chatStickers.map(sticker=>sticker.id)).size,166);
+  assert.equal(new Set(chatStickers.map(sticker=>sticker.id)).size,322);
   for(const pack of chatStickerPacks){assert.equal(getChatSticker(pack.coverId).pack,pack.id);assert.ok(pack.name&&pack.shortName&&pack.description);}
   const digest = value => createHash('sha256').update(value).digest('hex');
-  const legacy = chatStickers.slice(0,88);
-  assert.ok(legacy.every(sticker => !Object.hasOwn(sticker, 'theme')));
-  assert.equal(digest(JSON.stringify(chatStickerPacks.slice(0,7))), '951d875f9d2ca7ac6eb6215ce38514caee5981f1546ab8c5c3b36fe52fcf8d0e');
-  assert.equal(digest(JSON.stringify(legacy.map(sticker => [
-    sticker.id, sticker.name, sticker.label, sticker.pack, sticker.svg ?? digest(readFileSync(new URL(sticker.src))),
-  ]))), '4b1ec469104fe9557d887b650d905223b272d8e1b52dbf741a317cf890f21e68');
+  assert.ok(chatStickers.slice(0,88).every(sticker => !Object.hasOwn(sticker, 'theme')));
+  assert.equal(digest(JSON.stringify(chatStickerPacks.slice(0,9))), 'c9729071ab62660b9df58c44b1da896ef954cd3ada312108b9ddb31adda03401');
+  assert.equal(digest(JSON.stringify(chatStickers.slice(0,166).map(sticker => [
+    sticker.id, sticker.name, sticker.label, sticker.pack, sticker.theme ?? null, sticker.svg ?? digest(readFileSync(new URL(sticker.src))),
+  ]))), '2cde7a5a911a676960bba189de9d6f7f00fafa5988ceda696690b207e2eff671');
 });
 
-test('both new mascots contain the three approved poses first and 12 poses for each of three themes', () => {
-  const [pebble, robot] = ['pebble', 'guidebot'].map(pack => chatStickers.filter(sticker => sticker.pack === pack));
+test('all six mascots contain the three approved poses first and 12 poses for each of three themes', () => {
+  const mascots = mascotPackIds.map(pack => chatStickers.filter(sticker => sticker.pack === pack));
   const expectedThemes = [...Array(3).fill('starter'), ...['daily', 'planning', 'outing'].flatMap(theme => Array(12).fill(theme))];
-  for (const pack of [pebble, robot]) {
+  const orderedPoses = pack => pack.map(sticker => [sticker.id.slice(sticker.pack.length + 1), sticker.label]);
+  for (const pack of mascots) {
     assert.deepEqual(pack.map(sticker => sticker.theme), expectedThemes);
     assert.deepEqual(pack.slice(0,3).map(sticker => [sticker.id.slice(sticker.pack.length + 1), sticker.label]), [
       ['thumbs-up', '엄지척'], ['on-my-way', '가는 중'], ['thanks', '고마워'],
     ]);
+    assert.deepEqual(orderedPoses(pack), orderedPoses(mascots[0]));
   }
-  const orderedPoses = pack => pack.map(sticker => [sticker.id.slice(sticker.pack.length + 1), sticker.label]);
-  assert.deepEqual(orderedPoses(pebble), orderedPoses(robot));
 });
 
 test('only catalog IDs resolve; arbitrary URLs, markup, object keys and unknown IDs are refused',()=>{
@@ -86,9 +87,9 @@ test('SVG data is self-contained constant artwork without executable markup or e
 });
 
 test('character packs use unique local, lossless 256px alpha WebP images and Korean labels', () => {
-  const assetDirectory = { redcap: 'red-cap', roundglasses: 'round-glasses', purplescarf: 'purple-scarf', pebble: 'pebble', guidebot: 'guide-bot' };
+  const assetDirectory = { redcap: 'red-cap', roundglasses: 'round-glasses', purplescarf: 'purple-scarf', pebble: 'pebble', guidebot: 'guide-bot', backpack: 'backpack', cloud: 'cloud', otter: 'otter', thermos: 'thermos' };
   const rasterStickers = chatStickers.filter(item => Object.hasOwn(assetDirectory, item.pack));
-  assert.equal(new Set(rasterStickers.map(item => item.src)).size, 132);
+  assert.equal(new Set(rasterStickers.map(item => item.src)).size, 288);
   for (const item of rasterStickers) {
     assert.ok(Object.isFrozen(item));
     assert.match(item.label, /[가-힣]/);

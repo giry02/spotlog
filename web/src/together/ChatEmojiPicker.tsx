@@ -29,7 +29,7 @@ export default function ChatEmojiPicker({ onInsertEmoji, onSelectSticker, onClos
   const category = emojiCategories.find(item => item.id === categoryId) ?? emojiCategories[0];
   const pack = chatStickerPickerPacks.find(item => item.id === packId)!;
   const packStickers = chatStickers.filter(sticker => sticker.pack === packId);
-  const hasThemes = packId === 'pebble' || packId === 'guidebot';
+  const hasThemes = packStickers.some(sticker => sticker.theme !== undefined);
   const visibleStickers = hasThemes && themeFilter !== 'all' ? packStickers.filter(sticker => sticker.theme === themeFilter) : packStickers;
   const jumpToAdded = () => {
     const heading = addedHeading.current;
@@ -45,8 +45,14 @@ export default function ChatEmojiPicker({ onInsertEmoji, onSelectSticker, onClos
       setMode(next); document.getElementById(`${uid}-${next}`)?.focus();
     }}><button type="button" id={`${uid}-stickers`} role="tab" aria-selected={mode === 'stickers'} aria-controls={`${uid}-panel`} tabIndex={mode === 'stickers' ? 0 : -1} onClick={() => setMode('stickers')}>스티커</button><button type="button" id={`${uid}-emoji`} role="tab" aria-selected={mode === 'emoji'} aria-controls={`${uid}-panel`} tabIndex={mode === 'emoji' ? 0 : -1} onClick={() => setMode('emoji')}>이모지</button></div><button type="button" className="chat-expression-close" aria-label="이모지 선택 닫기" onClick={onClose}><X size={18} aria-hidden="true" /></button></div>
     <div role="tabpanel" id={`${uid}-panel`} aria-labelledby={`${uid}-${mode}`}>
-      {mode === 'emoji' ? <><div className="chat-expression-categories" aria-label="이모지 분류">{emojiCategories.map(item => <button type="button" key={item.id} aria-pressed={categoryId === item.id} onClick={() => setCategoryId(item.id)}><span aria-hidden="true">{item.emoji}</span>{item.label}</button>)}</div><div className="chat-expression-scroll"><div className="chat-expression-emoji-grid" aria-label={`${category.label} 이모지`}>{category.items.map(item => <button type="button" key={item.emoji} aria-label={`${item.label} 이모지 넣기`} title={item.label} onClick={() => onInsertEmoji(item.emoji)}><span aria-hidden="true">{item.emoji}</span></button>)}</div></div><p className="chat-expression-hint">이모지는 작성 중인 메시지에 들어가요.</p></> : <>
-        <div className="chat-expression-categories chat-expression-packs" role="group" aria-label="스티커 묶음" tabIndex={0}>
+      {mode === 'emoji' ? <>
+        <div key="emoji-categories" className="chat-expression-categories" role="group" aria-label="이모지 분류" tabIndex={0}>
+          {emojiCategories.map(item => <button type="button" key={item.id} aria-pressed={categoryId === item.id} onClick={() => setCategoryId(item.id)}><span aria-hidden="true">{item.emoji}</span>{item.label}</button>)}
+        </div>
+        <div className="chat-expression-scroll"><div className="chat-expression-emoji-grid" aria-label={`${category.label} 이모지`}>{category.items.map(item => <button type="button" key={item.emoji} aria-label={`${item.label} 이모지 넣기`} title={item.label} onClick={() => onInsertEmoji(item.emoji)}><span aria-hidden="true">{item.emoji}</span></button>)}</div></div>
+        <p className="chat-expression-hint">이모지는 작성 중인 메시지에 들어가요.</p>
+      </> : <>
+        <div key="sticker-packs" className="chat-expression-categories chat-expression-packs" role="group" aria-label="스티커 묶음" tabIndex={0}>
           {chatStickerPickerPacks.map(item => <button type="button" key={item.id} aria-pressed={packId === item.id} aria-label={item.id === 'guidebot' ? '길잡이 로봇' : undefined} onClick={() => {
             if (item.id !== packId) { setPackId(item.id); setThemeFilter('all'); }
           }}><img src={getChatSticker(item.coverId)!.src} alt="" /><span className="chat-expression-pack-label">{item.shortName}</span></button>)}
