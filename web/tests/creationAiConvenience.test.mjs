@@ -195,7 +195,7 @@ test('a trip AI suggestion preserves the typed title and applies only the chosen
     places:[park,food,cafe], initial:{purpose:'TRIP',region:'부산'},initialName,initialPrompt:initialName,
     onReview:(_brief,plan)=>{saved.push(plan);return true;},
   });
-  app.render();app.control('AI로 초안 만들기').props.onClick();await tick();app.render();
+  app.render();app.control('AI로 여행 일정 짜기').props.onClick();await tick();app.render();
   const proposal=app.find(node=>node.props?.['aria-label']==='적용 전 AI 제안');
   const choices=nodes(proposal).filter(node=>node.type==='input'&&node.props.type==='checkbox');
   assert.equal(choices[0].props.checked,false,'a populated DAY remains unchecked');

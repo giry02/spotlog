@@ -57,7 +57,7 @@ import { normalizeCalendarView, type CalendarView } from './calendarPlans';
 import CreationPlannerPanel from './CreationPlannerPanel';
 import GroupLocalityFields from './GroupLocalityFields';
 import { groupLocalityIssues } from './groupRegions';
-import { holdCreationHandoff, isCreationPlannerRoute, peekCreationHandoff, retainCreationHandoff, takeCreationHandoff } from './creationHandoff';
+import { holdCreationHandoff, isCreationPlannerRoute, isTripCreationRoute, peekCreationHandoff, retainCreationHandoff, takeCreationHandoff, TRIP_DRAFT_ROUTE } from './creationHandoff';
 import type { CreationPreviewDraft } from './creationPreview';
 import { attachCreationPreferences } from './creationPreferences';
 import { pageCreationDraftMemory } from './creationDraftMemory';
@@ -237,7 +237,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     return {
       initial: { region: [discoveryFilters?.region, discoveryFilters?.district, discoveryFilters?.neighborhood].filter(Boolean).join(' ') } as Partial<CreationBrief>,
       requestId: remembered?.requestId || togetherId('creation'),
-      target: remembered?.target || (route === 'together-plan-trip' ? 'PERSONAL' as const : 'TOGETHER' as const),
+      target: remembered?.target || (isTripCreationRoute(route) ? 'PERSONAL' as const : 'TOGETHER' as const),
       preparedRoute: direct ? JSON.stringify([actor, route]) : '',
     };
   });
@@ -285,7 +285,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   searchMemory.reconcile(state, uid);
   useEffect(() => { setSummaryReturn(null); }, [uid]);
   pageCreationDraftMemory.activate(uid);
-  const directCreationPurpose = route === 'together-plan-trip' ? 'TRIP' : route === 'together-plan-group' ? 'GROUP' : undefined;
+  const directCreationPurpose = isTripCreationRoute(route) ? 'TRIP' : route === 'together-plan-group' ? 'GROUP' : undefined;
   const recentStorage = useMemo(() => { try { return window.localStorage; } catch { return null; } }, []);
   const guidePublicStore = useMemo(() => recentStorage ? createVisitGuidePublicStore(recentStorage) : null, [recentStorage]);
   const creationAccount = useRef(uid);
@@ -1482,10 +1482,11 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   let screen: ReactNode;
   if (route.startsWith('visit-guide-')) screen = <VisitGuideLink token={route.slice('visit-guide-'.length)} onBack={() => onBack ? onBack('home') : nav('together')}/>;
   else if (isCreationPlannerRoute(route)) {
-    const title = directCreationPurpose === 'GROUP' ? '모임 만들기' : directCreationPurpose === 'TRIP' ? '여행 만들기' : '약속 만들기';
+    const opensTripDraft = route === TRIP_DRAFT_ROUTE;
+    const title = opensTripDraft ? '여행 일정 초안' : directCreationPurpose === 'GROUP' ? '모임 만들기' : directCreationPurpose === 'TRIP' ? '여행 만들기' : '약속 만들기';
     const recommending = tripRecommendation?.actor === uid && tripRecommendation.route === route || Boolean(creationResume);
-    const startTrip = directCreationPurpose === 'TRIP' && onStartPersonalPlan && !recommending;
-    const backToTripStart = directCreationPurpose === 'TRIP' && recommending && !creationResume && onStartPersonalPlan
+    const startTrip = directCreationPurpose === 'TRIP' && onStartPersonalPlan && !recommending && !opensTripDraft;
+    const backToTripStart = directCreationPurpose === 'TRIP' && recommending && !creationResume && onStartPersonalPlan && !opensTripDraft
       ? () => setTripRecommendation(null)
       : undefined;
     screen = <><ScreenHeader title={title} variant="detail" leading={<button type="button" aria-label="뒤로" onClick={backToTripStart ?? closeCreationPlanner}><ArrowLeft size={20}/></button>}/>

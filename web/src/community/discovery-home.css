@@ -111,6 +111,15 @@
 .discovery-home__places--editorial .discovery-home__place-copy>strong { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
 .discovery-home__places--editorial .discovery-home__place-open>svg { display:none; }
 
+.discovery-home__drafts { margin:12px 0 8px; padding:12px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+.discovery-home__drafts h2 { display:flex; align-items:center; gap:7px; margin:0 0 8px; color:var(--ink); font-size:var(--type-body); line-height:22px; font-weight:700; }
+.discovery-home__drafts h2 svg { flex:none; }
+.discovery-home__draft-actions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
+.discovery-home__draft-actions button { display:grid; justify-items:center; align-content:center; gap:6px; min-width:0; min-height:68px; padding:7px 3px; border:0; border-radius:8px; background:var(--soft,#f1f1ee); color:var(--ink); text-align:center; }
+.discovery-home__draft-actions button span { display:grid; gap:1px; min-width:0; }
+.discovery-home__draft-actions strong { font-size:var(--type-subhead); line-height:20px; font-weight:700; }
+.discovery-home__draft-actions small { color:var(--muted); font-size:var(--type-caption); line-height:16px; overflow-wrap:anywhere; }
+
 .discovery-home__where-to { min-width:0; margin:4px 0 0; padding:4px 0; border-bottom:1px solid var(--line); }
 .discovery-home__where-to.is-detail { padding-bottom:2px; }
 .discovery-home__where-head { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:6px; }

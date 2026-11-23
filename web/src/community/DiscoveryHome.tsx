@@ -39,6 +39,8 @@ export interface DiscoveryHomeProps {
   onOpenPlaces: (filters: HomePlaceFilters) => void;
   onOpenSaved?: () => void;
   onOpenAiSearch?: () => void;
+  onOpenGroupDraft?: () => void;
+  onOpenTripDraft?: () => void;
   savedCount?: number;
   savedPlaceIds?: readonly string[];
   onTogglePlaceSaved?: (id: string) => void;
@@ -88,7 +90,7 @@ function PlaceThumbnail({ place }: { place: Place }) {
 }
 
 /** Public recommendations and a separately gated member return strip; destinations own mutations. */
-export default function DiscoveryHome({ mode = 'home', places, references = emptyReferences, state, viewerId = '', region, district, neighborhood, myRegionLabel, onManageMyRegions, onUseMyRegion, query, onRegionChange, onQueryChange, onOpenGroup, onFindGroups, onOpenPicks, onOpenPlace, onOpenPlaces, onOpenSaved, onOpenAiSearch, savedCount, savedPlaceIds, onTogglePlaceSaved, savedCourseIds, onToggleCourseSaved, onOpenMyActivity, onOpenMyChat, personalPlans, recentPersonalPlanId, onOpenMyDraft, onOpenMyPlan, header, headerActions, travelContent, templates = emptyTemplates, journals = emptyJournals, duration = 'ALL', onDurationChange, onOpenTemplate, onOpenJournal, onMoreTravel, onMoreJournals, onPlan, onStartTogether, onTryCourse, view, onViewChange, purpose, onPurposeChange }: DiscoveryHomeProps) {
+export default function DiscoveryHome({ mode = 'home', places, references = emptyReferences, state, viewerId = '', region, district, neighborhood, myRegionLabel, onManageMyRegions, onUseMyRegion, query, onRegionChange, onQueryChange, onOpenGroup, onFindGroups, onOpenPicks, onOpenPlace, onOpenPlaces, onOpenSaved, onOpenAiSearch, onOpenGroupDraft, onOpenTripDraft, savedCount, savedPlaceIds, onTogglePlaceSaved, savedCourseIds, onToggleCourseSaved, onOpenMyActivity, onOpenMyChat, personalPlans, recentPersonalPlanId, onOpenMyDraft, onOpenMyPlan, header, headerActions, travelContent, templates = emptyTemplates, journals = emptyJournals, duration = 'ALL', onDurationChange, onOpenTemplate, onOpenJournal, onMoreTravel, onMoreJournals, onPlan, onStartTogether, onTryCourse, view, onViewChange, purpose, onPurposeChange }: DiscoveryHomeProps) {
   const isTravel = mode === 'travel';
   const sharedActivity = useMemo(() => selectHomeSharedActivity(state, viewerId, places), [state, viewerId, places]);
   const uid = useId();
@@ -174,6 +176,14 @@ export default function DiscoveryHome({ mode = 'home', places, references = empt
       {!isTravel && <>
         <div className="discovery-home__views" role="group" aria-label="발견에서 볼 내용">{homeViews.map(item => <button type="button" key={item.id} aria-pressed={currentView === item.id} onClick={() => changeView(item.id)}>{item.label}</button>)}</div>
         {currentView === 'recommended' && <MemberReturnStrip maxRows={1} state={state} viewerId={viewerId} onOpenMyActivity={onOpenMyActivity} onOpenMyChat={onOpenMyChat} personalPlans={personalPlans} recentPersonalPlanId={recentPersonalPlanId} onOpenMyDraft={onOpenMyDraft} onOpenMyPlan={onOpenMyPlan} activityRoute={sharedActivity}/>}
+        {currentView === 'recommended' && onOpenAiSearch && onOpenGroupDraft && onOpenTripDraft && <section className="discovery-home__drafts" aria-labelledby={`${uid}-drafts`}>
+          <h2 id={`${uid}-drafts`}><Sparkles size={19} aria-hidden="true"/>{planningAiAvailable ? 'AI로 계획하기' : '한 문장으로 자동 제안'}</h2>
+          <div className="discovery-home__draft-actions">
+            <button type="button" onClick={onOpenAiSearch}><Search size={19} aria-hidden="true"/><span><strong>장소 추천</strong><small>맛집·카페·명소</small></span></button>
+            <button type="button" onClick={onOpenGroupDraft}><Users size={19} aria-hidden="true"/><span><strong>모임 초안</strong><small>이름과 소개</small></span></button>
+            <button type="button" onClick={onOpenTripDraft}><Luggage size={19} aria-hidden="true"/><span><strong>여행 일정</strong><small>DAY별 동선</small></span></button>
+          </div>
+        </section>}
         {whereTo}
         <div className="discovery-home__tools"><button type="button" className="discovery-home__filter-toggle" aria-expanded={filtersOpen} aria-controls={`${uid}-filters`} onClick={() => setFiltersOpen(value => !value)}><SlidersHorizontal size={17} aria-hidden="true"/><span>{purposeLabel || '활동 조건'}</span><ChevronDown size={15} aria-hidden="true"/></button>{hasFilters && <button type="button" className="discovery-home__reset" aria-label="발견 조건 초기화" onClick={reset}><X size={17}/></button>}{onPlan && currentView !== 'trips' && <button type="button" className="discovery-home__plan" onClick={onPlan}><CalendarPlus size={18} aria-hidden="true"/><span>약속 만들기</span></button>}</div>
       {filtersOpen && <div id={`${uid}-filters`} className="discovery-home__filter-panel">{onManageMyRegions && <div className="discovery-home__temporary-region"><label>둘러볼 지역<select aria-label="발견 활동 지역" value={region} onChange={event => onRegionChange(event.target.value)}><option value="">전국</option>{regionOptions.map(value => <option key={value} value={value}>{value}</option>)}</select></label>{onUseMyRegion && <button type="button" onClick={onUseMyRegion}>내 지역으로</button>}</div>}<div className="discovery-home__purposes" role="group" aria-label="함께할 일로 찾기">{discoveryPurposes.map(item => {

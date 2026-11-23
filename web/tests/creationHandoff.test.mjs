@@ -23,7 +23,7 @@ test('only exact creation routes can hold a handoff and unrelated routes cannot 
     assert.equal(peekCreationHandoff('account-a', route, start), undefined);
     assert.equal(takeCreationHandoff('account-a', route, start), undefined);
   }
-  for (const route of ['together-plan', 'together-plan-trip']) {
+  for (const route of ['together-plan', 'together-plan-trip', 'together-plan-trip-draft']) {
     assert.equal(isCreationPlannerRoute(route), true, route);
     assert.equal(holdCreationHandoff(route, draft(), start), true);
     assert.equal(peekCreationHandoff('account-a', route, start).plan.title, '부산 가족 여행 초안');
@@ -31,6 +31,8 @@ test('only exact creation routes can hold a handoff and unrelated routes cannot 
   }
   assert.equal(isCreationPlannerRoute('together-plan-group'), true);
   assert.equal(holdCreationHandoff('together-plan-group', draft(), start), false);
+  const groupDraft = { ...draft(), brief: { ...draft().brief, purpose: 'GROUP' } };
+  assert.equal(holdCreationHandoff('together-plan-trip-draft', groupDraft, start), false);
 });
 
 test('guest take and peek cannot consume a pending draft before the first authenticated visitor', () => {

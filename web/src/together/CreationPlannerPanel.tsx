@@ -96,6 +96,13 @@ export default function CreationPlannerPanel({ places, initial, initialPrompt = 
   const regionId = useId();
   const locked = busy || completed;
   const isGroup = brief.purpose === 'GROUP';
+  const isTrip = brief.purpose === 'TRIP';
+  const startsWithAi = startWithAi && Boolean(prompt.trim());
+  const draftActionLabel = isGroup
+    ? startsWithAi ? 'AI로 모임 초안 만들기' : '모임 초안 자동으로 만들기'
+    : isTrip
+      ? startsWithAi ? 'AI로 여행 일정 짜기' : '여행 일정 자동으로 짜기'
+      : startsWithAi ? 'AI로 초안 만들기' : '초안 만들기';
   const regionOptions = useMemo(() => creationCatalogRegions(availablePlaces), [availablePlaces]);
   const catalog = useMemo(() => creationCatalogPlaces(brief, availablePlaces), [brief.region, availablePlaces]);
   const publicPlaces = useMemo(() => creationPreviewCatalog(availablePlaces), [availablePlaces]);
@@ -321,13 +328,13 @@ export default function CreationPlannerPanel({ places, initial, initialPrompt = 
 
   return <section className="creation-planner cplan-quick" aria-label="간단하게 모임과 일정 만들기">
     <div className="cplan-top" ref={headingRef}>
-      <div className="cplan-quick-heading"><h3>{phase === 'INPUT' ? isGroup ? '어떤 모임을 만들까요?' : brief.purpose === 'TRIP' ? '어떤 여행을 떠날까요?' : '어떤 약속을 만들까요?' : '작성 중인 초안'}</h3>{phase === 'INPUT' && <p>한 줄만 적거나 비워 두고 시작해요.</p>}</div>
+      <div className="cplan-quick-heading"><h3>{phase === 'INPUT' ? isGroup ? '어떤 모임을 만들까요?' : isTrip ? '어떤 여행을 떠날까요?' : '어떤 약속을 만들까요?' : '작성 중인 초안'}</h3>{phase === 'INPUT' && <p>한 줄만 적거나 비워 두고 시작해요.</p>}</div>
       {restored && phase === 'DRAFT' && <p className="cplan-note">{resumeDraft ? '로그인 전에 만든 초안이에요. 내용을 확인한 뒤 저장해 주세요.' : '작성하던 초안을 이어서 고칠 수 있어요.'}</p>}
     </div>
     <datalist id={regionId}>{regionOptions.map(region => <option value={region} key={region}/>)}</datalist>
     <fieldset className="cplan-content cplan-stack" disabled={locked}>
       {phase === 'INPUT' ? <>
-        <label>{isGroup ? '모임 이름이나 하고 싶은 일' : '이름이나 하고 싶은 일'}<textarea className="cplan-prompt" value={prompt} maxLength={1000} rows={2} placeholder={isGroup ? '예: 주말에 함께 책 읽는 모임' : brief.purpose === 'TRIP' ? '예: 부산으로 가족과 2박 3일 여행' : '예: 친구들과 저녁 식사'} onChange={event => { setPrompt(event.target.value); setError(''); }}/></label>
+        <label>{isGroup ? '모임 이름이나 하고 싶은 일' : '이름이나 하고 싶은 일'}<textarea className="cplan-prompt" value={prompt} maxLength={1000} rows={2} placeholder={isGroup ? '예: 주말에 함께 책 읽는 모임' : isTrip ? '예: 부산으로 가족과 2박 3일 여행' : '예: 친구들과 저녁 식사'} onChange={event => { setPrompt(event.target.value); setError(''); }}/></label>
         <details className="cplan-example-options"><summary>입력 예시<ChevronDown size={16}/></summary>
           <div className="cplan-quick-examples">{examples.map(example => <button type="button" key={example} onClick={event => {
             setPrompt(example);
@@ -339,8 +346,14 @@ export default function CreationPlannerPanel({ places, initial, initialPrompt = 
           }}>{example}</button>)}</div>
         </details>
         <p className="cplan-note">{[brief.region ? `기본 지역 ${brief.region}` : '', '날짜와 장소는 나중에 정해도 돼요.'].filter(Boolean).join(' · ')}</p>
-        {planningEndpoint ? <label className="cplan-check"><input type="checkbox" checked={startWithAi} onChange={event => setStartWithAi(event.target.checked)}/><span>AI로 초안 제안받기<small>적은 내용과 공개 장소 후보로 제안해요. 저장 전에 직접 확인할 수 있어요.</small></span></label>
-          : <p className="cplan-note">{isGroup ? '이름과 요청으로 기본 초안을 만들어요.' : '문장에 적은 조건을 정리하고 등록 장소에서 후보를 찾아요.'}</p>}
+        {planningEndpoint ? <label className="cplan-check"><input type="checkbox" checked={startWithAi} onChange={event => setStartWithAi(event.target.checked)}/><span>AI 제안 사용<small>{isGroup
+          ? '요청을 바탕으로 모임 이름과 소개를 제안해요.'
+          : '요청과 등록 장소를 바탕으로 방문 순서를 제안해요.'} 저장 전에 고칠 수 있어요.</small></span></label>
+          : <p className="cplan-note">{isGroup
+            ? '요청에 맞춰 모임 이름과 소개 초안을 자동으로 채워요. 저장 전에 고칠 수 있어요.'
+            : isTrip
+              ? '지역과 조건에 맞는 등록 장소를 골라 날짜별 일정 초안을 만들어요. 저장 전에 고칠 수 있어요.'
+              : '문장에 적은 조건을 정리하고 등록 장소에서 후보를 찾아요.'}</p>}
       </> : <>
         {(modelPending || suggestion) && aiTools}
         <section className="cplan-editor-section" aria-label={isGroup ? '모임 기본 정보' : '일정 기본 정보'}>
@@ -418,7 +431,7 @@ export default function CreationPlannerPanel({ places, initial, initialPrompt = 
     {completed && <p className="cplan-success" role="status">저장했어요.</p>}
     <div className="cplan-actions cplan-quick-actions">
       {onCancel && <button type="button" disabled={locked} onClick={() => { cancelModel(); onCancel(); }}>{cancelLabel}</button>}
-      <button type="button" className="cplan-primary" disabled={locked || modelPending || Boolean(pendingDays)} onClick={() => { if (phase === 'INPUT') { const next = makeDraft(); if (startWithAi && prompt.trim()) void askModel(next); } else void submit(); }}>{phase === 'INPUT' ? startWithAi && prompt.trim() ? 'AI로 초안 만들기' : '초안 만들기' : modelPending ? 'AI 제안 준비 중…' : completed ? '저장 완료' : busy ? '저장 중…' : finalLabel}{phase === 'DRAFT' && !busy && !completed && !modelPending && <Check size={17}/>}</button>
+      <button type="button" className="cplan-primary" disabled={locked || modelPending || Boolean(pendingDays)} onClick={() => { if (phase === 'INPUT') { const next = makeDraft(); if (startsWithAi) void askModel(next); } else void submit(); }}>{phase === 'INPUT' ? draftActionLabel : modelPending ? 'AI 제안 준비 중…' : completed ? '저장 완료' : busy ? '저장 중…' : finalLabel}{phase === 'DRAFT' && !busy && !completed && !modelPending && <Check size={17}/>}</button>
     </div>
   </section>;
 }
