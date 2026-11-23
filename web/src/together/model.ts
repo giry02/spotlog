@@ -62,7 +62,9 @@ export interface TogetherActivity {
 /** Approved public text only. Internal route, attendance and precise meeting details never belong here. */
 export type GroupPublicActivitySnapshot = Pick<TogetherActivity, 'id' | 'groupId' | 'title' | 'date' | 'endDate' | 'description' | 'status' | 'kind' | 'startTime' | 'endTime'>;
 export interface ChatEntityReference { type: 'POLL' | 'TASK' | 'ACTIVITY' | 'NOTICE' | 'GAME' | 'CHALLENGE'; id: string }
-export interface TogetherMessage { id: string; roomId: string; authorId: string; body: string; createdAt: string; deleted?: boolean; stickerId?: string; replyToMessageId?: string; reactions?: Record<string, string[]>; entity?: ChatEntityReference; mentions?: ChatMemberMention[] }
+/** Only public catalogue proposals retain a live place ID. Personal shares keep their reviewed text. */
+export interface ChatPlaceProposalReference { name: string; publicPlaceId?: string }
+export interface TogetherMessage { id: string; roomId: string; authorId: string; body: string; createdAt: string; deleted?: boolean; stickerId?: string; replyToMessageId?: string; reactions?: Record<string, string[]>; entity?: ChatEntityReference; mentions?: ChatMemberMention[]; placeProposal?: ChatPlaceProposalReference }
 export interface TogetherNotice { id: string; groupId: string; activityId?: string; title: string; body: string; createdAt: string }
 export interface TogetherTask { id: string; groupId: string; activityId?: string; title: string; assigneeId?: string; dueDate?: string; completed: boolean; sourceMessageIds?: string[] }
 export interface TogetherPoll {

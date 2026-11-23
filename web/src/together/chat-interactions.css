@@ -24,6 +24,9 @@
 .tg .tg-chat-workspace .tg-message-select { cursor:pointer; }
 .tg .tg-chat-workspace .tg-message-access-tools { display:flex; align-items:center; justify-content:center; width:44px; height:44px; min-height:44px; margin:0; padding:0; border:0; border-radius:50%; background:transparent; color:#73736c; }
 .tg .tg-chat-workspace .mine .tg-message-access-tools { margin-left:auto; }
+.tg-chat-workspace .tg-message-proposal-tools { display:grid; align-self:stretch; align-content:space-between; gap:4px; justify-items:center; }
+.tg .tg-chat-workspace .tg-message-place-detail { box-sizing:border-box; display:grid; place-items:center; width:44px; height:44px; min-height:44px; margin:0; padding:0; border:0; border-radius:12px; background:var(--soft,#f3f3ef); color:var(--ink,#242421); }
+.tg .tg-chat-workspace .tg-message-place-detail:focus-visible { outline:2px solid var(--ink,#242421); outline-offset:-2px; }
 .tg .tg-chat-workspace .tg-message-access-tools[aria-expanded=true] { color:var(--ink,#242421); background:#e9e9e4; }
 .tg .tg-chat-workspace .tg-message-selected .tg-message-select { outline:2px solid var(--ink,#242421); outline-offset:2px; }
 .tg .tg-chat-workspace .tg-chat-member-tag { display:inline; min-width:0; min-height:0; margin:0; padding:0; border:0; border-radius:2px; background:transparent; color:var(--ink,#242421); font:inherit; line-height:inherit; font-weight:700; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px; overflow-wrap:anywhere; }

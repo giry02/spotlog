@@ -10,6 +10,7 @@ import ChatEmojiPicker from './ChatEmojiPicker';
 import { getChatSticker } from './chatExpressions';
 import { emptyChatDraft, type ChatComposerDraft, type ChatDraftMemory } from './chatDrafts';
 import { readChatEntity } from './chatEntities';
+import { readChatPlaceProposal } from './placeProposal';
 import ChatEntityCard from './ChatEntityCard';
 import { chatComposerLayout, chatViewOptions, selectChatChromeContext } from './chatChrome';
 import type { Place } from '../data';
@@ -27,6 +28,7 @@ interface Props {
   summaryResumable?: boolean;
   places?: Place[];
   onOpenPlace?: (place: Place) => void;
+  onOpenPlaceProposal?: (messageId: string) => void;
   state: TogetherState; userId: string; group: TogetherGroup; activity?: TogetherActivity; roomId: string;
   messages: TogetherMessage[]; notices: TogetherNotice[]; highlight: string; canManage: boolean; error: string;
   onSummary: (unreadAfter?: string) => void; onSource: (id: string) => void; onClearHighlight: () => void;
@@ -55,7 +57,7 @@ interface Props {
 }
 
 /** Room-scoped interaction only. Opening/searching never advances the read cursor. */
-export default function ChatWorkspace({ draftMemory, searchMemory, summaryResumable = false, places, onOpenPlace, state, userId, group, activity, roomId, messages, highlight, canManage, error, onSummary, onSource, onClearHighlight, onNotice, onReport, onNavigate, onRead, onSend, onReaction, onAssistant, onPersonalRoute, onVisitGuide, onTool, onVotePoll, onClosePoll, onConfirmPoll, onEditPoll, onApplyPollToActivity, onParticipation, onToggleTask, onToggleMute, onBack, onOpenView, onManage, onResources, onMemberProfile, onEditOwnProfile, onCheckReply }: Props) {
+export default function ChatWorkspace({ draftMemory, searchMemory, summaryResumable = false, places, onOpenPlace, onOpenPlaceProposal, state, userId, group, activity, roomId, messages, highlight, canManage, error, onSummary, onSource, onClearHighlight, onNotice, onReport, onNavigate, onRead, onSend, onReaction, onAssistant, onPersonalRoute, onVisitGuide, onTool, onVotePoll, onClosePoll, onConfirmPoll, onEditPoll, onApplyPollToActivity, onParticipation, onToggleTask, onToggleMute, onBack, onOpenView, onManage, onResources, onMemberProfile, onEditOwnProfile, onCheckReply }: Props) {
   const draftContext = { state, userId, groupId: group.id, roomId };
   const localSearchMemory = useRef<ChatSearchMemory | null>(null);
   if (!localSearchMemory.current) localSearchMemory.current = createChatSearchMemory();
@@ -353,6 +355,10 @@ export default function ChatWorkspace({ draftMemory, searchMemory, summaryResuma
         const { name: author, avatar } = resolveRoomIdentity(state, message.authorId, group.id, activity?.id);
         const selected = selectedMessage === message.id;
         const messageSticker = getChatSticker(message.stickerId);
+        const proposal = onOpenPlaceProposal ? readChatPlaceProposal(state, userId, roomId, message, places ?? []) : null;
+        const toolsButton = <button type="button" id={`tg-message-select-${message.id}`} className="tg-message-access-tools"
+          aria-label={`${author} 메시지 도구 ${selected ? '닫기' : '열기'}`} aria-expanded={selected} aria-haspopup="dialog"
+          aria-controls={selected ? `tg-message-actions-${message.id}` : undefined} onClick={() => selectMessage(message.id)}><MoreHorizontal size={17}/></button>;
         const canOpenProfile = Boolean(onMemberProfile && state.members.some(item => item.id === message.authorId)
           && group.memberIds.includes(message.authorId) && !group.blockedMemberIds?.includes(message.authorId));
         return <div key={message.id}>
@@ -369,7 +375,11 @@ export default function ChatWorkspace({ draftMemory, searchMemory, summaryResuma
                   <span id={`tg-message-body-${message.id}`} className="tg-message-body">{message.body ? renderMessageBody(message) : !messageSticker || messageSticker.svg ? <span className="ui-sr-only">{messageSticker?.label || '메시지'}</span> : null}</span>
                   {messageSticker && <><img data-swipe-reply-sticker className="tg-chat-sticker" src={messageSticker.src} alt={messageSticker.svg ? `이모티콘: ${messageSticker.label}` : ''}/>{!messageSticker.svg && <span className="tg-chat-sticker-label">{messageSticker.label}</span>}</>}
                 </div></SwipeReply>}
-                <button type="button" id={`tg-message-select-${message.id}`} className="tg-message-access-tools" aria-label={`${author} 메시지 도구 ${selected ? '닫기' : '열기'}`} aria-expanded={selected} aria-haspopup="dialog" aria-controls={selected ? `tg-message-actions-${message.id}` : undefined} onClick={() => selectMessage(message.id)}><MoreHorizontal size={17}/></button>
+                {proposal ? <div className="tg-message-proposal-tools">
+                  <button type="button" className="tg-message-place-detail" aria-label={`${proposal.name} 장소 상세 보기`} title="장소 상세 보기"
+                    aria-haspopup="dialog" onClick={() => onOpenPlaceProposal?.(message.id)}><MapPin size={19} aria-hidden="true"/></button>
+                  {toolsButton}
+                </div> : toolsButton}
               </div>
               {reactions.length > 0 && <div className="tg-message-reactions" role="group" aria-label="메시지 반응">{reactions.map(item => <button type="button" key={item.emoji} aria-pressed={item.ids.includes(userId)} aria-label={`${item.emoji} 반응 ${item.ids.length}명`} disabled={group.archived} onClick={() => onReaction(message.id, item.emoji)}>{item.emoji} {item.ids.length}</button>)}</div>}
 

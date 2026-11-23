@@ -6,6 +6,7 @@ import { isChatStickerId } from './chatExpressionContract.ts';
 import { ALLOWED_MESSAGE_REACTIONS } from './chatActions.ts';
 import { isPublicActivityIntent } from './publicActivityIntent.ts';
 import { isChatEntityReference } from './chatEntities.ts';
+import { isChatPlaceProposalReference } from './placeProposal.ts';
 import { isTogetherPollFields } from './polls.ts';
 import { isTogetherGame } from './roomGames.ts';
 import { isTogetherChallenge } from './challenges.ts';
@@ -88,6 +89,7 @@ export function isTogetherState(value: unknown): value is TogetherState {
     && every('messages', row => textFields(row, ['id', 'roomId', 'authorId', 'body', 'createdAt']) && (row.deleted === undefined || typeof row.deleted === 'boolean') && (row.stickerId === undefined || isChatStickerId(row.stickerId))
       && (row.replyToMessageId === undefined || typeof row.replyToMessageId === 'string' && row.replyToMessageId.trim().length > 0)
       && (row.entity === undefined || isChatEntityReference(row.entity))
+      && (row.placeProposal === undefined || isChatPlaceProposalReference(row.placeProposal))
       && (row.mentions === undefined || isChatMemberMentions(String(row.body), row.mentions, String(row.roomId)))
       && (row.reactions === undefined || reactions(row.reactions)))
     && every('notices', row => textFields(row, ['id', 'groupId', 'title', 'body', 'createdAt']))

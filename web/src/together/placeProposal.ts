@@ -1,11 +1,15 @@
 import type { Place } from '../data';
-import { roomIdForActivity, roomIdForGroup, type TogetherState } from './model.ts';
+import { isMember, roomIdForActivity, roomIdForGroup, type ChatPlaceProposalReference, type TogetherMessage, type TogetherState } from './model.ts';
 import { koreaDay } from './discovery.ts';
 import { applyActivityPlaceAction } from './activityPlaces.ts';
 
 export interface PlaceProposalTarget { groupId: string; activityId?: string }
 export interface PlaceProposalDestination extends PlaceProposalTarget { label: string }
 export interface PlaceProposalPreview { id: string; name: string; kind: string; area: string; address: string; description: string }
+export interface ChatPlaceProposal { name: string; body: string; place?: Place }
+const proposalIdPrefix = 'place-proposal:';
+const proposalTitlePrefix = '장소 제안 · ';
+const requestIdPattern = /^[A-Za-z0-9_-]{1,160}$/u;
 const kinds: Record<Place['kind'], string> = { LANDMARK: '명소', FOOD: '음식점', CAFE: '카페', STAY: '숙소', SHOP: '쇼핑', LEISURE: '레저' };
 const clean = (value: string, length: number) => String(value || '').trim().slice(0, length);
 
@@ -18,7 +22,52 @@ export function placeProposalPreview(place: Place): PlaceProposalPreview {
 export const placeProposalVersion = (place: Place) => JSON.stringify(placeProposalPreview(place));
 export function placeProposalBody(place: Place): string {
   const value = placeProposalPreview(place);
-  return [`장소 제안 · ${value.name}`, [value.kind, value.area].filter(Boolean).join(' · '), value.address, value.description].filter(Boolean).join('\n');
+  return [proposalTitlePrefix + value.name, [value.kind, value.area].filter(Boolean).join(' · '), value.address, value.description].filter(Boolean).join('\n');
+}
+
+export function isChatPlaceProposalReference(value: unknown): value is ChatPlaceProposalReference {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false;
+  const reference = value as Record<string, unknown>;
+  return typeof reference.name === 'string' && reference.name.length > 0 && reference.name.length <= 160
+    && reference.name === reference.name.trim() && !/[\r\n]/u.test(reference.name)
+    && (reference.publicPlaceId === undefined || typeof reference.publicPlaceId === 'string' && reference.publicPlaceId.trim().length > 0)
+    && Object.keys(reference).every(key => key === 'name' || key === 'publicPlaceId');
+}
+
+function proposalText(body: string): ChatPlaceProposal | null {
+  if (!body.startsWith(proposalTitlePrefix)) return null;
+  const lines = body.split('\n');
+  const name = lines[0].slice(proposalTitlePrefix.length).trim();
+  if (!name || name.length > 160 || name.includes('\r')) return null;
+  return { name, body: lines.slice(1).join('\n') };
+}
+
+/** Resolve the current room's original proposal. Older messages get a live venue only on an exact, unique public match. */
+export function readChatPlaceProposal(state: TogetherState, actorId: string, roomId: string, message: TogetherMessage, places: readonly Place[]): ChatPlaceProposal | null {
+  if (message.roomId !== roomId || message.deleted || message.entity || message.stickerId || !message.id.startsWith(proposalIdPrefix)
+    || !requestIdPattern.test(message.id.slice(proposalIdPrefix.length))) return null;
+  const originals = state.messages.filter(item => item.id === message.id);
+  const original = originals[0];
+  if (originals.length !== 1 || original.roomId !== roomId || original.deleted || original.entity || original.stickerId) return null;
+  const activity = state.activities.find(item => roomIdForActivity(item.id) === roomId);
+  const group = activity
+    ? state.groups.find(item => item.id === activity.groupId)
+    : state.groups.find(item => roomIdForGroup(item.id) === roomId);
+  if (!group || group.spaceType === 'ACTIVITY' && !activity || !isMember(state, actorId, group.id)
+    || group.blockedMemberIds?.includes(actorId) || !state.members.some(item => item.id === actorId)) return null;
+  const shared = proposalText(original.body);
+  if (!shared) return null;
+  const reference = original.placeProposal;
+  if (reference !== undefined) {
+    if (!isChatPlaceProposalReference(reference) || reference.name !== shared.name) return null;
+    // A typed personal proposal stays a snapshot even if a similarly named public venue exists.
+    const place = reference.publicPlaceId ? places.find(item => item.id === reference.publicPlaceId && !item.personal) : undefined;
+    return place ? { ...shared, place } : shared;
+  }
+  const matches = new Map(places.filter(place => !place.personal && place.id && place.name?.trim() && kinds[place.kind]
+    && placeProposalBody(place) === original.body).map(place => [place.id, place]));
+  const place = matches.size === 1 ? matches.values().next().value : undefined;
+  return place ? { ...shared, place } : shared;
 }
 
 export function placeProposalDestinations(state: TogetherState, actorId: string, at = new Date()): PlaceProposalDestination[] {
@@ -36,19 +85,26 @@ export function placeProposalDestinations(state: TogetherState, actorId: string,
 /** An explicit public proposal also holds its exact ID in the chosen space. Venue, visits and RSVP need separate confirmation. */
 export function proposeSavedPlace(state: TogetherState, actorId: string, target: PlaceProposalTarget, place: Place,
   expectedPlaceVersion: string, requestId: string, publicPlaceIds: ReadonlyArray<string>, at = new Date()): string {
-  if (!requestId || requestId.length > 160 || !/^[A-Za-z0-9_-]+$/.test(requestId)) throw new Error('공유 요청을 다시 확인해 주세요.');
+  if (typeof requestId !== 'string' || !requestIdPattern.test(requestId)) throw new Error('공유 요청을 다시 확인해 주세요.');
   if (expectedPlaceVersion !== placeProposalVersion(place)) throw new Error('장소 정보가 바뀌었어요. 내용을 다시 확인한 뒤 제안해 주세요.');
   const destination = placeProposalDestinations(state, actorId, at).find(item => item.groupId === target.groupId && item.activityId === target.activityId);
   if (!destination) throw new Error('이 모임이나 약속에 지금 제안할 수 없어요. 현재 참여 상태를 다시 확인해 주세요.');
   const roomId = target.activityId ? roomIdForActivity(target.activityId) : roomIdForGroup(target.groupId);
-  const id = `place-proposal:${requestId}`, body = placeProposalBody(place);
+  const id = proposalIdPrefix + requestId, body = placeProposalBody(place);
+  const shared = proposalText(body);
+  if (!shared) throw new Error('공유할 장소 이름을 다시 확인해 주세요.');
+  const publicPlaceId = !place.personal && publicPlaceIds.includes(place.id) ? place.id : undefined;
   const previous = state.messages.find(message => message.id === id);
   if (previous) {
-    if (previous.authorId !== actorId || previous.roomId !== roomId || previous.body !== body || previous.deleted) throw new Error('다른 제안에 사용된 요청이에요. 다시 열어 주세요.');
+    const previousPublicId = previous.placeProposal?.publicPlaceId;
+    const differentPlace = previousPublicId ? place.personal || previousPublicId !== place.id : previous.placeProposal && publicPlaceId;
+    if (previous.authorId !== actorId || previous.roomId !== roomId || previous.body !== body || previous.deleted || differentPlace) {
+      throw new Error('다른 제안에 사용된 요청이에요. 다시 열어 주세요.');
+    }
     return roomId;
   }
   // Only current public catalogue IDs become reusable common candidates. Personal venue facts stay in this explicit message.
-  if (!place.personal && publicPlaceIds.includes(place.id)) {
+  if (publicPlaceId) {
     if (target.activityId) {
       const activity = state.activities.find(item => item.id === target.activityId && item.groupId === target.groupId)!;
       applyActivityPlaceAction(state, actorId, { groupId: target.groupId, activityId: activity.id, expectedRevision: activity.revision, type: 'ADD_CANDIDATE', placeId: place.id }, [place], at);
@@ -57,6 +113,7 @@ export function proposeSavedPlace(state: TogetherState, actorId: string, target:
       group.interestPlaceIds = [...new Set([...(group.interestPlaceIds ?? []), place.id])];
     }
   }
-  state.messages.push({ id, roomId, authorId: actorId, body, createdAt: at.toISOString() });
+  state.messages.push({ id, roomId, authorId: actorId, body, createdAt: at.toISOString(),
+    placeProposal: { name: shared.name, ...(publicPlaceId ? { publicPlaceId } : {}) } });
   return roomId;
 }
