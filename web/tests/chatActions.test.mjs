@@ -72,6 +72,17 @@ test('missing, cross-room and deleted originals cannot be quoted or reacted to',
   assertRejectedWithoutChange(state, () => toggleMessageReaction(state, 'alice', groupRoom, 'source', '👍'));
 });
 
+test('new sticker-only posts stay compatible with prior sticker IDs in stored history', () => {
+  const state = fixture();
+  const old = postTogetherMessage(state, 'alice', groupRoom, '', 'bunny-hi');
+  const next = postTogetherMessage(state, 'bob', groupRoom, '', 'redcap-thumbs-up');
+  assert.equal(next.body, '');
+  assert.equal(next.stickerId, 'redcap-thumbs-up');
+  const reloaded = JSON.parse(JSON.stringify(state));
+  assert.deepEqual(reloaded.messages.slice(-2).map(row => row.stickerId), [old.stickerId, next.stickerId]);
+  assert.equal(isTogetherState(reloaded), true);
+});
+
 test('canonical room, latest membership, blocked status and archived status are checked for every action', () => {
   for (const roomId of ['group:missing', 'activity:missing', 'one', 'group-one', 'group:one:extra', ' group:one']) {
     const state = fixture();

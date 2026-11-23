@@ -1,0 +1,36 @@
+import type { ChatStickerId } from './chatExpressionContract.ts';
+
+/** Original character artwork. These static URLs are emitted as Vite assets. */
+const entries = [
+  ['redcap-thumbs-up', '엄지척', new URL('./sticker-art/red-cap/thumbs-up.webp', import.meta.url).href],
+  ['redcap-hello', '안녕!', new URL('./sticker-art/red-cap/hello.webp', import.meta.url).href],
+  ['redcap-thanks', '고마워', new URL('./sticker-art/red-cap/thanks.webp', import.meta.url).href],
+  ['redcap-laugh', '하하하!', new URL('./sticker-art/red-cap/laugh.webp', import.meta.url).href],
+  ['redcap-sorry', '미안해', new URL('./sticker-art/red-cap/sorry.webp', import.meta.url).href],
+  ['redcap-congrats', '축하해!', new URL('./sticker-art/red-cap/congrats.webp', import.meta.url).href],
+  ['redcap-sad', '속상해', new URL('./sticker-art/red-cap/sad.webp', import.meta.url).href],
+  ['redcap-cheer', '힘내!', new URL('./sticker-art/red-cap/cheer.webp', import.meta.url).href],
+  ['redcap-surprised', '깜짝이야!', new URL('./sticker-art/red-cap/surprised.webp', import.meta.url).href],
+  ['redcap-leaving', '출발!', new URL('./sticker-art/red-cap/leaving.webp', import.meta.url).href],
+  ['redcap-on-my-way', '가는 중', new URL('./sticker-art/red-cap/on-my-way.webp', import.meta.url).href],
+  ['redcap-arrived', '도착!', new URL('./sticker-art/red-cap/arrived.webp', import.meta.url).href],
+  ['redcap-running-late', '조금 늦어요', new URL('./sticker-art/red-cap/running-late.webp', import.meta.url).href],
+  ['redcap-wait', '잠깐만', new URL('./sticker-art/red-cap/wait.webp', import.meta.url).href],
+  ['redcap-meet-here', '여기서 만나', new URL('./sticker-art/red-cap/meet-here.webp', import.meta.url).href],
+  ['redcap-check-time', '시간 확인', new URL('./sticker-art/red-cap/check-time.webp', import.meta.url).href],
+  ['redcap-change-time', '시간 바꿀까?', new URL('./sticker-art/red-cap/change-time.webp', import.meta.url).href],
+  ['redcap-joining', '참석할게!', new URL('./sticker-art/red-cap/joining.webp', import.meta.url).href],
+  ['redcap-meal', '밥 먹자', new URL('./sticker-art/red-cap/meal.webp', import.meta.url).href],
+  ['redcap-coffee', '커피 한 잔', new URL('./sticker-art/red-cap/coffee.webp', import.meta.url).href],
+  ['redcap-walk', '산책 가자', new URL('./sticker-art/red-cap/walk.webp', import.meta.url).href],
+  ['redcap-photo', '사진 찍자', new URL('./sticker-art/red-cap/photo.webp', import.meta.url).href],
+  ['redcap-rain', '비 와요', new URL('./sticker-art/red-cap/rain.webp', import.meta.url).href],
+  ['redcap-rest', '잠깐 쉬자', new URL('./sticker-art/red-cap/rest.webp', import.meta.url).href],
+  ['redcap-love-this-place', '여기 좋아', new URL('./sticker-art/red-cap/love-this-place.webp', import.meta.url).href],
+  ['redcap-go-again', '또 가자', new URL('./sticker-art/red-cap/go-again.webp', import.meta.url).href],
+  ['redcap-trip', '여행 가자', new URL('./sticker-art/red-cap/trip.webp', import.meta.url).href],
+] as const satisfies readonly (readonly [ChatStickerId, string, string])[];
+
+export const redCapStickers = Object.freeze(entries.map(([id, label, src]) =>
+  Object.freeze({ id, name: label, label, src, pack: 'redcap' as const }),
+));

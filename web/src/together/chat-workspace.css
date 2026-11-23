@@ -38,6 +38,8 @@
 .tg-message-body { display:block; white-space:pre-wrap; overflow-wrap:anywhere; user-select:text; }
 .tg .tg-chat-workspace .mine .tg-message-select { margin-left:auto; background:#ffede6; border-color:#f7dfd3; border-radius:16px 4px 16px 16px; }
 .tg .tg-chat-workspace .tg-message-select-sticker { padding:0; border-color:transparent; background:transparent; }
+.tg-chat-sticker-label { display:block; width:min(160px,100%); margin:0 0 6px; font-size:14px; font-weight:700; line-height:20px; text-align:center; overflow-wrap:anywhere; }
+.tg-chat-message.mine .tg-chat-sticker-label { margin-left:auto; }
 .tg .tg-chat-workspace .tg-message-select[aria-expanded=true] { outline:2px solid #c77b64; outline-offset:2px; }
 .tg .tg-chat-workspace .tg-message-select:focus-visible { outline:2px solid var(--ink); outline-offset:3px; }
 .tg-message-actions { margin-top:4px; }

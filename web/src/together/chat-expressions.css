@@ -10,8 +10,9 @@
 .tg .chat-expression-categories > button { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 7px 9px; border: 1px solid #dfdfda; border-radius: 10px; white-space: nowrap; }
 .tg .chat-expression-categories > button[aria-pressed=true] { color: #fff; background: #242421; border-color: #242421; }
 .tg .chat-expression-categories > button > span { font-size: 20px; line-height: 1; }
-.tg .chat-expression-packs > button { padding: 5px 8px; }
-.tg .chat-expression-packs img { width: 26px; height: 26px; object-fit: contain; }
+.tg .chat-expression-packs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
+.tg .chat-expression-packs > button { flex-direction: column; min-width: 0; min-height: 52px; gap: 1px; padding: 4px 1px; font-size: 12px; line-height: 16px; }
+.tg .chat-expression-packs img { width: 24px; height: 24px; object-fit: contain; }
 .tg .chat-expression-scroll { min-width: 0; max-height: min(240px, 31dvh); min-height: 120px; overflow-y: auto; overscroll-behavior: contain; padding: 8px 10px; }
 .tg .chat-expression-emoji-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
 .tg .chat-expression-emoji-grid > button { min-width: 0; width: 100%; min-height: 46px; display: grid; place-items: center; padding: 4px 0; border-radius: 10px; }
