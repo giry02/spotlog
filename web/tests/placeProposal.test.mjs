@@ -72,7 +72,7 @@ test('changed preview or malformed retry ID fails before a write',()=>{
 
 
 test('typed proposals round-trip through storage and look up the original public branch in both rooms',()=>{
- const state=fixture(), updated={...place,address:'공개 주소 변경'}, different={...place,id:'another-id'};
+ const state=fixture(), updated={...place,area:'변경한 지역',address:'공개 주소 변경'}, different={...place,id:'another-id'};
  propose(state); propose(state,{groupId:'g',activityId:'a'},place,'activity-proposal');
  const stored=JSON.parse(JSON.stringify(state));
  assert.equal(isTogetherState(stored),true);
@@ -81,6 +81,7 @@ test('typed proposals round-trip through storage and look up the original public
   const result=readChatPlaceProposal(stored,'me',message.roomId,message,[different,updated]);
   assert.equal(result.place,updated);
   assert.equal(result.name,place.name);
+  assert.equal(result.area,place.area);
   assert.equal(result.body,placeProposalBody(place).split('\n').slice(1).join('\n'));
  }
  assert.equal(readChatPlaceProposal(stored,'me','activity:a',group,[place]),null);
@@ -128,6 +129,7 @@ test('legacy proposals resolve an exact unique match and preserve the safe snaps
  assert.equal(read([{...place,personal:true}]).place,undefined);
  const snapshot=read([]);
  assert.equal(snapshot.name,place.name);
+ assert.equal(snapshot.area,place.area);
  assert.ok(snapshot.body.includes(place.address));
  assert.equal(snapshot.body.includes('장소 제안'),false);
  assert.equal(snapshot.body.includes('개인 비밀 메모'),false);
@@ -141,7 +143,22 @@ test('personal proposals retain reviewed text only, and an unavailable public ID
  const [personalMessage,publicMessage]=state.messages;
  const read=(message,places)=>readChatPlaceProposal(state,'me','group:g',message,places);
  assert.equal(read(personalMessage,[personal,place]).place,undefined);
+ assert.equal(read(personalMessage,[personal,place]).area,personal.area);
  assert.equal(read(publicMessage,[{...place,id:'same-facts'},{...place,personal:true}]).place,undefined);
  assert.equal(read(personalMessage,[personal]).body.includes('개인 비밀 메모'),false);
  assert.equal(JSON.stringify(personalMessage).includes(personal.id),false);
+});
+
+
+test('proposal card uses only the shared kind and area line, and omits an absent area',()=>{
+ const state=fixture(), personal={...place,id:'private-location',personal:true,area:''};
+ propose(state,{groupId:'g'},personal);
+ const [message]=state.messages;
+ const read=()=>readChatPlaceProposal(state,'me','group:g',message,[]);
+ assert.equal(read().area,'');
+ assert.ok(read().body.includes(personal.address));
+ message.body=`장소 제안 · ${personal.name}\n주소 · ${personal.address}\n${personal.description}`;
+ assert.equal(read().area,'');
+ message.body=`장소 제안 · ${personal.name}\n음식점 · 부산 수영 · 광안\n${personal.address}`;
+ assert.equal(read().area,'부산 수영 · 광안');
 });

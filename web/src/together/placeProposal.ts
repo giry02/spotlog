@@ -6,11 +6,13 @@ import { applyActivityPlaceAction } from './activityPlaces.ts';
 export interface PlaceProposalTarget { groupId: string; activityId?: string }
 export interface PlaceProposalDestination extends PlaceProposalTarget { label: string }
 export interface PlaceProposalPreview { id: string; name: string; kind: string; area: string; address: string; description: string }
-export interface ChatPlaceProposal { name: string; body: string; place?: Place }
+export interface ChatPlaceProposal { name: string; area: string; body: string; place?: Place }
 const proposalIdPrefix = 'place-proposal:';
 const proposalTitlePrefix = '장소 제안 · ';
+const proposalFieldSeparator = ' · ';
 const requestIdPattern = /^[A-Za-z0-9_-]{1,160}$/u;
 const kinds: Record<Place['kind'], string> = { LANDMARK: '명소', FOOD: '음식점', CAFE: '카페', STAY: '숙소', SHOP: '쇼핑', LEISURE: '레저' };
+const proposalKinds = new Set(Object.values(kinds));
 const clean = (value: string, length: number) => String(value || '').trim().slice(0, length);
 
 /** The sharing preview contains deliberately chosen venue facts, never visit/booking/private-note fields. */
@@ -22,7 +24,7 @@ export function placeProposalPreview(place: Place): PlaceProposalPreview {
 export const placeProposalVersion = (place: Place) => JSON.stringify(placeProposalPreview(place));
 export function placeProposalBody(place: Place): string {
   const value = placeProposalPreview(place);
-  return [proposalTitlePrefix + value.name, [value.kind, value.area].filter(Boolean).join(' · '), value.address, value.description].filter(Boolean).join('\n');
+  return [proposalTitlePrefix + value.name, [value.kind, value.area].filter(Boolean).join(proposalFieldSeparator), value.address, value.description].filter(Boolean).join('\n');
 }
 
 export function isChatPlaceProposalReference(value: unknown): value is ChatPlaceProposalReference {
@@ -39,7 +41,12 @@ function proposalText(body: string): ChatPlaceProposal | null {
   const lines = body.split('\n');
   const name = lines[0].slice(proposalTitlePrefix.length).trim();
   if (!name || name.length > 160 || name.includes('\r')) return null;
-  return { name, body: lines.slice(1).join('\n') };
+  const metadata = lines[1] ?? '';
+  const separator = metadata.indexOf(proposalFieldSeparator);
+  const area = separator !== -1 && proposalKinds.has(metadata.slice(0, separator))
+    ? clean(metadata.slice(separator + proposalFieldSeparator.length), 100)
+    : '';
+  return { name, area, body: lines.slice(1).join('\n') };
 }
 
 /** Resolve the current room's original proposal. Older messages get a live venue only on an exact, unique public match. */

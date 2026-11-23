@@ -12,6 +12,7 @@ import { emptyChatDraft, type ChatComposerDraft, type ChatDraftMemory } from './
 import { readChatEntity } from './chatEntities';
 import { readChatPlaceProposal } from './placeProposal';
 import ChatEntityCard from './ChatEntityCard';
+import ChatPlaceProposalCard from './ChatPlaceProposalCard';
 import { chatComposerLayout, chatViewOptions, selectChatChromeContext } from './chatChrome';
 import type { Place } from '../data';
 import { MemberAvatar } from './GroupMembersPanel';
@@ -148,7 +149,10 @@ export default function ChatWorkspace({ draftMemory, searchMemory, summaryResuma
   };
   const sorted = messages.filter(item => item.roomId === roomId && !item.deleted).sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt));
   const hasEntity = (message: TogetherMessage) => message.entity !== undefined;
+  const placeProposalFor = (message: TogetherMessage) => readChatPlaceProposal(state, userId, roomId, message, places ?? []);
   const messageText = (message: TogetherMessage) => {
+    const proposal = placeProposalFor(message);
+    if (proposal) return [proposal.name, proposal.area].filter(Boolean).join(' · ');
     if (!hasEntity(message)) return message.body || getChatSticker(message.stickerId)?.label || '메시지';
     const entity = readChatEntity(state, userId, roomId, message);
     if (!entity) return '이 항목을 확인할 수 없어요';
@@ -355,7 +359,7 @@ export default function ChatWorkspace({ draftMemory, searchMemory, summaryResuma
         const { name: author, avatar } = resolveRoomIdentity(state, message.authorId, group.id, activity?.id);
         const selected = selectedMessage === message.id;
         const messageSticker = getChatSticker(message.stickerId);
-        const proposal = onOpenPlaceProposal ? readChatPlaceProposal(state, userId, roomId, message, places ?? []) : null;
+        const proposal = placeProposalFor(message);
         const toolsButton = <button type="button" id={`tg-message-select-${message.id}`} className="tg-message-access-tools"
           aria-label={`${author} 메시지 도구 ${selected ? '닫기' : '열기'}`} aria-expanded={selected} aria-haspopup="dialog"
           aria-controls={selected ? `tg-message-actions-${message.id}` : undefined} onClick={() => selectMessage(message.id)}><MoreHorizontal size={17}/></button>;
@@ -371,11 +375,16 @@ export default function ChatWorkspace({ draftMemory, searchMemory, summaryResuma
               <div className="tg-message-meta">{canOpenProfile ? <button type="button" className="tg-chat-author-button" aria-label={`${author}님 프로필 보기`} onClick={() => onMemberProfile?.(message.authorId)}>{author}{message.authorId === userId && <span> · 나</span>}</button> : <small>{author}</small>}<small><time dateTime={message.createdAt}>{new Date(message.createdAt).toLocaleTimeString('ko-KR', { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit' })}</time></small></div>
               <div className="tg-message-content">
                 {message.replyToMessageId && <button type="button" className="tg-quoted-message" disabled={!original} onClick={() => original && onSource(original.id)}><strong>{original ? `${roomMemberName(original.authorId)}에게 답장` : '원문을 확인할 수 없는 답장'}</strong><span>{original ? messageText(original) : '삭제되었거나 이 방에서 볼 수 없는 원문이에요.'}</span></button>}
-                {hasEntity(message) ? <ChatEntityCard entity={readChatEntity(state, userId, roomId, message)} places={places} onOpenPlace={onOpenPlace} state={state} userId={userId} onVotePoll={onVotePoll} onClosePoll={onClosePoll} onConfirmPoll={onConfirmPoll} onEditPoll={onEditPoll} onApplyPollToActivity={onApplyPollToActivity} onToggleTask={onToggleTask} onOpenEntity={(type, id) => onParticipation?.(type === 'GAME' ? 'games' : 'challenges', id)} onNavigate={onNavigate}/> : <SwipeReply enabled={canReplyToMessage(state, userId, roomId, message.id)} resetKey={`${userId}:${roomId}:${message.id}`} onReply={() => beginReply(message.id)} onLongPress={() => selectMessage(message.id, false)}><div data-swipe-reply-surface data-message-id={message.id} className={`tg-message-select ${message.body ? '' : 'tg-message-select-sticker'}`} onClick={() => selectMessage(message.id)}>
-                  <span id={`tg-message-body-${message.id}`} className="tg-message-body">{message.body ? renderMessageBody(message) : !messageSticker || messageSticker.svg ? <span className="ui-sr-only">{messageSticker?.label || '메시지'}</span> : null}</span>
-                  {messageSticker && <><img data-swipe-reply-sticker className="tg-chat-sticker" src={messageSticker.src} alt={messageSticker.svg ? `이모티콘: ${messageSticker.label}` : ''}/>{!messageSticker.svg && <span className="tg-chat-sticker-label">{messageSticker.label}</span>}</>}
-                </div></SwipeReply>}
-                {proposal ? <div className="tg-message-proposal-tools">
+                {hasEntity(message) ? <ChatEntityCard entity={readChatEntity(state, userId, roomId, message)} places={places} onOpenPlace={onOpenPlace} state={state} userId={userId} onVotePoll={onVotePoll} onClosePoll={onClosePoll} onConfirmPoll={onConfirmPoll} onEditPoll={onEditPoll} onApplyPollToActivity={onApplyPollToActivity} onToggleTask={onToggleTask} onOpenEntity={(type, id) => onParticipation?.(type === 'GAME' ? 'games' : 'challenges', id)} onNavigate={onNavigate}/> :
+                  <SwipeReply className={proposal ? 'tg-proposal-surface' : undefined} enabled={canReplyToMessage(state, userId, roomId, message.id)} resetKey={`${userId}:${roomId}:${message.id}`} onReply={() => beginReply(message.id)} onLongPress={() => selectMessage(message.id, false)}>
+                    <div data-swipe-reply-surface data-message-id={message.id} className={`tg-message-select${proposal ? ' tg-message-select--proposal' : message.body ? '' : ' tg-message-select-sticker'}`} onClick={() => selectMessage(message.id)}>
+                      {proposal ? <ChatPlaceProposalCard proposal={proposal}/> : <>
+                        <span id={`tg-message-body-${message.id}`} className="tg-message-body">{message.body ? renderMessageBody(message) : !messageSticker || messageSticker.svg ? <span className="ui-sr-only">{messageSticker?.label || '메시지'}</span> : null}</span>
+                        {messageSticker && <><img data-swipe-reply-sticker className="tg-chat-sticker" src={messageSticker.src} alt={messageSticker.svg ? `이모티콘: ${messageSticker.label}` : ''}/>{!messageSticker.svg && <span className="tg-chat-sticker-label">{messageSticker.label}</span>}</>}
+                      </>}
+                    </div>
+                  </SwipeReply>}
+                {proposal && onOpenPlaceProposal ? <div className="tg-message-proposal-tools">
                   <button type="button" className="tg-message-place-detail" aria-label={`${proposal.name} 장소 상세 보기`} title="장소 상세 보기"
                     aria-haspopup="dialog" onClick={() => onOpenPlaceProposal?.(message.id)}><MapPin size={19} aria-hidden="true"/></button>
                   {toolsButton}
