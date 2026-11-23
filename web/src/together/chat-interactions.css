@@ -23,7 +23,12 @@
 .tg-chat-workspace .tg-message-content:has(>.tg-chat-entity) { display:block; }
 .tg .tg-chat-workspace .tg-message-select { cursor:pointer; }
 .tg .tg-chat-workspace .tg-message-access-tools { display:flex; align-items:center; justify-content:center; width:44px; height:44px; min-height:44px; margin:0; padding:0; border:0; border-radius:50%; background:transparent; color:#73736c; }
-.tg .tg-chat-workspace .mine .tg-message-access-tools { margin-left:auto; }
+.tg .tg-chat-workspace .mine .tg-message-content { grid-template-columns:minmax(0,1fr); }
+.tg .tg-chat-workspace .mine .tg-message-content:has(>.tg-message-proposal-tools) { grid-template-columns:minmax(0,1fr) 44px; }
+.tg-chat-workspace .mine .tg-message-proposal-tools { grid-template-columns:44px; align-content:start; }
+.tg-chat-workspace .tg-chat-message.mine>div:last-child { max-width:min(calc(100% - 32px),360px); }
+.tg .tg-chat-workspace .tg-own-message-time { display:flex; align-items:center; min-width:44px; min-height:24px; margin:0 0 0 auto; padding:0 2px; border:0; border-radius:4px; background:transparent; color:var(--muted); font-size:var(--type-caption); line-height:16px; font-weight:400; white-space:nowrap; }
+.tg .tg-chat-workspace .tg-own-message-time:focus-visible { outline:2px solid var(--ink); outline-offset:1px; }
 .tg-chat-workspace .tg-message-content>.tg-proposal-surface { align-self:start; width:min(100%,244px); }
 .tg .tg-chat-workspace .tg-message-select.tg-message-select--proposal { padding:7px 8px; }
 .tg-chat-workspace .tg-message-proposal-tools { display:grid; align-self:stretch; align-content:space-between; gap:4px; justify-items:center; }

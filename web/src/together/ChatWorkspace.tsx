@@ -356,23 +356,27 @@ export default function ChatWorkspace({ draftMemory, searchMemory, summaryResuma
       {shown.map(message => {
         const original = message.replyToMessageId ? sorted.find(item => item.id === message.replyToMessageId) : null;
         const reactions = Object.entries(message.reactions ?? {}).map(([emoji, ids]) => ({ emoji, ids: ids.filter(id => group.memberIds.includes(id)) })).filter(item => item.ids.length);
+        const mine = message.authorId === userId;
         const { name: author, avatar } = resolveRoomIdentity(state, message.authorId, group.id, activity?.id);
         const selected = selectedMessage === message.id;
         const messageSticker = getChatSticker(message.stickerId);
         const proposal = placeProposalFor(message);
-        const toolsButton = <button type="button" id={`tg-message-select-${message.id}`} className="tg-message-access-tools"
-          aria-label={`${author} 메시지 도구 ${selected ? '닫기' : '열기'}`} aria-expanded={selected} aria-haspopup="dialog"
-          aria-controls={selected ? `tg-message-actions-${message.id}` : undefined} onClick={() => selectMessage(message.id)}><MoreHorizontal size={17}/></button>;
+        const timeLabel = new Date(message.createdAt).toLocaleTimeString('ko-KR', { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit' });
+        const time = <time dateTime={message.createdAt}>{timeLabel}</time>;
+        const toolsButton = <button type="button" id={`tg-message-select-${message.id}`} className={mine ? 'tg-own-message-time' : 'tg-message-access-tools'}
+          aria-label={`${mine ? '내' : author} 메시지 도구 ${selected ? '닫기' : '열기'}${mine ? ` · ${timeLabel}` : ''}`}
+          aria-expanded={selected} aria-haspopup="dialog" aria-controls={selected ? `tg-message-actions-${message.id}` : undefined}
+          onClick={() => selectMessage(message.id)}>{mine ? time : <MoreHorizontal size={17} aria-hidden="true"/>}</button>;
         const canOpenProfile = Boolean(onMemberProfile && state.members.some(item => item.id === message.authorId)
           && group.memberIds.includes(message.authorId) && !group.blockedMemberIds?.includes(message.authorId));
         return <div key={message.id}>
           {message.id === unread[0]?.id && <div className="tg-unread-divider">여기부터 안 읽은 대화</div>}
-          <article data-message id={`tg-message-${message.id}`} className={`tg-chat-message ${message.authorId === userId ? 'mine' : ''} ${highlight === message.id ? 'tg-highlight' : ''} ${selected ? 'tg-message-selected' : ''}`} onKeyDown={event => {
+          <article data-message id={`tg-message-${message.id}`} className={`tg-chat-message ${mine ? 'mine' : ''} ${highlight === message.id ? 'tg-highlight' : ''} ${selected ? 'tg-message-selected' : ''}`} onKeyDown={event => {
             if (event.key === 'Escape' && selected) { event.preventDefault(); event.stopPropagation(); closeMessageActions(true); }
           }}>
-            {canOpenProfile ? <button type="button" className="tg-chat-avatar-button" aria-label={`${author}님 프로필 보기`} onClick={() => onMemberProfile?.(message.authorId)}><MemberAvatar name={author} avatar={avatar}/></button> : <span className="tg-chat-avatar-button" aria-hidden="true"><MemberAvatar name={author} avatar={avatar}/></span>}
+            {!mine && (canOpenProfile ? <button type="button" className="tg-chat-avatar-button" aria-label={`${author}님 프로필 보기`} onClick={() => onMemberProfile?.(message.authorId)}><MemberAvatar name={author} avatar={avatar}/></button> : <span className="tg-chat-avatar-button" aria-hidden="true"><MemberAvatar name={author} avatar={avatar}/></span>)}
             <div>
-              <div className="tg-message-meta">{canOpenProfile ? <button type="button" className="tg-chat-author-button" aria-label={`${author}님 프로필 보기`} onClick={() => onMemberProfile?.(message.authorId)}>{author}{message.authorId === userId && <span> · 나</span>}</button> : <small>{author}</small>}<small><time dateTime={message.createdAt}>{new Date(message.createdAt).toLocaleTimeString('ko-KR', { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit' })}</time></small></div>
+              {!mine && <div className="tg-message-meta">{canOpenProfile ? <button type="button" className="tg-chat-author-button" aria-label={`${author}님 프로필 보기`} onClick={() => onMemberProfile?.(message.authorId)}>{author}</button> : <small>{author}</small>}<small>{time}</small></div>}
               <div className="tg-message-content">
                 {message.replyToMessageId && <button type="button" className="tg-quoted-message" disabled={!original} onClick={() => original && onSource(original.id)}><strong>{original ? `${roomMemberName(original.authorId)}에게 답장` : '원문을 확인할 수 없는 답장'}</strong><span>{original ? messageText(original) : '삭제되었거나 이 방에서 볼 수 없는 원문이에요.'}</span></button>}
                 {hasEntity(message) ? <ChatEntityCard entity={readChatEntity(state, userId, roomId, message)} places={places} onOpenPlace={onOpenPlace} state={state} userId={userId} onVotePoll={onVotePoll} onClosePoll={onClosePoll} onConfirmPoll={onConfirmPoll} onEditPoll={onEditPoll} onApplyPollToActivity={onApplyPollToActivity} onToggleTask={onToggleTask} onOpenEntity={(type, id) => onParticipation?.(type === 'GAME' ? 'games' : 'challenges', id)} onNavigate={onNavigate}/> :
@@ -387,9 +391,10 @@ export default function ChatWorkspace({ draftMemory, searchMemory, summaryResuma
                 {proposal && onOpenPlaceProposal ? <div className="tg-message-proposal-tools">
                   <button type="button" className="tg-message-place-detail" aria-label={`${proposal.name} 장소 상세 보기`} title="장소 상세 보기"
                     aria-haspopup="dialog" onClick={() => onOpenPlaceProposal?.(message.id)}><MapPin size={19} aria-hidden="true"/></button>
-                  {toolsButton}
-                </div> : toolsButton}
+                  {!mine && toolsButton}
+                </div> : !mine && toolsButton}
               </div>
+              {mine && toolsButton}
               {reactions.length > 0 && <div className="tg-message-reactions" role="group" aria-label="메시지 반응">{reactions.map(item => <button type="button" key={item.emoji} aria-pressed={item.ids.includes(userId)} aria-label={`${item.emoji} 반응 ${item.ids.length}명`} disabled={group.archived} onClick={() => onReaction(message.id, item.emoji)}>{item.emoji} {item.ids.length}</button>)}</div>}
 
             </div>
@@ -397,7 +402,7 @@ export default function ChatWorkspace({ draftMemory, searchMemory, summaryResuma
         </div>;
       })}
     </div>
-    {activeMessage && <ChatMessageActions id={`tg-message-actions-${activeMessage.id}`} author={roomMemberName(activeMessage.authorId)} anchor={document.getElementById(`tg-message-${activeMessage.id}`)?.querySelector<HTMLElement>('.tg-message-select') || document.getElementById(`tg-message-select-${activeMessage.id}`)} boundary={workspace.current}
+    {activeMessage && <ChatMessageActions id={`tg-message-actions-${activeMessage.id}`} author={activeMessage.authorId === userId ? '내' : roomMemberName(activeMessage.authorId)} anchor={document.getElementById(`tg-message-${activeMessage.id}`)?.querySelector<HTMLElement>('.tg-message-select') || document.getElementById(`tg-message-select-${activeMessage.id}`)} boundary={workspace.current}
       canReply={canReplyToMessage(state, userId, roomId, activeMessage.id)} canReact={!group.archived} canMention={!group.archived && selectChatMentionCandidates(state, userId, roomId).some(item => item.userId === activeMessage.authorId)} canCopy={!hasEntity(activeMessage) && Boolean(activeMessage.body.trim())} canReport={activeMessage.authorId !== userId} canNotice={canManage && !hasEntity(activeMessage) && Boolean(activeMessage.body.trim())}
       activeReactions={Object.entries(activeMessage.reactions || {}).filter(([, ids]) => ids.includes(userId)).map(([emoji]) => emoji)}
       onReply={() => beginReply(activeMessage.id)} onReaction={emoji => { onReaction(activeMessage.id, emoji); closeMessageActions(true); }} onMention={() => chooseMention(activeMessage.authorId, false)} onCopy={() => void copyMessage(activeMessage)} onReport={() => { closeMessageActions(); onReport(activeMessage.id); }} onNotice={() => { closeMessageActions(); onNotice(activeMessage.body); }} onClose={closeMessageActions}/>}
