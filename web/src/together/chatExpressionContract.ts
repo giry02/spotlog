@@ -1,7 +1,9 @@
 /** Stored-message validation must not initialize the chat artwork or picker. */
 export const mascotStickerPackIds = Object.freeze(['pebble', 'guidebot', 'backpack', 'cloud', 'otter', 'thermos'] as const);
 export type MascotStickerPackId = typeof mascotStickerPackIds[number];
-export type ChatStickerPackId = 'bunny' | 'cat' | 'bear' | 'duck' | 'redcap' | 'roundglasses' | 'purplescarf' | MascotStickerPackId;
+export const companionStickerPackIds = Object.freeze(['roundglasses', 'purplescarf'] as const);
+export type CompanionStickerPackId = typeof companionStickerPackIds[number];
+export type ChatStickerPackId = 'bunny' | 'cat' | 'bear' | 'duck' | 'redcap' | CompanionStickerPackId | MascotStickerPackId;
 
 export const mascotStickerPoses = Object.freeze({
   starter: Object.freeze(['thumbs-up', 'on-my-way', 'thanks'] as const),
@@ -19,6 +21,30 @@ const mascotStickerIds = mascotStickerPackIds.flatMap(pack => mascotStickerTheme
   mascotStickerPoses[theme].map(pose => mascotStickerId(pack, pose)),
 ));
 
+const companionExpansionThemes = ['daily', 'planning', 'outing'] as const;
+type CompanionExpansionTheme = typeof companionExpansionThemes[number];
+const companionPoses = {
+  roundglasses: {
+    daily: ['okay', 'laugh', 'wow', 'sad', 'sorry', 'congrats', 'cheer', 'love', 'good-night', 'good-morning'],
+    planning: ['joining', 'cant-make-it', 'check-time', 'change-time', 'meet-here', 'where-are-you', 'leaving', 'arrived', 'im-home', 'call'],
+    outing: ['meal', 'walk', 'photo', 'send-photo', 'rain', 'rest', 'recommend', 'saved-seat', 'good-time', 'again'],
+  },
+  purplescarf: {
+    daily: ['hello', 'okay', 'laugh', 'sad', 'sorry', 'congrats', 'cheer', 'love', 'good-night', 'good-morning'],
+    planning: ['joining', 'cant-make-it', 'check-time', 'change-time', 'meet-here', 'where-are-you', 'running-late', 'arrived', 'im-home', 'call'],
+    outing: ['meal', 'coffee', 'walk', 'photo', 'send-photo', 'rain', 'rest', 'recommend', 'booked', 'saved-seat'],
+  },
+} as const satisfies Record<CompanionStickerPackId, Record<CompanionExpansionTheme, readonly MascotStickerPose[]>>;
+type CompanionExpansionStickerId = {
+  [Pack in CompanionStickerPackId]: `${Pack}-${(typeof companionPoses)[Pack][CompanionExpansionTheme][number]}`;
+}[CompanionStickerPackId];
+export const expandedCompanionPoses = Object.freeze(companionStickerPackIds.flatMap(pack =>
+  companionExpansionThemes.flatMap(theme => companionPoses[pack][theme].map(pose => Object.freeze({
+    pack, theme, pose, id: `${pack}-${pose}` as CompanionExpansionStickerId,
+  }))),
+));
+export const expandedRedCapStickerIds = Object.freeze(['redcap-love', 'redcap-tired', 'redcap-good-morning'] as const);
+
 export const chatStickerIds = Object.freeze([
   'bunny-hi', 'bunny-love', 'bunny-cheer', 'bunny-thanks', 'bunny-laugh',
   'bunny-tears', 'bunny-sleep', 'bunny-coffee', 'bunny-okay', 'bunny-nope',
@@ -32,6 +58,8 @@ export const chatStickerIds = Object.freeze([
   'roundglasses-thumbs-up', 'roundglasses-hello', 'roundglasses-thanks', 'roundglasses-thinking', 'roundglasses-come-along', 'roundglasses-booked', 'roundglasses-tea', 'roundglasses-five-minutes', 'roundglasses-take-time',
   'purplescarf-excited', 'purplescarf-high-five', 'purplescarf-wow', 'purplescarf-go', 'purplescarf-found-the-way', 'purplescarf-fresh-air', 'purplescarf-snack', 'purplescarf-selfie', 'purplescarf-see-you',
   ...mascotStickerIds,
+  ...expandedCompanionPoses.map(sticker => sticker.id),
+  ...expandedRedCapStickerIds,
 ] as const);
 export type ChatStickerId = typeof chatStickerIds[number];
 const stickerIds: ReadonlySet<string> = new Set(chatStickerIds);

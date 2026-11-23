@@ -44,6 +44,12 @@ body { margin: 0; line-height: 1.5; }
 .sticker-pack-heading h2 { margin: 0; font-size: 1.375rem; letter-spacing: -.04em; }
 .sticker-pack-heading p { margin: 3px 0 0; color: var(--preview-muted); word-break: keep-all; }
 .sticker-count { color: var(--preview-muted); font-size: .875rem; }
+.sticker-back-to-packs {
+  display: inline-flex; align-items: center; min-height: 44px; margin-inline-start: auto;
+  padding-inline: 6px; color: var(--preview-muted); font-size: .875rem; white-space: nowrap;
+  text-underline-offset: .2em;
+}
+.sticker-back-to-packs:focus-visible, .sticker-pack-nav:focus-visible { outline: 2px solid #8e3a21; outline-offset: 3px; }
 .sticker-grid {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(min(164px, 100%), 1fr));
   align-items: start; justify-items: center; gap: 16px 12px; padding: 0; margin: 0; list-style: none;

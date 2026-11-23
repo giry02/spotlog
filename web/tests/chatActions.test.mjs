@@ -78,7 +78,7 @@ test('new sticker-only posts reload alongside previously stored character sticke
   for (const id of prior) postTogetherMessage(state, 'alice', groupRoom, '', id);
   const disk = memoryStorage({ [key]: JSON.stringify(state) });
   const repo = createTogetherRepository('alice', '가', [], disk);
-  const added = ['redcap-confirmed', 'roundglasses-thumbs-up', 'purplescarf-excited', 'pebble-thumbs-up', 'guidebot-arrived', 'backpack-good-morning', 'cloud-hello', 'otter-photo', 'thermos-thanks'];
+  const added = ['redcap-confirmed', 'roundglasses-thumbs-up', 'purplescarf-excited', 'pebble-thumbs-up', 'guidebot-arrived', 'backpack-good-morning', 'cloud-hello', 'otter-photo', 'thermos-thanks', 'redcap-good-morning', 'roundglasses-call', 'purplescarf-coffee'];
   assert.equal(repo.update(draft => {
     for (const id of added) postTogetherMessage(draft, 'bob', groupRoom, '', id);
   }), true);

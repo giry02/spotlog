@@ -1,4 +1,4 @@
-import type { ChatStickerId } from './chatExpressionContract.ts';
+import type { ChatStickerId, MascotStickerTheme, expandedRedCapStickerIds } from './chatExpressionContract.ts';
 
 /** Original character artwork. These static URLs are emitted as Vite assets. */
 const entries = [
@@ -43,3 +43,27 @@ const entries = [
 export const redCapStickers = Object.freeze(entries.map(([id, label, src]) =>
   Object.freeze({ id, name: label, label, src, pack: 'redcap' as const }),
 ));
+
+const extraEntries = [
+  ['redcap-love', '좋아해', new URL('./sticker-art/red-cap/love.webp', import.meta.url).href],
+  ['redcap-tired', '피곤해', new URL('./sticker-art/red-cap/tired.webp', import.meta.url).href],
+  ['redcap-good-morning', '좋은 아침!', new URL('./sticker-art/red-cap/good-morning.webp', import.meta.url).href],
+] as const satisfies readonly (readonly [typeof expandedRedCapStickerIds[number], string, string])[];
+export const expandedRedCapStickers = Object.freeze(extraEntries.map(([id, label, src]) =>
+  Object.freeze({ id, name: label, label, src, pack: 'redcap' as const, theme: 'daily' as const }),
+));
+
+type RedCapPose = typeof entries[number][0] extends `redcap-${infer Pose}` ? Pose : never;
+const themes = {
+  starter: ['thumbs-up', 'on-my-way', 'thanks'],
+  daily: ['hello', 'laugh', 'sorry', 'congrats', 'sad', 'cheer', 'surprised', 'good-night', 'rest'],
+  planning: ['leaving', 'arrived', 'running-late', 'wait', 'meet-here', 'check-time', 'change-time', 'joining', 'confirmed', 'cant-make-it', 'where-are-you', 'ill-call'],
+  outing: ['meal', 'coffee', 'walk', 'photo', 'rain', 'love-this-place', 'go-again', 'trip', 'send-photo', 'saved-seat', 'im-home', 'had-fun'],
+} as const satisfies Record<MascotStickerTheme, readonly RedCapPose[]>;
+// Theme the already-released stickers in the picker without editing their objects.
+const originalRedCapThemes = new Map<ChatStickerId, MascotStickerTheme>((Object.keys(themes) as MascotStickerTheme[]).flatMap(theme =>
+  themes[theme].map(pose => [`redcap-${pose}`, theme] as const),
+));
+export function redCapStickerTheme(id: ChatStickerId): MascotStickerTheme | undefined {
+  return originalRedCapThemes.get(id);
+}

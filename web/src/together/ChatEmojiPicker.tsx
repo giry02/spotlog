@@ -1,6 +1,6 @@
 import { Fragment, useId, useRef, useState } from 'react';
 import { ChevronDown, X } from 'lucide-react';
-import { chatStickerPickerPacks, chatStickers, emojiCategories, getChatSticker, type ChatStickerPackId, type MascotStickerTheme } from './chatExpressions';
+import { chatStickerPickerPacks, chatStickers, emojiCategories, getChatSticker, getChatStickerTheme, type ChatStickerPackId, type MascotStickerTheme } from './chatExpressions';
 import './chat-expressions.css';
 
 export interface ChatEmojiPickerProps {
@@ -10,7 +10,7 @@ export interface ChatEmojiPickerProps {
 }
 
 type ThemeFilter = 'all' | Exclude<MascotStickerTheme, 'starter'>;
-const mascotFilters = [
+const stickerFilters = [
   { id: 'all', label: '전체' },
   { id: 'daily', label: '일상' },
   { id: 'planning', label: '약속·이동' },
@@ -29,8 +29,8 @@ export default function ChatEmojiPicker({ onInsertEmoji, onSelectSticker, onClos
   const category = emojiCategories.find(item => item.id === categoryId) ?? emojiCategories[0];
   const pack = chatStickerPickerPacks.find(item => item.id === packId)!;
   const packStickers = chatStickers.filter(sticker => sticker.pack === packId);
-  const hasThemes = packStickers.some(sticker => sticker.theme !== undefined);
-  const visibleStickers = hasThemes && themeFilter !== 'all' ? packStickers.filter(sticker => sticker.theme === themeFilter) : packStickers;
+  const hasThemes = packStickers.some(sticker => getChatStickerTheme(sticker) !== undefined);
+  const visibleStickers = hasThemes && themeFilter !== 'all' ? packStickers.filter(sticker => getChatStickerTheme(sticker) === themeFilter) : packStickers;
   const jumpToAdded = () => {
     const heading = addedHeading.current;
     const scroll = heading?.closest('.chat-expression-scroll');
@@ -58,16 +58,17 @@ export default function ChatEmojiPicker({ onInsertEmoji, onSelectSticker, onClos
           }}><img src={getChatSticker(item.coverId)!.src} alt="" /><span className="chat-expression-pack-label">{item.shortName}</span></button>)}
         </div>
         {hasThemes && <div className="chat-expression-theme-filters" role="group" aria-label="스티커 상황 선택">
-          {mascotFilters.map(theme => <button type="button" key={theme.id} aria-pressed={themeFilter === theme.id} onClick={() => setThemeFilter(theme.id)}>{theme.label}</button>)}
+          {stickerFilters.map(theme => <button type="button" key={theme.id} aria-pressed={themeFilter === theme.id} onClick={() => setThemeFilter(theme.id)}>{theme.label}</button>)}
         </div>}
         <div className="chat-expression-scroll" key={`${packId}:${themeFilter}`}>
           <div className="chat-expression-pack-heading">
             <p className="chat-expression-pack-name">{pack.name} · {visibleStickers.length}종</p>
-            {packId === 'redcap' && <button type="button" className="chat-expression-added-link" onClick={jumpToAdded}>추가 9종 보기<ChevronDown size={14} aria-hidden="true"/></button>}
+            {packId === 'redcap' && themeFilter === 'all' && <button type="button" className="chat-expression-added-link" onClick={jumpToAdded}>추가 9종 보기<ChevronDown size={14} aria-hidden="true"/></button>}
           </div>
           <div className="chat-expression-sticker-grid" role="group" aria-label={pack.name}>
             {visibleStickers.map(sticker => <Fragment key={sticker.id}>
-              {sticker.id === 'redcap-confirmed' && <h3 className="chat-expression-added-heading" tabIndex={-1} ref={addedHeading}>추가 9종</h3>}
+              {themeFilter === 'all' && sticker.id === 'redcap-confirmed' && <h3 className="chat-expression-added-heading" tabIndex={-1} ref={addedHeading}>추가 9종</h3>}
+              {themeFilter === 'all' && sticker.id === 'redcap-love' && <h3 className="chat-expression-added-heading">새로 추가한 3종</h3>}
               <button type="button" aria-label={`${pack.shortName} · ${sticker.name} 선택`} aria-pressed={selectedSticker === sticker.id} onClick={() => { setSelectedSticker(sticker.id); onSelectSticker(sticker.id); }}><img src={sticker.src} alt="" loading="lazy" /><span>{sticker.name}</span></button>
             </Fragment>)}
           </div>

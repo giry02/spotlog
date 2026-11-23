@@ -30,7 +30,10 @@ for (const pack of previewPacks) {
   const title = element('h2', '', pack.title);
   title.id = `${pack.id}-title`;
   top.append(title);
-  if (pack.id !== 'redcap-extra') top.append(element('span', 'sticker-count', `${pack.stickers.length}종`));
+  top.append(element('span', 'sticker-count', `${pack.stickers.length}종`));
+  const back = element('a', 'sticker-back-to-packs', '묶음 목록');
+  back.href = '#sticker-pack-nav';
+  top.append(back);
   heading.append(top, element('p', '', pack.description));
 
   const grid = element('ul', 'sticker-grid');
