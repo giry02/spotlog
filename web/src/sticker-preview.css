@@ -1,0 +1,70 @@
+:root {
+  color-scheme: light;
+  font-family: 'DM Sans', Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #242421;
+  background: #f7f7f4;
+  --preview-muted: #5f6059;
+  --preview-line: #e2e2db;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; line-height: 1.5; }
+.sticker-shell { width: min(1040px, calc(100% - 32px)); margin-inline: auto; }
+.sticker-site-bar { background: #fff; border-bottom: 1px solid var(--preview-line); }
+.sticker-site-bar-inner { display: flex; min-height: 56px; align-items: center; justify-content: space-between; gap: 12px; }
+.sticker-wordmark { color: #20201e; font-size: 1.375rem; font-weight: 850; letter-spacing: -.065em; }
+.sticker-site-bar-note { color: var(--preview-muted); font-size: .875rem; font-weight: 600; }
+
+.sticker-intro { margin: clamp(24px, 5vw, 52px) 0 22px; }
+.sticker-intro p { margin: 0; }
+.sticker-intro .sticker-eyebrow { color: #8e3a21; font-size: .8125rem; font-weight: 800; letter-spacing: .095em; }
+.sticker-intro h1 { margin: 5px 0 10px; font-size: clamp(1.75rem, 4.5vw, 2.75rem); letter-spacing: -.06em; line-height: 1.15; }
+.sticker-intro > p:not([class]) { color: var(--preview-muted); word-break: keep-all; }
+.sticker-wide-break { display: none; }
+.sticker-intro .sticker-size { display: inline-flex; flex-wrap: wrap; gap: 4px 9px; margin-top: 14px; align-items: baseline; font-size: .875rem; }
+.sticker-size strong { padding: 3px 8px; border: 1px solid var(--preview-line); border-radius: 6px; background: #fff; font-variant-numeric: tabular-nums; }
+.sticker-size span { color: var(--preview-muted); }
+
+.sticker-pack-nav { display: flex; flex-wrap: wrap; gap: 6px; padding-bottom: 16px; border-bottom: 1px solid var(--preview-line); }
+.sticker-pack-nav a {
+  display: inline-flex; min-height: 44px; align-items: center; justify-content: center;
+  padding: 7px 12px; border: 1px solid var(--preview-line); border-radius: 10px;
+  background: #fff; color: #262622; font-size: .875rem; font-weight: 700;
+  text-align: center; text-decoration: none; word-break: keep-all;
+}
+.sticker-pack-nav a:hover { border-color: #92938a; }
+.sticker-pack-nav a[aria-current="location"] { border-color: #242421; background: #242421; color: #fff; }
+.sticker-pack-nav a:focus-visible { outline: 2px solid #8e3a21; outline-offset: 3px; }
+
+.sticker-load { color: var(--preview-muted); }
+.sticker-pack { padding-block: 22px 26px; scroll-margin-top: 14px; }
+.sticker-pack + .sticker-pack { border-top: 1px solid var(--preview-line); }
+.sticker-pack-heading { margin-bottom: 16px; }
+.sticker-pack-heading-line { display: flex; align-items: baseline; gap: 9px; }
+.sticker-pack-heading h2 { margin: 0; font-size: 1.375rem; letter-spacing: -.04em; }
+.sticker-pack-heading p { margin: 3px 0 0; color: var(--preview-muted); word-break: keep-all; }
+.sticker-count { color: var(--preview-muted); font-size: .875rem; }
+.sticker-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(164px, 100%), 1fr));
+  align-items: start; justify-items: center; gap: 16px 12px; padding: 0; margin: 0; list-style: none;
+}
+.sticker-tile { min-width: 0; }
+/* ChatWorkspace's outgoing sticker card: 160px art, 6px breathing room and 14px caption. */
+.sticker-bubble {
+  width: 162px; margin: 0 auto; padding: 0; overflow: hidden;
+  border: 1px solid #f7dfd3; border-radius: 16px 4px 16px 16px; background: #ffede6;
+}
+.sticker-art { display: block; width: 160px; height: 160px; margin: 6px 0; object-fit: contain; }
+.sticker-caption {
+  margin: 0 3px 6px; color: #242421; text-align: center;
+  font-size: .875rem; font-weight: 700; line-height: 1.25rem; overflow-wrap: anywhere;
+}
+.sticker-footer { margin-block: 0 30px; padding-top: 14px; border-top: 1px solid var(--preview-line); color: var(--preview-muted); font-size: .875rem; }
+
+@media (max-width: 520px) {
+  .sticker-pack-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .sticker-pack-nav a { min-width: 0; padding-inline: 5px; }
+}
+@media (min-width: 521px) {
+  .sticker-wide-break { display: initial; }
+}
