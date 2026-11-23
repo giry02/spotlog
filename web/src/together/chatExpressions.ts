@@ -5,8 +5,10 @@
 import { isChatStickerId, type ChatStickerId, type ChatStickerPackId } from './chatExpressionContract.ts';
 import { redCapStickers } from './redCapStickers.ts';
 import { companionStickers } from './companionStickers.ts';
+import { mascotStickers, type MascotStickerTheme } from './mascotStickers.ts';
 export { isChatStickerId, type ChatStickerId, type ChatStickerPackId } from './chatExpressionContract.ts';
-export interface ChatSticker { readonly id:ChatStickerId; readonly name:string; readonly label:string; readonly pack:ChatStickerPackId; readonly svg?:string; readonly src:string }
+export type { MascotStickerPackId, MascotStickerTheme } from './mascotStickers.ts';
+export interface ChatSticker { readonly id:ChatStickerId; readonly name:string; readonly label:string; readonly pack:ChatStickerPackId; readonly svg?:string; readonly src:string; readonly theme?:MascotStickerTheme }
   const ink='#514d47', cream='#fff9e7', mint='#adc9b6', coral='#ef9b91';
   const entries=[
     ['bunny-hi','안녕!','안녕!', 'wave'],
@@ -88,6 +90,8 @@ export interface ChatSticker { readonly id:ChatStickerId; readonly name:string; 
     Object.freeze({id:'redcap',name:'빨간 모자의 하루',shortName:'빨간모자',coverId:'redcap-thumbs-up',description:'일상과 약속, 나들이에서 쓰는 표정과 동작 36가지'}),
     Object.freeze({id:'roundglasses',name:'동글안경의 하루',shortName:'동글안경',coverId:'roundglasses-thumbs-up',description:'동그란 안경 너머로 건네는 다정한 답장 9종'}),
     Object.freeze({id:'purplescarf',name:'보라머플러의 나들이',shortName:'보라머플러',coverId:'purplescarf-excited',description:'보라색 머플러를 휘날리며 보내는 나들이 표현 9종'}),
+    Object.freeze({id:'pebble',name:'몽돌이',shortName:'몽돌이',coverId:'pebble-thumbs-up',description:'주황 스카프를 두른 몽돌이의 반응과 약속, 나들이 39종'}),
+    Object.freeze({id:'guidebot',name:'길잡이 로봇',shortName:'길잡이',coverId:'guidebot-thumbs-up',description:'노란 길잡이 로봇과 주고받는 일상과 약속, 나들이 39종'}),
   ]);
   const stickers:ChatSticker[]=entries.map(([id,name,label,pose])=>{const svg=art(label,pose);return Object.freeze({id,name,label,pack:'bunny',svg,src:'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg)});});
   for(const species of ['cat','bear','duck'] as const){
@@ -95,7 +99,16 @@ export interface ChatSticker { readonly id:ChatStickerId; readonly name:string; 
   }
 
 export const packs = chatStickerPacks;
-export const chatStickers:readonly ChatSticker[] = Object.freeze([...stickers, ...redCapStickers, ...companionStickers]);
+// Browsing order is independent of the saved-sticker catalogue.
+const featuredPackIds = ['redcap', 'pebble', 'guidebot'] as const;
+const featuredPackSet = new Set<ChatStickerPackId>(featuredPackIds);
+const animalPackIds = new Set<ChatStickerPackId>(['bunny', 'cat', 'bear', 'duck']);
+export const chatStickerPickerPacks = Object.freeze([
+  ...featuredPackIds.map(id => chatStickerPacks.find(pack => pack.id === id)!),
+  ...chatStickerPacks.filter(pack => !featuredPackSet.has(pack.id) && !animalPackIds.has(pack.id)),
+  ...chatStickerPacks.filter(pack => animalPackIds.has(pack.id)),
+]);
+export const chatStickers:readonly ChatSticker[] = Object.freeze([...stickers, ...redCapStickers, ...companionStickers, ...mascotStickers]);
 const stickerIndex = new Map(chatStickers.map(sticker=>[sticker.id,sticker]));
 export function getChatSticker(id:unknown):ChatSticker|null { return isChatStickerId(id) ? stickerIndex.get(id)! : null; }
 export interface ChatEmoji { readonly emoji:string; readonly label:string }

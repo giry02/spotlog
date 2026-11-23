@@ -72,13 +72,13 @@ test('missing, cross-room and deleted originals cannot be quoted or reacted to',
   assertRejectedWithoutChange(state, () => toggleMessageReaction(state, 'alice', groupRoom, 'source', '👍'));
 });
 
-test('new sticker-only posts reload alongside previously stored animal and red cap stickers', () => {
+test('new sticker-only posts reload alongside previously stored character stickers', () => {
   const state = fixture(), key = togetherStorageKey('alice');
   const prior = ['bunny-hi', 'redcap-thumbs-up'];
   for (const id of prior) postTogetherMessage(state, 'alice', groupRoom, '', id);
   const disk = memoryStorage({ [key]: JSON.stringify(state) });
   const repo = createTogetherRepository('alice', '가', [], disk);
-  const added = ['redcap-confirmed', 'roundglasses-thumbs-up', 'purplescarf-excited'];
+  const added = ['redcap-confirmed', 'roundglasses-thumbs-up', 'purplescarf-excited', 'pebble-thumbs-up', 'guidebot-arrived'];
   assert.equal(repo.update(draft => {
     for (const id of added) postTogetherMessage(draft, 'bob', groupRoom, '', id);
   }), true);

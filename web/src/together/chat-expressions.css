@@ -10,10 +10,14 @@
 .tg .chat-expression-categories > button { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 7px 9px; border: 1px solid #dfdfda; border-radius: 10px; white-space: nowrap; }
 .tg .chat-expression-categories > button[aria-pressed=true] { color: #fff; background: #242421; border-color: #242421; }
 .tg .chat-expression-categories > button > span { font-size: 20px; line-height: 1; }
-.tg .chat-expression-packs { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 4px; }
-.tg .chat-expression-packs > button { grid-column: span 4; flex-direction: column; min-width: 0; min-height: 48px; gap: 1px; padding: 3px 1px; font-size: 12px; line-height: 16px; }
-.tg .chat-expression-packs > button:nth-child(-n+4) { grid-column: span 3; }
+.tg .chat-expression-packs { flex-wrap: nowrap; gap: 6px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scroll-padding-inline: 10px; scrollbar-width: thin; scrollbar-color: #cecec7 transparent; }
+.tg .chat-expression-packs:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.tg .chat-expression-packs > button { flex-direction: column; min-width: 64px; min-height: 48px; gap: 1px; padding: 3px 5px; font-size: 12px; line-height: 16px; scroll-snap-align: start; }
 .tg .chat-expression-packs img { width: 24px; height: 24px; object-fit: contain; }
+.tg .chat-expression-packs > button > .chat-expression-pack-label { max-width: 100%; font-size: inherit; line-height: inherit; word-break: keep-all; }
+.tg .chat-expression-theme-filters { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 4px; padding: 0 10px; border-bottom: 1px solid var(--line); }
+.tg .chat-expression-theme-filters > button { min-width: 0; padding: 0 2px; border-bottom: 2px solid transparent; font-size: 12px; line-height: 16px; white-space: nowrap; }
+.tg .chat-expression-theme-filters > button[aria-pressed=true] { color: var(--ink); border-color: var(--ink); }
 .tg .chat-expression-scroll { min-width: 0; max-height: min(240px, 31dvh); min-height: 120px; overflow-y: auto; overscroll-behavior: contain; padding: 8px 10px; }
 .tg .chat-expression-emoji-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
 .tg .chat-expression-emoji-grid > button { min-width: 0; width: 100%; min-height: 46px; display: grid; place-items: center; padding: 4px 0; border-radius: 10px; }
