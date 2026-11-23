@@ -1,7 +1,7 @@
 import { useUiCopy } from './frontendCopy';
 import { useLocale } from './locale';
 import { useEffect, useState, type ReactNode } from 'react';
-import { Activity, ArrowDown, ArrowUp, ArrowLeft, ArrowRight, CalendarDays, ChevronRight, MapPin, Plus, Sparkles, Trash2, MoreHorizontal, Copy, Undo2, CheckCircle2, SkipForward, RefreshCw, Clock3, Navigation, Map as MapIcon, Utensils, Coffee, BedDouble, Store, GripVertical } from 'lucide-react';
+import { Activity, ArrowDown, ArrowUp, ArrowLeft, ArrowRight, CalendarDays, ChevronRight, MapPin, MapPinPlus, Plus, Sparkles, Trash2, MoreHorizontal, Copy, Undo2, CheckCircle2, SkipForward, RefreshCw, Clock3, Navigation, Map as MapIcon, Utensils, Coffee, BedDouble, Store, GripVertical } from 'lucide-react';
 import { placeKindLabel, type Journey, type Place, type PlanningSlot } from './data';
 import { plannerTimeline, planningSlotLabel, planningGapLabel, plannerVisitContext } from './plannerTimeline';
 import { DayNavigation } from './DayNavigation';
@@ -224,17 +224,31 @@ export function PersonalTrip({ journey: input, initialDay, catalog, savedPlaces,
     </div></details>}
     <DayNavigation compact showBack={false} days={journey.days} selectedDay={day.day} onSelect={next=>{const target=journey.days.find(item=>item.day===next);if(target&&rememberPosition(target,nextPendingInDay(journey,target)?.visitId)){setAnchorId(null);}}} onBack={onBack}/>
     {isEditing && candidateCount > 0 && <aside className="plan-candidate-banner"><div><strong>{`업체·숙소 후보 ${candidateCount}곳`}</strong><p>완료를 누르면 후보마다 한 곳씩 고를 수 있어요.</p></div></aside>}
-    <section className="plan-day"><div className="section-heading"><div><h2>DAY {day.day}{traveling ? (en?' · On the trip':' · 여행 중') : ''}</h2>{day.places.length ? <p>{day.places.length}{copy('곳')} · {courseStayLabel(courseDayFacts(day).stayMinutes)}{en?' · excludes transfers':' · 이동 제외'}</p> : <p>{en ? 'Choose where you want to go.' : '가고 싶은 곳부터 담아보세요.'}</p>}</div><div className="plan-day-tools">{!!routePlaces.length && <button type="button" className="plan-view-map-toggle" aria-label={mapOpen?copy("지도 접기"):copy("이날의 동선 지도")} aria-expanded={mapOpen} onClick={()=>setMapOpen(!mapOpen)}><MapIcon size={15}/>{mapOpen?copy("지도 접기"):copy("동선 지도")}</button>}{isEditing && <button className="plan-icon" aria-label={`DAY ${day.day} ${en?'menu':'메뉴'}`} onClick={()=>setMenu('day')}><MoreHorizontal size={20}/></button>}</div></div>
+    <section className="plan-day">
+      <div className="section-heading">
+        <div><h2>DAY {day.day}{traveling ? (en?' · On the trip':' · 여행 중') : ''}</h2>{day.places.length ? <p>{day.places.length}{copy('곳')} · {courseStayLabel(courseDayFacts(day).stayMinutes)}{en?' · excludes transfers':' · 이동 제외'}</p> : <p>{en ? 'Choose where you want to go.' : '가고 싶은 곳부터 담아보세요.'}</p>}</div>
+        {(routePlaces.length > 0 || isEditing) && <div className="plan-day-tools">
+          {routePlaces.length > 0 && <button type="button" className="plan-view-map-toggle" aria-label={mapOpen?copy("지도 접기"):copy("이날의 동선 지도")} title={mapOpen?copy("지도 접기"):copy("이날의 동선 지도")} aria-expanded={mapOpen} aria-controls={mapOpen ? 'personal-route' : undefined} onClick={()=>setMapOpen(!mapOpen)}><MapIcon size={20} aria-hidden="true"/></button>}
+          {isEditing && <button type="button" className="plan-icon" aria-label={`DAY ${day.day} ${en?'menu':'메뉴'}`} aria-haspopup="dialog" onClick={()=>setMenu('day')}><MoreHorizontal size={20} aria-hidden="true"/></button>}
+        </div>}
+      </div>
       {traveling && day.places.length > 0 && <div className="plan-travel-next">
         <p className="plan-help">{en ? `${resolvedCount}/${day.places.length} stops checked` : `${resolvedCount}/${day.places.length}곳 확인`}</p>
-        {nextVisit ? <div><button className="outline" onClick={()=>chooseVisit(nextVisit.visitId!)}><ArrowRight size={14}/><span>{en ? 'Continue' : '이어서 방문'} · {nextVisit.name}</span></button><Button size="compact" variant="secondary" className="plan-next-complete" aria-label={`${nextVisit.name} · ${en?'Mark visited':'방문 완료'}`} onClick={()=>changeProgress(nextVisit,'done')}><CheckCircle2 size={14}/>{en?'Done':'완료'}</Button><a className="plan-directions-link" href={naverDirectionsUrl(nextVisit)} target="_blank" rel="noopener noreferrer" onClick={event=>{if(!rememberPosition(day,nextVisit.visitId))event.preventDefault();}} aria-label={`${nextVisit.name} · ${en ? 'Naver directions' : '네이버 길찾기'}`}><Navigation size={14}/>{en ? 'Directions' : '길찾기'}</a></div> : nextDay ? <button className="outline" onClick={()=>rememberPosition(nextDay,nextPendingInDay(journey,nextDay)?.visitId)}><ArrowRight size={14}/>{en ? `This day is checked · Continue DAY ${nextDay.day}` : `이 DAY 확인 끝 · DAY ${nextDay.day} 이어가기`}</button> : <p className="plan-help">{en ? 'All planned stops have been checked. You can restore visits from their menus.' : '모든 일정의 방문을 확인했어요. 장소 메뉴에서 미방문으로 되돌릴 수 있어요.'}</p>}
+        {nextVisit ? <div>
+          <button className="outline" onClick={()=>chooseVisit(nextVisit.visitId!)}><ArrowRight size={14}/><span>{en ? 'Continue' : '이어서 방문'} · {nextVisit.name}</span></button>
+          <Button size="compact" variant="secondary" className="plan-next-complete" aria-label={`${nextVisit.name} · ${en?'Mark visited':'방문 완료'}`} onClick={()=>changeProgress(nextVisit,'done')}><CheckCircle2 size={14}/>{en?'Done':'완료'}</Button>
+          <a className="plan-directions-link" href={naverDirectionsUrl(nextVisit)} target="_blank" rel="noopener noreferrer" onClick={event=>{if(!rememberPosition(day,nextVisit.visitId))event.preventDefault();}} aria-label={`${nextVisit.name} · ${en ? 'Naver directions' : '네이버 길찾기'}`} title={en ? 'Naver directions' : '네이버 길찾기'}><Navigation size={18} aria-hidden="true"/></a>
+        </div> : nextDay ? <button className="outline" onClick={()=>rememberPosition(nextDay,nextPendingInDay(journey,nextDay)?.visitId)}><ArrowRight size={14}/>{en ? `This day is checked · Continue DAY ${nextDay.day}` : `이 DAY 확인 끝 · DAY ${nextDay.day} 이어가기`}</button> : <p className="plan-help">{en ? 'All planned stops have been checked. You can restore visits from their menus.' : '모든 일정의 방문을 확인했어요. 장소 메뉴에서 미방문으로 되돌릴 수 있어요.'}</p>}
       </div>}
       {mapOpen && !!routePlaces.length && <div className="plan-route" id="personal-route">{renderMap(routePlaces,selectedVisit,chooseVisit,setWarning)}</div>}
       {!isEditing && previousStay && <button id={`plan-visit-${previousStay.visitId}`} className="plan-departure" onClick={()=>{setSelectedVisit(previousStay.visitId);setMapOpen(true);}}>1 · {previousStay.name}{copy("에서 출발")}</button>}
       {canReorder && day.places.some(place => canDragPlanVisit(day, place.visitId!)) && <p className="plan-drag-hint" aria-hidden="true"><GripVertical size={16}/>{en?'Drag the handle to reorder':'손잡이를 끌어 순서 변경'}</p>}
       {canReorder && <span id="plan-drag-instructions" className="plan-drag-sr">{en?'Drag to reorder this day. Linked places move together. Use up and down arrow keys on the handle. Escape cancels.':'손잡이를 끌어 이 DAY의 순서를 바꿀 수 있어요. 연결된 장소는 함께 이동해요. 손잡이에서 위아래 방향키로도 변경할 수 있어요. Escape 키로 취소해요.'}</span>}
       <div className={`plan-stops${dragOrder.preview?' plan-sort-active':''}`}>{plannerTimeline(day).map(entry=>{
-        if(entry.type==='gap')return <article className="plan-stop plan-timeline-gap" key={entry.gap.id}><small>{planningSlotLabel(entry.gap.slot,en)}</small><strong>{planningGapLabel(entry.gap,en)}</strong><p>{plannerVisitContext(day,entry,en)}</p>{isEditing && <Button size="compact" variant="secondary" className="plan-local-action" onClick={()=>{const target=day.places.find(p=>p.visitId===(entry.gap.afterVisitId??entry.gap.beforeVisitId)&&isCandidateAnchor(p))??day.places.find(isCandidateAnchor);setPlanningSlot(entry.gap.slot);if(target){setAnchorId(target.visitId!);}else setAddingLandmark(true);}}><Plus size={14}/>{en?'Add a place':copy("장소 담기")}</Button>}</article>;
+        if(entry.type==='gap')return <article className="plan-stop plan-timeline-gap" key={entry.gap.id}>
+          <div className="plan-gap-copy"><small>{planningSlotLabel(entry.gap.slot,en)}</small><strong>{planningGapLabel(entry.gap,en)}</strong><p>{plannerVisitContext(day,entry,en)}</p></div>
+          {isEditing && <button type="button" className="plan-icon" aria-label={`${planningSlotLabel(entry.gap.slot,en)} · ${en?'Add a place':copy("장소 담기")}`} title={en?'Add a place':copy("장소 담기")} aria-haspopup="dialog" onClick={()=>{const target=day.places.find(p=>p.visitId===(entry.gap.afterVisitId??entry.gap.beforeVisitId)&&isCandidateAnchor(p))??day.places.find(isCandidateAnchor);setPlanningSlot(entry.gap.slot);if(target){setAnchorId(target.visitId!);}else setAddingLandmark(true);}}><MapPinPlus size={20} aria-hidden="true"/></button>}
+        </article>;
         const {place}=entry,index=day.places.indexOf(place);
         const KindIcon=place.kind==='FOOD'?Utensils:place.kind==='CAFE'?Coffee:place.kind==='STAY'?BedDouble:place.kind==='SHOP'?Store:place.kind==='LEISURE'?Activity:MapPin;
         const draggable=canReorder&&canDragPlanVisit(day,place.visitId!);
@@ -248,9 +262,8 @@ export function PersonalTrip({ journey: input, initialDay, catalog, savedPlaces,
         {place.planningSlot&&<p className="plan-help plan-timeline-context">{planningSlotLabel(place.planningSlot,en)}{place.kind!=='LANDMARK'&&plannerVisitContext(day,entry,en)?` · ${plannerVisitContext(day,entry,en)}`:''}</p>}
         {(place.time||place.note) && <p className="plan-help">{place.time && `${place.time} · `}{place.note}</p>}
         {((canEditTrip && isCandidateAnchor(place)) || isEditing) && <div className="plan-stop-actions">
-          {canEditTrip && isCandidateAnchor(place) && <button type="button" className="outline" onClick={() => { setPlanningSlot(undefined); setAnchorId(place.visitId!); }}><Plus size={16}/>{t('nearby')}</button>}
-          <span/>
-          {isEditing && <button type="button" aria-label={`${place.name} · ${en ? 'Place menu' : '장소 메뉴'}`} onClick={() => { setEditing(structuredClone(place)); setError(''); }}><MoreHorizontal size={18}/></button>}
+          {canEditTrip && isCandidateAnchor(place) && <button type="button" aria-label={t('nearby')} title={t('nearby')} aria-haspopup="dialog" onClick={() => { setPlanningSlot(undefined); setAnchorId(place.visitId!); }}><MapPinPlus size={20} aria-hidden="true"/></button>}
+          {isEditing && <button type="button" aria-label={`${place.name} · ${en ? 'Place menu' : '장소 메뉴'}`} aria-haspopup="dialog" onClick={() => { setEditing(structuredClone(place)); setError(''); }}><MoreHorizontal size={20} aria-hidden="true"/></button>}
         </div>}
       </article>})}{dragOrder.preview?.valid&&dragOrder.preview.before===null&&<div className="plan-drop-end" aria-hidden="true"/>}</div>
       {dragOrder.preview&&<div className="plan-drag-preview" style={{left:dragOrder.preview.left,top:dragOrder.preview.top,width:dragOrder.preview.width}} aria-hidden="true"><GripVertical size={18}/><span>{dragOrder.preview.label}</span></div>}

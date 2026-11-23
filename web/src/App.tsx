@@ -4,7 +4,7 @@ import PublicPlaceFacts from './community/PublicPlaceFacts';
 import CoursePreview from './CoursePreview';
 import { accountProviderName } from './accountMethods';
 import { useUiCopy } from './frontendCopy';
-import { Settings, ChevronDown } from 'lucide-react';
+import { ListPlus, Settings, ChevronDown } from 'lucide-react';
 import {
   Award,
   ArrowLeft,
@@ -2272,7 +2272,7 @@ function SavedPlaceCard({ place, placement, selection, onRemove, onAdd, onUse }:
     </button>
     <button type="button" className={`saved-place-row-add ${onUse ? 'saved-place-row-use' : ''} ${included ? 'is-added' : ''}`}
       onClick={() => onUse ? onUse(place) : onAdd(place)} aria-label={`${place.name}, ${placementLabel}`} title={placement ? `${placement.journeyTitle} · ${placement.date} · ${placementLabel}` : placementLabel}>
-      {onUse ? <><span>{rowActionLabel}</span><ChevronRight size={14} aria-hidden="true"/></> : <>{included ? <Check size={18} aria-hidden="true"/> : <Plus size={18} aria-hidden="true"/>}<span>{rowActionLabel}</span></>}
+      {onUse ? <ListPlus size={20} aria-hidden="true"/> : <>{included ? <Check size={18} aria-hidden="true"/> : <Plus size={18} aria-hidden="true"/>}<span>{rowActionLabel}</span></>}
     </button>
   </article>{detailOpen && <SavedLandmarkDetailSheet place={place} onClose={() => setDetailOpen(false)} actions={<>{onUse && <button type="button" className="saved-place-remove" onClick={() => { setDetailOpen(false); onUse(place); }}><Users size={18}/>이 장소 활용</button>}<button type="button" className="saved-place-remove" onClick={removeFromSaved}><Bookmark size={18} aria-hidden="true" />{en ? 'Remove from saved places' : '관심 장소 저장 취소'}</button></>} />}</>;
 }

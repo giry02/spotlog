@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BookOpen, ChevronRight, ShieldCheck, UserRound } from 'lucide-react';
+import { ChevronRight, Ellipsis, Pencil, ShieldCheck, UserRound } from 'lucide-react';
 import type { TogetherState } from './model';
 import { selectGroupMembers } from './groupContent';
 import { canUseRoomProfiles } from './roomIdentity';
@@ -26,12 +26,15 @@ export default function GroupMembersPanel({ state, viewerId, groupId, activityId
   const own = members.find(item => item.id === viewerId);
   const manager = !group.archived && (group.ownerId === viewerId || group.managerIds.includes(viewerId));
   return <div className="tg-members-panel">
-    {own && <section className="tg-own-member"><MemberAvatar name={own.name} avatar={own.avatar} large/><div><small>{canUseRoomProfiles(group) ? '이 방의 멀티프로필' : '내 기본 프로필'}</small><strong>{own.name}</strong><span>{own.role}</span></div>{!group.archived && onEditProfile && <div className="tg-own-member__actions"><button type="button" onClick={onEditProfile}>멀티프로필 편집</button></div>}</section>}
-    <div className="tg-between"><h3>함께하는 멤버 <span>{members.length}</span></h3>{onOpenManagers && group.ownerId === viewerId && !group.archived && <button type="button" className="tg-text-button" onClick={onOpenManagers}><ShieldCheck size={16}/>운영진 관리</button>}</div>
-    <div className="tg-member-directory">{members.map(item => <article className="tg-member-directory__item" key={item.id}><button type="button" className="tg-member-directory__person" aria-label={`${item.name}님의 기록 보기`} onClick={() => onViewRecords(item.id)}><MemberAvatar name={item.name} avatar={item.avatar}/><span><strong>{item.name}{item.id === viewerId && <small>나</small>}</strong><small>{item.role}</small></span><BookOpen size={17}/><ChevronRight size={16}/></button>
+    {own && <section className="tg-own-member"><MemberAvatar name={own.name} avatar={own.avatar} large/><div><small>{canUseRoomProfiles(group) ? '이 방의 멀티프로필' : '내 기본 프로필'}</small><strong>{own.name}</strong><span>{own.role}</span></div>{!group.archived && onEditProfile && <button type="button" className="tg-member-action-icon" aria-label="멀티프로필 편집" title="멀티프로필 편집" onClick={onEditProfile}><Pencil size={18} aria-hidden="true"/></button>}</section>}
+    <header className="tg-member-directory-heading"><h3>함께하는 멤버 <span>{members.length}명</span></h3>{onOpenManagers && group.ownerId === viewerId && !group.archived && <button type="button" className="tg-member-action-icon" aria-label="운영진 관리" title="운영진 관리" onClick={onOpenManagers}><ShieldCheck size={19} aria-hidden="true"/></button>}</header>
+    <div className="tg-member-directory">{members.map(item => <article className="tg-member-directory__item" key={item.id}>
+      <div className="tg-member-directory__row">
+        <button type="button" className="tg-member-directory__person" aria-label={`${item.name}님의 기록 보기`} onClick={() => onViewRecords(item.id)}><MemberAvatar name={item.name} avatar={item.avatar}/><span><strong>{item.name}{item.id === viewerId && <small>나</small>}</strong><small>{item.role}</small></span><ChevronRight size={16} aria-hidden="true"/></button>
+        {manager && onManageMember && item.id !== viewerId && item.id !== group.ownerId && (group.ownerId === viewerId || !group.managerIds.includes(item.id)) && <button type="button" className="tg-member-action-icon" aria-label={`${item.name} 멤버 관리`} title="멤버 관리" onClick={() => onManageMember(item.id)}><Ellipsis size={19} aria-hidden="true"/></button>}
+      </div>
       {item.sharedIntroduction && <p>{item.sharedIntroduction}</p>}
       {(item.id === viewerId || manager) && group.memberProfiles?.[item.id] && <details className="tg-member-introduction"><summary>모임에 남긴 소개</summary><GroupProfileDetails profile={group.memberProfiles[item.id]} fields={group.joinFields}/></details>}
-      {manager && onManageMember && item.id !== viewerId && item.id !== group.ownerId && (group.ownerId === viewerId || !group.managerIds.includes(item.id)) && <button type="button" className="tg-text-button tg-danger" onClick={() => onManageMember(item.id)}>멤버 관리</button>}
     </article>)}</div>
     {manager && onOpenApplications && <button type="button" className="tg-content-menu" onClick={onOpenApplications}><UserRound size={18}/>가입 신청 관리<ChevronRight size={17}/></button>}
   </div>;

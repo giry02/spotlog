@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { MapPin, RefreshCw } from 'lucide-react';
+import { ChevronRight, MapPin, RefreshCw } from 'lucide-react';
 import type { Map as MapInstance, Marker as MapMarker } from 'maplibre-gl';
 import type { Place } from './data';
 import { hasLocation } from './tripPlan';
@@ -9,7 +9,7 @@ import mapWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import './interest-places-map.css';
 
 export interface InterestPlacesMapProps { places: Place[]; onSelectPlace: (place: Place) => void; heading?: string; ariaLabel?: string; mapLabel?: string; interactiveMarkers?: boolean }
-const pinText: Record<Place['kind'], string> = { LANDMARK: '장소', FOOD: '식당', CAFE: '카페', STAY: '숙소', SHOP: '쇼핑', LEISURE: '레저' };
+const pinGraphic = '<svg viewBox="0 0 28 32" aria-hidden="true" focusable="false"><path d="M14 2a11 11 0 0 1 11 11c0 7-11 17-11 17S3 20 3 13A11 11 0 0 1 14 2Z" fill="currentColor" stroke="white" stroke-width="2" stroke-linejoin="round"/><circle cx="14" cy="13" r="3.5" fill="white"/></svg>';
 
 /** Saved positions only: no ordering, route requests, GPS, or map tile caching. */
 export default function InterestPlacesMap({ places, onSelectPlace, heading = '저장한 장소 위치', ariaLabel = '관심 장소 지도', mapLabel = '저장한 장소 위치 지도', interactiveMarkers = true }: InterestPlacesMapProps) {
@@ -62,8 +62,10 @@ export default function InterestPlacesMap({ places, onSelectPlace, heading = '�
       for (const place of mappable) {
         bounds.extend([place.lng, place.lat]);
         const pin = document.createElement(interactiveMarkers ? 'button' : 'span');
-        pin.className = 'interest-map-pin'; pin.dataset.kind = place.kind;
-        pin.textContent = pinText[place.kind]; pin.title = place.name;
+        pin.className = 'interest-map-pin';
+        pin.dataset.kind = place.kind;
+        pin.innerHTML = pinGraphic;
+        pin.title = place.name;
         if (pin instanceof HTMLButtonElement) {
           pin.type = 'button';
           pin.setAttribute('aria-label', `${place.name} · ${interestKindLabels[place.kind]} 상세보기`);
@@ -99,11 +101,11 @@ export default function InterestPlacesMap({ places, onSelectPlace, heading = '�
   }, [mappable, online, error, attempt, interactiveMarkers]);
   const unavailable = !online || error || !mappable.length;
   const placeRow = (place: Place) => interactiveMarkers
-    ? <button type="button" key={place.id} onClick={() => onSelectPlace(place)}><MapPin size={16} aria-hidden="true" /><span><strong>{place.name}</strong><small>{interestKindLabels[place.kind]} · {place.area}</small></span><span>상세</span></button>
+    ? <button type="button" key={place.id} onClick={() => onSelectPlace(place)}><MapPin size={16} aria-hidden="true" /><span><strong>{place.name}</strong><small>{interestKindLabels[place.kind]} · {place.area}</small></span><ChevronRight size={16} className="interest-map-list-arrow" aria-hidden="true" /></button>
     : <div className="interest-map-static-place" key={place.id}><MapPin size={16} aria-hidden="true"/><span><strong>{place.name}</strong><small>{interestKindLabels[place.kind]} · {place.area}</small></span></div>;
   return <section className="interest-places-map" aria-label={ariaLabel}>
     <div className="interest-map-heading"><strong>{heading}</strong><span>{mappable.length}곳 표시</span></div>
-    <p className="interest-map-note" id={noteId}>{interactiveMarkers ? '장소를 누르면 상세정보가 열려요. 방문 순서와 이동 경로는 표시하지 않아요.' : '등록된 장소의 위치예요. 방문 순서와 이동 경로는 표시하지 않아요.'}</p>
+    <p className="interest-map-note" id={noteId}>{interactiveMarkers ? '핀을 누르면 장소 상세가 열려요.' : '등록된 장소의 위치예요.'}</p>
     {unavailable ? <div className="interest-map-fallback"><MapPin size={28} aria-hidden="true" /><strong>{!mappable.length ? '위치가 확인된 장소가 없어요' : !online ? '인터넷 연결 후 지도를 볼 수 있어요' : '지도를 불러오지 못했어요'}</strong><p>{interactiveMarkers ? '아래 목록에서 사진과 상세정보를 확인할 수 있어요.' : '장소 주소와 길찾기는 상세 화면에서 확인해 주세요.'}</p>{online && error && <button type="button" onClick={() => { setError(false); setAttempt(value => value + 1); }}><RefreshCw size={16} />지도 다시 연결</button>}</div> : <div className="interest-map-surface" aria-describedby={noteId}><div ref={container} className="interest-map-canvas" aria-label={mapLabel} />{!loaded && <p className="interest-map-loading" role="status">지도 불러오는 중</p>}</div>}
     {!!mappable.length && <details className="interest-map-list" open={unavailable}><summary>지도에 표시한 장소 · {mappable.length}곳</summary><div>{mappable.map(placeRow)}</div></details>}
     {!!unknown.length && <details className="interest-map-list interest-map-unknown"><summary>위치 확인이 필요한 장소 · {unknown.length}곳</summary><p>주소·좌표가 확인되지 않아 지도에서 제외했어요.</p><div>{unknown.map(placeRow)}</div></details>}

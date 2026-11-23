@@ -18,3 +18,5 @@
 .tg .activity-phase-heading button:focus-visible,.tg .activity-record-panel button:focus-visible{outline:2px solid var(--ink,#171717);outline-offset:3px}
 .activity-route-focus{scroll-margin-top:128px;display:grid;gap:16px;min-width:0}.activity-day-presence{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 12px;font-size:14px}.activity-day-presence>span{min-width:0;overflow-wrap:anywhere}.tg .activity-day-presence button{min-height:44px;flex-shrink:0;font-size:14px;padding:8px 12px}
 .activity-temporary-details>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:44px;font-size:12px;cursor:pointer;color:var(--muted,#777)}
+
+.tg .tg-space-chrome:has(+.tg-activity-content) { padding-bottom:6px; }

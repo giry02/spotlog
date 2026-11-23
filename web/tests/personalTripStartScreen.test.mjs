@@ -133,7 +133,10 @@ test('a trip with places retains completion, route and existing place editing co
 test('one nearby stop can be added and undone in a finished itinerary without opening candidate review', () => {
   const app = fixture({ populated: true, planStage: 'READY' });
   app.render();
-  app.control('nearby').props.onClick();
+  const nearbyAction = app.find(node => node.type === 'button' && node.props['aria-label'] === 'nearby');
+  assert.equal(text(nearbyAction), '');
+  assert.equal(nearbyAction.props['aria-haspopup'], 'dialog');
+  nearbyAction.props.onClick();
   app.render();
   const nearby = app.find(node => node.type === 'NearbyBusinessSheet');
   const food = { ...app.journey.days[0].places[0], id: 'food', name: '근처 식당', kind: 'FOOD' };

@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
-import { ArrowRight, CalendarDays, ChevronDown, ChevronRight, MapPin, Plus, Search, Users, X } from 'lucide-react';
+import { ArrowRight, CalendarDays, ChevronDown, ChevronRight, ClipboardList, MapPin, Plus, Search, UserRoundPlus, Users, X } from 'lucide-react';
 import type { GroupTopic, TogetherState } from './model';
 import { topicOptions, validPublicStartTime, type PublicDiscoveryActivity } from './discovery';
 import { selectGroupDiscovery, type GroupDiscoveryFilters, type GroupDiscoverySection, type PublicGroupDiscoveryCard } from './groupDiscoveryModel';
@@ -56,8 +56,8 @@ function RecruitmentCard({ group, onOpen, onJoin, featured = false, matchingTopi
   const subtopic = subtopics?.find(item => item?.id === matchingSubtopic)
     ?? subtopics?.find(item => item?.parent === topic?.id);
   const action = group.joined ? '가입 중' : group.pending && group.joinMode !== 'DIRECT' ? '승인 대기' : group.recruitment === 'PAUSED' ? '모집 휴식' : group.joinMode === 'DIRECT' ? '바로 가입' : '가입 신청';
-  const disabled = !group.joined && (group.pending && group.joinMode !== 'DIRECT' || group.recruitment === 'PAUSED');
-  const showJoinText = featured || group.joined || disabled;
+  const canJoin = onJoin && !group.joined && !(group.pending && group.joinMode !== 'DIRECT') && group.recruitment !== 'PAUSED';
+  const JoinIcon = group.joinMode === 'DIRECT' ? UserRoundPlus : ClipboardList;
   return <article className={`gd-group-card${featured ? ' gd-group-card--featured' : ''}`}>
     <button type="button" className="gd-group-open" onClick={() => onOpen(group.id)} aria-label={`${group.name} 모임 소개 보기`}>
       <span className="gd-group-photo">{group.cover && failedImage !== group.cover ? <img src={group.cover} alt="" loading="lazy" onError={() => setFailedImage(group.cover)}/> : <span className="gd-photo-fallback" aria-hidden="true">{topic?.emoji || '👥'}</span>}{group.example && <span className="gd-example-badge">예시</span>}</span>
@@ -67,7 +67,7 @@ function RecruitmentCard({ group, onOpen, onJoin, featured = false, matchingTopi
         {group.nextActivity ? <span className="gd-next-date"><CalendarDays size={13} aria-hidden="true"/><span>{eventDate(group.nextActivity)} · {group.nextActivity.title}</span></span> : !featured && <span className="gd-welcome">{group.welcome}</span>}
       </span>
     </button>
-    {onJoin ? <button type="button" className={`gd-card-join${group.joined ? ' is-joined' : ''}${!showJoinText ? ' gd-card-join--compact' : ''}`} aria-label={`${group.name} ${action}`} title={`${group.name} ${action}`} disabled={disabled} onClick={() => group.joined ? onOpen(group.id) : onJoin(group.id)}>{showJoinText ? action : group.joinMode === 'DIRECT' ? '가입' : '신청'}</button> : <span className="gd-join-mode">{action}</span>}
+    {canJoin ? <button type="button" className={`gd-card-join${featured ? '' : ' gd-card-join--compact'}`} aria-label={`${group.name} ${action}`} title={action} onClick={() => onJoin(group.id)}><JoinIcon size={18} aria-hidden="true"/>{featured && action}</button> : <span className="gd-join-mode">{action}</span>}
   </article>;
 }
 function PublicActivityCard({ activity, group, onOpen }: { activity: PublicDiscoveryActivity; group: PublicGroupDiscoveryCard; onOpen: (id: string, activityId?: string) => void }) {

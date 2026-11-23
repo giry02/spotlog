@@ -237,8 +237,6 @@
 .gd-next-date>svg { flex-shrink:0; }
 .gd-example-badge { position:absolute; bottom:2px; left:2px; padding:1px 4px; border-radius:5px; background:#fffffff0; color:#5f5f58; font-size:12px; line-height:16px; font-weight:400; }
 .gd .gd-card-join { flex:0 0 74px; min-width:74px; min-height:44px; padding:8px 4px; border-radius:9px; font-size:14px; line-height:20px; white-space:nowrap; background:#fff; color:var(--ink); }
-.gd .gd-card-join:disabled { color:var(--muted); background:#f1f1ec; cursor:default; font-weight:400; }
-.gd .gd-card-join.is-joined { border:0; background:transparent; color:var(--muted); font-weight:400; }
 .gd-join-mode { flex:0 0 auto; font-size:12px; line-height:16px; color:var(--muted); }
 .gd-topic-strip { display:flex; align-items:center; gap:8px; min-width:0; overflow-x:auto; padding:8px 0; scroll-padding-inline:0; }
 .gd .gd-topic-strip>button { flex:0 0 auto; min-height:44px; padding:8px 12px; border-radius:24px; font-size:14px; line-height:20px; font-weight:400; background:transparent; white-space:nowrap; }

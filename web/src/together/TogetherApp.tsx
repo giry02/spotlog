@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { ArrowLeft, ArrowRight, BarChart3, Bell, BellOff, BookOpen, CalendarDays, Check, ChevronDown, ChevronRight, ClipboardList, Dices, Flag, Heart, ImagePlus, MapPin, MessageCircle, MoreHorizontal, Plus, Send, Smile, Sparkles, Trophy, Users, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BarChart3, Bell, BellOff, BookOpen, CalendarDays, Check, ChevronDown, ChevronRight, ClipboardList, Copy, Dices, Flag, Heart, ImagePlus, MapPin, MessageCircle, MoreHorizontal, Pencil, Plus, Send, Smile, Sparkles, Trophy, Users, X } from 'lucide-react';
 import type { Journey, Place } from '../data';
 import { BottomSheet } from '../BottomSheet';
 import { AppMenuButton } from '../AppMenu';
@@ -898,7 +898,14 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     const memberRows = <><div className="tg-section"><h2>함께하는 멤버 {participants.length}명</h2></div>{participants.map(([id]) => <button type="button" className="tg-member tg-activity-member" key={id} aria-label={`${memberName(state, id, group.id, activity.id)}님 프로필 보기`} onClick={() => { if (selectMemberRecords(repository.getSnapshot(), uid, group.id, id, activity.id)) open('member-records', { memberId: id, recordActivityId: activity.id }); }}><MemberAvatar name={memberName(state, id, group.id, activity.id)} avatar={resolveRoomIdentity(state, id, group.id, activity.id).avatar}/><span><strong>{memberName(state, id, group.id, activity.id)}</strong><small>{activity.arrivedIds.includes(id) ? '도착했어요' : '참석 예정'}</small></span><ChevronRight size={16}/></button>)}{!participants.length && <p>첫 참석을 기다리고 있어요.</p>}</>;
     const personal = activity.journey && <PersonalRouteSummary state={state} userId={uid} groupId={group.id} activityId={activity.id} places={places} onOpen={() => open('personal-route')} onMembers={() => open('personal-route', { tab: 'MEMBERS' })} onChanges={() => open('personal-route', { tab: 'CHANGES' })} onGuide={() => open('visit-guide')}/>;
     const records = <ActivityRecordShelf value={workspace} onPhoto={openPhoto} onPosts={() => openRecords('posts')} onMedia={() => openRecords('media')}/>;
-    const route = <div ref={sharedRouteSection} className="activity-route-focus"><ActivityPlacesRoute state={state} userId={uid} groupId={group.id} activityId={activity.id} places={places} compactContext={workspace.phase === 'TODAY'} onSavePlace={onSavePlace} renderPlaceDetail={place => businessContent(place, true)} onAction={action => mutate(draft => { applyActivityPlaceAction(draft, uid, action, places); })}/>{activity.journey && <div className="tg-activity-route-tools"><button type="button" onClick={() => onCopyJourney(activity.journey!)}>이 동선을 내 여행으로 만들기</button>{editor && workspace.writable && <button type="button" onClick={() => open('itinerary')}>공동 동선 상세 편집</button>}</div>}</div>;
+    const sharedJourney = activity.journey;
+    const route = <div ref={sharedRouteSection} className="activity-route-focus">
+      <ActivityPlacesRoute state={state} userId={uid} groupId={group.id} activityId={activity.id} places={places} compactContext={workspace.phase === 'TODAY'} onSavePlace={onSavePlace} renderPlaceDetail={place => businessContent(place, true)} onAction={action => mutate(draft => { applyActivityPlaceAction(draft, uid, action, places); })}/>
+      {sharedJourney && <div className="tg-activity-route-tools">
+        <button type="button" onClick={() => onCopyJourney(sharedJourney)}><Copy size={17} aria-hidden="true"/>내 여행으로 가져오기</button>
+        {editor && workspace.writable && <button type="button" className="tg-activity-route-edit" onClick={() => open('itinerary')} aria-label="공동 동선 상세 편집" title="공동 동선 상세 편집"><Pencil size={18} aria-hidden="true"/></button>}
+      </div>}
+    </div>;
     return <>{spaceChrome()}<div className="tg-pad tg-stack tg-activity-content" data-activity-phase={workspace.phase}>{joinWelcome()}{pinnedNotices()}
       {activityTab === 'schedule' && <>
         <ActivityPhaseHeading value={workspace} when={activityWhen(activity)} venue={activity.meetingPoint} onChat={openChat} onRoute={openRoute} onRecords={() => openRecords()} onChooseDate={canWriteRoom ? () => editor ? openActivitySettings() : open('planning', { tool: 'dates' }) : undefined}/>
@@ -906,7 +913,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
         {workspace.phase === 'TODAY' && <div className="activity-day-presence"><span>{joined ? '나는 함께하기로 했어요' : '내 참가 상태를 확인해 주세요'}</span><button type="button" disabled={!active || !joined} onClick={arrival}>{activity.arrivedIds.includes(uid) ? '도착 취소' : '도착했어요'}</button></div>}
         {!before && workspace.phase !== 'TODAY' && records}
         {before && personal}
-        {before && (canWriteRoom || state.decisions?.some(item => item.groupId === group.id && item.activityId === activity.id)) && <button type="button" className="tg-activity-decide" onClick={() => open('decide')}><Users size={18}/><span><strong>장소·날짜 함께 정하기</strong><small>후보 비교 → 투표 → 확인 후 일정에 반영</small></span><ChevronRight size={16}/></button>}
+        {before && (canWriteRoom || state.decisions?.some(item => item.groupId === group.id && item.activityId === activity.id)) && <button type="button" className="tg-activity-decide" onClick={() => open('decide')}><span className="tg-activity-decide-icon"><Users size={18} aria-hidden="true"/></span><span><strong>장소·날짜 함께 정하기</strong><small>후보 비교 → 투표 → 확인 후 일정에 반영</small></span><ChevronRight size={16}/></button>}
         {route}
         {!before && personal}
         {before ? memberRows : <details className="activity-rsvp-details"><summary><span>참가 상태·함께한 멤버 {participants.length}명</span><ChevronDown size={16}/></summary><div className="tg-stack">{rsvp}{memberRows}</div></details>}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BookOpen, CalendarDays, ChevronRight, FolderOpen, MapPin, Plus, Settings, Trash2, UserRound, Users } from 'lucide-react';
+import { BookOpen, CalendarDays, ChevronRight, FolderOpen, MapPin, Plus, Search, Settings, Trash2, UserRound, Users } from 'lucide-react';
 import type { Journey } from '../data';
 import { ScreenHeader, ScreenTabs } from '../ScreenHeader';
 import { AppMenuButton } from '../AppMenu';
@@ -93,7 +93,7 @@ export function MyHub({ state, userId, userName, plans, journals, onActivity, on
           <button type="button" className="my-hub-utility" onClick={onInvites}>초대·가입 신청 확인<ChevronRight size={16}/></button>
         </>}
       </> : section === 'groups' ? <>
-        <div className="my-hub-section-heading"><h2>가입한 모임{authenticated ? ` ${groups.counts.ALL}` : ''}</h2><button type="button" onClick={onFindGroups}><Plus size={16}/>모임 찾기</button></div>
+         <div className="my-hub-section-heading"><h2>가입한 모임{authenticated ? ` ${groups.counts.ALL}` : ''}</h2><button type="button" className="my-hub-find-groups" aria-label="모임 찾기" title="모임 찾기" onClick={onFindGroups}><Search size={20} aria-hidden="true"/></button></div>
         {authenticated ? <>
           {groups.groups.length ? <div className="my-hub-group-list" aria-label="가입한 모임 목록">{groups.groups.map(item => <MyGroupRow key={item.group.id} item={item} userId={userId} onOpen={() => onGroup(item.group.id)}/>)}</div> : <div className="my-hub-empty"><Users size={26}/><strong>아직 가입한 모임이 없어요</strong><p>가족·친구와 함께하거나 관심사가 맞는 모임을 찾아보세요.</p><button type="button" className="outline" onClick={onFindGroups}>모임 둘러보기</button></div>}
           <button type="button" className="my-hub-group-invites my-hub-group-invites--secondary" onClick={onInvites}><Users size={19}/><span><strong>초대·가입 신청{groups.pendingApplicationCount > 0 ? ` · 승인 대기 ${groups.pendingApplicationCount}건` : ''}</strong><small>초대 링크와 신청 상태 확인</small></span><ChevronRight size={18}/></button>
