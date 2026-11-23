@@ -14,7 +14,7 @@ function fixture() {
 }
 
 test('a current member may switch all peer views of one group without treating an identical route as navigation', () => {
-  const state = fixture(), routes = ['group-one', 'groupchat-one', 'groupsummary-one'];
+  const state = fixture(), routes = ['group-one', 'groupboard-one', 'groupalbum-one', 'groupchat-one', 'groupsummary-one'];
   for (const from of routes) for (const to of routes) assert.equal(isTogetherWorkspaceSwitch(state, 'member', from, to), from !== to, `${from} → ${to}`);
   state.groups[0].visibility = 'PRIVATE'; state.groups[0].promotionPublished = false;
   assert.equal(isTogetherWorkspaceSwitch(state, 'member', 'group-one', 'groupchat-one'), true, 'private member workspaces retain their normal context');
@@ -52,6 +52,8 @@ test('roots, discovery, invitations and personal destinations cannot be collapse
 test('a public introduction, guest or blocked member never gains peer-switch permission', () => {
   const state = fixture();
   assert.equal(isTogetherWorkspaceSwitch(state, 'member', 'group-public-only', 'groupchat-public-only'), false);
+  assert.equal(getScopedWorkspaceRouteContext(state, 'member', 'groupboard-public-only'), null);
+  assert.equal(getScopedWorkspaceRouteContext(state, '', 'groupboard-one'), null);
   assert.equal(isTogetherWorkspaceSwitch(state, 'member', 'activity-unjoined', 'activitychat-unjoined'), false);
   assert.equal(isTogetherWorkspaceSwitch(state, '', 'group-one', 'groupchat-one'), false);
   assert.equal(isTogetherWorkspaceSwitch(state, 'unknown-user', 'group-one', 'groupchat-one'), false);
@@ -89,5 +91,9 @@ test('the parser accepts only complete canonical routes and never confuses an in
   state.groups.push({ ...state.groups[0], id: 'invite-token' });
   for (const route of ['group-invite-token', 'group-one?tab=chat', 'groupchat-one#private', '/group-one', 'group-one/', 'Group-one', 'group-one extra', 'activity-missing', 'group-missing', 'groupsummary-', null, undefined, {}]) assert.equal(getScopedWorkspaceRouteContext(state, 'member', route), null);
   assert.deepEqual(getScopedWorkspaceRouteContext(state, 'member', 'groupchat-one'), { scope: 'GROUP', groupId: 'one', view: 'CHAT' });
+  assert.deepEqual(getScopedWorkspaceRouteContext(state, 'member', 'groupboard-one'), { scope: 'GROUP', groupId: 'one', view: 'DETAIL' });
+  assert.equal(getScopedWorkspaceRouteContext(state, 'member', 'groupboard-missing'), null);
+  state.groups[0].spaceType = 'ACTIVITY';
+  assert.equal(getScopedWorkspaceRouteContext(state, 'member', 'groupboard-one'), null);
   assert.equal(isTogetherWorkspaceSwitch(state, 'member', 'group-one?tab=chat', 'groupchat-one'), false);
 });

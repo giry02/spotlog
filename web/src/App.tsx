@@ -513,7 +513,7 @@ const matchesDestination = (destination: string, values: Array<string | undefine
   const query = destination.trim().toLocaleLowerCase('ko-KR');
   return !query || values.filter(Boolean).join(' ').toLocaleLowerCase('ko-KR').includes(query);
 };
-const isTogetherRoute = (value: unknown): boolean => typeof value === 'string' && /^(?:together(?:-(?:find|picks|oneoff|plan(?:-trip|-group)?|calendar|tasks|invites|shares|share-[A-Za-z0-9_-]+))?|group(?:-invite)?-[A-Za-z0-9_-]+|activity-[A-Za-z0-9_-]+|groupchat-[A-Za-z0-9_-]+|activitychat-[A-Za-z0-9_-]+|groupsummary-[A-Za-z0-9_-]+|activitysummary-[A-Za-z0-9_-]+|visit-guide-[a-f0-9]{64})$/.test(value);
+const isTogetherRoute = (value: unknown): boolean => typeof value === 'string' && /^(?:together(?:-(?:find|picks|oneoff|plan(?:-trip|-group)?|calendar|tasks|invites|shares|share-[A-Za-z0-9_-]+))?|group(?:-invite|board|album)?-[A-Za-z0-9_-]+|activity-[A-Za-z0-9_-]+|groupchat-[A-Za-z0-9_-]+|activitychat-[A-Za-z0-9_-]+|groupsummary-[A-Za-z0-9_-]+|activitysummary-[A-Za-z0-9_-]+|visit-guide-[a-f0-9]{64})$/.test(value);
 const isSpotlogNavigationState = (value: unknown): value is SpotlogNavigationState => {
   if (!value || typeof value !== 'object') return false;
   const state = value as Partial<SpotlogNavigationState>;

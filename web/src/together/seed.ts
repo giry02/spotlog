@@ -3,6 +3,9 @@ import { copyJourneyForGroup, createEmptyState, roomIdForActivity, roomIdForGrou
 import { createDiscoveryCatalog, DISCOVERY_CATALOG_VERSION } from './discoveryExamples.ts';
 import { exampleGroupPhoto } from './groupPhotoAssets.ts';
 import { exampleMemberAvatar } from './exampleMemberAvatars.ts';
+import { addReviewDemoMessages } from './reviewDemoMessages.ts';
+import { addFamilyBoardReviewPhotos, addReviewDemoPosts } from './reviewDemoPosts.ts';
+import { readAlbumMedia } from './albumComments.ts';
 
 export const TOGETHER_REVIEW_MEMBER_ID = 'spotlog-local-review-member';
 /** Fictional review members and conversations; group covers use synthetic activity photographs. */
@@ -65,5 +68,29 @@ export function createSeedState(viewerId: string, name: string, places: Place[])
   state.posts.push({ id: 'family-post', groupId: 'family-busan', activityId: 'family-past', authorId: 'example-parent', title: '천천히 걸어서 더 좋았던 하루', body: '많은 곳보다 함께 쉬어 간 시간이 좋았어요. 다음에도 중간에 카페 시간을 넣으면 좋겠어요.', category: 'REVIEW', createdAt: new Date(now.getTime() - 12 * 86_400_000).toISOString(), likes: [viewerId], comments: [] });
   selected.filter(place => place.image).slice(0, 3).forEach((place, index) => state.media.push({ id: `family-photo-${index}`, groupId: 'family-busan', activityId: 'family-past', authorId: viewerId, url: place.image, kind: 'PHOTO', caption: `${place.name} · 기존 장소 사진으로 보는 앨범 예시`, createdAt: time(index) }));
   state.readCursors[activityRoom] = time(15);
-  return state;
+  return hydrateReviewDemoContent(state, viewerId, places, now);
+}
+
+/** Install the fictional conversations and reviews once, in existing private review rooms. */
+export function hydrateReviewDemoContent(state: TogetherState, accountId: string, places: Place[], now = new Date()): TogetherState {
+  if (accountId !== TOGETHER_REVIEW_MEMBER_ID || state.reviewDemoContentVersion === 3) return state;
+  const hasReviewSpace = state.groups.some(group => group.visibility === 'PRIVATE' && !group.archived
+    && group.memberIds.includes(accountId) && !group.blockedMemberIds?.includes(accountId)
+    && (group.id === 'family-busan' && group.ownerId === accountId || group.id === 'weekend-walk' && group.ownerId === 'example-friend'));
+  if (!hasReviewSpace) return state;
+  const next = structuredClone(state);
+  const previousVersion = state.reviewDemoContentVersion ?? 0;
+  if (previousVersion !== 2) addReviewDemoMessages(next, accountId, places, now, previousVersion);
+  if (previousVersion === 0) addReviewDemoPosts(next, accountId, now);
+  addFamilyBoardReviewPhotos(next, accountId);
+  const family = next.groups.find(group => group.id === 'family-busan' && group.ownerId === accountId && group.visibility === 'PRIVATE');
+  const album = family && readAlbumMedia(next, accountId, family.id, 'family-photo-0', 'family-past');
+  if (album?.canComment && album.item.authorId === accountId && album.item.comments === undefined
+    && family?.memberIds.includes('example-parent') && !family.blockedMemberIds?.includes('example-parent')
+    && next.members.some(member => member.id === 'example-parent')) {
+    album.item.comments = [{ id: 'family-photo-first-comment', authorId: 'example-parent',
+      body: '이쪽 벤치에서 바다 보던 게 생각나네. 다음에도 여기 잠깐 앉았다 가자.', createdAt: album.item.createdAt }];
+  }
+  next.reviewDemoContentVersion = 3;
+  return next;
 }

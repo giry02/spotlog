@@ -9,6 +9,8 @@ import { PhotoCredit } from '../PublicTourismCredit';
 import { naverDirectionsUrl } from '../placeDirections';
 import { addPlanDay, appendPlanPlace, canDragPlanVisit, movePlanVisitBefore, planVisitGroups, removePlanVisit, setPlanDates, setPlanStay } from '../tripPlan';
 import { createTogetherRepository, type TogetherRepository } from './repository';
+import AlbumMediaDetail from './AlbumMediaDetail';
+import { addAlbumMediaComment, readAlbumMedia } from './albumComments';
 import GroupDiscovery, { PublicGroupHome, type GroupDiscoveryFilters } from './GroupDiscovery';
 import { discoveryProfile, isDiscoverableGroup, publicActivities, publicActivityTimeKey, topicOptions, upcomingPublicActivities } from './discovery';
 import { acceptInvite, canEditActivity, copyJourneyForGroup, createGroupFromJourney, removeGroupMember, restoreGroupMemberAccess, approveGroupApplication, rejectGroupApplication, setGroupParticipation, countGroupParticipants, unpublishActivityFromGroup, isShareableJourney, snapshotJourneyForGroup, isMember, memberName, roomIdForActivity, roomIdForGroup, togetherId, type GroupKind, type TogetherActivity, type TogetherGroup, type TogetherState } from './model';
@@ -134,7 +136,7 @@ interface Props {
   myRegionLabel?: string; onManageMyRegions?: () => void; onUseMyRegion?: () => void;
   calendarView?: CalendarView; onCalendarViewChange?: (view: CalendarView) => void;
 }
-type Modal = 'repeat-activity' | 'personal-route' | 'visit-guide' | 'decide' | 'taste-map' | 'taste-place' | 'temporary-manage' | 'businesses' | 'create-group' | 'create-activity' | 'creation' | 'planning' | 'poll-apply' | 'members' | 'managers' | 'group-introduction' | 'place-detail' | 'chat-place-proposal' | 'member-records' | 'member-profile-edit' | 'share-record' | 'applications' | 'review-application' | 'apply' | 'manage' | 'promotion' | 'invite' | 'post' | 'task' | 'poll' | 'games' | 'challenges' | 'notice' | 'ai' | 'assistant' | 'places' | 'edit-activity' | 'upload' | 'report' | 'share' | 'itinerary' | 'remove-member' | 'restore-member' | 'withdraw-shares' | 'resources' | 'room-tasks' | 'notice-view' | 'recent-groups' | 'join-settings' | 'edit-group';
+type Modal = 'repeat-activity' | 'personal-route' | 'visit-guide' | 'decide' | 'taste-map' | 'taste-place' | 'temporary-manage' | 'businesses' | 'create-group' | 'create-activity' | 'creation' | 'planning' | 'poll-apply' | 'members' | 'managers' | 'group-introduction' | 'place-detail' | 'chat-place-proposal' | 'member-records' | 'member-profile-edit' | 'share-record' | 'applications' | 'review-application' | 'apply' | 'manage' | 'promotion' | 'invite' | 'post' | 'task' | 'poll' | 'games' | 'challenges' | 'notice' | 'ai' | 'assistant' | 'places' | 'edit-activity' | 'upload' | 'album-media' | 'report' | 'share' | 'itinerary' | 'remove-member' | 'restore-member' | 'withdraw-shares' | 'resources' | 'room-tasks' | 'notice-view' | 'recent-groups' | 'join-settings' | 'edit-group';
 const TogetherInterestMap = lazy(() => import('../InterestPlacesMap'));
 const kindNames: Record<GroupKind, string> = { FAMILY: '가족', FRIENDS: '친구', HOBBY: '취미·지역', GUIDE: '가이드' };
 const directoryKinds: GroupKind[] = ['FAMILY', 'FRIENDS', 'HOBBY', 'GUIDE'];
@@ -196,7 +198,8 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   useConsumerDensity();
   const repository = useMemo(() => suppliedRepository ?? (import.meta.env.DEV && reviewRepository ? reviewRepository : createTogetherRepository(viewer?.id ?? '', viewer?.name ?? '', places)), [suppliedRepository, viewer?.id, reviewRepository]);
   const [state, setState] = useState<TogetherState>(() => repository.getSnapshot());
-  const [groupTab, setGroupTab] = useState('home');
+  const directGroupView = route.startsWith('groupboard-') ? 'board' : route.startsWith('groupalbum-') ? 'album' : '';
+  const [groupTab, setGroupTab] = useState(directGroupView || 'home');
   const [activityTab, setActivityTab] = useState('schedule');
   const [recordView, setRecordView] = useState<'posts' | 'media'>('posts');
   const [boardCategory, setBoardCategory] = useState('ALL');
@@ -326,12 +329,16 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   const summaryRoute = route.startsWith('groupsummary-') || route.startsWith('activitysummary-');
   const activityId = route.startsWith('activitysummary-') ? route.slice(16) : route.startsWith('activitychat-') ? route.slice(13) : route.startsWith('activity-') ? route.slice(9) : '';
   const activity = state.activities.find(item => item.id === activityId);
-  const groupId = activity?.groupId ?? (route.startsWith('groupsummary-') ? route.slice(13) : route.startsWith('groupchat-') ? route.slice(10) : route.startsWith('group-') && !route.startsWith('group-invite-') ? route.slice(6) : '');
+  const groupId = activity?.groupId ?? (route.startsWith('groupsummary-') ? route.slice(13) : route.startsWith('groupchat-') ? route.slice(10) : directGroupView ? route.slice(route.indexOf('-') + 1) : route.startsWith('group-') && !route.startsWith('group-invite-') ? route.slice(6) : '');
   const group = state.groups.find(item => item.id === groupId);
   const directDraftScope = (targetRoute: string) => `direct:${targetRoute}`;
   const modalDraftScope = (purpose: CreationBrief['purpose'] | undefined, returnTo: Modal | null) => `modal:${route}:${group?.id || ''}:${activity?.id || ''}:${purpose || 'MEETUP'}:${returnTo || ''}`;
   const currentCreationScope = isCreationPlannerRoute(route) ? directDraftScope(route) : modalDraftScope(creationInitial.purpose, creationReturn);
-  useEffect(() => { setGroupTab(groupTabs.current[groupId] || 'home'); setActivityTab(activityTabs.current[activityId] || 'schedule'); }, [groupId, activityId]);
+  useEffect(() => {
+    if (directGroupView) groupTabs.current[groupId] = directGroupView;
+    setGroupTab(groupTabs.current[groupId] || 'home');
+    setActivityTab(activityTabs.current[activityId] || 'schedule');
+  }, [groupId, activityId, directGroupView]);
   const member = group ? isMember(state, uid, group.id) && !group.blockedMemberIds?.includes(uid) : false;
   const canWriteRoom = Boolean(member && !group?.archived && (!activity || activity.status === 'PLANNED' && (!(activity.endDate || activity.date) || (activity.endDate || activity.date) >= dayKey())));
   const manager = Boolean(group && member && (group.ownerId === uid || group.managerIds.includes(uid)) && !group.archived);
@@ -706,7 +713,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     if (!group) return;
     if (value === 'chat') { rememberChatOrigin(); return nav(`groupchat-${group.id}`); }
     groupTabs.current[group.id] = value; setGroupTab(value);
-    if (inChat) nav(`group-${group.id}`);
+    if (inChat || (directGroupView && value !== directGroupView)) nav(`group-${group.id}`);
   };
   const changeActivityView = (value: string) => {
     if (!activity) return;
@@ -786,8 +793,35 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   };
   const activityCard = (item: TogetherActivity, withGroup = false) => <button key={item.id} className="tg-activity" onClick={() => nav(`activity-${item.id}`)}>{item.cover && isSafeTogetherImageUrl(item.cover) && <img className="tg-activity-thumb" src={item.cover} alt=""/>}<span className="tg-date">{item.date ? <><small>{Number(item.date.slice(5, 7))}월</small>{Number(item.date.slice(8, 10))}</> : <CalendarDays size={23} />}</span><div>{withGroup && <small>{state.groups.find(value => value.id === item.groupId)?.name}</small>}<span className="tg-tag">{activityKind(item) === 'TRIP' ? '함께 가는 여행' : '번개·정모'}</span><h3>{item.title}</h3><small>{activityWhen(item)}</small><small>참석 {countGroupParticipants(state, item.id)}{item.capacity ? `/${item.capacity}` : ''}명{item.meetingPoint ? ` · ${item.meetingPoint}` : ''}</small>{item.status === 'CANCELLED' && <span className="tg-tag coral">취소</span>}{item.status === 'COMPLETED' && <span className="tg-tag green">완료</span>}</div><ChevronRight size={18} /></button>;
   const gallery = (activityOnly: boolean, authorId?: string, recordScopeId?: string, embeddedHeader = false) => {
-    const media = authorId && group ? selectMemberRecords(state, uid, group.id, authorId, activityOnly ? recordScopeId || activity?.id : undefined)?.media || [] : state.media.filter(item => item.groupId === group?.id && (!activityOnly || item.activityId === activity?.id));
-    return <div className="tg-stack">{!authorId && !embeddedHeader && <div className="tg-section"><h2>{activityOnly ? '이 일정의 사진·영상' : '모임의 사진·영상'}</h2>{member && !group?.archived && <button onClick={() => open('upload')}><ImagePlus size={16} />올리기</button>}</div>}{media.length ? <div className="tg-gallery">{media.map(item => <figure key={item.id} id={`tg-media-${item.id}`} data-dashboard-record-highlight={dashboardRecordHighlight === `tg-media-${item.id}` ? 'true' : undefined}>{authorId ? <MemberRecordMedia item={item}/> : item.kind === 'VIDEO' ? <video src={item.url} controls preload="metadata" /> : <a href={item.url} target="_blank" rel="noreferrer"><img src={item.url} alt={item.caption || '모임 사진'} /></a>}<figcaption>{item.caption || memberName(state, item.authorId, item.groupId, item.activityId)}</figcaption>{authorId && <small>{dateTimeLabel(item.createdAt)}</small>}{item.kind === 'PHOTO' && <PhotoCredit image={item.url} />}{item.authorId !== uid && <button className="tg-text-button" onClick={() => report('MEDIA', item.id)}>신고</button>}</figure>)}</div> : <Empty title="아직 사진이 없어요">함께한 순간을 사진이나 영상으로 남겨보세요.</Empty>}</div>;
+    const albumActivityId = activityOnly ? recordScopeId || activity?.id : undefined;
+    const media = authorId && group
+      ? selectMemberRecords(state, uid, group.id, authorId, albumActivityId)?.media || []
+      : state.media.filter(item => item.groupId === group?.id && (!activityOnly || item.activityId === albumActivityId));
+    return <div className="tg-stack">
+      {!authorId && !embeddedHeader && <div className="tg-section">
+        <h2>{activityOnly ? '이 일정의 사진·영상' : '모임의 사진·영상'}</h2>
+        {member && !group?.archived && <button type="button" onClick={() => open('upload')}><ImagePlus size={16}/>올리기</button>}
+      </div>}
+      {media.length ? <div className="tg-gallery">{media.map(item => {
+        const caption = item.caption || memberName(state, item.authorId, item.groupId, item.activityId);
+        const count = item.comments?.length ?? 0;
+        return <figure key={item.id} id={`tg-media-${item.id}`} data-dashboard-record-highlight={dashboardRecordHighlight === `tg-media-${item.id}` ? 'true' : undefined}>
+          {authorId ? <>
+            <MemberRecordMedia item={item}/>
+            <figcaption>{caption}</figcaption>
+            <small>{dateTimeLabel(item.createdAt)}</small>
+            {item.kind === 'PHOTO' && <PhotoCredit image={item.url}/>}
+            {item.authorId !== uid && <button type="button" className="tg-text-button" onClick={() => report('MEDIA', item.id)}>신고</button>}
+          </> : <button type="button" className="tg-album-tile" aria-label={`${item.kind === 'VIDEO' ? '영상' : '사진'} · ${caption} · 댓글 ${count}개`}
+            onClick={() => open('album-media', { mediaId: item.id, albumGroupId: item.groupId, albumActivityId: albumActivityId || '' })}>
+            {item.kind === 'VIDEO' ? <video className="tg-album-tile__thumbnail" src={item.url} preload="metadata" aria-hidden="true"/>
+              : <img className="tg-album-tile__thumbnail" src={item.url} alt="" loading="lazy"/>}
+            <span className="tg-album-tile__count"><MessageCircle size={12} aria-hidden="true"/>{count}</span>
+            <span className="tg-album-tile__caption">{caption}</span>
+          </button>}
+        </figure>;
+      })}</div> : <Empty title="아직 사진이 없어요">함께한 순간을 사진이나 영상으로 남겨보세요.</Empty>}
+    </div>;
   };
   const postList = (activityOnly: boolean, authorId?: string, recordKind?: 'JOURNAL' | 'POST', recordScopeId?: string, embeddedHeader = false) => {
     const authored = authorId && group ? selectMemberRecords(state, uid, group.id, authorId, activityOnly ? recordScopeId || activity?.id : undefined) : null;
@@ -862,8 +896,9 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   };
 
   const groupScreen = () => {
-    if (!group) return missing();
-    if (!member) return isDiscoverableGroup(group) ? publicGroupScreen(group) : denied();
+    if (!group) return viewer ? missing() : loginWorkspace();
+    if (!member) return !directGroupView && isDiscoverableGroup(group) ? publicGroupScreen(group) : denied();
+    if (directGroupView && group.spaceType === 'ACTIVITY') return missing();
     if (group.spaceType === 'ACTIVITY') { const target = state.activities.find(item => item.groupId === group.id); return <>{header(group.name, '개인 약속', 'appointments')}<div className="tg-pad tg-stack">{target ? activityCard(target) : <Empty title="연결된 약속이 없어요">내 약속에서 다시 확인해 주세요.</Empty>}</div></>; }
     const upcoming = groupActivities.filter(item => item.status === 'PLANNED' && (!item.date || (item.endDate || item.date) >= dayKey())).sort((a,b) => publicActivityTimeKey(a.date,a.startTime).localeCompare(publicActivityTimeKey(b.date,b.startTime)));
     const filtered = activityFilter === 'past' ? groupActivities.filter(item => item.status !== 'PLANNED' || Boolean(item.date && (item.endDate || item.date) < dayKey())) : upcoming;
@@ -888,7 +923,8 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   const prepScreen = () => <div className="tg-stack">{!canWriteRoom && <p className="tg-muted" role="note">지난·완료·취소·보관된 약속은 새 준비물이나 투표·놀이·챌린지를 만들 수 없어요. 기존 항목과 결과는 계속 볼 수 있어요.</p>}<div className="tg-section"><h2>준비물·담당 할 일</h2>{editor && <button disabled={!canWriteRoom} onClick={() => open('task')}><Plus size={16}/>추가</button>}</div>{state.tasks.filter(item => item.groupId === group?.id && item.activityId === activity?.id).slice().sort((a,b) => (a.completed ? 3 : a.assigneeId === uid ? 0 : !a.assigneeId ? 1 : 2) - (b.completed ? 3 : b.assigneeId === uid ? 0 : !b.assigneeId ? 1 : 2)).map(task => <div key={task.id}><label className={`tg-checkrow ${task.completed ? 'done' : ''}`}><input type="checkbox" checked={task.completed} disabled={!readRoomTask(state, uid, roomId, task.id)?.canInteract} onChange={() => mutate(draft => { toggleRoomTask(draft, uid, roomId, task.id); })}/><div><p>{task.title}</p><small>{task.assigneeId ? memberName(state, task.assigneeId, task.groupId, task.activityId) : '공동 준비'}{task.dueDate ? ` · ${dateLabel(task.dueDate)}까지` : ''}</small></div></label>{task.sourceMessageIds?.[0] && <button className="tg-text-button" onClick={() => openTaskSource(task.sourceMessageIds![0])}>관련 대화 보기<ArrowRight size={14}/></button>}</div>)}{!state.tasks.some(item => item.groupId === group?.id && item.activityId === activity?.id) && <p className="tg-muted">{canWriteRoom ? '챙길 물건이나 확인할 일을 등록해요.' : '등록한 준비물·할 일이 없어요.'}</p>}<div className="tg-section"><h2>함께 고르기</h2><button disabled={!canWriteRoom} onClick={() => open('poll')}><Plus size={16}/>투표</button></div>{state.polls.filter(item => item.groupId === group?.id && item.activityId === activity?.id).map(poll => <PollView key={poll.id} state={state} userId={uid} poll={poll} places={places} onVote={optionId => mutate(draft => { checkRoomItem(draft.polls.find(item => item.id === poll.id)); voteRoomPoll(draft, uid, poll.id, optionId); })} onClosePoll={() => closePoll(poll.id)} onConfirm={optionId => confirmPoll(poll.id, optionId)} onEdit={() => editPoll(poll.id)} onApplyToActivity={openPollApplication}/>)}<div className="tg-participation-links"><button type="button" onClick={() => openParticipation('games')}><Dices size={16}/>{canWriteRoom ? '함께 놀기' : '놀이 기록'}</button><button type="button" onClick={() => openParticipation('challenges')}><Trophy size={16}/>{canWriteRoom ? '챌린지' : '챌린지 기록'}</button><button type="button" onClick={() => openParticipation('poll')}><BarChart3 size={16}/>{canWriteRoom ? '투표 모아보기' : '투표 기록'}</button></div></div>;
 
   const activityScreen = () => {
-    if (!activity || !group) return missing(); if (!member) return denied();
+    if (!activity || !group) return viewer ? missing() : loginWorkspace();
+    if (!member) return denied();
     const workspace = selectActivityWorkspace(state, uid, group.id, activity.id);
     if (!workspace) return denied();
     const joined = activity.participants[uid] === 'JOINED', active = canWriteRoom;
@@ -934,7 +970,8 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   };
 
   const chatScreen = () => {
-    if (!group || (route.startsWith('activitychat-') && !activity)) return missing(); if (!member) return denied();
+    if (!group || (route.startsWith('activitychat-') && !activity)) return viewer ? missing() : loginWorkspace();
+    if (!member) return denied();
     return <>
       <ChatWorkspace key={`${uid}:${group.id}:${roomId}`} draftMemory={pageChatDraftMemory} searchMemory={searchMemory} summaryResumable={Boolean(summaryReturn && summaryReturn.userId === uid && summaryReturn.groupId === group.id && summaryReturn.roomId === roomId)} places={places} state={state} userId={uid} group={group} activity={activity} roomId={roomId} messages={messages} notices={notices} highlight={highlight} canManage={activity ? editor : manager} error={error}
         onBack={returnFromChat}
@@ -1005,7 +1042,8 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
     return <>{header('함께하기', sourceJourney.title, 'trips')}<div className="tg-pad tg-stack"><div className="tg-summary"><h2>{sourceJourney.title}</h2><p>{sourceJourney.purpose === 'JOURNAL' ? '선택한 여행기 버전을 모임에 공유해요. 개인 원본은 그대로 유지돼요.' : '모임 전용 일정 사본을 만들어요. 개인 메모와 예약 정보는 자동 공유하지 않아요.'}</p></div>{!isShareableJourney(sourceJourney) && <div className="tg-error">아직 작성 중이거나 미확정 후보가 있어요. 내 여행에서 장소를 확인하고 완료한 뒤 함께할 수 있어요.<button onClick={() => onOpenJourney(sourceJourney.id)}>내 여행에서 이어서 작성</button></div>}<h2>기존 모임에 {sourceJourney.purpose === 'JOURNAL' ? '공유' : '일정 추가'}</h2>{myGroups.filter(item => !item.archived).map(item => <button className="tg-activity" key={item.id} disabled={!isShareableJourney(sourceJourney)} onClick={() => { if (mutate(draft => { createGroupFromJourney(draft, sourceJourney, uid, { groupId: item.id }); }, '모임에 추가했어요. 개인 원본은 유지돼요.')) nav(`group-${item.id}`); }}><Users size={22} /><div><h3>{item.name}</h3><small>{item.memberIds.length}명</small></div><Plus size={18} /></button>)}<button className="tg-primary tg-wide" disabled={!isShareableJourney(sourceJourney)} onClick={() => open('share', { name: `${sourceJourney.title} 함께하기`, kind: 'FAMILY', region: sourceJourney.region })}>새 모임으로 초대</button><small>새 모임 초대는 상대방이 처음 수락할 때 모임이 생성돼요.</small></div></>;
   };
   const missing = () => <>{header('화면을 찾을 수 없어요', '함께하기', 'together')}<div className="tg-pad"><Empty title="연결된 내용을 찾지 못했어요" action={<button onClick={() => nav('together')}>함께하기로</button>}>삭제되었거나 이 기기에 없는 내용일 수 있어요.</Empty></div></>;
-  const denied = () => <>{header('모임원만 볼 수 있어요', '함께하기', 'together')}<div className="tg-pad"><Empty title="이 모임에 접근할 수 없어요" action={<button className="tg-primary" onClick={viewer ? () => nav('together') : onLogin}>{viewer ? '내 모임으로' : '로그인'}</button>}>초대를 수락하거나 가입 승인을 받은 뒤 이용해 주세요.</Empty></div></>;
+  const loginWorkspace = () => <>{header('로그인 후 볼 수 있어요', '함께하기', 'together')}<div className="tg-pad"><Empty title="이 화면을 보려면 로그인해 주세요" action={<button type="button" className="tg-primary" onClick={onLogin}>로그인</button>}>로그인하면 이 화면에서 계속할 수 있어요.</Empty></div></>;
+  const denied = () => viewer ? <>{header('모임원만 볼 수 있어요', '함께하기', 'together')}<div className="tg-pad"><Empty title="이 모임에 접근할 수 없어요" action={<button type="button" className="tg-primary" onClick={() => nav('together')}>내 모임으로</button>}>초대를 수락하거나 가입 승인을 받은 뒤 이용해 주세요.</Empty></div></> : loginWorkspace();
 
   const field = (key: string, label: string, type = 'text', required = false) => <label>{label}<input type={type} value={form[key] ?? ''} onChange={event => set(key, event.target.value)} onInput={type === 'date' || type === 'time' ? event => set(key, event.currentTarget.value) : undefined} required={required} maxLength={type === 'text' ? 160 : undefined} /></label>;
   const area = (key: string, label: string) => <label>{label}<textarea value={form[key] ?? ''} onChange={event => set(key, event.target.value)} maxLength={4000} /></label>;
@@ -1051,13 +1089,23 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   const memberRecordScopeId = form.recordActivityId !== undefined ? form.recordActivityId || undefined : activity?.id;
   const memberRecordActivity = state.activities.find(item => item.id === memberRecordScopeId && item.groupId === group?.id);
   const memberRecordDestination = (kind: string) => form.recordReturn === 'yes' && group ? <div className="tg-member-records__scope"><strong>{group.name}{memberRecordScopeId ? ` › ${memberRecordActivity?.title || '약속을 다시 확인해 주세요'}` : ' · 모임 전체'}</strong><small>이 공간에 내 {kind}을 공유해요.</small></div> : null;
-  const modalTitle: Record<Modal, string> = { 'repeat-activity': '반복 약속 만들기', 'personal-route': '내 구간과 함께하는 일정', 'visit-guide': '방문 안내', decide: '함께 결정하기', 'taste-map': '우리 취향 지도', 'taste-place': '우리 평가', 'temporary-manage': '일회성 모임 종료·기록', businesses: '업체 찾기·추천', 'poll-apply': '일정 변경 확인', 'edit-group': '모임 정보 수정', managers: '운영진 관리', 'group-introduction': '모임 소개·안내', 'place-detail': '장소 상세', 'chat-place-proposal': '장소 상세', 'member-records': '멤버 프로필', 'member-profile-edit': '방 멀티프로필', 'share-record': '내 기록 공유하기', resources: '대화방 자료 모아보기', 'room-tasks': '이 방의 준비물·할 일', 'notice-view': '공지', 'recent-groups': '최근 본 모임', 'join-settings': '새 멤버 가입 안내', creation: '계획 초안 만들기', planning: planningPicker ? '장소 후보 담기' : form.tool === 'dates' ? '날짜 투표' : form.tool === 'places' ? '장소 제안·투표' : form.tool === 'departure' ? '준비물·할 일' : '약속 도우미', 'create-group': '새 모임 만들기', 'create-activity': '새 약속 만들기', members: '모임 멤버', applications: '가입 신청 관리', 'review-application': '가입 신청 확인', apply: form.joinMode === 'DIRECT' ? '모임 가입' : '모임 가입 신청', manage: '모임 메뉴', promotion: '모임 홍보', invite: group?.spaceType === 'ACTIVITY' ? '약속에 초대' : '모임으로 초대', post: '이야기 남기기', task: '준비할 일 추가', poll: form.editId ? '투표 수정' : '투표', games: '함께 놀기', challenges: '챌린지', notice: activity ? '이 일정 공지' : '모임 전체 공지', ai: '대화 요약·정리', assistant: '약속 도우미', places: form.mode === 'append' ? activity && activityKind(activity) === 'MEETUP' ? '모임 장소 찾기' : '일정에 장소 추가' : '모임 관심 장소', 'remove-member': '모임원 내보내기', 'restore-member': '가입 제한 해제', 'withdraw-shares': '여행기 공유 해제', 'edit-activity': activity && activityKind(activity) === 'TRIP' ? '여행 일정 관리' : '번개·정모 관리', itinerary: '공동 동선 수정', upload: '사진·영상 올리기', report: '신고하기', share: '새 모임으로 초대' };
+  const modalTitle: Record<Modal, string> = { 'repeat-activity': '반복 약속 만들기', 'personal-route': '내 구간과 함께하는 일정', 'visit-guide': '방문 안내', decide: '함께 결정하기', 'taste-map': '우리 취향 지도', 'taste-place': '우리 평가', 'temporary-manage': '일회성 모임 종료·기록', businesses: '업체 찾기·추천', 'poll-apply': '일정 변경 확인', 'edit-group': '모임 정보 수정', managers: '운영진 관리', 'group-introduction': '모임 소개·안내', 'place-detail': '장소 상세', 'chat-place-proposal': '장소 상세', 'member-records': '멤버 프로필', 'member-profile-edit': '방 멀티프로필', 'share-record': '내 기록 공유하기', resources: '대화방 자료 모아보기', 'room-tasks': '이 방의 준비물·할 일', 'notice-view': '공지', 'recent-groups': '최근 본 모임', 'join-settings': '새 멤버 가입 안내', creation: '계획 초안 만들기', planning: planningPicker ? '장소 후보 담기' : form.tool === 'dates' ? '날짜 투표' : form.tool === 'places' ? '장소 제안·투표' : form.tool === 'departure' ? '준비물·할 일' : '약속 도우미', 'create-group': '새 모임 만들기', 'create-activity': '새 약속 만들기', members: '모임 멤버', applications: '가입 신청 관리', 'review-application': '가입 신청 확인', apply: form.joinMode === 'DIRECT' ? '모임 가입' : '모임 가입 신청', manage: '모임 메뉴', promotion: '모임 홍보', invite: group?.spaceType === 'ACTIVITY' ? '약속에 초대' : '모임으로 초대', post: '이야기 남기기', task: '준비할 일 추가', poll: form.editId ? '투표 수정' : '투표', games: '함께 놀기', challenges: '챌린지', notice: activity ? '이 일정 공지' : '모임 전체 공지', ai: '대화 요약·정리', assistant: '약속 도우미', places: form.mode === 'append' ? activity && activityKind(activity) === 'MEETUP' ? '모임 장소 찾기' : '일정에 장소 추가' : '모임 관심 장소', 'remove-member': '모임원 내보내기', 'restore-member': '가입 제한 해제', 'withdraw-shares': '여행기 공유 해제', 'edit-activity': activity && activityKind(activity) === 'TRIP' ? '여행 일정 관리' : '번개·정모 관리', itinerary: '공동 동선 수정', upload: '사진·영상 올리기', 'album-media': '앨범 상세', report: '신고하기', share: '새 모임으로 초대' };
 
   const moveVisit = (dayNumber: number, index: number, direction: number) => {
     if (!activity || !editor) return;
     mutate(draft => { const target = draft.activities.find(item => item.id === activity.id)!; const day = target.journey?.days.find(item => item.day === dayNumber); const source = day?.places[index]; if (!day || !source?.visitId || !target.journey) return; const groups = planVisitGroups(day); const current = groups.findIndex(items => items.some(item => item.visitId === source.visitId)); const next = current + direction; if (next < 0 || next >= groups.length) return; const before = direction < 0 ? groups[next][0].visitId! : groups[next + 1]?.[0].visitId ?? null; target.journey = { ...movePlanVisitBefore({ ...target.journey, isMine: true }, day.dayId!, source.visitId, before), isMine: false }; target.revision += 1; }, '방문 순서를 변경했어요.');
   };
   const modalContent = () => {
+    if (modal === 'album-media') {
+      const albumActivityId = form.albumActivityId || undefined;
+      if (!group || group.id !== form.albumGroupId || activity?.id !== albumActivityId) return null;
+      const details = readAlbumMedia(state, uid, group.id, form.mediaId, albumActivityId);
+      if (!details) return <Empty title="이 사진·영상을 볼 수 없어요"/>;
+      const { item, canComment } = details;
+      return <AlbumMediaDetail key={item.id} item={item} state={state} canComment={canComment}
+        onComment={body => mutate(draft => { addAlbumMediaComment(draft, uid, group.id, item.id, body, albumActivityId); }, '댓글을 등록했어요.')}
+        onReport={item.authorId !== uid ? () => report('MEDIA', item.id) : undefined}/>;
+    }
     if (modal === 'poll-apply' && group && activity && member && pollApplication) return <div className="tg-poll-application">
       <p className="tg-muted">{pollApplication.activityTitle} · {pollApplication.kind === 'DATE' ? '날짜·시간 변경' : '만날 장소 변경'}</p>
       <h3>확정한 후보를 일정에 반영할까요?</h3>
@@ -1446,7 +1494,7 @@ export default function TogetherApp({ repository: suppliedRepository, route, onN
   else if (summaryRoute) screen = member ? (activity ? activityScreen() : groupScreen()) : denied();
   else if (inChat) screen = chatScreen();
   else if (route.startsWith('activity-')) screen = activityScreen();
-  else if (route.startsWith('group-')) screen = groupScreen();
+  else if (directGroupView || route.startsWith('group-')) screen = groupScreen();
   else screen = mainScreen();
   return <div className="tg">{(error || repository.getError()) && !modal && <div className="tg-pad"><div className="tg-error" role="alert">{error || repository.getError()}</div></div>}{screen}{toast && <div className="tg-toast" role="status">{toast}</div>}{modal && (!['ai','assistant'].includes(modal) || member) && (modal !== 'chat-place-proposal' || isCurrentProposalRoom) && <BottomSheet title={modal === 'creation' ? creationInitial.purpose === 'GROUP' ? '모임 만들기' : creationInitial.purpose === 'TRIP' ? '여행 만들기' : '약속 만들기' : modal === 'chat-place-proposal' && chatProposal ? chatProposal.place?.name || chatProposal.name : modalTitle[modal]} onClose={() => {
     if (modal === 'creation' && creationReturn === 'create-group' && groupCreationManualDraft.current?.viewerId === uid && groupCreationManualDraft.current?.route === route) {

@@ -1,4 +1,4 @@
-import { createSeedState } from './seed.ts';
+import { createSeedState, hydrateReviewDemoContent } from './seed.ts';
 import type { Place } from '../data';
 import type { TogetherState } from './model.ts';
 import { hydrateDiscoveryCatalog } from './discoveryExamples.ts';
@@ -23,6 +23,7 @@ import { isVisitGuideStateFields } from './visitGuides.ts';
 import { isChatMemberMentions } from './chatMentions.ts';
 import { isActivityParticipationFields } from './activityParticipation.ts';
 import { groupLocalityIssues } from './groupRegions.ts';
+import { isAlbumMediaComments } from './albumComments.ts';
 
 export const TOGETHER_STORAGE_PREFIX = 'spotlog.together.local.v1:';
 export const togetherStorageKey = (accountId: string) => `${TOGETHER_STORAGE_PREFIX}${encodeURIComponent(accountId || 'guest')}`;
@@ -43,6 +44,7 @@ export function isTogetherState(value: unknown): value is TogetherState {
   if (!object(value) || value.schemaVersion !== 1 || !arrayFields.every(key => Array.isArray(value[key])) || !object(value.readCursors) || !Object.values(value.readCursors).every(item => typeof item === 'string') || !strings(value.mutedRooms)) return false;
   if (value.discoveryCatalogVersion !== undefined && (!Number.isInteger(value.discoveryCatalogVersion) || Number(value.discoveryCatalogVersion) < 0)) return false;
   if (value.exampleMemberAvatarVersion !== undefined && value.exampleMemberAvatarVersion !== 1) return false;
+  if (value.reviewDemoContentVersion !== undefined && value.reviewDemoContentVersion !== 1 && value.reviewDemoContentVersion !== 2 && value.reviewDemoContentVersion !== 3) return false;
   if (value.roomProfilePresets !== undefined && !isRoomProfilePresets(value.roomProfilePresets)) return false;
   if (!isPlaceAssessmentStateFields(value)) return false;
   if (!isMeetingDecisionStateFields(value)) return false;
@@ -98,7 +100,8 @@ export function isTogetherState(value: unknown): value is TogetherState {
     && (value.games === undefined || Array.isArray(value.games) && value.games.every(isTogetherGame))
     && (value.challenges === undefined || Array.isArray(value.challenges) && value.challenges.every(isTogetherChallenge))
     && every('posts', row => textFields(row, ['id', 'groupId', 'authorId', 'title', 'body', 'createdAt']) && ['NOTICE', 'REVIEW', 'QUESTION', 'FREE'].includes(String(row.category)) && strings(row.likes) && Array.isArray(row.comments) && row.comments.every(comment => object(comment) && textFields(comment, ['id', 'authorId', 'body', 'createdAt'])) && (row.attachments === undefined || isTogetherPhotoAttachments(row.attachments)) && (row.publicPreview === undefined || row.category === 'REVIEW' && isPublicReviewPreview(row.publicPreview)))
-    && every('media', row => textFields(row, ['id', 'groupId', 'authorId', 'url', 'caption', 'createdAt']) && ['PHOTO', 'VIDEO'].includes(String(row.kind)))
+    && every('media', row => textFields(row, ['id', 'groupId', 'authorId', 'url', 'caption', 'createdAt']) && ['PHOTO', 'VIDEO'].includes(String(row.kind))
+      && (row.comments === undefined || isAlbumMediaComments(row.comments)))
     && every('invites', row => textFields(row, ['id', 'intentId', 'senderId', 'name', 'region', 'expiresAt']) && ['FAMILY', 'FRIENDS', 'HOBBY', 'GUIDE'].includes(String(row.kind)) && strings(row.acceptedBy) && typeof row.revoked === 'boolean' && (row.sourceJourney === undefined || journey(row.sourceJourney)))
     && every('applications', row => textFields(row, ['id', 'groupId', 'userId']) && ['PENDING', 'APPROVED', 'DECLINED'].includes(String(row.status)) && ['message', 'createdAt', 'decidedAt', 'decidedBy'].every(key => row[key] === undefined || typeof row[key] === 'string') && (row.joinMode === undefined || typeof row.joinMode === 'string' && ['DIRECT', 'APPROVAL'].includes(row.joinMode)) && applicationJoinFields(row) && (row.publicActivityIntent === undefined || isPublicActivityIntent(row.publicActivityIntent) && row.publicActivityIntent.groupId === row.groupId))
     && every('sharedJournals', row => textFields(row, ['id', 'groupId', 'authorId']) && (row.sourceJourneyId === undefined || typeof row.sourceJourneyId === 'string') && journey(row.journey))
@@ -139,9 +142,11 @@ export function createTogetherRepository(accountId: string, displayName: string,
       const loaded: unknown = JSON.parse(lastRaw);
       if (!isTogetherState(loaded)) throw new Error('invalid-data');
       state = frozen(loaded);
-      const hydrated = hydrateExampleMemberAvatars(hydrateDiscoveryCatalog(loaded, places), accountId);
+      const catalogReady = hydrateExampleMemberAvatars(hydrateDiscoveryCatalog(loaded, places), accountId);
+      const hydrated = hydrateReviewDemoContent(catalogReady, accountId, places);
       if (hydrated !== loaded) {
         try {
+          if (!isTogetherState(hydrated)) throw new Error('invalid-review-content');
           const nextRaw = JSON.stringify(hydrated);
           selectedStorage.setItem(key, nextRaw);
           state = frozen(hydrated); lastRaw = nextRaw;

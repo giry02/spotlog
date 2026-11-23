@@ -8,13 +8,14 @@ export type ScopedWorkspaceRouteContext =
 /** Resolves only currently readable member workspaces, never public introductions or invitation tokens. */
 export function getScopedWorkspaceRouteContext(state: TogetherState, userId: string, route: string): ScopedWorkspaceRouteContext | null {
   if (!userId || typeof route !== 'string' || route.startsWith('group-invite-')) return null;
-  const match = /^(group|groupchat|groupsummary|activity|activitychat|activitysummary)-([A-Za-z0-9_-]+)$/.exec(route);
+  const match = /^(group|groupboard|groupalbum|groupchat|groupsummary|activity|activitychat|activitysummary)-([A-Za-z0-9_-]+)$/.exec(route);
   if (!match) return null;
   const [, prefix, id] = match;
   const activity = prefix.startsWith('activity') ? state.activities.find(item => item.id === id) : undefined;
   if (prefix.startsWith('activity') && !activity) return null;
   const group = state.groups.find(item => item.id === (activity?.groupId ?? id));
-  if (!group || !group.memberIds.includes(userId) || group.blockedMemberIds?.includes(userId)) return null;
+  if (!group || !group.memberIds.includes(userId) || group.blockedMemberIds?.includes(userId)
+    || ((prefix === 'groupboard' || prefix === 'groupalbum') && group.spaceType === 'ACTIVITY')) return null;
   const view: WorkspaceView = prefix.endsWith('chat') ? 'CHAT' : prefix.endsWith('summary') ? 'SUMMARY' : 'DETAIL';
   // Archiving/completing disables mutations, while existing members retain the read-only context.
   return activity ? { scope: 'ACTIVITY', groupId: group.id, activityId: activity.id, view }

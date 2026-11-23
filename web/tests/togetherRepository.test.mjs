@@ -38,12 +38,105 @@ test('only the existing local review identity receives fictional joined scenes; 
   assert.ok(state.groups.some(group => group.memberIds.includes(TOGETHER_REVIEW_MEMBER_ID)));
   assert.ok(state.messages.some(message => message.roomId === roomIdForGroup('family-busan')));
   assert.ok(state.messages.some(message => message.roomId === roomIdForActivity('family-next')));
+  assert.equal(state.reviewDemoContentVersion, 3);
+  for (const room of [roomIdForGroup('family-busan'), roomIdForActivity('family-next'), roomIdForGroup('weekend-walk'), roomIdForActivity('friends-next')]) {
+    assert.ok(state.messages.filter(message => message.roomId === room).length >= 8);
+  }
+  assert.ok(state.posts.some(post => post.category === 'REVIEW' && post.attachments?.length >= 2));
+  assert.equal(state.posts.find(post => post.id === 'family-post').attachments.length, 2);
+  assert.ok(state.messages.filter(message => message.roomId === roomIdForGroup('family-busan')).length >= 40);
   assert.equal(state.invites[0].id, 'seed-family-invite');
   const accepted = structuredClone(state);
   const newGroupId = acceptInvite(accepted, 'seed-family-invite', TOGETHER_REVIEW_MEMBER_ID);
   assert.equal(accepted.groups.find(group => group.id === newGroupId).ownerId, 'example-friend');
   assert.equal(accepted.groups.length, state.groups.length + 1);
   assert.equal(isTogetherState(state), true);
+});
+
+test('existing review data gains fictional conversations and photo posts once without overwriting saved records', () => {
+  const reviewId = TOGETHER_REVIEW_MEMBER_ID;
+  const original = createSeedState(reviewId, '검수', [place]);
+  delete original.reviewDemoContentVersion;
+  original.messages = original.messages.filter(message => !message.id.includes('review-demo-'));
+  original.posts = original.posts.filter(post => !post.id.startsWith('review-demo-'));
+  original.messages.find(message => message.id === 'family-chat-1').body = '기존 메시지 수정 내용';
+  const originalReview = original.posts.find(post => post.id === 'family-post');
+  originalReview.body = '내가 고쳐 쓴 후기';
+  delete originalReview.attachments;
+  original.groups.find(group => group.id === 'weekend-walk').archived = true;
+  const key = togetherStorageKey(reviewId);
+  const disk = storage({ [key]: JSON.stringify(original) });
+
+  const first = createTogetherRepository(reviewId, '검수', [place], disk);
+  const installed = first.getSnapshot();
+  assert.equal(first.getError(), null);
+  assert.equal(installed.reviewDemoContentVersion, 3);
+  for (const item of original.messages) assert.deepEqual(installed.messages.find(message => message.id === item.id), item);
+  for (const item of original.posts) if (item.id !== 'family-post') assert.deepEqual(installed.posts.find(post => post.id === item.id), item);
+  const { attachments, ...updatedReview } = installed.posts.find(post => post.id === 'family-post');
+  assert.deepEqual(updatedReview, originalReview);
+  assert.equal(attachments.length, 2);
+  assert.ok(installed.messages.some(message => message.roomId === 'activity:family-next' && message.id.includes('review-demo-')));
+  assert.ok(installed.posts.some(post => post.id.startsWith('review-demo-') && post.groupId === 'family-busan' && post.attachments?.length));
+  assert.equal(installed.messages.some(message => message.id.includes('review-demo-') && ['group:weekend-walk', 'activity:friends-next'].includes(message.roomId)), false);
+  assert.equal(installed.posts.some(post => post.id.startsWith('review-demo-') && post.groupId === 'weekend-walk'), false);
+
+  const bytes = disk.getItem(key);
+  const reopened = createTogetherRepository(reviewId, '검수', [place], disk);
+  assert.deepEqual(reopened.getSnapshot(), installed);
+  assert.equal(disk.getItem(key), bytes);
+});
+
+test('review content version two adds family dialogue while retaining explicit photos and deleted version-one examples', () => {
+  const reviewId = TOGETHER_REVIEW_MEMBER_ID;
+  const stored = createSeedState(reviewId, '검수', [place]);
+  stored.reviewDemoContentVersion = 1;
+  const addedMessage = 'review-demo-family-board-added-photos';
+  const removedMessage = 'review-demo-family-photo-request';
+  const removedPost = 'review-demo-family-lunch';
+  stored.messages = stored.messages.filter(message => ![addedMessage, removedMessage].includes(message.id));
+  stored.posts = stored.posts.filter(post => post.id !== removedPost);
+  const review = stored.posts.find(post => post.id === 'family-post');
+  review.attachments = [{ id: 'existing-photo', url: '/existing.jpg', caption: '직접 추가한 사진' }];
+
+  const key = togetherStorageKey(reviewId);
+  const disk = storage({ [key]: JSON.stringify(stored) });
+  const repo = createTogetherRepository(reviewId, '검수', [place], disk);
+  const current = repo.getSnapshot();
+  assert.equal(repo.getError(), null);
+  assert.equal(current.reviewDemoContentVersion, 3);
+  assert.deepEqual(current.posts.find(post => post.id === 'family-post'), review);
+  assert.equal(current.posts.some(post => post.id === removedPost), false);
+  assert.equal(current.messages.some(message => message.id === removedMessage), false);
+  assert.equal(current.messages.filter(message => message.id === addedMessage && message.roomId === 'group:family-busan').length, 1);
+});
+
+test('version three enriches the original review in place without restoring removed posts or messages', () => {
+  const reviewId = TOGETHER_REVIEW_MEMBER_ID;
+  const stored = createSeedState(reviewId, '검수', [place]);
+  stored.reviewDemoContentVersion = 2;
+  const review = stored.posts.find(post => post.id === 'family-post');
+  review.body = '많은 곳보다 함께 쉬어 간 시간이 좋았어요. 다음에도 중간에 카페 시간을 넣으면 좋겠어요.';
+  const albumPhoto = stored.media.find(item => item.id === 'family-photo-0');
+  delete albumPhoto.comments;
+  stored.messages = stored.messages.filter(message => message.id !== 'review-demo-family-board-added-photos');
+  stored.posts = stored.posts.filter(post => post.id !== 'review-demo-family-lunch');
+  const key = togetherStorageKey(reviewId);
+  const disk = storage({ [key]: JSON.stringify(stored) });
+
+  const repo = createTogetherRepository(reviewId, '검수', [place], disk);
+  const state = repo.getSnapshot();
+  assert.equal(repo.getError(), null);
+  assert.equal(state.reviewDemoContentVersion, 3);
+  const updated = state.posts.find(post => post.id === 'family-post');
+  assert.equal(updated.body.split('\n\n').length, 4);
+  assert.match(updated.body, /바닷길.+걸어/);
+  assert.match(updated.body, /카페로 들어갔어요/);
+  assert.deepEqual({ ...updated, body: review.body }, review);
+  assert.deepEqual(state.messages, stored.messages);
+  assert.deepEqual(state.posts.map(post => post.id), stored.posts.map(post => post.id));
+  assert.equal(state.media.find(item => item.id === 'family-photo-0').comments.length, 1);
+  assert.deepEqual(createTogetherRepository(reviewId, '검수', [place], disk).getSnapshot(), state);
 });
 
 test('a shared itinerary remaps independent DAY/visit/block IDs and booking constraints while stripping private notes and drafts', () => {

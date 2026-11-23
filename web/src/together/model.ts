@@ -77,7 +77,8 @@ export interface TogetherPoll {
   anonymous?: boolean; creatorId?: string; createdAt?: string; revision?: number;
 }
 export interface TogetherPost { id: string; groupId: string; activityId?: string; authorId: string; title: string; body: string; category: 'NOTICE' | 'REVIEW' | 'QUESTION' | 'FREE'; createdAt: string; likes: string[]; comments: { id: string; authorId: string; body: string; createdAt: string }[]; attachments?: TogetherPhotoAttachment[]; publicPreview?: { title: string; excerpt: string; publishedAt: string } }
-export interface TogetherMedia { id: string; groupId: string; activityId?: string; authorId: string; url: string; kind: 'PHOTO' | 'VIDEO'; caption: string; createdAt: string }
+export interface TogetherMediaComment { id: string; authorId: string; body: string; createdAt: string }
+export interface TogetherMedia { id: string; groupId: string; activityId?: string; authorId: string; url: string; kind: 'PHOTO' | 'VIDEO'; caption: string; createdAt: string; comments?: TogetherMediaComment[] }
 export interface TogetherInvite { id: string; intentId: string; sourceTripId?: string; sourceJourney?: Journey; groupId?: string; senderId: string; name: string; kind: GroupKind; region: string; acceptedBy: string[]; expiresAt: string; revoked: boolean }
 /** Public card context only; never contains the private meeting point, route or messages. */
 export interface PublicActivityIntent { groupId: string; activityId: string; date: string }
@@ -88,6 +89,7 @@ export interface TogetherState {
   schemaVersion: 1;
   discoveryCatalogVersion?: number;
   exampleMemberAvatarVersion?: 1;
+  reviewDemoContentVersion?: 1 | 2 | 3;
   groups: TogetherGroup[]; members: TogetherMember[]; activities: TogetherActivity[];
   messages: TogetherMessage[]; notices: TogetherNotice[]; tasks: TogetherTask[]; polls: TogetherPoll[];
   posts: TogetherPost[]; media: TogetherMedia[]; invites: TogetherInvite[]; applications: TogetherApplication[];
