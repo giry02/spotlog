@@ -4,7 +4,7 @@ import { createDiscoveryCatalog, DISCOVERY_CATALOG_VERSION } from './discoveryEx
 import { exampleGroupPhoto } from './groupPhotoAssets.ts';
 import { exampleMemberAvatar } from './exampleMemberAvatars.ts';
 import { addReviewDemoMessages } from './reviewDemoMessages.ts';
-import { addFamilyBoardReviewPhotos, addReviewDemoPosts } from './reviewDemoPosts.ts';
+import { addFamilyBoardReviewPhotos, addFamilyBoardReviewReplies, addReviewDemoPosts } from './reviewDemoPosts.ts';
 import { readAlbumMedia } from './albumComments.ts';
 
 export const TOGETHER_REVIEW_MEMBER_ID = 'spotlog-local-review-member';
@@ -73,24 +73,35 @@ export function createSeedState(viewerId: string, name: string, places: Place[])
 
 /** Install the fictional conversations and reviews once, in existing private review rooms. */
 export function hydrateReviewDemoContent(state: TogetherState, accountId: string, places: Place[], now = new Date()): TogetherState {
-  if (accountId !== TOGETHER_REVIEW_MEMBER_ID || state.reviewDemoContentVersion === 3) return state;
+  if (accountId !== TOGETHER_REVIEW_MEMBER_ID || state.reviewDemoContentVersion === 4) return state;
   const hasReviewSpace = state.groups.some(group => group.visibility === 'PRIVATE' && !group.archived
     && group.memberIds.includes(accountId) && !group.blockedMemberIds?.includes(accountId)
     && (group.id === 'family-busan' && group.ownerId === accountId || group.id === 'weekend-walk' && group.ownerId === 'example-friend'));
   if (!hasReviewSpace) return state;
   const next = structuredClone(state);
   const previousVersion = state.reviewDemoContentVersion ?? 0;
-  if (previousVersion !== 2) addReviewDemoMessages(next, accountId, places, now, previousVersion);
+  if (previousVersion === 0 || previousVersion === 1) addReviewDemoMessages(next, accountId, places, now, previousVersion);
   if (previousVersion === 0) addReviewDemoPosts(next, accountId, now);
-  addFamilyBoardReviewPhotos(next, accountId);
+  if (previousVersion < 3) addFamilyBoardReviewPhotos(next, accountId);
+  addFamilyBoardReviewReplies(next, accountId, now);
   const family = next.groups.find(group => group.id === 'family-busan' && group.ownerId === accountId && group.visibility === 'PRIVATE');
   const album = family && readAlbumMedia(next, accountId, family.id, 'family-photo-0', 'family-past');
-  if (album?.canComment && album.item.authorId === accountId && album.item.comments === undefined
+  if (album?.canComment && album.item.authorId === accountId
     && family?.memberIds.includes('example-parent') && !family.blockedMemberIds?.includes('example-parent')
     && next.members.some(member => member.id === 'example-parent')) {
-    album.item.comments = [{ id: 'family-photo-first-comment', authorId: 'example-parent',
-      body: '이쪽 벤치에서 바다 보던 게 생각나네. 다음에도 여기 잠깐 앉았다 가자.', createdAt: album.item.createdAt }];
+    const parentId = 'family-photo-first-comment';
+    if (previousVersion < 3 && album.item.comments === undefined) {
+      album.item.comments = [{ id: parentId, authorId: 'example-parent',
+        body: '이쪽 벤치에서 바다 보던 게 생각나네. 다음에도 여기 잠깐 앉았다 가자.', createdAt: album.item.createdAt }];
+    }
+    const thread = album.item.comments;
+    if (thread?.length === 1 && thread[0].id === parentId && thread[0].authorId === 'example-parent'
+      && family.memberIds.includes('example-sibling') && !family.blockedMemberIds?.includes('example-sibling')
+      && next.members.some(member => member.id === 'example-sibling')) {
+      thread.push({ id: 'family-photo-demo-reply', parentId, authorId: 'example-sibling',
+        body: '좋아. 다음에는 따뜻한 차도 가져가자. 지난번 벤치에서 바람이 꽤 불었잖아.', createdAt: now.toISOString() });
+    }
   }
-  next.reviewDemoContentVersion = 3;
+  next.reviewDemoContentVersion = 4;
   return next;
 }

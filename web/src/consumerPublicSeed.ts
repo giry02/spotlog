@@ -14,6 +14,7 @@ export interface JourneyComment {
   author: string;
   authorId?: string;
   body: string;
+  parentId?: string;
   createdAt: string;
   avatar?: string;
   authorCopies: number;
@@ -23,6 +24,7 @@ export const defaultComments: JourneyComment[] = [
   { id: 'comment-jeju-1', journeyId: 'jeju-west-slow', author: '바다수집가', body: '사진만 예쁜 게 아니라 이동 순서가 현실적이라 그대로 담아가고 싶어요.', createdAt: '8월 22일', authorCopies: 86 },
   { id: 'comment-jeju-2', journeyId: 'jeju-west-slow', author: '주말여행러', body: '숙소를 중간에 둔 이유까지 적혀 있어서 정말 유용했습니다. 최고예요!', createdAt: '8월 21일', authorCopies: 14 },
   { id: 'comment-busan-1', journeyId: 'busan-oldtown-to-sea', author: '골목산책', body: '부산의 서로 다른 분위기를 이틀에 나눈 구성이 너무 좋아요.', createdAt: '8월 19일', authorCopies: 238 },
+  { id: 'comment-busan-1-reply', journeyId: 'busan-oldtown-to-sea', parentId: 'comment-busan-1', author: '주말기록', body: '저도 좋았어요. 첫날은 시장에서 여유 있게 보내고, 다음 날 바다를 보러 가면 체력 부담도 덜할 것 같아요.', createdAt: '8월 20일', authorCopies: 12 },
   { id: 'comment-gangwon-1', journeyId: 'gangwon-sea-and-river', author: '느린발걸음', body: '장소를 욕심내지 않는 일정이라 부모님과 가기 좋겠어요.', createdAt: '8월 17일', authorCopies: 32 },
   { id: 'comment-seoul-1', journeyId: 'seoul-seongsu-day', author: '도시산책자', body: '멀리 떠나지 않아도 하루 여행이 된다는 구성이 마음에 들어요.', createdAt: '8월 15일', authorCopies: 54 },
   { id: 'comment-suncheon-1', journeyId: 'suncheon-yeosu-three-days', author: '갈대밭노트', body: '순천의 초록에서 여수의 밤으로 넘어가는 흐름을 그대로 담았습니다.', createdAt: '8월 13일', authorCopies: 127 },
@@ -263,7 +265,7 @@ export function getConsumerPublicSeedProjection() {
   const credit = (image?: string): PublicSourceCredit | undefined => {
     const source = image && getPhotoSource(image); return source ? { provider: source.owner, author: source.author, sourceUrl: source.sourceUrl, license: source.license, licenseUrl: source.licenseUrl, checkedAt: source.verifiedAt, changes: source.changes } : undefined;
   };
-  return { reports: [], comments: defaultComments.map(c => ({ commentId: c.id, revision: 1, journalId: c.journeyId, authorId: `public-author:${c.author}`, authorName: c.author, authorAvatar: c.avatar, original: c.body, english: '', createdAt: `2026-08-${c.createdAt.match(/(\d+)일/)?.[1].padStart(2, '0') ?? '01'}T00:00:00.000Z`, moderation: 'VISIBLE' as const, sourceKind: 'PUBLIC_SAMPLE' as const })), publicJournals: publishedJourneySeeds.filter(j => j.visibility === 'PUBLIC' && j.status === 'PUBLISHED' && j.purpose !== 'PLAN' && !j.trash).map(j => {
+  return { reports: [], comments: defaultComments.map(c => ({ commentId: c.id, revision: 1, journalId: c.journeyId, ...(c.parentId ? { parentId: c.parentId } : {}), authorId: `public-author:${c.author}`, authorName: c.author, authorAvatar: c.avatar, original: c.body, english: '', createdAt: `2026-08-${c.createdAt.match(/(\d+)일/)?.[1].padStart(2, '0') ?? '01'}T00:00:00.000Z`, moderation: 'VISIBLE' as const, sourceKind: 'PUBLIC_SAMPLE' as const })), publicJournals: publishedJourneySeeds.filter(j => j.visibility === 'PUBLIC' && j.status === 'PUBLISHED' && j.purpose !== 'PLAN' && !j.trash).map(j => {
     const projected = projectPublicJourney(j);
     if (projected.cover) projected.cover.sourceCredit = credit(projected.cover.image);
     projected.days?.forEach(day => { day.places.forEach(place => { place.sourceCredit = credit(place.image); place.photos?.forEach(photo => { photo.sourceCredit = credit(photo.image); }); }); day.blocks.forEach(block => { block.sourceCredit = credit(block.image); block.images?.forEach(photo => { photo.sourceCredit = credit(photo.image); }); }); });

@@ -41,6 +41,7 @@ import {
   Navigation,
   Clapperboard,
   Plus,
+  Reply,
   Save,
   Route,
   Search,
@@ -162,7 +163,9 @@ import { creatorGradeRules, currentCreatorGrade } from './creatorGrade';
 import { CreatorAvatar } from './CreatorAvatar.tsx';
 import './journal-editing.css';
 import { CARD_SOCIAL_KEY, type CardSocialStore } from './cardSocialState';
-import { journalCommentTime, sampleJournalComments, withSampleCardThreads } from './consumerSocialSamples';
+import { sampleJournalComments, withSampleCardThreads } from './consumerSocialSamples';
+import { getJourneyCommentGroups, projectJournalComment, type JourneyCommentDraft } from './journalComments';
+import './journal-comment-thread.css';
 import { JournalImageEditor, JournalPhotos } from './JournalPhotos';
 import { journalDraftValue, moveJournalBlock, patchJournalDay, stashJournalDraft } from './journalDraft';
 import { Button, Field } from './ui';
@@ -1285,23 +1288,29 @@ function SpotlogApp() {
     return true;
   };
 
-  const addJourneyComment = (journeyId: string, body: string) => {
+  const addJourneyComment = (journeyId: string, body: string, parentId?: string) => {
     const message = body.trim();
     if (!journeys.some(item => item.id === journeyId && isPublicJournal(item))) { showToast('공개 여행기에서 댓글을 남길 수 있어요.'); return false; }
-    if (!message || !account.requireMember('댓글을 등록하려면 로그인이 필요해요.')) return false;
+    if (!message || !account.requireMember(parentId ? '답글을 등록하려면 로그인이 필요해요.' : '댓글을 등록하려면 로그인이 필요해요.')) return false;
+    const { comments: publicComments, commentModeration } = publicReview.state;
+    if (parentId && !getJourneyCommentGroups(journeyId, comments, publicComments, commentModeration).some(({ root }) => root.id === parentId)) {
+      showToast('답글을 달 댓글을 다시 선택해 주세요.');
+      return false;
+    }
     const myCopyCount = publicJournalCopyCount(journeys.filter(journey => journey.isMine));
     const comment: JourneyComment = {
-      id: `comment-${Date.now()}`,
+      id: `comment-${crypto.randomUUID()}`,
       journeyId,
       author: account.session.state === 'SIGNED_IN' ? account.session.user.displayName : profile.displayName,
       authorId: account.session.state === 'SIGNED_IN' ? account.session.user.id : undefined,
       body: message.slice(0, 180),
-      createdAt: new Intl.DateTimeFormat('ko-KR', { month: 'long', day: 'numeric' }).format(new Date()),
+      parentId,
+      createdAt: new Date().toISOString(),
       avatar: undefined,
       authorCopies: myCopyCount,
     };
     if (!setComments((current) => [...current, comment])) return false;
-    showToast('이 기기에 댓글 미리보기를 저장했어요. 실제 전송은 서버 연결 후 사용할 수 있어요.');
+    showToast(parentId ? '이 기기에 답글을 저장했어요.' : '이 기기에 댓글 미리보기를 저장했어요. 실제 전송은 서버 연결 후 사용할 수 있어요.');
     return true;
   };
 
@@ -1667,7 +1676,7 @@ function SpotlogApp() {
         ) : selectedTemplate && selectedJourney ? (
           <CoursePreview key={selectedTemplate.id} journey={selectedJourney} initialDay={detailDay ?? 1} saved={courseBookmarks.ids.includes(selectedTemplate.id)} onToggleSaved={() => updateCourseBookmark(selectedTemplate.id)} onBack={goBack} onShare={() => void shareJourney(selectedJourney, '여행 코스')} onPersonal={() => afterPlaceSheet(() => useCurrentCourseForTravel(selectedTemplate.id))} onTogether={() => afterPlaceSheet(() => openRecipe({ kind: 'COURSE', id: selectedTemplate.id }))} onUsePlace={useDiscoveredPlace} renderMap={places => <RouteMap places={places}/>}/>
         ) : selectedJourney ? (
-          <JourneyDetail onTryWithPeople={() => openRecipe(selectedTemplate ? { kind: 'COURSE', id: selectedTemplate.id } : { kind: 'JOURNEY', id: selectedJourney.id })} key={`${selectedJourney.id}:${detailDay ?? 1}`} onTogether={selectedJourney.isMine ? () => navigateTogether(`together-share-${selectedJourney.id}`) : undefined} initialDay={detailDay ?? 1} socialRequestId={chatbotSocialEntry?.requestId} initialSocialEntry={chatbotSocialEntry?.journeyId === selectedJourney.id ? chatbotSocialEntry.entry : undefined} onCloseSocialEntry={() => setChatbotSocialEntry(null)} journey={selectedJourney} profile={profile} comments={comments.filter((comment) => comment.journeyId === selectedJourney.id)} cheers={cheers[selectedJourney.id] ?? { LOVE: 0, BEST: 0, HELPFUL: 0 }} authorJourneys={selectedJourney.isMine ? journeys.filter((journey) => journey.isMine && !isPersonalPlan(journey)) : journeys.filter((journey) => !journey.isMine && journey.author === selectedJourney.author)} onBack={goBack} onShare={() => void shareJourney(selectedJourney)} onSharePlace={(place) => void sharePlace(place)} onEdit={() => editJourney(selectedJourney.id)} onCopy={() => selectedTemplate ? startRecommendedJourney(selectedTemplate) : copyJourney(selectedJourney)} onComment={(body) => addJourneyComment(selectedJourney.id, body)} onCheer={(cheer) => toggleJourneyCheer(selectedJourney.id, cheer)} onOpenJourney={openJourney} copyLabel={selectedTemplateJourney ? copy("이 일정 내 여행에 담기") : undefined} />
+          <JourneyDetail onTryWithPeople={() => openRecipe(selectedTemplate ? { kind: 'COURSE', id: selectedTemplate.id } : { kind: 'JOURNEY', id: selectedJourney.id })} key={`${selectedJourney.id}:${detailDay ?? 1}`} onTogether={selectedJourney.isMine ? () => navigateTogether(`together-share-${selectedJourney.id}`) : undefined} initialDay={detailDay ?? 1} socialRequestId={chatbotSocialEntry?.requestId} initialSocialEntry={chatbotSocialEntry?.journeyId === selectedJourney.id ? chatbotSocialEntry.entry : undefined} onCloseSocialEntry={() => setChatbotSocialEntry(null)} journey={selectedJourney} profile={profile} comments={comments.filter((comment) => comment.journeyId === selectedJourney.id)} cheers={cheers[selectedJourney.id] ?? { LOVE: 0, BEST: 0, HELPFUL: 0 }} authorJourneys={selectedJourney.isMine ? journeys.filter((journey) => journey.isMine && !isPersonalPlan(journey)) : journeys.filter((journey) => !journey.isMine && journey.author === selectedJourney.author)} onBack={goBack} onShare={() => void shareJourney(selectedJourney)} onSharePlace={(place) => void sharePlace(place)} onEdit={() => editJourney(selectedJourney.id)} onCopy={() => selectedTemplate ? startRecommendedJourney(selectedTemplate) : copyJourney(selectedJourney)} onComment={(body, parentId) => addJourneyComment(selectedJourney.id, body, parentId)} onCheer={(cheer) => toggleJourneyCheer(selectedJourney.id, cheer)} onOpenJourney={openJourney} copyLabel={selectedTemplateJourney ? copy("이 일정 내 여행에 담기") : undefined} />
         ) : (
           <>
             {tab === 'home' && <DiscoveryHome onOpenAiSearch={() => setPlaceAssistant({ actor: courseOwner, region: homeRegion, district: homeDistrict, prompt: discoveryHome.query })} onOpenSaved={() => selectTab('saved')} savedCount={savedPlaces.length + courseBookmarks.ids.length} savedPlaceIds={savedIds} onTogglePlaceSaved={toggleSaved} savedCourseIds={courseBookmarks.ids} onToggleCourseSaved={updateCourseBookmark} onStartTogether={() => setSharedRouteStartOwner(togetherViewer?.id || '')} onTryCourse={openCourseUse} templates={homePublicTemplates} journals={homePublicJournals} duration={discoveryHome.duration} onDurationChange={duration => updateDiscoveryHome({ duration })} onOpenTemplate={openCurrentCourse} onOpenJournal={id => { if (homePublicJournals.some(item => item.id === id)) openJourney(id); }} onMoreTravel={openHomeTravel} onMoreJournals={openPublicJournals} personalPlans={ownPlans} recentPersonalPlanId={recentTripId} onOpenMyDraft={id => { const draft = selectHomeDraftPlan(ownPlans, recentTripId); if (draft?.id === id) openMyJourney(id, draft.day); }} onOpenMyPlan={openMyPlan} onOpenMyActivity={openMyActivity} onOpenMyChat={openMyChat} onPlan={openAppointmentCreation} places={reviewExposureOrder(placeCatalog, 'REGION_GUIDE', publicReview.state, publicReview.now)} references={publicReview.state.references} state={togetherState} viewerId={togetherViewer?.id} region={homeRegion} district={homeDistrict} neighborhood={homeNeighborhood} myRegionLabel={myRegionLabel} onManageMyRegions={() => setMyRegionsOpen(true)} onUseMyRegion={() => updateDiscoveryHome({ useMyRegion: true })} query={discoveryHome.query} view={discoveryHome.view === 'trips' ? 'recommended' : discoveryHome.view} purpose={discoveryHome.purpose} onRegionChange={region => updateDiscoveryHome({ region, useMyRegion: false })} onQueryChange={query => updateDiscoveryHome({ query })} onViewChange={view => view === 'trips' ? openHomeTravel(discoveryHome.duration ?? 'ALL') : updateDiscoveryHome({ view })} onPurposeChange={purpose => updateDiscoveryHome({ purpose })} onOpenGroup={openPublicGroup} onFindGroups={filters => navigateTogether('together-find', filters)} onOpenPicks={filters => navigateTogether('together-picks', filters)} onOpenPlace={setDiscoveryPlace} onOpenPlaces={filters => openPlaceGuide(filters.kind ?? 'ALL', filters)} headerActions={<AppMenuButton/>}/>}
@@ -2354,24 +2363,66 @@ function CreatorBadge({ copyCount, compact = false }: { copyCount: number; compa
   return <span className={`creator-tier-badge ${compact ? 'compact' : ''}`}><TierIcon size={compact ? 11 : 13} />{copy(compact ? tier.shortLabel : tier.label)}</span>;
 }
 
-function JourneySocialSection({ journey, comments, cheers, profile, myCopyCount, onComment, onCheer, commentValue, onCommentValue, onGuestAction }: { journey: Journey; comments: JourneyComment[]; cheers: JourneyCheers; profile: CreatorProfile; myCopyCount: number; onComment: (body: string) => boolean; onCheer: (cheer: CheerKey) => void; commentValue?: string; onCommentValue?: (value: string) => void; onGuestAction?: () => void }) {
-  const copy=useUiCopy();
+function JourneySocialSection({ journey, comments, cheers, profile, draft, onDraft, onComment, onCheer, onGuestAction }: {
+  journey: Journey; comments: JourneyComment[]; cheers: JourneyCheers; profile: CreatorProfile;
+  draft: JourneyCommentDraft; onDraft: (draft: JourneyCommentDraft) => void;
+  onComment: (body: string, parentId?: string) => boolean; onCheer: (cheer: CheerKey) => void; onGuestAction?: () => void;
+}) {
+  const copy = useUiCopy(), { locale } = useLocale();
   const { state: reviewState } = usePublicReview();
   const account = useAccount(), member = account?.session.state === 'SIGNED_IN' ? account.session.user : null;
-  const [ownDraft, setOwnDraft] = useState('');
-  const commentDraft = commentValue ?? ownDraft, setCommentDraft = onCommentValue ?? setOwnDraft;
-  const visibleComments = [...new Map([...reviewState.comments.filter(c => c.journalId === journey.id && !c.cardId && c.moderation === 'VISIBLE').map(c => ({ id: c.commentId, journeyId: c.journalId, author: c.authorName ?? c.authorId, body: c.original, createdAt: c.createdAt, avatar: c.authorAvatar, authorCopies: 0, authorId: c.authorId })), ...comments].filter(c => !reviewState.commentModeration.some(m => m.id === c.id && m.state !== 'VISIBLE')).map(c => [c.id, c])).values()].sort((left, right) => journalCommentTime(right) - journalCommentTime(left));
+  const input = useRef<HTMLInputElement>(null);
+  const groups = getJourneyCommentGroups(journey.id, comments, reviewState.comments, reviewState.commentModeration);
+  const count = groups.reduce((total, { replies }) => total + 1 + replies.length, 0);
+  const parent = groups.find(({ root }) => root.id === draft.parentId)?.root;
+  const commentLabel = copy(draft.parentId ? '답글 작성' : '댓글 작성');
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!commentDraft.trim()) return;
+    if (!draft.body.trim()) return;
     if (!member) onGuestAction?.();
-    if (onComment(commentDraft)) setCommentDraft('');
+    if (onComment(draft.body, draft.parentId)) onDraft({ body: '' });
+  };
+  const changeParent = (parentId?: string) => {
+    onDraft({ ...draft, parentId });
+    input.current?.focus();
+  };
+  const renderComment = (comment: JourneyComment) => {
+    const report = reviewState.comments.find(item => item.commentId === comment.id && item.journalId === journey.id && !item.cardId) ?? projectJournalComment(comment);
+    const ownComment = comment.authorId ? comment.authorId === member?.id : comment.author === profile.displayName;
+    const label = comment.parentId ? '답글' : '댓글';
+    const date = Date.parse(comment.createdAt);
+    return <article className="journey-comment" key={comment.id}>
+      <CreatorAvatar name={comment.author} image={comment.avatar} size="small" />
+      <div>
+        <div className="comment-author">
+          <CreatorBadge copyCount={comment.authorCopies} compact />
+          <strong>{comment.author}</strong>
+          <time dateTime={Number.isFinite(date) ? comment.createdAt : undefined}>{Number.isFinite(date) ? new Intl.DateTimeFormat(locale === 'en' ? 'en' : 'ko-KR', { month: 'long', day: 'numeric' }).format(date) : comment.createdAt}</time>
+          {!ownComment && <ReportButton iconOnly label={comment.parentId ? '답글 신고' : '댓글 신고'} target={{ type: 'COMMENT', id: comment.id, label: comment.author + ' · ' + label, journey, comment: report }} />}
+        </div>
+        <TranslationText sourceId={'journal-comment:' + comment.id} sourceVersion={sourceVersion(comment.body)} text={comment.body} kind="comment" />
+        {!comment.parentId && <button type="button" className="journey-comment-reply" onClick={() => changeParent(comment.id)} aria-label={copy('답글')} title={copy('답글')}><Reply size={16} aria-hidden="true" /></button>}
+      </div>
+    </article>;
   };
   return <section className="journey-social" aria-labelledby="journey-social-title">
-    <header><div><small>TRAVELER REACTIONS</small><h2 id="journey-social-title">{copy("이 여행에 남긴 응원")}</h2></div><span><MessageCircle size={15} />{visibleComments.length}</span></header>
+    <header><div><small>TRAVELER REACTIONS</small><h2 id="journey-social-title">{copy("이 여행에 남긴 응원")}</h2></div><span><MessageCircle size={15} />{count}</span></header>
     <div className="quick-cheers">{cheerOptions.map(({ id, label, icon: Icon }) => <button key={id} className={member && cheers.selections?.[member.id] === id ? 'active' : ''} onClick={() => { if (!member) onGuestAction?.(); onCheer(id); }} aria-pressed={Boolean(member && cheers.selections?.[member.id] === id)}><Icon size={16} fill={member && cheers.selections?.[member.id] === id ? 'currentColor' : 'none'} /><strong>{copy(label)}</strong><span>{cheers[id].toLocaleString()}</span></button>)}</div>
-    <div className="comment-list">{visibleComments.length ? visibleComments.map((comment) => <article className="journey-comment" key={comment.id}><CreatorAvatar name={comment.author} image={comment.avatar} size="small" /><div><div className="comment-author"><CreatorBadge copyCount={comment.authorCopies} compact /><strong>{comment.author}</strong><time>{comment.createdAt}</time>{journey.visibility === 'PUBLIC' && journey.status === 'PUBLISHED' && journey.purpose !== 'PLAN' && !journey.trash && !(member && comment.authorId === member.id) && !(comment.authorId === undefined && comment.author === profile.displayName) && <ReportButton iconOnly label="댓글 신고" target={{ type: 'COMMENT', id: comment.id, label: `${comment.author} · 댓글`, journey, comment: reviewState.comments.find(item => item.commentId === comment.id && item.journalId === journey.id && !item.cardId) ?? { commentId: comment.id, revision: 1, journalId: journey.id, authorId: comment.authorId ?? `public-author:${comment.author}`, authorName: comment.author, authorAvatar: comment.avatar, original: comment.body, english: '', createdAt: Number.isFinite(Date.parse(comment.createdAt)) ? new Date(comment.createdAt).toISOString() : new Date().toISOString(), moderation: 'VISIBLE', sourceKind: 'PUBLIC_SAMPLE' } }} />}</div><TranslationText sourceId={`journal-comment:${comment.id}`} sourceVersion={sourceVersion(comment.body)} text={comment.body} kind="comment" /></div></article>) : <div className="comment-empty"><Heart size={21} /><strong>{copy("첫 응원을 남겨보세요")}</strong><span>{copy("좋았던 점 한마디가 작성자에게 다음 여행을 올릴 힘이 됩니다.")}</span></div>}</div>
-    <form className="comment-composer" onSubmit={submit}>{member ? <CreatorAvatar name={member.displayName} size="small" /> : <span className="guest-comment-avatar"><CircleUserRound size={28} aria-hidden="true" /></span>}<label><span className="sr-only">{copy("댓글 작성")}</span><input value={commentDraft} onChange={(event) => setCommentDraft(event.target.value)} maxLength={180} placeholder={copy("좋았던 점을 따뜻하게 남겨주세요")} aria-label={copy("댓글 작성")} /></label><button type="submit" disabled={!commentDraft.trim()}>{copy("등록")}</button></form>
+    <div className="comment-list">
+      {groups.length ? groups.map(({ root, replies }) => <div key={root.id} className="journey-comment-thread">
+        {renderComment(root)}
+        {replies.length > 0 && <div className="journey-comment-thread__replies">{replies.map(renderComment)}</div>}
+      </div>) : <div className="comment-empty"><Heart size={21} /><strong>{copy("첫 응원을 남겨보세요")}</strong><span>{copy("좋았던 점 한마디가 작성자에게 다음 여행을 올릴 힘이 됩니다.")}</span></div>}
+    </div>
+    {draft.parentId && <div className="journey-comment-context">
+      <span role="status">{parent ? (locale === 'en' ? 'Replying to ' + parent.author : parent.author + '에게 답글') : (locale === 'en' ? 'Select a comment to reply to again.' : '답글을 달 댓글을 다시 선택해 주세요.')}</span>
+      <button type="button" className="journey-comment-reply" onClick={() => changeParent()} aria-label={copy('취소')} title={copy('취소')}><X size={16} aria-hidden="true" /></button>
+    </div>}
+    <form className="comment-composer" onSubmit={submit}>
+      {member ? <CreatorAvatar name={member.displayName} size="small" /> : <span className="guest-comment-avatar"><CircleUserRound size={28} aria-hidden="true" /></span>}
+      <label><span className="sr-only">{commentLabel}</span><input ref={input} value={draft.body} onChange={event => onDraft({ ...draft, body: event.target.value })} maxLength={180} placeholder={draft.parentId ? commentLabel : copy('좋았던 점을 따뜻하게 남겨주세요')} /></label>
+      <button type="submit" disabled={!draft.body.trim() || Boolean(draft.parentId && !parent)}>{copy(draft.parentId ? '답글 등록' : '등록')}</button>
+    </form>
     <p className="social-kind-note">{member ? '댓글·응원은 현재 이 기기의 검수 기록이에요. 실제 전송은 서버 연결 후 제공해요.' : '댓글·응원은 로그인 후 남길 수 있어요. 입력한 내용은 로그인 창을 닫아도 유지돼요.'}</p>
   </section>;
 }
@@ -2390,16 +2441,15 @@ function CreatorJourneySection({ journey, profile, authorJourneys, onOpenJourney
   </section>;
 }
 
-function JourneyDetail({ journey, onTryWithPeople, initialDay = 1, initialSocialEntry, socialRequestId, onCloseSocialEntry, profile, comments, cheers, authorJourneys, onBack, onShare, onSharePlace, onEdit, onCopy, onComment, onCheer, onOpenJourney, onTogether, copyLabel = '이 여행 복사해서 만들기' }: { journey: Journey; onTryWithPeople?: () => void; initialDay?: number; initialSocialEntry?: 'journey-comment' | 'journey-cheer'; socialRequestId?: string; onCloseSocialEntry?: () => void; profile: CreatorProfile; comments: JourneyComment[]; cheers: JourneyCheers; authorJourneys: Journey[]; onBack: () => void; onShare: () => void; onSharePlace: (place: Place) => void; onEdit: () => void; onCopy: () => void; onComment: (body: string) => boolean; onCheer: (cheer: CheerKey) => void; onOpenJourney: (id: string) => void; onTogether?: () => void; copyLabel?: string }) {
+function JourneyDetail({ journey, onTryWithPeople, initialDay = 1, initialSocialEntry, socialRequestId, onCloseSocialEntry, profile, comments, cheers, authorJourneys, onBack, onShare, onSharePlace, onEdit, onCopy, onComment, onCheer, onOpenJourney, onTogether, copyLabel = '이 여행 복사해서 만들기' }: { journey: Journey; onTryWithPeople?: () => void; initialDay?: number; initialSocialEntry?: 'journey-comment' | 'journey-cheer'; socialRequestId?: string; onCloseSocialEntry?: () => void; profile: CreatorProfile; comments: JourneyComment[]; cheers: JourneyCheers; authorJourneys: Journey[]; onBack: () => void; onShare: () => void; onSharePlace: (place: Place) => void; onEdit: () => void; onCopy: () => void; onComment: (body: string, parentId?: string) => boolean; onCheer: (cheer: CheerKey) => void; onOpenJourney: (id: string) => void; onTogether?: () => void; copyLabel?: string }) {
   const copy=useUiCopy();
   const [selectedDay, setSelectedDay] = useState(journey.days.some(day => day.day === initialDay) ? initialDay : journey.days[0]?.day ?? 1);
-  const [socialSheet, setSocialSheet] = useState(initialSocialEntry), [socialCommentDraft, setSocialCommentDraft] = useState('');
+  const [socialSheet, setSocialSheet] = useState(initialSocialEntry), [socialCommentDraft, setSocialCommentDraft] = useState<JourneyCommentDraft>({ body: '' });
   useEffect(() => { if (initialSocialEntry) setSocialSheet(initialSocialEntry); }, [initialSocialEntry, socialRequestId]);
   const closeSocialSheet = () => { setSocialSheet(undefined); onCloseSocialEntry?.(); };
   const cardSocial = useCardSocialStore();
   const dayHeadingRef = useRef<HTMLElement>(null);
   const day = journey.days.find((item) => item.day === selectedDay) ?? journey.days[0];
-  const myCopyCount = publicJournalCopyCount(authorJourneys.filter(item => item.isMine));
   const authorCopyCount = publicJournalCopyCount(authorJourneys);
   const selectDay = (dayNumber: number) => {
     setSelectedDay(dayNumber);
@@ -2425,7 +2475,7 @@ function JourneyDetail({ journey, onTryWithPeople, initialDay = 1, initialSocial
     </>}
     {onTryWithPeople && <button type="button" className="journey-recipe-entry" onClick={onTryWithPeople}><Users size={22}/><span><strong>우리끼리 해보기</strong><small>이 동선으로 약속을 만들고 함께 정해요.</small></span><ChevronRight size={18}/></button>}
     <PublicSourceNotes journey={journey} />
-    {isPublicJournal(journey) && (socialSheet ? <BottomSheet title={socialSheet === 'journey-comment' ? '여행기 전체 댓글' : '여행기 응원'} description={journey.title} onClose={closeSocialSheet}><p className="plan-help">이 공개 여행기 전체에 남긴 댓글과 응원이에요. 직접 등록하기 전에는 반응을 남기지 않아요.</p><JourneySocialSection journey={journey} comments={comments} cheers={cheers} profile={profile} myCopyCount={myCopyCount} onComment={onComment} onCheer={onCheer} commentValue={socialCommentDraft} onCommentValue={setSocialCommentDraft} onGuestAction={closeSocialSheet} /></BottomSheet> : <JourneySocialSection journey={journey} comments={comments} cheers={cheers} profile={profile} myCopyCount={myCopyCount} onComment={onComment} onCheer={onCheer} commentValue={socialCommentDraft} onCommentValue={setSocialCommentDraft} />)}
+    {isPublicJournal(journey) && (socialSheet ? <BottomSheet title={socialSheet === 'journey-comment' ? '여행기 전체 댓글' : '여행기 응원'} description={journey.title} onClose={closeSocialSheet}><p className="plan-help">이 공개 여행기 전체에 남긴 댓글과 응원이에요. 직접 등록하기 전에는 반응을 남기지 않아요.</p><JourneySocialSection journey={journey} comments={comments} cheers={cheers} profile={profile} onComment={onComment} onCheer={onCheer} draft={socialCommentDraft} onDraft={setSocialCommentDraft} onGuestAction={closeSocialSheet} /></BottomSheet> : <JourneySocialSection journey={journey} comments={comments} cheers={cheers} profile={profile} onComment={onComment} onCheer={onCheer} draft={socialCommentDraft} onDraft={setSocialCommentDraft} />)}
     <CreatorJourneySection journey={journey} profile={profile} authorJourneys={authorJourneys} onOpenJourney={onOpenJourney} />
     <JournalReportButton journey={journey} comments={comments} threads={cardSocial} selfName={profile.displayName} />
     <footer className={`detail-footer ${journey.isMine ? 'owner-footer' : 'reader-footer'}`}>{journey.isMine

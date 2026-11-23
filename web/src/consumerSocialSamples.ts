@@ -13,16 +13,6 @@ export const sampleJournalComments: JourneyComment[] = publicSamples
     { id: `sample-journal:${journey.id}:2`, journeyId: journey.id, author: '주말기록', body: '장소 사진과 이동 순서를 함께 볼 수 있어서 좋아요. 제 일정에 맞춰 조금씩 바꿔 보고 싶어요.', createdAt: '10월 4일', authorCopies: 12 },
   ]);
 
-export function journalCommentTime(comment: JourneyComment): number {
-  const localId = /^comment-(\d{13})$/.exec(comment.id);
-  if (localId) return Number(localId[1]);
-  const timestamp = Date.parse(comment.createdAt);
-  if (Number.isFinite(timestamp)) return timestamp;
-  // Existing bundled examples use Korean month/day labels from 2026.
-  const sampleDate = /(\d{1,2})월\s*(\d{1,2})일/.exec(comment.createdAt);
-  return sampleDate ? Date.UTC(2026, Number(sampleDate[1]) - 1, Number(sampleDate[2])) : 0;
-}
-
 const cardSamples: CardSocialStore = Object.fromEntries(publicSamples.flatMap(journey => journey.days.flatMap(day => {
   const block = day.blocks.find(item => item.type === 'PLACE' && item.placeId && day.places.some(place => place.id === item.placeId));
   if (!block) return [];

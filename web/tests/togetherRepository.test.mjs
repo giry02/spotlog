@@ -38,7 +38,7 @@ test('only the existing local review identity receives fictional joined scenes; 
   assert.ok(state.groups.some(group => group.memberIds.includes(TOGETHER_REVIEW_MEMBER_ID)));
   assert.ok(state.messages.some(message => message.roomId === roomIdForGroup('family-busan')));
   assert.ok(state.messages.some(message => message.roomId === roomIdForActivity('family-next')));
-  assert.equal(state.reviewDemoContentVersion, 3);
+  assert.equal(state.reviewDemoContentVersion, 4);
   for (const room of [roomIdForGroup('family-busan'), roomIdForActivity('family-next'), roomIdForGroup('weekend-walk'), roomIdForActivity('friends-next')]) {
     assert.ok(state.messages.filter(message => message.roomId === room).length >= 8);
   }
@@ -70,7 +70,7 @@ test('existing review data gains fictional conversations and photo posts once wi
   const first = createTogetherRepository(reviewId, '검수', [place], disk);
   const installed = first.getSnapshot();
   assert.equal(first.getError(), null);
-  assert.equal(installed.reviewDemoContentVersion, 3);
+  assert.equal(installed.reviewDemoContentVersion, 4);
   for (const item of original.messages) assert.deepEqual(installed.messages.find(message => message.id === item.id), item);
   for (const item of original.posts) if (item.id !== 'family-post') assert.deepEqual(installed.posts.find(post => post.id === item.id), item);
   const { attachments, ...updatedReview } = installed.posts.find(post => post.id === 'family-post');
@@ -104,14 +104,14 @@ test('review content version two adds family dialogue while retaining explicit p
   const repo = createTogetherRepository(reviewId, '검수', [place], disk);
   const current = repo.getSnapshot();
   assert.equal(repo.getError(), null);
-  assert.equal(current.reviewDemoContentVersion, 3);
+  assert.equal(current.reviewDemoContentVersion, 4);
   assert.deepEqual(current.posts.find(post => post.id === 'family-post'), review);
   assert.equal(current.posts.some(post => post.id === removedPost), false);
   assert.equal(current.messages.some(message => message.id === removedMessage), false);
   assert.equal(current.messages.filter(message => message.id === addedMessage && message.roomId === 'group:family-busan').length, 1);
 });
 
-test('version three enriches the original review in place without restoring removed posts or messages', () => {
+test('older review data enriches the original review in place without restoring removed posts or messages', () => {
   const reviewId = TOGETHER_REVIEW_MEMBER_ID;
   const stored = createSeedState(reviewId, '검수', [place]);
   stored.reviewDemoContentVersion = 2;
@@ -127,7 +127,7 @@ test('version three enriches the original review in place without restoring remo
   const repo = createTogetherRepository(reviewId, '검수', [place], disk);
   const state = repo.getSnapshot();
   assert.equal(repo.getError(), null);
-  assert.equal(state.reviewDemoContentVersion, 3);
+  assert.equal(state.reviewDemoContentVersion, 4);
   const updated = state.posts.find(post => post.id === 'family-post');
   assert.equal(updated.body.split('\n\n').length, 4);
   assert.match(updated.body, /바닷길.+걸어/);
@@ -135,7 +135,29 @@ test('version three enriches the original review in place without restoring remo
   assert.deepEqual({ ...updated, body: review.body }, review);
   assert.deepEqual(state.messages, stored.messages);
   assert.deepEqual(state.posts.map(post => post.id), stored.posts.map(post => post.id));
-  assert.equal(state.media.find(item => item.id === 'family-photo-0').comments.length, 1);
+  assert.equal(state.media.find(item => item.id === 'family-photo-0').comments[1].parentId, 'family-photo-first-comment');
+  assert.deepEqual(createTogetherRepository(reviewId, '검수', [place], disk).getSnapshot(), state);
+});
+
+test('version four adds reply examples to the exact review and photo without duplicating them', () => {
+  const reviewId = TOGETHER_REVIEW_MEMBER_ID;
+  const stored = createSeedState(reviewId, '검수', [place]);
+  stored.reviewDemoContentVersion = 3;
+  const post = stored.posts.find(item => item.id === 'family-post');
+  post.comments = [];
+  const photo = stored.media.find(item => item.id === 'family-photo-0');
+  photo.comments = photo.comments.filter(item => !item.parentId);
+  const key = togetherStorageKey(reviewId);
+  const disk = storage({ [key]: JSON.stringify(stored) });
+
+  const state = createTogetherRepository(reviewId, '검수', [place], disk).getSnapshot();
+  const updatedPost = state.posts.find(item => item.id === post.id);
+  const updatedPhoto = state.media.find(item => item.id === photo.id);
+  assert.equal(state.reviewDemoContentVersion, 4);
+  assert.deepEqual({ ...updatedPost, comments: [] }, post);
+  assert.equal(updatedPost.comments[1].parentId, updatedPost.comments[0].id);
+  assert.deepEqual(updatedPhoto.comments[0], photo.comments[0]);
+  assert.equal(updatedPhoto.comments[1].parentId, photo.comments[0].id);
   assert.deepEqual(createTogetherRepository(reviewId, '검수', [place], disk).getSnapshot(), state);
 });
 

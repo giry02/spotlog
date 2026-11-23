@@ -1,7 +1,8 @@
-import { useId, useState, type FormEvent } from 'react';
+import { useId, useState } from 'react';
 import { Flag, ImageOff } from 'lucide-react';
 import { PhotoCredit } from '../PublicTourismCredit';
 import { MAX_ALBUM_MEDIA_COMMENT_LENGTH } from './albumComments';
+import TogetherCommentThread from './TogetherCommentThread';
 import { MemberAvatar } from './GroupMembersPanel';
 import { memberName, type TogetherMedia, type TogetherState } from './model';
 import { resolveRoomIdentity } from './roomIdentity';
@@ -11,7 +12,7 @@ interface Props {
   item: TogetherMedia;
   state: TogetherState;
   canComment: boolean;
-  onComment: (body: string) => boolean;
+  onComment: (body: string, parentId?: string) => boolean;
   onReport?: () => void;
 }
 
@@ -29,19 +30,12 @@ function AlbumDate({ value }: { value: string }) {
 }
 
 export default function AlbumMediaDetail({ item, state, canComment, onComment, onReport }: Props) {
-  const [draft, setDraft] = useState('');
   const [failedUrl, setFailedUrl] = useState<string | null>(null);
   const commentHeadingId = useId();
   const author = resolveRoomIdentity(state, item.authorId, item.groupId, item.activityId);
   const comments = item.comments ?? [];
   const isVideo = item.kind === 'VIDEO';
   const mediaLabel = item.caption || (isVideo ? '모임 앨범 영상' : '모임 앨범 사진');
-
-  function submitComment(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const body = draft.trim();
-    if (canComment && body && onComment(body)) setDraft('');
-  }
 
   return (
     <div className="tg-album-media">
@@ -79,27 +73,9 @@ export default function AlbumMediaDetail({ item, state, canComment, onComment, o
       </div>
       <section className="tg-album-media__comments" aria-labelledby={commentHeadingId}>
         <h3 id={commentHeadingId} aria-live="polite">댓글 {comments.length}</h3>
-        {comments.length ? (
-          <ul className="tg-album-media__comment-list">
-            {comments.map(comment => (
-              <li key={comment.id}>
-                <div className="tg-album-media__comment-author">
-                  <strong>{memberName(state, comment.authorId, item.groupId, item.activityId)}</strong>
-                  <AlbumDate value={comment.createdAt} />
-                </div>
-                <p>{comment.body}</p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="tg-album-media__empty">아직 댓글이 없어요.</p>
-        )}
-        {canComment && (
-          <form className="tg-album-media__composer" onSubmit={submitComment}>
-            <textarea aria-label="앨범 댓글" placeholder="댓글을 남겨보세요" rows={2} maxLength={MAX_ALBUM_MEDIA_COMMENT_LENGTH} value={draft} onChange={event => setDraft(event.target.value)} />
-            <button className="tg-primary" type="submit" aria-label="댓글 등록" disabled={!draft.trim()}>등록</button>
-          </form>
-        )}
+        <TogetherCommentThread comments={comments} canWrite={canComment}
+          authorName={id => memberName(state, id, item.groupId, item.activityId)}
+          maxLength={MAX_ALBUM_MEDIA_COMMENT_LENGTH} label="앨범 댓글" onSubmit={onComment}/>
       </section>
     </div>
   );

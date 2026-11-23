@@ -42,24 +42,21 @@
   min-width: 0;
 }
 
-.tg-album-media__author strong,
-.tg-album-media__comment-author strong {
+.tg-album-media__author strong {
   font-size: 14px;
   font-weight: 650;
   line-height: 1.35;
   overflow-wrap: anywhere;
 }
 
-.tg-album-media__author time,
-.tg-album-media__comment-author time {
+.tg-album-media__author time {
   display: block;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.4;
 }
 
-.tg-album-media__caption,
-.tg-album-media__comment-list p {
+.tg-album-media__caption {
   white-space: pre-wrap;
 }
 
@@ -89,47 +86,6 @@
   border-top: 1px solid var(--line);
   padding-top: 14px;
   min-width: 0;
-}
-
-.tg-album-media__comment-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.tg-album-media__comment-list > li {
-  display: grid;
-  gap: 4px;
-  padding: 10px 0;
-}
-
-.tg-album-media__comment-list > li + li {
-  border-top: 1px solid var(--line);
-}
-
-.tg-album-media__comment-author {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 2px 8px;
-}
-
-.tg-album-media__empty {
-  color: var(--muted);
-}
-
-.tg-album-media__composer {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: 8px;
-}
-
-.tg-sheet .tg-album-media__composer textarea {
-  box-sizing: border-box;
-  min-height: 62px;
-  padding: 8px 10px;
-  line-height: 1.4;
 }
 
 .tg .tg-album-tile,

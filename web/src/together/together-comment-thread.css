@@ -1,0 +1,102 @@
+.tg-comment-threads {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.tg-comment-threads :is(.tg-comment-threads__list, .tg-comment-threads__replies) {
+  display: grid;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tg-comment-threads__list > li {
+  padding: 10px 0;
+}
+
+.tg-comment-threads__list > li + li {
+  border-top: 1px solid var(--line);
+}
+
+.tg-comment-threads .tg-comment-threads__replies,
+.tg-comment-threads__reply-form {
+  margin-inline-start: 12px;
+  padding-inline-start: 12px;
+  border-inline-start: 1px solid var(--line);
+}
+
+.tg-comment-threads__replies > li + li {
+  margin-top: 8px;
+}
+
+.tg-comment-row {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.tg-comment-row__meta,
+.tg-comment-row__actions,
+.tg-comment-threads__reply-target {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  column-gap: 8px;
+}
+
+.tg-comment-row__meta {
+  font-size: var(--type-subhead);
+  overflow-wrap: anywhere;
+}
+
+.tg-comment-row__meta time,
+.tg-comment-threads__reply-target {
+  color: var(--muted);
+  font-size: var(--type-caption);
+}
+
+.tg-comment-row p {
+  margin: 0;
+  font-size: var(--type-subhead);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.tg .tg-comment-row__actions button,
+.tg-sheet .tg-comment-row__actions button,
+.tg .tg-comment-threads__reply-target button,
+.tg-sheet .tg-comment-threads__reply-target button {
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font-size: var(--type-caption);
+}
+
+.tg-comment-threads__reply-target {
+  justify-content: space-between;
+}
+
+.tg-comment-threads__reply-target span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tg-comment-threads__composer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 8px;
+}
+
+.tg .tg-comment-threads__composer textarea,
+.tg-sheet .tg-comment-threads__composer textarea {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 62px;
+  padding: 8px 10px;
+  line-height: 1.4;
+}

@@ -26,11 +26,16 @@ function loadPublicSource() {
   };
   return load(fileURLToPath(new URL('../src/consumerPublicSeed.ts', import.meta.url)));
 }
-test('all active bundled public journeys and eight public sample comments preserve public identities and sources', () => {
+test('all active bundled public journeys and public sample threads preserve public identities and sources', () => {
   const { publishedJourneySeeds, getConsumerPublicSeedProjection } = loadPublicSource(), projection = getConsumerPublicSeedProjection();
   const expected = publishedJourneySeeds.filter(j => j.visibility === 'PUBLIC' && j.status === 'PUBLISHED' && j.purpose !== 'PLAN' && !j.trash).map(j => j.id);
   assert.deepEqual(projection.publicJournals.map(j => j.journalId), expected);
-  assert.equal(projection.comments.length, 8); assert.equal(projection.reports.length, 0);
+  assert.equal(projection.comments.filter(comment => !comment.parentId).length, 8);
+  const replies = projection.comments.filter(comment => comment.parentId);
+  assert.equal(replies.length, 1);
+  assert.ok(projection.comments.some(comment => comment.commentId === replies[0].parentId
+    && comment.journalId === replies[0].journalId && !comment.parentId));
+  assert.equal(projection.reports.length, 0);
   for (const journal of projection.publicJournals) { assert.equal(journal.ownerVisibility, 'PUBLIC'); assert.ok(journal.cards.every(card => !!card.cardId && !!card.placeId)); }
   for (const comment of projection.comments) { assert.ok(comment.commentId && comment.authorId); assert.equal(comment.moderation, 'VISIBLE'); assert.ok(expected.includes(comment.journalId)); }
   assert.ok(projection.publicJournals.some(j => j.cover?.sourceCredit || j.cards.some(c => c.sourceCredit)));

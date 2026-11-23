@@ -45,3 +45,16 @@ test('choosing a specific photo or comment produces the same receipt contract wi
   assert.equal(commentReceipt.report.targetId, 'other-comment'); assert.equal(commentReceipt.report.cardId, 'card-1');
   assert.ok(!JSON.stringify([...entries.values()]).includes('PRIVATE_NOTE'));
 });
+
+test('journal report choices preserve reply identity and hide branches whose roots are moderated or in another scope', () => {
+  const root = { id: 'journal-root', journeyId: journey.id, authorId: 'local-self', author: '나', body: '첫 댓글', createdAt: '2026-10-06T00:00:00.000Z', authorCopies: 3 };
+  const reply = { ...root, id: 'journal-reply', parentId: root.id, authorId: 'answer-author', author: '친구', body: '대댓글' };
+  const wrongParent = { ...reply, id: 'wrong-parent', parentId: comment.commentId };
+  const choices = journalReportChoices({ journey, comments: [root, reply, wrongParent], publicComments: [comment] });
+  const reportedReply = choices.find(choice => choice.target.id === reply.id);
+  assert.equal(reportedReply.target.comment.parentId, root.id);
+  assert.equal(reportedReply.target.comment.authorId, reply.authorId);
+  assert.match(reportedReply.target.label, /답글/);
+  assert.equal(choices.some(choice => choice.target.id === root.id || choice.target.id === wrongParent.id), false);
+  assert.equal(journalReportChoices({ journey, comments: [root, reply], hiddenCommentIds: [root.id] }).some(choice => choice.target.id === reply.id), false);
+});

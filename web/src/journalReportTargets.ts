@@ -3,6 +3,7 @@ import type { JourneyComment } from './consumerPublicSeed.ts';
 import type { CardSocialStore } from './cardSocialState.ts';
 import { cardKey } from './cardSocialState.ts';
 import type { PublicComment, PublicSourceCredit } from './publicServiceTypes.ts';
+import { projectJournalComment } from './journalComments.ts';
 import { validateReportTarget, type ReportTarget, type PublicPlaceProjection } from './reviewServiceBridge.ts';
 
 export type ReportChoice = { target: ReportTarget; label: string; english: string; group: 'journal' | 'place' | 'photo' | 'comment' };
@@ -14,6 +15,8 @@ export function reportPhotoCredit(image: string, place?: Place): PublicSourceCre
 export function journalReportChoices({ journey, comments = [], threads = {}, publicComments = [], hiddenCommentIds = [], selfName = '', selfId = 'local-self', photoCredit = reportPhotoCredit }: { journey: Journey; comments?: JourneyComment[]; threads?: CardSocialStore; publicComments?: PublicComment[]; hiddenCommentIds?: string[]; selfName?: string; selfId?: string; photoCredit?: typeof reportPhotoCredit }): ReportChoice[] {
   if (journey.visibility !== 'PUBLIC' || journey.status !== 'PUBLISHED' || journey.purpose === 'PLAN' || journey.trash) return [];
   const result: ReportChoice[] = [], seen = new Set<string>();
+  const deletedCardRoots = new Set<string>();
+  const commentKey = (id: string, cardId?: string) => JSON.stringify([cardId, id]);
   const add = (choice: ReportChoice) => {
     const key = JSON.stringify([choice.target.type, choice.target.id, choice.target.cardId]);
     if (seen.has(key)) return;
@@ -37,7 +40,10 @@ export function journalReportChoices({ journey, comments = [], threads = {}, pub
           add({ group: 'photo', label: `DAY ${day.day} · ${place.name} 사진 ${index + 1}`, english: `DAY ${day.day} · ${place.name} photo ${index + 1}`, target: { type: 'PHOTO', id, label: `${place.name} · 사진 ${index + 1}`, journey, place, cardId: block.id, photo: { id, image: photo.image, caption: photo.caption, sourceCredit: photoCredit(photo.image, place) } } });
         });
         for (const comment of threads[cardKey(journey.id, block.id)]?.comments ?? []) {
-          if (comment.deleted || comment.authorId === selfId) continue;
+          if (comment.deleted) {
+            if (!comment.parentId) deletedCardRoots.add(commentKey(comment.id, block.id));
+            continue;
+          }
           publicComments = [...publicComments, { commentId: comment.id, revision: 1, journalId: journey.id, cardId: block.id, parentId: comment.parentId, authorId: comment.authorId, authorName: comment.author, authorAvatar: comment.avatar, original: comment.body, english: '', createdAt: comment.createdAt, moderation: 'VISIBLE', sourceKind: 'PUBLIC_SAMPLE' }];
         }
       } else if (block.type === 'IMAGE') {
@@ -46,16 +52,24 @@ export function journalReportChoices({ journey, comments = [], threads = {}, pub
       }
     }
   }
-  const byId = new Map(publicComments.filter(comment => comment.journalId === journey.id).map(comment => [comment.commentId, comment]));
+  const projected = publicComments.filter(comment => comment.journalId === journey.id);
+  const byId = new Map(projected.map(comment => [commentKey(comment.commentId, comment.cardId), comment]));
   for (const comment of comments.filter(item => item.journeyId === journey.id)) {
-    if (byId.has(comment.id)) continue;
-    byId.set(comment.id, { commentId: comment.id, revision: 1, journalId: journey.id, authorId: `public-author:${comment.author}`, authorName: comment.author, authorAvatar: comment.avatar, original: comment.body, english: '', createdAt: Number.isFinite(Date.parse(comment.createdAt)) ? new Date(comment.createdAt).toISOString() : new Date().toISOString(), moderation: 'VISIBLE', sourceKind: 'PUBLIC_SAMPLE' });
+    if (!byId.has(commentKey(comment.id))) byId.set(commentKey(comment.id), projectJournalComment(comment));
   }
+  const hidden = new Set(hiddenCommentIds);
+  const moderated = new Set(projected.filter(comment => comment.moderation !== 'VISIBLE').map(comment => commentKey(comment.commentId, comment.cardId)));
+  const visible = (comment: PublicComment) => !hidden.has(comment.commentId) && !moderated.has(commentKey(comment.commentId, comment.cardId));
   for (const comment of byId.values()) {
-    if (comment.moderation !== 'VISIBLE' || hiddenCommentIds.includes(comment.commentId) || comment.authorId === selfId || selfName && comment.authorName === selfName) continue;
+    if (!visible(comment) || comment.authorId === selfId || selfName && comment.authorName === selfName) continue;
+    if (comment.parentId) {
+      const parentKey = commentKey(comment.parentId, comment.cardId);
+      const parent = byId.get(parentKey);
+      if (parent ? parent.parentId || !visible(parent) : !deletedCardRoots.has(parentKey) || hidden.has(comment.parentId)) continue;
+    }
     if (comment.cardId && !journey.days.some(day => day.blocks.some(block => block.id === comment.cardId && block.type === 'PLACE'))) continue;
     const name = comment.authorName ?? comment.authorId, snippet = comment.original.replace(/\s+/g, ' ').slice(0, 36);
-    add({ group: 'comment', label: `${name} · ${snippet}`, english: `${name} · ${snippet}`, target: { type: 'COMMENT', id: comment.commentId, label: `${name} · 댓글`, journey, cardId: comment.cardId, comment } });
+    add({ group: 'comment', label: `${name} · ${snippet}`, english: `${name} · ${snippet}`, target: { type: 'COMMENT', id: comment.commentId, label: `${name} · ${comment.parentId ? '답글' : '댓글'}`, journey, cardId: comment.cardId, comment } });
   }
   return result;
 }

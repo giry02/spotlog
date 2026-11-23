@@ -21,8 +21,7 @@ const familyReviewStory = [
   '다음에는 바람 막을 얇은 겉옷을 하나씩 챙기고, 바닷길은 다들 편한 데까지만 걷고 싶어요. 중간에 카페나 벤치에 앉아 쉴 시간도 남겨 두려고요. 그래야 또 마음에 드는 풍경 앞에서 한참 머물 수 있으니까요.',
 ].join('\n\n');
 
-/** Enrich the original sample in its private demo room without replacing stored edits. */
-export function addFamilyBoardReviewPhotos(state: TogetherState, viewerId: string): void {
+function findFamilyBoardReview(state: TogetherState, viewerId: string) {
   const group = state.groups.find(item => item.id === 'family-busan' && item.ownerId === viewerId
     && item.visibility === 'PRIVATE' && !item.archived && item.spaceType !== 'ACTIVITY');
   if (!group) return;
@@ -31,6 +30,14 @@ export function addFamilyBoardReviewPhotos(state: TogetherState, viewerId: strin
     && item.title === '천천히 걸어서 더 좋았던 하루' && !item.publicPreview);
   if (!post || ![viewerId, post.authorId].every(id => group.memberIds.includes(id)
     && !group.blockedMemberIds?.includes(id) && state.members.some(member => member.id === id))) return;
+  return { group, post };
+}
+
+/** Enrich the original sample in its private demo room without replacing stored edits. */
+export function addFamilyBoardReviewPhotos(state: TogetherState, viewerId: string): void {
+  const review = findFamilyBoardReview(state, viewerId);
+  if (!review) return;
+  const { post } = review;
   if (post.body === originalFamilyReviewBody) post.body = familyReviewStory;
   if (post.attachments === undefined) {
     post.attachments = [
@@ -38,6 +45,22 @@ export function addFamilyBoardReviewPhotos(state: TogetherState, viewerId: strin
       scenePhoto('family-post-example-cafe', 'cafe-conversation', '산책 중 함께 쉬어 간 카페'),
     ];
   }
+}
+
+export function addFamilyBoardReviewReplies(state: TogetherState, viewerId: string, now: Date): void {
+  const review = findFamilyBoardReview(state, viewerId);
+  if (!review) return;
+  const { group, post } = review;
+  const sibling = 'example-sibling';
+  if (post.body !== familyReviewStory || post.comments.length || !group.memberIds.includes(sibling)
+    || group.blockedMemberIds?.includes(sibling) || !state.members.some(member => member.id === sibling)
+    || !state.activities.some(activity => activity.id === post.activityId && activity.groupId === group.id)) return;
+  const parentId = 'family-post-demo-comment';
+  post.comments.push(
+    { id: parentId, authorId: sibling, body: '나도 벤치에서 바다 보던 시간이 제일 좋았어. 다음엔 카페를 코스 중간에 넣어 볼까?', createdAt: new Date(now.getTime() - 2 * hour).toISOString() },
+    { id: 'family-post-demo-reply', parentId, authorId: post.authorId,
+      body: '그래. 이번에도 카페에서 손 녹이니까 남은 길 걷기가 훨씬 편했어. 다음엔 창가 자리 있으면 거기 앉자.', createdAt: new Date(now.getTime() - hour).toISOString() },
+  );
 }
 
 /** Review-account examples use the existing synthetic scene photos and preserve stored posts. */
