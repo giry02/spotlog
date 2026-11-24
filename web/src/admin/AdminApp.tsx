@@ -100,7 +100,7 @@ export default function AdminApp({ previewAdapter }: { previewAdapter?: AdminAda
     <a href="#admin-main" className="admin-skip">본문으로 이동</a>
     {sidebar && <button className="admin-backdrop" aria-label="메뉴 닫기" onClick={() => setSidebar(false)}/>}
     <aside id="admin-navigation" ref={sidebarPanel} className={'admin-sidebar ' + (sidebar ? 'open' : '')} role={compact ? 'dialog' : undefined} aria-label={compact ? '관리자 메뉴' : undefined} aria-modal={compact && sidebar ? true : undefined} inert={compact && !sidebar} aria-hidden={compact && !sidebar ? true : undefined}>
-      <div className="admin-brand"><strong>spotlog<span>관리자</span></strong><button className="admin-icon-button admin-mobile-only" aria-label="메뉴 닫기" onClick={() => setSidebar(false)}><X size={20}/></button></div>
+      <div className="admin-brand"><strong>스팟인모임<span>관리자</span></strong><button className="admin-icon-button admin-mobile-only" aria-label="메뉴 닫기" onClick={() => setSidebar(false)}><X size={20}/></button></div>
       <p className="admin-sidebar-caption">자료 등록부터 운영까지</p>
       <nav aria-label="관리자 메뉴">{menus.map(item => <button key={item.id} aria-current={menu === item.id ? 'page' : undefined} onClick={() => navigate(item.id)}><item.icon size={19}/><span>{item.label}</span>{menu === item.id && <ChevronRight size={15}/>}</button>)}</nav>
       <div className="admin-sidebar-footer"><Badge tone={adapter.mode === 'LOCAL' ? 'warning' : 'info'}>{previewAdapter ? '미리보기' : adapter.mode === 'LOCAL' ? '로컬' : '서비스'}</Badge><a href={import.meta.env.BASE_URL} target="_blank" rel="noreferrer">고객 화면 열기 <ExternalLink size={14}/></a></div>

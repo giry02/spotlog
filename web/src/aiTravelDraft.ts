@@ -155,7 +155,7 @@ export function buildLocalTravelDraft(input: TravelInput, places: Place[]): Trav
     status: 'PLANNING', visibility: 'PRIVATE', cover: days.flatMap((day) => day.places)[0]?.image ?? '',
     summary: `원하는 내용을 바탕으로 ${result.sourcePlaceIds.length}곳을 고른 로컬 추천 초안입니다.`,
     story: `요청: ${input.prompt.trim()}\n\n등록된 장소 자료를 조건별로 고른 로컬 추천 미리보기입니다. 외부 AI와 실제 경로는 아직 연결되지 않았습니다. 여행 전 운영·이동 정보를 확인해 주세요.`,
-    tags: [...conditions.interests, '로컬 추천 초안'], saves: 0, views: 0, author: 'Spotlog 여행자', isMine: true, recommendationKind: 'AI', days,
+    tags: [...conditions.interests, '로컬 추천 초안'], saves: 0, views: 0, author: '스팟인모임 여행자', isMine: true, recommendationKind: 'AI', days,
   };
   result.journey = journey;
   return result;
@@ -210,6 +210,6 @@ export function buildSavedTravelDraft(places: Place[], dayCount: number): Travel
   result.notices.push('사진·영업시간·체류시간은 방문 전에 확인해 주세요.');
   result.journey = { id, title: `${region} 여행 초안`, region, dateRange: '날짜 미정', duration: dayCount === 1 ? '당일 여행' : `${dayCount - 1}박 ${dayCount}일`,
     status: 'PLANNING', visibility: 'PRIVATE', cover: ordered[0].image, summary: `저장한 ${ordered.length}곳을 ${dayCount}일로 나눈 로컬 초안입니다.`,
-    story: result.notices.join('\n'), tags: ['저장한 장소', '로컬 추천 초안'], saves: 0, views: 0, author: 'Spotlog 여행자', isMine: true, recommendationKind: 'AI', days };
+    story: result.notices.join('\n'), tags: ['저장한 장소', '로컬 추천 초안'], saves: 0, views: 0, author: '스팟인모임 여행자', isMine: true, recommendationKind: 'AI', days };
   return result;
 }

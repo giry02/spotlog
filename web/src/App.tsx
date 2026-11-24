@@ -413,7 +413,7 @@ const photoStorySamples: PhotoStorySample[] = [
 ];
 
 const defaultCreatorProfile: CreatorProfile = {
-  displayName: 'Spotlog 여행자',
+  displayName: '스팟인모임 여행자',
   bio: '국내 여행을 기록하는 중',
 };
 
@@ -501,7 +501,7 @@ const readJourneys = (): Journey[] => {
   }
 };
 
-const makePlaceShareText = (place: Place) => `${place.name}\n${place.address}\n${place.description}\n\n네이버 지도 길찾기\n${naverDirectionsUrl(place)}\n\nSpotlog 여행 기록에서 공유`;
+const makePlaceShareText = (place: Place) => `${place.name}\n${place.address}\n${place.description}\n\n네이버 지도 길찾기\n${naverDirectionsUrl(place)}\n\n스팟인모임에서 공유`;
 const journeyPlaceCount = (journey: Journey) => journey.days.reduce((sum, day) => sum + day.places.length, 0);
 const tripDurationLabel = (duration: TripDurationFilter) => tripDurationOptions.find((option) => option.id === duration)?.label ?? '전체 기간';
 const matchesTripDuration = (durationText: string, filter: TripDurationFilter) => {
@@ -1187,7 +1187,7 @@ function SpotlogApp() {
   const shareJourney = async (journey: Journey, contentLabel?: string) => {
     const routeText = journey.days.map((day) => `${day.date} · ${day.places.map((place) => place.name).join(' → ')}`).join('\n');
     try {
-      const mode = await shareContent({ title: journey.title, message: `${journey.title}\n${journey.summary}\n\n${routeText}\n\nSpotlog ${contentLabel ?? (isPersonalPlan(journey)?copy("여행 동선"):copy("여행기"))}` });
+      const mode = await shareContent({ title: journey.title, message: `${journey.title}\n${journey.summary}\n\n${routeText}\n\n스팟인모임 ${contentLabel ?? (isPersonalPlan(journey)?copy("여행 동선"):copy("여행기"))}` });
       if (mode === 'clipboard') showToast(copy("여행일기 내용을 복사했습니다."));
     } catch {
       showToast(copy("공유를 취소했습니다."));
@@ -1261,8 +1261,8 @@ function SpotlogApp() {
       }
       const created = setPlanDates(initializeCreatedPlan({
         ...preview, id: `trip-${crypto.randomUUID()}`, title: `${preview.title} · 내 여행`, days,
-        story: '', status: 'PLANNING', tags: ['Spotlog추천', template.region],
-        sourceJourneyId: preview.id, sourceAuthor: 'Spotlog 큐레이션', recommendationKind: undefined,
+        story: '', status: 'PLANNING', tags: ['스팟인모임 추천', template.region],
+        sourceJourneyId: preview.id, sourceAuthor: '스팟인모임 큐레이션', recommendationKind: undefined,
         publicAuthorId: undefined, publicSourceKind: undefined, saves: 0, views: 0,
         businessCandidates: undefined, travelProgress: undefined,
       }, profile.displayName), '');
@@ -1895,7 +1895,7 @@ function Home({ topic, onTopicChange, memory, viewer, onNavigateTogether, journe
   const changeRegion = (next: string) => { setRegion(next); memory.region = next; memory.groupRegion.value = next; setRegionOpen(false); };
 
   return <div className="home-page recommendation-home">
-    <ScreenHeader title="spotlog" brand actions={<><button type="button" className="home-region-button screen-header__text-action" onClick={() => setRegionOpen(true)} aria-label={`홈 지역 선택 · ${region || '전체 지역'}`}><MapPin size={16}/><span>{region || '전체 지역'}</span><ChevronRight size={14}/></button><AppMenuButton/></>} />
+    <ScreenHeader title="스팟인모임" brand actions={<><button type="button" className="home-region-button screen-header__text-action" onClick={() => setRegionOpen(true)} aria-label={`홈 지역 선택 · ${region || '전체 지역'}`}><MapPin size={16}/><span>{region || '전체 지역'}</span><ChevronRight size={14}/></button><AppMenuButton/></>} />
     <ScreenTabs label="홈에서 볼 내용" idPrefix="home-topic" items={topics.map(item => ({ ...item, panelId: 'home-discovery-panel' }))} value={topic} onChange={changeTopic}/>
     <div className="home-search-bar"><Search size={19} aria-hidden="true"/><input type="search" value={query} onChange={event => { setQuery(event.target.value); memory.query = event.target.value; }} aria-label={searchHint} placeholder={searchHint}/>{query && <button type="button" aria-label="홈 검색 지우기" onClick={() => { setQuery(''); memory.query = ''; }}>×</button>}</div>
     <div id="home-discovery-panel" role="tabpanel" aria-labelledby={`home-topic-${topic}`} className="home-discovery-panel">
@@ -1918,7 +1918,7 @@ function Home({ topic, onTopicChange, memory, viewer, onNavigateTogether, journe
       <section className="home-lead strategy-home-lead"><h2>{en ? 'A trip at your own pace' : '내 속도로 계획하는 여행'}</h2><p>{en ? 'Start with a draft or a published itinerary.' : '간단한 AI 초안이나 공개 일정으로 여행을 시작하세요.'}</p></section>
       <button type="button" className="home-topic-primary" onClick={onAiTravel}><Sparkles size={19}/><span>{en ? 'Create an AI trip draft' : 'AI 여행 초안 만들기'}</span><ChevronRight size={18}/></button>
 
-    {templates.length > 0 && <section className="home-section"><div className="home-section-heading"><div><small>SPOTLOG CURATION</small><h2>{en ? 'Featured itineraries' : copy("가볍게 시작하는 여행")}</h2><p>{en ? 'Explore selected itineraries and make them your own.' : copy("에디터가 고른 일정을 읽어보고 내 여행에 담으세요")}</p></div><RollingControls label={copy("추천 일정")} count={templates.length} activeIndex={recommendationRolling.activeIndex} onChange={recommendationRolling.goTo} /></div><div className="promoted-track" ref={recommendationRolling.trackRef} onScroll={recommendationRolling.syncIndex}>{templates.map((template) => <article className="promoted-trip" key={template.id}><img src={template.cover} alt="" /><div className="promoted-shade" /><div className="promoted-copy"><span>{template.region} · {template.duration}</span><h2>{template.title}</h2><p>{template.summary}</p><div><button onClick={() => onPreview(template)}>{en ? 'View itinerary' : copy("일정 자세히 보기")}</button><small>{template.places.length}{copy("개 장소 · 먼저 보고 담기")}</small></div></div></article>)}</div></section>}
+    {templates.length > 0 && <section className="home-section"><div className="home-section-heading"><div><small>스팟인모임 추천</small><h2>{en ? 'Featured itineraries' : copy("가볍게 시작하는 여행")}</h2><p>{en ? 'Explore selected itineraries and make them your own.' : copy("에디터가 고른 일정을 읽어보고 내 여행에 담으세요")}</p></div><RollingControls label={copy("추천 일정")} count={templates.length} activeIndex={recommendationRolling.activeIndex} onChange={recommendationRolling.goTo} /></div><div className="promoted-track" ref={recommendationRolling.trackRef} onScroll={recommendationRolling.syncIndex}>{templates.map((template) => <article className="promoted-trip" key={template.id}><img src={template.cover} alt="" /><div className="promoted-shade" /><div className="promoted-copy"><span>{template.region} · {template.duration}</span><h2>{template.title}</h2><p>{template.summary}</p><div><button onClick={() => onPreview(template)}>{en ? 'View itinerary' : copy("일정 자세히 보기")}</button><small>{template.places.length}{copy("개 장소 · 먼저 보고 담기")}</small></div></div></article>)}</div></section>}
 
     {publicGuides.length > 0 && <section className="home-section"><div className="home-section-heading"><div><small>TRAVELER'S GUIDE</small><h2>{en ? 'Travelers’ journals' : copy("여행자들이 만든 일정")}</h2><p>{en ? 'Read travel stories and save ideas for your trip.' : copy("실제 여행 기록을 읽고 내 일정으로 가져오세요")}</p></div><RollingControls label={copy("여행자 일정")} count={publicGuides.length} activeIndex={guideRolling.activeIndex} onChange={guideRolling.goTo} /></div><div className="home-guide-list" ref={guideRolling.trackRef} onScroll={guideRolling.syncIndex}>{publicGuides.map((journey) => <article className="home-guide-card" key={journey.id}><button className="home-guide-cover" onClick={() => onOpen(journey.id)}><img src={journey.cover} alt="" /><span>{journey.region}<br />{journey.duration}</span></button><div className="home-guide-copy"><div className="home-guide-author">{journey.publicSourceKind === 'EDITORIAL' ? <span className="creator-tier-badge compact">{copy("운영 추천 여행기")}</span> : <CreatorBadge copyCount={authorCopyCount(journey.author)} compact />}<small>{journey.author} · {journeyPlaceCount(journey)}{copy("곳")}</small></div><h3>{journey.title}</h3><p>{journey.summary}</p><div className="home-guide-actions"><button onClick={() => onOpen(journey.id)}>{en ? 'Read journal' : copy("여행기 먼저 보기")}</button></div></div></article>)}</div></section>}
 
@@ -2810,7 +2810,7 @@ function Profile({ basicAvatar, onBasicAvatarChange, initialEntry, entryRequestI
 
     <div className="profile-stats creator-stats"><div><strong>{copyCount.toLocaleString()}</strong><span>{copy("누적 담김")}</span></div><div><strong>{(reactionTotal + receivedComments.length).toLocaleString()}</strong><span>{copy("받은 응원")}</span></div><div><strong>{creatorScore.toLocaleString()}</strong><span>{copy("창작 점수")}</span></div></div>
 
-    <section className="creator-level-card"><header><div><small>CREATOR LEVEL</small><h2><TierIcon size={19} />{copy(tier.label)}</h2></div><strong>{copyCount.toLocaleString()}{copy("회 담김")}</strong></header><div className="creator-progress"><span style={{ width: `${levelProgress}%` }} /></div><p>{nextTier ? <><strong>{Math.max(0, nextTier.min - copyCount)}{copy("번")}</strong>{' '}{copy("더 담기면")}{' '}<b>{copy(nextTier.label)}</b>{' '}{copy("등급이 됩니다.")}</> : copy("최고 등급입니다. Spotlog를 대표하는 여행 가이드예요.")}</p></section>
+    <section className="creator-level-card"><header><div><small>CREATOR LEVEL</small><h2><TierIcon size={19} />{copy(tier.label)}</h2></div><strong>{copyCount.toLocaleString()}{copy("회 담김")}</strong></header><div className="creator-progress"><span style={{ width: `${levelProgress}%` }} /></div><p>{nextTier ? <><strong>{Math.max(0, nextTier.min - copyCount)}{copy("번")}</strong>{' '}{copy("더 담기면")}{' '}<b>{copy(nextTier.label)}</b>{' '}{copy("등급이 됩니다.")}</> : copy("최고 등급입니다. 스팟인모임을 대표하는 여행 가이드예요.")}</p></section>
 
     <section className={`creator-notification-card ${notificationPreferences.enabled ? 'is-enabled' : ''}`}><header><span className="notification-feature-icon">{notificationPreferences.enabled ? <Bell size={20} /> : <BellOff size={20} />}</span><div><small>CREATOR PUSH</small><h2>{copy("조회수 목표 알림")}</h2><p>{copy("내 여행기가 정한 조회수를 달성하면 앱 푸시로 알려드려요.")}</p></div><button className="notification-switch" role="switch" aria-label={copy("조회수 목표 알림")} aria-checked={notificationPreferences.enabled} onClick={() => onNotificationPreferencesChange({ ...notificationPreferences, enabled: !notificationPreferences.enabled })}><span /></button></header><div className="notification-permission"><span className={native && notificationPermission === 'granted' ? 'okay' : ''}>{notificationStatus}</span><em>{notificationPreferences.enabled ? native && notificationPermission === 'denied' ? copy("권한 필요") : copy("알림 켜짐") : copy("알림 꺼짐")}</em></div>{notificationPreferences.enabled && <div className="notification-options"><label><span>{copy("조회수 알림 기준")}</span><select value={notificationPreferences.viewMilestone} onChange={(event) => onNotificationPreferencesChange({ ...notificationPreferences, viewMilestone: Number(event.target.value) })} aria-label={copy("조회수 알림 기준")}><option value={100}>{copy("100회")}</option><option value={500}>{copy("500회")}</option><option value={1000}>{copy("1,000회")}</option><option value={5000}>{copy("5,000회")}</option><option value={10000}>{copy("10,000회")}</option></select></label><button onClick={onPreviewNotification}><Bell size={15} />{copy("테스트 푸시 받기")}</button></div>}<p className="notification-server-note">{copy("실제 서비스에서는 서버가 조회수를 집계하고 같은 목표에 한 번만 푸시를 발송합니다.")}</p></section>
 

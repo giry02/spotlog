@@ -136,7 +136,7 @@ function validateCompletePlannerResult(request:PlannerRequest,data:PlannerData,l
   });
   if(booked.some(p=>!journey.days.some(d=>d.places.some(v=>v.id===p.id&&v.bookingFixed))))fail();
 }
-const source = (version: string): AiSource => ({ id: 'internal-catalog', label: 'Spotlog 등록 장소 · 조건 조합 샘플', checkedAt: null, sourceVersion: version });
+const source = (version: string): AiSource => ({ id: 'internal-catalog', label: '스팟인모임 등록 장소 · 조건 조합 샘플', checkedAt: null, sourceVersion: version });
 export function validatePlannerConditions(c: PlannerConditions, candidates: Place[]): string[] {
   const errors: string[] = [];
   if (!Number.isInteger(c.dayCount) || c.dayCount < 1 || c.dayCount > 7) errors.push('추천 기간은 1일부터 7일까지 선택해 주세요.');

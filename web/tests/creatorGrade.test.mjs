@@ -4,7 +4,7 @@ import {parseCreatorGrades,creatorGradeRules,currentCreatorGrade,defaultCreatorG
 const custom=[{min:0,label:'첫 여행자',shortLabel:'첫 여행',icon:'SPARKLES'},{min:20,label:'바다 안내자',shortLabel:'안내자',icon:'AWARD'}];
 const reference={referenceId:'grade-policy',revision:1,category:'GRADE',name:'담김 기준',enabled:true,value:JSON.stringify(custom)};
 test('shared creator defaults preserve current customer thresholds and badge names',()=>{
-  assert.equal(currentCreatorGrade(9).label,'새싹 기록자');assert.equal(currentCreatorGrade(10).label,'동네 가이드');assert.equal(currentCreatorGrade(5000).label,'Spotlog 마스터');
+  assert.equal(currentCreatorGrade(9).label,'새싹 기록자');assert.equal(currentCreatorGrade(10).label,'동네 가이드');assert.equal(currentCreatorGrade(5000).label,'스팟인모임 마스터');
 });
 test('a versioned active grade policy changes the same count boundary without modifying any user count',()=>{
   const rules=creatorGradeRules([reference]);assert.equal(currentCreatorGrade(19,rules).label,'첫 여행자');assert.equal(currentCreatorGrade(20,rules).label,'바다 안내자');

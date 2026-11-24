@@ -29,12 +29,12 @@ export function ErrorPage({ kind, onHome, onBack, onRetry, onLogin, onReview, bu
   useEffect(() => {
     if (inline) return;
     const oldTitle = document.title;
-    document.title = `${copy.title} · Spotlog`;
+    document.title = `${copy.title} · 스팟인모임`;
     heading.current?.focus({ preventScroll: true });
     return () => { document.title = oldTitle; };
   }, [copy.title, inline]);
   return <article className={`error-page ${inline ? 'error-page--inline' : ''}`} aria-labelledby={`error-title-${kind}`}>
-    {!inline && <div className="error-page-brand">spotlog</div>}
+    {!inline && <div className="error-page-brand">스팟인모임</div>}
     <div className="error-page-body">
       <span className="error-page-illustration" aria-hidden="true"><Icon size={38} strokeWidth={1.6} /></span>
       <span className="error-page-label">{copy.label}</span>

@@ -8,13 +8,13 @@ export function StyleGuide({ onBack }: { onBack: () => void }) {
   return <article className="site-design-guide">
     <header className="sg-toolbar">
       <button type="button" onClick={onBack} aria-label="이전 화면으로"><ArrowLeft size={18} /></button>
-      <strong>spotlog <span>DESIGN REFERENCE</span></strong>
+      <strong>스팟인모임 <span>DESIGN REFERENCE</span></strong>
       <small>현재 전 화면 기준 · 로컬 전용</small>
     </header>
     <div className="sg-inner">
       <section className="sg-intro">
         <p className="sg-eyebrow">EXISTING SCREENS → SHARED RULES</p>
-        <h1>지금의 Spotlog를<br />다음 화면의 기준으로.</h1>
+        <h1>지금의 스팟인모임을<br />다음 화면의 기준으로.</h1>
         <p>홈부터 상세·편집·팝업까지, 현재 화면의 모양과 역할을 함께 기록했습니다. 저장 화면 하나를 기준으로 삼거나 모든 버튼을 같은 크기로 바꾸지 않습니다.</p>
         <div className="sg-boundary"><strong>기존 디자인을 보존하며 글자 역할 기준을 명확히 했습니다.</strong><span>2026.09.13 작성자 목록·통계의 글자만 보완했습니다. 아래 캡처는 이전 기준일의 화면 기록이며 최신 글자 값은 규격표를 따릅니다.</span></div>
       </section>
@@ -45,7 +45,7 @@ export function StyleGuide({ onBack }: { onBack: () => void }) {
         {screenGroups.map((group, index) => <section className="sg-screen-group" id={group.id} key={group.id}>
           <div className="sg-group-heading"><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{group.title}</h3><p>{group.description}</p></div></div>
           <div className="sg-shots">{group.shots.map(shot => <figure key={shot.file}>
-            <a href={import.meta.env.BASE_URL + 'design-guide/' + shot.file + '.png'} target="_blank" rel="noreferrer" aria-label={shot.title + ' 390px 원본 이미지 보기'}><img src={import.meta.env.BASE_URL + 'design-guide/' + shot.file + '.png'} width="390" height="900" alt={shot.title + ' — 현재 Spotlog 화면 캡처'} loading="lazy" /><span>원본 크기로 보기 <ArrowUpRight size={14} /></span></a>
+            <a href={import.meta.env.BASE_URL + 'design-guide/' + shot.file + '.png'} target="_blank" rel="noreferrer" aria-label={shot.title + ' 390px 원본 이미지 보기'}><img src={import.meta.env.BASE_URL + 'design-guide/' + shot.file + '.png'} width="390" height="900" alt={shot.title + ' — 현재 스팟인모임 화면 캡처'} loading="lazy" /><span>원본 크기로 보기 <ArrowUpRight size={14} /></span></a>
             <figcaption><strong>{shot.title}</strong><p>{shot.note}</p></figcaption>
           </figure>)}</div>
           <div className="sg-group-rules"><strong>이 화면을 추가·수정할 때</strong><ul>{group.rules.map(rule => <li key={rule}>{rule}</li>)}</ul><p className="sg-source">원본: {group.source}</p></div>

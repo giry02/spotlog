@@ -6,7 +6,7 @@ export const defaultCreatorGrades: CreatorGradeRule[] = [
   {min:10,label:'동네 가이드',shortLabel:'가이드',icon:'AWARD'},
   {min:100,label:'여행 큐레이터',shortLabel:'큐레이터',icon:'STAR'},
   {min:1000,label:'루트 메이커',shortLabel:'루트메이커',icon:'ROUTE'},
-  {min:5000,label:'Spotlog 마스터',shortLabel:'마스터',icon:'CROWN'},
+  {min:5000,label:'스팟인모임 마스터',shortLabel:'마스터',icon:'CROWN'},
 ];
 /** One versioned policy; public copy counts are supplied by the service, never entered here. */
 export function parseCreatorGrades(value: string): CreatorGradeRule[] {

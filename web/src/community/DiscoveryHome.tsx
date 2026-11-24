@@ -163,15 +163,15 @@ export default function DiscoveryHome({ mode = 'home', places, references = empt
   </section>;
   const searchControls = <div className="discovery-home__search-area">
     {searchOpen ? <label className="discovery-home__search" id={`${uid}-search`}><Search size={18} aria-hidden="true"/><input ref={searchInput} aria-label={isTravel ? '여행 일정 검색' : '모임·약속·장소·여행 검색'} type="search" value={query} onChange={event => onQueryChange(event.target.value)} onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); closeSearch(); } }} placeholder={isTravel ? '여행·지역·장소 검색' : '여행·장소·모임 검색'}/>{query && <button type="button" aria-label={isTravel ? '여행 검색어 지우기' : '발견 검색어 지우기'} onClick={() => { onQueryChange(''); searchInput.current?.focus({ preventScroll: true }); }}><X size={18}/></button>}</label> : <>
-      <strong className="discovery-home__wordmark" aria-hidden="true">{isTravel ? '여행' : 'spotlog'}</strong>
+      <strong className="discovery-home__wordmark" aria-hidden="true">{isTravel ? '여행' : '스팟인모임'}</strong>
       <label className="discovery-home__region"><MapPin size={18} aria-hidden="true"/><span className="discovery-home__sr-only">{isTravel ? '여행 목적지' : '둘러볼 지역'}</span><select aria-label={isTravel ? '여행 목적지' : '둘러볼 지역'} value={region} onChange={event => onRegionChange(event.target.value)}><option value="">전체 지역</option>{regionOptions.map(value => <option key={value} value={value}>{value === region && district ? [value, district, neighborhood].filter(Boolean).join(' ') : value}</option>)}</select><ChevronDown size={16} aria-hidden="true"/></label>
     </>}
     <button ref={searchToggle} type="button" className={`discovery-home__search-toggle${query.trim() ? ' has-query' : ''}`} aria-label={searchOpen ? `${isTravel ? '여행' : '발견'} 검색 닫기` : query.trim() ? `${isTravel ? '여행' : '발견'} 검색 열기 · 검색어 ${query}` : `${isTravel ? '여행' : '발견'} 검색 열기`} aria-expanded={searchOpen} aria-controls={`${uid}-search`} onClick={searchOpen ? closeSearch : () => setSearchOpen(true)}>{searchOpen ? <X size={20} aria-hidden="true"/> : <Search size={20} aria-hidden="true"/>}{query.trim() && !searchOpen && <span className="discovery-home__query-dot" aria-hidden="true"/>}</button>
   </div>;
   return <div className={`discovery-home${isTravel ? ' discovery-home--travel' : ''}`}>
-    {headerActions ? <header className="discovery-home__header"><h1 className="discovery-home__sr-only">{isTravel ? '여행' : 'spotlog · 홈'}</h1>{searchControls}<div className="discovery-home__header-actions">{headerActions}</div></header> : header}
+    {headerActions ? <header className="discovery-home__header"><h1 className="discovery-home__sr-only">{isTravel ? '여행' : '스팟인모임 · 홈'}</h1>{searchControls}<div className="discovery-home__header-actions">{headerActions}</div></header> : header}
     <div className="discovery-home__content">
-      {!header && !headerActions && <h1 className="discovery-home__sr-only">{isTravel ? '여행' : 'spotlog · 홈'}</h1>}
+      {!header && !headerActions && <h1 className="discovery-home__sr-only">{isTravel ? '여행' : '스팟인모임 · 홈'}</h1>}
       {!headerActions && searchControls}
       {!isTravel && <>
         <div className="discovery-home__views" role="group" aria-label="발견에서 볼 내용">{homeViews.map(item => <button type="button" key={item.id} aria-pressed={currentView === item.id} onClick={() => changeView(item.id)}>{item.label}</button>)}</div>

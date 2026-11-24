@@ -57,7 +57,7 @@ export function getPublicTourismSource(image: string): PublicTourismSource | und
   return sourcesByImage.get(image);
 }
 
-const editorialAuthor = 'Spotlog 공공자료 가이드';
+const editorialAuthor = '스팟인모임 공공자료 가이드';
 type EditorialPlace = Pick<Place, 'id' | 'kind' | 'name' | 'area' | 'address' | 'lat' | 'lng' | 'image' | 'description' | 'note' | 'duration' | 'hook' | 'tags'>;
 const place = (entry: EditorialPlace): Place => ({ ...entry, creator: editorialAuthor, bestTime: '방문 전 운영·통제 정보 확인' });
 

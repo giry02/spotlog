@@ -7,7 +7,7 @@ export { CURRENT_AREA_CONSENT_VERSION };
 export const CURRENT_AREA_PROVIDER_NAME = 'BigDataCloud';
 export const CURRENT_AREA_PROVIDER_URL = 'https://www.bigdatacloud.com/docs/article/why-is-reverse-geocoding-api-free';
 export const CURRENT_AREA_PROVIDER_ATTRIBUTION = '주소 변환: BigDataCloud';
-export const CURRENT_AREA_LOCATION_NOTICE = '현재 위치를 한 번 확인하고 동네 이름으로 바꾸기 위해 BigDataCloud에 위도·경도를 전달해요. 제공업체는 위치와 IP를 익명화한 위치 데이터 품질 개선에 사용해요. 스팟로그에는 정밀 좌표를 저장하지 않고 직접 저장한 지역 이름만 보관해요.';
+export const CURRENT_AREA_LOCATION_NOTICE = '현재 위치를 한 번 확인하고 동네 이름으로 바꾸기 위해 BigDataCloud에 위도·경도를 전달해요. 제공업체는 위치와 IP를 익명화한 위치 데이터 품질 개선에 사용해요. 스팟인모임에는 정밀 좌표를 저장하지 않고 직접 저장한 지역 이름만 보관해요.';
 export const CURRENT_AREA_ENDPOINT = 'https://api.bigdatacloud.net/data/reverse-geocode-client';
 
 export type CurrentAreaErrorCode = 'CONSENT_REQUIRED' | 'UNSUPPORTED' | 'DENIED' | 'UNAVAILABLE' | 'TIMEOUT' | 'OFFLINE' | 'REVERSE_UNAVAILABLE' | 'INVALID_RESPONSE' | 'UNSUPPORTED_COUNTRY' | 'INACCURATE';

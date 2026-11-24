@@ -75,7 +75,8 @@ export function PersonalTrip({ journey: input, initialDay, catalog, savedPlaces,
   const needsReview = journey.planStage === 'DRAFT' || candidateCount > 0;
   // A planning generator's dateRange is not a selected departure date or provenance.
   const dateLabel = journey.startDate || (en ? 'Dates undecided' : '날짜 미정');
-  const curatedCopy = journey.sourceAuthor === 'Spotlog 큐레이션' && journey.tags.includes('Spotlog추천');
+  const curatedCopy = (journey.sourceAuthor === '스팟인모임 큐레이션' && journey.tags.includes('스팟인모임 추천'))
+    || (journey.sourceAuthor === 'Spotlog 큐레이션' && journey.tags.includes('Spotlog추천'));
   const visitedCount = journey.days.reduce((total, item) => total + item.places.filter(place => visitProgress(journey, place.visitId) === 'done').length, 0);
   const journalLabel = visitedCount ? `다녀온 ${visitedCount}곳으로 여행기 만들기` : copy("여행기로 남기기");
   const anchor = day?.places.find(place => place.visitId === anchorId);

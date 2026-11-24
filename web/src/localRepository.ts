@@ -318,7 +318,7 @@ export function createLocalRepository(storage: Storage): LocalRepository {
         const candidate: unknown = JSON.parse(json);
         if (!isObject(candidate) || candidate.format !== 'spotlog-local-backup' || candidate.version !== 1
           || !isString(candidate.exportedAt) || !validRecords(candidate.records) || candidate.recoverySource !== undefined) {
-          issue = '정상적인 Spotlog 백업 파일이 아닙니다. 현재 기록은 변경하지 않았습니다.';
+          issue = '정상적인 스팟인모임 백업 파일이 아닙니다. 현재 기록은 변경하지 않았습니다.';
           return false;
         }
         backup = candidate as unknown as Backup;

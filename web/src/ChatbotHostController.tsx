@@ -113,9 +113,9 @@ export function ChatbotHostController({ journeys, catalog, savedPlaces, selected
     } catch (failure) { setError(failure instanceof Error ? failure.message : '요청 내용을 다시 확인해 주세요.'); }
   };
   const frame = iframeConnected && <>
-    <section className="chatbot-host-panel" hidden={!iframeVisible} aria-label="Spotlog 로컬 챗봇">
-      <header className="chatbot-host-header"><Button variant="secondary" onClick={() => setIframeVisible(false)}>앱으로 돌아가기</Button><span>Spotlog 챗봇</span></header>
-      <iframe src="http://localhost:3001/" title="Spotlog 실제 LLM 챗봇" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" referrerPolicy="strict-origin-when-cross-origin" />
+    <section className="chatbot-host-panel" hidden={!iframeVisible} aria-label="스팟인모임 로컬 챗봇">
+      <header className="chatbot-host-header"><Button variant="secondary" onClick={() => setIframeVisible(false)}>앱으로 돌아가기</Button><span>스팟인모임 챗봇</span></header>
+      <iframe src="http://localhost:3001/" title="스팟인모임 LLM 챗봇" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" referrerPolicy="strict-origin-when-cross-origin" />
     </section>
     {!iframeVisible && !pending && !privacyOpen && !comment && <div className="chatbot-host-return"><Button variant="secondary" onClick={() => setIframeVisible(true)}>챗봇으로 돌아가기</Button></div>}
   </>;
@@ -123,14 +123,14 @@ export function ChatbotHostController({ journeys, catalog, savedPlaces, selected
   if (privacyOpen) return <PrivacySheet onClose={() => setPrivacyOpen(false)} />;
   if (comment) return <CardSocial key={`${comment.journeyId}:${comment.blockId}`} journeyId={comment.journeyId} blockId={comment.blockId} placeName={comment.name} initialPanel={comment.panel} controlsHidden onClosePanel={() => setComment(null)} />;
   if (!pending) return null;
-  if (pending.kind === 'connect') return <BottomSheet title="Spotlog 안에서 챗봇 연결" onClose={cancel}><div className="plan-form chatbot-host-sheet"><p className="plan-help">이 PC에서 실행 중인 실제 LLM 챗봇을 Spotlog 안에 열어요. 앱의 계정·여행·저장 장소는 자동으로 전달하지 않아요.</p><p className="plan-help">챗봇에서 자료 연결을 요청하면 이 앱에서 공유할 여행·DAY·저장 장소를 직접 고른 뒤 확인할 수 있어요.</p><Button onClick={confirm}>연결해서 열기</Button><Button variant="secondary" onClick={cancel}>취소</Button></div></BottomSheet>;
+  if (pending.kind === 'connect') return <BottomSheet title="스팟인모임 안에서 챗봇 연결" onClose={cancel}><div className="plan-form chatbot-host-sheet"><p className="plan-help">이 PC에서 실행 중인 실제 LLM 챗봇을 스팟인모임 안에 열어요. 앱의 계정·여행·저장 장소는 자동으로 전달하지 않아요.</p><p className="plan-help">챗봇에서 자료 연결을 요청하면 이 앱에서 공유할 여행·DAY·저장 장소를 직접 고른 뒤 확인할 수 있어요.</p><Button onClick={confirm}>연결해서 열기</Button><Button variant="secondary" onClick={cancel}>취소</Button></div></BottomSheet>;
   if (pending.kind === 'draft') { const days = previewChatbotDraft(pending.draft, catalog), unknown = days.flatMap(day => day.places).filter(item => !item.verified); return <BottomSheet title="새 비공개 일정 초안 가져오기" description={pending.draft.title} onClose={cancel}><div className="plan-form chatbot-host-sheet"><p className="plan-help">모든 DAY와 방문 순서를 새 DRAFT 사본으로 추가해요. 기존 여행을 덮어쓰지 않으며 사진·메모·시간·예약 고정·진행 상태는 가져오지 않아요.</p>{days.map(day => <section className="chatbot-draft-day" key={day.day}><h3>DAY {day.day}</h3>{day.places.length ? <ol>{day.places.map((item, index) => <li key={index}><strong>{item.source.name}</strong><span>{({ LANDMARK: '장소', FOOD: '음식점', CAFE: '카페', SHOP: '상점', STAY: '숙소', LEISURE: '레저' })[item.source.kind]} · {item.reason}</span></li>)}</ol> : <p className="plan-help">장소가 없는 이 DAY도 유지해요.</p>}</section>)}{unknown.length > 0 && <label className="chatbot-host-import-consent"><input type="checkbox" checked={allowUnverified} onChange={event => setAllowUnverified(event.target.checked)} /><span>미확인 {unknown.length}개도 등록 정보·좌표 미확인인 개인 입력으로 가져올게요.</span></label>}<p className="plan-help">여행기로 쓰려면 가져온 개인 일정을 앱에서 확인하고 ‘완료’를 눌러 주세요. 예약·게시 완료 상태로 만들지 않습니다.</p>{error && <p className="ui-error" role="alert">{error}</p>}<Button disabled={Boolean(unknown.length && !allowUnverified)} onClick={confirm}>새 비공개 초안으로 가져오기</Button><Button variant="secondary" onClick={cancel}>취소</Button></div></BottomSheet>; }
   const context = pending.kind === 'context', scope = context ? pending.scope : null;
   const target = pending.kind === 'open' ? pending.action.target : null;
   const entry = pending.kind === 'open' ? pending.action.entry : undefined;
   const choices = context || entry === 'personal-place' ? privatePlans : target === 'report' || target === 'share_source' || isChatbotPublicSocialEntry(entry) ? publicJournals : target === 'journal' ? journeys.filter(item => item.isMine && !item.trash) : [];
   const chooseJourney = scope !== 'saved-places' && (context || ['report', 'share_source', 'journal'].includes(target ?? '') || entry === 'personal-place' || isChatbotPublicSocialEntry(entry));
-  return <BottomSheet title={context ? '챗봇에 공유할 자료 선택' : 'Spotlog 화면 열기'} onClose={cancel}>
+  return <BottomSheet title={context ? '챗봇에 공유할 자료 선택' : '스팟인모임 화면 열기'} onClose={cancel}>
     <div className="plan-form chatbot-host-sheet">
       <p className="plan-help">{context ? '직접 선택한 여행 제목·지역·DAY·장소 이름과 종류만 로컬 챗봇에 보냅니다. 메모·예약·사진·위치·계정 정보는 보내지 않아요.' : `${entry ? CHATBOT_ENTRY_LABELS[entry] : CHATBOT_TARGET_LABELS[target!]} 화면으로 이동해요. 저장·게시·신고 접수·계정 변경은 해당 화면에서 직접 확인해 주세요.`}</p>
       {chooseJourney && <Field label={context ? '공유할 내 여행' : target === 'report' ? '신고할 공개 여행기' : target === 'share_source' ? '공유 원본 여행기' : isChatbotPublicSocialEntry(entry) ? '반응을 볼 공개 여행기' : '기록할 내 여행 · 여행기'}><select aria-label={context ? '공유할 내 여행' : '연결할 여행'} value={journeyId} onChange={event => selectJourney(event.target.value)}><option value="">{target === 'journal' ? '내 여행 목록에서 선택하기' : '여행을 선택해 주세요'}</option>{choices.map(item => <option key={item.id} value={item.id}>{item.title}</option>)}</select></Field>}

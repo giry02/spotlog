@@ -190,7 +190,7 @@ export const localTranslationAdapter: TranslationAdapter = {
     return {
       requestId: request.requestId, sourceVersion: request.sourceVersion, mock: true,
       data: { text: known ?? request.text, status: known ? 'sample' : 'unavailable' },
-      sources: [{ id: `translation:${request.sourceId}`, label: request.language === 'en' ? 'Spotlog sample translation' : 'Spotlog 번역 예시', checkedAt: null, sourceVersion: request.sourceVersion }],
+      sources: [{ id: `translation:${request.sourceId}`, label: request.language === 'en' ? '스팟인모임 sample translation' : '스팟인모임 번역 예시', checkedAt: null, sourceVersion: request.sourceVersion }],
       warnings: [], unplaced: [],
     };
   },

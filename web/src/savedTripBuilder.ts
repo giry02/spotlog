@@ -65,7 +65,7 @@ export function buildSavedTrip(draft: SavedTripDraft, places: Place[]): Journey 
   }
   const region = [...new Set(selected.map(place => place.area.split(/\s+/)[0]))].join(' · ') || '국내';
   const title = draft.title.trim() || `${region} ${savedTripPeriod(draft.dayCount)} 여행`;
-  const base = createJourneyFromPlaces({ title, days: draft.dayCount, startDate: draft.startDate, places: [] }, 'Spotlog 여행자');
+  const base = createJourneyFromPlaces({ title, days: draft.dayCount, startDate: draft.startDate, places: [] }, '스팟인모임 여행자');
   if (!base) throw new Error('여행 제목과 날짜를 확인해 주세요.');
   let result: Journey;
   if (draft.mode === 'auto') {

@@ -128,11 +128,11 @@ export const buildAiJourneyDraft = (sourcePlaces: Place[], requestedDays: number
     visibility: 'PRIVATE',
     cover: orderedPlaces[0].image,
     summary: `${sourceLabel} ${orderedPlaces.length}곳을 거리와 체류시간에 맞춰 ${dayCount}일 여행으로 엮었습니다.`,
-    story: 'Spotlog AI 여행 만들기가 장소의 위치, 지역, 추천 시간과 체류시간을 읽어 첫 동선을 만들었습니다. 지도 경로를 확인한 뒤 일정과 글, 사진을 자유롭게 고쳐 나만의 여행기로 완성할 수 있습니다.',
+    story: '스팟인모임 AI 여행 만들기가 장소의 위치, 지역, 추천 시간과 체류시간을 읽어 첫 동선을 만들었습니다. 지도 경로를 확인한 뒤 일정과 글, 사진을 자유롭게 고쳐 나만의 여행기로 완성할 수 있습니다.',
     tags: ['AI초안', region, `${orderedPlaces.length}곳`],
     saves: 0,
     days,
-    author: 'Spotlog AI · 나',
+    author: '스팟인모임 AI · 나',
     isMine: true,
   };
 };
@@ -219,10 +219,10 @@ export const previewTemplateJourney = (template: HomeTripTemplate): Journey => {
   const preview = publishTemplateJourney(template, {
     id: `preview-${template.id}`,
     title: template.title,
-    author: 'Spotlog 큐레이션',
+    author: '스팟인모임 큐레이션',
     dateRange: '추천 일정 · 날짜를 정해 담아보세요',
     saves: 0,
-    story: `Spotlog가 ${template.eyebrow}을 중심으로 골라 구성한 ${template.region} 추천 일정입니다. 날짜별 장소와 이동 동선을 먼저 살펴보고, 마음에 들면 내 여행에 담아 일정과 기록을 자유롭게 바꿔보세요.`,
+    story: `스팟인모임이 ${template.eyebrow}을 중심으로 골라 구성한 ${template.region} 추천 일정입니다. 날짜별 장소와 이동 동선을 먼저 살펴보고, 마음에 들면 내 여행에 담아 일정과 기록을 자유롭게 바꿔보세요.`,
   });
   return { ...preview, days: preview.days.map((day) => ({ ...day, date: `${day.day}일차` })) };
 };

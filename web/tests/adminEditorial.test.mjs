@@ -20,7 +20,7 @@ test('local generation creates independent private DAY draft from eligible place
   assert.equal(draft.days.length, 2); assert.deepEqual(draft.placeIds, curatedPlaceIds(draft.days)); assert.ok(!draft.placeIds.includes('제주장소'));
   assert.deepEqual(draft.days[0].visits.map(visit => visit.slot), ['morning', 'lunch', 'afternoon', 'stay']);
   assert.ok(draft.days[1].visits.every(visit => visit.slot !== 'stay'));
-  assert.equal(draft.editorialJournal.authorName, 'Spotlog 운영'); assert.equal(draft.editorialJournal.sourceKind, 'EDITORIAL');
+  assert.equal(draft.editorialJournal.authorName, '스팟인모임 운영'); assert.equal(draft.editorialJournal.sourceKind, 'EDITORIAL');
   assert.equal(draft.editorialJournal.days[0].places[0].description, before.places[0].published.description);
   assert.equal(draft.editorialJournal.cover.sourceCredit.author, '사진 저자');
   assert.equal(curatedIssues(value, draft).length, 0);
