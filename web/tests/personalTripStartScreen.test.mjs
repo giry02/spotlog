@@ -23,16 +23,17 @@ function text(value) {
   if(value&&typeof value==='object') return text(value.props?.children);
   return typeof value==='string'||typeof value==='number'?String(value):'';
 }
-function fixture({populated=false,save=true,planStage='DRAFT',initialDay,rememberedDay}={}) {
+function fixture({populated=false,save=true,planStage='DRAFT',initialDay,rememberedDay,locale='ko',traveling=false}={}) {
   const states=[], saved=[]; let cursor=0, mapCalls=0;
   const place={id:'cafe',kind:'CAFE',name:'선택한 카페',area:'부산',address:'부산',lat:35,lng:129,image:'',note:'',description:'',duration:''};
   let journey={...tripPlan.buildPersonalPlan(populated?[place]:[],rememberedDay || 1,'새 여행','나'),planStage};
   if (rememberedDay) journey=tripProgress.rememberTravelPosition(journey, journey.days[rememberedDay-1].dayId);
+  if (traveling) journey={...tripProgress.rememberTravelPosition(journey, journey.days[0].dayId),status:'TRAVELING'};
   const dependencies={
     react:{useState(initial){const index=cursor++;if(!(index in states))states[index]=typeof initial==='function'?initial():initial;return [states[index],value=>{states[index]=typeof value==='function'?value(states[index]):value;}];},useEffect(){}},
     'react/jsx-runtime':{jsx,jsxs:jsx,Fragment:'Fragment'},
     'lucide-react':new Proxy({}, {get:(_,name)=>String(name)}),
-    './frontendCopy':{useUiCopy:()=>value=>value}, './locale':{useLocale:()=>({locale:'ko',t:value=>value})},
+    './frontendCopy':{useUiCopy:()=>value=>value}, './locale':{useLocale:()=>({locale,t:value=>value})},
     './data':{placeKindLabel:{CAFE:'카페'}}, './tripPlan':tripPlan, './tripProgress':tripProgress,
     './personalTripDates':tripDates, './tripCandidates':tripCandidates, './plannerTimeline':timeline,
     './DayNavigation':{DayNavigation:'DayNavigation'}, './BottomSheet':{BottomSheet:'BottomSheet'},
@@ -41,7 +42,7 @@ function fixture({populated=false,save=true,planStage='DRAFT',initialDay,remembe
     './NearbyBusinessSheet':{NearbyBusinessSheet:'NearbyBusinessSheet',StayForm:'StayForm'},
     './usePlanDragOrder':{usePlanDragOrder:()=>({preview:null})},
     './OfflineTripControl':{useOfflineTrip:()=>({busy:false}),OfflineTripControl:'OfflineTripControl',OfflineTripManagement:'OfflineTripManagement'},
-    './placeDirections':{naverDirectionsUrl:()=>''}, './routeData':{parseDurationMinutes:()=>0},
+    './GoogleDirectionsButton':{__esModule:true,default:'GoogleDirectionsButton'}, './routeData':{parseDurationMinutes:()=>0},
     './coursePreviewModel':{courseDayFacts:()=>({stayMinutes:0}),courseStayLabel:()=>''},
     './together/creationPreferences':{privatePlanningPreferences:()=>null},
     './planningAiAvailability':{placeSearchActionLabel:'AI로 장소 찾기',planningAiAvailable:true},
@@ -131,6 +132,32 @@ test('a trip with places retains completion, route and existing place editing co
 });
 
 test('one nearby stop can be added and undone in a finished itinerary without opening candidate review', () => {
+test('a completed itinerary has directions to the specific stop from its row and its details',()=>{
+  const app=fixture({populated:true,planStage:'READY',locale:'en'});app.render();
+  const directions=()=>app.all(node=>node.type==='GoogleDirectionsButton');
+  assert.equal(directions().length,1);
+  assert.equal(directions()[0].props.iconOnly,true);
+  assert.equal(directions()[0].props.en,true);
+  assert.equal(directions()[0].props.place.id,'cafe');
+  app.find(node=>node.props?.['aria-label']==='선택한 카페 · Place information').props.onClick();app.render();
+  assert.equal(directions().length,2);
+  assert.equal(directions()[1].props.place.visitId,directions()[0].props.place.visitId);
+  assert.equal(app.saved.length,0);
+});
+
+test('next-stop directions remember progress on launch and block launch when saving fails',()=>{
+  for(const save of [true,false]){
+    const app=fixture({populated:true,planStage:'READY',traveling:true,save});app.render();
+    const next=app.find(node=>node.type==='GoogleDirectionsButton'&&node.props.beforeLaunch);
+    assert.equal(next.props.place.visitId,app.journey.days[0].places[0].visitId);
+    assert.equal(app.saved.length,0);
+    assert.equal(next.props.beforeLaunch(),save);
+    app.render();
+    assert.equal(app.saved.length,Number(save));
+    assert.equal(app.journey.travelProgress.visitId,save?next.props.place.visitId:undefined);
+  }
+});
+
   const app = fixture({ populated: true, planStage: 'READY' });
   app.render();
   const nearbyAction = app.find(node => node.type === 'button' && node.props['aria-label'] === 'nearby');

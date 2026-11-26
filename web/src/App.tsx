@@ -1,4 +1,5 @@
-import { naverDirectionsUrl } from './placeDirections';
+import GoogleDirectionsButton from './GoogleDirectionsButton';
+import { googleDirectionsUrl } from './placeDirections';
 import { buildEmptyPersonalTrip, type EmptyPersonalTripRequest } from './emptyPersonalTrip';
 import PublicPlaceFacts from './community/PublicPlaceFacts';
 import CoursePreview from './CoursePreview';
@@ -38,7 +39,6 @@ import {
   Map as MapIcon,
   MapPin,
   MessageCircle,
-  Navigation,
   Clapperboard,
   Plus,
   Reply,
@@ -190,7 +190,7 @@ import {
   type PlaceKind,
   type StoryBlock,
 } from './data';
-import { isNativeShell, notifyNavigationState, notifyReady, openExternal, previewCreatorNotification, shareContent, subscribeNavigationCommands, subscribeNotificationStatus, subscribePreviewNotificationResult, updateNotificationPreferences } from './nativeBridge';
+import { isNativeShell, notifyNavigationState, notifyReady, previewCreatorNotification, shareContent, subscribeNavigationCommands, subscribeNotificationStatus, subscribePreviewNotificationResult, updateNotificationPreferences } from './nativeBridge';
 
 const LazyPlaceAssistantSheet = lazy(() => import('./PlaceAssistantSheet'));
 const LazyTogetherApp = lazy(() => import('./together/TogetherApp'));
@@ -501,7 +501,11 @@ const readJourneys = (): Journey[] => {
   }
 };
 
-const makePlaceShareText = (place: Place) => `${place.name}\n${place.address}\n${place.description}\n\n네이버 지도 길찾기\n${naverDirectionsUrl(place)}\n\n스팟인모임에서 공유`;
+const makePlaceShareText = (place: Place) => {
+  const details = [place.name, place.address, place.description].filter(Boolean).join('\n');
+  const directions = googleDirectionsUrl(place);
+  return [details, directions && `구글 지도 길찾기\n${directions}`, '스팟인모임에서 공유'].filter(Boolean).join('\n\n');
+};
 const journeyPlaceCount = (journey: Journey) => journey.days.reduce((sum, day) => sum + day.places.length, 0);
 const tripDurationLabel = (duration: TripDurationFilter) => tripDurationOptions.find((option) => option.id === duration)?.label ?? '전체 기간';
 const matchesTripDuration = (durationText: string, filter: TripDurationFilter) => {
@@ -1179,7 +1183,7 @@ function SpotlogApp() {
   const sharePlace = async (place: Place) => {
     try {
       const mode = await shareContent({ title: place.name, message: makePlaceShareText(place) });
-      if (mode === 'clipboard') showToast(copy("장소 정보와 길찾기 링크를 복사했습니다."));
+      if (mode === 'clipboard') showToast(copy("장소 정보를 복사했습니다."));
     } catch {
       showToast(copy("공유를 취소했습니다."));
     }
@@ -2488,10 +2492,10 @@ function JourneyDetail({ journey, onTryWithPeople, initialDay = 1, initialSocial
 }
 
 function GuidePlaceEmbed({ place, journey, onShare, showImage = true, preview = false, social }: { place?: Place; journey?: Journey; onShare: (place: Place) => void; showImage?: boolean;preview?:boolean;social?:{journeyId:string;blockId:string} }) {
-  const copy=useUiCopy();
+  const copy=useUiCopy(), {locale}=useLocale();
   if (!place) return null;
   const Icon = kindIcon[place.kind];
-  return <aside className="guide-place-embed">{showImage && place.image && <img src={place.image} alt="" />}<div className="guide-place-copy">{showImage && <PhotoCredit image={place.image} />}<div className="place-kind"><Icon size={13} />{placeKindLabel[place.kind]}</div><TranslationText as="h3" sourceId={`place:${place.id}:name`} sourceVersion={sourceVersion(place.name)} text={place.name} kind="journal" /><div className="guide-place-time"><Clock3 size={14} />{place.time ? `${place.time} 도착 · ${place.duration} 체류` : place.duration}</div><TranslationText sourceId={`place:${place.id}:description`} sourceVersion={sourceVersion(place.description)} text={place.description} kind="journal" />{place.note&&<blockquote>“<TranslationText as="span" sourceId={`place:${place.id}:note`} sourceVersion={sourceVersion(place.note)} text={place.note} kind="journal" />”</blockquote>}{!preview&&<div><button onClick={() => openExternal(naverDirectionsUrl(place))}><Navigation size={15} />{copy("길찾기")}</button><button onClick={() => onShare(place)}><Share2 size={15} />{copy("공유")}</button></div>}</div> {!preview&&social&&<CardSocial {...social} placeName={place.name}/>}</aside>;
+  return <aside className="guide-place-embed">{showImage && place.image && <img src={place.image} alt="" />}<div className="guide-place-copy">{showImage && <PhotoCredit image={place.image} />}<div className="place-kind"><Icon size={13} />{placeKindLabel[place.kind]}</div><TranslationText as="h3" sourceId={`place:${place.id}:name`} sourceVersion={sourceVersion(place.name)} text={place.name} kind="journal" /><div className="guide-place-time"><Clock3 size={14} />{place.time ? `${place.time} 도착 · ${place.duration} 체류` : place.duration}</div><TranslationText sourceId={`place:${place.id}:description`} sourceVersion={sourceVersion(place.description)} text={place.description} kind="journal" />{place.note&&<blockquote>“<TranslationText as="span" sourceId={`place:${place.id}:note`} sourceVersion={sourceVersion(place.note)} text={place.note} kind="journal" />”</blockquote>}{!preview&&<div><GoogleDirectionsButton place={place} en={locale==='en'}/><button onClick={() => onShare(place)}><Share2 size={15} />{copy("공유")}</button></div>}</div> {!preview&&social&&<CardSocial {...social} placeName={place.name}/>}</aside>;
 }
 
 function JourneyEditor({ journey, initialDay, initialEntry, onBack, onSave, onDraft }: { journey: Journey; initialDay?: number; initialEntry?: ChatbotEntry; onBack: () => void; onSave: (journey: Journey) => boolean; onDraft:(journey:Journey,view?:{selectedDay:number;scrollTop:number})=>boolean }) {
@@ -2694,9 +2698,9 @@ function PlacePicker({ kind, region, personalPlan = false, interest = false, dra
 const kindIcon: Record<PlaceKind, LucideIcon> = { LANDMARK: MapPin, STAY: Hotel, FOOD: Utensils, CAFE: Coffee, SHOP: Store, LEISURE: Footprints };
 
 function PlaceJournalCard({ place, index, onShare }: { place: Place; index: number; onShare: () => void }) {
-  const copy=useUiCopy();
+  const copy=useUiCopy(), {locale}=useLocale();
   const Icon = kindIcon[place.kind];
-  return <article className="place-journal-card"><div className="timeline-rail"><span>{index + 1}</span><i /></div><div className="place-card-body"><div className="move-label"><Footprints size={13} />{place.move}</div><img src={place.image} alt="" /><div className="place-card-copy"><div className="place-kind"><Icon size={13} />{placeKindLabel[place.kind]}</div><h3>{place.name}</h3><p className="address">{place.address}</p><p>{place.description}</p><blockquote>{place.note}</blockquote><div className="place-card-actions"><button onClick={() => openExternal(naverDirectionsUrl(place))}><Navigation size={15} />{copy("길찾기")}</button><button onClick={onShare}><Share2 size={15} />{copy("장소 공유")}</button></div></div></div></article>;
+  return <article className="place-journal-card"><div className="timeline-rail"><span>{index + 1}</span><i /></div><div className="place-card-body"><div className="move-label"><Footprints size={13} />{place.move}</div><img src={place.image} alt="" /><div className="place-card-copy"><div className="place-kind"><Icon size={13} />{placeKindLabel[place.kind]}</div><h3>{place.name}</h3><p className="address">{place.address}</p><p>{place.description}</p><blockquote>{place.note}</blockquote><div className="place-card-actions"><GoogleDirectionsButton place={place} en={locale==='en'}/><button onClick={onShare}><Share2 size={15} />{copy("장소 공유")}</button></div></div></div></article>;
 }
 
 function CreateJourneySheet({ onClose, onCreate }: { onClose: () => void; onCreate: (title: string, region: string) => void }) {
@@ -2824,7 +2828,7 @@ function Profile({ basicAvatar, onBasicAvatarChange, initialEntry, entryRequestI
 
     {privacyOpen&&<PrivacySheet onClose={()=>setPrivacyOpen(false)}/>}
     {preferencesOpen && <ProfilePreferencesSheet name={profile.displayName} onClose={() => setPreferencesOpen(false)} onSave={displayName => onProfileChange({...profile,displayName})} />}
-    <div className="settings-list"><SettingRow icon={Globe2} label={copy("서비스 화면")} value={copy("모바일웹")} /><SettingRow icon={MapIcon} label={copy("여행 범위")} value={copy("대한민국")} /><SettingRow icon={Route} label={copy("지도·길찾기")} value="네이버 외부 길찾기" /><SettingRow icon={UserRound} label={copy("실행 환경")} value={native ? copy("Expo 앱") : copy("웹 브라우저")} /></div><p className="demo-note">{copy("댓글·응원·프로필 아이콘은 현재 이 기기에 저장됩니다. 실제 사용자 간 동기화는 서버 연결 시 동일한 화면 구조로 전환됩니다.")}</p></div>;
+    <div className="settings-list"><SettingRow icon={Globe2} label={copy("서비스 화면")} value={copy("모바일웹")} /><SettingRow icon={MapIcon} label={copy("여행 범위")} value={copy("대한민국")} /><SettingRow icon={Route} label={copy("지도·길찾기")} value="구글 지도 길찾기" /><SettingRow icon={UserRound} label={copy("실행 환경")} value={native ? copy("Expo 앱") : copy("웹 브라우저")} /></div><p className="demo-note">{copy("댓글·응원·프로필 아이콘은 현재 이 기기에 저장됩니다. 실제 사용자 간 동기화는 서버 연결 시 동일한 화면 구조로 전환됩니다.")}</p></div>;
 }
 
 function SettingRow({ icon: Icon, label, value, active = false }: { icon: LucideIcon; label: string; value: string; active?: boolean }) {

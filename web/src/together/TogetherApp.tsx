@@ -6,7 +6,7 @@ import { AppMenuButton } from '../AppMenu';
 import { ScreenHeader, ScreenTabs } from '../ScreenHeader';
 import { getPlacePhotos } from '../PhotoPlaceCard';
 import { PhotoCredit } from '../PublicTourismCredit';
-import { naverDirectionsUrl } from '../placeDirections';
+import GoogleDirectionsButton from '../GoogleDirectionsButton';
 import { addPlanDay, appendPlanPlace, canDragPlanVisit, movePlanVisitBefore, planVisitGroups, removePlanVisit, setPlanDates, setPlanStay } from '../tripPlan';
 import { createTogetherRepository, type TogetherRepository } from './repository';
 import AlbumMediaDetail from './AlbumMediaDetail';
@@ -194,7 +194,7 @@ function Empty({ title, children, action }: { title: string; children?: ReactNod
 }
 function PlaceRow({ place, onSave }: { place: Place; onSave: (place: Place) => void }) {
   const photos = getPlacePhotos(place, true);
-  return <details className="tg-place"><summary>{photos[0] ? <img src={photos[0].image} alt="" /> : <MapPin size={28} />}<div><span className="tg-tag">{placeNames[place.kind]}</span><strong>{place.name}</strong><small>{place.area}</small></div><ChevronDown size={18} /></summary><div className="tg-place-content">{photos[0] && <><img src={photos[0].image} alt={photos[0].alt || place.name} /><PhotoCredit image={photos[0].image} sourceId={photos[0].sourceId} /></>}<p>{place.description || '장소 소개를 준비하고 있어요.'}</p><small>{place.address}</small>{place.duration && <small>방문 참고 · {place.duration}</small>}<div className="tg-row"><button onClick={() => onSave(place)}><Heart size={16} />관심 장소 저장</button><a className="tg-direction" href={naverDirectionsUrl(place)} target="_blank" rel="noreferrer">네이버 길찾기 ↗</a></div></div></details>;
+  return <details className="tg-place"><summary>{photos[0] ? <img src={photos[0].image} alt="" /> : <MapPin size={28} />}<div><span className="tg-tag">{placeNames[place.kind]}</span><strong>{place.name}</strong><small>{place.area}</small></div><ChevronDown size={18} /></summary><div className="tg-place-content">{photos[0] && <><img src={photos[0].image} alt={photos[0].alt || place.name} /><PhotoCredit image={photos[0].image} sourceId={photos[0].sourceId} /></>}<p>{place.description || '장소 소개를 준비하고 있어요.'}</p><small>{place.address}</small>{place.duration && <small>방문 참고 · {place.duration}</small>}<div className="tg-row"><button onClick={() => onSave(place)}><Heart size={16} />관심 장소 저장</button><GoogleDirectionsButton place={place}/></div></div></details>;
 }
 
 export default function TogetherApp({ repository: suppliedRepository, route, onNavigate, onBack, viewer, onLogin, places, journeys, onOpenJourney, onSavePlace, onCopyJourney, onCreateJournal, journalShareRequest, onJournalShareRequestHandled, decisionRequest, onDecisionRequestHandled, personalRouteRequest, onPersonalRouteRequestHandled, memberRecordRequest, onMemberRecordRequestHandled, onCreateTemporaryRoom, onCreatePersonalPlan, onStartPersonalPlan, tripStartTitle: suppliedTripTitle, onTripStartTitleChange, onLoginForGroupCreation, groupCreationRequest, onGroupCreationRequestHandled, discoveryFilters, onDiscoveryFiltersChange, reviewRepository, myRegionLabel, onManageMyRegions, onUseMyRegion, calendarView, onCalendarViewChange }: Props) {

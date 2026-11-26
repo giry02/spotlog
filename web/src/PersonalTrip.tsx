@@ -1,7 +1,7 @@
 import { useUiCopy } from './frontendCopy';
 import { useLocale } from './locale';
 import { useEffect, useState, type ReactNode } from 'react';
-import { Activity, ArrowDown, ArrowUp, ArrowLeft, ArrowRight, CalendarDays, ChevronRight, MapPin, MapPinPlus, Plus, Sparkles, Trash2, MoreHorizontal, Copy, Undo2, CheckCircle2, SkipForward, RefreshCw, Clock3, Navigation, Map as MapIcon, Utensils, Coffee, BedDouble, Store, GripVertical } from 'lucide-react';
+import { Activity, ArrowDown, ArrowUp, ArrowLeft, ArrowRight, CalendarDays, ChevronRight, MapPin, MapPinPlus, Plus, Sparkles, Trash2, MoreHorizontal, Copy, Undo2, CheckCircle2, SkipForward, RefreshCw, Clock3, Map as MapIcon, Utensils, Coffee, BedDouble, Store, GripVertical } from 'lucide-react';
 import { placeKindLabel, type Journey, type Place, type PlanningSlot } from './data';
 import { plannerTimeline, planningSlotLabel, planningGapLabel, plannerVisitContext } from './plannerTimeline';
 import { DayNavigation } from './DayNavigation';
@@ -16,7 +16,7 @@ import { addPlanDay, appendPlanPlace, canDragPlanVisit, copyPlanDay, distanceBet
 import { usePlanDragOrder } from './usePlanDragOrder';
 import { OfflineTripControl, OfflineTripManagement, useOfflineTrip } from './OfflineTripControl';
 import { nextPendingInDay, nextPendingDay, rememberTravelPosition, setVisitProgress, tripChangeIdentity, visitProgress } from './tripProgress';
-import { naverDirectionsUrl } from './placeDirections';
+import GoogleDirectionsButton from './GoogleDirectionsButton';
 import { parseDurationMinutes } from './routeData';
 import { courseDayFacts, courseStayLabel } from './coursePreviewModel';
 import type { RouteWarning } from './routeWarnings';
@@ -238,7 +238,7 @@ export function PersonalTrip({ journey: input, initialDay, catalog, savedPlaces,
         {nextVisit ? <div>
           <button className="outline" onClick={()=>chooseVisit(nextVisit.visitId!)}><ArrowRight size={14}/><span>{en ? 'Continue' : '이어서 방문'} · {nextVisit.name}</span></button>
           <Button size="compact" variant="secondary" className="plan-next-complete" aria-label={`${nextVisit.name} · ${en?'Mark visited':'방문 완료'}`} onClick={()=>changeProgress(nextVisit,'done')}><CheckCircle2 size={14}/>{en?'Done':'완료'}</Button>
-          <a className="plan-directions-link" href={naverDirectionsUrl(nextVisit)} target="_blank" rel="noopener noreferrer" onClick={event=>{if(!rememberPosition(day,nextVisit.visitId))event.preventDefault();}} aria-label={`${nextVisit.name} · ${en ? 'Naver directions' : '네이버 길찾기'}`} title={en ? 'Naver directions' : '네이버 길찾기'}><Navigation size={18} aria-hidden="true"/></a>
+          <GoogleDirectionsButton place={nextVisit} className="plan-directions-link" iconOnly en={en} beforeLaunch={() => rememberPosition(day, nextVisit.visitId)}/>
         </div> : nextDay ? <button className="outline" onClick={()=>rememberPosition(nextDay,nextPendingInDay(journey,nextDay)?.visitId)}><ArrowRight size={14}/>{en ? `This day is checked · Continue DAY ${nextDay.day}` : `이 DAY 확인 끝 · DAY ${nextDay.day} 이어가기`}</button> : <p className="plan-help">{en ? 'All planned stops have been checked. You can restore visits from their menus.' : '모든 일정의 방문을 확인했어요. 장소 메뉴에서 미방문으로 되돌릴 수 있어요.'}</p>}
       </div>}
       {mapOpen && !!routePlaces.length && <div className="plan-route" id="personal-route">{renderMap(routePlaces,selectedVisit,chooseVisit,setWarning)}</div>}
@@ -261,6 +261,7 @@ export function PersonalTrip({ journey: input, initialDay, catalog, savedPlaces,
         {isEditing && isCandidateAnchor(place) && journey.businessCandidates?.some(group=>group.anchorVisitId===place.visitId) && <button className="plan-shortlist-link" onClick={()=>setReviewOpen(true)}><CheckCircle2 size={14}/>담은 후보 {journey.businessCandidates.filter(group=>group.anchorVisitId===place.visitId).reduce((n,group)=>n+group.options.length,0)}곳 · 마지막 확인</button>}
         {visitProgress(journey,place.visitId)!=='pending'&&<p className="plan-help plan-visit-state">{visitProgress(journey,place.visitId)==='done'?<CheckCircle2 size={14}/>:<SkipForward size={14}/>} {en ? visitProgress(journey,place.visitId)==='done'?'Visited':'Skipped' : visitProgress(journey,place.visitId)==='done'?'방문 완료':'건너뜀'}</p>}
         {place.planningSlot&&<p className="plan-help plan-timeline-context">{planningSlotLabel(place.planningSlot,en)}{place.kind!=='LANDMARK'&&plannerVisitContext(day,entry,en)?` · ${plannerVisitContext(day,entry,en)}`:''}</p>}
+        {!isEditing && <GoogleDirectionsButton place={place} className="plan-icon" iconOnly en={en}/>}
         {(place.time||place.note) && <p className="plan-help">{place.time && `${place.time} · `}{place.note}</p>}
         {((canEditTrip && isCandidateAnchor(place)) || isEditing) && <div className="plan-stop-actions">
           {canEditTrip && isCandidateAnchor(place) && <button type="button" aria-label={t('nearby')} title={t('nearby')} aria-haspopup="dialog" onClick={() => { setPlanningSlot(undefined); setAnchorId(place.visitId!); }}><MapPinPlus size={20} aria-hidden="true"/></button>}
@@ -318,7 +319,7 @@ export function PersonalTrip({ journey: input, initialDay, catalog, savedPlaces,
       </div>
       </>}
       <p className="plan-help">{editing.address||copy("주소 확인 필요")}{!hasLocation(editing)&&(en?' · Location unverified':' · 위치 미확인')}</p>
-      <a className="plan-directions-link" href={naverDirectionsUrl(editing)} target="_blank" rel="noopener noreferrer"><Navigation size={14}/>{en ? 'Check in Naver Maps' : '네이버 지도에서 확인'}</a>
+      <GoogleDirectionsButton place={editing} className="plan-directions-link" en={en}/>
       {!isEditing && <>
         {hasLocation(editing)&&<Button variant="secondary" onClick={()=>{if(openMapVisit(editing))setEditing(null);}}><MapIcon size={16}/>{en?'View on route map':'동선 지도에서 보기'}</Button>}
         <Button variant="secondary" onClick={startEditing}>{en?'Edit this place':'이 장소 수정'}</Button>
@@ -347,7 +348,7 @@ export function PersonalTrip({ journey: input, initialDay, catalog, savedPlaces,
       catch(error){return error instanceof Error?error.message:'교체하지 못했어요.';}
     }}/>}
     {warning && warningVisit && <BottomSheet title={en?'Review this connection':'이 구간 확인·수정'} description={warningFrom?`${warningFrom.name} → ${warningVisit.name}`:warningVisit.name} onClose={()=>setWarning(null)}><div className="plan-form">
-      <p className="plan-help">{warning.code==='ESTIMATED_TIME_CONFLICT' ? en?`Estimated time is short by ${warning.shortfallMinutes} minutes. Actual travel conditions need checking.`:`추정 계산상 ${warning.shortfallMinutes}분 부족해요. 실제 이동 시간은 확인이 필요해요.` : warning.code==='LOCATION_UNVERIFIED' ? en?'The location is unverified. Check the saved address in Naver Maps.':'위치가 미확인이에요. 등록된 주소를 네이버 지도에서 확인해 주세요.' : warning.code==='TRAVEL_TIME_UNVERIFIED' ? en?'Walking time has not been verified. Adjustments do not verify the route.':'도보 경로·시간이 미확인이에요. 일정을 수정해도 실제 경로 확인은 별도로 필요해요.' : en?'Add visit times and planned durations to compare this connection.':'방문 시각과 체류시간을 넣으면 이 구간의 추정 시간을 비교할 수 있어요.'}</p>
+      <p className="plan-help">{warning.code==='ESTIMATED_TIME_CONFLICT' ? en?`Estimated time is short by ${warning.shortfallMinutes} minutes. Actual travel conditions need checking.`:`추정 계산상 ${warning.shortfallMinutes}분 부족해요. 실제 이동 시간은 확인이 필요해요.` : warning.code==='LOCATION_UNVERIFIED' ? en?'The location is unverified. Check the saved address in Google Maps.':'위치가 미확인이에요. 등록된 주소를 구글 지도에서 확인해 주세요.' : warning.code==='TRAVEL_TIME_UNVERIFIED' ? en?'Walking time has not been verified. Adjustments do not verify the route.':'도보 경로·시간이 미확인이에요. 일정을 수정해도 실제 경로 확인은 별도로 필요해요.' : en?'Add visit times and planned durations to compare this connection.':'방문 시각과 체류시간을 넣으면 이 구간의 추정 시간을 비교할 수 있어요.'}</p>
       {warning.actions.includes('view-place')&&<Button size="compact" variant="secondary" className="plan-local-action" onClick={()=>{setEditing(structuredClone(warningVisit));setWarning(null);}}><MapPin size={14}/>{en?'View place information':'장소 정보 확인'}</Button>}
       {warning.actions.includes('edit-time')&&<>
         {warningFrom&&warningFrom.kind!=='STAY'&&<Button size="compact" variant="secondary" className="plan-local-action" onClick={()=>{if(!isEditing)startEditing();setSelectedDay(journey.days.find(item=>item.places.some(place=>place.visitId===warningFrom.visitId))!.day);setEditing(structuredClone(warningFrom));setWarning(null);}}><Clock3 size={14}/>{warningFrom.name} · {en?'Edit time here':'체류시간 수정'}</Button>}
@@ -355,7 +356,7 @@ export function PersonalTrip({ journey: input, initialDay, catalog, savedPlaces,
       </>}
       {warning.actions.includes('move-day')&&journey.days.length>1&&<Button size="compact" variant="secondary" className="plan-local-action" onClick={()=>openTransfer(warningVisit)}><ArrowRight size={14}/>{en?'Move this stop to another DAY':'이 장소를 다른 DAY로 이동'}</Button>}
       {warning.actions.includes('replace-business')&&<Button size="compact" variant="secondary" className="plan-local-action" onClick={()=>startReplacement(warningVisit,warningFrom)}><RefreshCw size={14}/>{en?'See closer candidates · straight-line distance':'가까운 후보 보기 · 직선거리 기준'}</Button>}
-      <a className="plan-directions-link" href={naverDirectionsUrl(warningVisit)} target="_blank" rel="noopener noreferrer"><Navigation size={14}/>{en?'Check actual directions':'실제 길찾기 확인'}</a>
+      <GoogleDirectionsButton place={warningVisit} className="plan-directions-link" label={en ? 'Directions from current location' : '현재 위치에서 길찾기'} en={en}/>
     </div></BottomSheet>}
     {transferring && <BottomSheet title={`${transferring.name} 이동·복사`} onClose={()=>setTransferring(null)}><div className="plan-form">
       <Field label={copy("대상 DAY")}><select value={targetDay} onChange={event=>setTargetDay(event.target.value)}>{journey.days.map(day=><option key={day.dayId} value={day.dayId}>DAY {day.day}</option>)}</select></Field>

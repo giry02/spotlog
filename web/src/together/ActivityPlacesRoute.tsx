@@ -1,7 +1,7 @@
 import { lazy, Suspense, useRef, useState, type ReactNode } from 'react';
-import { ArrowDown, ArrowUp, Check, ChevronDown, ChevronRight, ExternalLink, Map as MapIcon, MapPin, MapPinCheck, MapPinPlus, MoreHorizontal, Navigation, Plus, Route, Search, Trash2, X } from 'lucide-react';
+import { ArrowDown, ArrowUp, Check, ChevronDown, ChevronRight, Map as MapIcon, MapPin, MapPinCheck, MapPinPlus, MoreHorizontal, Plus, Route, Search, Trash2, X } from 'lucide-react';
 import type { Place, PlaceKind } from '../data';
-import { naverDirectionsUrl } from '../placeDirections';
+import GoogleDirectionsButton from '../GoogleDirectionsButton';
 import { BottomSheet } from '../BottomSheet';
 import { getPlacePhotos } from '../PhotoPlaceCard';
 import { PhotoCredit } from '../PublicTourismCredit';
@@ -34,7 +34,7 @@ export function ActivityPlaceDetail({ place, onSavePlace }: { place: Place; onSa
     <p className="activity-place-address"><MapPin size={16}/><span>{place.address || '주소 확인 전'}</span></p>
     {place.description && <p>{place.description}</p>}
     {place.duration && <p className="activity-place-muted">머무는 시간 참고 · {place.duration}</p>}
-    <div className="activity-place-actions"><a href={naverDirectionsUrl(place)} target="_blank" rel="noopener noreferrer"><ExternalLink size={16}/>네이버 길찾기</a>{onSavePlace && <button type="button" onClick={() => onSavePlace(place)}>내 장소에 저장</button>}</div>
+    <div className="activity-place-actions"><GoogleDirectionsButton place={place}/>{onSavePlace && <button type="button" onClick={() => onSavePlace(place)}>내 장소에 저장</button>}</div>
     <p className="activity-place-muted">영업·예약 가능 여부와 실제 이동 시간은 길찾기 및 장소 안내에서 확인해 주세요.</p>
   </article>;
 }
@@ -53,7 +53,10 @@ function ActivityPlacesBody({ state, userId, groupId, activityId, places, onActi
   try { context = selectActivityPlaces(state, userId, { groupId, activityId }, places); }
   catch { return <p className="activity-place-muted">현재 이 약속의 장소를 볼 수 없어요.</p>; }
   const { activity, group, candidates, days, venue, writable, canEdit, missingCandidateCount } = context;
-  const venueTitle = activity.meetingPoint || '아직 정해지지 않았어요';
+  const meetingPoint = activity.meetingPoint.trim();
+  const meetingPointName = meetingPoint.replace(/(?:^|\s*·\s*)(?:[01]?\d|2[0-3]):[0-5]\d$/, '').trim();
+  const venueTitle = meetingPoint || '아직 정해지지 않았어요';
+  const directionsPlace = venue ?? (meetingPointName ? { name: meetingPointName, area: group.region } : undefined);
   const venueHint = activity.venuePlaceId ? '선택한 장소의 현재 정보를 찾지 못했어요.' : '';
   const routeCount = days.reduce((count, day) => count + day.places.length, 0);
   const routeOnly = compactContext && routeCount > 0 && candidates.length === 0 && missingCandidateCount === 0;
@@ -81,7 +84,7 @@ function ActivityPlacesBody({ state, userId, groupId, activityId, places, onActi
   const region = group.region.trim().split(/\s+/)[0];
   const results = [...matching].sort((a, b) => Number(Boolean(region && `${b.area} ${b.address}`.includes(region))) - Number(Boolean(region && `${a.area} ${a.address}`.includes(region)))).slice(0, 12);
   const pins = [...new Map([...(venue ? [venue] : []), ...candidates].map(place => [place.id, place])).values()];
-  const venueInformation = <div className="activity-venue"><MapPin size={19}/><div><small>만나는 장소</small>{venue ? <button type="button" onClick={() => openPlace(venue)}><strong>{venue.name}</strong><span>{venue.address || venue.area}</span></button> : <><strong>{venueTitle}</strong>{venueHint && <span>{venueHint}</span>}</>}</div>{venue && <a href={naverDirectionsUrl(venue)} target="_blank" rel="noopener noreferrer" aria-label={`${venue.name} 길찾기`}><ExternalLink size={18}/></a>}</div>;
+  const venueInformation = <div className="activity-venue"><MapPin size={19}/><div><small>만나는 장소</small>{venue ? <button type="button" onClick={() => openPlace(venue)}><strong>{venue.name}</strong><span>{venue.address || venue.area}</span></button> : <><strong>{venueTitle}</strong>{venueHint && <span>{venueHint}</span>}</>}</div>{directionsPlace && <GoogleDirectionsButton place={directionsPlace} className="activity-place-icon" iconOnly/>}</div>;
   return <section className={`activity-places${compactContext ? ' activity-places--compact-context' : ''}`} aria-label="약속 장소와 동선">
     <header className="activity-places-heading">
       <h2>장소와 동선{compactContext && routeCount > 0 && <span className="activity-route-total"> {routeCount}곳</span>}</h2>
@@ -89,7 +92,7 @@ function ActivityPlacesBody({ state, userId, groupId, activityId, places, onActi
         <MapPinPlus size={20} aria-hidden="true"/>
       </button>}
     </header>
-    {compactContext ? <details className="activity-venue-details"><summary><MapPin size={16} aria-hidden="true"/><span>{venue ? '만나는 장소 안내·길찾기' : '만나는 장소 안내'}</span><ChevronDown size={16} aria-hidden="true"/></summary>{venueInformation}</details> : venueInformation}
+    {compactContext ? <details className="activity-venue-details"><summary><MapPin size={16} aria-hidden="true"/><span>{directionsPlace ? '만나는 장소 안내·길찾기' : '만나는 장소 안내'}</span><ChevronDown size={16} aria-hidden="true"/></summary>{venueInformation}</details> : venueInformation}
     {picker && <section className="activity-place-picker" aria-label="이 약속에 장소 담기">
       <div className="activity-picker-title"><h3>어디에 갈까요?</h3><button type="button" aria-label="장소 찾기 닫기" onClick={() => setPicker(false)}><X size={18}/></button></div>
       <label className="activity-place-search"><Search size={17}/><input autoFocus value={query} onChange={event => setQuery(event.target.value)} placeholder="장소 이름·지역·주소 검색" aria-label="장소 검색"/></label>
@@ -127,7 +130,7 @@ function ActivityPlacesBody({ state, userId, groupId, activityId, places, onActi
                     <strong>{place.name}</strong><span>{place.address || place.area}</span>
                   </button>
                   <div className="activity-stop-actions">
-                    <a className="activity-place-icon" href={naverDirectionsUrl(place)} target="_blank" rel="noopener noreferrer" aria-label={`${place.name} 길찾기`} title="길찾기"><Navigation size={17} aria-hidden="true"/></a>
+                    <GoogleDirectionsButton place={place} className="activity-place-icon activity-directions" iconOnly/>
                     {canEdit && onAction && visitId && <>
                       <button type="button" className="activity-place-icon" disabled={busy || placeIndex === 0 || place.bookingFixed || day.places[placeIndex - 1]?.bookingFixed} aria-label={`${place.name} 방문 순서 앞으로`} title="방문 순서 앞으로" onClick={() => void run({ ...base, type: 'MOVE_STOP', dayId: routeDayId, visitId, direction: -1 }, '방문 순서를 바꿨어요.')}><ArrowUp size={17} aria-hidden="true"/></button>
                       <button type="button" className="activity-place-icon" disabled={busy || placeIndex === day.places.length - 1 || place.bookingFixed || day.places[placeIndex + 1]?.bookingFixed} aria-label={`${place.name} 방문 순서 뒤로`} title="방문 순서 뒤로" onClick={() => void run({ ...base, type: 'MOVE_STOP', dayId: routeDayId, visitId, direction: 1 }, '방문 순서를 바꿨어요.')}><ArrowDown size={17} aria-hidden="true"/></button>
@@ -165,7 +168,7 @@ function ActivityPlacesBody({ state, userId, groupId, activityId, places, onActi
               <span><small>{kindNames[place.kind]}{isVenue && ' · 만나는 장소'}</small><strong>{place.name}</strong><span>{place.address || place.area}</span></span>
               <ChevronRight size={16} aria-hidden="true"/>
             </button>
-            <a className="activity-place-icon" href={naverDirectionsUrl(place)} target="_blank" rel="noopener noreferrer" aria-label={`${place.name} 길찾기`} title="길찾기"><Navigation size={17} aria-hidden="true"/></a>
+            <GoogleDirectionsButton place={place} className="activity-place-icon activity-directions" iconOnly/>
             {canEdit && onAction && <details className="activity-candidate-options" name="activity-candidate-options">
               <summary className="activity-place-icon" aria-label={`${place.name} 후보 관리`} title="후보 관리"><MoreHorizontal size={20} aria-hidden="true"/></summary>
               <div className="activity-candidate-actions">

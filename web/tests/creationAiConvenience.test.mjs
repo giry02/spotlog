@@ -182,7 +182,7 @@ test('a trip AI suggestion preserves the typed title and applies only the chosen
   const saved=[];
   const deps={
     '../PhotoPlaceCard':{getPlacePhotos:()=>[]},'../PublicTourismCredit':{PhotoCredit:'PhotoCredit'},
-    '../placeDirections':{naverDirectionsUrl:()=>''},'./discovery':discovery,'./creationPlanner':creationPlanner,
+    '../GoogleDirectionsButton':{__esModule:true,default:'GoogleDirectionsButton'},'./discovery':discovery,'./creationPlanner':creationPlanner,
     './creationPreview':creationPreview,'./quickCreation':quickCreation,'./creationAiCandidates':creationAiCandidates,
     './GroupLocalityFields':{__esModule:true,default:'GroupLocalityFields'},'./groupRegions':groupRegions,
     '../planningAiService':{
