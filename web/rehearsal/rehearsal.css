@@ -1,0 +1,62 @@
+.web-rehearsal {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  max-width: 600px;
+  border-inline: 1px solid var(--line);
+}
+.web-rehearsal__header {
+  min-height: 56px;
+  padding: max(8px, env(safe-area-inset-top)) 16px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--surface);
+}
+.web-rehearsal__header a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: var(--ink);
+  font-size: 14px;
+  text-decoration: none;
+}
+.web-rehearsal__header p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+.web-rehearsal__tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding-inline: 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+.web-rehearsal__tabs a {
+  display: grid;
+  place-items: center;
+  min-height: 44px;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 650;
+  text-align: center;
+  text-decoration: none;
+}
+.web-rehearsal__tabs a[aria-current] {
+  border-bottom-color: var(--ink);
+  color: var(--ink);
+}
+.web-rehearsal .web-rehearsal__content {
+  height: 100%;
+  min-height: 0;
+  padding: 20px clamp(12px, 4vw, 24px) max(28px, env(safe-area-inset-bottom));
+}
+.web-rehearsal__content > h1 {
+  margin: 0 0 16px;
+  font-size: 22px;
+  line-height: 1.35;
+  letter-spacing: -.025em;
+}

@@ -1,0 +1,35 @@
+.web-demo-settlement {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+.web-demo-settlement__intro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid #e5e5e0;
+  border-radius: 10px;
+  background: #fff;
+}
+.web-demo-settlement__intro p {
+  flex: 1 1 14rem;
+  min-width: 0;
+  margin: 0;
+  color: #62625d;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.web-demo-settlement__intro button {
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 1px solid #e5e5e0;
+  border-radius: 8px;
+  background: #fff;
+  color: #20201e;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+}

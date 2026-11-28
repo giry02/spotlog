@@ -39,6 +39,11 @@ jobs:
           VITE_ACCOUNT_REVIEW_MODE: '1'
         run: npm run web:build
 
+      - name: Build browser rehearsal
+        env:
+          VITE_SPOTLOG_DEMO_PLACES: '1'
+        run: npm exec --workspace @spotlog/web -- vite build --config vite.rehearsal.config.ts
+
       - name: Include administrator manual
         run: node scripts/publish-admin-manual.cjs
 

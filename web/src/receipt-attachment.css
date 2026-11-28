@@ -1,0 +1,100 @@
+.receipt-attachment {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.receipt-attachment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.receipt-attachment :is(.receipt-attachment-actions, .receipt-attachment-candidate) button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface, #fff);
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.receipt-attachment-actions svg {
+  flex: none;
+}
+
+.receipt-attachment .receipt-attachment-preview {
+  min-width: 0;
+}
+
+.receipt-attachment .receipt-attachment-preview summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding: 12px 0;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.receipt-attachment-preview img {
+  display: block;
+  max-width: 100%;
+  max-height: 320px;
+  margin: 4px auto 0;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.receipt-attachment .receipt-attachment-help,
+.receipt-attachment .receipt-attachment-error {
+  margin: 0;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.receipt-attachment .receipt-attachment-help {
+  color: var(--muted);
+}
+
+.receipt-attachment .receipt-attachment-error {
+  color: var(--danger, #ac3124);
+}
+
+.receipt-attachment-candidate {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--soft, #f3f3ef);
+}
+
+.receipt-attachment-candidate small,
+.receipt-attachment-candidate strong {
+  display: block;
+}
+
+.receipt-attachment-candidate small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.receipt-attachment-candidate strong {
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 24px;
+  font-variant-numeric: tabular-nums;
+}
+
+.receipt-attachment .receipt-attachment-candidate button {
+  color: #fff;
+  background: var(--ink, #20201e);
+}
