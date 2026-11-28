@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>스팟인모임 | 시연 계획과 사업 모델</title>
+  <style>
+:root {
+  color-scheme: light;
+  font-family: Pretendard, "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  color: #24241c;
+  background: #e9e8e1;
+  --paper: #fffcf3;
+  --ink: #24241c;
+  --muted: #5d5b51;
+  --rule: #dbd8cc;
+  --accent: #983c27;
+  --forest: #173831;
+  --green-paper: #e7eee2;
+  word-break: keep-all;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+p, h1, h2, h3, ul, ol, dl, dd, figure, blockquote { margin: 0; }
+a { color: inherit; }
+button { font: inherit; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid #a94731; outline-offset: 4px; }
+
+.controls {
+  min-block-size: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding-inline: max(18px, 3vw);
+  color: #faf8ef;
+  background: var(--forest);
+}
+.controls a { text-decoration: none; }
+.controls a:hover { text-decoration: underline; }
+.controls a:focus-visible, .controls button:focus-visible { outline-color: #f4ad86; }
+.wordmark { font-size: 1rem; font-weight: 800; }
+.controls-sections, .controls-actions { display: flex; align-items: center; gap: 16px; font-size: .875rem; }
+.controls-actions { gap: 8px; }
+.controls-actions button {
+  min-inline-size: 36px;
+  min-block-size: 34px;
+  padding: 4px 8px;
+  border: 1px solid #719183;
+  border-radius: 7px;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+.controls-actions button:enabled:hover { background: #36574e; }
+.controls-actions button:disabled { opacity: .44; cursor: default; }
+.controls-actions output { min-inline-size: 42px; text-align: center; font-variant-numeric: tabular-nums; }
+
+.deck {
+  width: min(1420px, calc(100% - 36px), calc((100dvh - 84px) * 16 / 9));
+  margin: 16px auto;
+  container-type: inline-size;
+}
+.slide {
+  --body: clamp(15px, 1.64cqw, 25px);
+  --small: clamp(13px, 1.27cqw, 19px);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-content: start;
+  gap: 2.65cqw;
+  aspect-ratio: 16 / 9;
+  margin-block-end: 16px;
+  padding: 4.1cqw 5.3cqw 3.6cqw;
+  background: var(--paper);
+  box-shadow: 0 12px 33px #28281d13;
+  font-size: var(--body);
+  line-height: 1.56;
+}
+.slide-head { display: grid; align-content: start; gap: .65cqw; }
+.eyebrow { color: var(--accent); font-size: var(--small); font-weight: 800; letter-spacing: .015em; }
+.slide h2 { font-size: clamp(33px, 4cqw, 62px); font-weight: 900; line-height: 1.15; letter-spacing: -.062em; }
+.slide h3 { font-size: clamp(20px, 2.1cqw, 32px); line-height: 1.26; letter-spacing: -.045em; }
+.slide-head > p:last-child:not(.eyebrow) { max-inline-size: 42em; margin-block-start: .45cqw; color: var(--muted); }
+.slide-foot {
+  display: flex;
+  align-self: end;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 1.5cqw;
+  padding-block-start: 1.15cqw;
+  border-block-start: 1px solid var(--rule);
+  color: var(--forest);
+  font-size: var(--small);
+  font-weight: 700;
+}
+.slide-foot a { text-decoration-thickness: 1px; text-underline-offset: .24em; }
+.slide-foot a:hover { color: var(--accent); }
+
+.cover {
+  position: relative;
+  grid-template-columns: 53% 47%;
+  grid-template-rows: 1fr;
+  gap: 0;
+  padding: 0;
+  color: #fdf8e8;
+  background: var(--forest);
+}
+.cover-content {
+  min-inline-size: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.55cqw;
+  padding: 4.7cqw 4cqw 4.5cqw 5.3cqw;
+}
+.cover .eyebrow, .cover-meta { color: #d5e2d5; }
+.cover h1 { font-size: clamp(42px, 6.25cqw, 96px); font-weight: 900; line-height: 1.05; letter-spacing: -.081em; }
+.cover-summary { max-inline-size: 22em; font-weight: 500; font-size: clamp(18px, 2.15cqw, 32px); line-height: 1.5; }
+.cover-meta { font-size: var(--small); padding-block-start: 1cqw; }
+.cover-photo { min-width: 0; min-height: 0; background: #62796c; }
+.cover-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 52%; }
+
+.run-layout, .feature-layout {
+  display: grid;
+  grid-template-columns: 57% minmax(0, 1fr);
+  gap: 4.3cqw;
+  align-items: start;
+}
+.timeline, .steps { list-style: none; padding: 0; }
+.timeline li {
+  display: grid;
+  grid-template-columns: 7em minmax(0, 1fr);
+  gap: 1cqw;
+  padding: .85cqw 0;
+  border-block-start: 1px solid var(--rule);
+}
+.timeline li:last-child, .steps li:last-child { border-block-end: 1px solid var(--rule); }
+.timeline strong, .steps strong { display: block; line-height: 1.4; font-weight: 800; }
+.timeline li > div > span, .steps p { display: block; color: var(--muted); font-size: var(--small); line-height: 1.55; }
+.timeline li > span { color: var(--accent); font-size: var(--small); font-weight: 800; font-variant-numeric: tabular-nums; }
+.guide { padding-block-start: .4cqw; }
+.guide ul { display: grid; gap: .55cqw; padding-inline-start: 1.2em; margin-block-start: 1cqw; }
+.guide ul { font-size: var(--small); }
+.guide li::marker { color: var(--accent); }
+.steps { counter-reset: action; }
+.steps li { counter-increment: action; position: relative; padding: 1.2cqw 0 1.2cqw 3.25cqw; border-block-start: 1px solid var(--rule); }
+.steps li::before { content: counter(action, decimal-leading-zero); position: absolute; inset: 1.2cqw auto auto 0; color: var(--accent); font-size: var(--small); font-weight: 800; }
+.steps p { margin-block-start: .35cqw; }
+.feature-note { border-inline-start: 1px solid var(--rule); padding-inline-start: 2.5cqw; }
+.feature-note > p { margin-block-start: 1cqw; }
+.muted { color: var(--muted); font-size: var(--small); }
+.key-message {
+  display: grid;
+  gap: 1.1cqw;
+  align-self: start;
+  padding: 2.6cqw;
+  color: var(--forest);
+  background: var(--green-paper);
+}
+.key-message p { font-size: clamp(24px, 2.95cqw, 42px); line-height: 1.3; letter-spacing: -.05em; }
+.key-message strong { font-weight: 900; }
+.key-message footer { padding-block-start: .75cqw; border-block-start: 1px solid #b7c8b8; font-size: var(--small); }
+
+.settlement-layout { grid-template-columns: 59% minmax(0, 1fr); }
+.outcome { align-self: start; background: var(--forest); color: #fffcf3; padding: 1.6cqw 2.1cqw; }
+.outcome dl { display: grid; }
+.outcome dl > div { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: .5cqw 0; }
+.outcome dl > div + div { border-block-start: 1px solid #58746a; }
+.outcome dt { color: #e4eee3; font-size: var(--small); }
+.outcome dd { font-size: clamp(18px, 2.2cqw, 32px); font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.outcome p { margin-block-start: .85cqw; color: #e4eee3; font-size: var(--small); }
+
+.business { grid-template-rows: auto 1fr auto auto; background: #f4f6eb; }
+.commercial { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5cqw; align-content: start; }
+.commercial > article { padding-block-start: 1.15cqw; border-block-start: 2px solid var(--forest); min-width: 0; }
+.commercial p { margin-block-start: .65cqw; color: var(--muted); }
+.commercial .payer { color: var(--accent); margin: 0 0 .45cqw; font-size: var(--small); font-weight: 800; }
+.commercial p strong { color: var(--forest); }
+.business-caption { padding-block-start: 1.05cqw; border-block-start: 1px solid #cbd3c4; color: var(--forest); }
+.business-caption strong { margin-inline-end: .75em; white-space: nowrap; }
+.research-links { padding-block-start: 0; border: 0; color: var(--muted); font-weight: 500; }
+.business .research-links { align-self: start; }
+
+@media screen and (max-width: 920px), screen and (max-height: 620px) {
+  .deck { width: min(1100px, calc(100% - 28px)); }
+}
+
+@media screen and (max-width: 740px) {
+  .controls { align-content: center; flex-wrap: wrap; gap: 7px 12px; padding-block: 8px; }
+  .controls-sections { gap: 10px; }
+  .controls-actions { margin-inline-start: auto; }
+  .controls-actions button { min-inline-size: 36px; min-block-size: 36px; }
+  .deck { margin: 14px auto; }
+  .slide { --body: 16px; --small: 14px; aspect-ratio: auto; gap: 22px; padding: 24px; }
+  .slide-head { gap: 7px; }
+  .slide-head > p:last-child:not(.eyebrow) { margin-block-start: 4px; }
+  .slide-foot { gap: 8px 16px; padding-block-start: 12px; }
+  .cover { grid-template-columns: 1fr; grid-template-rows: auto 230px; padding: 0; gap: 0; }
+  .cover-content { gap: 13px; padding: 28px 24px; }
+  .cover h1 { font-size: clamp(39px, 10vw, 70px); }
+  .cover-meta { padding-block-start: 3px; }
+  .run-layout, .feature-layout, .settlement-layout, .commercial { grid-template-columns: 1fr; gap: 20px; }
+  .timeline li { grid-template-columns: 6.7em minmax(0, 1fr); gap: 5px; padding-block: 9px; }
+  .guide ul { gap: 5px; margin-block-start: 8px; }
+  .steps li { padding: 10px 0 10px 34px; }
+  .steps li::before { inset-block-start: 10px; }
+  .steps p { margin-block-start: 4px; }
+  .feature-note { padding-inline-start: 13px; }
+  .feature-note > p { margin-block-start: 7px; }
+  .key-message, .outcome { padding: 16px; }
+  .key-message { gap: 8px; }
+  .key-message footer, .outcome p { padding-block-start: 8px; }
+  .outcome dl > div { padding-block: 4px; }
+  .outcome p { margin-block-start: 0; }
+  .commercial > article, .business-caption { padding-block-start: 10px; }
+  .commercial p { margin-block-start: 7px; }
+}
+
+@page { size: A4 landscape; margin: 0; }
+
+@media print {
+  :root { background: white; }
+  body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .controls { display: none !important; }
+  .deck { width: 297mm; margin: 0; }
+  .slide, .slide[hidden] {
+    display: grid !important;
+    block-size: 210mm;
+    aspect-ratio: auto;
+    margin: 0;
+    padding-block-start: 20mm;
+    padding-block-end: 18mm;
+    box-shadow: none;
+    break-inside: avoid;
+    break-after: page;
+  }
+  .slide:last-child { break-after: auto; }
+  .slide.cover { padding: 0; }
+}
+  </style>
+</head>
+<body>
+  <nav class="controls" aria-label="발표 자료 이동">
+    <a class="wordmark" href="#start">스팟인모임</a>
+    <div class="controls-sections">
+      <a href="#run">시연 순서</a>
+      <a href="#business">사업 모델</a>
+    </div>
+    <div class="controls-actions">
+      <button type="button" id="previous" aria-label="이전 장">←</button>
+      <output id="page" aria-live="polite">1 / 10</output>
+      <button type="button" id="next" aria-label="다음 장">→</button>
+      <button type="button" id="print">인쇄</button>
+    </div>
+  </nav>
+
+  <main class="deck" aria-label="스팟인모임 시연과 사업 모델">
+    <section class="slide cover" id="start" aria-labelledby="cover-title">
+      <div class="cover-content">
+        <p class="eyebrow">스팟인모임 제품 시연</p>
+        <h1 id="cover-title">가고 싶은 곳을<br>모임으로,<br>정산까지</h1>
+        <p class="cover-summary">저장한 장소로 일정을 정하고, 함께 다녀온 비용을 나눕니다.</p>
+        <p class="cover-meta">부산 가족여행 시연 · 약 7분</p>
+      </div>
+      <figure class="cover-photo">
+        <img src="../../media/groups/coastal-walking-20261109.jpg" alt="해안 산책길에서 이야기하는 사람들">
+      </figure>
+    </section>
+
+    <section class="slide" id="run" aria-labelledby="run-title">
+      <header class="slide-head">
+        <p class="eyebrow">시연 순서 · 7분</p>
+        <h2 id="run-title">부산 가족여행 두 장면</h2>
+        <p>다가오는 여행은 장소와 약속을 정하는 화면으로, 지난 나들이는 영수증과 정산을 보여주는 화면으로 사용합니다.</p>
+      </header>
+      <div class="run-layout">
+        <ol class="timeline">
+          <li><span>0:00–0:45</span><div><strong>홈과 가족 모임</strong><span>하단 ‘모임’ → ‘내 모임’ → ‘우리 가족 여행’. 다음 여행에서 DAY 3까지 눌러 봅니다.</span></div></li>
+          <li><span>0:45–2:30</span><div><strong>장소를 찾아 약속에 제안</strong><span>저장한 장소가 대화방에 카드로 들어갑니다.</span></div></li>
+          <li><span>2:30–4:00</span><div><strong>바뀐 집합 시간 찾기</strong><span>대화 검색에서 최신 안내 원문을 엽니다.</span></div></li>
+          <li><span>4:00–7:00</span><div><strong>지난 약속 비용 정산</strong><span>영수증을 추가하고 누구에게 얼마를 보낼지 확인합니다.</span></div></li>
+        </ol>
+        <aside class="guide">
+          <h3>발표 전 준비</h3>
+          <ul>
+            <li>안드로이드에서 시연 APK를 설치하고 ‘검수 계정 채우기 → 이메일로 로그인’을 진행합니다.</li>
+            <li>순위·후기·광고와 영수증 정산은 시연 APK에서 보여줍니다. 외부 길찾기를 열 때는 인터넷을 연결합니다.</li>
+            <li>정산을 반복할 때는 시연 장부에서 ‘처음부터 다시 시연’을 누릅니다.</li>
+          </ul>
+        </aside>
+      </div>
+      <footer class="slide-foot">
+        <a href="https://giry02.github.io/spotlog/#home" target="_blank" rel="noopener">공개 앱 · 홈 열기 ↗</a>
+        <a href="https://giry02.github.io/spotlog/#group-family-busan" target="_blank" rel="noopener">공개 앱 · 우리 가족 여행 열기 ↗</a>
+      </footer>
+    </section>
+
+    <section class="slide" id="places" aria-labelledby="places-title">
+      <header class="slide-head">
+        <p class="eyebrow">라이브 시연 · 0:45–2:30</p>
+        <h2 id="places-title">찾은 장소를 약속에 바로 제안</h2>
+      </header>
+      <div class="feature-layout">
+        <ol class="steps">
+          <li><strong>조건으로 찾고 비교하기</strong><p>홈의 ‘장소 추천’에서 ‘부산 기장 가족과 갈 카페’를 입력합니다. ‘등록 장소로 찾기’에서 순위, 시연 평점·후기, ‘광고’ 카드를 짚고 웨이브온커피를 저장합니다.</p></li>
+          <li><strong>보관함에서 활용하기</strong><p>검색 결과의 ‘보관함 열기’ → 웨이브온커피 활용 아이콘 → ‘모임·약속에 장소 제안’을 누릅니다.</p></li>
+          <li><strong>‘부산 가족여행’에 제안</strong><p>대상을 고르고 제안합니다. 카드의 핀으로 사진을 확인한 뒤, 대화방 제목 → ‘일정’ → ‘후보 장소’에서 같은 장소를 봅니다.</p></li>
+        </ol>
+        <aside class="feature-note">
+          <h3>여행으로 이어가기</h3>
+          <p>개인 여행을 보여줄 때는 같은 장소의 ‘내 여행에 담기’로 DAY에 넣을 수 있습니다. 여행을 먼저 만들었다면 날짜와 장소를 나중에 채웁니다.</p>
+          <p class="muted">‘부산 해운대 가족과 갈 음식점’, ‘부산 해운대 호텔’로도 비교해 보세요. 광고와 후기에는 시연 표시가 붙습니다. 여행 날짜가 지났다면 ‘다음에는 카페 나들이’에 제안합니다.</p>
+        </aside>
+      </div>
+      <footer class="slide-foot">
+        <a href="https://giry02.github.io/spotlog/#places-ai" target="_blank" rel="noopener">공개 앱 · 장소 추천 열기 ↗</a>
+        <a href="https://giry02.github.io/spotlog/#saved" target="_blank" rel="noopener">공개 앱 · 보관함 열기 ↗</a>
+        <a href="https://giry02.github.io/spotlog/#together-plan-group" target="_blank" rel="noopener">공개 앱 · 모임 초안 열기 ↗</a>
+        <a href="https://giry02.github.io/spotlog/#together-plan-trip" target="_blank" rel="noopener">공개 앱 · 여행 만들기 열기 ↗</a>
+      </footer>
+    </section>
+
+    <section class="slide" id="chat" aria-labelledby="chat-title">
+      <header class="slide-head">
+        <p class="eyebrow">라이브 시연 · 2:30–4:00</p>
+        <h2 id="chat-title">대화에서 최신 약속 확인</h2>
+      </header>
+      <div class="feature-layout chat-layout">
+        <ol class="steps">
+          <li><strong>대화방 돋보기로 검색</strong><p>‘부산역’을 검색하고, 변경 사실을 알린 메시지 원문으로 이동합니다.</p></li>
+          <li><strong>대화 요약에서 확정 내용 확인</strong><p>대화방 상단의 ‘대화 요약’을 엽니다. AI 서버가 연결돼 있으면 ‘AI 요약’에서 변경 내역과 원문 링크를 보여줍니다.</p></li>
+          <li><strong>연결 전에는 원문 모아보기</strong><p>‘원문 모아보기’에서 공지·준비 관련 대화를 확인합니다. 집합 안내는 검색 결과에서 다시 엽니다.</p></li>
+        </ol>
+        <blockquote class="key-message">
+          <p>부산역 2번 출구<br><strong>오전 10시 30분</strong></p>
+          <footer>부산 가족여행의 집합 안내</footer>
+        </blockquote>
+      </div>
+      <footer class="slide-foot">
+        <a href="https://giry02.github.io/spotlog/#activitychat-family-next" target="_blank" rel="noopener">공개 앱 · 부산 가족여행 대화 열기 ↗</a>
+      </footer>
+    </section>
+
+    <section class="slide" id="settlement" aria-labelledby="settlement-title">
+      <header class="slide-head">
+        <p class="eyebrow">라이브 시연 · 4:00–7:00</p>
+        <h2 id="settlement-title">예치금과 영수증으로 비용 정산</h2>
+      </header>
+      <div class="feature-layout settlement-layout">
+        <ol class="steps">
+          <li><strong>지난 주말 바다 나들이</strong><p>가족 모임의 ‘약속’ → ‘지난 약속’에서 엽니다. ‘비용·정산’에서 시연 데이터를 불러와 예산 220,000원과 예치금 140,000원을 확인합니다.</p></li>
+          <li><strong>점심 영수증 한 장 추가</strong><p>‘지출 등록 → 시연 영수증 불러오기 → 영수증 금액 읽기 → 이 금액 사용’. 항목에 바닷가 점심 식사를 입력하고 ‘날짜·결제·분담 → 공동금에서 지출’을 선택한 뒤 두 사람을 확인하고 저장합니다.</p></li>
+          <li><strong>누가 얼마를 낼지 확인</strong><p>‘최종 정산’에서 엄마가 여행자에게 12,000원, 공동금에 20,000원을 내는 내역을 확인합니다. 확정 뒤 시연용으로 한 건을 완료 표시합니다.</p></li>
+        </ol>
+        <aside class="outcome" aria-label="시연에서 확인할 계산 결과">
+          <dl>
+            <div><dt>총 지출</dt><dd>184,000원</dd></div>
+            <div><dt>남은 예산</dt><dd>36,000원</dd></div>
+            <div><dt>한 사람 분담금</dt><dd>92,000원</dd></div>
+          </dl>
+          <p>사진 선택이 어려우면 60,000원을 직접 입력합니다. 시연 장부는 ‘처음부터 다시 시연’으로 초기값을 불러옵니다.</p>
+        </aside>
+      </div>
+      <footer class="slide-foot">
+        <a href="https://giry02.github.io/spotlog/#activity-family-past" target="_blank" rel="noopener">공개 앱 · 지난 약속 열기 ↗</a>
+        <a href="./settlement-receipt-busan.png" download target="_blank" rel="noopener">시연용 영수증 받기 ↓</a>
+      </footer>
+    </section>
+
+    <section class="slide business" id="business" aria-labelledby="business-title">
+      <header class="slide-head">
+        <p class="eyebrow">사업 모델 · 수익 가설 · 1 / 4</p>
+        <h2 id="business-title">장소 탐색에서 광고와 예약 매출을 만든다</h2>
+        <p>이용자가 장소를 찾고, 모임에 제안하고, 실제 방문을 결정하는 단계마다 구매자가 다릅니다.</p>
+      </header>
+      <div class="commercial">
+        <article>
+          <p class="payer">식당·카페·숙소</p>
+          <h3>지역 검색 광고</h3>
+          <p>‘어디 갈까’에서 지역과 업종이 맞는 검색에 광고를 노출합니다.</p>
+          <p><strong>과금</strong> 초기에는 기간제 광고비, 이후에는 유효 상세 클릭당 과금(CPC)을 검증합니다.</p>
+        </article>
+        <article>
+          <p class="payer">신규 회원을 모으는 모임장</p>
+          <h3>모임 모집 부스트</h3>
+          <p>‘모임 찾기’에서 지역·관심사가 맞는 사람에게 모집 공고를 노출합니다.</p>
+          <p><strong>과금</strong> 지역·관심사별 모집 광고 칸을 7일 단위로 판매합니다.</p>
+        </article>
+        <article>
+          <p class="payer">숙박·체험 예약 제휴사</p>
+          <h3>예약 제휴 수수료</h3>
+          <p>장소 상세와 확정 일정의 예약 링크를 연결합니다. 예약과 결제는 제휴사에서 처리합니다.</p>
+          <p><strong>과금</strong> 취소·환불을 제외하고 이용이 완료된 예약에 대해 수수료를 받습니다.</p>
+        </article>
+      </div>
+      <p class="business-caption">광고 슬롯에는 ‘광고’를 표시합니다. 광고 집행은 일반 추천 순위와 별도로 운영하며, 성과는 클릭부터 저장과 약속 후보 채택까지 집계합니다.</p>
+      <footer class="slide-foot research-links">
+        <span>시장 사례</span>
+        <a href="https://business.daangn.com/ads/smb" target="_blank" rel="noopener">당근 지역 광고</a>
+        <a href="https://partnerresources.viator.com/" target="_blank" rel="noopener">Viator 예약 제휴</a>
+      </footer>
+    </section>
+
+    <section class="slide business" id="business-members" aria-labelledby="business-members-title">
+      <header class="slide-head">
+        <p class="eyebrow">사업 모델 · 2 / 4</p>
+        <h2 id="business-members-title">반복 운영에는 구독, 한 번의 여행에는 이용권</h2>
+        <p>기본 약속 만들기·참석·대화·정산은 무료로 제공하고, 시간을 아끼거나 기록을 남기는 기능을 판매합니다.</p>
+      </header>
+      <div class="commercial">
+        <article>
+          <p class="payer">반복 모임장·여행 총무</p>
+          <h3>모임 Pro·여행 운영권</h3>
+          <p>지난 일정·예산 복제, 운영진 권한, 장부 내보내기를 묶습니다.</p>
+          <p><strong>과금</strong> 모임은 월 구독, 가끔 쓰는 총무는 여행 한 건으로 결제합니다.</p>
+        </article>
+        <article>
+          <p class="payer">여러 모임에 참여하는 회원</p>
+          <h3>개인 Plus</h3>
+          <p>여러 모임의 통합 캘린더, 관심 조건 알림, 추가 AI 요약을 제공합니다.</p>
+          <p><strong>과금</strong> 회원별 월 구독입니다.</p>
+        </article>
+        <article>
+          <p class="payer">사진과 기록을 남기는 참가자</p>
+          <h3>여행 앨범·꾸미기</h3>
+          <p>사진과 방문 동선을 묶은 여행 앨범 PDF, 스티커나 테마를 판매합니다.</p>
+          <p><strong>과금</strong> 앨범 제작 한 건 또는 소장팩 단위로 결제합니다.</p>
+        </article>
+      </div>
+      <p class="business-caption">첫 구독 실험은 월 두 번 이상 만나는 모임에서 시작합니다. AI 요약은 구독의 포함 혜택으로 두고 재사용과 원가를 함께 봅니다.</p>
+      <footer class="slide-foot research-links">
+        <span>기획 참고 · 소모임 프로젝트 ‘모여봄 수익모델’ 15–19장</span>
+        <a href="https://help.meetup.com/hc/en-us/articles/360001620472-Standard-Organizer-subscription" target="_blank" rel="noopener">Meetup 운영자 구독</a>
+      </footer>
+    </section>
+
+    <section class="slide business" id="business-expansion" aria-labelledby="business-expansion-title">
+      <header class="slide-head">
+        <p class="eyebrow">사업 모델 · 3 / 4</p>
+        <h2 id="business-expansion-title">유료 행사와 기관 계약으로 확장</h2>
+        <p>반복 사용과 지역 유입이 검증되면 모임 운영 도구를 사업자·기관에 판매합니다.</p>
+      </header>
+      <div class="commercial">
+        <article>
+          <p class="payer">클래스·가이드 운영자</p>
+          <h3>유료 일정 판매</h3>
+          <p>공개 원데이 클래스나 가이드 투어의 모집·참석·티켓을 운영합니다.</p>
+          <p><strong>과금</strong> 취소·환불을 반영한 티켓 판매액에 계약 수수료를 적용합니다.</p>
+        </article>
+        <article>
+          <p class="payer">기업·학교·동호회 연합</p>
+          <h3>기관용 라이선스</h3>
+          <p>산하 모임을 한곳에서 관리하고 운영 권한, 출석, 비용 보고서를 제공합니다.</p>
+          <p><strong>과금</strong> 운영 규모에 따라 기관 단위로 연간 계약을 맺습니다.</p>
+        </article>
+        <article>
+          <p class="payer">지역 관광기관·축제 주최사</p>
+          <h3>후원 코스 캠페인</h3>
+          <p>공개 테마 코스를 운영하고 코스 저장·약속 연결 성과를 집계해 제공합니다.</p>
+          <p><strong>과금</strong> 캠페인 단위로 제작·노출·리포트 패키지를 판매합니다.</p>
+        </article>
+      </div>
+      <p class="business-caption">유료 일정을 열기 전에 결제대행과 환불·정산 절차를 갖춥니다. 모임의 실비와 예치금은 참가자끼리 정산하는 비용입니다.</p>
+      <footer class="slide-foot research-links">
+        <span>기획 참고 · 모여봄의 단품·기관 운영안</span>
+        <a href="https://www.daangn.com/wv/faqs/34666" target="_blank" rel="noopener">당근 모임 유료 일정</a>
+      </footer>
+    </section>
+
+    <section class="slide business" id="pilot" aria-labelledby="pilot-title">
+      <header class="slide-head">
+        <p class="eyebrow">사업 모델 · 4 / 4</p>
+        <h2 id="pilot-title">누가 다시 쓰고, 누가 다시 결제하는가</h2>
+        <p>부산 해운대·기장에서 반복 모임과 로컬 매장이 함께 쓰는 구조부터 검증합니다.</p>
+      </header>
+      <ol class="steps">
+        <li><strong>먼저 모임이 돌아오는지 봅니다</strong><p>운영자 10팀을 목표로 모집해 두 회차에 사용합니다. 첫 약속을 연 팀이 30일 내 두 번째 약속을 만드는 비율과 준비·정산 시간을 잽니다.</p></li>
+        <li><strong>광고와 운영 구독의 첫 결제를 받습니다</strong><p>소수 매장과 기간제 광고를 운영하고, 모임장에게 모집 부스트와 Pro를 각각 제안합니다. 클릭·저장·후보 채택에 이어 재집행률과 구독 갱신을 확인합니다.</p></li>
+        <li><strong>운영비를 빼고도 이익이 남으면 확장합니다</strong><p>예약 링크에서 이용이 완료되는 비율과 건당 수수료를 확인합니다. 권역별 영업·운영비를 기록하고, 인접 권역에서도 광고 재집행과 구독 갱신이 반복되는지 봅니다.</p></li>
+      </ol>
+      <p class="business-caption"><strong>투자금 우선순위</strong> 광고주·운영자 모집, 전환 측정부터 착수합니다. 공동 장부의 기기 간 동기화와 멤버별 열람 권한을 실제 운영 전에 검증합니다.</p>
+    </section>
+  </main>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const previous = document.getElementById('previous');
+    const next = document.getElementById('next');
+    const page = document.getElementById('page');
+    let active = 0;
+
+    function showSlide() {
+      const matched = slides.findIndex(slide => `#${slide.id}` === location.hash);
+      active = matched < 0 ? 0 : matched;
+      slides.forEach((slide, index) => { slide.hidden = index !== active; });
+      previous.disabled = active === 0;
+      next.disabled = active === slides.length - 1;
+      page.value = `${active + 1} / ${slides.length}`;
+      window.scrollTo(0, 0);
+    }
+
+    function moveSlide(step) {
+      const slide = slides[active + step];
+      if (slide) location.hash = slide.id;
+    }
+
+    previous.addEventListener('click', () => moveSlide(-1));
+    next.addEventListener('click', () => moveSlide(1));
+    document.getElementById('print').addEventListener('click', () => window.print());
+    window.addEventListener('hashchange', showSlide);
+    window.addEventListener('keydown', event => {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      if (['ArrowRight', 'PageDown', 'ArrowLeft', 'PageUp'].includes(event.key)) {
+        event.preventDefault();
+        moveSlide(['ArrowRight', 'PageDown'].includes(event.key) ? 1 : -1);
+      }
+    });
+    showSlide();
+  </script>
+</body>
+</html>
